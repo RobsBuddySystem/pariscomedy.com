@@ -5,7 +5,7 @@ const UTM = '?utm_source=pariscomedy&utm_medium=website';
 
 const VENUES = [
     { id:'velvet', name:'Velvet Bar', address:'39 Rue de Douai, 75009 Paris', neighborhood:'Pigalle (9th)', lat:48.8821, lng:2.3349, mapX:38, mapY:35, listed:true, description:'An intimate basement bar in the heart of Pigalle. Three comedy shows every Wednesday — the epicenter of English-language comedy in Paris.', metro:'Pigalle (M2/M12)' },
-    { id:'paname', name:'Paname Art Café', address:'2bis Quai de la Loire, 75019 Paris', neighborhood:'Canal Saint-Martin (19th)', lat:48.8844, lng:2.3728, mapX:72, mapY:18, listed:true, description:'A legendary venue overlooking Canal Saint-Martin. Live comedy, music, and art in one of Paris\'s most creative spaces.', metro:'Jaurès (M2/M5/M7bis)' },
+    { id:'paname', name:'Paname Art Café', address:'2bis Quai de la Loire, 75019 Paris', neighborhood:'Canal Saint-Martin (19th)', lat:48.8844, lng:2.3728, mapX:72, mapY:18, listed:false, description:'A legendary venue overlooking Canal Saint-Martin. Live comedy, music, and art in one of Paris\'s most creative spaces.', metro:'Jaurès (M2/M5/M7bis)' },
     { id:'frog-princess', name:'The Frog Princess', address:'9 Rue Princesse, 75006 Paris', neighborhood:'Saint-Germain (6th)', lat:48.8530, lng:2.3370, mapX:46, mapY:60, listed:false, description:'English pub in the heart of Saint-Germain. Hosts regular comedy nights in English.', metro:'Mabillon (M10)' },
     { id:'backstage', name:'Backstage Café', address:'22 Rue Oberkampf, 75011 Paris', neighborhood:'Oberkampf (11th)', lat:48.8654, lng:2.3758, mapX:73, mapY:40, listed:false, description:'A cozy café and live performance space on the vibrant Rue Oberkampf.', metro:'Oberkampf (M5/M9)' },
     { id:'sogymnase', name:'SoGymnase Comedy Club', address:'38 Boulevard Bonne Nouvelle, 75010 Paris', neighborhood:'Grands Boulevards (10th)', lat:48.8708, lng:2.3491, mapX:55, mapY:32, listed:false, description:'The historic comedy club where Seb Marx launched English-language comedy in Paris. A piece of history.', metro:'Bonne Nouvelle (M8/M9)', historic:true },
@@ -31,15 +31,12 @@ const SHOWS = [
       descFr:'LE spectacle de comédie bilingue. Humoristes américains et français, blagues en anglais et en français, le même soir.',
       descEs:'EL show de comedia bilingüe. Cómicos americanos y franceses, chistes en inglés y francés, la misma noche.',
       bookingUrl:'https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747' + UTM, featured:true },
-    { id:'paname', name:'Paname Comedy', shortName:'Paname', venue:'paname', type:'standup', day:'Tuesday', time:'17:30', price:'Free', emoji:'🎤',
-      description:'Live comedy at one of Paris\'s legendary stages overlooking Canal Saint-Martin.',
-      descFr:'Comédie live dans l\'une des salles légendaires de Paris, avec vue sur le Canal Saint-Martin.',
-      descEs:'Comedia en vivo en uno de los escenarios legendarios de París con vistas al Canal Saint-Martin.',
-      bookingUrl:'https://www.eventbrite.com/o/18875461764' + UTM, featured:false }
+    /* Paname removed from our shows — not our venue */
 ];
 
-/* Other shows — from englishcomedyparis.com verified list. No ticket links unless paid. */
+/* Other shows — not ours. No ticket links unless they pay to be listed. */
 const OTHER_SHOWS = [
+    { name:'Paname Comedy', venueName:'Paname Art Café', day:'Tuesday', time:'17:30', type:'standup', emoji:'🎤', description:'Live comedy at one of Paris\'s legendary stages overlooking Canal Saint-Martin.', paid:false },
     { name:'Blast Off Comedy', venueName:'Backstage Café', day:'Thursday', time:'20:00', type:'standup', emoji:'🚀', description:'High-energy English stand-up every Thursday in Oberkampf.', paid:false },
     { name:'Choumi Comedy Club', venueName:'Le Petit Palais de la Comédie', day:'Friday', time:'21:00', type:'standup', emoji:'🎭', description:'Premium Friday night English comedy with curated international lineups.', paid:false },
     { name:'Comedy Crush', venueName:'Velvet Bar', day:'Saturday', time:'20:30', type:'standup', emoji:'💥', description:'Saturday night English stand-up in Pigalle. Intimate, electric.', paid:false },
