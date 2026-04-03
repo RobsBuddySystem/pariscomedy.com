@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paris Comedy — Live Stand-Up in Paris</title>
-    <meta name="description" content="Live bilingual stand-up comedy in Paris. French & English shows, open mics, and showcases. French Fried Comedy Night, Velvet Bar, and more.">
+    <meta name="description" content="Live bilingual stand-up comedy in Paris. French Fried Comedy Night, Velvet Bar Comedy, and more. Tickets on Eventbrite.">
     <meta property="og:title" content="Paris Comedy — Live Stand-Up in Paris">
-    <meta property="og:description" content="Bilingual comedy in Paris. FR/EN shows, open mics, and showcases.">
+    <meta property="og:description" content="Bilingual comedy in Paris. FR/EN shows at Velvet Bar and more. Get tickets.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pariscomedy.com">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
@@ -50,15 +50,21 @@
         .shows { display: grid; gap: 1.5rem; }
         .show-card {
             background: var(--card-bg); border: 1px solid #222; border-radius: 16px;
-            padding: 2rem; display: flex; justify-content: space-between; align-items: center;
-            transition: border-color 0.3s;
+            padding: 2rem; transition: border-color 0.3s;
         }
         .show-card:hover { border-color: var(--accent); }
+        .show-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
         .show-info h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; margin-bottom: 0.3rem; }
         .show-info p { color: var(--muted); }
-        .show-date { text-align: right; font-family: 'Space Grotesk', sans-serif; }
-        .show-date .day { font-size: 2rem; font-weight: 700; color: var(--accent); }
-        .show-date .month { color: var(--muted); text-transform: uppercase; font-size: 0.9rem; }
+        .show-info .venue { color: var(--accent); font-size: 0.9rem; margin-top: 0.3rem; }
+        .show-date { text-align: right; font-family: 'Space Grotesk', sans-serif; flex-shrink: 0; margin-left: 1rem; }
+        .show-date .day { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+        .show-date .month { color: var(--muted); text-transform: uppercase; font-size: 0.85rem; }
+        .show-date .time { color: var(--muted); font-size: 0.85rem; }
+        .ticket-btn { display: inline-block; margin-top: 1rem; padding: 0.6rem 1.5rem; border-radius: 50px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: all 0.3s; }
+        .ticket-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,51,102,0.3); }
+        .ticket-btn.secondary { background: transparent; border: 1px solid var(--muted); color: var(--muted); }
+        .ticket-btn.secondary:hover { border-color: var(--accent); color: var(--accent); box-shadow: none; }
         .about-section { max-width: 700px; margin: 0 auto; padding: 5rem 2rem; }
         .about-section p { color: var(--muted); margin-bottom: 1.5rem; font-size: 1.1rem; }
         .venues { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem; justify-content: center; }
@@ -67,9 +73,8 @@
         .social-links a { color: var(--muted); text-decoration: none; font-size: 1.1rem; transition: color 0.3s; }
         .social-links a:hover { color: var(--accent); }
         footer { text-align: center; padding: 2rem; color: #444; font-size: 0.9rem; }
-        .quote-section { text-align: center; padding: 6rem 2rem; }
-        .quote-section blockquote { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 600; font-style: italic; max-width: 700px; margin: 0 auto; line-height: 1.4; }
-        .quote-section .attribution { color: var(--muted); margin-top: 1rem; }
+        .section-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.5rem; }
+        .divider { border: none; border-top: 1px solid #222; margin: 1rem 0; }
     </style>
 </head>
 <body>
@@ -84,43 +89,197 @@
     </div>
 </div>
 
-<div class="quote-section">
-    <blockquote>"Moving to Paris to follow your dreams sounds romantic — until your landlord tells you the apartment has 'character.' That means the shower is in the kitchen."</blockquote>
-</div>
-
 <section id="shows">
     <h2>Upcoming Shows</h2>
+
+    <p class="section-label">📍 Velvet Bar — April 2026</p>
     <div class="shows">
+
         <div class="show-card">
-            <div class="show-info">
-                <h3>🍟 French Fried Comedy Night</h3>
-                <p>Bilingual comedy showcase — the best American and French comics on one stage. English & French, same night.</p>
+            <div class="show-header">
+                <div class="show-info">
+                    <h3>🎙️ Velvet Bar — Open Mic</h3>
+                    <p>Sign up, step up, make 'em laugh. All levels welcome.</p>
+                    <p class="venue">📍 Velvet Bar, Paris</p>
+                </div>
+                <div class="show-date">
+                    <div class="day">Wed 8</div>
+                    <div class="month">April</div>
+                    <div class="time">19:00</div>
+                </div>
             </div>
-            <div class="show-date">
-                <div class="day">FFCN</div>
-                <div class="month">Monthly</div>
-            </div>
+            <a href="#eventbrite" class="ticket-btn">🎟️ Get Tickets</a>
         </div>
+
         <div class="show-card">
-            <div class="show-info">
-                <h3>🎭 Velvet Comedy Night</h3>
-                <p>Intimate stand-up at Velvet Bar. Up-close, unpredictable, unforgettable.</p>
+            <div class="show-header">
+                <div class="show-info">
+                    <h3>🎭 Velvet Bar Comedy Night</h3>
+                    <p>Curated showcase — the best comics in Paris, one stage, one night.</p>
+                    <p class="venue">📍 Velvet Bar, Paris</p>
+                </div>
+                <div class="show-date">
+                    <div class="day">Wed 8</div>
+                    <div class="month">April</div>
+                    <div class="time">20:30</div>
+                </div>
             </div>
-            <div class="show-date">
-                <div class="day">Velvet</div>
-                <div class="month">Regular</div>
-            </div>
+            <a href="#eventbrite" class="ticket-btn">🎟️ Get Tickets</a>
         </div>
+
         <div class="show-card">
-            <div class="show-info">
-                <h3>🎙️ Open Mics & Showcases</h3>
-                <p>Paname Art Café, Green Mic Comedy, and more. Paris has a comedy scene — and it's growing fast.</p>
+            <div class="show-header">
+                <div class="show-info">
+                    <h3>🍟 French Fried Comedy Night</h3>
+                    <p>THE bilingual comedy show. American & French comics, English & French jokes, same night.</p>
+                    <p class="venue">📍 Velvet Bar, Paris</p>
+                </div>
+                <div class="show-date">
+                    <div class="day">Wed 8</div>
+                    <div class="month">April</div>
+                    <div class="time">22:00</div>
+                </div>
             </div>
-            <div class="show-date">
-                <div class="day">Weekly</div>
-                <div class="month">Various</div>
-            </div>
+            <a href="#eventbrite" class="ticket-btn">🎟️ Get Tickets</a>
         </div>
+
+        <hr class="divider">
+
+        <div class="show-card">
+            <div class="show-header">
+                <div class="show-info">
+                    <h3>🎙️ Velvet Bar — Open Mic</h3>
+                    <p>Sign up, step up, make 'em laugh. All levels welcome.</p>
+                    <p class="venue">📍 Velvet Bar, Paris</p>
+                </div>
+                <div class="show-date">
+                    <div class="day">Wed 15</div>
+                    <div class="month">April</div>
+                    <div class="time">19:00</div>
+                </div>
+            </div>
+            <a href="#eventbrite" class="ticket-btn">🎟️ Get Tickets</a>
+        </div>
+
+        <div class="show-card">
+            <div class="show-header">
+                <div class="show-info">
+                    <h3>🎭 Velvet Bar Comedy Night</h3>
+                    <p>Curated showcase — the best comics in Paris, one stage, one night.</p>
+                    <p class="venue">📍 Velvet Bar, Paris</p>
+                </div>
+                <div class="show-date">
+                    <div class="day">Wed 15</div>
+                    <div class="month">April</div>
+                    <div class="time">20:30</div>
+                </div>
+            </div>
+            <a href="#eventbrite" class="ticket-btn">🎟️ Get Tickets</a>
+        </div>
+
+        <div class="show-card">
+            <div class="show-header">
+                <div class="show-info">
+                    <h3>🍟 French Fried Comedy Night</h3>
+                    <p>THE bilingual comedy show. American & French comics, English & French jokes, same night.</p>
+                    <p class="venue">📍 Velvet Bar, Paris</p>
+                </div>
+                <div class="show-date">
+                    <div class="day">Wed 15</div>
+                    <div class="month">April</div>
+                    <div class="time">22:00</div>
+                </div>
+            </div>
+            <a href="#eventbrite" class="ticket-btn">🎟️ Get Tickets</a>
+        </div>
+
+        <hr class="divider">
+
+        <div class="show-card">
+            <div class="show-header">
+                <div class="show-info">
+                    <h3>🎙️ Velvet Bar — Open Mic + Comedy Night + FFCN</h3>
+                    <p>Triple header — open mic, showcase, and French Fried all in one night.</p>
+                    <p class="venue">📍 Velvet Bar, Paris</p>
+                </div>
+                <div class="show-date">
+                    <div class="day">Wed 22</div>
+                    <div class="month">April</div>
+                    <div class="time">19:00</div>
+                </div>
+            </div>
+            <a href="#eventbrite" class="ticket-btn">🎟️ Get Tickets</a>
+        </div>
+
+        <div class="show-card">
+            <div class="show-header">
+                <div class="show-info">
+                    <h3>🎙️ Velvet Bar — Open Mic + Comedy Night + FFCN</h3>
+                    <p>Triple header — open mic, showcase, and French Fried all in one night.</p>
+                    <p class="venue">📍 Velvet Bar, Paris</p>
+                </div>
+                <div class="show-date">
+                    <div class="day">Wed 29</div>
+                    <div class="month">April</div>
+                    <div class="time">19:00</div>
+                </div>
+            </div>
+            <a href="#eventbrite" class="ticket-btn">🎟️ Get Tickets</a>
+        </div>
+    </div>
+
+    <br>
+    <p class="section-label">📍 Other Venues</p>
+    <div class="shows">
+
+        <div class="show-card">
+            <div class="show-header">
+                <div class="show-info">
+                    <h3>🎤 Paname Art Café</h3>
+                    <p>Live comedy at one of Paris's legendary stages.</p>
+                    <p class="venue">📍 Paname Art Café, Paris</p>
+                </div>
+                <div class="show-date">
+                    <div class="day">Tue 7</div>
+                    <div class="month">April</div>
+                    <div class="time">17:30</div>
+                </div>
+            </div>
+            <a href="#eventbrite" class="ticket-btn secondary">🎟️ Tickets via FFCN</a>
+        </div>
+
+        <div class="show-card">
+            <div class="show-header">
+                <div class="show-info">
+                    <h3>🟢 Green Mic Comedy</h3>
+                    <p>Friday night laughs — fresh comics, good vibes.</p>
+                    <p class="venue">📍 Green Mic, Paris</p>
+                </div>
+                <div class="show-date">
+                    <div class="day">Fri 10</div>
+                    <div class="month">April</div>
+                    <div class="time">20:30</div>
+                </div>
+            </div>
+            <a href="#eventbrite" class="ticket-btn secondary">🎟️ Tickets via FFCN</a>
+        </div>
+
+        <div class="show-card">
+            <div class="show-header">
+                <div class="show-info">
+                    <h3>🎤 Paname Art Café</h3>
+                    <p>Live comedy at one of Paris's legendary stages.</p>
+                    <p class="venue">📍 Paname Art Café, Paris</p>
+                </div>
+                <div class="show-date">
+                    <div class="day">Wed 15</div>
+                    <div class="month">April</div>
+                    <div class="time">17:30</div>
+                </div>
+            </div>
+            <a href="#eventbrite" class="ticket-btn secondary">🎟️ Tickets via FFCN</a>
+        </div>
+
     </div>
 </section>
 
@@ -130,17 +289,16 @@
     <p>Whether you're looking for a night out, want to try an open mic, or just want to find the best comedy in Paris, you're in the right place.</p>
     <h3 style="margin-bottom: 1rem; color: var(--muted); text-align: center;">Venues We Love</h3>
     <div class="venues">
-        <span class="venue-tag">Paname Art Café</span>
         <span class="venue-tag">Velvet Bar</span>
+        <span class="venue-tag">Paname Art Café</span>
         <span class="venue-tag">Green Mic Comedy</span>
-        <span class="venue-tag">French Fried Comedy Night</span>
         <span class="venue-tag">Frog & Princess</span>
         <span class="venue-tag">SoGymnase</span>
     </div>
 </div>
 
 <div class="social-links">
-    <a href="https://www.instagram.com/french_fried_comedy/">📸 Instagram</a>
+    <a href="https://www.instagram.com/french_fried_comedy/">📸 @french_fried_comedy</a>
 </div>
 
 <footer>
