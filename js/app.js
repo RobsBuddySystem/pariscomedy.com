@@ -90,12 +90,12 @@ function renderShowCard(show) {
             <span class="show-card-type type-${show.type}">${typeLabel}</span>
             <h3 class="show-card-title">${show.name}</h3>
             <p class="show-card-venue">📍 ${venue?.name||''} · ${venue?.neighborhood||''}</p>
-            <p class="show-card-time">🕐 Every ${show.day} at ${show.time}</p>
+            <p class="show-card-time">🕐 ${({'fr':`Chaque ${show.day} à ${show.time}`,'es':`Cada ${show.day} a las ${show.time}`,'de':`Jeden ${show.day} um ${show.time}`,'ja':`毎${show.day} ${show.time}`,'zh':`每${show.day} ${show.time}`,'ko':`매${show.day} ${show.time}`})[currentLang] || `Every ${show.day} at ${show.time}`}</p>
             <p class="show-card-desc">${currentLang === 'fr' ? (show.descFr||show.description) : currentLang === 'es' ? (show.descEs||show.description) : show.description}</p>
             <div class="show-card-meta">
-                <span class="show-card-badge">🎟️ Free entry</span>
-                <span class="show-card-badge">🍺 1 drink min</span>
-                <span class="show-card-badge">🎩 Hat for artists</span>
+                <span class="show-card-badge">🎟️ ${({'fr':'Entrée libre','es':'Entrada libre','de':'Freier Eintritt','ja':'入場無料','zh':'免费入场','ko':'무료 입장'})[currentLang] || 'Free entry'}</span>
+                <span class="show-card-badge">🍺 ${({'fr':'1 conso min','es':'1 bebida mín','de':'1 Getränk min','ja':'1ドリンク制','zh':'最低消费1杯','ko':'1음료 최소'})[currentLang] || '1 drink min'}</span>
+                <span class="show-card-badge">🎩 ${({'fr':'Chapeau pour les artistes','es':'Sombrero para artistas','de':'Hut für Künstler','ja':'投げ銭','zh':'打赏艺人','ko':'모자 기부'})[currentLang] || 'Hat for artists'}</span>
             </div>
             <div class="show-card-footer">
                 <span class="show-card-price">${show.price}</span>
@@ -110,16 +110,19 @@ function renderFeaturedShows() {
     if (!grid) return;
     let shows = [...SHOWS];
     if (currentLang === 'fr') {
-        // French page: Velvet shows first (the venue shows), then FFCN
+        // French page: Velvet Bar brand shows first (the venue name, not FFCN brand)
         shows.sort((a,b) => {
             if (a.id === 'velvet-comedy') return -1;
             if (b.id === 'velvet-comedy') return 1;
             if (a.id === 'velvet-openmic') return -1;
             if (b.id === 'velvet-openmic') return 1;
+            if (a.id === 'ffcn') return -1;
+            if (b.id === 'ffcn') return 1;
             return 0;
         });
+        grid.innerHTML = shows.map(renderShowCard).join('');
     } else {
-        // English page: FFCN first, then other shows
+        // All other languages: FFCN first (the English/international brand), then featured
         shows.sort((a,b) => {
             if (a.id === 'ffcn') return -1;
             if (b.id === 'ffcn') return 1;
@@ -127,8 +130,8 @@ function renderFeaturedShows() {
             if (!a.featured && b.featured) return 1;
             return 0;
         });
+        grid.innerHTML = shows.filter(s => s.featured).map(renderShowCard).join('');
     }
-    grid.innerHTML = shows.filter(s => s.featured || currentLang === 'fr').map(renderShowCard).join('');
 }
 
 function renderAllShows(filter = 'all') {
