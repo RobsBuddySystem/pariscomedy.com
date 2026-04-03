@@ -7,15 +7,15 @@ const SHOWS = [
     { id:'velvet-openmic', name:'Velvet Bar Comedy — Open Mic', shortName:'Open Mic', venue:'velvet', type:'openmic', day:'Wednesday', time:'19:00', price:'Free', emoji:'🎙️',
       description:'Sign up, step up, make them laugh. All levels welcome. The best open mic in Pigalle.',
       bookingUrl:'https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713', featured:false },
-    { id:'velvet-comedy', name:'Velvet Bar Comedy — Le meilleur du stand-up', shortName:'Comedy Night', venue:'velvet', type:'standup', day:'Wednesday', time:'20:30', price:'€10', emoji:'🎭',
+    { id:'velvet-comedy', name:'Velvet Bar Comedy — Le meilleur du stand-up', shortName:'Comedy Night', venue:'velvet', type:'standup', day:'Wednesday', time:'20:30', price:'Free', emoji:'🎭',
       description:'Curated showcase — the best comics in Paris on one stage. Bilingual, unpredictable, unforgettable.',
       bookingUrl:'https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719', featured:true },
-    { id:'ffcn', name:'French Fried Comedy Night', shortName:'FFCN', venue:'velvet', type:'standup', day:'Wednesday', time:'22:00', price:'€10', emoji:'🍟',
+    { id:'ffcn', name:'French Fried Comedy Night', shortName:'FFCN', venue:'velvet', type:'standup', day:'Wednesday', time:'22:00', price:'Free', emoji:'🍟',
       description:'THE bilingual comedy show. American & French comics, English & French jokes, same night. The show that started it all.',
       bookingUrl:'https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747', featured:true },
-    { id:'paname', name:'Paname Comedy', shortName:'Paname', venue:'paname', type:'standup', day:'Tuesday', time:'17:30', price:'€8', emoji:'🎤',
+    { id:'paname', name:'Paname Comedy', shortName:'Paname', venue:'paname', type:'standup', day:'Tuesday', time:'17:30', price:'Free', emoji:'🎤',
       description:'Live comedy at one of Paris\'s legendary stages overlooking Canal Saint-Martin.',
-      bookingUrl:'https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747', featured:false }
+      bookingUrl:'https://www.eventbrite.com/o/18875461764', featured:false }
 ];
 
 const APRIL_2026 = (() => {
