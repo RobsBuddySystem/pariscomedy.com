@@ -86,9 +86,14 @@ function renderShowCard(show) {
             <p class="show-card-venue">📍 ${venue?.name||''} · ${venue?.neighborhood||''}</p>
             <p class="show-card-time">🕐 Every ${show.day} at ${show.time}</p>
             <p class="show-card-desc">${currentLang === 'fr' ? (show.descFr||show.description) : currentLang === 'es' ? (show.descEs||show.description) : show.description}</p>
+            <div class="show-card-meta">
+                <span class="show-card-badge">🎟️ Free entry</span>
+                <span class="show-card-badge">🍺 1 drink min</span>
+                <span class="show-card-badge">🎩 Hat for artists</span>
+            </div>
             <div class="show-card-footer">
                 <span class="show-card-price">${show.price}</span>
-                <a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ Book →</a>
+                <a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ Reserve Your Spot →</a>
             </div>
         </div>
     </article>`;

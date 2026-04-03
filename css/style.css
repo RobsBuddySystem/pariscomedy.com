@@ -289,3 +289,48 @@ textarea.form-input{min-height:120px;resize:vertical}
     .lang-switcher{margin-left:0;margin-top:8px}
 }
 @media(max-width:480px){.hero-title{font-size:2.2rem}.stat-num{font-size:1.4rem}.page-title{font-size:2rem}}
+
+/* Show card badges (hat/drink/free) */
+.show-card-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.show-card-badge{font-size:0.72rem;background:var(--surface);border:1px solid var(--border);padding:3px 10px;border-radius:20px;color:var(--text-dim)}
+
+/* Hero info bar */
+.hero-info{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;color:var(--text-muted);font-size:0.95rem}
+
+/* Next show countdown banner */
+.countdown-banner{background:linear-gradient(90deg,var(--accent),var(--purple));text-align:center;padding:10px 20px;font-size:0.9rem;font-weight:600;color:#fff;position:relative;z-index:999}
+.countdown-banner a{color:#fff;text-decoration:underline}
+
+/* How it works section */
+.how-it-works{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;text-align:center;margin-top:32px}
+.how-step{padding:24px}
+.how-step .step-emoji{font-size:2.5rem;margin-bottom:12px}
+.how-step h3{font-family:var(--font-display);font-size:1rem;margin-bottom:8px}
+.how-step p{color:var(--text-dim);font-size:0.88rem}
+
+/* Social proof counter */
+.social-proof{display:flex;gap:32px;justify-content:center;padding:24px;flex-wrap:wrap}
+.proof-item{text-align:center}
+.proof-num{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--accent)}
+.proof-label{font-size:0.8rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
+
+/* Show ticker */
+.show-ticker{overflow:hidden;white-space:nowrap;background:var(--surface);border-bottom:1px solid var(--border);padding:8px 0}
+.show-ticker-inner{display:inline-block;animation:ticker 30s linear infinite}
+.show-ticker-item{display:inline-block;padding:0 32px;font-size:0.85rem;color:var(--text-dim)}
+.show-ticker-item strong{color:var(--text)}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* FAQ accordion */
+.faq-list{max-width:700px;margin:0 auto}
+.faq-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.faq-q{padding:18px 20px;cursor:pointer;font-family:var(--font-display);font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.faq-q:hover{background:var(--bg-card-hover)}
+.faq-q::after{content:'+';font-size:1.2rem;color:var(--accent)}
+.faq-item.open .faq-q::after{content:'−'}
+.faq-a{padding:0 20px;max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s ease;color:var(--text-dim);font-size:0.92rem;line-height:1.6}
+.faq-item.open .faq-a{max-height:500px;padding:0 20px 18px}
+
+@media(max-width:768px){
+    .hero-info{flex-direction:column;align-items:center;gap:8px}
+}
