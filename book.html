@@ -27,10 +27,14 @@
             <a href="history.html" class="nav-link" data-i18n="nav.history">History</a>
             <a href="venues.html" class="nav-link" data-i18n="nav.venues">Venues</a>
             <a href="book.html" class="nav-link nav-cta active" data-i18n="nav.book">Book a Show</a>
-            <div class="lang-switcher" id="langSwitcher">
+            <div class="lang-switcher" id="langSwitcher" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;">
                 <button class="lang-btn active" data-lang="en">🇬🇧</button>
                 <button class="lang-btn" data-lang="fr">🇫🇷</button>
                 <button class="lang-btn" data-lang="es">🇪🇸</button>
+                <button class="lang-btn" data-lang="de">🇩🇪</button>
+                <button class="lang-btn" data-lang="ja">🇯🇵</button>
+                <button class="lang-btn" data-lang="zh">🇨🇳</button>
+                <button class="lang-btn" data-lang="ko">🇰🇷</button>
             </div>
         </div>
         <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -70,23 +74,21 @@
                 <h3 class="book-card-title">List Your Show</h3>
                 <p class="book-card-desc">Running an English comedy night in Paris? Get featured on pariscomedy.com — the #1 guide to English comedy in Paris.</p>
 
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:24px;">
-                    <!-- Basic -->
-                    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:24px;">
+                    <!-- Basic Listing -->
+                    <div style="background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;">
                         <div style="font-size:1.5rem;margin-bottom:8px;">📌</div>
                         <h4 style="font-family:var(--font-display);margin-bottom:4px;">Basic Listing</h4>
                         <div style="font-size:2rem;font-weight:700;color:var(--accent);margin:12px 0;">€1<span style="font-size:0.9rem;color:var(--text-muted);font-weight:400;">/month</span></div>
                         <ul style="text-align:left;list-style:none;font-size:0.85rem;color:var(--text-dim);margin-bottom:16px;">
                             <li style="padding:4px 0;">✅ Show name & description</li>
-                            <li style="padding:4px 0;">✅ Venue & schedule listed</li>
-                            <li style="padding:4px 0;">✅ Appear in calendar</li>
+                            <li style="padding:4px 0;">✅ Venue & schedule in calendar</li>
                             <li style="padding:4px 0;">❌ No ticket link</li>
-                            <li style="padding:4px 0;">❌ No featured placement</li>
                         </ul>
                         <a href="mailto:booking@pariscomedy.com?subject=Basic%20Listing" class="btn btn-ghost" style="width:100%;justify-content:center;">Get Started</a>
                     </div>
 
-                    <!-- Pro -->
+                    <!-- Pro Listing -->
                     <div style="background:var(--surface);border:2px solid var(--accent);border-radius:var(--radius);padding:24px;text-align:center;position:relative;">
                         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:3px 14px;border-radius:12px;font-size:0.72rem;font-weight:700;">MOST POPULAR</div>
                         <div style="font-size:1.5rem;margin-bottom:8px;">⭐</div>
@@ -95,26 +97,29 @@
                         <ul style="text-align:left;list-style:none;font-size:0.85rem;color:var(--text-dim);margin-bottom:16px;">
                             <li style="padding:4px 0;">✅ Everything in Basic</li>
                             <li style="padding:4px 0;">✅ Direct ticket/booking link</li>
-                            <li style="padding:4px 0;">✅ Show card (not dashed)</li>
+                            <li style="padding:4px 0;">✅ Solid card (not dashed)</li>
                             <li style="padding:4px 0;">✅ Venue pin on map</li>
-                            <li style="padding:4px 0;">❌ Not featured placement</li>
+                            <li style="padding:4px 0;">✅ We manage your email list</li>
+                            <li style="padding:4px 0;">✅ 1 mass email/week included</li>
                         </ul>
                         <a href="mailto:booking@pariscomedy.com?subject=Pro%20Listing" class="btn btn-primary" style="width:100%;justify-content:center;">Get Pro</a>
                     </div>
 
-                    <!-- Featured -->
+                    <!-- Full Service Booking -->
                     <div style="background:var(--surface);border:1px solid var(--purple);border-radius:var(--radius);padding:24px;text-align:center;">
                         <div style="font-size:1.5rem;margin-bottom:8px;">👑</div>
-                        <h4 style="font-family:var(--font-display);margin-bottom:4px;">Featured Venue</h4>
-                        <div style="font-size:2rem;font-weight:700;color:var(--purple);margin:12px 0;">€15<span style="font-size:0.9rem;color:var(--text-muted);font-weight:400;">/month</span></div>
+                        <h4 style="font-family:var(--font-display);margin-bottom:4px;">Full Service Booking</h4>
+                        <div style="font-size:2rem;font-weight:700;color:var(--purple);margin:12px 0;">€30<span style="font-size:0.9rem;color:var(--text-muted);font-weight:400;">/month</span></div>
                         <ul style="text-align:left;list-style:none;font-size:0.85rem;color:var(--text-dim);margin-bottom:16px;">
                             <li style="padding:4px 0;">✅ Everything in Pro</li>
-                            <li style="padding:4px 0;">✅ Featured on homepage</li>
-                            <li style="padding:4px 0;">✅ Google Maps embed</li>
-                            <li style="padding:4px 0;">✅ ⭐ Featured badge</li>
-                            <li style="padding:4px 0;">✅ Priority in calendar</li>
+                            <li style="padding:4px 0;">✅ Full booking management</li>
+                            <li style="padding:4px 0;">✅ 1 mass email/week to YOUR list</li>
+                            <li style="padding:4px 0;">✅ Automated email campaigns</li>
+                            <li style="padding:4px 0;">✅ Show page on pariscomedy.com</li>
+                            <li style="padding:4px 0;">✅ Priority calendar placement</li>
+                            <li style="padding:4px 0;">✅ We build & send your promo emails</li>
                         </ul>
-                        <a href="mailto:booking@pariscomedy.com?subject=Featured%20Venue" class="btn btn-ghost" style="width:100%;justify-content:center;border-color:var(--purple);color:var(--purple);">Go Featured</a>
+                        <a href="mailto:booking@pariscomedy.com?subject=Full%20Service%20Booking" class="btn btn-ghost" style="width:100%;justify-content:center;border-color:var(--purple);color:var(--purple);">Go Full Service</a>
                     </div>
                 </div>
             </div>
@@ -128,6 +133,8 @@
         <div class="section-head">
             <h2 class="section-title" data-i18n="book.contact">Get in Touch</h2>
             <p class="section-sub">Or just email us directly at <a href="mailto:booking@pariscomedy.com">booking@pariscomedy.com</a></p>
+            <!-- Robert: replace with your eSIM number -->
+            <p class="section-sub">📞 <a href="tel:+33XXXXXXXXX">+33 X XX XX XX XX</a></p>
         </div>
         <form id="contactForm" class="contact-form">
             <div class="form-group">
@@ -156,7 +163,7 @@
         <p>Show up to Velvet Bar on Wednesday at 19:00 and sign up. First come, first served. 5 minutes per comic.</p>
 
         <h3>How much does it cost to perform?</h3>
-        <p>Nothing. All our shows are free for performers and audiences. We're in it for the laughs.</p>
+        <p>Nothing for performers. Reserve your spot, there's a one drink minimum, and we pass the hat at the end. We're in it for the laughs.</p>
 
         <h3>Do I need to speak French?</h3>
         <p>Nope. Our shows are in English (some are bilingual). French is a bonus, not a requirement.</p>
@@ -188,6 +195,8 @@
             <div class="footer-col">
                 <h4>Contact</h4>
                 <a href="mailto:booking@pariscomedy.com">booking@pariscomedy.com</a>
+                <!-- Robert: replace with your eSIM number -->
+                <a href="tel:+33XXXXXXXXX">📞 +33 X XX XX XX XX</a>
                 <a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener">Instagram</a>
             </div>
         </div>
