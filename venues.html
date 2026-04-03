@@ -60,11 +60,21 @@
 <section class="section">
     <div class="container">
         <div class="map-wrapper">
-            <div class="map-container" id="mapContainer">
-                <img src="https://staticmap.openstreetmap.de/staticmap.php?center=48.883,2.354&zoom=13&size=1200x400&maptype=mapnik&markers=48.8821,2.3349,lightblue1|48.8844,2.3728,lightblue2"
-                     alt="Map of comedy venues in Paris — Velvet Bar (Pigalle) and Paname Art Café (19th)"
-                     class="map-img"
-                     onerror="this.style.display='none'">
+            <div class="map-container" id="mapContainer" style="background:#191928;position:relative;height:500px;">
+                <!-- CSS-based Paris map with Seine curve -->
+                <svg viewBox="0 0 100 100" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.15;" preserveAspectRatio="none">
+                    <path d="M0,52 Q15,55 25,50 Q35,45 45,48 Q55,52 65,48 Q75,44 85,47 Q95,50 100,48" fill="none" stroke="#4488ff" stroke-width="1.5"/>
+                    <text x="50" y="96" text-anchor="middle" fill="#6c6c8a" font-size="3" font-family="Inter,sans-serif">PARIS</text>
+                    <!-- Arrondissement labels -->
+                    <text x="30" y="25" fill="#363650" font-size="2.5">18e</text>
+                    <text x="52" y="22" fill="#363650" font-size="2.5">19e</text>
+                    <text x="75" y="30" fill="#363650" font-size="2.5">20e</text>
+                    <text x="40" y="38" fill="#363650" font-size="2.5">9e</text>
+                    <text x="55" y="38" fill="#363650" font-size="2.5">10e</text>
+                    <text x="70" y="42" fill="#363650" font-size="2.5">11e</text>
+                    <text x="55" y="48" fill="#363650" font-size="2.5">3e</text>
+                    <text x="38" y="60" fill="#363650" font-size="2.5">6e</text>
+                </svg>
                 <div class="map-overlay" id="mapOverlay">
                     <div class="venue-pins" id="venuePins"></div>
                 </div>

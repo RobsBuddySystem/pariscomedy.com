@@ -116,11 +116,11 @@ function renderOtherShows() {
     const container = document.getElementById('otherShowsList');
     if (!container || typeof OTHER_SHOWS === 'undefined') return;
     container.innerHTML = OTHER_SHOWS.map(show => `
-        <div class="other-show-card">
-            <div class="other-show-name">${show.name}</div>
-            <div class="other-show-venue">📍 ${show.venue} · ${show.day}</div>
+        <div class="other-show-card${show.placeholder ? ' placeholder-card' : ''}">
+            <div class="other-show-name">${show.emoji || '🎤'} ${show.name}</div>
+            <div class="other-show-venue">📍 ${show.venueName || show.venue} · ${show.day}${show.time ? ' · '+show.time : ''}</div>
             <div class="other-show-desc">${show.description}</div>
-            ${show.url ? `<a href="${show.url}" target="_blank" rel="noopener" class="other-show-link">Visit →</a>` : ''}
+            ${show.placeholder ? '<div class="other-show-cta"><span class="placeholder-badge">📋 Not yet listed</span> <a href="book.html" class="other-show-link">Claim this listing →</a></div>' : ''}
         </div>
     `).join('');
 }
@@ -188,10 +188,13 @@ function renderVenueMap() {
     const pinsContainer = document.getElementById('venuePins');
     if (!pinsContainer) return;
     pinsContainer.innerHTML = VENUES.map((venue, i) => {
-        const showsAtVenue = SHOWS.filter(s => s.venue === venue.id);
-        return `<div class="venue-pin" style="left:${venue.mapX}%;top:${venue.mapY}%;">
+        const showsHere = SHOWS.filter(s => s.venue === venue.id);
+        const otherHere = (typeof OTHER_SHOWS !== 'undefined') ? OTHER_SHOWS.filter(s => s.venueName === venue.name) : [];
+        const allShows = [...showsHere.map(s => `${s.emoji} ${s.shortName} · ${s.day}`), ...otherHere.map(s => `${s.emoji} ${s.name} · ${s.day}`)];
+        const pinColor = venue.listed ? 'var(--accent)' : 'var(--purple)';
+        return `<div class="venue-pin" style="left:${venue.mapX}%;top:${venue.mapY}%;background:${pinColor};">
             <span>${i+1}</span>
-            <div class="venue-pin-tooltip"><strong>${venue.name}</strong><br>${venue.neighborhood}<br>${showsAtVenue.map(s=>`${s.emoji} ${s.shortName} · ${s.day}`).join('<br>')}</div>
+            <div class="venue-pin-tooltip"><strong>${venue.name}</strong><br>${venue.neighborhood}<br>${allShows.join('<br>') || '<em>Shows TBA</em>'}</div>
         </div>`;
     }).join('');
 }
@@ -199,9 +202,14 @@ function renderVenueMap() {
 function renderVenueCards() {
     const container = document.getElementById('venuesList');
     if (!container) return;
-    container.innerHTML = VENUES.map((venue, i) => {
+    // Split into listed (ours) and others
+    const listed = VENUES.filter(v => v.listed);
+    const others = VENUES.filter(v => !v.listed);
+    
+    let html = listed.map((venue, i) => {
         const showsAtVenue = SHOWS.filter(s => s.venue === venue.id);
-        return `<div class="venue-card">
+        return `<div class="venue-card venue-card-featured">
+            <div class="venue-card-badge-top">⭐ Featured Venue</div>
             <div class="venue-card-name">${i+1}. ${venue.name}</div>
             <div class="venue-card-addr">📍 ${venue.address}</div>
             <div class="venue-card-metro">🚇 ${venue.metro || ''}</div>
@@ -209,6 +217,21 @@ function renderVenueCards() {
             <div class="venue-card-shows">${showsAtVenue.map(s=>`<span class="venue-show-tag">${s.emoji} ${s.shortName} — ${s.day} ${s.time}</span>`).join('')}</div>
         </div>`;
     }).join('');
+    
+    if (others.length) {
+        html += `<div style="grid-column:1/-1;margin-top:32px;"><h3 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:8px;color:var(--text-dim);">Other Comedy Venues in Paris</h3><p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:20px;">These venues host English-language comedy. Want your show featured with full booking? <a href="book.html">Get listed →</a></p></div>`;
+        html += others.map((venue, i) => {
+            const otherHere = (typeof OTHER_SHOWS !== 'undefined') ? OTHER_SHOWS.filter(s => s.venueName === venue.name) : [];
+            return `<div class="venue-card venue-card-placeholder">
+                <div class="venue-card-name">${listed.length + i + 1}. ${venue.name}</div>
+                <div class="venue-card-addr">📍 ${venue.address}</div>
+                <div class="venue-card-metro">🚇 ${venue.metro || ''}</div>
+                <div class="venue-card-desc">${venue.description || ''}</div>
+                <div class="venue-card-shows">${otherHere.map(s=>`<span class="venue-show-tag">${s.emoji} ${s.name} — ${s.day}</span>`).join('') || '<span style="color:var(--text-muted);font-size:0.82rem">Shows not yet listed — <a href="book.html">claim this listing</a></span>'}</div>
+            </div>`;
+        }).join('');
+    }
+    container.innerHTML = html;
 }
 
 /* ─── History ─── */
