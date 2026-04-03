@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paris Comedy — Live Bilingual Stand-Up in Paris</title>
-    <meta name="description" content="Live bilingual stand-up comedy in Paris. French Fried Comedy Night, Velvet Bar Comedy, and more. Shows in French & English. Tickets on Eventbrite.">
-    <meta property="og:title" content="Paris Comedy — Live Bilingual Stand-Up in Paris">
-    <meta property="og:description" content="Bilingual comedy in Paris. FR/EN shows at Velvet Bar and Paname. Get tickets.">
+    <title>Paris Comedy — The Home of English-Language Comedy in Paris</title>
+    <meta name="description" content="The home of English-language comedy in Paris. 10+ weekly shows, 5+ venues. French Fried Comedy Night, Velvet Bar Comedy, and more. Free tickets on Eventbrite.">
+    <meta property="og:title" content="Paris Comedy — English-Language Comedy in Paris">
+    <meta property="og:description" content="10+ weekly shows in English & French. Open mics, showcases, and the legendary French Fried Comedy Night. Free tickets.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pariscomedy.com">
+    <meta property="og:image" content="https://pariscomedy.com/img/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Paris Comedy — English Comedy in Paris">
+    <meta name="twitter:description" content="10+ weekly English comedy shows in Paris. Free tickets.">
     <link rel="canonical" href="https://pariscomedy.com">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,19 +20,62 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"WebSite","name":"Paris Comedy","url":"https://pariscomedy.com","description":"Live bilingual stand-up comedy in Paris"}
+    {
+        "@context":"https://schema.org",
+        "@type":"WebSite",
+        "name":"Paris Comedy",
+        "url":"https://pariscomedy.com",
+        "description":"The home of English-language comedy in Paris. 10+ weekly shows at 5+ venues."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context":"https://schema.org",
+        "@type":"Event",
+        "name":"French Fried Comedy Night",
+        "description":"THE bilingual comedy show. American & French comics, English & French jokes, same night.",
+        "startDate":"2026-04-08T22:00:00+02:00",
+        "endDate":"2026-04-08T23:30:00+02:00",
+        "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
+        "eventStatus":"https://schema.org/EventScheduled",
+        "location":{"@type":"Place","name":"Velvet Bar","address":{"@type":"PostalAddress","streetAddress":"39 Rue de Douai","addressLocality":"Paris","postalCode":"75009","addressCountry":"FR"}},
+        "organizer":{"@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com"},
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","url":"https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747?utm_source=pariscomedy&utm_medium=website","availability":"https://schema.org/InStock"},
+        "performer":{"@type":"PerformingGroup","name":"French Fried Comedy Night"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context":"https://schema.org",
+        "@type":"Event",
+        "name":"Velvet Bar Comedy — Le meilleur du stand-up",
+        "description":"Curated showcase — the best comics in Paris on one stage.",
+        "startDate":"2026-04-08T20:30:00+02:00",
+        "endDate":"2026-04-08T21:45:00+02:00",
+        "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
+        "eventStatus":"https://schema.org/EventScheduled",
+        "location":{"@type":"Place","name":"Velvet Bar","address":{"@type":"PostalAddress","streetAddress":"39 Rue de Douai","addressLocality":"Paris","postalCode":"75009","addressCountry":"FR"}},
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","url":"https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719?utm_source=pariscomedy&utm_medium=website","availability":"https://schema.org/InStock"}
+    }
     </script>
 </head>
-<body>
+<body data-page="home">
 
 <nav class="nav" id="nav">
     <div class="nav-inner">
         <a href="/" class="nav-logo"><span class="logo-icon">🎤</span><span class="logo-text">Paris <span class="logo-accent">Comedy</span></span></a>
         <div class="nav-links" id="navLinks">
-            <a href="#shows" class="nav-link">Shows</a>
-            <a href="#calendar" class="nav-link">Calendar</a>
-            <a href="#venues" class="nav-link">Venues</a>
-            <a href="https://www.eventbrite.com/o/18875461764" target="_blank" rel="noopener" class="nav-link" style="background:var(--accent);color:#fff;padding:8px 18px;border-radius:8px;font-weight:600;">Reserve Free Spots</a>
+            <a href="/" class="nav-link active" data-i18n="nav.home">Home</a>
+            <a href="shows.html" class="nav-link" data-i18n="nav.shows">Shows</a>
+            <a href="#calendar" class="nav-link" data-i18n="nav.calendar">Calendar</a>
+            <a href="history.html" class="nav-link" data-i18n="nav.history">History</a>
+            <a href="venues.html" class="nav-link" data-i18n="nav.venues">Venues</a>
+            <a href="book.html" class="nav-link nav-cta" data-i18n="nav.book">Book a Show</a>
+            <div class="lang-switcher" id="langSwitcher">
+                <button class="lang-btn active" data-lang="en">🇬🇧</button>
+                <button class="lang-btn" data-lang="fr">🇫🇷</button>
+                <button class="lang-btn" data-lang="es">🇪🇸</button>
+            </div>
         </div>
         <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -37,44 +84,54 @@
 <header class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-        <p class="hero-tag">🇫🇷 Bilingual comedy every Wednesday</p>
-        <h1 class="hero-title">Paris <span class="gradient-text">Comedy</span></h1>
-        <p class="hero-sub">Live stand-up in French & English. Three shows every Wednesday night at Velvet Bar — open mic, showcase, and the legendary French Fried Comedy Night.</p>
+        <p class="hero-tag" data-i18n="hero.tag">🇫🇷 Bilingual comedy every week in Paris</p>
+        <h1 class="hero-title" data-i18n="hero.title">Paris <span class="gradient-text">Comedy</span></h1>
+        <p class="hero-subtitle" data-i18n="hero.subtitle">The Home of English-Language Comedy in Paris</p>
+        <p class="hero-sub" data-i18n="hero.desc">Live stand-up in French & English. Open mics, showcases, and the legendary French Fried Comedy Night. Every week across Paris.</p>
         <div class="hero-actions">
-            <a href="https://www.eventbrite.com/o/18875461764" target="_blank" rel="noopener" class="btn btn-primary btn-lg">🎟️ Reserve Your Free Spot</a>
-            <a href="#shows" class="btn btn-ghost">Browse Shows</a>
+            <a href="https://www.eventbrite.com/o/18875461764?utm_source=pariscomedy&utm_medium=website" target="_blank" rel="noopener" class="btn btn-primary btn-lg" data-i18n="hero.cta">🎟️ Reserve Your Free Spot</a>
+            <a href="shows.html" class="btn btn-ghost" data-i18n="hero.browse">Browse Shows</a>
         </div>
         <div class="hero-stats">
-            <div class="stat"><span class="stat-num">3</span><span class="stat-label">Shows / Wed</span></div>
-            <div class="stat"><span class="stat-num">2</span><span class="stat-label">Venues</span></div>
-            <div class="stat"><span class="stat-num">FR+EN</span><span class="stat-label">Bilingual</span></div>
+            <div class="stat"><span class="stat-num" data-i18n="stats.shows">10+</span><span class="stat-label" data-i18n="stats.showsLabel">Weekly Shows</span></div>
+            <div class="stat"><span class="stat-num" data-i18n="stats.venues">5+</span><span class="stat-label" data-i18n="stats.venuesLabel">Venues</span></div>
+            <div class="stat"><span class="stat-num" data-i18n="stats.bilingual">FR+EN</span><span class="stat-label" data-i18n="stats.bilingualLabel">Bilingual</span></div>
+            <div class="stat"><span class="stat-num" data-i18n="stats.est">~2010</span><span class="stat-label" data-i18n="stats.estLabel">Est.</span></div>
         </div>
     </div>
 </header>
 
+<!-- Featured Shows -->
 <section class="section" id="shows">
     <div class="container">
         <div class="section-head">
-            <h2 class="section-title">Our Shows</h2>
-            <p class="section-sub">Stand-up, open mics — every week at Velvet Bar & Paname</p>
+            <h2 class="section-title" data-i18n="sections.featuredShows">Featured Shows</h2>
+            <p class="section-sub" data-i18n="sections.showsSub">Stand-up, open mics — every week at venues across Paris</p>
         </div>
-        <div class="filter-bar">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="standup">Stand-Up</button>
-            <button class="filter-btn" data-filter="openmic">Open Mic</button>
+        <div class="shows-grid" id="featuredShowsGrid"></div>
+        <div style="text-align:center;margin-top:32px;">
+            <a href="shows.html" class="btn btn-ghost">View All Shows →</a>
         </div>
-        <div class="shows-grid" id="showsGrid"></div>
     </div>
 </section>
 
+<!-- Comedy Quote of the Week (William) -->
+<section class="quote-section">
+    <div class="container">
+        <h2 class="section-title" data-i18n="sections.quoteTitle" style="margin-bottom:24px;">Comedy Quote of the Week</h2>
+        <div id="quoteContainer"></div>
+    </div>
+</section>
+
+<!-- Mini Calendar -->
 <section class="section section-alt" id="calendar">
     <div class="container">
         <div class="section-head">
-            <h2 class="section-title">April 2026</h2>
-            <p class="section-sub">Tap a day to see what's on</p>
+            <h2 class="section-title" data-i18n="sections.calendar">Calendar</h2>
+            <p class="section-sub" data-i18n="sections.calendarSub">Tap a day to see what's on</p>
         </div>
         <div class="calendar-nav">
-            <span class="cal-month">April 2026</span>
+            <span class="cal-month" id="calMonthLabel"></span>
         </div>
         <div class="calendar" id="calendarGrid"></div>
         <div class="cal-legend">
@@ -84,45 +141,108 @@
     </div>
 </section>
 
-<section class="section" id="venues">
+<!-- Testimonials (Sage) -->
+<section class="section">
     <div class="container">
         <div class="section-head">
-            <h2 class="section-title">Venue Map</h2>
-            <p class="section-sub">Where the comedy happens in Paris</p>
+            <h2 class="section-title" data-i18n="sections.testimonials">What People Say</h2>
         </div>
-        <div class="map-wrapper">
-            <div class="map-container" id="mapContainer">
-                <img src="https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/pin-l-music+ff3366(2.3349,48.8821),pin-l-music+7c3aed(2.3728,48.8844)/2.35,48.87,12.5,0/1200x400@2x?access_token=pk.placeholder"
-                     alt="Map of comedy venues in Paris"
-                     class="map-fallback"
-                     onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 400%22><rect fill=%22%23191928%22 width=%221200%22 height=%22400%22/><text fill=%22%236c6c8a%22 x=%22600%22 y=%22200%22 text-anchor=%22middle%22 font-size=%2220%22>📍 Velvet Bar (Pigalle) · Paname Art Café (19th)</text></svg>'">
-                <div class="map-overlay" id="mapOverlay">
-                    <div class="venue-pins" id="venuePins"></div>
-                </div>
-            </div>
-        </div>
-        <div class="venues-list" id="venuesList"></div>
+        <div class="testimonials-grid" id="testimonialsGrid"></div>
     </div>
 </section>
 
-<div class="about-section" id="about">
-    <h2 style="font-family:var(--font-display);font-size:2.5rem;font-weight:700;margin-bottom:2rem;">About</h2>
-    <p>Paris has one of the fastest-growing live comedy scenes in Europe. Bilingual shows mixing French and English are packed every week — locals, expats, and tourists laughing together.</p>
-    <p>Whether you're looking for a night out, want to try an open mic, or just want to find the best comedy in Paris, you're in the right place.</p>
-    <div class="venues-tags">
-        <span class="venue-tag">Velvet Bar</span>
-        <span class="venue-tag">Paname Art Café</span>
+<!-- Video Section (Dom) -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-head">
+            <h2 class="section-title" data-i18n="sections.videoTitle">Latest Clips</h2>
+        </div>
+        <div class="video-grid">
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Comedy clip" loading="lazy" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Comedy clip" loading="lazy" allowfullscreen></iframe>
+            </div>
+        </div>
+        <p style="text-align:center;color:var(--text-muted);font-size:0.85rem;margin-top:20px;">📹 Replace these with your actual comedy clips!</p>
     </div>
-</div>
+</section>
+
+<!-- Book a Private Show CTA (Mitzi) -->
+<section class="section">
+    <div class="container" style="text-align:center;">
+        <h2 class="section-title" data-i18n="sections.bookCTA">Book a Private Show</h2>
+        <p class="section-sub" style="margin-bottom:24px;">Corporate events, private parties, festivals — we've got the comedians.</p>
+        <a href="book.html" class="btn btn-primary btn-lg">📧 Get in Touch</a>
+    </div>
+</section>
+
+<!-- Newsletter (Alex/Sleeper) -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="newsletter-section">
+            <h2 class="section-title" data-i18n="sections.newsletter">Get Show Alerts</h2>
+            <p class="section-sub" data-i18n="sections.newsletterSub">Weekly email with upcoming shows. No spam, just laughs.</p>
+            <form id="newsletterForm" class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="your@email.com" required>
+                <button type="submit" class="btn btn-primary" data-i18n="sections.subscribe">Subscribe</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Support the Scene (Vega) -->
+<section class="section">
+    <div class="container">
+        <div class="support-section">
+            <h2 class="section-title" data-i18n="sections.supportTitle" style="margin-bottom:12px;">Support the Scene</h2>
+            <p class="section-sub">Love Paris comedy? Help keep the shows free and the mics hot.</p>
+            <div class="support-options">
+                <button class="support-btn" onclick="alert('⚡ BTC Lightning coming soon!')">⚡ BTC Lightning</button>
+                <a href="https://www.buymeacoffee.com" target="_blank" rel="noopener" class="support-btn" style="text-decoration:none">☕ Buy Us a Coffee</a>
+            </div>
+        </div>
+    </div>
+</section>
 
 <div class="social-links">
     <a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener">📸 @french_fried_comedy</a>
-    <a href="https://www.eventbrite.com/o/18875461764" target="_blank" rel="noopener">🎟️ All Shows on Eventbrite</a>
+    <a href="https://www.eventbrite.com/o/18875461764?utm_source=pariscomedy&utm_medium=website" target="_blank" rel="noopener">🎟️ All Shows on Eventbrite</a>
 </div>
 
 <footer class="footer">
     <div class="container">
-        <p>© 2026 Paris Comedy</p>
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h4>🎤 Paris Comedy</h4>
+                <p>The Home of English-Language Comedy in Paris. Est. ~2010.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Pages</h4>
+                <a href="/">Home</a>
+                <a href="shows.html">Shows</a>
+                <a href="history.html">History</a>
+                <a href="venues.html">Venues</a>
+                <a href="book.html">Book a Show</a>
+                <a href="about.html">About</a>
+            </div>
+            <div class="footer-col">
+                <h4>Shows</h4>
+                <a href="https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747?utm_source=pariscomedy&utm_medium=website" target="_blank" rel="noopener">French Fried Comedy Night</a>
+                <a href="https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719?utm_source=pariscomedy&utm_medium=website" target="_blank" rel="noopener">Velvet Bar Comedy Night</a>
+                <a href="https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713?utm_source=pariscomedy&utm_medium=website" target="_blank" rel="noopener">Velvet Bar Open Mic</a>
+                <a href="https://www.eventbrite.com/o/18875461764?utm_source=pariscomedy&utm_medium=website" target="_blank" rel="noopener">Paname Comedy</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="mailto:booking@pariscomedy.com">booking@pariscomedy.com</a>
+                <a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener">Instagram</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Paris Comedy · Made with 🍟 in Paris</p>
+        </div>
     </div>
 </footer>
 

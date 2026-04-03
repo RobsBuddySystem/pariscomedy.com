@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Show — Paris Comedy | Perform, Hire, List</title>
+    <meta name="description" content="Book a comedian for your event. Perform at a Paris comedy night. List your English-language comedy show on pariscomedy.com.">
+    <meta property="og:title" content="Book a Show — Paris Comedy">
+    <meta property="og:description" content="Perform, hire a comedian, or list your show. Contact Paris Comedy.">
+    <meta property="og:url" content="https://pariscomedy.com/book.html">
+    <link rel="canonical" href="https://pariscomedy.com/book.html">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="book">
+
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="/" class="nav-logo"><span class="logo-icon">🎤</span><span class="logo-text">Paris <span class="logo-accent">Comedy</span></span></a>
+        <div class="nav-links" id="navLinks">
+            <a href="/" class="nav-link" data-i18n="nav.home">Home</a>
+            <a href="shows.html" class="nav-link" data-i18n="nav.shows">Shows</a>
+            <a href="/#calendar" class="nav-link" data-i18n="nav.calendar">Calendar</a>
+            <a href="history.html" class="nav-link" data-i18n="nav.history">History</a>
+            <a href="venues.html" class="nav-link" data-i18n="nav.venues">Venues</a>
+            <a href="book.html" class="nav-link nav-cta active" data-i18n="nav.book">Book a Show</a>
+            <div class="lang-switcher" id="langSwitcher">
+                <button class="lang-btn active" data-lang="en">🇬🇧</button>
+                <button class="lang-btn" data-lang="fr">🇫🇷</button>
+                <button class="lang-btn" data-lang="es">🇪🇸</button>
+            </div>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<header class="page-header">
+    <div class="page-header-content">
+        <h1 class="page-title" data-i18n="sections.bookShow">Book a Show</h1>
+        <p class="page-subtitle">Perform, hire a comedian, or list your show on pariscomedy.com</p>
+    </div>
+</header>
+
+<!-- Options Grid -->
+<section class="section">
+    <div class="container">
+        <div class="book-grid">
+            <!-- Want to Perform -->
+            <div class="book-card">
+                <div class="book-card-emoji">🎙️</div>
+                <h3 class="book-card-title" data-i18n="book.perform">Want to Perform?</h3>
+                <p class="book-card-desc" data-i18n="book.performDesc">Got 5 minutes of material and zero fear? Email us to get on a show. We run open mics every Wednesday — all levels welcome.</p>
+                <a href="mailto:booking@pariscomedy.com?subject=I%20want%20to%20perform" class="btn btn-primary">📧 Email Us</a>
+            </div>
+
+            <!-- Book a Comedian -->
+            <div class="book-card">
+                <div class="book-card-emoji">🎭</div>
+                <h3 class="book-card-title" data-i18n="book.corporate">Book a Comedian</h3>
+                <p class="book-card-desc" data-i18n="book.corporateDesc">Corporate events, private parties, festivals, team-building — we'll match you with the perfect comic. Bilingual performers available.</p>
+                <a href="mailto:booking@pariscomedy.com?subject=Book%20a%20comedian" class="btn btn-primary">📧 Get a Quote</a>
+            </div>
+
+            <!-- List Your Show -->
+            <div class="book-card">
+                <div class="book-card-emoji">📋</div>
+                <h3 class="book-card-title" data-i18n="book.list">List Your Show</h3>
+                <p class="book-card-desc" data-i18n="book.listDesc">Running an English comedy night in Paris? Get featured on pariscomedy.com — the #1 site for English comedy in Paris.</p>
+                <span class="book-card-price">€1/month</span>
+                <a href="mailto:booking@pariscomedy.com?subject=List%20my%20show" class="btn btn-ghost">📧 Get Listed</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-head">
+            <h2 class="section-title" data-i18n="book.contact">Get in Touch</h2>
+            <p class="section-sub">Or just email us directly at <a href="mailto:booking@pariscomedy.com">booking@pariscomedy.com</a></p>
+        </div>
+        <form id="contactForm" class="contact-form">
+            <div class="form-group">
+                <label data-i18n="book.name">Your Name</label>
+                <input type="text" class="form-input" required data-i18n-placeholder="book.name">
+            </div>
+            <div class="form-group">
+                <label data-i18n="book.email">Email</label>
+                <input type="email" class="form-input" required placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label data-i18n="book.message">Message</label>
+                <textarea class="form-input" required placeholder="Tell us what you need..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg" style="width:100%;" data-i18n="book.send">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+    <div class="about-content">
+        <h2 class="section-title" style="text-align:center;margin-bottom:32px;">FAQ</h2>
+
+        <h3>How do I get on the open mic?</h3>
+        <p>Show up to Velvet Bar on Wednesday at 19:00 and sign up. First come, first served. 5 minutes per comic.</p>
+
+        <h3>How much does it cost to perform?</h3>
+        <p>Nothing. All our shows are free for performers and audiences. We're in it for the laughs.</p>
+
+        <h3>Do I need to speak French?</h3>
+        <p>Nope. Our shows are in English (some are bilingual). French is a bonus, not a requirement.</p>
+
+        <h3>Can I book a comedian for my corporate event?</h3>
+        <p>Absolutely. Email <a href="mailto:booking@pariscomedy.com">booking@pariscomedy.com</a> with your event details and we'll match you with the right comic.</p>
+
+        <h3>I run a comedy show in Paris. Can I get listed?</h3>
+        <p>Yes! We want pariscomedy.com to be the complete guide to English comedy in Paris. Email us to get featured.</p>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h4>🎤 Paris Comedy</h4>
+                <p>The Home of English-Language Comedy in Paris. Est. ~2010.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Pages</h4>
+                <a href="/">Home</a>
+                <a href="shows.html">Shows</a>
+                <a href="history.html">History</a>
+                <a href="venues.html">Venues</a>
+                <a href="book.html">Book a Show</a>
+                <a href="about.html">About</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="mailto:booking@pariscomedy.com">booking@pariscomedy.com</a>
+                <a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener">Instagram</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Paris Comedy · Made with 🍟 in Paris</p>
+        </div>
+    </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
