@@ -70,7 +70,11 @@ function initNav() {
 /* ─── Page-specific init ─── */
 function initPage() {
     const page = document.body.dataset.page || 'home';
-    if (page === 'home') { renderFeaturedShows(); renderCalendar(); renderQuote(); renderTestimonials(); }
+    if (page === 'home') {
+        // English: calendar first, then shows. French: shows first (Velvet focused)
+        if (currentLang !== 'fr') { moveCalendarFirst(); }
+        renderFeaturedShows(); renderCalendar(); renderQuote(); renderTestimonials();
+    }
     if (page === 'shows') { renderAllShows(); renderOtherShows(); initFilters(); }
     if (page === 'venues') { renderVenueMap(); renderVenueCards(); }
     if (page === 'history') { renderTimeline(); renderKeyPlayers(); renderNotableVisitors(); }
@@ -104,7 +108,27 @@ function renderShowCard(show) {
 function renderFeaturedShows() {
     const grid = document.getElementById('featuredShowsGrid');
     if (!grid) return;
-    grid.innerHTML = SHOWS.filter(s => s.featured).map(renderShowCard).join('');
+    let shows = [...SHOWS];
+    if (currentLang === 'fr') {
+        // French page: Velvet shows first (the venue shows), then FFCN
+        shows.sort((a,b) => {
+            if (a.id === 'velvet-comedy') return -1;
+            if (b.id === 'velvet-comedy') return 1;
+            if (a.id === 'velvet-openmic') return -1;
+            if (b.id === 'velvet-openmic') return 1;
+            return 0;
+        });
+    } else {
+        // English page: FFCN first, then other shows
+        shows.sort((a,b) => {
+            if (a.id === 'ffcn') return -1;
+            if (b.id === 'ffcn') return 1;
+            if (a.featured && !b.featured) return -1;
+            if (!a.featured && b.featured) return 1;
+            return 0;
+        });
+    }
+    grid.innerHTML = shows.filter(s => s.featured || currentLang === 'fr').map(renderShowCard).join('');
 }
 
 function renderAllShows(filter = 'all') {
@@ -118,11 +142,11 @@ function renderOtherShows() {
     const container = document.getElementById('otherShowsList');
     if (!container || typeof OTHER_SHOWS === 'undefined') return;
     container.innerHTML = OTHER_SHOWS.map(show => `
-        <div class="other-show-card${show.placeholder ? ' placeholder-card' : ''}">
+        <div class="other-show-card${!show.paid ? ' placeholder-card' : ''}">
             <div class="other-show-name">${show.emoji || '🎤'} ${show.name}</div>
-            <div class="other-show-venue">📍 ${show.venueName || show.venue} · ${show.day}${show.time ? ' · '+show.time : ''}</div>
+            <div class="other-show-venue">📍 ${show.venueName} · ${show.day}${show.time ? ' · '+show.time : ''}</div>
             <div class="other-show-desc">${show.description}</div>
-            ${show.placeholder ? '<div class="other-show-cta"><span class="placeholder-badge">📋 Not yet listed</span> <a href="book.html" class="other-show-link">Claim this listing →</a></div>' : ''}
+            ${show.paid && show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link" style="display:inline-block;margin-top:8px;">🎟️ Reserve Your Spot →</a>` : '<div class="other-show-cta"><span class="placeholder-badge">📋 Not yet listed</span> <a href="book.html" class="other-show-link">Get listed for €1/month →</a></div>'}
         </div>
     `).join('');
 }
@@ -299,6 +323,17 @@ function renderTestimonials() {
             </div>
         </div>
     `).join('');
+}
+
+/* ─── Section Reordering ─── */
+function moveCalendarFirst() {
+    const calSection = document.getElementById('calendar');
+    const howSection = document.querySelector('.how-it-works')?.closest('.section');
+    const showsSection = document.getElementById('shows');
+    if (calSection && showsSection) {
+        // Move calendar before the shows section
+        showsSection.parentNode.insertBefore(calSection, showsSection);
+    }
 }
 
 /* ─── Hero Particles ─── */

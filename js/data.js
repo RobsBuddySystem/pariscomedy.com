@@ -8,7 +8,7 @@ const VENUES = [
     { id:'paname', name:'Paname Art Café', address:'2bis Quai de la Loire, 75019 Paris', neighborhood:'Canal Saint-Martin (19th)', lat:48.8844, lng:2.3728, mapX:72, mapY:18, listed:true, description:'A legendary venue overlooking Canal Saint-Martin. Live comedy, music, and art in one of Paris\'s most creative spaces.', metro:'Jaurès (M2/M5/M7bis)' },
     { id:'frog-princess', name:'The Frog Princess', address:'9 Rue Princesse, 75006 Paris', neighborhood:'Saint-Germain (6th)', lat:48.8530, lng:2.3370, mapX:46, mapY:60, listed:false, description:'English pub in the heart of Saint-Germain. Hosts regular comedy nights in English.', metro:'Mabillon (M10)' },
     { id:'backstage', name:'Backstage Café', address:'22 Rue Oberkampf, 75011 Paris', neighborhood:'Oberkampf (11th)', lat:48.8654, lng:2.3758, mapX:73, mapY:40, listed:false, description:'A cozy café and live performance space on the vibrant Rue Oberkampf.', metro:'Oberkampf (M5/M9)' },
-    { id:'sogymnase', name:'SoGymnase Comedy Club', address:'38 Boulevard Bonne Nouvelle, 75010 Paris', neighborhood:'Grands Boulevards (10th)', lat:48.8708, lng:2.3491, mapX:55, mapY:32, listed:false, description:'The historic comedy club where Seb Marx launched English-language comedy in Paris. A piece of history.', metro:'Bonne Nouvelle (M8/M9)' },
+    { id:'sogymnase', name:'SoGymnase Comedy Club', address:'38 Boulevard Bonne Nouvelle, 75010 Paris', neighborhood:'Grands Boulevards (10th)', lat:48.8708, lng:2.3491, mapX:55, mapY:32, listed:false, description:'The historic comedy club where Seb Marx launched English-language comedy in Paris. A piece of history.', metro:'Bonne Nouvelle (M8/M9)', historic:true },
     { id:'theatre-bo', name:'Théâtre BO Saint-Martin', address:'19 Boulevard Saint-Martin, 75003 Paris', neighborhood:'République (3rd)', lat:48.8680, lng:2.3540, mapX:58, mapY:35, listed:false, description:'A proper theatre hosting English-language specials and touring acts. Sarah Donnelly\'s home stage.', metro:'République (M3/M5/M8/M9/M11)' },
     { id:'hows-bar', name:"How's Bar", address:'15 Rue Boyer, 75020 Paris', neighborhood:'Ménilmontant (20th)', lat:48.8680, lng:2.3900, mapX:81, mapY:35, listed:false, description:'A neighborhood bar in the 20th with a growing comedy night.', metro:'Ménilmontant (M2)' },
     { id:'green-linnet', name:'The Green Linnet', address:'32 Rue Léon, 75018 Paris', neighborhood:'Goutte d\'Or (18th)', lat:48.8870, lng:2.3530, mapX:57, mapY:15, listed:false, description:'An Irish pub in the 18th hosting English-language open mics.', metro:'Château Rouge (M4)' },
@@ -38,15 +38,14 @@ const SHOWS = [
       bookingUrl:'https://www.eventbrite.com/o/18875461764' + UTM, featured:false }
 ];
 
+/* Other shows — from englishcomedyparis.com verified list. No ticket links unless paid. */
 const OTHER_SHOWS = [
-    { name:'Blast Off Comedy', venueName:'Backstage Café', day:'Thursday', time:'20:00', type:'standup', emoji:'🚀', description:'High-energy English stand-up every Thursday in Oberkampf.', placeholder:true },
-    { name:'Choumi Comedy Club', venueName:'Le Petit Palais de la Comédie', day:'Friday', time:'21:00', type:'standup', emoji:'🎭', description:'Premium Friday night English comedy with curated international lineups.', placeholder:true },
-    { name:'Comedy Crush', venueName:'Velvet Bar', day:'Saturday', time:'20:30', type:'standup', emoji:'💥', description:'Saturday night English stand-up in Pigalle. Intimate, electric.', placeholder:true },
-    { name:'Comedy Lab', venueName:"How's Bar", day:'Tuesday', time:'20:00', type:'openmic', emoji:'🧪', description:'English open mic night — the lab where new material gets tested.', placeholder:true },
-    { name:'Coucou Comedy', venueName:'The Green Linnet', day:'Monday', time:'20:00', type:'openmic', emoji:'👋', description:'Friendly English open mic to start the week. Perfect for first-timers.', placeholder:true },
-    { name:'Build-a-Blockbuster Improv', venueName:'Théâtre BO', day:'Sunday', time:'19:00', type:'openmic', emoji:'🎬', description:'Audience-powered improv comedy — different every time.', placeholder:true },
-    { name:'SoGymnase English Night', venueName:'SoGymnase Comedy Club', day:'Various', time:'Various', type:'standup', emoji:'🏛️', description:'The historic venue where English comedy in Paris began.', placeholder:true },
-    { name:'Comedy at the Frog', venueName:'The Frog Princess', day:'Various', time:'Various', type:'standup', emoji:'🐸', description:'English comedy at the legendary Frog pubs of Paris.', placeholder:true }
+    { name:'Blast Off Comedy', venueName:'Backstage Café', day:'Thursday', time:'20:00', type:'standup', emoji:'🚀', description:'High-energy English stand-up every Thursday in Oberkampf.', paid:false },
+    { name:'Choumi Comedy Club', venueName:'Le Petit Palais de la Comédie', day:'Friday', time:'21:00', type:'standup', emoji:'🎭', description:'Premium Friday night English comedy with curated international lineups.', paid:false },
+    { name:'Comedy Crush', venueName:'Velvet Bar', day:'Saturday', time:'20:30', type:'standup', emoji:'💥', description:'Saturday night English stand-up in Pigalle. Intimate, electric.', paid:false },
+    { name:'Comedy Lab', venueName:"How's Bar", day:'Tuesday', time:'20:00', type:'openmic', emoji:'🧪', description:'English open mic night — the lab where new material gets tested.', paid:false },
+    { name:'Coucou Comedy', venueName:'The Green Linnet', day:'Monday', time:'20:00', type:'openmic', emoji:'👋', description:'Friendly English open mic to start the week. Perfect for first-timers.', paid:false },
+    { name:'Build-a-Blockbuster Improv', venueName:'Théâtre BO Saint-Martin', day:'Sunday', time:'19:00', type:'improv', emoji:'🎬', description:'Audience-powered improv comedy — different every time.', paid:false }
 ];
 
 const KEY_PLAYERS = [

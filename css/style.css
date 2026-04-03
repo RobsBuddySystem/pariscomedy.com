@@ -442,3 +442,7 @@ textarea.form-input{min-height:120px;resize:vertical}
 @media(prefers-reduced-motion:reduce){
     *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
 }
+
+/* Venue maps responsive */
+#venueMapGrid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:768px){#venueMapGrid{grid-template-columns:1fr}}

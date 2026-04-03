@@ -59,25 +59,30 @@
 <!-- Map Section (Hal: OpenStreetMap) -->
 <section class="section">
     <div class="container">
-        <div class="map-wrapper">
-            <div class="map-container" id="mapContainer" style="background:#191928;position:relative;height:500px;">
-                <!-- CSS-based Paris map with Seine curve -->
-                <svg viewBox="0 0 100 100" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.15;" preserveAspectRatio="none">
-                    <path d="M0,52 Q15,55 25,50 Q35,45 45,48 Q55,52 65,48 Q75,44 85,47 Q95,50 100,48" fill="none" stroke="#4488ff" stroke-width="1.5"/>
-                    <text x="50" y="96" text-anchor="middle" fill="#6c6c8a" font-size="3" font-family="Inter,sans-serif">PARIS</text>
-                    <!-- Arrondissement labels -->
-                    <text x="30" y="25" fill="#363650" font-size="2.5">18e</text>
-                    <text x="52" y="22" fill="#363650" font-size="2.5">19e</text>
-                    <text x="75" y="30" fill="#363650" font-size="2.5">20e</text>
-                    <text x="40" y="38" fill="#363650" font-size="2.5">9e</text>
-                    <text x="55" y="38" fill="#363650" font-size="2.5">10e</text>
-                    <text x="70" y="42" fill="#363650" font-size="2.5">11e</text>
-                    <text x="55" y="48" fill="#363650" font-size="2.5">3e</text>
-                    <text x="38" y="60" fill="#363650" font-size="2.5">6e</text>
-                </svg>
-                <div class="map-overlay" id="mapOverlay">
-                    <div class="venue-pins" id="venuePins"></div>
+        <!-- Google Maps with all venues -->
+        <div class="map-wrapper" style="border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);margin-bottom:24px;">
+            <iframe
+                src="https://www.google.com/maps/d/u/0/embed?mid=YOUR_MAP_ID&ehbc=2E312F"
+                style="display:none;"
+                width="100%" height="450" frameborder="0">
+            </iframe>
+            <!-- Fallback: individual venue maps side by side -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;" id="venueMapGrid">
+                <div style="position:relative;">
+                    <div style="position:absolute;top:12px;left:12px;z-index:10;background:var(--accent);color:#fff;padding:6px 14px;border-radius:20px;font-size:0.8rem;font-weight:600;">📍 Velvet Bar — Pigalle</div>
+                    <iframe src="https://maps.google.com/maps?q=39+Rue+de+Douai+75009+Paris&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="400" style="border:0;filter:grayscale(0.5) invert(0.92) hue-rotate(180deg);" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
+                <div style="position:relative;">
+                    <div style="position:absolute;top:12px;left:12px;z-index:10;background:var(--purple);color:#fff;padding:6px 14px;border-radius:20px;font-size:0.8rem;font-weight:600;">📍 Paname Art Café — 19th</div>
+                    <iframe src="https://maps.google.com/maps?q=2bis+Quai+de+la+Loire+75019+Paris&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="400" style="border:0;filter:grayscale(0.5) invert(0.92) hue-rotate(180deg);" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+        <!-- All venues overview map -->
+        <div class="map-wrapper" style="border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);margin-bottom:36px;">
+            <div style="position:relative;">
+                <div style="position:absolute;top:12px;left:12px;z-index:10;background:var(--surface);color:var(--text);padding:8px 16px;border-radius:20px;font-size:0.85rem;font-weight:600;border:1px solid var(--border);">🗺️ All Comedy Venues in Paris</div>
+                <iframe src="https://maps.google.com/maps?q=comedy+venues+Pigalle+Paris&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="350" style="border:0;filter:grayscale(0.5) invert(0.92) hue-rotate(180deg);" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>
