@@ -352,3 +352,93 @@ textarea.form-input{min-height:120px;resize:vertical}
 
 /* Venues list as grid */
 .venues-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+
+/* ═══════════════════════════════════════════
+   WOW FACTOR ANIMATIONS
+   ═══════════════════════════════════════════ */
+
+/* Animated gradient hero background */
+.hero-bg{background:radial-gradient(ellipse 80% 60% at 50% 20%,var(--accent-glow) 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 30% 80%,var(--purple-glow) 0%,transparent 70%);animation:heroPulse 8s ease-in-out infinite alternate}
+@keyframes heroPulse{0%{opacity:0.7;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}100%{opacity:0.7;transform:scale(1)}}
+
+/* Floating emoji particles in hero */
+.hero-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.particle{position:absolute;font-size:1.5rem;opacity:0.15;animation:particleFloat linear infinite}
+@keyframes particleFloat{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:0.15}90%{opacity:0.15}100%{transform:translateY(-10vh) rotate(360deg);opacity:0}}
+
+/* Glowing accent on featured cards */
+.show-card:hover,.venue-card-featured:hover{box-shadow:0 0 30px var(--accent-glow),0 8px 32px rgba(0,0,0,0.4)}
+
+/* Animated counter numbers */
+.stat-num{display:inline-block;animation:countPop 0.6s ease both}
+@keyframes countPop{0%{transform:scale(0.5);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+
+/* Staggered card entrance */
+.show-card:nth-child(1){animation-delay:0s}
+.show-card:nth-child(2){animation-delay:0.08s}
+.show-card:nth-child(3){animation-delay:0.16s}
+.show-card:nth-child(4){animation-delay:0.24s}
+
+/* Scroll-triggered fade-up */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* Animated typing effect for hero subtitle */
+.typing-cursor::after{content:'|';animation:blink 1s step-end infinite;color:var(--accent)}
+@keyframes blink{50%{opacity:0}}
+
+/* Pulsing CTA button */
+.btn-primary{position:relative;overflow:hidden}
+.btn-primary::before{content:'';position:absolute;inset:-2px;background:linear-gradient(135deg,var(--accent),var(--purple),var(--accent));border-radius:inherit;z-index:-1;opacity:0;transition:opacity 0.3s;animation:btnGlow 3s ease-in-out infinite}
+.btn-primary:hover::before{opacity:1}
+@keyframes btnGlow{0%,100%{opacity:0.3}50%{opacity:0.7}}
+
+/* Animated timeline line */
+.timeline::before{background:linear-gradient(180deg,var(--accent),var(--purple),var(--accent));background-size:200% 200%;animation:timelineFlow 4s ease infinite}
+@keyframes timelineFlow{0%{background-position:0% 0%}50%{background-position:0% 100%}100%{background-position:0% 0%}}
+
+/* Player card hover flip-up effect */
+.player-card{transition:transform 0.4s cubic-bezier(0.23,1,0.32,1),box-shadow 0.4s ease}
+.player-card:hover{transform:translateY(-8px) rotateX(2deg)}
+
+/* Map pin bounce */
+.venue-pin{animation:pinBounce 2s ease infinite}
+@keyframes pinBounce{0%,100%{transform:rotate(-45deg) translate(-50%,-50%)}50%{transform:rotate(-45deg) translate(-50%,calc(-50% - 4px))}}
+.venue-pin:hover{animation:none;transform:rotate(-45deg) translate(-50%,-50%) scale(1.3)}
+
+/* Smooth scroll indicator */
+.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);animation:scrollBounce 2s ease-in-out infinite}
+@keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+/* Neon text glow on hover for section titles */
+.section-title{transition:text-shadow 0.3s ease}
+.section-title:hover{text-shadow:0 0 20px var(--accent-glow),0 0 40px var(--accent-glow)}
+
+/* Testimonial card slide-in */
+.testimonial-card{opacity:0;transform:translateX(-20px);transition:all 0.5s ease}
+.testimonial-card.visible{opacity:1;transform:translateX(0)}
+.testimonial-card:nth-child(2){transition-delay:0.1s}
+.testimonial-card:nth-child(3){transition-delay:0.2s}
+.testimonial-card:nth-child(4){transition-delay:0.3s}
+.testimonial-card:nth-child(5){transition-delay:0.4s}
+
+/* Sparkle on hover for venue tags */
+.visitor-tag{position:relative;overflow:hidden}
+.visitor-tag::after{content:'✨';position:absolute;right:-20px;top:50%;transform:translateY(-50%);transition:right 0.3s ease;opacity:0}
+.visitor-tag:hover::after{right:8px;opacity:1}
+.visitor-tag:hover{padding-right:28px}
+
+/* Smooth gradient border animation on featured cards */
+.venue-card-featured{background:var(--bg-card);position:relative}
+.venue-card-featured::before{content:'';position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(135deg,var(--accent),var(--purple),var(--accent));background-size:200% 200%;z-index:-1;animation:gradientBorder 3s ease infinite;border-radius:var(--radius)}
+@keyframes gradientBorder{0%{background-position:0% 0%}50%{background-position:100% 100%}100%{background-position:0% 0%}}
+
+/* Micro-interaction: hat emoji wobble on show cards */
+.show-card-badge:last-child{transition:transform 0.3s ease}
+.show-card:hover .show-card-badge:last-child{animation:hatWobble 0.5s ease}
+@keyframes hatWobble{0%{transform:rotate(0)}25%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}75%{transform:rotate(-5deg)}100%{transform:rotate(0)}}
+
+/* Reduced motion for accessibility */
+@media(prefers-reduced-motion:reduce){
+    *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
+}

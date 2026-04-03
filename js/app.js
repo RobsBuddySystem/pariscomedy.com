@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initLanguage();
     initNav();
     initPage();
+    initParticles();
+    initScrollAnimations();
     initEasterEggs();
 });
 
@@ -297,6 +299,38 @@ function renderTestimonials() {
             </div>
         </div>
     `).join('');
+}
+
+/* ─── Hero Particles ─── */
+function initParticles() {
+    const container = document.getElementById('heroParticles');
+    if (!container) return;
+    const emojis = ['🎤','🍟','😂','🎭','🇫🇷','⭐','🎪','🎵','🎬','🥐','🗼','🎩'];
+    for (let i = 0; i < 15; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (8 + Math.random() * 12) + 's';
+        p.style.animationDelay = (Math.random() * 10) + 's';
+        p.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+        container.appendChild(p);
+    }
+}
+
+/* ─── Scroll Animations ─── */
+function initScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.show-card, .venue-card, .testimonial-card, .how-step, .player-card, .timeline-item, .faq-item, .other-show-card').forEach(el => {
+        el.classList.add('fade-up');
+        observer.observe(el);
+    });
 }
 
 /* ─── Easter Eggs (Leylo approved 🥚) ─── */

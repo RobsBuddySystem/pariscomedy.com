@@ -83,10 +83,28 @@
 
 <header class="hero">
     <div class="hero-bg"></div>
+    <div class="hero-particles" id="heroParticles"></div>
     <div class="hero-content">
         <p class="hero-tag" data-i18n="hero.tag">🇫🇷 Bilingual comedy every week in Paris</p>
         <h1 class="hero-title" data-i18n="hero.title">Paris <span class="gradient-text">Comedy</span></h1>
         <p class="hero-subtitle" data-i18n="hero.subtitle">The Home of English-Language Comedy in Paris</p>
+        <!-- Animated microphone SVG -->
+        <div style="margin:20px auto;width:60px;height:60px;">
+            <svg viewBox="0 0 100 100" style="width:60px;height:60px;">
+                <circle cx="50" cy="30" r="18" fill="none" stroke="#ff3366" stroke-width="3" opacity="0.8">
+                    <animate attributeName="r" values="18;20;18" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <rect x="46" y="48" width="8" height="25" rx="3" fill="#ff3366" opacity="0.8"/>
+                <path d="M35,70 Q50,82 65,70" fill="none" stroke="#ff3366" stroke-width="3" opacity="0.6"/>
+                <!-- Sound waves -->
+                <path d="M75,20 Q82,30 75,40" fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.4">
+                    <animate attributeName="opacity" values="0.4;0.1;0.4" dur="1.5s" repeatCount="indefinite"/>
+                </path>
+                <path d="M82,15 Q92,30 82,45" fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.25">
+                    <animate attributeName="opacity" values="0.25;0.05;0.25" dur="1.5s" repeatCount="indefinite" begin="0.3s"/>
+                </path>
+            </svg>
+        </div>
         <p class="hero-sub" data-i18n="hero.desc">Live stand-up in French & English. Open mics, showcases, and the legendary French Fried Comedy Night. Every week across Paris.</p>
         <p class="hero-info" style="color:var(--text-muted);font-size:0.95rem;margin-bottom:24px;">🎟️ Free entry · 🍺 One drink minimum · 🎩 Pass the hat for the performers</p>
         <div class="hero-actions">
@@ -101,6 +119,19 @@
         </div>
     </div>
 </header>
+
+<!-- Animated SVG divider -->
+<div style="text-align:center;padding:20px 0;overflow:hidden;">
+    <svg viewBox="0 0 1200 40" style="width:100%;max-width:1200px;height:40px;" preserveAspectRatio="none">
+        <path d="M0,20 Q100,0 200,20 Q300,40 400,20 Q500,0 600,20 Q700,40 800,20 Q900,0 1000,20 Q1100,40 1200,20" fill="none" stroke="url(#waveGrad)" stroke-width="2" opacity="0.3">
+            <animate attributeName="d" dur="6s" repeatCount="indefinite"
+                values="M0,20 Q100,0 200,20 Q300,40 400,20 Q500,0 600,20 Q700,40 800,20 Q900,0 1000,20 Q1100,40 1200,20;
+                        M0,20 Q100,40 200,20 Q300,0 400,20 Q500,40 600,20 Q700,0 800,20 Q900,40 1000,20 Q1100,0 1200,20;
+                        M0,20 Q100,0 200,20 Q300,40 400,20 Q500,0 600,20 Q700,40 800,20 Q900,0 1000,20 Q1100,40 1200,20"/>
+        </path>
+        <defs><linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ff3366"/><stop offset="100%" style="stop-color:#7c3aed"/></linearGradient></defs>
+    </svg>
+</div>
 
 <!-- How It Works -->
 <section class="section">
@@ -191,14 +222,25 @@
             <h2 class="section-title" data-i18n="sections.videoTitle">Latest Clips</h2>
         </div>
         <div class="video-grid">
-            <div class="video-card">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Comedy clip" loading="lazy" allowfullscreen></iframe>
+            <div class="video-card" style="display:flex;align-items:center;justify-content:center;background:var(--surface);min-height:250px;">
+                <div style="text-align:center;padding:32px;">
+                    <div style="font-size:3rem;margin-bottom:16px;">🎬</div>
+                    <p style="font-family:var(--font-display);font-size:1.2rem;font-weight:600;margin-bottom:8px;">Comedy clips coming soon</p>
+                    <p style="color:var(--text-muted);font-size:0.9rem;">The best moments from Paris Comedy stages — filmed, edited, and ready to make you laugh before you even show up.</p>
+                </div>
             </div>
-            <div class="video-card">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Comedy clip" loading="lazy" allowfullscreen></iframe>
+            <div class="video-card" style="display:flex;align-items:center;justify-content:center;background:var(--surface);min-height:250px;">
+                <div style="text-align:center;padding:32px;">
+                    <svg viewBox="0 0 120 80" style="width:120px;height:80px;margin:0 auto 16px;">
+                        <rect x="5" y="5" width="110" height="65" rx="8" fill="none" stroke="var(--border)" stroke-width="2"/>
+                        <polygon points="48,25 48,55 72,40" fill="var(--accent)" opacity="0.6">
+                            <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                        </polygon>
+                    </svg>
+                    <p style="color:var(--text-muted);font-size:0.9rem;">Follow <a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener" style="color:var(--accent);">@french_fried_comedy</a> for clips now</p>
+                </div>
             </div>
         </div>
-        <p style="text-align:center;color:var(--text-muted);font-size:0.85rem;margin-top:20px;">📹 Replace these with your actual comedy clips!</p>
     </div>
 </section>
 
