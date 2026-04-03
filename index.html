@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paris Comedy — Live Stand-Up in Paris</title>
+    <meta name="description" content="Live bilingual stand-up comedy in Paris. French & English shows, open mics, and showcases. French Fried Comedy Night, Velvet Bar, and more.">
+    <meta property="og:title" content="Paris Comedy — Live Stand-Up in Paris">
+    <meta property="og:description" content="Bilingual comedy in Paris. FR/EN shows, open mics, and showcases.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pariscomedy.com">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0a; --text: #f5f5f5; --accent: #ff3366;
+            --accent2: #7c3aed; --muted: #888; --card-bg: #141414;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 2rem; position: relative;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,51,102,0.15) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 50%, rgba(124,58,237,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.5rem;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero .subtitle { font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: var(--muted); max-width: 600px; margin-bottom: 2.5rem; }
+        .hero .emoji-hero { font-size: 4rem; margin-bottom: 2rem; }
+        .cta-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        .btn { display: inline-block; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(255,51,102,0.3); }
+        .btn-outline { border: 2px solid var(--muted); color: var(--text); }
+        .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+        section { max-width: 900px; margin: 0 auto; padding: 5rem 2rem; }
+        h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; margin-bottom: 2rem; font-weight: 700; }
+        .shows { display: grid; gap: 1.5rem; }
+        .show-card {
+            background: var(--card-bg); border: 1px solid #222; border-radius: 16px;
+            padding: 2rem; display: flex; justify-content: space-between; align-items: center;
+            transition: border-color 0.3s;
+        }
+        .show-card:hover { border-color: var(--accent); }
+        .show-info h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; margin-bottom: 0.3rem; }
+        .show-info p { color: var(--muted); }
+        .show-date { text-align: right; font-family: 'Space Grotesk', sans-serif; }
+        .show-date .day { font-size: 2rem; font-weight: 700; color: var(--accent); }
+        .show-date .month { color: var(--muted); text-transform: uppercase; font-size: 0.9rem; }
+        .about-section { max-width: 700px; margin: 0 auto; padding: 5rem 2rem; }
+        .about-section p { color: var(--muted); margin-bottom: 1.5rem; font-size: 1.1rem; }
+        .venues { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem; justify-content: center; }
+        .venue-tag { background: var(--card-bg); border: 1px solid #333; padding: 0.5rem 1.2rem; border-radius: 50px; font-size: 0.95rem; color: var(--muted); }
+        .social-links { display: flex; gap: 2rem; justify-content: center; padding: 4rem 2rem; }
+        .social-links a { color: var(--muted); text-decoration: none; font-size: 1.1rem; transition: color 0.3s; }
+        .social-links a:hover { color: var(--accent); }
+        footer { text-align: center; padding: 2rem; color: #444; font-size: 0.9rem; }
+        .quote-section { text-align: center; padding: 6rem 2rem; }
+        .quote-section blockquote { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 600; font-style: italic; max-width: 700px; margin: 0 auto; line-height: 1.4; }
+        .quote-section .attribution { color: var(--muted); margin-top: 1rem; }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="emoji-hero">🎤🇫🇷</div>
+    <h1>Paris <span>Comedy</span></h1>
+    <p class="subtitle">Live bilingual stand-up comedy in Paris. Shows in French & English. Come laugh with us.</p>
+    <div class="cta-group">
+        <a href="#shows" class="btn btn-primary">See Upcoming Shows</a>
+        <a href="#about" class="btn btn-outline">About</a>
+    </div>
+</div>
+
+<div class="quote-section">
+    <blockquote>"Moving to Paris to follow your dreams sounds romantic — until your landlord tells you the apartment has 'character.' That means the shower is in the kitchen."</blockquote>
+</div>
+
+<section id="shows">
+    <h2>Upcoming Shows</h2>
+    <div class="shows">
+        <div class="show-card">
+            <div class="show-info">
+                <h3>🍟 French Fried Comedy Night</h3>
+                <p>Bilingual comedy showcase — the best American and French comics on one stage. English & French, same night.</p>
+            </div>
+            <div class="show-date">
+                <div class="day">FFCN</div>
+                <div class="month">Monthly</div>
+            </div>
+        </div>
+        <div class="show-card">
+            <div class="show-info">
+                <h3>🎭 Velvet Comedy Night</h3>
+                <p>Intimate stand-up at Velvet Bar. Up-close, unpredictable, unforgettable.</p>
+            </div>
+            <div class="show-date">
+                <div class="day">Velvet</div>
+                <div class="month">Regular</div>
+            </div>
+        </div>
+        <div class="show-card">
+            <div class="show-info">
+                <h3>🎙️ Open Mics & Showcases</h3>
+                <p>Paname Art Café, Green Mic Comedy, and more. Paris has a comedy scene — and it's growing fast.</p>
+            </div>
+            <div class="show-date">
+                <div class="day">Weekly</div>
+                <div class="month">Various</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="about-section" id="about">
+    <h2>About Paris Comedy</h2>
+    <p>Paris has one of the fastest-growing live comedy scenes in Europe. Bilingual shows mixing French and English are packed every week — locals, expats, and tourists laughing together.</p>
+    <p>Whether you're looking for a night out, want to try an open mic, or just want to find the best comedy in Paris, you're in the right place.</p>
+    <h3 style="margin-bottom: 1rem; color: var(--muted); text-align: center;">Venues We Love</h3>
+    <div class="venues">
+        <span class="venue-tag">Paname Art Café</span>
+        <span class="venue-tag">Velvet Bar</span>
+        <span class="venue-tag">Green Mic Comedy</span>
+        <span class="venue-tag">French Fried Comedy Night</span>
+        <span class="venue-tag">Frog & Princess</span>
+        <span class="venue-tag">SoGymnase</span>
+    </div>
+</div>
+
+<div class="social-links">
+    <a href="https://www.instagram.com/french_fried_comedy/">📸 Instagram</a>
+</div>
+
+<footer>
+    <p>© 2026 Paris Comedy</p>
+</footer>
+
+</body>
+</html>
