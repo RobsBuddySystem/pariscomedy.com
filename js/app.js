@@ -77,7 +77,7 @@ function initPage() {
         if (currentLang !== 'fr') { moveCalendarFirst(); }
         renderFeaturedShows(); renderCalendar(); renderQuote(); renderUntranslatable(); renderTestimonials(); renderGrowthChart();
     }
-    if (page === 'shows') { renderAllShows(); renderOtherShows(); initFilters(); renderThisWeek(); }
+    if (page === 'shows') { renderAllShows(); renderOtherShows(); initFilters(); initDayFilter(); renderThisWeek(); }
     if (page === 'venues') { renderVenueMap(); renderVenueCards(); }
     if (page === 'history') { renderTimeline(); renderKeyPlayers(); renderNotableVisitors(); }
 }
@@ -207,10 +207,25 @@ function renderAllShows(filter = 'all') {
     if (window._revealInit) window._revealInit(grid);
 }
 
-function renderOtherShows() {
+function renderOtherShows(dayFilter) {
     const container = document.getElementById('otherShowsList');
     if (!container || typeof OTHER_SHOWS === 'undefined') return;
-    container.innerHTML = OTHER_SHOWS.map(show => `
+    let shows = OTHER_SHOWS;
+    if (dayFilter && dayFilter !== 'all') {
+        shows = OTHER_SHOWS.filter(s => {
+            const days = Array.isArray(s.day) ? s.day : [s.day];
+            return days.includes(dayFilter) || s.day === 'daily';
+        });
+    }
+    if (shows.length === 0) {
+        container.innerHTML = `<div style="text-align:center;padding:40px 20px;color:var(--text-muted);grid-column:1/-1;">
+            <p style="font-size:1.1rem;margin-bottom:12px;">No shows listed for ${dayFilter} yet.</p>
+            <a href="book.html" class="btn btn-primary" style="font-size:0.9rem;">List Your Show →</a>
+        </div>`;
+        if (window._revealInit) window._revealInit(container);
+        return;
+    }
+    container.innerHTML = shows.map(show => `
         <div class="other-show-card${!show.paid ? ' placeholder-card' : ''}" data-reveal>
             <div class="other-show-name">${show.emoji || '🎤'} ${show.name}</div>
             <div class="other-show-venue">📍 ${show.venueName} · ${Array.isArray(show.day) ? show.day.join(' & ') : show.day}${show.time ? ' · '+show.time : ''}</div>
@@ -219,6 +234,33 @@ function renderOtherShows() {
         </div>
     `).join('');
     if (window._revealInit) window._revealInit(container);
+}
+
+function initDayFilter() {
+    const bar = document.getElementById('dayFilterBar');
+    if (!bar) return;
+    // Auto-highlight today's day on page load
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const todayName = days[new Date().getDay()];
+    const todayBtn = bar.querySelector(`[data-day="${todayName}"]`);
+    if (todayBtn) {
+        todayBtn.style.borderColor = 'var(--accent-secondary, #f472b6)';
+        todayBtn.style.color = 'var(--accent-secondary, #f472b6)';
+        todayBtn.title = 'Today!';
+    }
+    bar.addEventListener('click', e => {
+        const btn = e.target.closest('.day-filter-btn');
+        if (!btn) return;
+        bar.querySelectorAll('.day-filter-btn').forEach(b => {
+            b.style.background = 'transparent';
+            b.style.color = 'var(--text-muted)';
+            b.style.borderColor = 'var(--border)';
+        });
+        btn.style.background = 'var(--accent)';
+        btn.style.color = '#fff';
+        btn.style.borderColor = 'var(--accent)';
+        renderOtherShows(btn.dataset.day);
+    });
 }
 
 function initFilters() {
