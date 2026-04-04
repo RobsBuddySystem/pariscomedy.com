@@ -363,12 +363,18 @@ function renderKeyPlayers() {
                   : currentLang === 'es' ? (player.bioEs||player.bio)
                   : currentLang === 'de' ? (player.bioDe||player.bio)
                   : player.bio;
+        const socialLinks = [];
+        if (player.instagram) socialLinks.push(`<a href="${player.instagram}" target="_blank" rel="noopener" class="player-social" aria-label="${player.name} on Instagram">📸 Follow</a>`);
+        if (player.youtube) socialLinks.push(`<a href="${player.youtube}" target="_blank" rel="noopener" class="player-social" aria-label="${player.name} on YouTube">▶️ Watch</a>`);
+        if (player.wikipedia) socialLinks.push(`<a href="${player.wikipedia}" target="_blank" rel="noopener" class="player-social" aria-label="${player.name} on Wikipedia">📖 Bio</a>`);
+        const socialHtml = socialLinks.length ? `<div class="player-socials">${socialLinks.join('')}</div>` : '';
         return `
         <div class="player-card" data-reveal data-reveal-delay="${idx*0.08}s">
             ${avatarHtml}
             <h3 class="player-name">${player.name}</h3>
             <span class="player-title">${player.emoji} ${player.title}</span>
             <p class="player-bio">${bio}</p>
+            ${socialHtml}
         </div>`;
     }).join('');
     if (typeof _revealInit === 'function') _revealInit(container);
