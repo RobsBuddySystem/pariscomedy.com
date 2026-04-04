@@ -669,7 +669,25 @@ document.addEventListener('submit', e => {
     }
     if (e.target.id === 'contactForm') {
         e.preventDefault();
-        e.target.innerHTML = '<p class="newsletter-success">🎉 Message sent! We\'ll get back to you soon.</p>';
+        const form = e.target;
+        const btn = form.querySelector('button[type="submit"]');
+        if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+        const data = new FormData(form);
+        fetch('https://formspree.io/f/xjkvpvgb', {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        }).then(r => {
+            if (r.ok) {
+                form.innerHTML = '<p class="newsletter-success" style="padding:24px 0;font-size:1.05rem;">🎉 Message sent! We\'ll get back to you within 24 hours.<br><br><a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener" style="color:var(--accent);">📸 DM us on Instagram too →</a></p>';
+            } else {
+                if (btn) { btn.disabled = false; btn.textContent = 'Send Message'; }
+                alert('Something went wrong. Please DM us on Instagram @french_fried_comedy or try again.');
+            }
+        }).catch(() => {
+            if (btn) { btn.disabled = false; btn.textContent = 'Send Message'; }
+            alert('Network error. Please DM us on Instagram @french_fried_comedy.');
+        });
     }
 });
 
