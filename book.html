@@ -138,7 +138,7 @@
                 <div class="book-card-emoji">🎙️</div>
                 <h3 class="book-card-title" data-i18n="book.perform">Want to Perform?</h3>
                 <p class="book-card-desc" data-i18n="book.performDesc">Got 5 minutes of material and zero fear? Email us to get on a show. We run open mics every Wednesday — all levels welcome.</p>
-                <a href="mailto:booking@pariscomedy.com?subject=I%20want%20to%20perform" class="btn btn-primary">📧 Email Us</a>
+                <a href="#contactForm" class="btn btn-primary" onclick="document.getElementById('contactSubject').value='I want to perform'">📧 Get in Touch</a>
             </div>
 
             <!-- Book a Comedian -->
@@ -146,7 +146,7 @@
                 <div class="book-card-emoji">🎭</div>
                 <h3 class="book-card-title" data-i18n="book.corporate">Book a Comedian</h3>
                 <p class="book-card-desc" data-i18n="book.corporateDesc">Corporate events, private parties, festivals, team-building — we'll match you with the perfect comic. Bilingual performers available.</p>
-                <a href="mailto:booking@pariscomedy.com?subject=Book%20a%20comedian" class="btn btn-primary">📧 Get a Quote</a>
+                <a href="#contactForm" class="btn btn-primary" onclick="document.getElementById('contactSubject').value='Book a comedian'">📧 Get a Quote</a>
             </div>
 
             <!-- List Your Show — TIERS -->
@@ -166,7 +166,7 @@
                             <li style="padding:4px 0;">✅ Venue & schedule in calendar</li>
                             <li style="padding:4px 0;">❌ No ticket link</li>
                         </ul>
-                        <a href="mailto:booking@pariscomedy.com?subject=Basic%20Listing" class="btn btn-ghost" style="width:100%;justify-content:center;">Get Started</a>
+                        <a href="#contactForm" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="document.getElementById('contactSubject').value='Basic Listing'">Get Started</a>
                     </div>
 
                     <!-- Pro Listing -->
@@ -183,7 +183,7 @@
                             <li style="padding:4px 0;">✅ We manage your email list</li>
                             <li style="padding:4px 0;">✅ 1 mass email/week included</li>
                         </ul>
-                        <a href="mailto:booking@pariscomedy.com?subject=Pro%20Listing" class="btn btn-primary" style="width:100%;justify-content:center;">Get Pro</a>
+                        <a href="#contactForm" class="btn btn-primary" style="width:100%;justify-content:center;" onclick="document.getElementById('contactSubject').value='Pro Listing'">Get Pro</a>
                     </div>
 
                     <!-- Full Service Booking -->
@@ -200,7 +200,7 @@
                             <li style="padding:4px 0;">✅ Priority calendar placement</li>
                             <li style="padding:4px 0;">✅ We build & send your promo emails</li>
                         </ul>
-                        <a href="mailto:booking@pariscomedy.com?subject=Full%20Service%20Booking" class="btn btn-ghost" style="width:100%;justify-content:center;border-color:var(--purple);color:var(--purple);">Go Full Service</a>
+                        <a href="#contactForm" class="btn btn-ghost" style="width:100%;justify-content:center;border-color:var(--purple);color:var(--purple);" onclick="document.getElementById('contactSubject').value='Full Service Booking'">Go Full Service</a>
                     </div>
                 </div>
             </div>
@@ -213,10 +213,11 @@
     <div class="container">
         <div class="section-head" data-reveal>
             <h2 class="section-title" data-i18n="book.contact">Get in Touch</h2>
-            <p class="section-sub">Email us at <a href="mailto:booking@pariscomedy.com">booking@pariscomedy.com</a> or DM us on Instagram.</p>
+            <p class="section-sub">Fill in the form below or DM us on Instagram — we reply fast.</p>
             <p style="margin-top:8px;"><a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">📸 DM @french_fried_comedy →</a></p>
         </div>
         <form id="contactForm" class="contact-form">
+            <input type="hidden" name="subject" id="contactSubject" value="General Inquiry">
             <div class="form-group">
                 <label data-i18n="book.name">Your Name</label>
                 <input type="text" class="form-input" required data-i18n-placeholder="book.name">
@@ -249,10 +250,10 @@
         <p>Nope. Our shows are in English (some are bilingual). French is a bonus, not a requirement.</p>
 
         <h3>Can I book a comedian for my corporate event?</h3>
-        <p>Absolutely. Email <a href="mailto:booking@pariscomedy.com">booking@pariscomedy.com</a> with your event details and we'll match you with the right comic.</p>
+        <p>Absolutely. <a href="#contactForm" onclick="document.getElementById('contactSubject').value='Book a comedian'">Fill out the form above</a> with your event details and we'll match you with the right comic.</p>
 
         <h3>I run a comedy show in Paris. Can I get listed?</h3>
-        <p>Yes! We want pariscomedy.com to be the complete guide to English comedy in Paris. Email us to get featured.</p>
+        <p>Yes! We want pariscomedy.com to be the complete guide to English comedy in Paris. <a href="#contactForm" onclick="document.getElementById('contactSubject').value='Get Listed'">Use the form above</a> to get featured.</p>
     </div>
 </section>
 
