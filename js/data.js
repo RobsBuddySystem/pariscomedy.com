@@ -35,7 +35,8 @@ const SHOWS = [
 
 /* Other shows — verified active on Eventbrite as of April 2026. No ticket links unless they pay. */
 const OTHER_SHOWS = [
-    { name:'Paname English Stand-Up (Apr 7 Spotlight)', venueName:'Paname Art Café', day:'Tuesday', time:'17:30', type:'standup', emoji:'🎤', description:'Verified upcoming English stand-up slot at Paname (Apr 7). Added as discovery listing (non-paying).', paid:false },
+    { name:'Paname English Stand-Up', venueName:'Paname Art Café', day:'Tuesday', time:'17:30', type:'standup', emoji:'🎤', description:'English stand-up at Paname Art Café on Canal Saint-Martin. Regular Tuesday slot — bilingual crowd, great room.', paid:false },
+    { name:'Green Mic Comedy Night', venueName:'Green Mic Paris', day:'Friday', time:'20:00', type:'standup', emoji:'🎙️', description:'English stand-up comedy night in Paris. Regular Friday slot — a growing fixture on the Paris English comedy scene.', paid:false },
     { name:'Millennial Meltdown', venueName:'Le Bikini Bottom', day:'Wednesday', time:'20:00', type:'standup', emoji:'🔥', description:'English comedy show — stand-up night in Paris. Weekly at Le Bikini Bottom.', paid:false },
     { name:'Green Light Comedy', venueName:'Les Marquises', day:'Tuesday', time:'20:15', type:'standup', emoji:'🟢', description:'Standup comedy in English. Weekly at Les Marquises.', paid:false },
     { name:'The Englishman Comedy Night', venueName:'The Englishman Cocktail Club', day:'Thursday', time:'20:00', type:'standup', emoji:'🇬🇧', description:'English comedy night at The Englishman Cocktail Club in Paris.', paid:false },

@@ -619,3 +619,70 @@ document.addEventListener('DOMContentLoaded', () => {
         initReveal();
     }
 })();
+
+/* ─── Hero countdown to next Wednesday show ─────────────────────────────── */
+(function(){
+    function nextWednesday() {
+        // Returns a Date for the next Wednesday 19:00 Paris time (UTC+2 in CEST / UTC+1 CET)
+        const now = new Date();
+        // Get current day in Paris: approximate with UTC offset
+        const parisOffset = (function() {
+            // France is UTC+1 (winter) or UTC+2 (summer DST — last Sun Mar to last Sun Oct)
+            const month = now.getUTCMonth(); // 0=Jan
+            return (month >= 2 && month <= 9) ? 2 : 1; // CEST Mar-Oct, CET Nov-Feb
+        })();
+        const parisNow = new Date(now.getTime() + parisOffset * 3600000);
+        const day = parisNow.getUTCDay(); // 0=Sun,3=Wed
+        let daysUntil = (3 - day + 7) % 7;
+        if (daysUntil === 0 && parisNow.getUTCHours() >= 23) daysUntil = 7; // already past tonight
+        const target = new Date(parisNow);
+        target.setUTCDate(target.getUTCDate() + daysUntil);
+        target.setUTCHours(19 - parisOffset, 0, 0, 0); // 19:00 Paris → UTC
+        return target;
+    }
+
+    function formatCountdown(ms) {
+        if (ms <= 0) return null;
+        const d = Math.floor(ms / 86400000);
+        const h = Math.floor((ms % 86400000) / 3600000);
+        const m = Math.floor((ms % 3600000) / 60000);
+        const s = Math.floor((ms % 60000) / 1000);
+        const parts = [];
+        if (d > 0) parts.push(`<strong>${d}</strong>d`);
+        parts.push(`<strong>${h}</strong>h`);
+        parts.push(`<strong>${m}</strong>m`);
+        parts.push(`<strong>${s}</strong>s`);
+        return parts.join(' ');
+    }
+
+    const labels = {
+        en: 'Next show in',
+        fr: 'Prochain spectacle dans',
+        es: 'Próximo show en',
+        de: 'Nächste Show in',
+        ja: '次のショーまで',
+        zh: '下场演出',
+        ko: '다음 공연까지'
+    };
+
+    function updateCountdown() {
+        const el = document.getElementById('heroCountdown');
+        if (!el) return;
+        const target = nextWednesday();
+        const ms = target - Date.now();
+        const formatted = formatCountdown(ms);
+        if (!formatted) { el.style.display = 'none'; return; }
+        const lang = (typeof currentLang !== 'undefined' ? currentLang : null) ||
+                     document.documentElement.lang || 'en';
+        const label = labels[lang] || labels.en;
+        el.style.display = 'inline-flex';
+        el.innerHTML = `<span>🗓️ ${label}:</span><span style="font-weight:700;color:#a78bfa;letter-spacing:0.01em;">${formatted}</span><span style="opacity:0.6;">— Wed · Velvet Bar · 19:00</span>`;
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function(){ updateCountdown(); setInterval(updateCountdown, 1000); });
+    } else {
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    }
+})();

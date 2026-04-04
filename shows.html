@@ -80,6 +80,17 @@
     </div>
 </header>
 
+<!-- This Week — urgency section, hand-coded from confirmed show data -->
+<section class="section section-alt" style="padding-top:28px;padding-bottom:28px;">
+    <div class="container">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#22c55e;display:inline-block;animation:tonightPulse 1.5s ease-in-out infinite;flex-shrink:0;"></span>
+            <h2 style="font-family:var(--font-display);font-size:1.15rem;margin:0;color:var(--text);">On Stage This Week</h2>
+        </div>
+        <div id="thisWeekGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;"></div>
+    </div>
+</section>
+
 <section class="section">
     <div class="container">
         <div class="filter-bar">
