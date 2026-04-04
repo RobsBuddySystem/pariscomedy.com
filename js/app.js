@@ -215,7 +215,7 @@ function renderOtherShows() {
             <div class="other-show-name">${show.emoji || '🎤'} ${show.name}</div>
             <div class="other-show-venue">📍 ${show.venueName} · ${Array.isArray(show.day) ? show.day.join(' & ') : show.day}${show.time ? ' · '+show.time : ''}</div>
             <div class="other-show-desc">${show.description}</div>
-            ${show.paid && show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link" style="display:inline-block;margin-top:8px;">🎟️ Reserve Your Spot →</a>` : '<div class="other-show-cta"><span class="placeholder-badge">📋 Not yet listed</span> <a href="book.html" class="other-show-link">Get listed for €1/month →</a></div>'}
+            ${show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link" style="display:inline-block;margin-top:8px;">🎟️ Reserve Your Spot →</a>` : '<div class="other-show-cta"><span class="placeholder-badge">📋 Not yet listed</span> <a href="book.html" class="other-show-link">Get listed for €1/month →</a></div>'}
         </div>
     `).join('');
     if (window._revealInit) window._revealInit(container);
