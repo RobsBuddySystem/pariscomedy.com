@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Paris Comedy | Page Not Found</title>
+    <meta name="description" content="Page not found — but the show goes on. Find English comedy shows in Paris at pariscomedy.com.">
+    <meta name="robots" content="noindex">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#7c3aed">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .error-page { min-height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; }
+        .error-code { font-family: var(--font-display); font-size: clamp(6rem, 20vw, 12rem); font-weight: 700; line-height: 1; color: var(--accent); opacity: .15; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; user-select: none; }
+        .error-inner { position: relative; max-width: 540px; margin: 0 auto; }
+        .error-emoji { font-size: 4rem; margin-bottom: 16px; display: block; }
+        .error-title { font-family: var(--font-display); font-size: clamp(1.6rem, 5vw, 2.4rem); font-weight: 700; margin-bottom: 12px; }
+        .error-sub { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 32px; line-height: 1.6; }
+        .error-links { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 36px; }
+        .error-quote { margin-top: 40px; padding: 20px 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); font-style: italic; color: var(--text-dim); font-size: .9rem; }
+        .error-quote cite { display: block; margin-top: 8px; font-style: normal; font-size: .8rem; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="/" class="nav-logo"><span class="logo-icon">🎤</span><span class="logo-text">Paris <span class="logo-accent">Comedy</span></span></a>
+        <div class="nav-links" id="navLinks">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/shows.html" class="nav-link">Shows</a>
+            <a href="/venues.html" class="nav-link">Venues</a>
+            <a href="/book.html" class="nav-link nav-cta">Book a Show</a>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<div class="error-page">
+    <div style="position:relative;width:100%;">
+        <div class="error-code">404</div>
+        <div class="error-inner">
+            <span class="error-emoji">🎤</span>
+            <h1 class="error-title">That bit didn't land.</h1>
+            <p class="error-sub">The page you're looking for walked offstage.<br>But the show's still on — here's where to go:</p>
+
+            <div class="error-links">
+                <a href="/shows.html" class="btn btn-primary">🎭 See This Week's Shows</a>
+                <a href="/" class="btn btn-ghost">← Back to Home</a>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:8px;">
+                <a href="/shows.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);text-decoration:none;color:var(--text);font-size:.88rem;text-align:center;transition:border-color .2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+                    🎤 Shows
+                </a>
+                <a href="/venues.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);text-decoration:none;color:var(--text);font-size:.88rem;text-align:center;transition:border-color .2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+                    📍 Venues
+                </a>
+                <a href="/history.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);text-decoration:none;color:var(--text);font-size:.88rem;text-align:center;transition:border-color .2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+                    📜 History
+                </a>
+                <a href="/book.html" style="padding:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);text-decoration:none;color:var(--text);font-size:.88rem;text-align:center;transition:border-color .2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+                    📋 Get Listed
+                </a>
+            </div>
+
+            <div class="error-quote" id="errorQuote">
+                <p>"The best comedy happens when something goes wrong."</p>
+                <cite>— Every comedian, after every 404</cite>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer" style="margin-top:0;">
+    <div class="container">
+        <div class="footer-bottom">
+            <p>© 2026 Paris Comedy · <a href="/">pariscomedy.com</a> · Made with 🍟 in Paris</p>
+        </div>
+    </div>
+</footer>
+
+<script src="/js/data.js"></script>
+<script>
+// Rotate a comedy quote on the error page
+document.addEventListener('DOMContentLoaded', function() {
+    const quotes = typeof COMEDY_QUOTES !== 'undefined' ? COMEDY_QUOTES : null;
+    if (quotes && quotes.length) {
+        const q = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById('errorQuote').innerHTML =
+            '<p>"' + q.text + '"</p><cite>— ' + q.author + '</cite>';
+    }
+    // Nav scroll
+    window.addEventListener('scroll', function() {
+        document.getElementById('nav')?.classList.toggle('scrolled', window.scrollY > 20);
+    });
+    // Mobile nav toggle
+    document.getElementById('navToggle')?.addEventListener('click', function() {
+        document.getElementById('navLinks')?.classList.toggle('open');
+    });
+});
+</script>
+</body>
+</html>
