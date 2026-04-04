@@ -76,9 +76,54 @@ function initPage() {
         if (currentLang !== 'fr') { moveCalendarFirst(); }
         renderFeaturedShows(); renderCalendar(); renderQuote(); renderTestimonials(); renderGrowthChart();
     }
-    if (page === 'shows') { renderAllShows(); renderOtherShows(); initFilters(); }
+    if (page === 'shows') { renderAllShows(); renderOtherShows(); initFilters(); renderThisWeek(); }
     if (page === 'venues') { renderVenueMap(); renderVenueCards(); }
     if (page === 'history') { renderTimeline(); renderKeyPlayers(); renderNotableVisitors(); }
+}
+
+/* ─── This Week ─── */
+function renderThisWeek() {
+    const el = document.getElementById('thisWeekGrid');
+    if (!el) return;
+    const DAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const now = new Date();
+    // Build next-7-days map: dayName → [{date, label}]
+    const upcoming = {};
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(now);
+        d.setDate(now.getDate() + i);
+        const dn = DAY_NAMES[d.getDay()];
+        if (!upcoming[dn]) upcoming[dn] = [];
+        upcoming[dn].push({ d, label: `${SHORT[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}` });
+    }
+    // Collect all shows (SHOWS + OTHER_SHOWS) that fall within next 7 days
+    const allShows = [...(typeof SHOWS !== 'undefined' ? SHOWS : []), ...(typeof OTHER_SHOWS !== 'undefined' ? OTHER_SHOWS : [])];
+    const cards = [];
+    allShows.forEach(show => {
+        if (!show.day || !upcoming[show.day]) return;
+        upcoming[show.day].forEach(({ d, label }) => {
+            const venueName = show.venueName || (show.venue ? (VENUES || []).find(v => v.id === show.venue)?.name || '' : '');
+            const link = show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">Reserve →</a>` : `<a href="book.html" class="btn btn-ghost btn-sm" style="margin-top:10px;">Get Listed →</a>`;
+            const isTonight = d.toDateString() === now.toDateString();
+            const badge = isTonight ? '<span style="background:#ff3366;color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:middle;">TONIGHT</span>' : '';
+            cards.push({ ts: d.getTime(), time: show.time || '', html: `
+                <div class="show-card" style="padding:16px 18px;display:flex;flex-direction:column;gap:4px;" data-reveal data-reveal-delay="1">
+                    <div style="font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;">${label}${badge}</div>
+                    <div style="font-size:1.05rem;font-weight:700;font-family:var(--font-display);">${show.emoji || '🎤'} ${show.name}</div>
+                    <div style="font-size:.85rem;color:var(--text-muted);">${show.time || ''} · ${venueName}</div>
+                    ${link}
+                </div>` });
+        });
+    });
+    // Sort by date+time
+    cards.sort((a, b) => a.ts - b.ts || a.time.localeCompare(b.time));
+    if (cards.length === 0) {
+        el.innerHTML = '<p style="color:var(--text-muted);font-size:.9rem;">Check back soon — shows update weekly.</p>';
+    } else {
+        el.innerHTML = cards.map(c => c.html).join('');
+    }
 }
 
 /* ─── Shows ─── */
