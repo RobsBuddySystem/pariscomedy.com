@@ -74,7 +74,7 @@ function initPage() {
         renderTonightBanner();
         // English: calendar first, then shows. French: shows first (Velvet focused)
         if (currentLang !== 'fr') { moveCalendarFirst(); }
-        renderFeaturedShows(); renderCalendar(); renderQuote(); renderTestimonials(); renderGrowthChart();
+        renderFeaturedShows(); renderCalendar(); renderQuote(); renderUntranslatable(); renderTestimonials(); renderGrowthChart();
     }
     if (page === 'shows') { renderAllShows(); renderOtherShows(); initFilters(); renderThisWeek(); }
     if (page === 'venues') { renderVenueMap(); renderVenueCards(); }
@@ -374,6 +374,38 @@ function renderQuote() {
             <cite class="quote-author">— ${quote.author}</cite>
         </blockquote>
     `;
+}
+
+/* ─── Untranslatable ─── */
+function renderUntranslatable() {
+    const container = document.getElementById('untranslatableCard');
+    if (!container || typeof UNTRANSLATABLE === 'undefined') return;
+    // Rotate daily
+    const dayNum = Math.floor(Date.now() / (24*60*60*1000));
+    const item = UNTRANSLATABLE[dayNum % UNTRANSLATABLE.length];
+    container.innerHTML = `
+        <div class="untrans-card" data-reveal>
+            <div class="untrans-header">
+                <span class="untrans-emoji">${item.emoji}</span>
+                <div>
+                    <h3 class="untrans-word">${item.word}</h3>
+                    <span class="untrans-lang">${item.lang} · "${item.literal}"</span>
+                </div>
+            </div>
+            <p class="untrans-def">${item.definition}</p>
+            <p class="untrans-punchline">😂 ${item.punchline}</p>
+            <a href="shows.html" class="untrans-cta">Hear it live at FFCN →</a>
+        </div>
+    `;
+    // Re-trigger reveal for dynamically injected content
+    if (typeof IntersectionObserver !== 'undefined') {
+        container.querySelectorAll('[data-reveal]').forEach(el => {
+            const obs = new IntersectionObserver((entries, o) => {
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); o.unobserve(e.target); } });
+            }, { threshold: 0.1 });
+            obs.observe(el);
+        });
+    }
 }
 
 /* ─── Testimonials ─── */

@@ -88,6 +88,42 @@ const TIMELINE = [
     { year:'Now', title:'The Golden Age', text:'Paris has one of Europe\'s most vibrant English-language comedy scenes. Locals, expats, and tourists fill rooms every week. The future is bilingual — and very, very funny.' }
 ];
 
+/* Untranslatable words — bilingual comedy content, rotates on each visit */
+const UNTRANSLATABLE = [
+    { word:'Dépaysement', lang:'French', emoji:'🌍',
+      literal:'De-countrified',
+      definition:'The disorientation you feel when you\'re in a foreign country — not homesickness exactly, just the sense that your normal rules no longer apply.',
+      punchline:'Americans in Paris experience this when they realize the waiter isn\'t being rude. That\'s just his face.' },
+    { word:'Flâner', lang:'French', emoji:'🚶',
+      literal:'To stroll without purpose',
+      definition:'To wander the city with no destination, no phone out, observing everything. A respected pastime. A lifestyle, actually.',
+      punchline:'In America we have a word for this too. It\'s "lost."' },
+    { word:'Corny', lang:'English', emoji:'🌽',
+      literal:'Like corn. (Unhelpful.)',
+      definition:'Embarrassingly sentimental or old-fashioned in a way that is somehow both sincere and cringeworthy at the same time.',
+      punchline:'The closest French word is *ringard*, which means dated. But *corny* is not dated — it\'s timeless. Timelessly embarrassing.' },
+    { word:'La Bise', lang:'French', emoji:'💋',
+      literal:'The kiss',
+      definition:'The obligatory cheek-kiss greeting between acquaintances, colleagues, strangers, and people you\'ve met once at a party three years ago.',
+      punchline:'One kiss? Two? Three? Four? It depends on the region. Nobody tells you the rules. You just lean in and hope for the best.' },
+    { word:'Awkward', lang:'English', emoji:'😬',
+      literal:'Clumsy. (Also unhelpful.)',
+      definition:'The specific social discomfort of a situation that is uncomfortable but not embarrassing enough to warrant leaving — you just have to sit in it.',
+      punchline:'The French word is *gêné*, meaning embarrassed. But awkward is pre-embarrassed. It\'s the loading screen before embarrassment.' },
+    { word:'Terroir', lang:'French', emoji:'🍷',
+      literal:'Earth / soil',
+      definition:'The complete natural environment in which a wine is produced — soil, climate, geography — and its specific taste as a result. Used for wine, coffee, cheese.',
+      punchline:'Americans use this word now too, mostly wrong, mostly about craft beer.' },
+    { word:'Serendipity', lang:'English', emoji:'✨',
+      literal:'A made-up word from a Persian fairy tale (really)',
+      definition:'A happy accident. Finding something wonderful without looking for it.',
+      punchline:'The French have *par hasard* — "by chance" — which is technically accurate and completely kills the magic.' },
+    { word:'Déguster', lang:'French', emoji:'🍽️',
+      literal:'To taste / to savour',
+      definition:'To eat or drink something slowly and with full attention, appreciating every element. Not just eating. *Experiencing.*',
+      punchline:'The English equivalent is "eating slowly," which sounds like a medical symptom.' }
+];
+
 const COMEDY_QUOTES = [
     { text:'"The French think Americans are funny. Americans think the French are funny. I\'m here to prove them both right."', author:'Robert Hoehn' },
     { text:'"I moved to Paris for love. I stayed for the comedy."', author:'Sebastian Marx' },
