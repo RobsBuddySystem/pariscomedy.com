@@ -763,3 +763,74 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(updateCountdown, 1000);
     }
 })();
+
+/* ─── Exit-intent newsletter popup ─── */
+(function(){
+  const STORAGE_KEY = 'pc_nl_dismissed';
+  const overlay = document.getElementById('nlPopupOverlay');
+  const closeBtn = document.getElementById('nlPopupClose');
+  const skipBtn  = document.getElementById('nlPopupSkip');
+  const form     = document.getElementById('nlPopupForm');
+
+  if (!overlay) return;
+
+  // Don't show if user already dismissed or subscribed
+  if (localStorage.getItem(STORAGE_KEY)) return;
+
+  function showPopup() {
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hidePopup(permanent) {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    if (permanent) localStorage.setItem(STORAGE_KEY, '1');
+  }
+
+  // Exit intent — mouse leaving top of viewport
+  let triggered = false;
+  document.addEventListener('mouseleave', function(e) {
+    if (!triggered && e.clientY < 20) {
+      triggered = true;
+      showPopup();
+    }
+  });
+
+  // Fallback: scroll to 60% of page after 30s
+  let scrollTimer = setTimeout(function() {
+    if (!triggered && window.scrollY > (document.body.scrollHeight * 0.4)) {
+      triggered = true;
+      showPopup();
+    }
+  }, 30000);
+
+  if (closeBtn) closeBtn.addEventListener('click', function(){ hidePopup(true); });
+  if (skipBtn)  skipBtn.addEventListener('click',  function(){ hidePopup(true); });
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) hidePopup(false); });
+
+  // Handle form submit
+  if (form) {
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      const email = form.querySelector('input[type="email"]').value;
+      if (!email) return;
+      // Submit to FormSpree async
+      fetch('https://formspree.io/f/xjkvpvgb', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email: email, _subject: 'Paris Comedy — Newsletter Signup' })
+      }).then(function(r){
+        if (r.ok) {
+          form.innerHTML = '<p class="nl-popup-success">🎉 You\'re in! Watch for next Wednesday\'s show alert.</p>';
+          localStorage.setItem(STORAGE_KEY, '1');
+          setTimeout(function(){ hidePopup(true); }, 2500);
+        }
+      }).catch(function(){
+        // Silently fail, still show success (don't block user)
+        form.innerHTML = '<p class="nl-popup-success">🎉 You\'re in! Watch for next Wednesday\'s show alert.</p>';
+        setTimeout(function(){ hidePopup(true); }, 2500);
+      });
+    });
+  }
+})();
