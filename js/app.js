@@ -500,7 +500,7 @@ function renderTonightBanner() {
                 tonightShows.push({
                     name: show.name, shortName: show.name, time: show.time, emoji: show.emoji,
                     venue: show.venueName || '', lang: 'en', priority: show.paid ? 2 : 3,
-                    bookingUrl: show.paid ? show.bookingUrl : null, ours: false
+                    bookingUrl: show.bookingUrl || null, ours: false
                 });
             }
         });
@@ -513,7 +513,7 @@ function renderTonightBanner() {
                 tonightShows.push({
                     name: show.name, shortName: show.name, time: show.time, emoji: show.emoji || '🇫🇷',
                     venue: show.venueName || '', lang: 'fr', priority: 4,
-                    bookingUrl: show.paid ? show.bookingUrl : null, ours: false
+                    bookingUrl: show.bookingUrl || null, ours: false
                 });
             }
         });
