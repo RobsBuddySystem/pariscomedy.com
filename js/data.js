@@ -95,7 +95,11 @@ const COMEDY_QUOTES = [
     { text:'"If you can make a French person laugh, you can do anything."', author:'Anonymous Paris Comic' },
     { text:'"Paris is the only city where your set can bomb in two languages simultaneously."', author:'FFCN Wisdom' },
     { text:'"Comedy is the universal language. Well, comedy and miming. But miming doesn\'t sell tickets."', author:'Paris Comedy' },
-    { text:'"Best pancake of my life… still only second best day in France. First was learning my name means boobies."', author:'Robert Hoehn' }
+    { text:'"Best pancake of my life… still only second best day in France. First was learning my name means boobies."', author:'Robert Hoehn' },
+    { text:'"People ask me if I\'m more American or more French now. The answer depends on whether the waiter just brought me the wrong order."', author:'Robert Hoehn' },
+    { text:'"My brain now thinks in both French and English at the same time. The result is neither language — just a kind of anxious fog with a baguette in it."', author:'Robert Hoehn' },
+    { text:'"There\'s no good French word for \'corny.\' Ringard is close but it\'s more dated. Corny is... corny. You know?"', author:'Paris Comedy Scene' },
+    { text:'"The French word for awkward is gêné — which means embarrassed. But awkward is not embarrassed. Awkward is when the embarrassment hasn\'t landed yet."', author:'FFCN Wisdom' }
 ];
 
 const TESTIMONIALS = [
