@@ -599,3 +599,23 @@ const observer = new IntersectionObserver((entries) => {
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 });
+
+/* ─── Global scroll-reveal (data-reveal) ─────────────────────────────────── */
+(function(){
+    const revealObs = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    function initReveal() {
+        document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initReveal);
+    } else {
+        initReveal();
+    }
+})();
