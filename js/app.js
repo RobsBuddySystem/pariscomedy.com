@@ -354,14 +354,24 @@ function renderTimeline() {
 function renderKeyPlayers() {
     const container = document.getElementById('keyPlayersGrid');
     if (!container || typeof KEY_PLAYERS === 'undefined') return;
-    container.innerHTML = KEY_PLAYERS.map(player => `
-        <div class="player-card">
-            <div class="player-avatar">${player.emoji}</div>
+    container.innerHTML = KEY_PLAYERS.map((player, idx) => {
+        const hasSvg = typeof PORTRAITS !== 'undefined' && PORTRAITS[player.id];
+        const avatarHtml = hasSvg
+            ? `<div class="player-avatar player-avatar--svg" aria-label="${player.name} portrait">${PORTRAITS[player.id]}</div>`
+            : `<div class="player-avatar">${player.emoji}</div>`;
+        const bio = currentLang === 'fr' ? (player.bioFr||player.bio)
+                  : currentLang === 'es' ? (player.bioEs||player.bio)
+                  : currentLang === 'de' ? (player.bioDe||player.bio)
+                  : player.bio;
+        return `
+        <div class="player-card" data-reveal data-reveal-delay="${idx*0.08}s">
+            ${avatarHtml}
             <h3 class="player-name">${player.name}</h3>
-            <span class="player-title">${player.title}</span>
-            <p class="player-bio">${currentLang === 'fr' ? (player.bioFr||player.bio) : currentLang === 'es' ? (player.bioEs||player.bio) : player.bio}</p>
-        </div>
-    `).join('');
+            <span class="player-title">${player.emoji} ${player.title}</span>
+            <p class="player-bio">${bio}</p>
+        </div>`;
+    }).join('');
+    if (typeof _revealInit === 'function') _revealInit(container);
 }
 
 function renderNotableVisitors() {
