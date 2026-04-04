@@ -677,9 +677,9 @@ document.addEventListener('submit', e => {
         const btn = form.querySelector('button[type="submit"]');
         if (!email || !email.value) return;
         if (btn) { btn.disabled = true; btn.textContent = 'Subscribing…'; }
-        fetch('https://formspree.io/f/xjkvpvgb', {
+        fetch('https://formsubmit.co/ajax/chucklericain@icloud.com', {
             method: 'POST',
-            body: JSON.stringify({ email: email.value, _subject: 'Paris Comedy — Newsletter Signup' }),
+            body: JSON.stringify({ email: email.value, _subject: 'Paris Comedy — Newsletter Signup', _template: 'table' }),
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
         }).then(r => {
             if (r.ok) {
@@ -700,7 +700,7 @@ document.addEventListener('submit', e => {
         const btn = form.querySelector('button[type="submit"]');
         if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
         const data = new FormData(form);
-        fetch('https://formspree.io/f/xjkvpvgb', {
+        fetch('https://formsubmit.co/ajax/chucklericain@icloud.com', {
             method: 'POST',
             body: data,
             headers: { 'Accept': 'application/json' }
@@ -870,7 +870,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = form.querySelector('input[type="email"]').value;
       if (!email) return;
       // Submit to FormSpree async
-      fetch('https://formspree.io/f/xjkvpvgb', {
+      fetch('https://formsubmit.co/ajax/chucklericain@icloud.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({ email: email, _subject: 'Paris Comedy — Newsletter Signup' })
