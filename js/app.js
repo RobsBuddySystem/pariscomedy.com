@@ -90,6 +90,13 @@ function renderThisWeek() {
     const SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const now = new Date();
+    // Update section title to reflect tonight if there are shows today
+    const todayName = DAY_NAMES[now.getDay()];
+    const allForToday = [...(typeof SHOWS!=='undefined'?SHOWS:[]),...(typeof OTHER_SHOWS!=='undefined'?OTHER_SHOWS:[])].filter(s=>{
+        const d=Array.isArray(s.day)?s.day:[s.day]; return d.includes(todayName)||d.includes('daily');
+    });
+    const titleEl = document.getElementById('thisWeekTitle');
+    if (titleEl && allForToday.length > 0) titleEl.textContent = '🎤 On Stage Tonight & This Week';
     // Build next-7-days map: dayName → [{date, label}]
     const upcoming = {};
     for (let i = 0; i < 7; i++) {
