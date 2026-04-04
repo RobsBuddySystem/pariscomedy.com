@@ -265,7 +265,8 @@ function generateCalendarEvents(year, month) {
             if (dayOfWeek === showDayNum) {
                 events.push({
                     day, showId:show.id, showName:show.name, shortName:show.shortName,
-                    type:show.type, time:show.time, venue:VENUES.find(v=>v.id===show.venue)?.name||'', emoji:show.emoji
+                    type:show.type, time:show.time, venue:VENUES.find(v=>v.id===show.venue)?.name||'', emoji:show.emoji,
+                    bookingUrl: show.bookingUrl || null
                 });
             }
         });

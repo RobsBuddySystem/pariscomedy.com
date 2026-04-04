@@ -255,9 +255,14 @@ function renderCalendar() {
             if (!dayEvents.length) return;
             const tooltip = document.createElement('div');
             tooltip.className = 'cal-tooltip';
-            tooltip.innerHTML = dayEvents.map(e => `<div>${e.emoji} <strong>${e.shortName}</strong> · ${e.time} · ${e.venue}</div>`).join('');
+            tooltip.innerHTML = dayEvents.map(e => {
+                const reserveLink = e.bookingUrl
+                    ? `<a href="${e.bookingUrl}" target="_blank" rel="noopener" class="cal-tooltip-reserve">🎟️ Reserve →</a>`
+                    : '';
+                return `<div class="cal-tooltip-row">${e.emoji} <strong>${e.shortName}</strong> · ${e.time} · ${e.venue}${reserveLink}</div>`;
+            }).join('');
             cell.appendChild(tooltip);
-            setTimeout(() => tooltip.remove(), 4000);
+            setTimeout(() => tooltip.remove(), 5000);
         });
     });
 }
