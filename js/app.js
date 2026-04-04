@@ -668,14 +668,31 @@ function renderGrowthChart() {
     obs.observe(container);
 }
 
-/* ─── Newsletter form (placeholder) ─── */
+/* ─── Newsletter form — sends to Formspree ─── */
 document.addEventListener('submit', e => {
     if (e.target.id === 'newsletterForm') {
         e.preventDefault();
-        const email = e.target.querySelector('input[type="email"]');
-        if (email && email.value) {
-            e.target.innerHTML = '<p class="newsletter-success">🎉 You\'re in! Watch your inbox for show alerts.</p>';
-        }
+        const form = e.target;
+        const email = form.querySelector('input[type="email"]');
+        const btn = form.querySelector('button[type="submit"]');
+        if (!email || !email.value) return;
+        if (btn) { btn.disabled = true; btn.textContent = 'Subscribing…'; }
+        fetch('https://formspree.io/f/xjkvpvgb', {
+            method: 'POST',
+            body: JSON.stringify({ email: email.value, _subject: 'Paris Comedy — Newsletter Signup' }),
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+        }).then(r => {
+            if (r.ok) {
+                form.innerHTML = '<p class="newsletter-success">You\'re in! Watch your inbox for show alerts.</p>';
+                try { localStorage.setItem('pc_subscribed', '1'); } catch(e) {}
+            } else {
+                if (btn) { btn.disabled = false; btn.textContent = 'Subscribe'; }
+                alert('Something went wrong. Try again or email booking@pariscomedy.com');
+            }
+        }).catch(() => {
+            if (btn) { btn.disabled = false; btn.textContent = 'Subscribe'; }
+            alert('Connection error. Check your internet and try again.');
+        });
     }
     if (e.target.id === 'contactForm') {
         e.preventDefault();
