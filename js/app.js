@@ -171,7 +171,7 @@ function renderShowCard(show) {
             </div>
             <div class="show-card-footer">
                 ${currentLang !== 'fr' ? `<span class="show-card-price">${show.price}</span>` : ''}
-                <a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ Reserve Your Spot →</a>
+                <a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ ${({'fr':'Réservez votre place','es':'Reserva tu lugar','de':'Platz reservieren','ja':'席を予約する','zh':'预订座位','ko':'좌석 예약'})[currentLang] || 'Reserve Your Spot'} →</a>
             </div>
         </div>
     </article>`;
@@ -233,33 +233,56 @@ function renderUpNext() {
     if (typeof _revealInit === 'function') _revealInit(el);
 }
 
+function renderFeaturedShowCard(show) {
+    const venueName = show.venueName || (show.venue ? (VENUES || []).find(v => v.id === show.venue)?.name || '' : '');
+    const neighborhood = show.venue ? (VENUES || []).find(v => v.id === show.venue)?.neighborhood || '' : '';
+    const typeLabel = show.type === 'standup' ? t('filters.standup') : t('filters.openmic');
+    const desc = currentLang === 'fr' ? (show.descFr||show.description) : currentLang === 'es' ? (show.descEs||show.description) : show.description;
+    const dayStr = Array.isArray(show.day) ? show.day.join(' & ') : show.day;
+    const timeStr = ({'fr':`Chaque ${dayStr} à ${show.time}`,'es':`Cada ${dayStr} a las ${show.time}`,'de':`Jeden ${dayStr} um ${show.time}`})[currentLang] || `Every ${dayStr} at ${show.time}`;
+    const reserveLink = show.bookingUrl
+        ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ ${({'fr':'Réservez','es':'Reservar','de':'Reservieren'})[currentLang]||'Reserve'} →</a>`
+        : `<a href="book.html" class="show-card-link">${({'fr':'En savoir plus','es':'Más info','de':'Mehr Info'})[currentLang]||'Learn More'} →</a>`;
+    return `<article class="show-card" data-type="${show.type}" data-reveal>
+        <div class="show-card-img" style="background:linear-gradient(135deg,${show.type==='standup'?'#1a0515,#2a1020':'#0a1a0f,#102a15'});">${show.emoji}</div>
+        <div class="show-card-body">
+            <span class="show-card-type type-${show.type}">${typeLabel}</span>
+            <h3 class="show-card-title">${show.name}</h3>
+            <p class="show-card-venue">📍 ${venueName}${neighborhood ? ' · ' + neighborhood : ''}</p>
+            <p class="show-card-time">🕐 ${timeStr}</p>
+            <p class="show-card-desc">${desc}</p>
+            <div class="show-card-footer">
+                ${reserveLink}
+            </div>
+        </div>
+    </article>`;
+}
+
 function renderFeaturedShows() {
     const grid = document.getElementById('featuredShowsGrid');
     if (!grid) return;
-    let shows = [...SHOWS];
+    // Combine SHOWS + featured OTHER_SHOWS for a diverse city guide feel
+    const featuredMain = SHOWS.filter(s => s.featured);
+    const featuredOther = (typeof OTHER_SHOWS !== 'undefined' ? OTHER_SHOWS : []).filter(s => s.featured);
+    let allFeatured = [...featuredMain, ...featuredOther];
+    // Shuffle so it's not always Velvet first — mix of venues
     if (currentLang === 'fr') {
-        // French page: Velvet Bar brand shows first (the venue name, not FFCN brand)
-        shows.sort((a,b) => {
-            if (a.id === 'velvet-comedy') return -1;
-            if (b.id === 'velvet-comedy') return 1;
-            if (a.id === 'velvet-openmic') return -1;
-            if (b.id === 'velvet-openmic') return 1;
-            if (a.id === 'ffcn') return -1;
-            if (b.id === 'ffcn') return 1;
+        // French: put French-named shows and variety first
+        allFeatured.sort((a,b) => {
+            const aIsOther = !a.id; const bIsOther = !b.id;
+            if (aIsOther && !bIsOther) return -1;
+            if (!aIsOther && bIsOther) return 1;
             return 0;
         });
-        grid.innerHTML = shows.map(renderShowCard).join('');
     } else {
-        // All other languages: FFCN first (the English/international brand), then featured
-        shows.sort((a,b) => {
+        // English: FFCN first, then mix
+        allFeatured.sort((a,b) => {
             if (a.id === 'ffcn') return -1;
             if (b.id === 'ffcn') return 1;
-            if (a.featured && !b.featured) return -1;
-            if (!a.featured && b.featured) return 1;
             return 0;
         });
-        grid.innerHTML = shows.filter(s => s.featured).map(renderShowCard).join('');
     }
+    grid.innerHTML = allFeatured.map(s => s.id ? renderShowCard(s) : renderFeaturedShowCard(s)).join('');
 }
 
 function renderAllShows(filter = 'all') {
@@ -293,7 +316,7 @@ function renderOtherShows(dayFilter) {
             <div class="other-show-name">${show.emoji || '🎤'} ${show.name}</div>
             <div class="other-show-venue">📍 ${show.venueName} · ${Array.isArray(show.day) ? show.day.join(' & ') : show.day}${show.time ? ' · '+show.time : ''}</div>
             <div class="other-show-desc">${show.description}</div>
-            ${show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link" style="display:inline-block;margin-top:8px;">🎟️ Reserve Your Spot →</a>` : '<div class="other-show-cta"><span class="placeholder-badge">📋 Not yet listed</span> <a href="book.html" class="other-show-link">Get listed for €1/month →</a></div>'}
+            ${show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link" style="display:inline-block;margin-top:8px;">🎟️ ${({'fr':'Réservez votre place','es':'Reserva tu lugar','de':'Platz reservieren'})[currentLang] || 'Reserve Your Spot'} →</a>` : `<div class="other-show-cta"><span class="placeholder-badge">📋 ${({'fr':'Pas encore référencé','es':'Aún no listado','de':'Noch nicht gelistet'})[currentLang] || 'Not yet listed'}</span> <a href="book.html" class="other-show-link">${({'fr':'Référencez-vous pour 1€/mois','es':'Inscríbete por 1€/mes','de':'Gelistet werden für 1€/Monat'})[currentLang] || 'Get listed for €1/month'} →</a></div>`}
         </div>
     `).join('');
     if (window._revealInit) window._revealInit(container);
