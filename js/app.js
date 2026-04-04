@@ -922,13 +922,69 @@ document.addEventListener('DOMContentLoaded', () => {
         ko: '다음 공연까지'
     };
 
+    function getTonightShows() {
+        if (typeof OTHER_SHOWS === 'undefined' || typeof SHOWS === 'undefined') return [];
+        const parisOffset = (function() {
+            const month = new Date().getUTCMonth();
+            return (month >= 2 && month <= 9) ? 2 : 1;
+        })();
+        const parisNow = new Date(Date.now() + parisOffset * 3600000);
+        const dayName = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][parisNow.getUTCDay()];
+        const nowMins = parisNow.getUTCHours() * 60 + parisNow.getUTCMinutes();
+        const allShows = [...(SHOWS||[]), ...(OTHER_SHOWS||[])];
+        return allShows.filter(s => {
+            const days = Array.isArray(s.day) ? s.day : [s.day];
+            if (!days.includes(dayName) && s.day !== 'daily') return false;
+            if (!s.time) return true;
+            const [h, m] = s.time.split(':').map(Number);
+            const startMins = h * 60 + (m||0);
+            return startMins >= nowMins - 30 && startMins <= nowMins + 240; // within next 4h or started <30m ago
+        }).sort((a, b) => {
+            const toMins = t => { const [h,m] = (t||'99:99').split(':').map(Number); return h*60+(m||0); };
+            return toMins(a.time) - toMins(b.time);
+        });
+    }
+
     function updateCountdown() {
         const el = document.getElementById('heroCountdown');
         if (!el) return;
+
+        // Tonight override — if shows are happening now/soon, show that instead
+        const tonight = getTonightShows();
+        if (tonight.length > 0) {
+            const next = tonight[0];
+            const parisOffset = (function() {
+                const month = new Date().getUTCMonth();
+                return (month >= 2 && month <= 9) ? 2 : 1;
+            })();
+            const parisNow = new Date(Date.now() + parisOffset * 3600000);
+            const nowMins = parisNow.getUTCHours() * 60 + parisNow.getUTCMinutes();
+            const [sh, sm] = (next.time || '19:00').split(':').map(Number);
+            const startMins = sh * 60 + (sm || 0);
+            const diffMins = startMins - nowMins;
+            let timeStr;
+            if (diffMins <= 0) {
+                timeStr = '<span style="color:#f87171;animation:pulse 1s infinite;">● Live now</span>';
+            } else if (diffMins < 60) {
+                timeStr = `<span style="color:#f59e0b;font-weight:700;">⏱ ${diffMins}m</span>`;
+            } else {
+                const h = Math.floor(diffMins/60), m = diffMins%60;
+                timeStr = `⏱ <strong>${h}h ${m}m</strong>`;
+            }
+            const venueName = next.venueName || next.venue || 'Velvet Bar';
+            el.style.display = 'inline-flex';
+            el.style.background = 'rgba(239,68,68,0.12)';
+            el.style.borderColor = 'rgba(239,68,68,0.35)';
+            el.innerHTML = `<span>🎤 Tonight:</span><span style="font-weight:700;color:#fca5a5;">${next.shortName || next.name}</span><span>${timeStr} · ${venueName}</span>`;
+            return;
+        }
+
         const target = nextWednesday();
         const ms = target - Date.now();
         const formatted = formatCountdown(ms);
         if (!formatted) { el.style.display = 'none'; return; }
+        el.style.background = '';
+        el.style.borderColor = '';
         const lang = (typeof currentLang !== 'undefined' ? currentLang : null) ||
                      document.documentElement.lang || 'en';
         const label = labels[lang] || labels.en;
