@@ -187,8 +187,83 @@
     </svg>
 </div>
 
+<!-- ═══ Live Atmosphere ═══ -->
+<section class="atmosphere-section">
+    <div class="container">
+        <div class="section-head">
+            <h2 class="section-title">Live Atmosphere</h2>
+            <p class="section-sub">Every Wednesday night in the basement of Velvet Bar</p>
+        </div>
+        <!-- Comedy Club SVG Scene -->
+        <svg class="atmosphere-svg" viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg">
+            <!-- Stage floor -->
+            <rect x="250" y="180" width="400" height="8" rx="4" fill="#2a1020" opacity="0.8"/>
+            <!-- Spotlight beams -->
+            <polygon points="450,0 350,180 550,180" fill="url(#spotGrad1)" opacity="0.12">
+                <animateTransform attributeName="transform" type="rotate" values="-3 450 0;3 450 0;-3 450 0" dur="6s" repeatCount="indefinite"/>
+            </polygon>
+            <polygon points="350,20 280,180 420,180" fill="url(#spotGrad2)" opacity="0.08">
+                <animateTransform attributeName="transform" type="rotate" values="2 350 20;-2 350 20;2 350 20" dur="5s" repeatCount="indefinite"/>
+            </polygon>
+            <polygon points="550,20 480,180 620,180" fill="url(#spotGrad2)" opacity="0.08">
+                <animateTransform attributeName="transform" type="rotate" values="-2 550 20;2 550 20;-2 550 20" dur="7s" repeatCount="indefinite"/>
+            </polygon>
+            <!-- Microphone on stage -->
+            <line x1="450" y1="120" x2="450" y2="178" stroke="#666" stroke-width="2"/>
+            <circle cx="450" cy="115" r="10" fill="none" stroke="#ff3366" stroke-width="2">
+                <animate attributeName="r" values="10;12;10" dur="3s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="450" cy="115" r="7" fill="#333"/>
+            <!-- Audience silhouettes row 1 -->
+            <g opacity="0.6">
+                <circle cx="120" cy="260" r="16" fill="#1a1a2e"><animate attributeName="cy" values="260;256;260" dur="2.5s" repeatCount="indefinite"/></circle>
+                <circle cx="180" cy="258" r="18" fill="#1a1a2e"><animate attributeName="cy" values="258;254;258" dur="2.8s" repeatCount="indefinite" begin="0.3s"/></circle>
+                <circle cx="250" cy="262" r="15" fill="#1a1a2e"><animate attributeName="cy" values="262;258;262" dur="2.2s" repeatCount="indefinite" begin="0.6s"/></circle>
+                <circle cx="330" cy="255" r="17" fill="#1a1a2e"><animate attributeName="cy" values="255;251;255" dur="2.6s" repeatCount="indefinite" begin="0.2s"/></circle>
+                <circle cx="400" cy="260" r="16" fill="#1a1a2e"><animate attributeName="cy" values="260;256;260" dur="2.4s" repeatCount="indefinite" begin="0.5s"/></circle>
+                <circle cx="500" cy="258" r="18" fill="#1a1a2e"><animate attributeName="cy" values="258;254;258" dur="2.7s" repeatCount="indefinite" begin="0.1s"/></circle>
+                <circle cx="570" cy="262" r="15" fill="#1a1a2e"><animate attributeName="cy" values="262;258;262" dur="2.3s" repeatCount="indefinite" begin="0.4s"/></circle>
+                <circle cx="650" cy="256" r="17" fill="#1a1a2e"><animate attributeName="cy" values="256;252;256" dur="2.9s" repeatCount="indefinite" begin="0.7s"/></circle>
+                <circle cx="720" cy="260" r="16" fill="#1a1a2e"><animate attributeName="cy" values="260;256;260" dur="2.5s" repeatCount="indefinite" begin="0.2s"/></circle>
+                <circle cx="790" cy="258" r="18" fill="#1a1a2e"><animate attributeName="cy" values="258;254;258" dur="2.6s" repeatCount="indefinite" begin="0.8s"/></circle>
+            </g>
+            <!-- Audience row 2 (back) -->
+            <g opacity="0.35">
+                <circle cx="100" cy="295" r="18" fill="#12121f"><animate attributeName="cy" values="295;292;295" dur="3s" repeatCount="indefinite"/></circle>
+                <circle cx="160" cy="292" r="20" fill="#12121f"><animate attributeName="cy" values="292;289;292" dur="3.2s" repeatCount="indefinite" begin="0.4s"/></circle>
+                <circle cx="230" cy="298" r="17" fill="#12121f"><animate attributeName="cy" values="298;295;298" dur="2.8s" repeatCount="indefinite" begin="0.2s"/></circle>
+                <circle cx="310" cy="293" r="19" fill="#12121f"><animate attributeName="cy" values="293;290;293" dur="3.1s" repeatCount="indefinite" begin="0.6s"/></circle>
+                <circle cx="390" cy="296" r="18" fill="#12121f"><animate attributeName="cy" values="296;293;296" dur="2.9s" repeatCount="indefinite" begin="0.3s"/></circle>
+                <circle cx="470" cy="294" r="20" fill="#12121f"><animate attributeName="cy" values="294;291;294" dur="3.3s" repeatCount="indefinite" begin="0.5s"/></circle>
+                <circle cx="550" cy="298" r="17" fill="#12121f"><animate attributeName="cy" values="298;295;298" dur="2.7s" repeatCount="indefinite" begin="0.1s"/></circle>
+                <circle cx="640" cy="293" r="19" fill="#12121f"><animate attributeName="cy" values="293;290;293" dur="3s" repeatCount="indefinite" begin="0.7s"/></circle>
+                <circle cx="720" cy="296" r="18" fill="#12121f"><animate attributeName="cy" values="296;293;296" dur="3.2s" repeatCount="indefinite" begin="0.4s"/></circle>
+                <circle cx="810" cy="295" r="20" fill="#12121f"><animate attributeName="cy" values="295;292;295" dur="2.8s" repeatCount="indefinite" begin="0.9s"/></circle>
+            </g>
+            <defs>
+                <radialGradient id="spotGrad1"><stop offset="0%" stop-color="#ff3366" stop-opacity="0.6"/><stop offset="100%" stop-color="#ff3366" stop-opacity="0"/></radialGradient>
+                <radialGradient id="spotGrad2"><stop offset="0%" stop-color="#7c3aed" stop-opacity="0.5"/><stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/></radialGradient>
+            </defs>
+        </svg>
+        <!-- Emoji audience -->
+        <div class="emoji-crowd">
+            <span>😂</span><span>🤣</span><span>😆</span><span>😂</span><span>🤣</span><span>😆</span><span>😂</span><span>🤣</span><span>😆</span><span>😂</span>
+            <span>🤣</span><span>😆</span><span>😂</span><span>🤣</span><span>😆</span><span>😂</span><span>🤣</span><span>😆</span><span>😂</span><span>🤣</span>
+            <span>😆</span><span>😂</span><span>🤣</span><span>😆</span><span>😂</span><span>🤣</span><span>😆</span><span>😂</span><span>🤣</span><span>😆</span>
+        </div>
+    </div>
+</section>
+
+<!-- Wave Divider -->
+<div class="wave-divider">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="var(--bg-alt)" opacity="0.5"/>
+        <path d="M0,40 C360,10 720,50 1080,20 C1260,10 1380,30 1440,35 L1440,60 L0,60 Z" fill="var(--bg-alt)"/>
+    </svg>
+</div>
+
 <!-- How It Works -->
-<section class="section">
+<section class="section section-pattern">
     <div class="container">
         <div class="section-head">
             <h2 class="section-title">How It Works</h2>
@@ -334,6 +409,38 @@
         </div>
     </div>
 </section>
+
+<!-- Wave Divider -->
+<div class="wave-divider wave-divider-sm">
+    <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,20 C360,40 720,0 1080,20 C1260,30 1380,10 1440,15 L1440,40 L0,40 Z" fill="var(--bg-alt)" opacity="0.3"/>
+        <path d="M0,25 C480,5 960,35 1440,15 L1440,40 L0,40 Z" fill="var(--bg-alt)" opacity="0.5"/>
+    </svg>
+</div>
+
+<!-- Paris Comedy Scene Growth Chart -->
+<section class="growth-chart-section section-alt section-pattern">
+    <div class="container">
+        <div class="section-head">
+            <h2 class="section-title">📈 Paris Comedy Scene Growth</h2>
+            <p class="section-sub">From one show to a thriving scene — in fifteen years</p>
+        </div>
+        <div class="growth-chart-wrapper">
+            <div class="growth-bar-group" id="growthChart">
+                <!-- Bars injected by JS on scroll -->
+            </div>
+            <p class="growth-chart-legend">Number of weekly English-language comedy shows in Paris</p>
+        </div>
+    </div>
+</section>
+
+<!-- Wave Divider -->
+<div class="wave-divider wave-divider-sm">
+    <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,15 C240,35 720,5 1200,25 L1440,20 L1440,40 L0,40 Z" fill="var(--bg)" opacity="0.5"/>
+        <path d="M0,20 C480,40 960,10 1440,25 L1440,40 L0,40 Z" fill="var(--bg)"/>
+    </svg>
+</div>
 
 <!-- FAQ -->
 <section class="section">

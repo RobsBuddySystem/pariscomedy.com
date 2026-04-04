@@ -74,7 +74,7 @@ function initPage() {
         renderTonightBanner();
         // English: calendar first, then shows. French: shows first (Velvet focused)
         if (currentLang !== 'fr') { moveCalendarFirst(); }
-        renderFeaturedShows(); renderCalendar(); renderQuote(); renderTestimonials();
+        renderFeaturedShows(); renderCalendar(); renderQuote(); renderTestimonials(); renderGrowthChart();
     }
     if (page === 'shows') { renderAllShows(); renderOtherShows(); initFilters(); }
     if (page === 'venues') { renderVenueMap(); renderVenueCards(); }
@@ -266,6 +266,21 @@ function renderVenueCards() {
 }
 
 /* ─── History ─── */
+function getTimelineIcon(title) {
+    const icons = {
+        'The Seed': '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#22c55e" stroke-width="2" opacity="0.6"/><text x="24" y="30" text-anchor="middle" font-size="20">🌱</text></svg>',
+        'Ground Zero': '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#ff3366" stroke-width="2" opacity="0.6"/><text x="24" y="30" text-anchor="middle" font-size="20">🎤</text></svg>',
+        'TV Breakthrough': '<svg viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="22" rx="4" fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.6"/><text x="24" y="28" text-anchor="middle" font-size="16">📺</text></svg>',
+        'Viral Explosion': '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.6"><animate attributeName="r" values="14;18;14" dur="2s" repeatCount="indefinite"/></circle><text x="24" y="30" text-anchor="middle" font-size="18">💥</text></svg>',
+        'French Fried is Born': '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#ff3366" stroke-width="2" opacity="0.6"><animate attributeName="stroke-opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/></circle><text x="24" y="30" text-anchor="middle" font-size="20">🍟</text></svg>',
+        'The Pandemic & Comeback': '<svg viewBox="0 0 48 48"><text x="24" y="30" text-anchor="middle" font-size="20">💪</text></svg>',
+        'FFCN Moves to Velvet Bar': '<svg viewBox="0 0 48 48"><text x="24" y="30" text-anchor="middle" font-size="20">🏠</text></svg>',
+        'The Explosion': '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="#ff3366" stroke-width="2" opacity="0.5"><animate attributeName="r" values="12;20;12" dur="3s" repeatCount="indefinite"/></circle><text x="24" y="30" text-anchor="middle" font-size="18">🚀</text></svg>',
+        'The Golden Age': '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.5"/><text x="24" y="30" text-anchor="middle" font-size="20">👑</text></svg>'
+    };
+    return icons[title] || '';
+}
+
 function renderTimeline() {
     const container = document.getElementById('timelineContainer');
     if (!container || typeof TIMELINE === 'undefined') return;
@@ -273,6 +288,7 @@ function renderTimeline() {
         <div class="timeline-item ${i % 2 === 0 ? 'left' : 'right'}">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
+                ${getTimelineIcon(item.title) ? `<div class="timeline-illustration">${getTimelineIcon(item.title)}</div>` : ''}
                 <span class="timeline-year">${item.year}</span>
                 <h3 class="timeline-title">${item.title}</h3>
                 <p class="timeline-text">${item.text}</p>
@@ -513,6 +529,47 @@ function launchFries() {
         document.body.appendChild(fry);
         setTimeout(() => fry.remove(), 4000);
     }
+}
+
+/* ─── Growth Chart (homepage) ─── */
+function renderGrowthChart() {
+    const container = document.getElementById('growthChart');
+    if (!container) return;
+    const data = [
+        { year: '2010', shows: 1 },
+        { year: '2013', shows: 2 },
+        { year: '2016', shows: 3 },
+        { year: '2017', shows: 4 },
+        { year: '2019', shows: 5 },
+        { year: '2022', shows: 6 },
+        { year: '2024', shows: 8 },
+        { year: '2025', shows: 10 },
+        { year: '2026', shows: 12 }
+    ];
+    const maxShows = Math.max(...data.map(d => d.shows));
+    container.innerHTML = data.map(d => {
+        const heightPct = (d.shows / maxShows) * 100;
+        return `<div class="growth-bar">
+            <div class="growth-bar-value">${d.shows}</div>
+            <div class="growth-bar-fill" data-height="${heightPct}" style="height:0%;width:100%;"></div>
+            <div class="growth-bar-label">${d.year}</div>
+        </div>`;
+    }).join('');
+
+    // Animate on scroll
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                container.querySelectorAll('.growth-bar-fill').forEach((bar, i) => {
+                    setTimeout(() => {
+                        bar.style.height = bar.dataset.height + '%';
+                    }, i * 100);
+                });
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    obs.observe(container);
 }
 
 /* ─── Newsletter form (placeholder) ─── */
