@@ -71,6 +71,7 @@ function initNav() {
 function initPage() {
     const page = document.body.dataset.page || 'home';
     if (page === 'home') {
+        renderTonightBanner();
         // English: calendar first, then shows. French: shows first (Velvet focused)
         if (currentLang !== 'fr') { moveCalendarFirst(); }
         renderFeaturedShows(); renderCalendar(); renderQuote(); renderTestimonials();
@@ -189,7 +190,8 @@ function renderCalendar() {
     for (let day = 1; day <= daysInMonth; day++) {
         const dayEvents = events.filter(e => e.day === day);
         const isToday = now.getDate() === day;
-        html += `<div class="cal-day${isToday?' today':''}" data-day="${day}">
+        const hasShows = dayEvents.length > 0;
+        html += `<div class="cal-day${isToday?' today':''}${hasShows?' has-shows':''}" data-day="${day}">
             <span class="cal-day-num">${day}</span>
             <div class="cal-day-dots">${dayEvents.map(e => `<span class="cal-dot dot-${e.type}" title="${e.shortName} · ${e.time}"></span>`).join('')}</div>
         </div>`;
@@ -326,6 +328,102 @@ function renderTestimonials() {
             </div>
         </div>
     `).join('');
+}
+
+/* ─── Tonight's Shows Banner ─── */
+function renderTonightBanner() {
+    const container = document.getElementById('tonightBanner');
+    if (!container) return;
+
+    const now = new Date();
+    const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const today = dayNames[now.getDay()];
+
+    // Collect all shows happening today — our shows first (English priority), then others
+    let tonightShows = [];
+
+    // Our shows (English, priority)
+    SHOWS.forEach(show => {
+        if (show.day === today) {
+            tonightShows.push({
+                name: show.name, shortName: show.shortName, time: show.time, emoji: show.emoji,
+                venue: VENUES.find(v => v.id === show.venue)?.name || '',
+                lang: 'en', priority: 1, bookingUrl: show.bookingUrl, ours: true
+            });
+        }
+    });
+
+    // Other English shows
+    if (typeof OTHER_SHOWS !== 'undefined') {
+        OTHER_SHOWS.forEach(show => {
+            if (show.day === today) {
+                tonightShows.push({
+                    name: show.name, shortName: show.name, time: show.time, emoji: show.emoji,
+                    venue: show.venueName || '', lang: 'en', priority: show.paid ? 2 : 3,
+                    bookingUrl: show.paid ? show.bookingUrl : null, ours: false
+                });
+            }
+        });
+    }
+
+    // French fallback shows (if no English shows today)
+    if (typeof FRENCH_SHOWS !== 'undefined') {
+        FRENCH_SHOWS.forEach(show => {
+            if (show.day === today) {
+                tonightShows.push({
+                    name: show.name, shortName: show.name, time: show.time, emoji: show.emoji || '🇫🇷',
+                    venue: show.venueName || '', lang: 'fr', priority: 4,
+                    bookingUrl: show.paid ? show.bookingUrl : null, ours: false
+                });
+            }
+        });
+    }
+
+    // Sort by priority (our shows > paid others > free others > french)
+    tonightShows.sort((a, b) => a.priority - b.priority);
+
+    if (tonightShows.length === 0) {
+        // No shows today — show next upcoming
+        const allShows = [...SHOWS, ...(typeof OTHER_SHOWS !== 'undefined' ? OTHER_SHOWS : [])];
+        const dayOrder = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+        const todayIdx = dayOrder.indexOf(today);
+        let nextShow = null;
+        let nextDayName = '';
+        for (let offset = 1; offset <= 7; offset++) {
+            const checkDay = dayOrder[(todayIdx + offset) % 7];
+            const found = allShows.find(s => s.day === checkDay);
+            if (found) { nextShow = found; nextDayName = checkDay; break; }
+        }
+        if (nextShow) {
+            container.innerHTML = `
+                <div class="tonight-banner tonight-banner-next">
+                    <span class="tonight-label">${({'fr':'Prochain spectacle','es':'Próximo show','de':'Nächste Show','ja':'次のショー','zh':'下一场演出','ko':'다음 공연'})[currentLang] || 'Next show'}</span>
+                    <span class="tonight-shows">${nextShow.emoji || '🎤'} <strong>${nextShow.shortName || nextShow.name}</strong> — ${nextDayName} at ${nextShow.time || nextShow.time}</span>
+                    ${nextShow.bookingUrl ? `<a href="${nextShow.bookingUrl}" target="_blank" rel="noopener" class="tonight-cta">🎟️ Reserve →</a>` : ''}
+                </div>`;
+        } else {
+            container.style.display = 'none';
+        }
+        return;
+    }
+
+    // Shows tonight!
+    const langLabel = tonightShows[0].lang === 'fr' ? '🇫🇷' : '🇬🇧';
+    const tonightLabel = ({'fr':'Ce soir à Paris','es':'Esta noche en París','de':'Heute Abend in Paris','ja':'今夜パリで','zh':'今晚在巴黎','ko':'오늘 밤 파리에서'})[currentLang] || 'Tonight in Paris';
+
+    const showList = tonightShows.map(s => {
+        const link = s.bookingUrl
+            ? `<a href="${s.bookingUrl}" target="_blank" rel="noopener" class="tonight-show-link">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue} ${s.ours ? '🎟️' : ''}</a>`
+            : `<span class="tonight-show-nolink">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue}</span>`;
+        return link;
+    }).join('<span class="tonight-sep">·</span>');
+
+    container.innerHTML = `
+        <div class="tonight-banner tonight-banner-live">
+            <span class="tonight-pulse"></span>
+            <span class="tonight-label">${langLabel} ${tonightLabel}</span>
+            <div class="tonight-shows">${showList}</div>
+        </div>`;
 }
 
 /* ─── Section Reordering ─── */
