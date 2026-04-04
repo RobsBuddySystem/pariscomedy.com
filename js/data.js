@@ -65,6 +65,7 @@ const OTHER_SHOWS = [
       descFr:'Scène ouverte de stand-up en anglais chez Toloache chaque mardi à 19h30. Par Kuhl Comedy — un open mic convivial en anglais, idéal pour les nouveaux et les habitués.',
       paid:false, bookingUrl:'https://www.eventbrite.fr/e/stand-up-open-mic-in-english-by-kuhl-comedy-tickets-1760885549079' },
     { name:'Green Mic Showcase', venueName:'Au Soleil de la Butte', day:'Friday', time:'20:15', type:'standup', emoji:'🎙️', featured:true,
+      bookingUrl:'https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-573952757147',
       description:'English stand-up showcase at Montmartre\'s Au Soleil de la Butte. One of the best Friday night shows in Paris — sharp comics, great room, classic neighbourhood crowd.',
       descFr:'Showcase de stand-up en anglais au Soleil de la Butte à Montmartre. L\'une des meilleures soirées du vendredi à Paris — humoristes affûtés, belle salle, ambiance quartier.',
       paid:false },
@@ -133,6 +134,7 @@ const OTHER_SHOWS = [
       descFr:'South Comedy Club au Comédie Café — les mercredis et 40+ dates à venir. L\'un des clubs de comédie en anglais les plus actifs de Paris.',
       paid:false, bookingUrl:'https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259' },
     { name:'FIAP Comedy Club', venueName:'FIAP Paris', day:'Thursday', time:'19:30', type:'standup', emoji:'🎭',
+      bookingUrl:'https://www.eventbrite.fr/e/fiap-comedy-club-tickets-1986207987558',
       description:'English stand-up at FIAP Paris every Thursday at 19:30. Great for international crowds and students.',
       descFr:'Stand-up en anglais au FIAP Paris chaque jeudi à 19h30. Très apprécié des étudiants et des publics internationaux.',
       paid:false },
@@ -143,19 +145,19 @@ const OTHER_SHOWS = [
     { name:'Wednesday Night Comedy', venueName:'La Pomme d\'Eve', day:'Wednesday', time:'19:30', type:'standup', emoji:'🌙',
       description:'English stand-up at La Pomme d\'Eve on Wednesday evenings at 19:30. Same venue as Blast Off All Stars — a reliable mid-week comedy night in the Latin Quarter.',
       descFr:'Stand-up en anglais à La Pomme d\'Eve les mercredis à 19h30. Même salle que Blast Off All Stars — soirée comédie fiable en milieu de semaine dans le Quartier Latin.',
-      paid:false },
+      paid:false, bookingUrl:'https://www.eventbrite.fr/e/english-standup-wednesday-night-comedy-tickets-1982700600870' },
     { name:'Cuba Compagnie Comedy Club', venueName:'Cuba Compagnie', day:'Tuesday', time:'19:30', type:'standup', emoji:'🎺',
       description:'Cuba Compagnie Comedy Club at 48 Bd Beaumarchais — Tuesday evenings at 19:30 with 25+ upcoming dates. One of the most established English comedy addresses in Paris.',
       descFr:'Cuba Compagnie Comedy Club au 48 Bd Beaumarchais — les mardis à 19h30 avec 25+ dates à venir. L\'une des adresses comiques en anglais les plus établies de Paris.',
-      paid:false },
+      paid:false, bookingUrl:'https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429' },
     { name:'Mic Drop Comedy Club', venueName:'Speechless', day:'Wednesday', time:'20:00', type:'standup', emoji:'🎤',
       description:'Mic Drop Comedy Club at Speechless — Wednesday nights at 20:00. Regular English stand-up in Paris.',
       descFr:'Mic Drop Comedy Club chez Speechless — les mercredis à 20h. Stand-up en anglais régulier à Paris.',
-      paid:false },
+      paid:false, bookingUrl:'https://www.eventbrite.com/e/mic-drop-comedy-club-tickets-1982353596972' },
     { name:'LOFI Comedy Club', venueName:'Fada Paris', day:'Tuesday', time:'19:00', type:'standup', emoji:'🎵',
       description:'LOFI Comedy Club at Fada Paris — Tuesday evenings at 19:00. Laid-back English comedy night with a growing regular crowd.',
       descFr:'LOFI Comedy Club au Fada Paris — les mardis à 19h. Soirée comédie en anglais décontractée avec un public fidèle croissant.',
-      paid:false },
+      paid:false, bookingUrl:'https://www.eventbrite.com/e/lofi-comedy-club-2-tickets-1982107345427' },
     { name:'Smash Comedy Club', venueName:'Comédie Café', day:'Saturday', time:'19:00', type:'standup', emoji:'💥',
       description:'Smash Comedy Club at Comédie Café — 157+ upcoming dates across the week. One of the highest-volume English comedy programmes in Paris.',
       descFr:'Smash Comedy Club au Comédie Café — 157+ dates à venir. L\'un des programmes de comédie en anglais les plus denses de Paris.',
@@ -179,7 +181,7 @@ const OTHER_SHOWS = [
     { name:'Sparkle Comedy Club', venueName:'Le TLM Paris', day:'Thursday', time:'21:00', type:'standup', emoji:'✨',
       description:'Sparkle Comedy Club at Le TLM Paris — Thursday nights at 21:00. Late-night English comedy in Paris.',
       descFr:'Sparkle Comedy Club au TLM Paris — les jeudis à 21h. Comédie en anglais en fin de soirée à Paris.',
-      paid:false }
+      paid:false, bookingUrl:'https://www.eventbrite.fr/e/sparkle-comedy-club-tickets-1985497313914' }
 ];
 
 const KEY_PLAYERS = [
