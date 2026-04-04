@@ -810,6 +810,7 @@ document.addEventListener('submit', e => {
             if (r.ok) {
                 form.innerHTML = '<p class="newsletter-success">You\'re in! Watch your inbox for show alerts.</p>';
                 try { localStorage.setItem('pc_subscribed', '1'); } catch(e) {}
+                trackNewsletterSignup();
             } else {
                 if (btn) { btn.disabled = false; btn.textContent = 'Subscribe'; }
                 alert('Something went wrong. Try again or email booking@pariscomedy.com');
@@ -1059,3 +1060,94 @@ document.addEventListener('DOMContentLoaded', () => {
         renderReservationCounter();
     }
 })();
+// ── Analytics & Conversion Tracking ──────────────────────────────────────────
+// GA4 measurement ID — replace G-XXXXXXXXXX with your real GA4 property ID
+// Get one free at: analytics.google.com → Admin → Create Property → Web
+const GA4_ID = 'G-XXXXXXXXXX';
+
+(function initAnalytics() {
+  // Load GA4 async (non-blocking)
+  const s = document.createElement('script');
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
+  s.async = true;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function() { dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', GA4_ID, {
+    page_title: document.title,
+    page_location: location.href,
+    // Custom dimensions
+    site_language: window.currentLang || 'en'
+  });
+})();
+
+// Track outbound clicks to Eventbrite (conversion events)
+function trackReserve(showName, url) {
+  if (window.gtag) {
+    gtag('event', 'reserve_click', {
+      event_category: 'Conversion',
+      event_label: showName || url,
+      transport_type: 'beacon'
+    });
+  }
+  // Allow navigation to proceed
+  return true;
+}
+
+// Track CTA clicks (Get Listed, newsletter signup, etc.)
+function trackCTA(label) {
+  if (window.gtag) {
+    gtag('event', 'cta_click', {
+      event_category: 'Engagement',
+      event_label: label
+    });
+  }
+}
+
+// Track newsletter signups
+function trackNewsletterSignup() {
+  if (window.gtag) {
+    gtag('event', 'newsletter_signup', {
+      event_category: 'Lead',
+      event_label: 'exit_intent_popup'
+    });
+  }
+}
+
+// Auto-wire all Eventbrite links on page for tracking
+document.addEventListener('DOMContentLoaded', function() {
+  // Wire existing and dynamically added reserve links
+  function wireLinks(root) {
+    (root || document).querySelectorAll('a[href*="eventbrite"]').forEach(function(a) {
+      if (!a.dataset.tracked) {
+        a.dataset.tracked = '1';
+        const showName = a.closest('[data-show-name]')
+          ? a.closest('[data-show-name]').dataset.showName
+          : (a.textContent.trim() || a.href);
+        a.addEventListener('click', function() {
+          trackReserve(showName, a.href);
+        });
+      }
+    });
+    // Wire Get Listed links
+    (root || document).querySelectorAll('a[href*="book.html"]').forEach(function(a) {
+      if (!a.dataset.tracked) {
+        a.dataset.tracked = '1';
+        a.addEventListener('click', function() {
+          trackCTA('get_listed');
+        });
+      }
+    });
+  }
+  wireLinks();
+  // Re-wire after dynamic renders (show cards, tonight banner, etc.)
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(m) {
+      m.addedNodes.forEach(function(n) {
+        if (n.nodeType === 1) wireLinks(n);
+      });
+    });
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+});
