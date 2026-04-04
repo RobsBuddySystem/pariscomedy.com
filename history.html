@@ -123,6 +123,36 @@
 {"@type":"ListItem","position":2,"name":"History","item":"https://pariscomedy.com/history.html"}]
     }
     </script>
+    <script type="application/ld+json">
+    [
+    {"@context":"https://schema.org","@type":"VideoObject",
+     "name":"La Bise by Paul Taylor",
+     "description":"Viral comedy sketch by British comedian Paul Taylor about the French greeting custom 'La Bise'. Filmed at French Fried Comedy Night in Paris. 3M+ views.",
+     "thumbnailUrl":"https://img.youtube.com/vi/T-VWbV6TJxU/maxresdefault.jpg",
+     "uploadDate":"2016-01-01",
+     "duration":"PT3M30S",
+     "embedUrl":"https://www.youtube.com/embed/T-VWbV6TJxU",
+     "contentUrl":"https://www.youtube.com/watch?v=T-VWbV6TJxU",
+     "url":"https://www.youtube.com/watch?v=T-VWbV6TJxU",
+     "genre":"Comedy","inLanguage":"en",
+     "publisher":{"@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com"},
+     "about":{"@type":"Event","name":"French Fried Comedy Night","location":{"@type":"Place","name":"Paris, France"}}
+    },
+    {"@context":"https://schema.org","@type":"VideoObject",
+     "name":"French Fried Comedy Night Paris Highlights [VOSTFR]",
+     "description":"Highlights from French Fried Comedy Night — the longest-running English-language stand-up comedy show in Paris. Real performances, bilingual crowd, Velvet Bar, Pigalle.",
+     "thumbnailUrl":"https://img.youtube.com/vi/5oHnhumlTdY/maxresdefault.jpg",
+     "uploadDate":"2023-01-01",
+     "duration":"PT5M",
+     "embedUrl":"https://www.youtube.com/embed/5oHnhumlTdY",
+     "contentUrl":"https://www.youtube.com/watch?v=5oHnhumlTdY",
+     "url":"https://www.youtube.com/watch?v=5oHnhumlTdY",
+     "genre":"Comedy","inLanguage":["en","fr"],
+     "publisher":{"@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com"},
+     "about":{"@type":"Event","name":"French Fried Comedy Night","location":{"@type":"Place","name":"Velvet Bar","address":{"@type":"PostalAddress","streetAddress":"39 Rue de Douai","addressLocality":"Paris","postalCode":"75009","addressCountry":"FR"}}}
+    }
+    ]
+    </script>
 </head>
 <body data-page="history">
 
@@ -184,6 +214,58 @@
             <p class="section-sub">The people who built the scene, one joke at a time</p>
         </div>
         <div class="players-grid" id="keyPlayersGrid"></div>
+    </div>
+</section>
+
+<!-- Watch the Scene -->
+<section class="section section-alt" id="watch">
+    <div class="container">
+        <div class="section-head" data-reveal>
+            <h2 class="section-title">🎬 Watch the Scene</h2>
+            <p class="section-sub">The videos that put Paris comedy on the map</p>
+        </div>
+        <div class="video-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:32px;">
+            <div class="video-card" data-reveal data-reveal-delay="0.1" style="border-radius:16px;overflow:hidden;background:var(--card-bg);border:1px solid var(--border-color);box-shadow:0 4px 24px rgba(0,0,0,0.2);">
+                <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+                    <iframe
+                        src="https://www.youtube.com/embed/T-VWbV6TJxU"
+                        title="La Bise by Paul Taylor — 3M+ views"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        loading="lazy"
+                        style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                    ></iframe>
+                </div>
+                <div style="padding:16px 20px;">
+                    <p style="font-weight:600;margin:0 0 4px;font-size:1rem;">La Bise — Paul Taylor</p>
+                    <p style="color:var(--text-muted);font-size:0.85rem;margin:0;">The video that started it all. Filmed at French Fried Comedy Night. 3M+ views.</p>
+                </div>
+            </div>
+            <div class="video-card" data-reveal data-reveal-delay="0.2" style="border-radius:16px;overflow:hidden;background:var(--card-bg);border:1px solid var(--border-color);box-shadow:0 4px 24px rgba(0,0,0,0.2);">
+                <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+                    <iframe
+                        src="https://www.youtube.com/embed/5oHnhumlTdY"
+                        title="French Fried Comedy Night Paris Highlights [VOSTFR]"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        loading="lazy"
+                        style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                    ></iframe>
+                </div>
+                <div style="padding:16px 20px;">
+                    <p style="font-weight:600;margin:0 0 4px;font-size:1rem;">FFCN Paris Highlights [VOSTFR]</p>
+                    <p style="color:var(--text-muted);font-size:0.85rem;margin:0;">Real performances from French Fried Comedy Night. This is what Wednesday looks like.</p>
+                </div>
+            </div>
+            <div class="video-card" data-reveal data-reveal-delay="0.3" style="border-radius:16px;overflow:hidden;background:var(--card-bg);border:1px solid rgba(124,58,237,0.3);box-shadow:0 4px 24px rgba(124,58,237,0.15);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 24px;text-align:center;min-height:220px;">
+                <div style="font-size:3rem;margin-bottom:16px;">🎤</div>
+                <p style="font-weight:700;font-size:1.1rem;margin:0 0 8px;">See it live</p>
+                <p style="color:var(--text-muted);font-size:0.9rem;margin:0 0 20px;">Every Wednesday at Velvet Bar, Pigalle — Free entry</p>
+                <a href="shows.html" class="btn btn-primary" style="font-size:0.9rem;padding:10px 20px;">Reserve a Spot →</a>
+            </div>
+        </div>
     </div>
 </section>
 
