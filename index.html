@@ -351,24 +351,30 @@
             <h2 class="section-title" data-i18n="sections.videoTitle">Latest Clips</h2>
         </div>
         <div class="video-grid">
-            <div class="video-card" style="display:flex;align-items:center;justify-content:center;background:var(--surface);min-height:250px;">
-                <div style="text-align:center;padding:32px;">
-                    <div style="font-size:3rem;margin-bottom:16px;">🎬</div>
-                    <p style="font-family:var(--font-display);font-size:1.2rem;font-weight:600;margin-bottom:8px;">Comedy clips coming soon</p>
-                    <p style="color:var(--text-muted);font-size:0.9rem;">The best moments from Paris Comedy stages — filmed, edited, and ready to make you laugh before you even show up.</p>
+            <article class="video-card video-series-card">
+                <div class="video-series-inner">
+                    <span class="video-badge">🔥 New weekly format</span>
+                    <h3>Paris Crowd Moments</h3>
+                    <p>Short stand-up clips with fast hooks and punchline payoffs — a repeatable format built for discovery and share velocity.</p>
+                    <ul class="video-series-list">
+                        <li>🎤 15–35 second clips</li>
+                        <li>📍 Real Paris crowd interactions</li>
+                        <li>🗓️ Fresh drops every week</li>
+                    </ul>
+                    <div class="video-cta-row">
+                        <a href="https://www.instagram.com/french_fried_comedy/reels/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Watch Reels</a>
+                        <a href="shows.html" class="btn btn-ghost btn-sm">See Live Shows</a>
+                    </div>
                 </div>
-            </div>
-            <div class="video-card" style="display:flex;align-items:center;justify-content:center;background:var(--surface);min-height:250px;">
-                <div style="text-align:center;padding:32px;">
-                    <svg viewBox="0 0 120 80" style="width:120px;height:80px;margin:0 auto 16px;">
-                        <rect x="5" y="5" width="110" height="65" rx="8" fill="none" stroke="var(--border)" stroke-width="2"/>
-                        <polygon points="48,25 48,55 72,40" fill="var(--accent)" opacity="0.6">
-                            <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
-                        </polygon>
-                    </svg>
-                    <p style="color:var(--text-muted);font-size:0.9rem;">Follow <a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener" style="color:var(--accent);">@french_fried_comedy</a> for clips now</p>
+            </article>
+            <article class="video-card video-conversion-card">
+                <div class="video-series-inner">
+                    <div style="font-size:2rem;margin-bottom:8px;">🎟️</div>
+                    <h3>Liked the clip? Catch it live tonight.</h3>
+                    <p style="margin-bottom:16px;">Most clips are filmed on real Paris stages. Reserve directly from our shows page before spots fill up.</p>
+                    <a href="shows.html" class="show-card-link" style="display:inline-flex;">Reserve Your Spot →</a>
                 </div>
-            </div>
+            </article>
         </div>
     </div>
 </section>
