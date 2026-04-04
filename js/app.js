@@ -75,7 +75,7 @@ function initPage() {
         renderTonightBanner();
         // English: calendar first, then shows. French: shows first (Velvet focused)
         if (currentLang !== 'fr') { moveCalendarFirst(); }
-        renderFeaturedShows(); renderCalendar(); renderQuote(); renderUntranslatable(); renderTestimonials(); renderGrowthChart();
+        renderFeaturedShows(); renderUpNext(); renderCalendar(); renderQuote(); renderUntranslatable(); renderTestimonials(); renderGrowthChart();
     }
     if (page === 'shows') { renderAllShows(); renderOtherShows(); initFilters(); initDayFilter(); renderThisWeek(); }
     if (page === 'venues') { renderVenueMap(); renderVenueCards(); }
@@ -175,6 +175,62 @@ function renderShowCard(show) {
             </div>
         </div>
     </article>`;
+}
+
+function renderUpNext() {
+    const el = document.getElementById('upNextGrid');
+    if (!el) return;
+    const DAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const now = new Date();
+    const todayName = DAY_NAMES[now.getDay()];
+
+    // Build next 7 days map (exclude today — tonight banner covers it)
+    const upcoming = [];
+    for (let i = 1; i <= 7; i++) {
+        const d = new Date(now);
+        d.setDate(now.getDate() + i);
+        upcoming.push(d);
+    }
+
+    // Pick up to 3 upcoming SHOWS (featured+non-featured) sorted by next occurrence
+    const cards = [];
+    upcoming.forEach(d => {
+        if (cards.length >= 3) return;
+        const dn = DAY_NAMES[d.getDay()];
+        const label = `${dn} · ${d.getDate()} ${MONTHS[d.getMonth()]}`;
+        SHOWS.forEach(show => {
+            if (cards.length >= 3) return;
+            if (show.day !== dn) return;
+            // Avoid duplicate shows already added
+            if (cards.find(c => c.id === show.id)) return;
+            const venue = (typeof VENUES !== 'undefined') ? VENUES.find(v => v.id === show.venue) : null;
+            const venueName = venue ? venue.name : '';
+            const neighborhood = venue ? venue.neighborhood : '';
+            const isTomorrow = i === 1;
+            const badge = isTomorrow ? '<span style="background:var(--accent);color:#fff;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:999px;margin-left:6px;">TOMORROW</span>' : '';
+            const reserveBtn = show.bookingUrl
+                ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:12px;font-size:.85rem;" onclick="if(typeof trackReserve==='function')trackReserve('${show.shortName||show.name}','${show.bookingUrl}')">🎟️ Reserve Free →</a>`
+                : `<a href="shows.html" class="btn btn-ghost btn-sm" style="margin-top:12px;font-size:.85rem;">See Show Details →</a>`;
+            const desc = currentLang === 'fr' ? (show.descFr || show.description) : show.description;
+            cards.push({ id: show.id, html: `
+                <div class="show-card" style="padding:18px 20px;display:flex;flex-direction:column;gap:6px;border-top:3px solid var(--accent);" data-reveal>
+                    <div style="font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;">${label}${badge}</div>
+                    <div style="font-size:1.1rem;font-weight:700;font-family:var(--font-display);">${show.emoji || '🎤'} ${show.name}</div>
+                    <div style="font-size:.83rem;color:var(--text-muted);">🕐 ${show.time} &nbsp;·&nbsp; 📍 ${venueName}${neighborhood ? ', ' + neighborhood : ''}</div>
+                    <div style="font-size:.88rem;color:var(--text-dim);margin-top:4px;line-height:1.4;">${desc}</div>
+                    ${currentLang !== 'fr' ? '<div style="font-size:.78rem;color:var(--text-muted);margin-top:2px;">✅ Free entry · 1 drink min</div>' : ''}
+                    ${reserveBtn}
+                </div>` });
+        });
+    });
+
+    if (cards.length === 0) {
+        el.innerHTML = '<p style="color:var(--text-muted);font-size:.9rem;">Check back soon — shows listed weekly.</p>';
+        return;
+    }
+    el.innerHTML = cards.map(c => c.html).join('');
+    if (typeof _revealInit === 'function') _revealInit(el);
 }
 
 function renderFeaturedShows() {
