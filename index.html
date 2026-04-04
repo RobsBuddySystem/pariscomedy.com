@@ -81,49 +81,79 @@
         ]
     }
     </script>
+    <!-- EventSeries schemas: recurring weekly shows — enables Google Events carousel -->
     <script type="application/ld+json">
     {
         "@context":"https://schema.org",
-        "@type":"Event",
+        "@type":"EventSeries",
         "name":"French Fried Comedy Night",
-        "description":"THE bilingual comedy show. American & French comics, English & French jokes, same night.",
+        "description":"THE bilingual comedy show in Paris. American & French comics, English & French jokes, same Wednesday night every week at Velvet Bar, Pigalle.",
+        "url":"https://pariscomedy.com/shows.html",
         "startDate":"2026-04-08T22:00:00+02:00",
-        "endDate":"2026-04-08T23:30:00+02:00",
+        "endDate":"2026-12-31T23:30:00+02:00",
         "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
         "eventStatus":"https://schema.org/EventScheduled",
-        "location":{"@type":"Place","name":"Velvet Bar","address":{"@type":"PostalAddress","streetAddress":"39 Rue de Douai","addressLocality":"Paris","postalCode":"75009","addressCountry":"FR"}},
-        "organizer":{"@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com"},
-        "offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","url":"https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747?utm_source=pariscomedy&utm_medium=website","availability":"https://schema.org/InStock"},
-        "performer":{"@type":"PerformingGroup","name":"French Fried Comedy Night"}
+        "location":{"@type":"Place","name":"Velvet Bar","address":{"@type":"PostalAddress","streetAddress":"39 Rue de Douai","addressLocality":"Paris","postalCode":"75009","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":48.8821,"longitude":2.3349}},
+        "organizer":{"@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com","sameAs":["https://www.instagram.com/french_fried_comedy/","https://www.eventbrite.com/o/french-fried-comedy-night-7016959453"]},
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","url":"https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747?utm_source=pariscomedy&utm_medium=website","availability":"https://schema.org/InStock","validFrom":"2026-01-01"},
+        "performer":{"@type":"PerformingGroup","name":"French Fried Comedy Night"},
+        "subEvent":[
+            {"@type":"Event","name":"French Fried Comedy Night","startDate":"2026-04-08T22:00:00+02:00","endDate":"2026-04-08T23:30:00+02:00"},
+            {"@type":"Event","name":"French Fried Comedy Night","startDate":"2026-04-15T22:00:00+02:00","endDate":"2026-04-15T23:30:00+02:00"},
+            {"@type":"Event","name":"French Fried Comedy Night","startDate":"2026-04-22T22:00:00+02:00","endDate":"2026-04-22T23:30:00+02:00"},
+            {"@type":"Event","name":"French Fried Comedy Night","startDate":"2026-04-29T22:00:00+02:00","endDate":"2026-04-29T23:30:00+02:00"},
+            {"@type":"Event","name":"French Fried Comedy Night","startDate":"2026-05-06T22:00:00+02:00","endDate":"2026-05-06T23:30:00+02:00"},
+            {"@type":"Event","name":"French Fried Comedy Night","startDate":"2026-05-13T22:00:00+02:00","endDate":"2026-05-13T23:30:00+02:00"}
+        ]
     }
     </script>
     <script type="application/ld+json">
     {
         "@context":"https://schema.org",
-        "@type":"Event",
-        "name":"Velvet Bar Comedy — Le meilleur du stand-up",
-        "description":"Curated showcase — the best comics in Paris on one stage.",
+        "@type":"EventSeries",
+        "name":"Velvet Bar Comedy Night — Le meilleur du stand-up",
+        "description":"Curated showcase — the best comics in Paris on one stage. Every Wednesday at 20:30 in Pigalle. Bilingual, unpredictable, unforgettable.",
+        "url":"https://pariscomedy.com/shows.html",
         "startDate":"2026-04-08T20:30:00+02:00",
-        "endDate":"2026-04-08T21:45:00+02:00",
+        "endDate":"2026-12-31T21:45:00+02:00",
         "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
         "eventStatus":"https://schema.org/EventScheduled",
-        "location":{"@type":"Place","name":"Velvet Bar","address":{"@type":"PostalAddress","streetAddress":"39 Rue de Douai","addressLocality":"Paris","postalCode":"75009","addressCountry":"FR"}},
-        "offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","url":"https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719?utm_source=pariscomedy&utm_medium=website","availability":"https://schema.org/InStock"}
+        "location":{"@type":"Place","name":"Velvet Bar","address":{"@type":"PostalAddress","streetAddress":"39 Rue de Douai","addressLocality":"Paris","postalCode":"75009","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":48.8821,"longitude":2.3349}},
+        "organizer":{"@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com"},
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","url":"https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719?utm_source=pariscomedy&utm_medium=website","availability":"https://schema.org/InStock","validFrom":"2026-01-01"},
+        "subEvent":[
+            {"@type":"Event","name":"Velvet Bar Comedy Night","startDate":"2026-04-08T20:30:00+02:00","endDate":"2026-04-08T21:45:00+02:00"},
+            {"@type":"Event","name":"Velvet Bar Comedy Night","startDate":"2026-04-15T20:30:00+02:00","endDate":"2026-04-15T21:45:00+02:00"},
+            {"@type":"Event","name":"Velvet Bar Comedy Night","startDate":"2026-04-22T20:30:00+02:00","endDate":"2026-04-22T21:45:00+02:00"},
+            {"@type":"Event","name":"Velvet Bar Comedy Night","startDate":"2026-04-29T20:30:00+02:00","endDate":"2026-04-29T21:45:00+02:00"},
+            {"@type":"Event","name":"Velvet Bar Comedy Night","startDate":"2026-05-06T20:30:00+02:00","endDate":"2026-05-06T21:45:00+02:00"},
+            {"@type":"Event","name":"Velvet Bar Comedy Night","startDate":"2026-05-13T20:30:00+02:00","endDate":"2026-05-13T21:45:00+02:00"}
+        ]
     }
     </script>
     <script type="application/ld+json">
     {
         "@context":"https://schema.org",
-        "@type":"Event",
+        "@type":"EventSeries",
         "name":"Velvet Bar Comedy — Open Mic",
-        "description":"Sign up, step up, make them laugh. All levels welcome.",
+        "description":"The best open mic in Pigalle. Every Wednesday from 19:00. Sign up, step up, make them laugh. All levels welcome.",
+        "url":"https://pariscomedy.com/shows.html",
         "startDate":"2026-04-08T19:00:00+02:00",
-        "endDate":"2026-04-08T20:15:00+02:00",
+        "endDate":"2026-12-31T20:15:00+02:00",
         "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
         "eventStatus":"https://schema.org/EventScheduled",
-        "location":{"@type":"Place","name":"Velvet Bar","address":{"@type":"PostalAddress","streetAddress":"39 Rue de Douai","addressLocality":"Paris","postalCode":"75009","addressCountry":"FR"}},
-        "offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","url":"https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713?utm_source=pariscomedy&utm_medium=website","availability":"https://schema.org/InStock"},
-        "performer":{"@type":"PerformingGroup","name":"Velvet Bar Comedy Open Mic"}
+        "location":{"@type":"Place","name":"Velvet Bar","address":{"@type":"PostalAddress","streetAddress":"39 Rue de Douai","addressLocality":"Paris","postalCode":"75009","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":48.8821,"longitude":2.3349}},
+        "organizer":{"@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com"},
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","url":"https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713?utm_source=pariscomedy&utm_medium=website","availability":"https://schema.org/InStock","validFrom":"2026-01-01"},
+        "performer":{"@type":"PerformingGroup","name":"Velvet Bar Comedy Open Mic"},
+        "subEvent":[
+            {"@type":"Event","name":"Velvet Open Mic","startDate":"2026-04-08T19:00:00+02:00","endDate":"2026-04-08T20:15:00+02:00"},
+            {"@type":"Event","name":"Velvet Open Mic","startDate":"2026-04-15T19:00:00+02:00","endDate":"2026-04-15T20:15:00+02:00"},
+            {"@type":"Event","name":"Velvet Open Mic","startDate":"2026-04-22T19:00:00+02:00","endDate":"2026-04-22T20:15:00+02:00"},
+            {"@type":"Event","name":"Velvet Open Mic","startDate":"2026-04-29T19:00:00+02:00","endDate":"2026-04-29T20:15:00+02:00"},
+            {"@type":"Event","name":"Velvet Open Mic","startDate":"2026-05-06T19:00:00+02:00","endDate":"2026-05-06T20:15:00+02:00"},
+            {"@type":"Event","name":"Velvet Open Mic","startDate":"2026-05-13T19:00:00+02:00","endDate":"2026-05-13T20:15:00+02:00"}
+        ]
     }
     </script>
     <script type="application/ld+json">
