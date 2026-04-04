@@ -117,19 +117,23 @@ function renderThisWeek() {
             });
             return;
         }
-        if (!upcoming[show.day]) return;
-        upcoming[show.day].forEach(({ d, label }) => {
-            const venueName = show.venueName || (show.venue ? (VENUES || []).find(v => v.id === show.venue)?.name || '' : '');
-            const link = show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">Reserve →</a>` : `<a href="book.html" class="btn btn-ghost btn-sm" style="margin-top:10px;">Get Listed →</a>`;
-            const isTonight = d.toDateString() === now.toDateString();
-            const badge = isTonight ? '<span style="background:#ff3366;color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:middle;">TONIGHT</span>' : '';
-            cards.push({ ts: d.getTime(), time: show.time || '', html: `
-                <div class="show-card" style="padding:16px 18px;display:flex;flex-direction:column;gap:4px;" data-reveal data-reveal-delay="1">
-                    <div style="font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;">${label}${badge}</div>
-                    <div style="font-size:1.05rem;font-weight:700;font-family:var(--font-display);">${show.emoji || '🎤'} ${show.name}</div>
-                    <div style="font-size:.85rem;color:var(--text-muted);">${show.time || ''} · ${venueName}</div>
-                    ${link}
-                </div>` });
+        // Support single day string OR array of days
+        const showDays = Array.isArray(show.day) ? show.day : [show.day];
+        showDays.forEach(dayName => {
+            if (!upcoming[dayName]) return;
+            upcoming[dayName].forEach(({ d, label }) => {
+                const venueName = show.venueName || (show.venue ? (VENUES || []).find(v => v.id === show.venue)?.name || '' : '');
+                const link = show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">Reserve →</a>` : `<a href="book.html" class="btn btn-ghost btn-sm" style="margin-top:10px;">Get Listed →</a>`;
+                const isTonight = d.toDateString() === now.toDateString();
+                const badge = isTonight ? '<span style="background:#ff3366;color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:middle;">TONIGHT</span>' : '';
+                cards.push({ ts: d.getTime(), time: show.time || '', html: `
+                    <div class="show-card" style="padding:16px 18px;display:flex;flex-direction:column;gap:4px;" data-reveal data-reveal-delay="1">
+                        <div style="font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;">${label}${badge}</div>
+                        <div style="font-size:1.05rem;font-weight:700;font-family:var(--font-display);">${show.emoji || '🎤'} ${show.name}</div>
+                        <div style="font-size:.85rem;color:var(--text-muted);">${show.time || ''} · ${venueName}</div>
+                        ${link}
+                    </div>` });
+            });
         });
     });
     // Sort by date+time
@@ -209,7 +213,7 @@ function renderOtherShows() {
     container.innerHTML = OTHER_SHOWS.map(show => `
         <div class="other-show-card${!show.paid ? ' placeholder-card' : ''}" data-reveal>
             <div class="other-show-name">${show.emoji || '🎤'} ${show.name}</div>
-            <div class="other-show-venue">📍 ${show.venueName} · ${show.day}${show.time ? ' · '+show.time : ''}</div>
+            <div class="other-show-venue">📍 ${show.venueName} · ${Array.isArray(show.day) ? show.day.join(' & ') : show.day}${show.time ? ' · '+show.time : ''}</div>
             <div class="other-show-desc">${show.description}</div>
             ${show.paid && show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link" style="display:inline-block;margin-top:8px;">🎟️ Reserve Your Spot →</a>` : '<div class="other-show-cta"><span class="placeholder-badge">📋 Not yet listed</span> <a href="book.html" class="other-show-link">Get listed for €1/month →</a></div>'}
         </div>
@@ -488,7 +492,8 @@ function renderTonightBanner() {
     // Other English shows
     if (typeof OTHER_SHOWS !== 'undefined') {
         OTHER_SHOWS.forEach(show => {
-            if (show.day === today || show.day === 'daily') {
+            const showDays = Array.isArray(show.day) ? show.day : [show.day];
+            if (showDays.includes(today) || showDays.includes('daily')) {
                 tonightShows.push({
                     name: show.name, shortName: show.name, time: show.time, emoji: show.emoji,
                     venue: show.venueName || '', lang: 'en', priority: show.paid ? 2 : 3,
