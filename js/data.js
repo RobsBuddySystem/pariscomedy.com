@@ -41,7 +41,7 @@ const OTHER_SHOWS = [
     { name:'The Englishman Comedy Night', venueName:'The Englishman Cocktail Club', day:'Thursday', time:'20:00', type:'standup', emoji:'🇬🇧', description:'English comedy night at The Englishman Cocktail Club in Paris.', paid:false },
     { name:'Funny Women Paris', venueName:'Le Noddi', day:'Tuesday', time:'20:00', type:'standup', emoji:'👩‍🎤', description:'English stand-up comedy in Paris featuring women comedians. At Le Noddi.', paid:false },
     { name:'The Open Mic Express', venueName:'Le Kibélé', day:'Friday', time:'19:00', type:'openmic', emoji:'🚂', description:'English stand-up open mic in Paris. Drop in, sign up, perform.', paid:false },
-    { name:'English Comedy at Théâtre BO', venueName:'Théâtre BO Saint-Martin', day:'Various', time:'20:15', type:'standup', emoji:'🎭', description:'English-language comedy specials and one-person shows at the legendary Théâtre BO.', paid:false }
+    { name:'Oh My God She\'s Parisian! — Julie Coulon', venueName:'Théâtre BO Saint-Martin', day:'Friday', time:'20:15', type:'standup', emoji:'🎭', description:'A French comedian with no filter — everything you\'ve ever wanted to know about Paris, told with razor-sharp Parisian irony. Friday & Saturday at 20:15. Verified active April 2026.', paid:false }
 ];
 
 const KEY_PLAYERS = [
