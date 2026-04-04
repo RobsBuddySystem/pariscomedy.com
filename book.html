@@ -30,6 +30,53 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Paris Comedy — Show Listing & Comedian Booking",
+        "url": "https://pariscomedy.com/book.html",
+        "provider": {
+            "@type": "Organization",
+            "name": "Paris Comedy",
+            "url": "https://pariscomedy.com",
+            "email": "booking@pariscomedy.com",
+            "sameAs": ["https://www.instagram.com/french_fried_comedy/"]
+        },
+        "description": "Book a comedian for your corporate event or private party in Paris. List your English-language comedy show on pariscomedy.com from €1/month. Bilingual performers available.",
+        "areaServed": {"@type": "City", "name": "Paris"},
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Comedy Show Listing Packages",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "name": "Basic Listing",
+                    "description": "Show name, description, and venue in the Paris Comedy calendar.",
+                    "price": "1.00",
+                    "priceCurrency": "EUR",
+                    "priceSpecification": {"@type": "UnitPriceSpecification", "price": "1.00", "priceCurrency": "EUR", "unitText": "month"}
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Pro Listing",
+                    "description": "Everything in Basic plus direct ticket link, show card, venue map pin, and email list management.",
+                    "price": "5.00",
+                    "priceCurrency": "EUR",
+                    "priceSpecification": {"@type": "UnitPriceSpecification", "price": "5.00", "priceCurrency": "EUR", "unitText": "month"}
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Full Service Booking",
+                    "description": "Complete booking management, automated email campaigns, dedicated show page, and weekly promotional emails.",
+                    "price": "30.00",
+                    "priceCurrency": "EUR",
+                    "priceSpecification": {"@type": "UnitPriceSpecification", "price": "30.00", "priceCurrency": "EUR", "unitText": "month"}
+                }
+            ]
+        }
+    }
+    </script>
 </head>
 <body data-page="book">
 

@@ -130,7 +130,7 @@ function renderThisWeek() {
 function renderShowCard(show) {
     const venue = VENUES.find(v => v.id === show.venue);
     const typeLabel = show.type === 'standup' ? t('filters.standup') : t('filters.openmic');
-    return `<article class="show-card" data-type="${show.type}">
+    return `<article class="show-card" data-type="${show.type}" data-reveal>
         <div class="show-card-img" style="background:linear-gradient(135deg,${show.type==='standup'?'#1a0515,#2a1020':'#0a1a0f,#102a15'});">${show.emoji}</div>
         <div class="show-card-body">
             <span class="show-card-type type-${show.type}">${typeLabel}</span>
@@ -185,19 +185,21 @@ function renderAllShows(filter = 'all') {
     if (!grid) return;
     const filtered = filter === 'all' ? SHOWS : SHOWS.filter(s => s.type === filter);
     grid.innerHTML = filtered.map(renderShowCard).join('');
+    if (window._revealInit) window._revealInit(grid);
 }
 
 function renderOtherShows() {
     const container = document.getElementById('otherShowsList');
     if (!container || typeof OTHER_SHOWS === 'undefined') return;
     container.innerHTML = OTHER_SHOWS.map(show => `
-        <div class="other-show-card${!show.paid ? ' placeholder-card' : ''}">
+        <div class="other-show-card${!show.paid ? ' placeholder-card' : ''}" data-reveal>
             <div class="other-show-name">${show.emoji || '🎤'} ${show.name}</div>
             <div class="other-show-venue">📍 ${show.venueName} · ${show.day}${show.time ? ' · '+show.time : ''}</div>
             <div class="other-show-desc">${show.description}</div>
             ${show.paid && show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link" style="display:inline-block;margin-top:8px;">🎟️ Reserve Your Spot →</a>` : '<div class="other-show-cta"><span class="placeholder-badge">📋 Not yet listed</span> <a href="book.html" class="other-show-link">Get listed for €1/month →</a></div>'}
         </div>
     `).join('');
+    if (window._revealInit) window._revealInit(container);
 }
 
 function initFilters() {
@@ -687,13 +689,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    function initReveal() {
-        document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
-    }
+    window._revealInit = function(root) {
+        (root || document).querySelectorAll('[data-reveal]:not(.revealed)').forEach(el => revealObs.observe(el));
+    };
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initReveal);
+        document.addEventListener('DOMContentLoaded', () => window._revealInit());
     } else {
-        initReveal();
+        window._revealInit();
     }
 })();
 
