@@ -54,7 +54,7 @@ const OTHER_SHOWS = [
     { name:'MANGO English Stand-Up', venueName:'Le Paris de l\'Humour', day:'Wednesday', time:'19:45', type:'standup', emoji:'🥭', description:'English stand-up comedy at Le Paris de l\'Humour — Wednesday nights with Randy J Dreams.', paid:false },
     { name:'Friday Night Show', venueName:'La Pomme d\'Eve', day:'Friday', time:'20:00', type:'standup', emoji:'🍎', description:'English stand-up comedy every Friday night at La Pomme d\'Eve. Regular showcase with rotating lineups.', paid:false },
     { name:'Millennial Meltdown', venueName:'Le Bikini Bottom', day:'Wednesday', time:'20:00', type:'standup', emoji:'🔥', description:'English comedy show — stand-up night in Paris. Weekly at Le Bikini Bottom.', paid:false },
-    { name:'Green Light Comedy', venueName:'Les Marquises', day:'Tuesday', time:'20:15', type:'standup', emoji:'🟢', description:'Standup comedy in English. Weekly at Les Marquises.', paid:false },
+    { name:'Green Light Comedy', venueName:'Les Marquises', day:'Tuesday', time:'20:15', type:'standup', emoji:'🟢', description:'English stand-up every Tuesday at 20:15 at Les Marquises — one of the most consistent comedy nights on the Paris circuit. Great for locals and first-timers.', paid:false },
     { name:'The Englishman Comedy Night', venueName:'The Englishman Cocktail Club', day:'Thursday', time:'20:00', type:'standup', emoji:'🇬🇧', description:'English comedy night at The Englishman Cocktail Club in Paris.', paid:false },
     { name:'Funny Women Paris', venueName:'Le Noddi', day:'Tuesday', time:'20:00', type:'standup', emoji:'👩‍🎤', description:'English stand-up comedy in Paris featuring women comedians. At Le Noddi.', paid:false },
     { name:'The Open Mic Express', venueName:'Le Kibélé', day:'Friday', time:'19:00', type:'openmic', emoji:'🚂', description:'English stand-up open mic in Paris. Drop in, sign up, perform.', paid:false },
@@ -125,7 +125,7 @@ const TIMELINE = [
     { year:'~2024', title:'FFCN Moves to Velvet Bar', text:'French Fried Comedy Night moves to Velvet Bar in Pigalle — a more intimate basement venue that becomes the new home of Wednesday night comedy in Paris. Now the oldest continuously running English stand-up comedy show in Paris.' },
     { year:'2019–2024', title:'The Growth', text:'Paul Taylor\'s "So British" and "Bisoubye x" tours continue selling out. Sarah Donnelly releases "The Only American in Paris" special on YouTube. More English comedy nights keep appearing.' },
     { year:'2024–2025', title:'The Explosion', text:'The scene explodes. Multiple weekly English shows across Paris. What started as one guy from New York at SoGymnase is now 10+ regular English comedy nights at venues all over the city.' },
-    { year:'Now', title:'The Golden Age', text:'Paris has one of Europe\'s most vibrant English-language comedy scenes. Locals, expats, and tourists fill rooms every week. The future is bilingual — and very, very funny.' }
+    { year:'2026', title:'The Golden Age', text:'20+ weekly English-language shows. 15+ venues. Wednesday nights at Velvet Bar are sold out weeks in advance. From one guy with a mic at Paname in 2013 to a full scene — with paid listings, bilingual headliners, and tourists flying in specifically for the comedy. Paris is one of the top English comedy cities in Europe.' }
 ];
 
 /* Untranslatable words — bilingual comedy content, rotates on each visit */
