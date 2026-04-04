@@ -136,15 +136,20 @@
     // Build a lookup: venue id → shows
     var venueShows = {};
     if (typeof SHOWS !== 'undefined') SHOWS.forEach(function(s){ venueShows[s.venue] = venueShows[s.venue]||[]; venueShows[s.venue].push(s); });
-    if (typeof OTHER_SHOWS !== 'undefined') OTHER_SHOWS.forEach(function(s){ if(s.venue){ venueShows[s.venue] = venueShows[s.venue]||[]; venueShows[s.venue].push(s); } });
+    if (typeof OTHER_SHOWS !== 'undefined') OTHER_SHOWS.forEach(function(s){
+        if(s.venue){ venueShows[s.venue] = venueShows[s.venue]||[]; venueShows[s.venue].push(s); }
+        else if(s.venueName){ // match by name for OTHER_SHOWS that don't have a venue id
+            var matched = VENUES.find(function(v){ return v.name === s.venueName; });
+            if(matched){ venueShows[matched.id] = venueShows[matched.id]||[]; venueShows[matched.id].push(s); }
+        }
+    });
 
     VENUES.forEach(function(v) {
         var icon = v.listed ? purpleIcon : blueIcon;
         var showsHtml = '';
         (venueShows[v.id]||[]).forEach(function(s){
             showsHtml += '<div style="margin-top:6px;font-size:0.78rem;">' +
-                (s.emoji||'🎭') + ' <strong>' + s.shortName + '</strong> · ' + s.day + ' ' + s.time +
-                (s.price ? ' · <span style="color:#10b981;">' + s.price + '</span>' : '') +
+                (s.emoji||'🎭') + ' <strong>' + (s.shortName||s.name) + '</strong> · ' + s.day + ' ' + (s.time||'') +
                 (s.bookingUrl ? ' <a href="' + s.bookingUrl + '" target="_blank" rel="noopener" style="color:#a78bfa;">→ Reserve</a>' : '') +
                 '</div>';
         });
