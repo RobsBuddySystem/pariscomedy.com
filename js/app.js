@@ -316,6 +316,7 @@ function renderVenueCards() {
         }).join('');
     }
     container.innerHTML = html;
+    if (window._revealInit) window._revealInit(container);
 }
 
 /* ─── History ─── */
