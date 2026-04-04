@@ -103,7 +103,21 @@ function renderThisWeek() {
     const allShows = [...(typeof SHOWS !== 'undefined' ? SHOWS : []), ...(typeof OTHER_SHOWS !== 'undefined' ? OTHER_SHOWS : [])];
     const cards = [];
     allShows.forEach(show => {
-        if (!show.day || !upcoming[show.day]) return;
+        if (!show.day) return;
+        if (show.day === 'daily') {
+            // Daily shows appear every day in the 7-day window
+            Object.entries(upcoming).forEach(([, dates]) => {
+                dates.forEach(({ d, label }) => {
+                    const venueName = show.venueName || (show.venue ? (VENUES || []).find(v => v.id === show.venue)?.name || '' : '');
+                    const link = show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">Reserve →</a>` : `<a href="book.html" class="btn btn-ghost btn-sm" style="margin-top:10px;">Get Listed →</a>`;
+                    const isTonight = d.toDateString() === now.toDateString();
+                    const badge = isTonight ? '<span style="background:#ff3366;color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:middle;">TONIGHT</span>' : '';
+                    cards.push({ ts: d.getTime(), time: show.time || '', html: `<div class="show-card" style="padding:16px 18px;display:flex;flex-direction:column;gap:4px;" data-reveal data-reveal-delay="1"><div style="font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;">${label}${badge}</div><div style="font-size:1.05rem;font-weight:700;font-family:var(--font-display);">${show.emoji || '🎤'} ${show.name}</div><div style="font-size:.85rem;color:var(--text-muted);">${show.time || ''} · ${venueName}</div>${link}</div>` });
+                });
+            });
+            return;
+        }
+        if (!upcoming[show.day]) return;
         upcoming[show.day].forEach(({ d, label }) => {
             const venueName = show.venueName || (show.venue ? (VENUES || []).find(v => v.id === show.venue)?.name || '' : '');
             const link = show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">Reserve →</a>` : `<a href="book.html" class="btn btn-ghost btn-sm" style="margin-top:10px;">Get Listed →</a>`;
@@ -462,7 +476,7 @@ function renderTonightBanner() {
 
     // Our shows (English, priority)
     SHOWS.forEach(show => {
-        if (show.day === today) {
+        if (show.day === today || show.day === 'daily') {
             tonightShows.push({
                 name: show.name, shortName: show.shortName, time: show.time, emoji: show.emoji,
                 venue: VENUES.find(v => v.id === show.venue)?.name || '',
@@ -474,7 +488,7 @@ function renderTonightBanner() {
     // Other English shows
     if (typeof OTHER_SHOWS !== 'undefined') {
         OTHER_SHOWS.forEach(show => {
-            if (show.day === today) {
+            if (show.day === today || show.day === 'daily') {
                 tonightShows.push({
                     name: show.name, shortName: show.name, time: show.time, emoji: show.emoji,
                     venue: show.venueName || '', lang: 'en', priority: show.paid ? 2 : 3,
@@ -487,7 +501,7 @@ function renderTonightBanner() {
     // French fallback shows (if no English shows today)
     if (typeof FRENCH_SHOWS !== 'undefined') {
         FRENCH_SHOWS.forEach(show => {
-            if (show.day === today) {
+            if (show.day === today || show.day === 'daily') {
                 tonightShows.push({
                     name: show.name, shortName: show.name, time: show.time, emoji: show.emoji || '🇫🇷',
                     venue: show.venueName || '', lang: 'fr', priority: 4,
@@ -645,8 +659,8 @@ function renderGrowthChart() {
         { year: '2019', shows: 5 },
         { year: '2022', shows: 6 },
         { year: '2024', shows: 8 },
-        { year: '2025', shows: 10 },
-        { year: '2026', shows: 12 }
+        { year: '2025', shows: 14 },
+        { year: '2026', shows: 20 }
     ];
     const maxShows = Math.max(...data.map(d => d.shows));
     container.innerHTML = data.map(d => {

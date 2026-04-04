@@ -496,7 +496,7 @@
 
     // Build all weekly shows from SHOWS + OTHER_SHOWS
     function getShowsForDay(dayName) {
-        const ours = SHOWS.filter(s => s.day === dayName).map(s => ({
+        const ours = SHOWS.filter(s => s.day === dayName || s.day === 'daily').map(s => ({
             name: s.shortName || s.name,
             fullName: s.name,
             time: s.time,
@@ -505,7 +505,7 @@
             bookingUrl: s.bookingUrl,
             isOurs: true
         }));
-        const others = OTHER_SHOWS.filter(s => s.day === dayName).map(s => ({
+        const others = OTHER_SHOWS.filter(s => s.day === dayName || s.day === 'daily').map(s => ({
             name: s.name,
             fullName: s.name,
             time: s.time,
