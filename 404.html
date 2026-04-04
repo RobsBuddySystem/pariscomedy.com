@@ -12,7 +12,8 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="/css/style.css">
     <style>
         .error-page { min-height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; }
@@ -85,7 +86,7 @@
     </div>
 </footer>
 
-<script src="/js/data.js"></script>
+<script defer src="/js/data.js"></script>
 <script>
 // Rotate a comedy quote on the error page
 document.addEventListener('DOMContentLoaded', function() {
