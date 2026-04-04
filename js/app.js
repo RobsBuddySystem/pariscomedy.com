@@ -437,7 +437,15 @@ function renderUntranslatable() {
             </div>
             <p class="untrans-def">${item.definition}</p>
             <p class="untrans-punchline">😂 ${item.punchline}</p>
-            <a href="shows.html" class="untrans-cta">Hear it live at FFCN →</a>
+            <div class="untrans-actions">
+                <a href="shows.html" class="untrans-cta">Hear it live at FFCN →</a>
+                <div class="untrans-share">
+                    <span class="untrans-share-label">Share:</span>
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('"' + item.word + '" — ' + item.lang + '. ' + item.definition + ' 😂 ' + item.punchline + ' pariscomedy.com')}&hashtags=lostintranslation,pariscomedy,bilingual" target="_blank" rel="noopener" class="untrans-share-btn untrans-share-x" aria-label="Share on X/Twitter">𝕏</a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="untrans-share-btn untrans-share-ig" aria-label="Share on Instagram" title="Copy word + punchline to post on Instagram">📸</a>
+                    <button class="untrans-share-btn untrans-share-copy" onclick="(function(){const text='"${item.word.replace(/'/g, "\\'")}": ${item.definition.replace(/'/g, "\\'")} 😂 ${item.punchline.replace(/'/g, "\\'")} — pariscomedy.com';navigator.clipboard&&navigator.clipboard.writeText(text).then(()=>{this.textContent='✅';setTimeout(()=>{this.textContent='📋'},1500)}).catch(()=>{});}).call(this)" aria-label="Copy to clipboard">📋</button>
+                </div>
+            </div>
         </div>
     `;
     // Re-trigger reveal for dynamically injected content

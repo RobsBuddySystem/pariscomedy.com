@@ -23,7 +23,8 @@ const VENUES = [
     { id:'fiap-paris', name:'FIAP Paris', address:'30 Rue Cabanis, 75014 Paris', neighborhood:'Montparnasse (14th)', lat:48.8330, lng:2.3330, mapX:38, mapY:65, listed:false, description:'FIAP Comedy Club every Thursday at 19:30 — popular with students and international crowds.', metro:'Glacière (M6)' },
     { id:'cafe-oscar', name:'Café Oscar', address:'Paris', neighborhood:'Paris', lat:48.8700, lng:2.3400, mapX:44, mapY:30, listed:false, description:'Home of Oscar Comedy Club — Sunday afternoon shows and one of the most frequent comedy programmes in Paris.', metro:'' },
     { id:'poincon', name:'Poinçon Paris', address:'Paris', neighborhood:'Montparnasse', lat:48.8410, lng:2.3270, mapX:34, mapY:68, listed:false, description:'Kinto Comedy Club — English stand-up every Friday at 19:30. A rising venue on the Paris comedy circuit.', metro:'Montparnasse-Bienvenüe (M4/M6/M12/M13)' },
-    { id:'cesure', name:'Césure', address:'Paris', neighborhood:'Latin Quarter (5th)', lat:48.8490, lng:2.3470, mapX:48, mapY:58, listed:false, description:'Greenwashing Comedy Club — English comedy with an eco-conscious angle. Thursday evenings.', metro:'Cardinal Lemoine (M10)' }
+    { id:'cesure', name:'Césure', address:'Paris', neighborhood:'Latin Quarter (5th)', lat:48.8490, lng:2.3470, mapX:48, mapY:58, listed:false, description:'Greenwashing Comedy Club — English comedy with an eco-conscious angle. Thursday evenings.', metro:'Cardinal Lemoine (M10)' },
+    { id:'toloache', name:'Toloache', address:'Paris', neighborhood:'Marais / 3rd', lat:48.8600, lng:2.3590, mapX:58, mapY:46, listed:false, description:'Kuhl Comedy Open Mic — English stand-up open mic every Tuesday at 19:30. A friendly room for new voices and regulars.', metro:'Temple (M3)' }
 ];
 
 const SHOWS = [
@@ -48,6 +49,7 @@ const SHOWS = [
 /* Other shows — verified active on Eventbrite as of April 2026. No ticket links unless they pay. */
 const OTHER_SHOWS = [
     { name:'Paname English Stand-Up', venueName:'Paname Art Café', day:'Tuesday', time:'17:30', type:'standup', emoji:'🎤', description:'English stand-up at Paname Art Café on Canal Saint-Martin. Regular Tuesday slot — bilingual crowd, great room.', paid:false },
+    { name:'Kuhl Comedy Open Mic', venueName:'Toloache', day:'Tuesday', time:'19:30', type:'openmic', emoji:'🎙️', description:'English stand-up open mic at Toloache every Tuesday at 19:30. Run by Kuhl Comedy — a friendly, English-language open mic perfect for new voices and seasoned comics alike.', paid:false, bookingUrl:'https://www.eventbrite.fr/e/stand-up-open-mic-in-english-by-kuhl-comedy-tickets-1760885549079' },
     { name:'Green Mic Showcase', venueName:'Au Soleil de la Butte, Montmartre', day:'Friday', time:'20:15', type:'standup', emoji:'🎙️', description:'English stand-up showcase at Montmartre\'s Au Soleil de la Butte. Regular Friday slot — a growing fixture on the Paris English comedy scene.', paid:false },
     { name:'Comedy Crush Wednesday Show', venueName:'Les Cariatiades', day:'Wednesday', time:'20:30', type:'standup', emoji:'💥', description:'English stand-up comedy every Wednesday at Les Cariatiades. Consistently packed room with a great crowd energy.', paid:false },
     { name:'The Dissident Comedy Show', venueName:'The Dissident Club', day:'Wednesday', time:'20:30', type:'standup', emoji:'🎭', description:'English stand-up at The Dissident Club. Wednesday night mainstay with a sharp, alternative comedy vibe.', paid:false, bookingUrl:'https://www.eventbrite.fr/e/the-dissident-comedy-show-tickets-1985334998424' },
