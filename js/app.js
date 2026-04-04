@@ -145,7 +145,7 @@ function renderShowCard(show) {
                 <span class="show-card-badge">🎩 ${({'fr':'Chapeau pour les artistes','es':'Sombrero para artistas','de':'Hut für Künstler','ja':'投げ銭','zh':'打赏艺人','ko':'모자 기부'})[currentLang] || 'Hat for artists'}</span>
             </div>
             <div class="show-card-footer">
-                <span class="show-card-price">${show.price}</span>
+                ${currentLang !== 'fr' ? `<span class="show-card-price">${show.price}</span>` : ''}
                 <a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ Reserve Your Spot →</a>
             </div>
         </div>
