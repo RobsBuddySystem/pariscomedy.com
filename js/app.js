@@ -555,6 +555,9 @@ function renderTonightBanner() {
         return;
     }
 
+    // Cap at 4 shows to keep banner scannable on mobile
+    if (tonightShows.length > 4) tonightShows = tonightShows.slice(0, 4);
+
     // Shows tonight!
     const langLabel = tonightShows[0].lang === 'fr' ? '🇫🇷' : '🇬🇧';
     const tonightLabel = ({'fr':'Ce soir à Paris','es':'Esta noche en París','de':'Heute Abend in Paris','ja':'今夜パリで','zh':'今晚在巴黎','ko':'오늘 밤 파리에서'})[currentLang] || 'Tonight in Paris';
