@@ -244,9 +244,20 @@ function initDayFilter() {
     const todayName = days[new Date().getDay()];
     const todayBtn = bar.querySelector(`[data-day="${todayName}"]`);
     if (todayBtn) {
-        todayBtn.style.borderColor = 'var(--accent-secondary, #f472b6)';
-        todayBtn.style.color = 'var(--accent-secondary, #f472b6)';
-        todayBtn.title = 'Today!';
+        // Auto-select today — show tonight's shows by default
+        bar.querySelectorAll('.day-filter-btn').forEach(b => {
+            b.style.background = 'transparent';
+            b.style.color = 'var(--text-muted)';
+            b.style.borderColor = 'var(--border)';
+        });
+        todayBtn.style.background = 'var(--accent)';
+        todayBtn.style.color = '#fff';
+        todayBtn.style.borderColor = 'var(--accent)';
+        todayBtn.title = 'Tonight!';
+        // Update "All Days" button to deactivate
+        const allBtn = bar.querySelector('[data-day="all"]');
+        if (allBtn) { allBtn.style.background = 'transparent'; allBtn.style.color = 'var(--text-muted)'; allBtn.style.borderColor = 'var(--border)'; }
+        renderOtherShows(todayName);
     }
     bar.addEventListener('click', e => {
         const btn = e.target.closest('.day-filter-btn');
