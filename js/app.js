@@ -1066,6 +1066,11 @@ document.addEventListener('DOMContentLoaded', () => {
 const GA4_ID = 'G-XXXXXXXXXX';
 
 (function initAnalytics() {
+  // Only load if a real GA4 ID has been configured
+  if (!GA4_ID || GA4_ID === 'G-XXXXXXXXXX') {
+    window.gtag = function() {}; // no-op stub so trackReserve() calls don't error
+    return;
+  }
   // Load GA4 async (non-blocking)
   const s = document.createElement('script');
   s.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
