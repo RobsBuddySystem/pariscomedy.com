@@ -615,10 +615,31 @@ function renderTonightBanner() {
     const langLabel = tonightShows[0].lang === 'fr' ? '🇫🇷' : '🇬🇧';
     const tonightLabel = ({'fr':'Ce soir à Paris','es':'Esta noche en París','de':'Heute Abend in Paris','ja':'今夜パリで','zh':'今晚在巴黎','ko':'오늘 밤 파리에서'})[currentLang] || 'Tonight in Paris';
 
+    // Helper: compute time-until badge for a show time string (e.g. "19:00")
+    function startsInBadge(timeStr) {
+        if (!timeStr) return '';
+        const parts = timeStr.split(':');
+        if (parts.length < 2) return '';
+        const showH = parseInt(parts[0], 10);
+        const showM = parseInt(parts[1], 10);
+        const now2 = new Date();
+        const showDate = new Date(now2.getFullYear(), now2.getMonth(), now2.getDate(), showH, showM, 0);
+        const diffMs = showDate - now2;
+        if (diffMs < 0) return '<span class="tonight-started">● Live now</span>';
+        const diffMins = Math.floor(diffMs / 60000);
+        if (diffMins < 5) return '<span class="tonight-started" style="color:#ff3366;">● Starting now</span>';
+        const h = Math.floor(diffMins / 60);
+        const m = diffMins % 60;
+        const label = h > 0 ? `${h}h ${m}m` : `${m}m`;
+        const urgent = diffMins <= 60;
+        return `<span class="tonight-starts-in" style="${urgent ? 'color:#ff3366;font-weight:700;' : ''}">⏱ ${label}</span>`;
+    }
+
     const showList = tonightShows.map(s => {
+        const badge = startsInBadge(s.time);
         const link = s.bookingUrl
-            ? `<a href="${s.bookingUrl}" target="_blank" rel="noopener" class="tonight-show-link">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue} ${s.ours ? '🎟️' : ''}</a>`
-            : `<span class="tonight-show-nolink">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue}</span>`;
+            ? `<a href="${s.bookingUrl}" target="_blank" rel="noopener" class="tonight-show-link">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue}${badge ? ' ' + badge : ''} ${s.ours ? '🎟️' : ''}</a>`
+            : `<span class="tonight-show-nolink">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue}${badge ? ' ' + badge : ''}</span>`;
         return link;
     }).join('<span class="tonight-sep">·</span>');
 
@@ -628,6 +649,11 @@ function renderTonightBanner() {
             <span class="tonight-label">${langLabel} ${tonightLabel}</span>
             <div class="tonight-shows">${showList}</div>
         </div>`;
+
+    // Refresh every 60s so countdowns stay live
+    if (!container._refreshInterval) {
+        container._refreshInterval = setInterval(() => renderTonightBanner(), 60000);
+    }
 }
 
 /* ─── Section Reordering ─── */

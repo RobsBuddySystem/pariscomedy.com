@@ -555,6 +555,8 @@ textarea.form-input{min-height:120px;resize:vertical}
 .tonight-show-link:hover{background:rgba(255,255,255,0.3);color:#fff}
 .tonight-show-nolink{color:rgba(255,255,255,0.8);padding:4px 12px;white-space:nowrap}
 .tonight-sep{color:rgba(255,255,255,0.4)}
+.tonight-starts-in{font-size:.78rem;opacity:.9;white-space:nowrap}
+.tonight-started{font-size:.78rem;font-weight:700;animation:tonightPulse 1s ease-in-out infinite}
 .tonight-cta{background:#fff;color:var(--accent);padding:6px 16px;border-radius:20px;font-weight:600;text-decoration:none;white-space:nowrap}
 .tonight-cta:hover{background:rgba(255,255,255,0.9);color:var(--accent)}
 @media(max-width:768px){.tonight-banner{flex-direction:column;gap:8px;padding:10px 16px}.tonight-shows{flex-direction:column;gap:6px}}
