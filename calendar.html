@@ -314,6 +314,26 @@
         .legend-dot.our { background: rgba(255,51,102,0.4); border: 1px solid rgba(255,51,102,0.5); }
         .legend-dot.other { background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.35); }
     </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://pariscomedy.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Calendar",
+                "item": "https://pariscomedy.com/calendar.html"
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
 
@@ -603,5 +623,15 @@
     renderCalendar();
 })();
 </script>
+<div class="mobile-cta-bar" id="mobileCTABar">
+  <div class="mobile-cta-bar-inner">
+    <div class="mobile-cta-bar-text">
+      <span class="mobile-cta-bar-title">Next show: Wednesday · Free entry</span>
+      <span class="mobile-cta-bar-sub">Velvet Bar, Pigalle · 19:00</span>
+    </div>
+    <a href="https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747?utm_source=pariscomedy&utm_medium=mobile_cta&utm_campaign=calendar" class="mobile-cta-bar-btn" target="_blank" rel="noopener">🎟️ Reserve</a>
+    <button class="mobile-cta-bar-close" onclick="document.getElementById('mobileCTABar').style.display='none'" aria-label="Close">×</button>
+  </div>
+</div>
 </body>
 </html>

@@ -1,10 +1,11 @@
 // Paris Comedy — Service Worker
 // Caches core assets for offline browsing & faster repeat visits
 
-const CACHE = 'pariscomedy-v1';
+const CACHE = 'pariscomedy-v2';
 const CORE = [
   '/',
   '/shows.html',
+  '/calendar.html',
   '/venues.html',
   '/book.html',
   '/history.html',
