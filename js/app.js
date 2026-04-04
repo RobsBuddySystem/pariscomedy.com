@@ -642,11 +642,29 @@ function renderTonightBanner() {
         return `<span class="tonight-starts-in" style="${urgent ? 'color:#ff3366;font-weight:700;' : ''}">⏱ ${label}</span>`;
     }
 
+    // Web Share helper: share a show to WhatsApp/iMessage/etc in one tap
+    function shareShow(e, name, time, venue, bookingUrl) {
+        e.preventDefault();
+        e.stopPropagation();
+        const text = `🎤 ${name} — Tonight at ${time}, ${venue}`;
+        const url = bookingUrl || 'https://pariscomedy.com/shows.html';
+        if (navigator.share) {
+            navigator.share({ title: 'Paris Comedy Tonight', text, url }).catch(() => {});
+        } else {
+            // Fallback: copy to clipboard
+            navigator.clipboard?.writeText(`${text}\n${url}`).then(() => {
+                e.target.textContent = '✅';
+                setTimeout(() => { e.target.textContent = '📤'; }, 1500);
+            });
+        }
+    }
+
     const showList = tonightShows.map(s => {
         const badge = startsInBadge(s.time);
+        const shareBtn = `<button class="tonight-share-btn" onclick="(${shareShow.toString()})(event,'${(s.shortName||s.name).replace(/'/g,"\\'")}','${s.time}','${s.venue.replace(/'/g,"\\'")}','${s.bookingUrl||''}')" title="Share this show" aria-label="Share ${(s.shortName||s.name).replace(/'/g,"\\'")}">📤</button>`;
         const link = s.bookingUrl
-            ? `<a href="${s.bookingUrl}" target="_blank" rel="noopener" class="tonight-show-link">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue}${badge ? ' ' + badge : ''} ${s.ours ? '🎟️' : ''}</a>`
-            : `<span class="tonight-show-nolink">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue}${badge ? ' ' + badge : ''}</span>`;
+            ? `<span class="tonight-show-item"><a href="${s.bookingUrl}" target="_blank" rel="noopener" class="tonight-show-link">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue}${badge ? ' ' + badge : ''} ${s.ours ? '🎟️' : ''}</a>${shareBtn}</span>`
+            : `<span class="tonight-show-item"><span class="tonight-show-nolink">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue}${badge ? ' ' + badge : ''}</span>${shareBtn}</span>`;
         return link;
     }).join('<span class="tonight-sep">·</span>');
 

@@ -149,7 +149,8 @@
     <div class="container">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
             <span style="width:10px;height:10px;border-radius:50%;background:#22c55e;display:inline-block;animation:tonightPulse 1.5s ease-in-out infinite;flex-shrink:0;"></span>
-            <h2 style="font-family:var(--font-display);font-size:1.15rem;margin:0;color:var(--text);" id="thisWeekTitle">On Stage This Week</h2>
+            <h2 style="font-family:var(--font-display);font-size:1.15rem;margin:0;color:var(--text);flex:1;" id="thisWeekTitle">On Stage This Week</h2>
+            <button id="shareShowsBtn" onclick="(function(e){e.preventDefault();const url='https://pariscomedy.com/shows.html';const text='🎤 Comedy in Paris tonight! English stand-up shows this week:';if(navigator.share){navigator.share({title:'Paris Comedy — Shows This Week',text,url});}else{navigator.clipboard&&navigator.clipboard.writeText(url).then(()=>{e.target.textContent='✅ Copied!';setTimeout(()=>{e.target.innerHTML='📤 Share';},1800);});}})(event)" style="background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.4);color:var(--accent);border-radius:20px;padding:5px 12px;font-size:.78rem;cursor:pointer;transition:background 0.15s;white-space:nowrap;" title="Share tonight's shows" aria-label="Share shows page">📤 Share</button>
         </div>
         <div id="thisWeekGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;"></div>
     </div>
