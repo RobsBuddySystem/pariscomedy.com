@@ -59,6 +59,7 @@ const OTHER_SHOWS = [
     { name:'Paname English Stand-Up', venueName:'Paname Art Café', day:'Tuesday', time:'17:30', type:'standup', emoji:'🎤', featured:true,
       description:'English stand-up at Paname Art Café on Canal Saint-Martin. Regular Tuesday slot — bilingual crowd, great room. The venue where it all began.',
       descFr:'Stand-up en anglais au Paname Art Café sur le Canal Saint-Martin. Chaque mardi — ambiance bilingue, belle salle. La salle où tout a commencé.',
+      bookingUrl:'https://www.billetreduc.com/recherche.htm?q=stand+up+paname+art+cafe',
       paid:false },
     { name:'Kuhl Comedy Open Mic', venueName:'Toloache', day:'Tuesday', time:'19:30', type:'openmic', emoji:'🎙️',
       description:'English stand-up open mic at Toloache every Tuesday at 19:30. Run by Kuhl Comedy — a friendly, English-language open mic perfect for new voices and seasoned comics alike.',
@@ -258,7 +259,7 @@ const UNTRANSLATABLE = [
     { word:'Corny', lang:'English', emoji:'🌽',
       literal:'Like corn. (Unhelpful.)',
       definition:'Embarrassingly sentimental or old-fashioned in a way that is somehow both sincere and cringeworthy at the same time.',
-      punchline:'The closest French word is *ringard*, which means dated. But *corny* is not dated — it\'s timeless. Timelessly embarrassing.' },
+      punchline:'The closest French word is *ringard*, which means dated. But *corny* is not dated — it\'s timeless. It\'s a Tim McGraw song at a wedding. It\'s *forever.*' },
     { word:'La Bise', lang:'French', emoji:'💋',
       literal:'The kiss',
       definition:'The obligatory cheek-kiss greeting between acquaintances, colleagues, strangers, and people you\'ve met once at a party three years ago.',
@@ -278,7 +279,11 @@ const UNTRANSLATABLE = [
     { word:'Déguster', lang:'French', emoji:'🍽️',
       literal:'To taste / to savour',
       definition:'To eat or drink something slowly and with full attention, appreciating every element. Not just eating. *Experiencing.*',
-      punchline:'The English equivalent is "eating slowly," which sounds like a medical symptom.' }
+      punchline:'The English equivalent is "eating slowly," which sounds like a medical symptom.' },
+    { word:'Whatever', lang:'English', emoji:'🤷',
+      literal:'Literally: what ever. (Still unhelpful.)',
+      definition:'A declaration of total indifference — dismissing a topic, a person, or an entire conversation with a single word. It ends debates. It ends relationships. It ends decades.',
+      punchline:'French people are *never* indifferent. They have strong opinions about everything, including having no opinion. *Whatever* has no French equivalent — because the French always care.' }
 ];
 
 const COMEDY_QUOTES = [
