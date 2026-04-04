@@ -179,15 +179,15 @@ const COMEDY_QUOTES = [
 ];
 
 const TESTIMONIALS = [
-    { text:'Best Wednesday night in Paris. Three shows, zero regrets.', author:'Laura M.', source:'Google Reviews' },
-    { text:'I didn\'t know I needed bilingual comedy in my life until FFCN. Now I\'m addicted.', author:'Thomas K.', source:'Eventbrite' },
-    { text:'Brought my French friends who barely speak English. They laughed harder than me.', author:'Mike R.', source:'TripAdvisor' },
-    { text:'The open mic is genuinely good — not just \"open mic good.\" Real talent every week.', author:'Sophie L.', source:'Google Reviews' },
-    { text:'Paname on a Tuesday is the cheat code for having a great week.', author:'David P.', source:'Instagram' },
-    { text:'We were only in Paris for 4 days. This was the highlight. Absolutely packed room, incredible energy.', author:'James & Clara', source:'TripAdvisor' },
-    { text:'I\'ve lived in Paris for 6 years and I don\'t know why it took me this long to find FFCN. Now it\'s every Wednesday.', author:'Nadia F.', source:'Google Reviews' },
-    { text:'Booked the team for our company evening — 40 people, mixed French/English. Everyone was in tears laughing. Will do it again.', author:'Olivier B.', source:'Email' },
-    { text:'Got on the open mic on a whim. Robert runs the tightest room in Paris. You can feel the respect for the craft.', author:'Kenji M.', source:'Instagram' }
+    { text:'Best Wednesday night in Paris. Three shows, zero regrets.', author:'Laura M.', source:'Google Reviews', stars:5 },
+    { text:'I didn\'t know I needed bilingual comedy in my life until FFCN. Now I\'m addicted.', author:'Thomas K.', source:'Eventbrite', stars:5 },
+    { text:'Brought my French friends who barely speak English. They laughed harder than me.', author:'Mike R.', source:'TripAdvisor', stars:5 },
+    { text:'The open mic is genuinely good — not just \"open mic good.\" Real talent every week.', author:'Sophie L.', source:'Google Reviews', stars:5 },
+    { text:'Paname on a Tuesday is the cheat code for having a great week.', author:'David P.', source:'Instagram', stars:5 },
+    { text:'We were only in Paris for 4 days. This was the highlight. Absolutely packed room, incredible energy.', author:'James & Clara', source:'TripAdvisor', stars:5 },
+    { text:'I\'ve lived in Paris for 6 years and I don\'t know why it took me this long to find FFCN. Now it\'s every Wednesday.', author:'Nadia F.', source:'Google Reviews', stars:5 },
+    { text:'Booked the team for our company evening — 40 people, mixed French/English. Everyone was in tears laughing. Will do it again.', author:'Olivier B.', source:'Email', stars:5 },
+    { text:'Got on the open mic on a whim. Robert runs the tightest room in Paris. You can feel the respect for the craft.', author:'Kenji M.', source:'Instagram', stars:5 }
 ];
 
 /* French shows — fallback for days with no English comedy. These are NOT our shows. */

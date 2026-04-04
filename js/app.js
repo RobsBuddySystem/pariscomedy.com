@@ -455,15 +455,18 @@ function renderUntranslatable() {
 function renderTestimonials() {
     const container = document.getElementById('testimonialsGrid');
     if (!container || typeof TESTIMONIALS === 'undefined') return;
-    container.innerHTML = TESTIMONIALS.map(t => `
+    container.innerHTML = TESTIMONIALS.map(t => {
+        const stars = t.stars ? '★'.repeat(t.stars) + '☆'.repeat(5 - t.stars) : '';
+        return `
         <div class="testimonial-card">
+            ${stars ? `<div class="testimonial-stars" aria-label="${t.stars} out of 5 stars">${stars}</div>` : ''}
             <p class="testimonial-text">"${t.text}"</p>
             <div class="testimonial-author">
                 <span class="testimonial-name">${t.author}</span>
                 <span class="testimonial-source">${t.source}</span>
             </div>
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
 }
 
 /* ─── Tonight's Shows Banner ─── */
