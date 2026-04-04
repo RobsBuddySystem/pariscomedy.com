@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paris Comedy Calendar — English Shows This Week in Paris</title>
+    <meta name="description" content="What's on this week in Paris comedy? Full calendar of English-language stand-up shows, open mics, and bilingual nights. Reserve your spot — free entry, one drink minimum.">
+    <meta property="og:title" content="Paris Comedy Calendar — English Shows This Week">
+    <meta property="og:description" content="Full weekly calendar of English-language comedy shows in Paris. Open mics, showcases, and the legendary FFCN — every week at Velvet Bar and venues across Paris.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pariscomedy.com/calendar.html">
+    <meta property="og:image" content="https://pariscomedy.com/img/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Paris Comedy Calendar — What's On This Week">
+    <meta name="twitter:image" content="https://pariscomedy.com/img/og-image.png">
+    <meta name="twitter:description" content="English comedy shows in Paris this week. Reserve your free spot.">
+    <link rel="canonical" href="https://pariscomedy.com/calendar.html">
+    <link rel="alternate" hreflang="en" href="https://pariscomedy.com/calendar.html">
+    <link rel="alternate" hreflang="fr" href="https://pariscomedy.com/calendar.html">
+    <link rel="alternate" hreflang="es" href="https://pariscomedy.com/calendar.html">
+    <link rel="alternate" hreflang="de" href="https://pariscomedy.com/calendar.html">
+    <link rel="alternate" hreflang="ja" href="https://pariscomedy.com/calendar.html">
+    <link rel="alternate" hreflang="zh" href="https://pariscomedy.com/calendar.html">
+    <link rel="alternate" hreflang="ko" href="https://pariscomedy.com/calendar.html">
+    <link rel="alternate" hreflang="x-default" href="https://pariscomedy.com/calendar.html">
+
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#7c3aed">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Paris Comedy">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Paris Comedy Weekly Calendar",
+        "description": "Weekly schedule of English-language stand-up comedy shows in Paris",
+        "url": "https://pariscomedy.com/calendar.html",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@type": "Event",
+                    "name": "Velvet Bar Comedy — Open Mic",
+                    "startDate": "T19:00",
+                    "eventSchedule": { "@type": "Schedule", "repeatFrequency": "P1W", "byDay": "https://schema.org/Wednesday" },
+                    "location": { "@type": "Place", "name": "Velvet Bar", "address": "39 Rue de Douai, 75009 Paris" },
+                    "isAccessibleForFree": true,
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "url": "https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713" }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                    "@type": "Event",
+                    "name": "Velvet Bar Comedy — Le meilleur du stand-up",
+                    "startDate": "T20:30",
+                    "eventSchedule": { "@type": "Schedule", "repeatFrequency": "P1W", "byDay": "https://schema.org/Wednesday" },
+                    "location": { "@type": "Place", "name": "Velvet Bar", "address": "39 Rue de Douai, 75009 Paris" },
+                    "isAccessibleForFree": true,
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719" }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                    "@type": "Event",
+                    "name": "French Fried Comedy Night (FFCN)",
+                    "startDate": "T22:00",
+                    "eventSchedule": { "@type": "Schedule", "repeatFrequency": "P1W", "byDay": "https://schema.org/Wednesday" },
+                    "location": { "@type": "Place", "name": "Velvet Bar", "address": "39 Rue de Douai, 75009 Paris" },
+                    "isAccessibleForFree": true,
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747" }
+                }
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        /* Calendar page specific styles */
+        .cal-hero {
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+            padding: 80px 0 48px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .cal-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.15;
+        }
+        .cal-hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+        .week-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .week-nav button {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            transition: background 0.15s;
+        }
+        .week-nav button:hover { background: var(--bg-hover); }
+        .week-label {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-width: 220px;
+            text-align: center;
+        }
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin: 32px 0;
+        }
+        @media (max-width: 768px) {
+            .cal-grid { grid-template-columns: 1fr; gap: 12px; }
+            .cal-day { display: none; }
+            .cal-day.has-shows { display: block; }
+        }
+        .cal-day {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 10px;
+            min-height: 120px;
+            transition: border-color 0.2s;
+        }
+        .cal-day.today {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+        .cal-day.has-shows { border-color: rgba(124,58,237,0.4); }
+        .cal-day-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .cal-day-name {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+        }
+        .cal-day-num {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-top: 2px;
+        }
+        .cal-day.today .cal-day-num {
+            background: var(--accent);
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cal-show-pill {
+            background: rgba(124,58,237,0.12);
+            border: 1px solid rgba(124,58,237,0.25);
+            border-radius: 6px;
+            padding: 5px 7px;
+            margin-bottom: 5px;
+            font-size: 0.75rem;
+            line-height: 1.3;
+            cursor: pointer;
+            transition: background 0.15s;
+            text-decoration: none;
+            display: block;
+            color: var(--text);
+        }
+        .cal-show-pill:hover {
+            background: rgba(124,58,237,0.22);
+            color: var(--text);
+        }
+        .cal-show-pill .pill-time {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+        .cal-show-pill .pill-name {
+            display: block;
+            font-weight: 500;
+            margin-top: 1px;
+        }
+        .cal-show-pill .pill-venue {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            margin-top: 1px;
+        }
+        .cal-show-pill.our-show {
+            background: rgba(255,51,102,0.1);
+            border-color: rgba(255,51,102,0.3);
+        }
+        .cal-show-pill.our-show .pill-time { color: var(--pink, #ff3366); }
+        .week-summary {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .week-summary h2 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+        }
+        .day-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .day-row:last-child { border-bottom: none; }
+        .day-row-name {
+            font-weight: 600;
+            font-family: var(--font-display);
+            min-width: 100px;
+            font-size: 0.9rem;
+        }
+        .day-row-name.today-name { color: var(--accent); }
+        .day-shows-list { flex: 1; }
+        .day-show-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        .day-show-item:last-child { margin-bottom: 0; }
+        .show-time-badge {
+            background: rgba(124,58,237,0.12);
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .show-time-badge.featured { background: rgba(255,51,102,0.12); color: #ff3366; }
+        .reserve-btn-sm {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: opacity 0.15s;
+        }
+        .reserve-btn-sm:hover { opacity: 0.85; color: #fff; }
+        .no-shows-day {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+        .legend-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+            font-size: 0.85rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+        .legend-dot.our { background: rgba(255,51,102,0.4); border: 1px solid rgba(255,51,102,0.5); }
+        .legend-dot.other { background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.35); }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" id="mainNav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">🎤 Paris Comedy</a>
+        <ul class="nav-links">
+            <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+            <li><a href="shows.html" data-i18n="nav.shows">Shows</a></li>
+            <li><a href="calendar.html" class="active" data-i18n="nav.calendar">Calendar</a></li>
+            <li><a href="history.html" data-i18n="nav.history">History</a></li>
+            <li><a href="venues.html" data-i18n="nav.venues">Venues</a></li>
+            <li><a href="book.html" class="btn btn-primary btn-sm" data-i18n="nav.book">Book a Show</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div class="lang-switcher" id="langSwitcher">
+                <button data-lang="en">EN</button>
+                <button data-lang="fr">FR</button>
+                <button data-lang="es">ES</button>
+                <button data-lang="de">DE</button>
+                <button data-lang="ja">JA</button>
+                <button data-lang="zh">ZH</button>
+                <button data-lang="ko">KO</button>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="cal-hero">
+    <div class="container">
+        <p style="color:var(--accent);font-size:.9rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;">📅 Weekly Schedule</p>
+        <h1>Paris Comedy <span class="gradient-text">Calendar</span></h1>
+        <p>Every English-language comedy show in Paris this week. Reserve your spot — it's free, one drink minimum.</p>
+        <div class="week-nav">
+            <button id="prevWeek">← Prev</button>
+            <span class="week-label" id="weekLabel">Loading…</span>
+            <button id="nextWeek">Next →</button>
+        </div>
+    </div>
+</header>
+
+<!-- Main calendar content -->
+<main>
+<section class="section">
+<div class="container">
+
+    <!-- Legend -->
+    <div class="legend-row">
+        <div class="legend-item"><div class="legend-dot our"></div> Our shows (FFCN / Velvet) — reserve on Eventbrite</div>
+        <div class="legend-item"><div class="legend-dot other"></div> Other shows in the Paris scene</div>
+    </div>
+
+    <!-- Weekly summary (list view) -->
+    <div class="week-summary" id="weekSummary">
+        <h2>This Week at a Glance</h2>
+        <div id="weekSummaryContent">Loading…</div>
+    </div>
+
+    <!-- Calendar grid -->
+    <div class="cal-grid" id="calGrid">Loading…</div>
+
+    <!-- Bottom CTA -->
+    <div style="text-align:center;margin-top:48px;padding:40px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;">
+        <div style="font-size:2rem;margin-bottom:12px;">🎟️</div>
+        <h2 style="font-family:var(--font-display);font-size:1.5rem;margin-bottom:8px;">Ready to laugh?</h2>
+        <p style="color:var(--text-muted);margin-bottom:20px;">Three shows every Wednesday at Velvet Bar, Pigalle. Free entry — reserve to guarantee your seat.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+            <a href="https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747?utm_source=pariscomedy&utm_medium=website" target="_blank" rel="noopener" class="btn btn-primary">🍟 Reserve for FFCN (22:00)</a>
+            <a href="https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719?utm_source=pariscomedy&utm_medium=website" target="_blank" rel="noopener" class="btn btn-secondary">🎭 Reserve Showcase (20:30)</a>
+        </div>
+        <p style="margin-top:16px;font-size:.85rem;color:var(--text-muted);">Not free on Wednesday? <a href="shows.html">See all shows →</a></p>
+    </div>
+</div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="footer-logo">🎤 Paris Comedy</div>
+                <p class="footer-tagline" data-i18n="footer.tagline">The Home of English-Language Comedy in Paris</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html" data-i18n="nav.home">Home</a>
+                <a href="shows.html" data-i18n="nav.shows">Shows</a>
+                <a href="calendar.html" data-i18n="nav.calendar">Calendar</a>
+                <a href="history.html" data-i18n="nav.history">History</a>
+                <a href="venues.html" data-i18n="nav.venues">Venues</a>
+                <a href="book.html" data-i18n="nav.book">Book a Show</a>
+                <a href="about.html" data-i18n="nav.about">About</a>
+            </div>
+            <div class="footer-contact">
+                <a href="mailto:booking@pariscomedy.com" data-i18n="footer.contact">Contact</a>
+                <a href="https://www.instagram.com/french_fried_comedy" target="_blank" rel="noopener">Instagram ↗</a>
+            </div>
+        </div>
+        <p class="footer-copy" data-i18n="footer.copyright">© 2026 Paris Comedy</p>
+    </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script>
+/* Calendar page JS */
+(function() {
+    // Theme
+    const saved = localStorage.getItem('pc-theme');
+    if (saved === 'light') document.documentElement.classList.add('light-mode');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        document.documentElement.classList.toggle('light-mode');
+        localStorage.setItem('pc-theme', document.documentElement.classList.contains('light-mode') ? 'light' : 'dark');
+        document.getElementById('themeToggle').textContent = document.documentElement.classList.contains('light-mode') ? '🌙' : '☀️';
+    });
+
+    // Lang
+    let currentLang = localStorage.getItem('pc-lang') || 'en';
+    const switcher = document.getElementById('langSwitcher');
+    switcher.querySelectorAll('[data-lang]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === currentLang);
+        btn.addEventListener('click', () => {
+            currentLang = btn.dataset.lang;
+            localStorage.setItem('pc-lang', currentLang);
+            document.documentElement.lang = currentLang;
+            switcher.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
+            applyTranslations();
+        });
+    });
+
+    function applyTranslations() {
+        const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.dataset.i18n;
+            const [section, k] = key.split('.');
+            if (t[section] && t[section][k]) el.innerHTML = t[section][k];
+        });
+        document.documentElement.lang = currentLang;
+    }
+    applyTranslations();
+
+    // Nav toggle
+    document.getElementById('navToggle').addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.toggle('open');
+    });
+
+    // Nav scroll
+    window.addEventListener('scroll', () => {
+        document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Calendar logic
+    const DAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    // Build all weekly shows from SHOWS + OTHER_SHOWS
+    function getShowsForDay(dayName) {
+        const ours = SHOWS.filter(s => s.day === dayName).map(s => ({
+            name: s.shortName || s.name,
+            fullName: s.name,
+            time: s.time,
+            venue: VENUES.find(v => v.id === s.venue)?.name || '',
+            emoji: s.emoji,
+            bookingUrl: s.bookingUrl,
+            isOurs: true
+        }));
+        const others = OTHER_SHOWS.filter(s => s.day === dayName).map(s => ({
+            name: s.name,
+            fullName: s.name,
+            time: s.time,
+            venue: s.venueName,
+            emoji: s.emoji,
+            bookingUrl: null,
+            isOurs: false
+        }));
+        return [...ours, ...others].sort((a,b) => a.time.localeCompare(b.time));
+    }
+
+    // Week offset
+    let weekOffset = 0;
+
+    function getWeekDates(offset) {
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        // Start from Monday
+        const monday = new Date(today);
+        monday.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1) + offset * 7);
+        const days = [];
+        for (let i = 0; i < 7; i++) {
+            const d = new Date(monday);
+            d.setDate(monday.getDate() + i);
+            days.push(d);
+        }
+        return days;
+    }
+
+    function isToday(date) {
+        const today = new Date();
+        return date.getDate() === today.getDate() &&
+               date.getMonth() === today.getMonth() &&
+               date.getFullYear() === today.getFullYear();
+    }
+
+    function renderCalendar() {
+        const days = getWeekDates(weekOffset);
+        const startLabel = `${days[0].getDate()} ${MONTHS[days[0].getMonth()]}`;
+        const endLabel = `${days[6].getDate()} ${MONTHS[days[6].getMonth()]} ${days[6].getFullYear()}`;
+        document.getElementById('weekLabel').textContent = `${startLabel} – ${endLabel}`;
+
+        // Render grid
+        const grid = document.getElementById('calGrid');
+        grid.innerHTML = days.map(date => {
+            const dayName = DAY_NAMES[date.getDay()];
+            const shows = getShowsForDay(dayName);
+            const today = isToday(date);
+            const hasShows = shows.length > 0;
+
+            const pillsHtml = shows.slice(0, 4).map(s => {
+                if (s.bookingUrl) {
+                    return `<a href="${s.bookingUrl}" target="_blank" rel="noopener" class="cal-show-pill our-show" title="${s.fullName} @ ${s.venue}">
+                        <span class="pill-time">${s.emoji} ${s.time}</span>
+                        <span class="pill-name">${s.name}</span>
+                        <span class="pill-venue">${s.venue}</span>
+                    </a>`;
+                }
+                return `<div class="cal-show-pill" title="${s.fullName} @ ${s.venue}">
+                    <span class="pill-time">${s.emoji} ${s.time}</span>
+                    <span class="pill-name">${s.name}</span>
+                    <span class="pill-venue">${s.venue}</span>
+                </div>`;
+            }).join('');
+
+            const extra = shows.length > 4 ? `<div style="font-size:.7rem;color:var(--text-muted);margin-top:4px;">+${shows.length - 4} more</div>` : '';
+
+            return `<div class="cal-day${today?' today':''}${hasShows?' has-shows':''}" data-day="${dayName}">
+                <div class="cal-day-header">
+                    <span class="cal-day-name">${DAY_SHORT[date.getDay()]}</span>
+                    <span class="cal-day-num">${date.getDate()}</span>
+                </div>
+                ${pillsHtml}${extra}
+                ${!hasShows ? '<div class="no-shows-day" style="font-size:.75rem;margin-top:4px;">No English shows</div>' : ''}
+            </div>`;
+        }).join('');
+
+        // Render summary
+        const summary = document.getElementById('weekSummaryContent');
+        const today = new Date();
+        summary.innerHTML = days.map(date => {
+            const dayName = DAY_NAMES[date.getDay()];
+            const shows = getShowsForDay(dayName);
+            const todayClass = isToday(date) ? ' today-name' : '';
+            const dateStr = `${DAY_NAMES[date.getDay()]}, ${MONTHS[date.getMonth()]} ${date.getDate()}`;
+
+            if (shows.length === 0) {
+                return `<div class="day-row">
+                    <div class="day-row-name${todayClass}">${dateStr}</div>
+                    <div class="day-shows-list"><span class="no-shows-day">No English shows tonight</span></div>
+                </div>`;
+            }
+
+            const showsHtml = shows.map(s => {
+                const badge = `<span class="show-time-badge${s.isOurs?' featured':''}">${s.time}</span>`;
+                const reserveBtn = s.bookingUrl
+                    ? `<a href="${s.bookingUrl}" target="_blank" rel="noopener" class="reserve-btn-sm">Reserve →</a>`
+                    : '';
+                return `<div class="day-show-item">
+                    ${badge}
+                    <span>${s.emoji} <strong>${s.name}</strong> <span style="color:var(--text-muted);font-size:.85em;">at ${s.venue}</span></span>
+                    ${reserveBtn}
+                </div>`;
+            }).join('');
+
+            return `<div class="day-row">
+                <div class="day-row-name${todayClass}">${dateStr}</div>
+                <div class="day-shows-list">${showsHtml}</div>
+            </div>`;
+        }).join('');
+    }
+
+    document.getElementById('prevWeek').addEventListener('click', () => { weekOffset--; renderCalendar(); });
+    document.getElementById('nextWeek').addEventListener('click', () => { weekOffset++; renderCalendar(); });
+
+    renderCalendar();
+})();
+</script>
+</body>
+</html>
