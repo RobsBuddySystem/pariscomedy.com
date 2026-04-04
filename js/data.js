@@ -24,6 +24,8 @@ const VENUES = [
     { id:'cafe-oscar', name:'Café Oscar', address:'Paris', neighborhood:'Paris', lat:48.8700, lng:2.3400, mapX:44, mapY:30, listed:false, description:'Home of Oscar Comedy Club — Sunday afternoon shows and one of the most frequent comedy programmes in Paris.', metro:'' },
     { id:'poincon', name:'Poinçon Paris', address:'Paris', neighborhood:'Montparnasse', lat:48.8410, lng:2.3270, mapX:34, mapY:68, listed:false, description:'Kinto Comedy Club — English stand-up every Friday at 19:30. A rising venue on the Paris comedy circuit.', metro:'Montparnasse-Bienvenüe (M4/M6/M12/M13)' },
     { id:'cesure', name:'Césure', address:'Paris', neighborhood:'Latin Quarter (5th)', lat:48.8490, lng:2.3470, mapX:48, mapY:58, listed:false, description:'Greenwashing Comedy Club — English comedy with an eco-conscious angle. Thursday evenings.', metro:'Cardinal Lemoine (M10)' },
+    { id:'cotte23', name:'Cotte 23', address:'23 Rue de la Mare, 75020 Paris', neighborhood:'Belleville (20th)', lat:48.8693, lng:2.3817, mapX:72, mapY:35, listed:false, description:'Rocket Comedy Club — English stand-up every Tuesday at 19:00. A lively Belleville bar with a growing comedy scene.', metro:'Ménilmontant (M2)' },
+    { id:'coquin', name:'Le Coquin', address:'Paris', neighborhood:'Paris', lat:48.8650, lng:2.3550, mapX:54, mapY:40, listed:false, description:'Kiss Comedy Club — Wednesday night English comedy in an intimate Parisian bar. Regular shows at 20:00.', metro:'' },
     { id:'toloache', name:'Toloache', address:'Paris', neighborhood:'Marais / 3rd', lat:48.8600, lng:2.3590, mapX:58, mapY:46, listed:false, description:'Kuhl Comedy Open Mic — English stand-up open mic every Tuesday at 19:30. A friendly room for new voices and regulars.', metro:'Temple (M3)' }
 ];
 
@@ -72,7 +74,9 @@ const OTHER_SHOWS = [
     { name:'Smash Comedy Club', venueName:'Comédie Café', day:'Saturday', time:'19:00', type:'standup', emoji:'💥', description:'Smash Comedy Club at Comédie Café — 157+ upcoming dates across the week. One of the highest-volume English comedy programmes in Paris.', paid:false },
     { name:'IntégRire Comedy Night', venueName:'Le Kibélé', day:'Saturday', time:'19:00', type:'standup', emoji:'🌍', description:'IntégRire Comedy Night at Le Kibélé — Saturday evenings. Multicultural English comedy night with a diverse lineup.', paid:false },
     { name:'Kinto Comedy Club', venueName:'Poinçon Paris', day:'Friday', time:'19:30', type:'standup', emoji:'🎯', description:'Kinto Comedy Club at Poinçon Paris — Friday nights at 19:30. English stand-up in one of Paris\'s most atmospheric venues.', paid:false },
-    { name:'Greenwashing Comedy Club', venueName:'Césure', day:'Thursday', time:'20:00', type:'standup', emoji:'🌱', description:'Greenwashing Comedy Club at Césure and La Maison de la Conversation — Thursday evenings. English comedy with an eco-conscious twist.', paid:false }
+    { name:'Greenwashing Comedy Club', venueName:'Césure', day:'Thursday', time:'20:00', type:'standup', emoji:'🌱', description:'Greenwashing Comedy Club at Césure and La Maison de la Conversation — Thursday evenings. English comedy with an eco-conscious twist.', paid:false, bookingUrl:'https://www.eventbrite.fr/e/greenwashing-comedy-club-a-cesure-tickets-1984380900692' + UTM },
+    { name:'Rocket Comedy Club', venueName:'Cotte 23', day:'Tuesday', time:'19:00', type:'standup', emoji:'🚀', description:'Rocket Comedy Club at Cotte 23 — Tuesday evenings. English stand-up in a lively Belleville bar.', paid:false, bookingUrl:'https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627' + UTM },
+    { name:'Kiss Comedy Club', venueName:'Coquin', day:'Wednesday', time:'20:00', type:'standup', emoji:'💋', description:'Kiss Comedy Club at Le Coquin — Wednesday nights. English comedy in an intimate Parisian bar setting.', paid:false, bookingUrl:'https://www.eventbrite.fr/e/kiss-comedy-club-tickets-1935245083139' + UTM }
 ];
 
 const KEY_PLAYERS = [
