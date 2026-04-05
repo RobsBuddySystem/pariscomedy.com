@@ -965,7 +965,9 @@ function renderComediansDirectory() {
     if (!container || typeof CURRENT_SHOWS_BY_VENUE === 'undefined') return;
 
     if (stats) {
-        stats.textContent = `${ALL_CURRENT_SHOWS.length} currently verified shows across ${CURRENT_SHOWS_BY_VENUE.length} venues.`;
+        const verifiedDates = ALL_CURRENT_SHOWS.map(show => show.verifiedAt).filter(Boolean).sort();
+        const latestVerified = verifiedDates.length ? verifiedDates[verifiedDates.length - 1] : null;
+        stats.textContent = `${ALL_CURRENT_SHOWS.length} currently verified shows across ${CURRENT_SHOWS_BY_VENUE.length} venues.${latestVerified ? ` Latest verification pass: ${latestVerified}.` : ''}`;
     }
 
     container.innerHTML = CURRENT_SHOWS_BY_VENUE.map(venue => {
