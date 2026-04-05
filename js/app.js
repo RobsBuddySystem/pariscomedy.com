@@ -267,11 +267,12 @@ function renderFeaturedShows() {
     let allFeatured = [...featuredMain, ...featuredOther];
     // Shuffle so it's not always Velvet first — mix of venues
     if (currentLang === 'fr') {
-        // French: put French-named shows and variety first
+        // French: Velvet first
         allFeatured.sort((a,b) => {
-            const aIsOther = !a.id; const bIsOther = !b.id;
-            if (aIsOther && !bIsOther) return -1;
-            if (!aIsOther && bIsOther) return 1;
+            const aVelvet = a.venue === 'velvet' || a.venueName === 'Velvet Bar';
+            const bVelvet = b.venue === 'velvet' || b.venueName === 'Velvet Bar';
+            if (aVelvet && !bVelvet) return -1;
+            if (!aVelvet && bVelvet) return 1;
             return 0;
         });
     } else {
