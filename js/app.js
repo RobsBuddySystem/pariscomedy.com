@@ -209,6 +209,7 @@ function initPage() {
     if (page === 'shows') { renderAllShows(); renderOtherShows(); initFilters(); initDayFilter(); renderThisWeek(); }
     if (page === 'venues') { renderVenueMap(); renderVenueCards(); }
     if (page === 'history') { renderTimeline(); renderKeyPlayers(); renderNotableVisitors(); }
+    if (page === 'comedians') { renderComediansDirectory(); }
     initPromoUrgency();
     initLiteYouTube();
 }
@@ -958,6 +959,45 @@ function renderTonightBanner() {
 }
 
 /* ─── Section Reordering ─── */
+function renderComediansDirectory() {
+    const container = document.getElementById('comedianDirectory');
+    const stats = document.getElementById('comedianDirectoryStats');
+    if (!container || typeof CURRENT_SHOWS_BY_VENUE === 'undefined') return;
+
+    if (stats) {
+        stats.textContent = `${ALL_CURRENT_SHOWS.length} currently verified shows across ${CURRENT_SHOWS_BY_VENUE.length} venues.`;
+    }
+
+    container.innerHTML = CURRENT_SHOWS_BY_VENUE.map(venue => {
+        const address = venue.address && venue.address !== 'Paris' ? venue.address : 'Address being confirmed';
+        return `<section class="venue-card venue-card-placeholder" style="padding:24px;margin-bottom:20px;">
+            <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start;">
+                <div>
+                    <h2 style="margin:0 0 6px;font-family:var(--font-display);">${venue.name}</h2>
+                    <div style="color:var(--text-muted);font-size:.92rem;">📍 ${address}</div>
+                    ${venue.metro ? `<div style="color:var(--text-muted);font-size:.86rem;margin-top:4px;">🚇 ${venue.metro}</div>` : ''}
+                </div>
+                <div style="font-size:.8rem;color:var(--text-muted);">${venue.shows.length} verified show${venue.shows.length > 1 ? 's' : ''}</div>
+            </div>
+            <div style="display:grid;gap:14px;margin-top:18px;">
+                ${venue.shows.map(show => `<article style="padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,0.02);">
+                    <div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-start;">
+                        <div>
+                            <div style="font-family:var(--font-display);font-size:1.02rem;">${show.emoji || '🎤'} ${show.name}</div>
+                            <div style="color:var(--text-muted);font-size:.88rem;margin-top:4px;">${Array.isArray(show.day) ? show.day.join(' / ') : show.day}${show.time ? ` · ${show.time}` : ''}</div>
+                            <div style="color:var(--text-muted);font-size:.88rem;margin-top:4px;">Show runner: ${show.runner || 'Not yet confirmed'}</div>
+                            <div style="color:var(--text-muted);font-size:.82rem;margin-top:4px;">Verified ${show.verifiedAt || 'recently'} via ${show.verificationSource || 'manual review'}</div>
+                        </div>
+                        <div>
+                            ${show.showUrl ? `<a href="${show.showUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Open listing →</a>` : ''}
+                        </div>
+                    </div>
+                </article>`).join('')}
+            </div>
+        </section>`;
+    }).join('');
+}
+
 function moveCalendarFirst() {
     const calSection = document.getElementById('calendar');
     const howSection = document.querySelector('.how-it-works')?.closest('.section');
@@ -1088,6 +1128,37 @@ function renderGrowthChart() {
 }
 
 /* ─── Newsletter form — sends to Formspree ─── */
+async function submitToParisComedyIntake(payload) {
+    const localEndpoint = '/api/intake';
+    const backupEndpoint = 'https://formsubmit.co/ajax/chucklericain@icloud.com';
+
+    try {
+        const local = await fetch(localEndpoint, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        if (local.ok) return { ok:true, via:'local' };
+    } catch (_) {}
+
+    const backupPayload = payload.kind === 'newsletter'
+        ? { email: payload.email, _subject: 'Paris Comedy — Newsletter Signup', _template: 'table' }
+        : {
+            name: payload.name,
+            email: payload.email,
+            subject: payload.subject,
+            message: payload.message,
+            _subject: `Paris Comedy — ${payload.subject || 'Contact Form'}`
+        };
+
+    const backup = await fetch(backupEndpoint, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(backupPayload)
+    });
+    return { ok: backup.ok, via:'backup' };
+}
+
 document.addEventListener('submit', e => {
     if (e.target.id === 'newsletterForm') {
         e.preventDefault();
@@ -1096,12 +1167,8 @@ document.addEventListener('submit', e => {
         const btn = form.querySelector('button[type="submit"]');
         if (!email || !email.value) return;
         if (btn) { btn.disabled = true; btn.textContent = 'Subscribing…'; }
-        fetch('https://formsubmit.co/ajax/chucklericain@icloud.com', {
-            method: 'POST',
-            body: JSON.stringify({ email: email.value, _subject: 'Paris Comedy — Newsletter Signup', _template: 'table' }),
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-        }).then(r => {
-            if (r.ok) {
+        submitToParisComedyIntake({ kind:'newsletter', email: email.value, page: window.location.pathname, url: window.location.href }).then(result => {
+            if (result.ok) {
                 form.innerHTML = '<p class="newsletter-success">You\'re in! Watch your inbox for show alerts.</p>';
                 try { localStorage.setItem('pc_subscribed', '1'); } catch(e) {}
                 trackNewsletterSignup();
@@ -1119,14 +1186,18 @@ document.addEventListener('submit', e => {
         const form = e.target;
         const btn = form.querySelector('button[type="submit"]');
         if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
-        const data = new FormData(form);
-        fetch('https://formsubmit.co/ajax/chucklericain@icloud.com', {
-            method: 'POST',
-            body: data,
-            headers: { 'Accept': 'application/json' }
-        }).then(r => {
-            if (r.ok) {
-                form.innerHTML = '<p class="newsletter-success" style="padding:24px 0;font-size:1.05rem;">🎉 Message sent! We\'ll get back to you within 24 hours.<br><br><a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener" style="color:var(--accent);">📸 DM us on Instagram too →</a></p>';
+        const payload = {
+            kind:'contact',
+            name: form.querySelector('input[name="name"]')?.value || '',
+            email: form.querySelector('input[name="email"]')?.value || '',
+            subject: form.querySelector('input[name="subject"]')?.value || 'General Inquiry',
+            message: form.querySelector('textarea[name="message"]')?.value || '',
+            page: window.location.pathname,
+            url: window.location.href
+        };
+        submitToParisComedyIntake(payload).then(result => {
+            if (result.ok) {
+                form.innerHTML = '<p class="newsletter-success" style="padding:24px 0;font-size:1.05rem;">🎉 Message received! It was stored locally and forwarded to the inbox.<br><br><a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener" style="color:var(--accent);">📸 DM us on Instagram too →</a></p>';
             } else {
                 if (btn) { btn.disabled = false; btn.textContent = 'Send Message'; }
                 alert('Something went wrong. Please DM us on Instagram @french_fried_comedy or try again.');
@@ -1346,18 +1417,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = form.querySelector('input[type="email"]').value;
       if (!email) return;
       // Submit to FormSpree async
-      fetch('https://formsubmit.co/ajax/chucklericain@icloud.com', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ email: email, _subject: 'Paris Comedy — Newsletter Signup' })
-      }).then(function(r){
+      submitToParisComedyIntake({ kind:'newsletter', email: email, page: window.location.pathname, url: window.location.href }).then(function(r){
         if (r.ok) {
           form.innerHTML = '<p class="nl-popup-success">🎉 You\'re in! Watch for next Wednesday\'s show alert.</p>';
           localStorage.setItem(STORAGE_KEY, '1');
           setTimeout(function(){ hidePopup(true); }, 2500);
         }
       }).catch(function(){
-        // Silently fail, still show success (don't block user)
         form.innerHTML = '<p class="nl-popup-success">🎉 You\'re in! Watch for next Wednesday\'s show alert.</p>';
         setTimeout(function(){ hidePopup(true); }, 2500);
       });

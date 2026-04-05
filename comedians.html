@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paris Comedy for Comedians — Current Shows Directory</title>
+    <meta name="description" content="A free reference page for comedians: currently verified English-language comedy shows in Paris, grouped by venue with live links, show runners, and addresses.">
+    <meta property="og:title" content="Paris Comedy for Comedians — Current Shows Directory">
+    <meta property="og:description" content="Currently verified English-language comedy shows in Paris, grouped by venue with runner info and live links.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pariscomedy.com/comedians.html">
+    <link rel="canonical" href="https://pariscomedy.com/comedians.html">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="comedians">
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="/" class="nav-logo"><span class="logo-icon">🎤</span><span class="logo-text">Paris <span class="logo-accent">Comedy</span></span></a>
+        <div class="nav-links" id="navLinks">
+            <a href="/" class="nav-link">Home</a>
+            <a href="shows.html" class="nav-link">Shows</a>
+            <a href="venues.html" class="nav-link">Venues</a>
+            <a href="book.html" class="nav-link">Contact</a>
+            <a href="comedians.html" class="nav-link nav-cta active">For Comedians</a>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<header class="page-header">
+    <div class="page-header-content">
+        <h1 class="page-title">Paris comedy shows for comedians</h1>
+        <p class="page-subtitle">A free reference + suggestion service. Only shows with verified recent activity stay on this page.</p>
+    </div>
+</header>
+
+<section class="section">
+    <div class="container">
+        <div class="promo-card" style="padding:22px 24px;border:1px solid rgba(124,58,237,0.25);background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(255,51,102,0.08));margin-bottom:24px;">
+            <h2 style="margin:0 0 8px;font-family:var(--font-display);">How this page works</h2>
+            <p style="margin:0 0 10px;color:var(--text-dim);line-height:1.7;">This is meant as a useful public reference, not a gatekeeping list. If a show has no verified activity in the last 6 months, it comes off the current directory until we can verify it again.</p>
+            <p id="comedianDirectoryStats" style="margin:0;color:var(--text-muted);font-size:.92rem;"></p>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:18px;">
+            <div style="color:var(--text-muted);font-size:.92rem;">Grouped by venue · working links · show runner if known · updated from the public data layer</div>
+            <a href="book.html#contactForm" class="btn btn-primary btn-sm">Suggest a correction / add a show →</a>
+        </div>
+
+        <div id="comedianDirectory"></div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h4>🎤 Paris Comedy</h4>
+                <p>Free reference page for comedians, crowds, and show runners.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Pages</h4>
+                <a href="/">Home</a>
+                <a href="shows.html">Shows</a>
+                <a href="venues.html">Venues</a>
+                <a href="book.html">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Need a fix?</h4>
+                <a href="book.html#contactForm">Send an update</a>
+                <a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener">Instagram</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script defer src="js/data.js"></script>
+<script defer src="js/app.js"></script>
+</body>
+</html>

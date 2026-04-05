@@ -1,0 +1,2 @@
+data/intake/*.sqlite3
+data/intake/*.jsonl

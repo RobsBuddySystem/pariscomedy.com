@@ -435,16 +435,16 @@
     </svg>
 </div>
 
-<!-- This Week Spotlight (Alex promo sync) -->
-<section class="section section-alt" id="spotlight-paname" style="padding-top:42px;padding-bottom:42px;">
+<!-- Comedian directory CTA -->
+<section class="section section-alt" id="comedian-directory-cta" style="padding-top:42px;padding-bottom:42px;">
     <div class="container" data-reveal>
-        <div class="promo-card" data-promo-date="2026-04-07T17:30:00+02:00" data-promo-expire="2026-04-08T00:30:00+02:00" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;border:1px solid rgba(124,58,237,0.35);border-radius:16px;background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(255,51,102,0.1));">
+        <div class="promo-card" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;border:1px solid rgba(124,58,237,0.35);border-radius:16px;background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(255,51,102,0.1));">
             <div style="max-width:760px;">
-                <p style="margin:0 0 8px;font-weight:700;color:var(--accent);display:flex;flex-wrap:wrap;align-items:center;gap:10px;">🎭 This Tuesday (Apr 7) — Paname Spotlight <span class="promo-countdown"></span></p>
-                <h3 style="margin:0 0 8px;font-size:1.25rem;line-height:1.35;">French + English stand-up chaos at 17:30. Bring one friend who needs to laugh this week.</h3>
-                <p style="margin:0;color:var(--text-muted);font-size:.95rem;">One of Robert's favorite rooms in Paris. Great bilingual crowd and easy post-work timing.</p>
+                <p style="margin:0 0 8px;font-weight:700;color:var(--accent);">🎙️ New: comedian-friendly reference page</p>
+                <h3 style="margin:0 0 8px;font-size:1.25rem;line-height:1.35;">Looking for where to get on stage in Paris?</h3>
+                <p style="margin:0;color:var(--text-muted);font-size:.95rem;">We now keep a free working directory of currently verified English-language shows, grouped by venue with runner details and live links.</p>
             </div>
-            <a href="https://www.billetreduc.com/recherche.htm?q=stand+up+paname+art+cafe&utm_source=pariscomedy&utm_medium=website&utm_campaign=paname_apr7_spotlight" target="_blank" rel="noopener" class="btn btn-primary" aria-label="Reserve Paname Tuesday April 7 show">🎟️ Reserve Paname</a>
+            <a href="comedians.html" class="btn btn-primary">Browse current shows →</a>
         </div>
     </div>
 </section>
@@ -857,6 +857,7 @@
                 <a href="venues.html">Venues</a>
                 <a href="book.html">Book a Show</a>
                 <a href="about.html">About</a>
+                <a href="comedians.html">For Comedians</a>
             </div>
             <div class="footer-col">
                 <h4>Shows</h4>
@@ -909,8 +910,7 @@ if ("serviceWorker" in navigator) {
     <div class="nl-popup-emoji">🎤</div>
     <h2 class="nl-popup-title">Don't Miss the Next Show</h2>
     <p class="nl-popup-sub">Get weekly show alerts — every Wednesday at Velvet Bar, Pigalle. Tourists, expats, and comedy nerds welcome.</p>
-    <form class="nl-popup-form" id="nlPopupForm" action="https://formsubmit.co/chucklericain@icloud.com" method="POST">
-      <input type="hidden" name="_subject" value="Paris Comedy — Newsletter Signup">
+    <form class="nl-popup-form" id="nlPopupForm">
       <input type="email" name="email" class="nl-popup-input" placeholder="your@email.com" required>
       <button type="submit" class="btn btn-primary" style="width:100%;padding:14px;">Get Show Alerts →</button>
     </form>
