@@ -9,17 +9,144 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ─── Language Switcher ─── */
-let currentLang = localStorage.getItem('pc-lang') || 'en';
+const SUPPORTED_LANGS = ['en', 'fr', 'es', 'de', 'ja', 'zh', 'ko'];
+const META_TRANSLATIONS = {
+    home: {
+        en: {
+            title: 'Paris Comedy — The Home of English-Language Comedy in Paris',
+            description: 'The home of English-language comedy in Paris. 30+ weekly shows, 25+ venues. French Fried Comedy Night, Velvet Bar Comedy, and more. Reserve your spot on Eventbrite.',
+            ogTitle: 'Paris Comedy — English-Language Comedy in Paris',
+            ogDescription: '30+ weekly shows in English & French. Open mics, showcases, and the legendary French Fried Comedy Night. Reserve your spot.',
+            twitterTitle: 'Paris Comedy — English Comedy in Paris',
+            twitterDescription: '30+ weekly English comedy shows in Paris. Reserve your spot.'
+        },
+        fr: {
+            title: 'Paris Comedy — Le rendez-vous du stand-up en anglais à Paris',
+            description: 'Le point de repère du stand-up en anglais à Paris. 30+ spectacles par semaine, 25+ salles. French Fried Comedy Night, Velvet Bar Comedy et plus encore.',
+            ogTitle: 'Paris Comedy — Stand-up en anglais à Paris',
+            ogDescription: '30+ spectacles chaque semaine en anglais et en français. Open mics, plateaux et la légendaire French Fried Comedy Night.',
+            twitterTitle: 'Paris Comedy — Stand-up à Paris',
+            twitterDescription: '30+ spectacles de stand-up chaque semaine à Paris. Réservez votre place.'
+        },
+        es: {
+            title: 'Paris Comedy — La casa de la comedia en inglés en París',
+            description: 'La referencia de la comedia en inglés en París. 30+ shows semanales, 25+ salas. French Fried Comedy Night, Velvet Bar Comedy y más.',
+            ogTitle: 'Paris Comedy — Comedia en inglés en París',
+            ogDescription: '30+ shows semanales en inglés y francés. Open mics, showcases y la legendaria French Fried Comedy Night.',
+            twitterTitle: 'Paris Comedy — Comedia en París',
+            twitterDescription: '30+ shows de comedia cada semana en París. Reserva tu lugar.'
+        },
+        de: {
+            title: 'Paris Comedy — Die Heimat der englischsprachigen Comedy in Paris',
+            description: 'Die Anlaufstelle für englischsprachige Comedy in Paris. 30+ Shows pro Woche, 25+ Locations. French Fried Comedy Night, Velvet Bar Comedy und mehr.',
+            ogTitle: 'Paris Comedy — Englische Comedy in Paris',
+            ogDescription: '30+ wöchentliche Shows auf Englisch und Französisch. Open Mics, Showcases und die legendäre French Fried Comedy Night.',
+            twitterTitle: 'Paris Comedy — Comedy in Paris',
+            twitterDescription: '30+ Comedyshows pro Woche in Paris. Reserviere deinen Platz.'
+        },
+        ja: {
+            title: 'Paris Comedy — パリの英語コメディの拠点',
+            description: 'パリで英語コメディを探すならここ。毎週30以上のショー、25以上の会場。French Fried Comedy Night や Velvet Bar Comedy などを掲載。',
+            ogTitle: 'Paris Comedy — パリの英語コメディ',
+            ogDescription: '英語とフランス語のコメディショーが毎週30以上。オープンマイク、ショーケース、French Fried Comedy Night。',
+            twitterTitle: 'Paris Comedy — パリのコメディ',
+            twitterDescription: 'パリで毎週30以上のコメディショー。席を予約。'
+        },
+        zh: {
+            title: 'Paris Comedy — 巴黎英文单口喜剧中心',
+            description: '巴黎英文喜剧的聚集地。每周30多场演出、25多个场地。French Fried Comedy Night、Velvet Bar Comedy 等都在这里。',
+            ogTitle: 'Paris Comedy — 巴黎英文喜剧',
+            ogDescription: '每周30多场英语和法语喜剧演出。开放麦、拼盘秀，以及招牌 French Fried Comedy Night。',
+            twitterTitle: 'Paris Comedy — 巴黎喜剧',
+            twitterDescription: '巴黎每周30多场喜剧演出。立即预订。'
+        },
+        ko: {
+            title: 'Paris Comedy — 파리 영어 코미디의 중심',
+            description: '파리 영어 코미디의 기준점. 매주 30개 이상의 공연, 25개 이상의 베뉴. French Fried Comedy Night, Velvet Bar Comedy 등 수록.',
+            ogTitle: 'Paris Comedy — 파리 영어 코미디',
+            ogDescription: '영어와 프랑스어 코미디 쇼가 매주 30회 이상. 오픈 마이크, 쇼케이스, 그리고 French Fried Comedy Night.',
+            twitterTitle: 'Paris Comedy — 파리 코미디',
+            twitterDescription: '파리에서 매주 30개 이상의 코미디 쇼. 자리 예약하기.'
+        }
+    }
+};
+
+let currentLang = getInitialLanguage();
+
+function getInitialLanguage() {
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = params.get('lang');
+    if (SUPPORTED_LANGS.includes(urlLang)) return urlLang;
+    const savedLang = localStorage.getItem('pc-lang');
+    if (SUPPORTED_LANGS.includes(savedLang)) return savedLang;
+    return 'en';
+}
+
+function setLanguage(lang, pushUrl = true) {
+    currentLang = SUPPORTED_LANGS.includes(lang) ? lang : 'en';
+    localStorage.setItem('pc-lang', currentLang);
+    document.documentElement.lang = currentLang;
+    updateLanguageUrl(pushUrl);
+    updateMetaForLanguage();
+}
+
+function updateLanguageUrl(pushUrl = true) {
+    const url = new URL(window.location.href);
+    if (currentLang === 'en') {
+        url.searchParams.delete('lang');
+    } else {
+        url.searchParams.set('lang', currentLang);
+    }
+    const method = pushUrl ? 'pushState' : 'replaceState';
+    window.history[method]({}, '', url);
+}
+
+function updateMetaForLanguage() {
+    const page = document.body?.dataset.metaPage || 'home';
+    const meta = (META_TRANSLATIONS[page] && (META_TRANSLATIONS[page][currentLang] || META_TRANSLATIONS[page].en)) || null;
+    if (!meta) return;
+    document.title = meta.title;
+    setMetaTag('name', 'description', meta.description);
+    setMetaTag('property', 'og:title', meta.ogTitle || meta.title);
+    setMetaTag('property', 'og:description', meta.ogDescription || meta.description);
+    setMetaTag('property', 'og:locale', localeFromLang(currentLang));
+    setMetaTag('name', 'twitter:title', meta.twitterTitle || meta.ogTitle || meta.title);
+    setMetaTag('name', 'twitter:description', meta.twitterDescription || meta.ogDescription || meta.description);
+    const url = new URL(window.location.href);
+    setMetaTag('property', 'og:url', url.toString());
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = `${url.origin}${url.pathname}`;
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => {
+        const hreflang = link.getAttribute('hreflang');
+        if (!hreflang) return;
+        const alt = new URL(`${url.origin}${url.pathname}`);
+        if (hreflang !== 'x-default' && hreflang !== 'en') alt.searchParams.set('lang', hreflang);
+        if (hreflang === 'en') alt.searchParams.set('lang', 'en');
+        link.href = hreflang === 'x-default' ? `${url.origin}${url.pathname}` : alt.toString();
+    });
+}
+
+function localeFromLang(lang) {
+    return ({ en:'en_US', fr:'fr_FR', es:'es_ES', de:'de_DE', ja:'ja_JP', zh:'zh_CN', ko:'ko_KR' })[lang] || 'en_US';
+}
+
+function setMetaTag(attr, value, content) {
+    const selector = `meta[${attr}="${value}"]`;
+    const el = document.querySelector(selector);
+    if (el) el.setAttribute('content', content);
+}
 
 function initLanguage() {
     const switcher = document.getElementById('langSwitcher');
-    if (!switcher) return;
+    setLanguage(currentLang, false);
+    if (!switcher) {
+        applyTranslations();
+        return;
+    }
     switcher.querySelectorAll('[data-lang]').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === currentLang);
         btn.addEventListener('click', () => {
-            currentLang = btn.dataset.lang;
-            localStorage.setItem('pc-lang', currentLang);
-            document.documentElement.lang = currentLang;
+            setLanguage(btn.dataset.lang, true);
             switcher.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
             applyTranslations();
             // Re-render dynamic content
@@ -195,7 +322,7 @@ function renderUpNext() {
 
     // Pick up to 3 upcoming SHOWS (featured+non-featured) sorted by next occurrence
     const cards = [];
-    upcoming.forEach(d => {
+    upcoming.forEach((d, idx) => {
         if (cards.length >= 3) return;
         const dn = DAY_NAMES[d.getDay()];
         const label = `${dn} · ${d.getDate()} ${MONTHS[d.getMonth()]}`;
@@ -207,7 +334,7 @@ function renderUpNext() {
             const venue = (typeof VENUES !== 'undefined') ? VENUES.find(v => v.id === show.venue) : null;
             const venueName = venue ? venue.name : '';
             const neighborhood = venue ? venue.neighborhood : '';
-            const isTomorrow = i === 1;
+            const isTomorrow = idx === 0;
             const badge = isTomorrow ? '<span style="background:var(--accent);color:#fff;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:999px;margin-left:6px;">TOMORROW</span>' : '';
             const reserveBtn = show.bookingUrl
                 ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:12px;font-size:.85rem;" onclick="if(typeof trackReserve==='function')trackReserve('${show.shortName||show.name}','${show.bookingUrl}')">🎟️ Reserve Free →</a>`
