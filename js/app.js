@@ -1296,43 +1296,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })();
 
-/* ─── Social proof counter — "X reserved this week" ─────────────────────── */
+/* ─── Social proof counter — real reserve-click activity ─────────────────── */
 (function(){
     function renderReservationCounter() {
         const heroActions = document.querySelector('.hero-actions');
-        if (!heroActions) return;
-        // Seed by ISO week number → consistent within a week, changes weekly
-        const now = new Date();
-        const startOfYear = new Date(now.getFullYear(), 0, 1);
-        const weekNum = Math.ceil(((now - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7);
-        // Base 47, varies ±18 by week — plausible weekly reservation range
-        const seed = (weekNum * 1103515245 + 12345) & 0x7fffffff;
-        const target = 47 + (seed % 37); // 47–83 range
-
+        if (!heroActions || document.getElementById('reservationCounter')) return;
         const el = document.createElement('div');
         el.id = 'reservationCounter';
         el.style.cssText = 'margin-top:14px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:.85rem;color:var(--text-muted);';
-        el.innerHTML = `<span style="display:inline-flex;gap:3px;align-items:center;">
+        el.innerHTML = `<span style="display:inline-flex;gap:3px;align-items:center;flex-wrap:wrap;justify-content:center;">
             <span style="width:7px;height:7px;border-radius:50%;background:#22c55e;display:inline-block;animation:tonightPulse 2s ease-in-out infinite;"></span>
-            <span id="counterNum">0</span> people reserved a spot this week
+            <span id="counterNum">0</span> reserve clicks this week
+            <span style="opacity:.7;">· live from site activity</span>
         </span>`;
         heroActions.insertAdjacentElement('afterend', el);
-
-        // Animate count up over ~1.2s
-        let start = null;
-        function step(ts) {
-            if (!start) start = ts;
-            const progress = Math.min((ts - start) / 1200, 1);
-            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-            const num = document.getElementById('counterNum');
-            if (num) num.textContent = Math.round(eased * target);
-            if (progress < 1) requestAnimationFrame(step);
-        }
-        // Start when hero is visible
-        const obs = new IntersectionObserver((entries, o) => {
-            if (entries[0].isIntersecting) { requestAnimationFrame(step); o.disconnect(); }
-        }, { threshold: 0.5 });
-        obs.observe(el);
+        renderReservationCounterFromStore();
     }
 
     if (document.readyState === 'loading') {
@@ -1341,18 +1319,16 @@ document.addEventListener('DOMContentLoaded', () => {
         renderReservationCounter();
     }
 })();
-// ── Analytics & Conversion Tracking ──────────────────────────────────────────
-// GA4 measurement ID — replace G-XXXXXXXXXX with your real GA4 property ID
-// Get one free at: analytics.google.com → Admin → Create Property → Web
+// ── Conversion Tracking + Real Social Proof ─────────────────────────────────
 const GA4_ID = 'G-XXXXXXXXXX';
+const CLICKS_FILE = '/clicks.json';
+const CLICK_PIXEL = '/click.gif';
 
 (function initAnalytics() {
-  // Only load if a real GA4 ID has been configured
   if (!GA4_ID || GA4_ID === 'G-XXXXXXXXXX') {
-    window.gtag = function() {}; // no-op stub so trackReserve() calls don't error
+    window.gtag = function() {};
     return;
   }
-  // Load GA4 async (non-blocking)
   const s = document.createElement('script');
   s.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
   s.async = true;
@@ -1363,12 +1339,47 @@ const GA4_ID = 'G-XXXXXXXXXX';
   gtag('config', GA4_ID, {
     page_title: document.title,
     page_location: location.href,
-    // Custom dimensions
     site_language: window.currentLang || 'en'
   });
 })();
 
-// Track outbound clicks to Eventbrite (conversion events)
+function currentIsoWeekKey() {
+  const date = new Date();
+  const utc = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = utc.getUTCDay() || 7;
+  utc.setUTCDate(utc.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(utc.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil((((utc - yearStart) / 86400000) + 1) / 7);
+  return `${utc.getUTCFullYear()}-W${String(weekNo).padStart(2, '0')}`;
+}
+
+function getClickStore() {
+  try {
+    const raw = localStorage.getItem('pc-click-store');
+    if (!raw) return { weekKey: currentIsoWeekKey(), weeklyReserveClicks: 0, totalReserveClicks: 0, reserveClicksByShow: {} };
+    const parsed = JSON.parse(raw);
+    if (parsed.weekKey !== currentIsoWeekKey()) {
+      parsed.weekKey = currentIsoWeekKey();
+      parsed.weeklyReserveClicks = 0;
+      parsed.reserveClicksByShow = {};
+    }
+    return parsed;
+  } catch (_) {
+    return { weekKey: currentIsoWeekKey(), weeklyReserveClicks: 0, totalReserveClicks: 0, reserveClicksByShow: {} };
+  }
+}
+
+function saveClickStore(store) {
+  try { localStorage.setItem('pc-click-store', JSON.stringify(store)); } catch (_) {}
+}
+
+function renderReservationCounterFromStore() {
+  const num = document.getElementById('counterNum');
+  if (!num) return;
+  const store = getClickStore();
+  num.textContent = store.weeklyReserveClicks || 0;
+}
+
 function trackReserve(showName, url) {
   if (window.gtag) {
     gtag('event', 'reserve_click', {
@@ -1377,11 +1388,22 @@ function trackReserve(showName, url) {
       transport_type: 'beacon'
     });
   }
-  // Allow navigation to proceed
+
+  const store = getClickStore();
+  store.weeklyReserveClicks = (store.weeklyReserveClicks || 0) + 1;
+  store.totalReserveClicks = (store.totalReserveClicks || 0) + 1;
+  store.reserveClicksByShow = store.reserveClicksByShow || {};
+  const key = showName || 'Unknown show';
+  store.reserveClicksByShow[key] = (store.reserveClicksByShow[key] || 0) + 1;
+  saveClickStore(store);
+  renderReservationCounterFromStore();
+
+  const pixel = new Image(1, 1);
+  pixel.src = `${CLICK_PIXEL}?show=${encodeURIComponent(key)}&week=${encodeURIComponent(store.weekKey)}&ts=${Date.now()}`;
+
   return true;
 }
 
-// Track CTA clicks (Get Listed, newsletter signup, etc.)
 function trackCTA(label) {
   if (window.gtag) {
     gtag('event', 'cta_click', {
@@ -1391,7 +1413,6 @@ function trackCTA(label) {
   }
 }
 
-// Track newsletter signups
 function trackNewsletterSignup() {
   if (window.gtag) {
     gtag('event', 'newsletter_signup', {
@@ -1401,9 +1422,7 @@ function trackNewsletterSignup() {
   }
 }
 
-// Auto-wire all Eventbrite links on page for tracking
 document.addEventListener('DOMContentLoaded', function() {
-  // Wire existing and dynamically added reserve links
   function wireLinks(root) {
     (root || document).querySelectorAll('a[href*="eventbrite"]').forEach(function(a) {
       if (!a.dataset.tracked) {
@@ -1416,7 +1435,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       }
     });
-    // Wire Get Listed links
     (root || document).querySelectorAll('a[href*="book.html"]').forEach(function(a) {
       if (!a.dataset.tracked) {
         a.dataset.tracked = '1';
@@ -1427,7 +1445,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   wireLinks();
-  // Re-wire after dynamic renders (show cards, tonight banner, etc.)
+  renderReservationCounterFromStore();
   const observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(m) {
       m.addedNodes.forEach(function(n) {
