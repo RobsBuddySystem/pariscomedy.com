@@ -121,6 +121,22 @@ img{max-width:100%;height:auto;display:block}
 .trend-live-meta{color:var(--text-dim);font-size:0.92rem;margin-bottom:10px}
 .trend-live-small{color:var(--text-muted);font-size:0.9rem;line-height:1.6;margin-bottom:18px}
 
+/* Apr 8 triple-header promo */
+.triple-header-promo{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,0.95fr);gap:24px;align-items:stretch;padding:26px;border-radius:22px;border:1px solid rgba(255,51,102,0.24);background:linear-gradient(135deg,rgba(255,51,102,0.1),rgba(124,58,237,0.13));box-shadow:0 12px 30px rgba(0,0,0,0.22)}
+.triple-header-main h2{font-family:var(--font-display);font-size:clamp(1.55rem,3.2vw,2.2rem);line-height:1.12;margin-bottom:12px}
+.triple-header-main p{color:var(--text-dim);font-size:0.98rem;line-height:1.72;margin-bottom:14px}
+.triple-header-badge{display:inline-block;margin-bottom:14px;padding:6px 12px;border-radius:999px;background:rgba(255,51,102,0.16);border:1px solid rgba(255,51,102,0.3);color:var(--accent-light);font-size:0.75rem;font-weight:700;letter-spacing:.02em}
+.triple-header-quotes{display:grid;gap:12px;margin-top:18px}
+.triple-header-quote{padding:14px 16px;border-radius:14px;background:rgba(10,10,20,0.44);border:1px solid rgba(255,255,255,0.08);color:var(--text);font-family:var(--font-display);font-size:1rem;line-height:1.5}
+.triple-header-quote-alt{background:rgba(124,58,237,0.12)}
+.triple-header-side{display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:18px;background:rgba(10,10,20,0.6);border:1px solid rgba(255,255,255,0.08)}
+.triple-header-side-head{font-size:0.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--accent-light)}
+.triple-header-list{display:grid;gap:10px}
+.triple-header-item{display:block;padding:14px 15px;border-radius:14px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);color:var(--text);transition:transform .15s,border-color .15s,background .15s}
+.triple-header-item strong{display:block;font-family:var(--font-display);font-size:1rem;line-height:1.25;margin-bottom:5px;color:var(--text)}
+.triple-header-item span{display:block;color:var(--text-dim);font-size:.87rem;line-height:1.5}
+.triple-header-item:hover{transform:translateY(-2px);border-color:rgba(255,51,102,0.45);background:rgba(255,51,102,0.08);color:var(--text)}
+
 /* ─── Calendar ─── */
 .calendar-nav{display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:24px}
 .cal-month{font-family:var(--font-display);font-weight:600;font-size:1.1rem}
@@ -689,6 +705,8 @@ textarea.form-input{min-height:120px;resize:vertical}
   .mobile-cta-bar { display: block; }
   /* Add bottom padding so footer isn't hidden behind bar */
   body { padding-bottom: 72px; }
+  .triple-header-promo{grid-template-columns:1fr;padding:20px;}
+  .triple-header-side{padding:18px;}
 }
 
 /* ── Untranslatable card ─────────────────────────────────────────────────── */
