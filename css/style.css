@@ -135,6 +135,21 @@ img{max-width:100%;height:auto;display:block}
 .promo-countdown{display:inline-flex;align-items:center;justify-content:center;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.18);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 .promo-card--green .promo-countdown{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.16)}
 
+/* Paris paperwork identity-hook conversion block */
+.bureau-card{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,.95fr);gap:22px;align-items:stretch;margin-top:28px;padding:24px;border-radius:22px;border:1px solid rgba(255,51,102,0.24);background:linear-gradient(135deg,rgba(255,51,102,0.08),rgba(245,158,11,0.1));box-shadow:0 12px 28px rgba(0,0,0,.2)}
+.bureau-badge{display:inline-block;margin-bottom:14px;padding:6px 12px;border-radius:999px;background:rgba(245,158,11,0.16);border:1px solid rgba(245,158,11,0.28);color:#fbbf24;font-size:.75rem;font-weight:700;letter-spacing:.02em}
+.bureau-copy h3{font-family:var(--font-display);font-size:clamp(1.45rem,3vw,2rem);line-height:1.12;margin-bottom:12px}
+.bureau-copy p{color:var(--text-dim);font-size:.98rem;line-height:1.72;margin-bottom:16px}
+.bureau-quotes{display:grid;gap:12px}
+.bureau-quote{padding:14px 16px;border-radius:14px;background:rgba(10,10,20,.42);border:1px solid rgba(255,255,255,.08);color:var(--text);font-family:var(--font-display);font-size:1rem;line-height:1.55}
+.bureau-quote-alt{background:rgba(245,158,11,.1)}
+.bureau-panel{display:flex;flex-direction:column;justify-content:center;padding:22px;border-radius:18px;background:rgba(10,10,20,.58);border:1px solid rgba(255,255,255,.08)}
+.bureau-panel-head{font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fbbf24;margin-bottom:10px}
+.bureau-show{font-family:var(--font-display);font-size:1.25rem;font-weight:700;line-height:1.2;margin-bottom:10px}
+.bureau-small{color:var(--text-dim);font-size:.92rem;line-height:1.65;margin-bottom:18px}
+.bureau-actions{display:flex;flex-direction:column;gap:10px}
+.bureau-actions .btn{justify-content:center}
+
 /* Clip signal / social-proof bridge */
 .clip-signal-card{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.95fr);gap:22px;align-items:stretch;margin-top:28px;padding:24px;border-radius:22px;border:1px solid rgba(59,130,246,0.24);background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(124,58,237,0.12));box-shadow:0 12px 28px rgba(0,0,0,.2)}
 .clip-signal-badge{display:inline-block;margin-bottom:14px;padding:6px 12px;border-radius:999px;background:rgba(59,130,246,0.16);border:1px solid rgba(59,130,246,0.28);color:#93c5fd;font-size:.75rem;font-weight:700;letter-spacing:.02em}
@@ -754,6 +769,8 @@ textarea.form-input{min-height:120px;resize:vertical}
   .triple-header-side{padding:18px;}
   .clip-signal-card{grid-template-columns:1fr;padding:20px;}
   .clip-signal-side{padding:18px;}
+  .bureau-card{grid-template-columns:1fr;padding:20px;}
+  .bureau-panel{padding:18px;}
 }
 
 /* ── Untranslatable card ─────────────────────────────────────────────────── */
