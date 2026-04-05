@@ -194,7 +194,7 @@ const KEY_PLAYERS = [
     { id:'paul', name:'Paul Taylor', title:'The Breakout', emoji:'🇬🇧',
       instagram:'https://www.instagram.com/paul_taylor_uk/',
       wikipedia:'https://en.wikipedia.org/wiki/Paul_Taylor_(comedian)',
-      youtube:'https://www.youtube.com/@PaulTaylor',
+      youtube:'https://www.youtube.com/@paultaylorcomedy',
       bio:'British comedian who moved to Paris in 2009 and got his start performing at French Fried Comedy Night, hosted by Robert Hoehn. His 2016 "La Bise" video — produced and directed by Robert — went viral with 3M+ views, leading Canal+ to give him "What The Fuck France," the first English-language show on French TV. His #Franglais, "So British", and "Bisoubye x" tours sold out across France. 1.5M+ followers across platforms.',
       bioFr:'Humoriste britannique installé à Paris depuis 2009. Sa vidéo "La Bise" est devenue virale en 2016. Canal+ lui a confié "What The Fuck France".',
       bioEs:'Comediante británico que se mudó a París en 2009. Su video "La Bise" se volvió viral en 2016 con más de 3M de vistas.' },
