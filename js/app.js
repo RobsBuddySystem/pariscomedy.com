@@ -910,7 +910,7 @@ document.addEventListener('submit', e => {
                 trackNewsletterSignup();
             } else {
                 if (btn) { btn.disabled = false; btn.textContent = 'Subscribe'; }
-                alert('Something went wrong. Try again or email booking@pariscomedy.com');
+                alert('Something went wrong. Try again or DM us on Instagram.');
             }
         }).catch(() => {
             if (btn) { btn.disabled = false; btn.textContent = 'Subscribe'; }
