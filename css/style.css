@@ -237,6 +237,18 @@ img{max-width:100%;height:auto;display:block}
 .form-input:focus{outline:none;border-color:var(--accent)}
 textarea.form-input{min-height:120px;resize:vertical}
 
+/* Listing proof block */
+.listing-proof{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,0.9fr);gap:18px;align-items:stretch;padding:28px;border-radius:20px;border:1px solid rgba(255,51,102,0.24);background:linear-gradient(135deg,rgba(255,51,102,0.08),rgba(124,58,237,0.1));box-shadow:0 10px 26px rgba(0,0,0,0.2)}
+.listing-proof-main h2{font-family:var(--font-display);font-size:clamp(1.45rem,3vw,2rem);line-height:1.15;margin-bottom:12px}
+.listing-proof-main p{color:var(--text-dim);font-size:0.96rem;line-height:1.7;margin-bottom:12px}
+.listing-proof-badge{display:inline-block;margin-bottom:12px;padding:6px 12px;border-radius:999px;background:rgba(255,51,102,0.14);border:1px solid rgba(255,51,102,0.28);color:var(--accent-light);font-size:0.74rem;font-weight:700;letter-spacing:.02em}
+.listing-proof-stats{display:grid;gap:12px}
+.listing-proof-stat{padding:16px 18px;border-radius:16px;background:rgba(10,10,20,0.52);border:1px solid rgba(255,255,255,0.08)}
+.listing-proof-stat strong{display:block;font-family:var(--font-display);font-size:1.4rem;line-height:1.1;color:var(--text);margin-bottom:6px}
+.listing-proof-stat span{display:block;color:var(--text-muted);font-size:0.88rem;line-height:1.45}
+.listing-proof-quote{grid-column:1/-1;padding:18px 20px;border-radius:16px;background:rgba(10,10,20,0.44);border:1px solid rgba(124,58,237,0.24);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+.listing-proof-quote p{margin:0;max-width:760px;color:var(--text-dim);font-size:0.95rem;line-height:1.7}
+
 /* ─── Video Section ─── */
 .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
 .video-card{border-radius:var(--radius);overflow:hidden;background:var(--bg-card);border:1px solid var(--border);transition:transform var(--transition),box-shadow var(--transition),border-color var(--transition)}
@@ -321,6 +333,8 @@ textarea.form-input{min-height:120px;resize:vertical}
     .trend-live-card{grid-template-columns:1fr;padding:18px}
     .trend-live-copy h3{font-size:1.3rem}
     .trend-live-panel{padding:18px}
+    .listing-proof{grid-template-columns:1fr;padding:20px}
+    .listing-proof-quote{padding:16px}
 }
 @media(max-width:480px){.hero-title{font-size:2.2rem}.stat-num{font-size:1.4rem}.page-title{font-size:2rem}}
 
