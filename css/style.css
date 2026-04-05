@@ -727,6 +727,17 @@ textarea.form-input{min-height:120px;resize:vertical}
   font-size: 14px;
   font-weight: 700;
 }
+.mobile-cta-bar-subline {
+  display: block;
+  margin-top: 2px;
+  color: rgba(255,255,255,0.72);
+  font-size: 12px;
+}
+.mobile-cta-bar-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
 .mobile-cta-bar-btn {
   display: inline-flex;
   align-items: center;
@@ -743,6 +754,15 @@ textarea.form-input{min-height:120px;resize:vertical}
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .mobile-cta-bar-btn:hover { transform: scale(1.04); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+.mobile-cta-bar-btn--ghost {
+  background: rgba(255,255,255,0.14);
+  color: #fff;
+  box-shadow: none;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.mobile-cta-bar-btn--ghost:hover {
+  background: rgba(255,255,255,0.22);
+}
 .mobile-cta-bar-close {
   background: none;
   border: none;
@@ -759,7 +779,10 @@ textarea.form-input{min-height:120px;resize:vertical}
 @media (max-width: 768px) {
   .mobile-cta-bar { display: block; }
   /* Add bottom padding so footer isn't hidden behind bar */
-  body { padding-bottom: 72px; }
+  body { padding-bottom: 86px; }
+  .mobile-cta-bar-inner { align-items: flex-start; gap: 10px; }
+  .mobile-cta-bar-actions { flex-wrap: wrap; justify-content: flex-end; }
+  .mobile-cta-bar-btn { padding: 9px 14px; font-size: 13px; }
   .quick-book-rail-wrap{top:64px;padding-top:10px;}
   .quick-book-rail{flex-direction:column;align-items:flex-start;padding:14px;}
   .quick-book-rail-links{width:100%;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;justify-content:flex-start;scrollbar-width:none;}
@@ -771,6 +794,9 @@ textarea.form-input{min-height:120px;resize:vertical}
   .clip-signal-side{padding:18px;}
   .bureau-card{grid-template-columns:1fr;padding:20px;}
   .bureau-panel{padding:18px;}
+  .mobile-cta-bar-inner { flex-wrap: wrap; }
+  .mobile-cta-bar-actions { width: 100%; }
+  .mobile-cta-bar-btn { flex: 1; justify-content: center; }
 }
 
 /* ── Untranslatable card ─────────────────────────────────────────────────── */
