@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initLanguage();
     initNav();
     initPage();
+    initLiteYouTube();
     initParticles();
     initScrollAnimations();
     initEasterEggs();
@@ -207,6 +208,38 @@ function initPage() {
     if (page === 'shows') { renderAllShows(); renderOtherShows(); initFilters(); initDayFilter(); renderThisWeek(); }
     if (page === 'venues') { renderVenueMap(); renderVenueCards(); }
     if (page === 'history') { renderTimeline(); renderKeyPlayers(); renderNotableVisitors(); }
+    initLiteYouTube();
+}
+
+function initLiteYouTube() {
+    document.querySelectorAll('.lite-youtube').forEach(el => {
+        if (el.dataset.bound === 'true') return;
+        el.dataset.bound = 'true';
+        const activate = () => {
+            if (el.dataset.loaded === 'true') return;
+            const videoId = el.dataset.youtubeId;
+            if (!videoId) return;
+            const title = el.dataset.title || 'YouTube video';
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+            iframe.title = title;
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            iframe.allowFullscreen = true;
+            iframe.loading = 'lazy';
+            el.innerHTML = '';
+            el.appendChild(iframe);
+            el.dataset.loaded = 'true';
+        };
+        el.addEventListener('click', activate);
+        el.addEventListener('keydown', evt => {
+            if (evt.key === 'Enter' || evt.key === ' ') {
+                evt.preventDefault();
+                activate();
+            }
+        });
+        if (!el.hasAttribute('tabindex')) el.tabIndex = 0;
+        if (!el.hasAttribute('role')) el.setAttribute('role', 'button');
+    });
 }
 
 /* ─── This Week ─── */
