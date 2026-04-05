@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initLanguage();
     initNav();
     initPage();
+    initPromoUrgency();
     initLiteYouTube();
     initParticles();
     initScrollAnimations();
@@ -208,7 +209,42 @@ function initPage() {
     if (page === 'shows') { renderAllShows(); renderOtherShows(); initFilters(); initDayFilter(); renderThisWeek(); }
     if (page === 'venues') { renderVenueMap(); renderVenueCards(); }
     if (page === 'history') { renderTimeline(); renderKeyPlayers(); renderNotableVisitors(); }
+    initPromoUrgency();
     initLiteYouTube();
+}
+
+function initPromoUrgency() {
+    document.querySelectorAll('[data-promo-date]').forEach(card => {
+        const dateText = card.dataset.promoDate;
+        const expireText = card.dataset.promoExpire || dateText;
+        const countdown = card.querySelector('.promo-countdown');
+        if (!dateText || !countdown) return;
+
+        const start = new Date(dateText);
+        const expire = new Date(expireText);
+        const now = new Date();
+
+        if (Number.isNaN(start.getTime()) || Number.isNaN(expire.getTime())) return;
+
+        if (now > expire) {
+            const section = card.closest('section') || card;
+            section.style.display = 'none';
+            return;
+        }
+
+        const diffMs = start.getTime() - now.getTime();
+        const hours = Math.max(0, diffMs / 36e5);
+        const days = Math.max(0, Math.ceil(diffMs / 864e5));
+        let label = 'This week';
+
+        if (hours <= 6) label = 'Tonight';
+        else if (hours <= 30) label = 'Tomorrow';
+        else if (days === 2) label = 'In 2 days';
+        else if (days > 2) label = `In ${days} days`;
+
+        countdown.textContent = label;
+        countdown.setAttribute('aria-label', `Promo timing: ${label}`);
+    });
 }
 
 function initLiteYouTube() {
