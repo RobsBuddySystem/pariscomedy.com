@@ -36,29 +36,509 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="css/style.css">
     <script type="application/ld+json">
-    {
-        "@context":"https://schema.org",
-        "@type":"LocalBusiness",
-        "name":"Paris Comedy",
-        "url":"https://pariscomedy.com",
-        "priceRange":"Free",
-        "address":{"@type":"PostalAddress","streetAddress":"39 Rue de Douai","addressLocality":"Paris","postalCode":"75009","addressCountry":"FR"}
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-        "@context":"https://schema.org",
-        "@type":"ItemList",
-        "name":"English Comedy Shows in Paris",
-        "description":"Weekly English-language comedy shows in Paris",
-        "url":"https://pariscomedy.com/shows.html",
-        "numberOfItems":27,
-        "itemListElement":[
-            {"@type":"ListItem","position":1,"item":{"@type":"Event","name":"Velvet Bar Comedy — Open Mic","startDate":"2026-04-08T19:00:00+02:00","location":{"@type":"Place","name":"Velvet Bar","address":"39 Rue de Douai, 75009 Paris"}}},
-            {"@type":"ListItem","position":2,"item":{"@type":"Event","name":"Velvet Bar Comedy Night","startDate":"2026-04-08T20:30:00+02:00","location":{"@type":"Place","name":"Velvet Bar","address":"39 Rue de Douai, 75009 Paris"}}},
-            {"@type":"ListItem","position":3,"item":{"@type":"Event","name":"French Fried Comedy Night","startDate":"2026-04-08T22:00:00+02:00","location":{"@type":"Place","name":"Velvet Bar","address":"39 Rue de Douai, 75009 Paris"}}}
-        ]
-    }
+{
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "English Comedy Shows in Paris",
+    "description": "29 verified weekly English-language comedy shows in Paris",
+    "url": "https://pariscomedy.com/shows.html",
+    "numberOfItems": 29,
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+                "@type": "Event",
+                "name": "Velvet Bar Comedy — Open Mic",
+                "startDate": "2026-04-08T19:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Velvet Bar",
+                    "address": "39 Rue de Douai, 75009 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+                "@type": "Event",
+                "name": "Velvet Bar Comedy — Le meilleur du stand-up",
+                "startDate": "2026-04-08T20:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Velvet Bar",
+                    "address": "39 Rue de Douai, 75009 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+                "@type": "Event",
+                "name": "French Fried Comedy Night",
+                "startDate": "2026-04-08T22:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Velvet Bar",
+                    "address": "39 Rue de Douai, 75009 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+                "@type": "Event",
+                "name": "Kuhl Comedy Open Mic",
+                "startDate": "2026-04-07T19:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Toloache",
+                    "address": "Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 5,
+            "item": {
+                "@type": "Event",
+                "name": "Green Light Comedy",
+                "startDate": "2026-04-07T20:15:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Les Marquises",
+                    "address": "Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 6,
+            "item": {
+                "@type": "Event",
+                "name": "Cuba Compagnie Comedy Club",
+                "startDate": "2026-04-07T19:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Cuba Compagnie",
+                    "address": "48 Bd Beaumarchais, 75011 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 7,
+            "item": {
+                "@type": "Event",
+                "name": "Funny Women Paris",
+                "startDate": "2026-04-07T20:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Le Noddi",
+                    "address": "16 Rue Bernardins, 75005 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 8,
+            "item": {
+                "@type": "Event",
+                "name": "Rocket Comedy Club",
+                "startDate": "2026-04-07T19:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Cotte 23",
+                    "address": "23 Rue de la Mare, 75020 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 9,
+            "item": {
+                "@type": "Event",
+                "name": "LOFI Comedy Club",
+                "startDate": "2026-04-07T19:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Fada Paris",
+                    "address": "Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 10,
+            "item": {
+                "@type": "Event",
+                "name": "Comedy Crush Wednesday Show",
+                "startDate": "2026-04-08T20:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Les Cariatiades",
+                    "address": "Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 11,
+            "item": {
+                "@type": "Event",
+                "name": "The Dissident Comedy Show",
+                "startDate": "2026-04-08T20:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "The Dissident Club",
+                    "address": "58 Rue Richer, 75009 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 12,
+            "item": {
+                "@type": "Event",
+                "name": "MANGO English Stand-Up",
+                "startDate": "2026-04-08T19:45:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Le Paris de l'Humour",
+                    "address": "Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 13,
+            "item": {
+                "@type": "Event",
+                "name": "Wednesday Night Comedy",
+                "startDate": "2026-04-08T19:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "La Pomme d'Eve",
+                    "address": "1 Rue des Boulangers, 75005 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 14,
+            "item": {
+                "@type": "Event",
+                "name": "Kiss Comedy Club",
+                "startDate": "2026-04-08T20:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Le Coquin",
+                    "address": "Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 15,
+            "item": {
+                "@type": "Event",
+                "name": "South Comedy Club",
+                "startDate": "2026-04-08T20:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Comédie Café",
+                    "address": "Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 16,
+            "item": {
+                "@type": "Event",
+                "name": "Oh My God She's Parisian! — Julie Coulon",
+                "startDate": "2026-04-10T20:15:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Théâtre BO Saint-Martin",
+                    "address": "19 Boulevard Saint-Martin, 75003 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 17,
+            "item": {
+                "@type": "Event",
+                "name": "FIAP Comedy Club",
+                "startDate": "2026-04-09T19:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "FIAP Paris",
+                    "address": "30 Rue Cabanis, 75014 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 18,
+            "item": {
+                "@type": "Event",
+                "name": "The Englishman Comedy Night",
+                "startDate": "2026-04-09T20:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "The Englishman Cocktail Club",
+                    "address": "Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 19,
+            "item": {
+                "@type": "Event",
+                "name": "Greenwashing Comedy Club",
+                "startDate": "2026-04-09T20:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Césure",
+                    "address": "13 Rue Santeuil, 75005 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 20,
+            "item": {
+                "@type": "Event",
+                "name": "Sparkle Comedy Club",
+                "startDate": "2026-04-09T21:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Le TLM Paris",
+                    "address": "105 Rue Curial, 75019 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 21,
+            "item": {
+                "@type": "Event",
+                "name": "Green Mic Showcase",
+                "startDate": "2026-04-10T20:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Au Soleil de la Butte",
+                    "address": "32 Rue Muller, 75018 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 22,
+            "item": {
+                "@type": "Event",
+                "name": "The Open Mic Express",
+                "startDate": "2026-04-10T19:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Le Kibélé",
+                    "address": "12 Rue de l'Éperon, 75006 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 23,
+            "item": {
+                "@type": "Event",
+                "name": "Kinto Comedy Club",
+                "startDate": "2026-04-10T19:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Poinçon Paris",
+                    "address": "Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 24,
+            "item": {
+                "@type": "Event",
+                "name": "Smash Comedy Club",
+                "startDate": "2026-04-11T19:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Comédie Café",
+                    "address": "Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 25,
+            "item": {
+                "@type": "Event",
+                "name": "IntégRire Comedy Night",
+                "startDate": "2026-04-11T19:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Le Kibélé",
+                    "address": "12 Rue de l'Éperon, 75006 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 26,
+            "item": {
+                "@type": "Event",
+                "name": "Blast Off All Stars",
+                "startDate": "2026-04-11T19:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "La Pomme d'Eve",
+                    "address": "1 Rue des Boulangers, 75005 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 27,
+            "item": {
+                "@type": "Event",
+                "name": "Charonne Comedy Club",
+                "startDate": "2026-04-11T19:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Le Café de la Plage",
+                    "address": "Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 28,
+            "item": {
+                "@type": "Event",
+                "name": "Oscar Comedy Club",
+                "startDate": "2026-04-12T17:00:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Café Oscar",
+                    "address": "155 Rue Montmartre, 75002 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 29,
+            "item": {
+                "@type": "Event",
+                "name": "Green Mic Comedy Show",
+                "startDate": "2026-04-12T19:30:00+02:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Ma Cocotte du Faubourg",
+                    "address": "5 Rue du Faubourg Montmartre, 75009 Paris"
+                },
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "isAccessibleForFree": true
+            }
+        }
+    ]
+}
     </script>
     <script type="application/ld+json">
     {

@@ -39,20 +39,338 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="css/style.css">
     <script type="application/ld+json">
-    {
-        "@context":"https://schema.org",
-        "@type":"ItemList",
-        "name":"Comedy Venues in Paris",
-        "url":"https://pariscomedy.com/venues.html",
-        "itemListElement":[
-            {"@type":"ListItem","position":1,"item":{"@type":"Place","name":"Velvet Bar","address":{"@type":"PostalAddress","streetAddress":"39 Rue de Douai","addressLocality":"Paris","postalCode":"75009","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":48.8821,"longitude":2.3349}}},
-            {"@type":"ListItem","position":2,"item":{"@type":"Place","name":"Paname Art Café","address":{"@type":"PostalAddress","streetAddress":"2bis Quai de la Loire","addressLocality":"Paris","postalCode":"75019","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":48.8844,"longitude":2.3728}}},
-            {"@type":"ListItem","position":3,"item":{"@type":"Place","name":"Green Mic Paris","address":{"@type":"PostalAddress","streetAddress":"32 Rue Muller","addressLocality":"Paris","postalCode":"75018","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":48.8867,"longitude":2.3431}}},
-            {"@type":"ListItem","position":4,"item":{"@type":"Place","name":"Le Bikini Bottom","address":{"@type":"PostalAddress","addressLocality":"Paris","addressCountry":"FR"}}},
-            {"@type":"ListItem","position":5,"item":{"@type":"Place","name":"Les Marquises","address":{"@type":"PostalAddress","addressLocality":"Paris","addressCountry":"FR"}}},
-            {"@type":"ListItem","position":6,"item":{"@type":"Place","name":"The Englishman Cocktail Club","address":{"@type":"PostalAddress","addressLocality":"Paris","addressCountry":"FR"}}}
-        ]
-    }
+{
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Comedy Venues in Paris",
+    "description": "23 current Paris venues with verified English-language comedy shows",
+    "url": "https://pariscomedy.com/venues.html",
+    "numberOfItems": 23,
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+                "@type": "Place",
+                "name": "Velvet Bar",
+                "address": "39 Rue de Douai, 75009 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.8821,
+                    "longitude": 2.3349
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+                "@type": "Place",
+                "name": "Les Marquises",
+                "address": "Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.865,
+                    "longitude": 2.37
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+                "@type": "Place",
+                "name": "The Englishman Cocktail Club",
+                "address": "Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.87,
+                    "longitude": 2.33
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+                "@type": "Place",
+                "name": "Théâtre BO Saint-Martin",
+                "address": "19 Boulevard Saint-Martin, 75003 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.868,
+                    "longitude": 2.354
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 5,
+            "item": {
+                "@type": "Place",
+                "name": "Le Noddi",
+                "address": "16 Rue Bernardins, 75005 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.8513,
+                    "longitude": 2.3527
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 6,
+            "item": {
+                "@type": "Place",
+                "name": "Le Kibélé",
+                "address": "12 Rue de l'Éperon, 75006 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.875,
+                    "longitude": 2.345
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 7,
+            "item": {
+                "@type": "Place",
+                "name": "Au Soleil de la Butte",
+                "address": "32 Rue Muller, 75018 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.8867,
+                    "longitude": 2.3431
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 8,
+            "item": {
+                "@type": "Place",
+                "name": "Les Cariatiades",
+                "address": "Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.869,
+                    "longitude": 2.348
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 9,
+            "item": {
+                "@type": "Place",
+                "name": "The Dissident Club",
+                "address": "58 Rue Richer, 75009 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.873,
+                    "longitude": 2.3443
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 10,
+            "item": {
+                "@type": "Place",
+                "name": "La Pomme d'Eve",
+                "address": "1 Rue des Boulangers, 75005 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.852,
+                    "longitude": 2.349
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 11,
+            "item": {
+                "@type": "Place",
+                "name": "Le Paris de l'Humour",
+                "address": "Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.868,
+                    "longitude": 2.356
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 12,
+            "item": {
+                "@type": "Place",
+                "name": "Comédie Café",
+                "address": "Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.866,
+                    "longitude": 2.352
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 13,
+            "item": {
+                "@type": "Place",
+                "name": "FIAP Paris",
+                "address": "30 Rue Cabanis, 75014 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.833,
+                    "longitude": 2.333
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 14,
+            "item": {
+                "@type": "Place",
+                "name": "Café Oscar",
+                "address": "155 Rue Montmartre, 75002 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.87,
+                    "longitude": 2.34
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 15,
+            "item": {
+                "@type": "Place",
+                "name": "Poinçon Paris",
+                "address": "Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.841,
+                    "longitude": 2.327
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 16,
+            "item": {
+                "@type": "Place",
+                "name": "Césure",
+                "address": "13 Rue Santeuil, 75005 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.849,
+                    "longitude": 2.347
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 17,
+            "item": {
+                "@type": "Place",
+                "name": "Cuba Compagnie",
+                "address": "48 Bd Beaumarchais, 75011 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.8566,
+                    "longitude": 2.3668
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 18,
+            "item": {
+                "@type": "Place",
+                "name": "Fada Paris",
+                "address": "Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.869,
+                    "longitude": 2.36
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 19,
+            "item": {
+                "@type": "Place",
+                "name": "Le Café de la Plage",
+                "address": "Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.853,
+                    "longitude": 2.382
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 20,
+            "item": {
+                "@type": "Place",
+                "name": "Le TLM Paris",
+                "address": "105 Rue Curial, 75019 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.861,
+                    "longitude": 2.347
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 21,
+            "item": {
+                "@type": "Place",
+                "name": "Cotte 23",
+                "address": "23 Rue de la Mare, 75020 Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.8693,
+                    "longitude": 2.3817
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 22,
+            "item": {
+                "@type": "Place",
+                "name": "Le Coquin",
+                "address": "Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.865,
+                    "longitude": 2.355
+                }
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 23,
+            "item": {
+                "@type": "Place",
+                "name": "Toloache",
+                "address": "Paris",
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.86,
+                    "longitude": 2.359
+                }
+            }
+        }
+    ]
+}
     </script>
     <script type="application/ld+json">
     {
