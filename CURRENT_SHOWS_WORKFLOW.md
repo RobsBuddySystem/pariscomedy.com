@@ -1,5 +1,7 @@
 # Current shows workflow
 
+> Internal note: ops-only workflow for maintaining verified show listings. Not public website copy and not a blog brief.
+
 This repo now treats the comedians/current-shows page as a **verified public reference**, not a brainstorm list.
 
 ## Source hierarchy

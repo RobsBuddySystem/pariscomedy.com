@@ -1,5 +1,7 @@
 # Paris Comedy Site Auditor — Cron Job Spec
 
+> Internal ops document. Keep system/audit language out of public website copy and blog pages.
+
 ## Name
 Paris Comedy Site Auditor
 

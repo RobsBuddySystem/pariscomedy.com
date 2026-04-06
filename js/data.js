@@ -1,5 +1,5 @@
 /* Paris Comedy — Data Layer */
-/* All show data in one place — easy to update (Betty approved ✓) */
+/* All show data in one place — easy to update */
 
 const UTM = '?utm_source=pariscomedy&utm_medium=website';
 
