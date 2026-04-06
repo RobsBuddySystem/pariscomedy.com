@@ -448,7 +448,7 @@ const TRANSLATIONS = {
 
 const PAGE_COPY = {
   en: {
-    header: { subtitle:'Perform, hire a comedian, or list your show on pariscomedy.com' },
+    header: { subtitle:'Perform, hire a comedian, or list your show on pariscomedy.com', title:'About Paris Comedy' },
     listing: { title:'List Your Show' },
     contact: { subtitle:'Fill in the form below or DM us on Instagram — we reply fast.' },
     faq: { title:'FAQ' },
@@ -611,6 +611,26 @@ const PAGE_COPY = {
     comedians: { stats:'현재 {venues}개 공연장에서 검증된 공연 {shows}개. 최근 검증: {latest}.', addressPending:'주소 확인 중', verifiedCount:'검증된 공연 {count}개', runner:'쇼 러너', notConfirmed:'아직 확인되지 않음', verifiedVia:'{source}를 통해 {date} 확인', recently:'최근', manualReview:'수동 검토', openListing:'목록 열기' }
   }
 };
+
+function mergeLocaleFallback(base, override) {
+    if (Array.isArray(base)) return Array.isArray(override) ? override : base.slice();
+    if (base && typeof base === 'object') {
+        const out = {};
+        const keys = new Set([
+            ...Object.keys(base || {}),
+            ...Object.keys((override && typeof override === 'object') ? override : {})
+        ]);
+        keys.forEach(key => {
+            out[key] = mergeLocaleFallback(base?.[key], override?.[key]);
+        });
+        return out;
+    }
+    return override == null ? base : override;
+}
+
+['fr', 'es', 'de', 'ja', 'zh', 'ko'].forEach(lang => {
+    PAGE_COPY[lang] = mergeLocaleFallback(PAGE_COPY.en, PAGE_COPY[lang]);
+});
 
 /* Calendar helper — generates events for current month */
 function generateCalendarEvents(year, month) {

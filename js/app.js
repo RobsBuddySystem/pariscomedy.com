@@ -549,24 +549,30 @@ function renderFeaturedShows() {
     if (!grid) return;
     const featuredMain = SHOWS.filter(s => s.featured);
     const featuredOther = (typeof OTHER_SHOWS !== 'undefined' ? OTHER_SHOWS : []).filter(s => s.featured);
-    let allFeatured = [...featuredMain, ...featuredOther];
+    const frenchLead = currentLang === 'fr'
+        ? getUpcomingFrenchShowOccurrences(10).slice(0, 2).map(show => ({ ...show, languageBadge: 'fr' }))
+        : [];
+    const velvetLead = featuredMain.find(show => show.id === 'velvet-comedy') || featuredMain[0] || null;
+    const ffcnLead = featuredMain.find(show => show.id === 'ffcn') || featuredMain[0] || null;
+    const preferredLeadId = currentLang === 'fr' ? velvetLead?.id : ffcnLead?.id;
+    const dedupedFeatured = [...frenchLead, ...featuredMain, ...featuredOther].filter((show, index, arr) =>
+        arr.findIndex(candidate => candidate.id === show.id && candidate.languageBadge === show.languageBadge) === index
+    );
 
-    if (currentLang === 'fr') {
-        const frenchLead = getUpcomingFrenchShowOccurrences(10).slice(0, 2).map(show => ({ ...show, languageBadge: 'fr' }));
-        allFeatured = [...frenchLead, ...allFeatured];
-    }
+    const leadItems = [];
+    const remainingItems = [];
 
-    allFeatured.sort((a,b) => {
-        if (currentLang === 'fr') {
-            const aFrench = a.languageBadge === 'fr';
-            const bFrench = b.languageBadge === 'fr';
-            if (aFrench && !bFrench) return -1;
-            if (!aFrench && bFrench) return 1;
+    dedupedFeatured.forEach(show => {
+        const isFrenchLead = currentLang === 'fr' && show.languageBadge === 'fr';
+        const isPreferredPrimary = !show.languageBadge && show.id === preferredLeadId;
+        if (isFrenchLead || isPreferredPrimary) {
+            leadItems.push(show);
+        } else {
+            remainingItems.push(show);
         }
-        if (a.id === 'ffcn') return -1;
-        if (b.id === 'ffcn') return 1;
-        return 0;
     });
+
+    const allFeatured = [...leadItems, ...remainingItems];
 
     grid.innerHTML = allFeatured.map(s => s.languageBadge === 'fr'
         ? `<article class="show-card" data-reveal>
