@@ -12,17 +12,17 @@
     <link rel="canonical" href="https://pariscomedy.com/comedians.html">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body data-page="comedians">
+<body data-page="comedians" data-meta-page="comedians">
 <nav class="nav" id="nav">
     <div class="nav-inner">
         <a href="/" class="nav-logo"><span class="logo-icon">🎤</span><span class="logo-text">Paris <span class="logo-accent">Comedy</span></span></a>
         <div class="nav-links" id="navLinks">
-            <a href="/" class="nav-link">Home</a>
-            <a href="shows.html" class="nav-link">Shows</a>
-            <a href="blog/" class="nav-link">Blog</a>
-            <a href="venues.html" class="nav-link">Venues</a>
-            <a href="book.html" class="nav-link">Contact</a>
-            <a href="comedians.html" class="nav-link nav-cta active">For Comedians</a>
+            <a href="/" class="nav-link" data-i18n="nav.home">Home</a>
+            <a href="shows.html" class="nav-link" data-i18n="nav.shows">Shows</a>
+            <a href="blog/" class="nav-link" data-page-copy="blog.nav">Blog</a>
+            <a href="venues.html" class="nav-link" data-i18n="nav.venues">Venues</a>
+            <a href="book.html" class="nav-link" data-page-copy="comedians.contactNav">Contact</a>
+            <a href="comedians.html" class="nav-link nav-cta active" data-page-copy="comedians.nav">For Comedians</a>
         </div>
         <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -30,23 +30,23 @@
 
 <header class="page-header">
     <div class="page-header-content">
-        <h1 class="page-title">Paris comedy shows for comedians</h1>
-        <p class="page-subtitle">A free reference + suggestion service. Only shows with verified recent activity stay on this page.</p>
+        <h1 class="page-title" data-page-copy="comedians.title">Paris comedy shows for comedians</h1>
+        <p class="page-subtitle" data-page-copy="comedians.subtitle">A free reference + suggestion service. Only shows with verified recent activity stay on this page.</p>
     </div>
 </header>
 
 <section class="section">
     <div class="container">
         <div class="promo-card" style="padding:22px 24px;border:1px solid rgba(124,58,237,0.25);background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(255,51,102,0.08));margin-bottom:24px;">
-            <h2 style="margin:0 0 8px;font-family:var(--font-display);">How this page works</h2>
-            <p style="margin:0 0 10px;color:var(--text-dim);line-height:1.7;">This is meant as a useful public reference, not a gatekeeping list. If a show has no verified activity in the last 6 months, it comes off the current directory until we can verify it again.</p>
-            <p style="margin:0 0 10px;color:var(--text-dim);line-height:1.7;">If something is wrong, missing, or newly launched, send it to the Paris Comedy team. Verified fixes get added to the public data layer; uncertain items go into manual review instead of being guessed.</p>
+            <h2 style="margin:0 0 8px;font-family:var(--font-display);" data-page-copy="comedians.howTitle">How this page works</h2>
+            <p style="margin:0 0 10px;color:var(--text-dim);line-height:1.7;" data-page-copy="comedians.howP1">This is meant as a useful public reference, not a gatekeeping list. If a show has no verified activity in the last 6 months, it comes off the current directory until we can verify it again.</p>
+            <p style="margin:0 0 10px;color:var(--text-dim);line-height:1.7;" data-page-copy="comedians.howP2">If something is wrong, missing, or newly launched, send it to the Paris Comedy team. Verified fixes get added to the public data layer; uncertain items go into manual review instead of being guessed.</p>
             <p id="comedianDirectoryStats" style="margin:0;color:var(--text-muted);font-size:.92rem;"></p>
         </div>
 
         <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:18px;">
-            <div style="color:var(--text-muted);font-size:.92rem;">Grouped by venue · working links · show runner if known · updated from the public data layer · corrections reviewed by the Paris Comedy team</div>
-            <a href="book.html#contactForm" class="btn btn-primary btn-sm">Send a correction / add a show →</a>
+            <div style="color:var(--text-muted);font-size:.92rem;" data-page-copy="comedians.helper">Grouped by venue · working links · show runner if known · updated from the public data layer · corrections reviewed by the Paris Comedy team</div>
+            <a href="book.html#contactForm" class="btn btn-primary btn-sm" data-page-copy="comedians.cta">Send a correction / add a show →</a>
         </div>
 
         <div id="comedianDirectory"></div>
@@ -58,18 +58,18 @@
         <div class="footer-inner">
             <div class="footer-col">
                 <h4>🎤 Paris Comedy</h4>
-                <p>Free reference page for comedians, crowds, and show runners.</p>
+                <p data-page-copy="comedians.footerBlurb">Free reference page for comedians, crowds, and show runners.</p>
             </div>
             <div class="footer-col">
-                <h4>Pages</h4>
-                <a href="/">Home</a>
-                <a href="shows.html">Shows</a>
-                <a href="venues.html">Venues</a>
-                <a href="book.html">Contact</a>
+                <h4 data-page-copy="comedians.pages">Pages</h4>
+                <a href="/" data-i18n="nav.home">Home</a>
+                <a href="shows.html" data-i18n="nav.shows">Shows</a>
+                <a href="venues.html" data-i18n="nav.venues">Venues</a>
+                <a href="book.html" data-page-copy="comedians.contactNav">Contact</a>
             </div>
             <div class="footer-col">
-                <h4>Need a fix?</h4>
-                <a href="book.html#contactForm">Send an update</a>
+                <h4 data-page-copy="comedians.needFix">Need a fix?</h4>
+                <a href="book.html#contactForm" data-page-copy="comedians.sendUpdate">Send an update</a>
                 <a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener">Instagram</a>
             </div>
         </div>

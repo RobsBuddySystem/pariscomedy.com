@@ -93,7 +93,7 @@
 <header class="page-header">
     <div class="page-header-content">
         <h1 class="page-title" data-i18n="sections.venues">Venue Map</h1>
-        <p class="page-subtitle">15 comedy venues across Paris — where the laughs happen every week</p>
+        <p class="page-subtitle" data-page-copy="venues.subtitle">15 comedy venues across Paris — where the laughs happen every week</p>
     </div>
 </header>
 
@@ -104,11 +104,11 @@
 <section class="section">
     <div class="container">
         <div class="section-head" data-reveal>
-            <h2 class="section-title">🗺️ Comedy Venue Map</h2>
-            <p class="section-sub">15 English comedy spots across Paris — click any pin for show times</p>
+            <h2 class="section-title" data-page-copy="venues.mapTitle">🗺️ Comedy Venue Map</h2>
+            <p class="section-sub" data-page-copy="venues.mapSub">15 English comedy spots across Paris — click any pin for show times</p>
         </div>
         <div id="venueMap" style="height:480px;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);margin-bottom:8px;z-index:1;"></div>
-        <p style="color:var(--text-dim);font-size:0.8rem;text-align:center;margin-bottom:32px;">🟣 = Featured venue with weekly shows · 🔵 = All English comedy spots</p>
+        <p style="color:var(--text-dim);font-size:0.8rem;text-align:center;margin-bottom:32px;" data-page-copy="venues.mapLegend">🟣 = Featured venue with weekly shows · 🔵 = All English comedy spots</p>
     </div>
 </section>
 
@@ -178,14 +178,14 @@
 <section class="section section-alt">
     <div class="container">
         <div class="section-head" data-reveal>
-            <h2 class="section-title">Comedy Venues in Paris</h2>
-            <p class="section-sub">Home of French Fried Comedy Night and 14 more English comedy spots across Paris</p>
+            <h2 class="section-title" data-page-copy="venues.cardsTitle">Comedy Venues in Paris</h2>
+            <p class="section-sub" data-page-copy="venues.cardsSub">Home of French Fried Comedy Night and 14 more English comedy spots across Paris</p>
         </div>
         <div class="venues-list" id="venuesList"></div>
         <div style="text-align:center;margin-top:40px;padding:32px;background:var(--bg-card);border:1px dashed var(--border);border-radius:var(--radius-lg);">
-            <p style="font-size:1.1rem;margin-bottom:12px;">🏠 <strong>Your venue here?</strong></p>
-            <p style="color:var(--text-dim);margin-bottom:16px;">If you host English-language comedy in Paris, we want to list you.</p>
-            <a href="book.html" class="btn btn-ghost">Get Listed →</a>
+            <p style="font-size:1.1rem;margin-bottom:12px;" data-page-copy="venues.yourVenue">🏠 <strong>Your venue here?</strong></p>
+            <p style="color:var(--text-dim);margin-bottom:16px;" data-page-copy="venues.yourVenueSub">If you host English-language comedy in Paris, we want to list you.</p>
+            <a href="book.html" class="btn btn-ghost" data-page-copy="venues.yourVenueCta">Get Listed →</a>
         </div>
     </div>
 </section>

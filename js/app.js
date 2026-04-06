@@ -166,6 +166,17 @@ function t(path) {
     return obj || (TRANSLATIONS.en && keys.reduce((o,k) => o?.[k], TRANSLATIONS.en)) || '';
 }
 
+function pageCopy(path, fallback = '') {
+    const keys = path.split('.');
+    let obj = PAGE_COPY?.[currentLang] || PAGE_COPY?.en || null;
+    for (const k of keys) obj = obj?.[k];
+    if (obj == null) {
+        obj = PAGE_COPY?.en || null;
+        for (const k of keys) obj = obj?.[k];
+    }
+    return obj ?? fallback;
+}
+
 function applyTranslations() {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
@@ -642,7 +653,7 @@ function renderVenueMap() {
         const pinColor = venue.listed ? 'var(--accent)' : 'var(--purple)';
         return `<div class="venue-pin" style="left:${venue.mapX}%;top:${venue.mapY}%;background:${pinColor};">
             <span>${i+1}</span>
-            <div class="venue-pin-tooltip"><strong>${venue.name}</strong><br>${venue.neighborhood}<br>${allShows.join('<br>') || '<em>Shows TBA</em>'}</div>
+            <div class="venue-pin-tooltip"><strong>${venue.name}</strong><br>${venue.neighborhood}<br>${allShows.join('<br>') || `<em>${pageCopy('venues.map.tba', 'Shows TBA')}</em>`}</div>
         </div>`;
     }).join('');
 }
@@ -658,12 +669,12 @@ function renderVenueCards() {
         const showsAtVenue = SHOWS.filter(s => s.venue === venue.id);
         const mapActions = venue.googleMapsUrl
             ? `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
-                <a href="${venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🗺️ Open map</a>
-                <a href="${venue.directions?.walking || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚶 Directions</a>
-                <a href="${venue.directions?.transit || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚇 Transit</a>
-                <a href="${venue.directions?.driving || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚗 Drive</a>
+                <a href="${venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🗺️ ${pageCopy('venues.actions.map', 'Open map')}</a>
+                <a href="${venue.directions?.walking || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚶 ${pageCopy('venues.actions.walk', 'Directions')}</a>
+                <a href="${venue.directions?.transit || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚇 ${pageCopy('venues.actions.transit', 'Transit')}</a>
+                <a href="${venue.directions?.driving || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚗 ${pageCopy('venues.actions.drive', 'Drive')}</a>
             </div>`
-            : `<div style="margin-top:12px;color:var(--text-muted);font-size:0.82rem;">⚠️ ${venue.mapReviewNote || 'Exact map link needs review.'}</div>`;
+            : `<div style="margin-top:12px;color:var(--text-muted);font-size:0.82rem;">⚠️ ${venue.mapReviewNote || pageCopy('venues.actions.pending', 'Exact map link needs review.')}</div>`;
         return `<div class="venue-card venue-card-featured">
             <div class="venue-card-badge-top">⭐ Featured Venue</div>
             <div class="venue-card-name">${i+1}. ${venue.name}</div>
@@ -676,23 +687,23 @@ function renderVenueCards() {
     }).join('');
     
     if (others.length) {
-        html += `<div style="grid-column:1/-1;margin-top:32px;"><h3 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:8px;color:var(--text-dim);">Other Comedy Venues in Paris</h3><p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:20px;">These venues host English-language comedy. Want your show featured with full booking? <a href="book.html">Get listed →</a></p></div>`;
+        html += `<div style="grid-column:1/-1;margin-top:32px;"><h3 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:8px;color:var(--text-dim);">${pageCopy('venues.other.title', 'Other Comedy Venues in Paris')}</h3><p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:20px;">${pageCopy('venues.other.sub', 'These venues host English-language comedy. Want your show featured with full booking?')} <a href="book.html">${pageCopy('venues.other.cta', 'Get listed')} →</a></p></div>`;
         html += others.map((venue, i) => {
             const otherHere = (typeof OTHER_SHOWS !== 'undefined') ? OTHER_SHOWS.filter(s => s.venueName === venue.name) : [];
             const mapActions = venue.googleMapsUrl
                 ? `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
-                    <a href="${venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🗺️ Open map</a>
-                    <a href="${venue.directions?.walking || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚶 Directions</a>
-                    <a href="${venue.directions?.transit || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚇 Transit</a>
-                    <a href="${venue.directions?.driving || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚗 Drive</a>
+                    <a href="${venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🗺️ ${pageCopy('venues.actions.map', 'Open map')}</a>
+                    <a href="${venue.directions?.walking || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚶 ${pageCopy('venues.actions.walk', 'Directions')}</a>
+                    <a href="${venue.directions?.transit || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚇 ${pageCopy('venues.actions.transit', 'Transit')}</a>
+                    <a href="${venue.directions?.driving || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚗 ${pageCopy('venues.actions.drive', 'Drive')}</a>
                 </div>`
-                : `<div style="margin-top:12px;color:var(--text-muted);font-size:0.82rem;">⚠️ ${venue.mapReviewNote || 'Exact map link needs review.'}</div>`;
+                : `<div style="margin-top:12px;color:var(--text-muted);font-size:0.82rem;">⚠️ ${venue.mapReviewNote || pageCopy('venues.actions.pending', 'Exact map link needs review.')}</div>`;
             return `<div class="venue-card venue-card-placeholder">
                 <div class="venue-card-name">${listed.length + i + 1}. ${venue.name}</div>
                 <div class="venue-card-addr">📍 ${venue.address}</div>
                 <div class="venue-card-metro">🚇 ${venue.metro || ''}</div>
                 <div class="venue-card-desc">${venue.description || ''}</div>
-                <div class="venue-card-shows">${otherHere.map(s=>`<span class="venue-show-tag">${s.emoji} ${s.name} — ${s.day}</span>`).join('') || '<span style="color:var(--text-muted);font-size:0.82rem">Shows not yet listed — <a href="book.html">claim this listing</a></span>'}</div>
+                <div class="venue-card-shows">${otherHere.map(s=>`<span class="venue-show-tag">${s.emoji} ${s.name} — ${s.day}</span>`).join('') || `<span style="color:var(--text-muted);font-size:0.82rem">${pageCopy('venues.other.claim', 'Shows not yet listed')} — <a href="book.html">${pageCopy('venues.other.claimCta', 'claim this listing')}</a></span>`}</div>
                 ${mapActions}
             </div>`;
         }).join('');
@@ -750,11 +761,12 @@ function renderKeyPlayers() {
         if (player.youtube) socialLinks.push(`<a href="${player.youtube}" target="_blank" rel="noopener" class="player-social" aria-label="${player.name} on YouTube">▶️ Watch</a>`);
         if (player.wikipedia) socialLinks.push(`<a href="${player.wikipedia}" target="_blank" rel="noopener" class="player-social" aria-label="${player.name} on Wikipedia">📖 Bio</a>`);
         const socialHtml = socialLinks.length ? `<div class="player-socials">${socialLinks.join('')}</div>` : '';
+        const title = pageCopy(`history.playerTitles.${player.id}`, player.title);
         return `
         <div class="player-card" data-reveal data-reveal-delay="${idx*0.08}s">
             ${avatarHtml}
             <h3 class="player-name">${player.name}</h3>
-            <span class="player-title">${player.emoji} ${player.title}</span>
+            <span class="player-title">${player.emoji} ${title}</span>
             <p class="player-bio">${bio}</p>
             ${socialHtml}
         </div>`;
@@ -994,11 +1006,14 @@ function renderComediansDirectory() {
     if (stats) {
         const verifiedDates = ALL_CURRENT_SHOWS.map(show => show.verifiedAt).filter(Boolean).sort();
         const latestVerified = verifiedDates.length ? verifiedDates[verifiedDates.length - 1] : null;
-        stats.textContent = `${ALL_CURRENT_SHOWS.length} currently verified shows across ${CURRENT_SHOWS_BY_VENUE.length} venues.${latestVerified ? ` Latest verification pass: ${latestVerified}.` : ''}`;
+        stats.textContent = pageCopy('comedians.stats', `${ALL_CURRENT_SHOWS.length} currently verified shows across ${CURRENT_SHOWS_BY_VENUE.length} venues.${latestVerified ? ` Latest verification pass: ${latestVerified}.` : ''}`)
+            .replace('{shows}', ALL_CURRENT_SHOWS.length)
+            .replace('{venues}', CURRENT_SHOWS_BY_VENUE.length)
+            .replace('{latest}', latestVerified || '');
     }
 
     container.innerHTML = CURRENT_SHOWS_BY_VENUE.map(venue => {
-        const address = venue.address && venue.address !== 'Paris' ? venue.address : 'Address being confirmed';
+        const address = venue.address && venue.address !== 'Paris' ? venue.address : pageCopy('comedians.addressPending', 'Address being confirmed');
         return `<section class="venue-card venue-card-placeholder" style="padding:24px;margin-bottom:20px;">
             <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start;">
                 <div>
@@ -1006,7 +1021,7 @@ function renderComediansDirectory() {
                     <div style="color:var(--text-muted);font-size:.92rem;">📍 ${address}</div>
                     ${venue.metro ? `<div style="color:var(--text-muted);font-size:.86rem;margin-top:4px;">🚇 ${venue.metro}</div>` : ''}
                 </div>
-                <div style="font-size:.8rem;color:var(--text-muted);">${venue.shows.length} verified show${venue.shows.length > 1 ? 's' : ''}</div>
+                <div style="font-size:.8rem;color:var(--text-muted);">${pageCopy('comedians.verifiedCount', '{count} verified shows').replace('{count}', venue.shows.length)}</div>
             </div>
             <div style="display:grid;gap:14px;margin-top:18px;">
                 ${venue.shows.map(show => `<article style="padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,0.02);">
@@ -1014,11 +1029,11 @@ function renderComediansDirectory() {
                         <div>
                             <div style="font-family:var(--font-display);font-size:1.02rem;">${show.emoji || '🎤'} ${show.name}</div>
                             <div style="color:var(--text-muted);font-size:.88rem;margin-top:4px;">${Array.isArray(show.day) ? show.day.join(' / ') : show.day}${show.time ? ` · ${show.time}` : ''}</div>
-                            <div style="color:var(--text-muted);font-size:.88rem;margin-top:4px;">Show runner: ${show.runner || 'Not yet confirmed'}</div>
-                            <div style="color:var(--text-muted);font-size:.82rem;margin-top:4px;">Verified ${show.verifiedAt || 'recently'} via ${show.verificationSource || 'manual review'}</div>
+                            <div style="color:var(--text-muted);font-size:.88rem;margin-top:4px;">${pageCopy('comedians.runner', 'Show runner')}: ${show.runner || pageCopy('comedians.notConfirmed', 'Not yet confirmed')}</div>
+                            <div style="color:var(--text-muted);font-size:.82rem;margin-top:4px;">${pageCopy('comedians.verifiedVia', 'Verified {date} via {source}').replace('{date}', show.verifiedAt || pageCopy('comedians.recently', 'recently')).replace('{source}', show.verificationSource || pageCopy('comedians.manualReview', 'manual review'))}</div>
                         </div>
                         <div>
-                            ${show.showUrl ? `<a href="${show.showUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Open listing →</a>` : ''}
+                            ${show.showUrl ? `<a href="${show.showUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">${pageCopy('comedians.openListing', 'Open listing')} →</a>` : ''}
                         </div>
                     </div>
                 </article>`).join('')}
