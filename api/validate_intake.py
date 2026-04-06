@@ -7,12 +7,22 @@ DB_PATH = ROOT / 'data' / 'intake' / 'submissions.sqlite3'
 JSONL_PATH = ROOT / 'data' / 'intake' / 'submissions.jsonl'
 
 conn = sqlite3.connect(DB_PATH)
-try:
-    count = conn.execute('SELECT COUNT(*) FROM submissions').fetchone()[0]
-    forward_failures = conn.execute('SELECT COUNT(*) FROM submissions WHERE forwarded = 0').fetchone()[0]
-except sqlite3.OperationalError:
-    count = 0
-    forward_failures = 0
+conn.execute('''CREATE TABLE IF NOT EXISTS submissions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    created_at TEXT NOT NULL,
+    kind TEXT NOT NULL,
+    name TEXT,
+    email TEXT NOT NULL,
+    subject TEXT,
+    message TEXT,
+    page TEXT,
+    url TEXT,
+    forwarded INTEGER NOT NULL DEFAULT 0,
+    forward_error TEXT
+)''')
+count = conn.execute('SELECT COUNT(*) FROM submissions').fetchone()[0]
+forward_failures = conn.execute('SELECT COUNT(*) FROM submissions WHERE forwarded = 0').fetchone()[0]
+conn.commit()
 conn.close()
 jsonl_count = 0
 if JSONL_PATH.exists():

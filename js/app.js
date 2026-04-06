@@ -647,6 +647,14 @@ function renderVenueCards() {
     
     let html = listed.map((venue, i) => {
         const showsAtVenue = SHOWS.filter(s => s.venue === venue.id);
+        const mapActions = venue.googleMapsUrl
+            ? `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
+                <a href="${venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🗺️ Open map</a>
+                <a href="${venue.directions?.walking || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚶 Directions</a>
+                <a href="${venue.directions?.transit || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚇 Transit</a>
+                <a href="${venue.directions?.driving || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚗 Drive</a>
+            </div>`
+            : `<div style="margin-top:12px;color:var(--text-muted);font-size:0.82rem;">⚠️ ${venue.mapReviewNote || 'Exact map link needs review.'}</div>`;
         return `<div class="venue-card venue-card-featured">
             <div class="venue-card-badge-top">⭐ Featured Venue</div>
             <div class="venue-card-name">${i+1}. ${venue.name}</div>
@@ -654,6 +662,7 @@ function renderVenueCards() {
             <div class="venue-card-metro">🚇 ${venue.metro || ''}</div>
             <div class="venue-card-desc">${venue.description || ''}</div>
             <div class="venue-card-shows">${showsAtVenue.map(s=>`<span class="venue-show-tag">${s.emoji} ${s.shortName} — ${s.day} ${s.time}</span>`).join('')}</div>
+            ${mapActions}
         </div>`;
     }).join('');
     
@@ -661,12 +670,21 @@ function renderVenueCards() {
         html += `<div style="grid-column:1/-1;margin-top:32px;"><h3 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:8px;color:var(--text-dim);">Other Comedy Venues in Paris</h3><p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:20px;">These venues host English-language comedy. Want your show featured with full booking? <a href="book.html">Get listed →</a></p></div>`;
         html += others.map((venue, i) => {
             const otherHere = (typeof OTHER_SHOWS !== 'undefined') ? OTHER_SHOWS.filter(s => s.venueName === venue.name) : [];
+            const mapActions = venue.googleMapsUrl
+                ? `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
+                    <a href="${venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🗺️ Open map</a>
+                    <a href="${venue.directions?.walking || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚶 Directions</a>
+                    <a href="${venue.directions?.transit || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚇 Transit</a>
+                    <a href="${venue.directions?.driving || venue.googleMapsUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">🚗 Drive</a>
+                </div>`
+                : `<div style="margin-top:12px;color:var(--text-muted);font-size:0.82rem;">⚠️ ${venue.mapReviewNote || 'Exact map link needs review.'}</div>`;
             return `<div class="venue-card venue-card-placeholder">
                 <div class="venue-card-name">${listed.length + i + 1}. ${venue.name}</div>
                 <div class="venue-card-addr">📍 ${venue.address}</div>
                 <div class="venue-card-metro">🚇 ${venue.metro || ''}</div>
                 <div class="venue-card-desc">${venue.description || ''}</div>
                 <div class="venue-card-shows">${otherHere.map(s=>`<span class="venue-show-tag">${s.emoji} ${s.name} — ${s.day}</span>`).join('') || '<span style="color:var(--text-muted);font-size:0.82rem">Shows not yet listed — <a href="book.html">claim this listing</a></span>'}</div>
+                ${mapActions}
             </div>`;
         }).join('');
     }

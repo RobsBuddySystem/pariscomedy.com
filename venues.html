@@ -152,12 +152,21 @@
                 (s.bookingUrl ? ' <a href="' + s.bookingUrl + '" target="_blank" rel="noopener" style="color:#a78bfa;">→ Reserve</a>' : '') +
                 '</div>';
         });
+        var exactMap = !!v.googleMapsUrl;
+        var mapLinks = exactMap
+            ? '<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">'
+                + '<a href="' + v.googleMapsUrl + '" target="_blank" rel="noopener" style="font-size:0.75rem;color:#a78bfa;">🗺️ Open map</a>'
+                + '<a href="' + (v.directions && v.directions.walking ? v.directions.walking : v.googleMapsUrl) + '" target="_blank" rel="noopener" style="font-size:0.75rem;color:#a78bfa;">🚶 Directions</a>'
+                + '<a href="' + (v.directions && v.directions.transit ? v.directions.transit : v.googleMapsUrl) + '" target="_blank" rel="noopener" style="font-size:0.75rem;color:#a78bfa;">🚇 Transit</a>'
+                + '</div>'
+            : '<div style="margin-top:8px;font-size:0.74rem;color:#888;">⚠️ Exact map link pending review.</div>';
+
         var popup = '<div style="min-width:180px;">' +
             '<strong style="font-size:0.95rem;">' + v.name + '</strong>' +
             (v.neighborhood ? '<br><span style="color:#888;font-size:0.8rem;">📍 ' + v.neighborhood + '</span>' : '') +
             (v.address && v.address !== 'Paris' ? '<br><span style="font-size:0.78rem;color:#aaa;">' + v.address + '</span>' : '') +
             (v.metro ? '<br><span style="font-size:0.75rem;color:#7c3aed;">🚇 ' + v.metro + '</span>' : '') +
-            showsHtml +
+            showsHtml + mapLinks +
             (v.listed ? '' : '<div style="margin-top:8px;font-size:0.75rem;color:#888;"><a href="book.html" style="color:#a78bfa;">Get listed for €1/month →</a></div>') +
             '</div>';
         L.marker([v.lat, v.lng], {icon: icon}).addTo(map).bindPopup(popup, {maxWidth:240});

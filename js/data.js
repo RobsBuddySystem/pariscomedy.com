@@ -33,7 +33,21 @@ const VENUES = [
     { id:'cotte23', name:'Cotte 23', address:'23 Rue de la Mare, 75020 Paris', neighborhood:'Belleville (20th)', lat:48.8693, lng:2.3817, mapX:72, mapY:35, listed:false, description:'Rocket Comedy Club — English stand-up every Tuesday at 19:00. A lively Belleville bar with a growing comedy scene.', metro:'Ménilmontant (M2)' },
     { id:'coquin', name:'Le Coquin', address:'Paris', neighborhood:'Paris', lat:48.8650, lng:2.3550, mapX:54, mapY:40, listed:false, description:'Kiss Comedy Club — Wednesday night English comedy in an intimate Parisian bar. Regular shows at 20:00.', metro:'' },
     { id:'toloache', name:'Toloache', address:'Paris', neighborhood:'Marais / 3rd', lat:48.8600, lng:2.3590, mapX:58, mapY:46, listed:false, description:'Kuhl Comedy Open Mic — English stand-up open mic every Tuesday at 19:30. A friendly room for new voices and regulars.', metro:'Temple (M3)' }
-];
+].map(venue => {
+    const hasExactAddress = /\b75\d{3}\b/.test(venue.address || '');
+    const mapQuery = hasExactAddress ? encodeURIComponent(`${venue.name}, ${venue.address}`) : '';
+    return {
+        ...venue,
+        hasExactAddress,
+        googleMapsUrl: hasExactAddress ? `https://www.google.com/maps/search/?api=1&query=${mapQuery}` : '',
+        directions: hasExactAddress ? {
+            walking: `https://www.google.com/maps/dir/?api=1&destination=${mapQuery}&travelmode=walking`,
+            transit: `https://www.google.com/maps/dir/?api=1&destination=${mapQuery}&travelmode=transit`,
+            driving: `https://www.google.com/maps/dir/?api=1&destination=${mapQuery}&travelmode=driving`
+        } : null,
+        mapReviewNote: hasExactAddress ? '' : 'Exact Google Maps link still needs manual verification for this venue.'
+    };
+});
 
 const SHOWS = [
     { id:'velvet-openmic', name:'Velvet Bar Comedy — Open Mic', shortName:'Open Mic', venue:'velvet', type:'openmic', day:'Wednesday', time:'19:00', price:'Free', emoji:'🎙️',
@@ -215,7 +229,7 @@ const KEY_PLAYERS = [
       bioFr:'Humoriste américaine installée à Paris depuis plus de 12 ans. Elle a fait la première partie de Jerry Seinfeld et tourné avec Gad Elmaleh.',
       bioEs:'Comediante estadounidense en París desde hace más de 12 años. Abrió para Jerry Seinfeld y giró con Gad Elmaleh.' },
     { id:'robert', name:'Robert Hoehn', title:'The Founder', emoji:'🍟',
-      instagram:'https://www.instagram.com/robertjhoehn/',
+      instagram:'https://www.instagram.com/robertlericain/',
       bio:'American bilingual comedian who founded French Fried Comedy Night in 2013 at Paname Art Café — now the oldest continuously running English-language stand-up comedy show in Paris. Robert gave Paul Taylor his first regular stage, hosted the show that launched careers, and produced and directed "La Bise" — the viral video that put English comedy in Paris on the map. Now at Velvet Bar in Pigalle every Wednesday with three shows: open mic, showcase, and the legendary FFCN.',
       bioFr:'Humoriste américain bilingue qui a fondé French Fried Comedy Night en 2013 au Paname Art Café — le plus ancien spectacle de stand-up en anglais encore en activité à Paris. Il a donné à Paul Taylor sa première scène régulière et a produit et réalisé \"La Bise\". Maintenant au Velvet Bar à Pigalle chaque mercredi.',
       bioEs:'Comediante estadounidense bilingüe y fundador de French Fried Comedy Night — el show de stand-up en inglés más antiguo en actividad en París. Comenzó en Paname Art Café, ahora en Velvet Bar en Pigalle cada miércoles.' },
