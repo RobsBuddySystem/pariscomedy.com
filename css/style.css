@@ -366,6 +366,23 @@ textarea.form-input{min-height:120px;resize:vertical}
 .proof-strip-card-copy{display:grid;gap:6px;padding:14px 16px 16px;color:var(--text-dim);font-size:.92rem;line-height:1.55}
 .proof-strip-card-copy strong{color:var(--text);font-family:var(--font-display);font-size:1rem}
 
+/* ─── Shows page booking proof strip ─── */
+.booking-proof-lane{display:grid;gap:18px;padding:24px;border:1px solid rgba(245,158,11,.22);border-radius:22px;background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(124,58,237,.08));box-shadow:0 18px 44px rgba(10,10,20,.16)}
+.booking-proof-head h2{font-family:var(--font-display);font-size:clamp(1.45rem,2.8vw,2.05rem);line-height:1.08;margin:10px 0 12px}
+.booking-proof-head p{color:var(--text-dim);line-height:1.72;max-width:880px;margin:0}
+.booking-proof-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fde68a;font-size:.76rem;font-weight:700;letter-spacing:.02em}
+.booking-proof-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.booking-proof-stat-card,.booking-proof-quote-card{border-radius:18px;border:1px solid rgba(255,255,255,.09);background:rgba(10,10,20,.48);backdrop-filter:blur(14px)}
+.booking-proof-stat-card{padding:18px}
+.booking-proof-stat-card strong{display:block;color:var(--text);font-family:var(--font-display);font-size:1.05rem;margin-bottom:8px}
+.booking-proof-stat-card span{display:block;color:var(--text-dim);font-size:.92rem;line-height:1.6}
+.booking-proof-quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.booking-proof-quote-card{padding:18px;display:grid;gap:10px}
+.booking-proof-stars{color:#f59e0b;font-size:1rem;letter-spacing:.08em;line-height:1}
+.booking-proof-quote-card p{margin:0;color:var(--text);font-size:.95rem;line-height:1.65}
+.booking-proof-quote-card span{color:var(--text-muted);font-size:.82rem}
+.booking-proof-actions{display:flex;flex-wrap:wrap;gap:10px}
+
 /* ─── Video Section ─── */
 .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
 .video-card{border-radius:var(--radius);overflow:hidden;background:var(--bg-card);border:1px solid var(--border);transition:transform var(--transition),box-shadow var(--transition),border-color var(--transition)}
@@ -863,6 +880,8 @@ textarea.form-input{min-height:120px;resize:vertical}
   .quick-book-rail{flex-direction:column;align-items:flex-start;padding:14px;}
   .proof-strip{grid-template-columns:1fr;padding:18px;}
   .proof-strip-grid{grid-template-columns:1fr;}
+  .booking-proof-lane{padding:18px;}
+  .booking-proof-stats,.booking-proof-quotes{grid-template-columns:1fr;}
   .quick-book-rail-links{width:100%;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;justify-content:flex-start;scrollbar-width:none;}
   .quick-book-rail-links::-webkit-scrollbar{display:none;}
   .quick-book-chip{flex:0 0 auto;}
