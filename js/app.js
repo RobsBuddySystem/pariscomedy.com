@@ -88,6 +88,7 @@ function setLanguage(lang, pushUrl = true) {
     currentLang = SUPPORTED_LANGS.includes(lang) ? lang : 'en';
     localStorage.setItem('pc-lang', currentLang);
     document.documentElement.lang = currentLang;
+    window.currentLang = currentLang;
     updateLanguageUrl(pushUrl);
     updateMetaForLanguage();
 }
@@ -173,6 +174,14 @@ function applyTranslations() {
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const val = t(el.dataset.i18nPlaceholder);
+        if (val) el.placeholder = val;
+    });
+    document.querySelectorAll('[data-page-copy]').forEach(el => {
+        const val = pageCopy(el.dataset.pageCopy, el.innerHTML);
+        if (val) el.innerHTML = val;
+    });
+    document.querySelectorAll('[data-page-copy-placeholder]').forEach(el => {
+        const val = pageCopy(el.dataset.pageCopyPlaceholder, el.placeholder || '');
         if (val) el.placeholder = val;
     });
 }
