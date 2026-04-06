@@ -195,6 +195,11 @@ function applyTranslations() {
         const val = pageCopy(el.dataset.pageCopyPlaceholder, el.placeholder || '');
         if (val) el.placeholder = val;
     });
+    document.querySelectorAll('[data-fr]').forEach(el => {
+        if (currentLang === 'fr') {
+            el.innerHTML = el.dataset.fr;
+        }
+    });
 }
 
 /* ─── Navigation ─── */
