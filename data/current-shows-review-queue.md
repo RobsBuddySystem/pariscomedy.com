@@ -25,8 +25,8 @@ The comedians page is now a verified public reference. If a show appears in the 
 ### Historical / stale unless re-verified
 - **Paname English Stand-Up** — Paname Art Café — Tuesday 17:30  
   Kept as archive/history context for now, not current public layer.
-- **Broadway Comedy Club Paris** — Bonne Nouvelle  
-  Currently archived in data layer due stale verification date.
+- **Broadway Comedy Club Paris** — 25 Bd de Bonne Nouvelle  
+  Live Eventbrite page fetched again on **2026-04-06** and clearly shows a multi-date listing at the known address, but the recurrence/day pattern is still not clean enough to promote back into the public current layer without risking a bad schedule claim. Keep archived publicly for now; re-promote only after a cleaner cadence/time confirmation.
 
 ## Promotion log
 - **2026-04-06:** **Funny Women Paris** promoted from review to public current layer after a direct Eventbrite fetch confirmed: multiple dates, **Le Noddi (16 Rue Bernardins, 75005 Paris)**, **doors 20:00 / show 20:30**, Tuesday recurrence, and a live booking URL.
