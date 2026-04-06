@@ -222,11 +222,11 @@ function initPage() {
     const page = document.body.dataset.page || 'home';
     if (page === 'home') {
         renderTonightBanner();
-        // English: calendar first, then shows. French: shows first (Velvet focused)
+        // English: calendar first, then shows. French: keep show discovery first.
         if (currentLang !== 'fr') { moveCalendarFirst(); }
         renderFeaturedShows(); renderUpNext(); renderCalendar(); renderQuote(); renderUntranslatable(); renderTestimonials(); renderGrowthChart();
     }
-    if (page === 'shows') { renderAllShows(); renderOtherShows(); initFilters(); initDayFilter(); renderThisWeek(); }
+    if (page === 'shows') { renderFrenchFocus(); renderAllShows(); renderOtherShows(); initFilters(); initDayFilter(); renderThisWeek(); }
     if (page === 'venues') { renderVenueMap(); renderVenueCards(); }
     if (page === 'history') { renderTimeline(); renderKeyPlayers(); renderNotableVisitors(); }
     if (page === 'comedians') { renderComediansDirectory(); }
@@ -300,6 +300,70 @@ function initLiteYouTube() {
 }
 
 /* ─── This Week ─── */
+function getUpcomingFrenchShowOccurrences(daysAhead = 10) {
+    const DAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const source = typeof FRENCH_SHOWS !== 'undefined' ? FRENCH_SHOWS : [];
+    const now = new Date();
+    const occurrences = [];
+
+    for (let offset = 0; offset <= daysAhead; offset++) {
+        const d = new Date(now);
+        d.setHours(0, 0, 0, 0);
+        d.setDate(now.getDate() + offset);
+        const dayName = DAY_NAMES[d.getDay()];
+        source.forEach(show => {
+            const showDays = Array.isArray(show.day) ? show.day : [show.day];
+            if (!showDays.includes(dayName) && !showDays.includes('daily')) return;
+            occurrences.push({ ...show, occurrenceDate: new Date(d) });
+        });
+    }
+
+    occurrences.sort((a, b) => {
+        const byDate = a.occurrenceDate - b.occurrenceDate;
+        if (byDate !== 0) return byDate;
+        return (a.time || '').localeCompare(b.time || '');
+    });
+
+    return occurrences;
+}
+
+function renderFrenchFocus() {
+    const section = document.getElementById('fr-comedy-focus');
+    const grid = document.getElementById('frenchFocusGrid');
+    if (!section || !grid) return;
+
+    if (currentLang !== 'fr') {
+        section.style.display = 'none';
+        grid.innerHTML = '';
+        return;
+    }
+
+    const upcoming = getUpcomingFrenchShowOccurrences(12).slice(0, 4);
+    section.style.display = '';
+
+    if (!upcoming.length) {
+        grid.innerHTML = `<div class="show-card" style="padding:20px;grid-column:1/-1;"><strong style="font-family:var(--font-display);font-size:1.05rem;display:block;margin-bottom:8px;">Les dates françaises reviennent bientôt</strong><p style="margin:0;color:var(--text-muted);">En attendant, vous pouvez réserver une soirée bilingue ou une date 100 % anglais un peu plus bas.</p></div>`;
+        return;
+    }
+
+    grid.innerHTML = upcoming.map(show => `
+        <article class="show-card" data-reveal>
+            <div class="show-card-img" style="background:linear-gradient(135deg,#123047,#1d4b66);">${show.emoji || '🇫🇷'}</div>
+            <div class="show-card-body">
+                <span class="show-card-type type-standup">Spectacle en français</span>
+                <h3 class="show-card-title">${show.name}</h3>
+                <p class="show-card-venue">📍 ${show.venueName || 'Paris'}</p>
+                <p class="show-card-time">🕐 ${show.day} à ${show.time || 'horaire à confirmer'}</p>
+                <p class="show-card-desc">${show.description || 'Stand-up en français à Paris.'}</p>
+                <div class="show-card-footer">
+                    ${show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ Réserver →</a>` : '<span class="show-card-badge">📍 À découvrir sur place</span>'}
+                </div>
+            </div>
+        </article>`).join('');
+
+    if (window._revealInit) window._revealInit(grid);
+}
+
 function renderThisWeek() {
     const el = document.getElementById('thisWeekGrid');
     if (!el) return;
@@ -478,36 +542,50 @@ function renderFeaturedShowCard(show) {
 function renderFeaturedShows() {
     const grid = document.getElementById('featuredShowsGrid');
     if (!grid) return;
-    // Combine SHOWS + featured OTHER_SHOWS for a diverse city guide feel
     const featuredMain = SHOWS.filter(s => s.featured);
     const featuredOther = (typeof OTHER_SHOWS !== 'undefined' ? OTHER_SHOWS : []).filter(s => s.featured);
     let allFeatured = [...featuredMain, ...featuredOther];
-    // Shuffle so it's not always Velvet first — mix of venues
+
     if (currentLang === 'fr') {
-        // French: Velvet first
-        allFeatured.sort((a,b) => {
-            const aVelvet = a.venue === 'velvet' || a.venueName === 'Velvet Bar';
-            const bVelvet = b.venue === 'velvet' || b.venueName === 'Velvet Bar';
-            if (aVelvet && !bVelvet) return -1;
-            if (!aVelvet && bVelvet) return 1;
-            return 0;
-        });
-    } else {
-        // English: FFCN first, then mix
-        allFeatured.sort((a,b) => {
-            if (a.id === 'ffcn') return -1;
-            if (b.id === 'ffcn') return 1;
-            return 0;
-        });
+        const frenchLead = getUpcomingFrenchShowOccurrences(10).slice(0, 2).map(show => ({ ...show, languageBadge: 'fr' }));
+        allFeatured = [...frenchLead, ...allFeatured];
     }
-    grid.innerHTML = allFeatured.map(s => s.id ? renderShowCard(s) : renderFeaturedShowCard(s)).join('');
+
+    allFeatured.sort((a,b) => {
+        if (currentLang === 'fr') {
+            const aFrench = a.languageBadge === 'fr';
+            const bFrench = b.languageBadge === 'fr';
+            if (aFrench && !bFrench) return -1;
+            if (!aFrench && bFrench) return 1;
+        }
+        if (a.id === 'ffcn') return -1;
+        if (b.id === 'ffcn') return 1;
+        return 0;
+    });
+
+    grid.innerHTML = allFeatured.map(s => s.languageBadge === 'fr'
+        ? `<article class="show-card" data-reveal>
+            <div class="show-card-img" style="background:linear-gradient(135deg,#123047,#1d4b66);">${s.emoji || '🇫🇷'}</div>
+            <div class="show-card-body">
+                <span class="show-card-type type-standup">🇫🇷 En français</span>
+                <h3 class="show-card-title">${s.name}</h3>
+                <p class="show-card-venue">📍 ${s.venueName || 'Paris'}</p>
+                <p class="show-card-time">🕐 ${s.day} à ${s.time || 'horaire à confirmer'}</p>
+                <p class="show-card-desc">${s.description}</p>
+                <div class="show-card-footer">${s.bookingUrl ? `<a href="${s.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ Réserver →</a>` : '<span class="show-card-badge">Découvrir la salle</span>'}</div>
+            </div>
+        </article>`
+        : (s.id ? renderShowCard(s) : renderFeaturedShowCard(s))).join('');
 }
 
 function renderAllShows(filter = 'all') {
     const grid = document.getElementById('showsGrid');
     if (!grid) return;
     const filtered = filter === 'all' ? SHOWS : SHOWS.filter(s => s.type === filter);
-    grid.innerHTML = filtered.map(renderShowCard).join('');
+    const intro = currentLang === 'fr'
+        ? `<div class="show-card" style="padding:18px 20px;grid-column:1/-1;border:1px solid rgba(124,58,237,0.25);background:rgba(124,58,237,0.08);"><div style="font-family:var(--font-display);font-size:1.05rem;margin-bottom:6px;">🇬🇧 La scène anglophone reste juste ici</div><div style="color:var(--text-muted);line-height:1.6;">Paris Comedy reste spécialisé sur l'anglais et le bilingue. Sur la version française du site, on met d'abord en avant les options françaises ou bilingues pour le public local — puis on garde toutes les dates en anglais visibles et faciles à réserver.</div></div>`
+        : '';
+    grid.innerHTML = intro + filtered.map(renderShowCard).join('');
     if (window._revealInit) window._revealInit(grid);
 }
 
@@ -903,8 +981,14 @@ function renderTonightBanner() {
         });
     }
 
-    // Sort by priority (our shows > paid others > free others > french)
-    tonightShows.sort((a, b) => a.priority - b.priority);
+    // Default brand logic stays English-first, but the French view should surface French options first.
+    tonightShows.sort((a, b) => {
+        if (currentLang === 'fr') {
+            if (a.lang === 'fr' && b.lang !== 'fr') return -1;
+            if (a.lang !== 'fr' && b.lang === 'fr') return 1;
+        }
+        return a.priority - b.priority;
+    });
 
     if (tonightShows.length === 0) {
         // No shows today — show next upcoming
