@@ -12,7 +12,7 @@ The comedians page is now a verified public reference. If a show appears in the 
 
 ### Likely active, but not verified enough for public current layer tonight
 - **Funny Women Paris** — Le Noddi — Tuesday 20:00  
-  Previously present in repo history with an Eventbrite link; needs fresh confirmation.
+  2026-04-06 maintenance pass found a live Eventbrite page with multiple dates at Le Noddi (`english-stand-up-comedy-in-paris-funny-women`, ticket ID `1984124685345`), but the lightweight fetch/search evidence did not expose enough machine-readable detail to re-confirm the public day/time fields cleanly. Keep in review until a direct live listing check confirms the schedule fields exactly.
 - **The Dissident Comedy Show** — The Dissident Club — Wednesday 20:30  
   Was in earlier site data; needs live recurrence check.
 - **Friday Night Show** — La Pomme d'Eve — Friday 20:00  
