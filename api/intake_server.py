@@ -27,6 +27,11 @@ def db():
         message TEXT,
         page TEXT,
         url TEXT,
+        show_name TEXT,
+        venue_name TEXT,
+        schedule TEXT,
+        ticket_url TEXT,
+        tier TEXT,
         forwarded INTEGER NOT NULL DEFAULT 0,
         forward_error TEXT
     )''')
@@ -50,16 +55,38 @@ def validate(payload):
     if not EMAIL_RE.match(email):
         return 'invalid email'
     kind = (payload.get('kind') or '').strip() or 'contact'
-    if kind not in {'newsletter', 'contact'}:
+    if kind not in {'newsletter', 'contact', 'listing'}:
         return 'invalid kind'
     if kind == 'contact' and not (payload.get('message') or '').strip():
         return 'message required'
+    if kind == 'listing':
+        if not (payload.get('show_name') or '').strip():
+            return 'show name required'
+        if not (payload.get('tier') or '').strip():
+            return 'tier required'
     return None
 
 
 def forward_email(rowid, payload):
-    subject = f"Paris Comedy intake #{rowid} — {payload.get('kind', 'contact')}"
-    body = json.dumps(payload, indent=2, ensure_ascii=False)
+    kind = payload.get('kind', 'contact')
+    if kind == 'listing':
+        tier = payload.get('tier', '?')
+        show = payload.get('show_name', '?')
+        subject = f"NEW LISTING REQUEST #{rowid} — {show} ({tier})"
+        lines = [
+            f"LISTING REQUEST — #{rowid}",
+            f"Show: {payload.get('show_name','')}",
+            f"Venue: {payload.get('venue_name','')}",
+            f"Schedule: {payload.get('schedule','')}",
+            f"Ticket URL: {payload.get('ticket_url','')}",
+            f"Tier: {payload.get('tier','')}",
+            f"Contact: {payload.get('name','')} <{payload.get('email','')}>",
+            f"Notes: {payload.get('message','')}",
+        ]
+        body = '\n'.join(lines)
+    else:
+        subject = f"Paris Comedy intake #{rowid} — {kind}"
+        body = json.dumps(payload, indent=2, ensure_ascii=False)
     result = subprocess.run([sys.executable, str(SEND_SCRIPT), FORWARD_TO, subject, body], capture_output=True, text=True)
     return result.returncode == 0, (result.stderr or result.stdout).strip()
 
