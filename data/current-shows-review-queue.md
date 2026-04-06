@@ -11,8 +11,6 @@ The comedians page is now a verified public reference. If a show appears in the 
 ## Needs manual verification
 
 ### Likely active, but not verified enough for public current layer tonight
-- **Funny Women Paris** — Le Noddi — Tuesday 20:00  
-  2026-04-06 maintenance pass found a live Eventbrite page with multiple dates at Le Noddi (`english-stand-up-comedy-in-paris-funny-women`, ticket ID `1984124685345`), but the lightweight fetch/search evidence did not expose enough machine-readable detail to re-confirm the public day/time fields cleanly. Keep in review until a direct live listing check confirms the schedule fields exactly.
 - **The Dissident Comedy Show** — The Dissident Club — Wednesday 20:30  
   Was in earlier site data; needs live recurrence check.
 - **Friday Night Show** — La Pomme d'Eve — Friday 20:00  
@@ -29,6 +27,9 @@ The comedians page is now a verified public reference. If a show appears in the 
   Kept as archive/history context for now, not current public layer.
 - **Broadway Comedy Club Paris** — Bonne Nouvelle  
   Currently archived in data layer due stale verification date.
+
+## Promotion log
+- **2026-04-06:** **Funny Women Paris** promoted from review to public current layer after a direct Eventbrite fetch confirmed: multiple dates, **Le Noddi (16 Rue Bernardins, 75005 Paris)**, **doors 20:00 / show 20:30**, Tuesday recurrence, and a live booking URL.
 
 ## Verification standard
 Before moving any item from this file into `js/data.js`, confirm:
