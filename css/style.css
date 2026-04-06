@@ -735,6 +735,25 @@ textarea.form-input{min-height:120px;resize:vertical}
 [data-reveal-delay="5"]{transition-delay:0.5s}
 @media(prefers-reduced-motion:reduce){[data-reveal],[data-reveal].revealed{opacity:1;transform:none;transition:none}}
 
+/* ===== NEXT 48 HOURS BOOKING LANE ===== */
+.forty-eight-hour-lane{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.3fr);gap:24px;align-items:stretch;padding:24px;border:1px solid rgba(255,51,102,0.18);border-radius:24px;background:linear-gradient(135deg,rgba(255,51,102,0.08),rgba(124,58,237,0.12));box-shadow:0 18px 48px rgba(7,10,24,0.28)}
+.forty-eight-hour-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);font-size:.76rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-light);margin-bottom:12px}
+.forty-eight-hour-copy h2{margin:0 0 12px;font-size:clamp(1.8rem,3.4vw,2.5rem);line-height:1.05}
+.forty-eight-hour-copy p{margin:0;color:var(--text-muted);font-size:.98rem;line-height:1.7}
+.forty-eight-hour-quotes{display:grid;gap:10px;margin-top:18px}
+.forty-eight-hour-quote{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:var(--text);font-size:.9rem;line-height:1.6}
+.forty-eight-hour-quote-alt{background:rgba(124,58,237,0.12)}
+.forty-eight-hour-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.forty-eight-hour-card{display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:18px;background:rgba(13,18,34,0.78);border:1px solid rgba(255,255,255,0.08);text-decoration:none;color:var(--text);transition:transform var(--transition),border-color var(--transition),box-shadow var(--transition),background var(--transition);min-height:100%}
+.forty-eight-hour-card:hover{transform:translateY(-4px);border-color:rgba(255,51,102,0.45);box-shadow:0 14px 32px rgba(255,51,102,0.12);background:rgba(17,23,41,0.92)}
+.forty-eight-hour-card--backup{border-color:rgba(124,58,237,0.28);background:rgba(20,18,42,0.82)}
+.forty-eight-hour-kicker{display:inline-flex;align-self:flex-start;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,0.06);font-size:.73rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text-dim)}
+.forty-eight-hour-card strong{font-family:var(--font-display);font-size:1.08rem;line-height:1.25}
+.forty-eight-hour-card p{margin:0;color:var(--text-muted);font-size:.92rem;line-height:1.6;flex:1}
+.forty-eight-hour-card em{font-style:normal;font-weight:700;color:var(--accent-light)}
+@media(max-width:980px){.forty-eight-hour-lane{grid-template-columns:1fr}.forty-eight-hour-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.forty-eight-hour-lane{padding:18px}.forty-eight-hour-grid{grid-template-columns:1fr}.forty-eight-hour-copy h2{font-size:1.7rem}}
+
 /* ===== STICKY MOBILE CTA BAR ===== */
 .mobile-cta-bar {
   display: none;

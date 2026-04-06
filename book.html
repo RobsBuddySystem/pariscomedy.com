@@ -134,7 +134,7 @@
                 <div class="book-card-emoji">🎙️</div>
                 <h3 class="book-card-title" data-i18n="book.perform">Want to Perform?</h3>
                 <p class="book-card-desc" data-i18n="book.performDesc">Got 5 minutes of material and zero fear? Email us to get on a show. We run open mics every Wednesday — all levels welcome.</p>
-                <a href="#contactForm" class="btn btn-primary" onclick="document.getElementById('contactSubject').value='I want to perform'">📧 Get in Touch</a>
+                <a href="#contactForm" class="btn btn-primary" onclick="document.getElementById('contactSubject').value='I want to perform'" data-page-copy="book.performCta">📧 Get in Touch</a>
             </div>
 
             <!-- Book a Comedian -->
@@ -142,61 +142,61 @@
                 <div class="book-card-emoji">🎭</div>
                 <h3 class="book-card-title" data-i18n="book.corporate">Book a Comedian</h3>
                 <p class="book-card-desc" data-i18n="book.corporateDesc">Corporate events, private parties, festivals, team-building — we'll match you with the perfect comic. Bilingual performers available.</p>
-                <a href="#contactForm" class="btn btn-primary" onclick="document.getElementById('contactSubject').value='Book a comedian'">📧 Get a Quote</a>
+                <a href="#contactForm" class="btn btn-primary" onclick="document.getElementById('contactSubject').value='Book a comedian'" data-page-copy="book.corporateCta">📧 Get a Quote</a>
             </div>
 
             <!-- List Your Show — TIERS -->
             <div class="book-card" style="grid-column:1/-1;">
                 <div class="book-card-emoji">📋</div>
                 <h3 class="book-card-title" data-page-copy="listing.title">List Your Show</h3>
-                <p class="book-card-desc">Running an English comedy night in Paris? Get featured on pariscomedy.com — the #1 guide to English comedy in Paris.</p>
+                <p class="book-card-desc" data-page-copy="book.listingIntro">Running an English comedy night in Paris? Get featured on pariscomedy.com — the #1 guide to English comedy in Paris.</p>
 
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:24px;">
                     <!-- Basic Listing -->
                     <div style="background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;">
                         <div style="font-size:1.5rem;margin-bottom:8px;">📌</div>
-                        <h4 style="font-family:var(--font-display);margin-bottom:4px;">Basic Listing</h4>
+                        <h4 style="font-family:var(--font-display);margin-bottom:4px;" data-page-copy="book.basic.title">Basic Listing</h4>
                         <div style="font-size:2rem;font-weight:700;color:var(--accent);margin:12px 0;">€1<span style="font-size:0.9rem;color:var(--text-muted);font-weight:400;">/month</span></div>
                         <ul style="text-align:left;list-style:none;font-size:0.85rem;color:var(--text-dim);margin-bottom:16px;">
-                            <li style="padding:4px 0;">✅ Show name & description</li>
-                            <li style="padding:4px 0;">✅ Venue & schedule in calendar</li>
-                            <li style="padding:4px 0;">❌ No ticket link</li>
+                            <li style="padding:4px 0;" data-page-copy="book.basic.feat1">✅ Show name & description</li>
+                            <li style="padding:4px 0;" data-page-copy="book.basic.feat2">✅ Venue & schedule in calendar</li>
+                            <li style="padding:4px 0;" data-page-copy="book.basic.feat3">❌ No ticket link</li>
                         </ul>
-                        <a href="#contactForm" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="document.getElementById('contactSubject').value='Basic Listing'">Get Started</a>
+                        <a href="#contactForm" class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="document.getElementById('contactSubject').value='Basic Listing'" data-page-copy="book.basic.cta">Get Started</a>
                     </div>
 
                     <!-- Pro Listing -->
                     <div style="background:var(--surface);border:2px solid var(--accent);border-radius:var(--radius);padding:24px;text-align:center;position:relative;">
-                        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:3px 14px;border-radius:12px;font-size:0.72rem;font-weight:700;">MOST POPULAR</div>
+                        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:3px 14px;border-radius:12px;font-size:0.72rem;font-weight:700;" data-page-copy="book.pro.badge">MOST POPULAR</div>
                         <div style="font-size:1.5rem;margin-bottom:8px;">⭐</div>
-                        <h4 style="font-family:var(--font-display);margin-bottom:4px;">Pro Listing</h4>
+                        <h4 style="font-family:var(--font-display);margin-bottom:4px;" data-page-copy="book.pro.title">Pro Listing</h4>
                         <div style="font-size:2rem;font-weight:700;color:var(--accent);margin:12px 0;">€5<span style="font-size:0.9rem;color:var(--text-muted);font-weight:400;">/month</span></div>
                         <ul style="text-align:left;list-style:none;font-size:0.85rem;color:var(--text-dim);margin-bottom:16px;">
-                            <li style="padding:4px 0;">✅ Everything in Basic</li>
-                            <li style="padding:4px 0;">✅ Direct ticket/booking link</li>
-                            <li style="padding:4px 0;">✅ Solid card (not dashed)</li>
-                            <li style="padding:4px 0;">✅ Venue pin on map</li>
-                            <li style="padding:4px 0;">✅ We manage your email list</li>
-                            <li style="padding:4px 0;">✅ 1 mass email/week included</li>
+                            <li style="padding:4px 0;" data-page-copy="book.pro.feat1">✅ Everything in Basic</li>
+                            <li style="padding:4px 0;" data-page-copy="book.pro.feat2">✅ Direct ticket/booking link</li>
+                            <li style="padding:4px 0;" data-page-copy="book.pro.feat3">✅ Solid card (not dashed)</li>
+                            <li style="padding:4px 0;" data-page-copy="book.pro.feat4">✅ Venue pin on map</li>
+                            <li style="padding:4px 0;" data-page-copy="book.pro.feat5">✅ We manage your email list</li>
+                            <li style="padding:4px 0;" data-page-copy="book.pro.feat6">✅ 1 mass email/week included</li>
                         </ul>
-                        <a href="#contactForm" class="btn btn-primary" style="width:100%;justify-content:center;" onclick="document.getElementById('contactSubject').value='Pro Listing'">Get Pro</a>
+                        <a href="#contactForm" class="btn btn-primary" style="width:100%;justify-content:center;" onclick="document.getElementById('contactSubject').value='Pro Listing'" data-page-copy="book.pro.cta">Get Pro</a>
                     </div>
 
                     <!-- Full Service Booking -->
                     <div style="background:var(--surface);border:1px solid var(--purple);border-radius:var(--radius);padding:24px;text-align:center;">
                         <div style="font-size:1.5rem;margin-bottom:8px;">👑</div>
-                        <h4 style="font-family:var(--font-display);margin-bottom:4px;">Full Service Booking</h4>
+                        <h4 style="font-family:var(--font-display);margin-bottom:4px;" data-page-copy="book.full.title">Full Service Booking</h4>
                         <div style="font-size:2rem;font-weight:700;color:var(--purple);margin:12px 0;">€30<span style="font-size:0.9rem;color:var(--text-muted);font-weight:400;">/month</span></div>
                         <ul style="text-align:left;list-style:none;font-size:0.85rem;color:var(--text-dim);margin-bottom:16px;">
-                            <li style="padding:4px 0;">✅ Everything in Pro</li>
-                            <li style="padding:4px 0;">✅ Full booking management</li>
-                            <li style="padding:4px 0;">✅ 1 mass email/week to YOUR list</li>
-                            <li style="padding:4px 0;">✅ Automated email campaigns</li>
-                            <li style="padding:4px 0;">✅ Show page on pariscomedy.com</li>
-                            <li style="padding:4px 0;">✅ Priority calendar placement</li>
-                            <li style="padding:4px 0;">✅ We build & send your promo emails</li>
+                            <li style="padding:4px 0;" data-page-copy="book.full.feat1">✅ Everything in Pro</li>
+                            <li style="padding:4px 0;" data-page-copy="book.full.feat2">✅ Full booking management</li>
+                            <li style="padding:4px 0;" data-page-copy="book.full.feat3">✅ 1 mass email/week to YOUR list</li>
+                            <li style="padding:4px 0;" data-page-copy="book.full.feat4">✅ Automated email campaigns</li>
+                            <li style="padding:4px 0;" data-page-copy="book.full.feat5">✅ Show page on pariscomedy.com</li>
+                            <li style="padding:4px 0;" data-page-copy="book.full.feat6">✅ Priority calendar placement</li>
+                            <li style="padding:4px 0;" data-page-copy="book.full.feat7">✅ We build & send your promo emails</li>
                         </ul>
-                        <a href="#contactForm" class="btn btn-ghost" style="width:100%;justify-content:center;border-color:var(--purple);color:var(--purple);" onclick="document.getElementById('contactSubject').value='Full Service Booking'">Go Full Service</a>
+                        <a href="#contactForm" class="btn btn-ghost" style="width:100%;justify-content:center;border-color:var(--purple);color:var(--purple);" onclick="document.getElementById('contactSubject').value='Full Service Booking'" data-page-copy="book.full.cta">Go Full Service</a>
                     </div>
                 </div>
             </div>
@@ -209,28 +209,28 @@
     <div class="container">
         <div class="listing-proof" data-reveal>
             <div class="listing-proof-main">
-                <span class="listing-proof-badge">📈 Why show-runners list here</span>
-                <h2>Paris tourists and expats are already looking for comedy here.</h2>
-                <p>Today's standup confirms booking-link health is at <strong>27/27 current listings verified live</strong>. That means when someone lands on pariscomedy.com and clicks your show, they reach a live booking page — not a dead end. We built this site to turn discovery into reservations.</p>
-                <p>For organizers, that's the real pitch: high-intent traffic, clean links, and fast discovery for people searching <em>comedy in Paris tonight</em>, <em>English stand-up Paris</em>, or <em>what to do in Pigalle</em>.</p>
+                <span class="listing-proof-badge" data-page-copy="book.proof.badge">📈 Why show-runners list here</span>
+                <h2 data-page-copy="book.proof.heading">Paris tourists and expats are already looking for comedy here.</h2>
+                <p data-page-copy="book.proof.p1">Today's standup confirms booking-link health is at <strong>27/27 current listings verified live</strong>. That means when someone lands on pariscomedy.com and clicks your show, they reach a live booking page — not a dead end. We built this site to turn discovery into reservations.</p>
+                <p data-page-copy="book.proof.p2">For organizers, that's the real pitch: high-intent traffic, clean links, and fast discovery for people searching <em>comedy in Paris tonight</em>, <em>English stand-up Paris</em>, or <em>what to do in Pigalle</em>.</p>
             </div>
             <div class="listing-proof-stats">
                 <div class="listing-proof-stat">
                     <strong>27/27</strong>
-                    <span>active booking links verified live</span>
+                    <span data-page-copy="book.proof.stat1">active booking links verified live</span>
                 </div>
                 <div class="listing-proof-stat">
                     <strong>€1/mo</strong>
-                    <span>to get your show discoverable on the guide</span>
+                    <span data-page-copy="book.proof.stat2">to get your show discoverable on the guide</span>
                 </div>
                 <div class="listing-proof-stat">
                     <strong>FR + EN</strong>
-                    <span>bilingual positioning for tourists, expats, locals</span>
+                    <span data-page-copy="book.proof.stat3">bilingual positioning for tourists, expats, locals</span>
                 </div>
             </div>
             <div class="listing-proof-quote">
-                <p>"Wrong Language, Right Feeling" is already working as a conversion angle because it feels native to expat Paris. If your show has a clear vibe, we can package it that way too.</p>
-                <a href="#contactForm" class="btn btn-primary" onclick="document.getElementById('contactSubject').value='Pro Listing'">🚀 Get My Show Listed</a>
+                <p data-page-copy="book.proof.quote">"Wrong Language, Right Feeling" is already working as a conversion angle because it feels native to expat Paris. If your show has a clear vibe, we can package it that way too.</p>
+                <a href="#contactForm" class="btn btn-primary" onclick="document.getElementById('contactSubject').value='Pro Listing'" data-page-copy="book.proof.cta">🚀 Get My Show Listed</a>
             </div>
         </div>
     </div>
@@ -241,20 +241,20 @@
     <div class="container">
         <div style="background:linear-gradient(135deg,rgba(124,58,237,0.15) 0%,rgba(168,85,247,0.08) 100%);border:1px solid rgba(124,58,237,0.35);border-radius:16px;padding:36px 40px;display:flex;flex-wrap:wrap;align-items:center;gap:24px;" data-reveal>
             <div style="flex:1;min-width:260px;">
-                <div style="font-size:0.75rem;font-weight:700;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Edinburgh Fringe 2026 · Preview Season</div>
-                <h2 style="font-family:var(--font-display);font-size:1.55rem;margin:0 0 10px;line-height:1.25;">Testing your hour before Edinburgh?<br>Paris is the perfect preview city.</h2>
-                <p style="color:var(--text-dim);font-size:0.92rem;margin:0 0 6px;">Warm, bilingual, comedy-hungry crowds. FFCN has been running since 2013. We'll fill the room and run your promo — so you walk into Edinburgh having already worked the room.</p>
+                <div style="font-size:0.75rem;font-weight:700;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;" data-page-copy="book.fringe.badge">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Edinburgh Fringe 2026 · Preview Season</div>
+                <h2 style="font-family:var(--font-display);font-size:1.55rem;margin:0 0 10px;line-height:1.25;" data-page-copy="book.fringe.heading">Testing your hour before Edinburgh?<br>Paris is the perfect preview city.</h2>
+                <p style="color:var(--text-dim);font-size:0.92rem;margin:0 0 6px;" data-page-copy="book.fringe.desc">Warm, bilingual, comedy-hungry crowds. FFCN has been running since 2013. We'll fill the room and run your promo — so you walk into Edinburgh having already worked the room.</p>
                 <ul style="list-style:none;padding:0;margin:12px 0 0;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:0.83rem;color:var(--text-muted);">
-                    <li>✅ Paris preview slot (Wed/Fri/Sat)</li>
-                    <li>✅ Eventbrite + pariscomedy.com listing</li>
-                    <li>✅ Email blast to our Paris audience</li>
-                    <li>✅ Instagram promo post included</li>
-                    <li>✅ Pro Listing €5/mo or Full Service €30/mo</li>
+                    <li data-page-copy="book.fringe.feat1">✅ Paris preview slot (Wed/Fri/Sat)</li>
+                    <li data-page-copy="book.fringe.feat2">✅ Eventbrite + pariscomedy.com listing</li>
+                    <li data-page-copy="book.fringe.feat3">✅ Email blast to our Paris audience</li>
+                    <li data-page-copy="book.fringe.feat4">✅ Instagram promo post included</li>
+                    <li data-page-copy="book.fringe.feat5">✅ Pro Listing €5/mo or Full Service €30/mo</li>
                 </ul>
             </div>
             <div style="display:flex;flex-direction:column;gap:12px;min-width:200px;">
-                <a href="#contactForm" class="btn btn-primary" onclick="document.getElementById('contactSubject').value='Edinburgh Fringe 2026 Preview'" style="text-align:center;">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Book My Preview Slot</a>
-                <a href="shows.html" class="btn btn-ghost" style="text-align:center;">See the scene →</a>
+                <a href="#contactForm" class="btn btn-primary" onclick="document.getElementById('contactSubject').value='Edinburgh Fringe 2026 Preview'" style="text-align:center;" data-page-copy="book.fringe.cta">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Book My Preview Slot</a>
+                <a href="shows.html" class="btn btn-ghost" style="text-align:center;" data-page-copy="book.fringe.secondary">See the scene →</a>
             </div>
         </div>
     </div>
@@ -265,13 +265,13 @@
     <div class="container">
         <div style="background:linear-gradient(135deg,rgba(16,185,129,0.14) 0%,rgba(5,150,105,0.08) 100%);border:1px solid rgba(16,185,129,0.4);border-radius:16px;padding:28px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:20px;" data-reveal>
             <div style="flex:1;min-width:250px;">
-                <div style="font-size:0.75rem;font-weight:700;letter-spacing:.08em;color:#059669;text-transform:uppercase;margin-bottom:8px;">🗓️ Sunday prime slots open now</div>
-                <h2 style="font-family:var(--font-display);font-size:1.45rem;line-height:1.25;margin:0 0 8px;">Need a Sunday show in Paris?</h2>
-                <p style="color:var(--text-dim);font-size:0.92rem;margin:0;">Corporate brunch, private birthday, expat meetup, team offsite — we can place a bilingual comedian and handle promo/listing support so your room fills fast.</p>
+                <div style="font-size:0.75rem;font-weight:700;letter-spacing:.08em;color:#059669;text-transform:uppercase;margin-bottom:8px;" data-page-copy="book.sunday.badge">🗓️ Sunday prime slots open now</div>
+                <h2 style="font-family:var(--font-display);font-size:1.45rem;line-height:1.25;margin:0 0 8px;" data-page-copy="book.sunday.heading">Need a Sunday show in Paris?</h2>
+                <p style="color:var(--text-dim);font-size:0.92rem;margin:0;" data-page-copy="book.sunday.desc">Corporate brunch, private birthday, expat meetup, team offsite — we can place a bilingual comedian and handle promo/listing support so your room fills fast.</p>
             </div>
             <div style="display:flex;flex-direction:column;gap:10px;min-width:220px;">
-                <a href="#contactForm" class="btn btn-primary" onclick="document.getElementById('contactSubject').value='Sunday Corporate Booking'" style="text-align:center;">⚡ Reserve a Sunday Slot</a>
-                <div style="font-size:0.8rem;color:var(--text-muted);text-align:center;">Response target: same day</div>
+                <a href="#contactForm" class="btn btn-primary" onclick="document.getElementById('contactSubject').value='Sunday Corporate Booking'" style="text-align:center;" data-page-copy="book.sunday.cta">⚡ Reserve a Sunday Slot</a>
+                <div style="font-size:0.8rem;color:var(--text-muted);text-align:center;" data-page-copy="book.sunday.response">Response target: same day</div>
             </div>
         </div>
     </div>
@@ -284,8 +284,7 @@
             <h2 class="section-title" data-i18n="book.contact">Get in Touch</h2>
             <p class="section-sub" data-page-copy="contact.subtitle">Fill in the form below or DM us on Instagram — we reply fast.</p>
             <p style="margin-top:8px;"><a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">📸 DM @french_fried_comedy →</a></p>
-            <p style="margin-top:10px;color:var(--text-muted);font-size:.9rem;">Corrections and new show suggestions are reviewed by the Paris Comedy team first, then added to the verified public directory once confirmed.</p>
-            <p style="margin-top:10px;color:var(--text-muted);font-size:.9rem;">This form now tries the local Paris Comedy intake first (stored + forwarded to inbox), then falls back to backup delivery if the local endpoint is offline.</p>
+            <p style="margin-top:10px;color:var(--text-muted);font-size:.9rem;" data-page-copy="book.formNote">Corrections and new show suggestions are reviewed by the Paris Comedy team first, then added to the verified public directory once confirmed.</p>
         </div>
         <form id="contactForm" class="contact-form">
             <input type="hidden" name="subject" id="contactSubject" value="General Inquiry">
@@ -299,7 +298,7 @@
             </div>
             <div class="form-group">
                 <label data-i18n="book.message">Message</label>
-                <textarea name="message" class="form-input" required placeholder="Tell us what you need..."></textarea>
+                <textarea name="message" class="form-input" required data-page-copy-placeholder="book.messagePlaceholder" placeholder="Tell us what you need..."></textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-lg" style="width:100%;" data-i18n="book.send">Send Message</button>
         </form>
@@ -311,20 +310,20 @@
     <div class="about-content">
         <h2 class="section-title" style="text-align:center;margin-bottom:32px;" data-page-copy="faq.title">FAQ</h2>
 
-        <h3>How do I get on the open mic?</h3>
-        <p>Show up to Velvet Bar on Wednesday at 19:00 and sign up. First come, first served. 5 minutes per comic.</p>
+        <h3 data-page-copy="book.faq.q1">How do I get on the open mic?</h3>
+        <p data-page-copy="book.faq.a1">Show up to Velvet Bar on Wednesday at 19:00 and sign up. First come, first served. 5 minutes per comic.</p>
 
-        <h3>How much does it cost to perform?</h3>
-        <p>Nothing for performers. Reserve your spot, there's a one drink minimum, and we pass the hat at the end. We're in it for the laughs.</p>
+        <h3 data-page-copy="book.faq.q2">How much does it cost to perform?</h3>
+        <p data-page-copy="book.faq.a2">Nothing for performers. Reserve your spot, there's a one drink minimum, and we pass the hat at the end. We're in it for the laughs.</p>
 
-        <h3>Do I need to speak French?</h3>
-        <p>Nope. Our shows are in English (some are bilingual). French is a bonus, not a requirement.</p>
+        <h3 data-page-copy="book.faq.q3">Do I need to speak French?</h3>
+        <p data-page-copy="book.faq.a3">Nope. Our shows are in English (some are bilingual). French is a bonus, not a requirement.</p>
 
-        <h3>Can I book a comedian for my corporate event?</h3>
-        <p>Absolutely. <a href="#contactForm" onclick="document.getElementById('contactSubject').value='Book a comedian'">Fill out the form above</a> with your event details and we'll match you with the right comic.</p>
+        <h3 data-page-copy="book.faq.q4">Can I book a comedian for my corporate event?</h3>
+        <p data-page-copy="book.faq.a4">Absolutely. <a href="#contactForm" onclick="document.getElementById('contactSubject').value='Book a comedian'">Fill out the form above</a> with your event details and we'll match you with the right comic.</p>
 
-        <h3>I run a comedy show in Paris. Can I get listed?</h3>
-        <p>Yes! We want pariscomedy.com to be the complete guide to English comedy in Paris. <a href="#contactForm" onclick="document.getElementById('contactSubject').value='Get Listed'">Use the form above</a> and the Paris Comedy team will review the details before anything is added to the verified public directory.</p>
+        <h3 data-page-copy="book.faq.q5">I run a comedy show in Paris. Can I get listed?</h3>
+        <p data-page-copy="book.faq.a5">Yes! We want pariscomedy.com to be the complete guide to English comedy in Paris. <a href="#contactForm" onclick="document.getElementById('contactSubject').value='Get Listed'">Use the form above</a> and the Paris Comedy team will review the details before anything is added to the verified public directory.</p>
     </div>
 </section>
 
@@ -333,27 +332,27 @@
         <div class="footer-inner">
             <div class="footer-col">
                 <h4>🎤 Paris Comedy</h4>
-                <p>The Home of English-Language Comedy in Paris. Est. ~2010.</p>
+                <p data-i18n="footer.tagline">The Home of English-Language Comedy in Paris. Est. ~2010.</p>
             </div>
             <div class="footer-col">
-                <h4>Pages</h4>
-                <a href="/">Home</a>
-                <a href="shows.html">Shows</a>
-                <a href="history.html">History</a>
-                <a href="venues.html">Venues</a>
-                <a href="book.html">Book a Show</a>
-                <a href="about.html">About</a>
-                <a href="comedians.html">For Comedians</a>
+                <h4 data-i18n="footer.pages">Pages</h4>
+                <a href="/" data-i18n="nav.home">Home</a>
+                <a href="shows.html" data-i18n="nav.shows">Shows</a>
+                <a href="history.html" data-i18n="nav.history">History</a>
+                <a href="venues.html" data-i18n="nav.venues">Venues</a>
+                <a href="book.html" data-i18n="nav.book">Book a Show</a>
+                <a href="about.html" data-i18n="nav.about">About</a>
+                <a href="comedians.html" data-i18n="footer.comedians">For Comedians</a>
             </div>
             <div class="footer-col">
-                <h4>Contact</h4>
-                <a href="book.html#contactForm">Contact form</a>
+                <h4 data-i18n="footer.contact">Contact</h4>
+                <a href="book.html#contactForm" data-i18n="footer.contactForm">Contact form</a>
                 <!-- Robert: replace with your eSIM number -->
                 <a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener">Instagram</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 Paris Comedy · Made with 🍟 in Paris</p>
+            <p data-i18n="footer.copyright">© 2026 Paris Comedy · Made with 🍟 in Paris</p>
         </div>
     </div>
 </footer>
