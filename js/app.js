@@ -196,9 +196,8 @@ function applyTranslations() {
         if (val) el.placeholder = val;
     });
     document.querySelectorAll('[data-fr]').forEach(el => {
-        if (currentLang === 'fr') {
-            el.innerHTML = el.dataset.fr;
-        }
+        if (!el.dataset.defaultContent) el.dataset.defaultContent = el.innerHTML;
+        el.innerHTML = currentLang === 'fr' ? el.dataset.fr : el.dataset.defaultContent;
     });
 }
 
