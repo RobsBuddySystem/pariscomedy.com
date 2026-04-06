@@ -337,7 +337,7 @@
         <div class="hero-actions">
             <a href="https://www.eventbrite.com/o/18875461764?utm_source=pariscomedy&utm_medium=website" target="_blank" rel="noopener" class="btn btn-primary btn-lg" data-i18n="hero.cta">🎟️ Reserve Your Spot</a>
             <a href="shows.html" class="btn btn-ghost" data-i18n="hero.browse">Browse Shows</a>
-            <a href="shows.html#get-on-stage" class="btn btn-ghost" style="border-color:rgba(124,58,237,0.4);">🎤 Get On Stage</a>
+            <a href="#watch-proof" class="btn btn-ghost" style="border-color:rgba(124,58,237,0.4);">▶ Watch 60 Seconds First</a>
         </div>
         <div class="hero-stats">
             <div class="stat"><span class="stat-num" data-i18n="stats.shows">30+</span><span class="stat-label" data-i18n="stats.showsLabel">Weekly Shows</span></div>
@@ -361,6 +361,51 @@
     </svg>
 </div>
 
+<!-- Fast proof strip — keep watch-first traffic on-site -->
+<section class="section" id="watch-proof" style="padding-top:20px;padding-bottom:14px;scroll-margin-top:120px;">
+    <div class="container">
+        <div class="proof-strip" data-reveal>
+            <div class="proof-strip-copy">
+                <span class="proof-strip-badge">🎬 Real stage footage, no app switch required</span>
+                <h2>Watch 60 seconds. Then book the room that fits.</h2>
+                <p>The fastest trust-builder is not another flyer. It is real Paris crowd footage. Stay on-site, feel the room, then take the shortest path to tickets.</p>
+                <div class="proof-strip-actions">
+                    <a href="https://www.eventbrite.com/o/18875461764?utm_source=pariscomedy&utm_medium=website&utm_campaign=homepage_watchproof" target="_blank" rel="noopener" class="btn btn-primary btn-sm">🎟️ Go from clip to tickets</a>
+                    <a href="shows.html#watch-proof" class="btn btn-ghost btn-sm">See the full watch-first page</a>
+                </div>
+            </div>
+            <div class="proof-strip-grid">
+                <article class="proof-strip-card">
+                    <div class="lite-youtube" data-youtube-id="jBb6cobfcdo" data-title="Robert Hoehn live in Paris" aria-label="Play Robert Hoehn live in Paris video">
+                        <img src="https://img.youtube.com/vi/jBb6cobfcdo/maxresdefault.jpg" alt="Robert Hoehn live in Paris thumbnail" loading="lazy">
+                        <button type="button" class="lite-youtube-play" aria-label="Play Robert Hoehn live in Paris video">
+                            <span>▶</span>
+                        </button>
+                        <span class="lite-youtube-label">Robert live</span>
+                    </div>
+                    <div class="proof-strip-card-copy">
+                        <strong>American-in-Paris crowdwork</strong>
+                        <span>Best if you want Robert's point of view before you commit.</span>
+                    </div>
+                </article>
+                <article class="proof-strip-card">
+                    <div class="lite-youtube" data-youtube-id="5oHnhumlTdY" data-title="French Fried Comedy Night live" aria-label="Play French Fried Comedy Night live video">
+                        <img src="https://img.youtube.com/vi/5oHnhumlTdY/maxresdefault.jpg" alt="French Fried Comedy Night live thumbnail" loading="lazy">
+                        <button type="button" class="lite-youtube-play" aria-label="Play French Fried Comedy Night live video">
+                            <span>▶</span>
+                        </button>
+                        <span class="lite-youtube-label">FFCN crowd energy</span>
+                    </div>
+                    <div class="proof-strip-card-copy">
+                        <strong>Flagship room energy</strong>
+                        <span>Best if you want to feel the bilingual Wednesday room before booking.</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Identity-first starter pack (Vision + Hal) -->
 <section class="section section-alt" id="american-in-paris-starter" style="padding-top:24px;padding-bottom:20px;">
     <div class="container">
@@ -377,7 +422,7 @@
                     <h3>Watch the vibe first</h3>
                     <p>See a real Paris crowd before you commit. Best for people deciding whether tonight should be cocktails, jazz, or stand-up.</p>
                     <div class="starter-pack-actions">
-                        <a href="https://www.instagram.com/french_fried_comedy/?utm_source=pariscomedy&utm_medium=website&utm_campaign=american_in_paris_starter" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Watch clips</a>
+                        <a href="#watch-proof" class="btn btn-primary btn-sm">▶ Watch clips here</a>
                         <a href="shows.html" class="btn btn-ghost btn-sm">See all shows</a>
                     </div>
                 </article>
@@ -810,7 +855,7 @@
 </section>
 
 <!-- Video Section (Dom) -->
-<section class="section section-alt">
+<section class="section section-alt" id="video-clips">
     <div class="container">
         <div class="section-head" data-reveal>
             <h2 class="section-title" data-i18n="sections.videoTitle">Latest Clips</h2>
@@ -1112,7 +1157,7 @@ if ("serviceWorker" in navigator) {
     </div>
     <div class="mobile-cta-bar-actions">
       <a href="shows.html#apr8-fastbook" class="mobile-cta-bar-btn">🎟️ Book now</a>
-      <a href="https://www.instagram.com/french_fried_comedy/?utm_source=pariscomedy&utm_medium=mobile_cta&utm_campaign=home_watch_then_book" class="mobile-cta-bar-btn mobile-cta-bar-btn--ghost" target="_blank" rel="noopener">📲 Watch first</a>
+      <a href="#watch-proof" class="mobile-cta-bar-btn mobile-cta-bar-btn--ghost">📲 Watch first</a>
     </div>
     <button class="mobile-cta-bar-close" onclick="document.getElementById('mobileCTABar').style.display='none'" aria-label="Close">×</button>
   </div>
