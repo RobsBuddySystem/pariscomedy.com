@@ -326,6 +326,92 @@
         }
         .legend-dot.our { background: rgba(255,51,102,0.4); border: 1px solid rgba(255,51,102,0.5); }
         .legend-dot.other { background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.35); }
+        .calendar-decision-lane {
+            display: grid;
+            gap: 18px;
+            margin: 0 0 28px;
+            padding: 24px;
+            border: 1px solid rgba(124,58,237,0.22);
+            border-radius: 22px;
+            background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(255,51,102,0.08));
+            box-shadow: 0 18px 44px rgba(10,10,20,0.12);
+        }
+        .calendar-decision-head h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 2.8vw, 2rem);
+            line-height: 1.08;
+            margin: 10px 0 12px;
+        }
+        .calendar-decision-head p {
+            color: var(--text-dim);
+            margin: 0;
+            max-width: 860px;
+            line-height: 1.7;
+        }
+        .calendar-decision-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #fde68a;
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        .calendar-decision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 14px;
+        }
+        .calendar-decision-card {
+            display: grid;
+            gap: 12px;
+            padding: 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.09);
+            background: rgba(10,10,20,0.48);
+            backdrop-filter: blur(14px);
+        }
+        .calendar-decision-time {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            background: rgba(255,255,255,0.06);
+            color: #f9fafb;
+        }
+        .calendar-decision-card h3 {
+            margin: 0;
+            font-size: 1.05rem;
+            font-family: var(--font-display);
+        }
+        .calendar-decision-card p {
+            margin: 0;
+            color: var(--text-dim);
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+        .calendar-decision-meta {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        .calendar-decision-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        @media (max-width: 768px) {
+            .calendar-decision-lane { padding: 18px; }
+            .calendar-decision-grid { grid-template-columns: 1fr; }
+            .calendar-decision-actions .btn { width: 100%; justify-content: center; }
+        }
     </style>
     <script type="application/ld+json">
     {
@@ -409,19 +495,61 @@
         <div id="weekSummaryContent">Loading…</div>
     </div>
 
+    <div class="calendar-decision-lane" data-reveal>
+        <div class="calendar-decision-head">
+            <span class="calendar-decision-badge">⚡ Fastest booking decision this week</span>
+            <h2>Pick your Wednesday room in 10 seconds — or take the Thursday backup.</h2>
+            <p>Betty’s schedule read says Wednesday is the biggest stack in the next 48 hours. The easiest conversion move is making the choice obvious: early open mic, polished showcase, late bilingual flagship, or a lower-friction Thursday room if Wednesday is too packed.</p>
+        </div>
+        <div class="calendar-decision-grid" aria-label="Fast booking choices for this week in Paris comedy">
+            <article class="calendar-decision-card">
+                <span class="calendar-decision-time">Wed · 19:00</span>
+                <h3>🎙️ Start with the Open Mic</h3>
+                <p>Best if you want the loosest room, first-drink energy, or the cheapest low-pressure comedy plan in Pigalle.</p>
+                <div class="calendar-decision-meta">Velvet Bar · Pigalle · Free entry</div>
+                <a href="https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713?utm_source=pariscomedy&utm_medium=website&utm_campaign=calendar_fast_pick" target="_blank" rel="noopener" class="btn btn-ghost">Reserve Open Mic</a>
+            </article>
+            <article class="calendar-decision-card">
+                <span class="calendar-decision-time">Wed · 20:30</span>
+                <h3>🎭 Pick the polished showcase</h3>
+                <p>Best first-timer choice: cleaner signal, stronger hit rate, and the easiest “just book this” answer for tourists or date night.</p>
+                <div class="calendar-decision-meta">Velvet Bar Comedy Night · Pigalle · Free entry</div>
+                <a href="https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719?utm_source=pariscomedy&utm_medium=website&utm_campaign=calendar_fast_pick" target="_blank" rel="noopener" class="btn btn-primary">Reserve Showcase</a>
+            </article>
+            <article class="calendar-decision-card">
+                <span class="calendar-decision-time">Wed · 22:00</span>
+                <h3>🍟 Go late for FFCN</h3>
+                <p>The flagship bilingual room. Best if you want the most iconic Paris-comedy vibe and the biggest culture-clash payoff in one booking.</p>
+                <div class="calendar-decision-meta">French Fried Comedy Night · Velvet Bar · Free entry</div>
+                <a href="https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747?utm_source=pariscomedy&utm_medium=website&utm_campaign=calendar_fast_pick" target="_blank" rel="noopener" class="btn btn-primary">Reserve FFCN</a>
+            </article>
+            <article class="calendar-decision-card">
+                <span class="calendar-decision-time">Thu · 19:30</span>
+                <h3>🗓️ Take the Thursday backup</h3>
+                <p>If Wednesday doesn’t fit, FIAP is the easiest clean fallback this week: international crowd, simpler planning, one-click choice.</p>
+                <div class="calendar-decision-meta">FIAP Paris · Montparnasse · Verified current show</div>
+                <a href="https://www.eventbrite.fr/e/fiap-comedy-club-tickets-1986207987558?utm_source=pariscomedy&utm_medium=website&utm_campaign=calendar_fast_pick" target="_blank" rel="noopener" class="btn btn-ghost">Reserve FIAP</a>
+            </article>
+        </div>
+        <div class="calendar-decision-actions">
+            <a href="shows.html#watch-proof" class="btn btn-ghost">▶ Watch clips first</a>
+            <a href="shows.html" class="btn btn-ghost">See all verified shows</a>
+        </div>
+    </div>
+
     <!-- Calendar grid -->
     <div class="cal-grid" id="calGrid">Loading…</div>
 
     <!-- Bottom CTA -->
     <div style="text-align:center;margin-top:48px;padding:40px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;">
         <div style="font-size:2rem;margin-bottom:12px;">🎟️</div>
-        <h2 style="font-family:var(--font-display);font-size:1.5rem;margin-bottom:8px;">Ready to laugh?</h2>
-        <p style="color:var(--text-muted);margin-bottom:20px;">Three shows every Wednesday at Velvet Bar, Pigalle. Free entry — reserve to guarantee your seat.</p>
+        <h2 style="font-family:var(--font-display);font-size:1.5rem;margin-bottom:8px;">Ready to lock in your week?</h2>
+        <p style="color:var(--text-muted);margin-bottom:20px;">Use the fast picks above if you already know your night. If not, jump to the full shows page and choose by neighborhood, proof clips, or day.</p>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-            <a href="https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747?utm_source=pariscomedy&utm_medium=website" target="_blank" rel="noopener" class="btn btn-primary">🍟 Reserve for FFCN (22:00)</a>
-            <a href="https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719?utm_source=pariscomedy&utm_medium=website" target="_blank" rel="noopener" class="btn btn-secondary">🎭 Reserve Showcase (20:30)</a>
+            <a href="shows.html" class="btn btn-primary">🎭 Browse all verified shows</a>
+            <a href="shows.html#watch-proof" class="btn btn-secondary">▶ Watch stage clips first</a>
         </div>
-        <p style="margin-top:16px;font-size:.85rem;color:var(--text-muted);">Not free on Wednesday? <a href="shows.html">See all shows →</a></p>
+        <p style="margin-top:16px;font-size:.85rem;color:var(--text-muted);">Want the room vibe before you book? The shows page has real clips, social proof, and neighborhood shortcuts.</p>
     </div>
 </div>
 </section>
