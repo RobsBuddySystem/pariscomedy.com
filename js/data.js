@@ -498,7 +498,7 @@ const PAGE_COPY = {
     blog: { nav:'Blog', heroTag:'Couverture 100 % comédie à Paris', heroTitle:'Le <span class="gradient-text">blog Paris Comedy</span>', heroSub:'Un espace éditorial pratique pour celles et ceux qui veulent trouver un spectacle, comprendre la scène ou monter sur scène à Paris sans fouiller des posts aléatoires.', heroCta:'Parcourir le blog', heroShows:'Voir les spectacles', belongsTitle:'Ce qu’on publie ici', belongsSub:'Uniquement de la comédie : spectacles, public, quartiers, contexte de scène et ressources utiles pour les artistes.', audienceTag:'Pour le public', audienceTitle:'Guides spectacles', audienceDesc:'Des guides courts comme « meilleure première soirée stand-up à Paris », des sélections par quartier, ou où emmener des amis de passage.', comicsTag:'Pour les humoristes', comicsTitle:'Ressources humoristes', comicsDesc:'Des explications concrètes sur les open mics, les différences entre les salles, l’ambiance du bloc Velvet du mercredi et la scène anglophone.', sceneTag:'Infos scène', sceneTitle:'Notes sur la scène parisienne', sceneDesc:'Des mises à jour utiles côté public : semaines chargées, grappes de salles, énergie saisonnière et type de public selon chaque lieu.', seedTitle:'Premiers articles', seedSub:'Pas un déversement de contenu — juste une première étagère propre, alignée avec le site.', workflowTitle:'Workflow éditorial', workflowSub:'Petit, pratique et sûr pour la marque.', step1Title:'1. Partir d’une vraie question de comédie', step1Desc:'Choisir une question que le public ou les humoristes posent vraiment : où aller, à quoi s’attendre, ou comment une salle diffère.', step2Title:'2. L’ancrer aux pages en ligne', step2Desc:'Chaque article doit renvoyer vers une page spectacle, salle, histoire ou ressource humoriste déjà présente sur le site.', step3Title:'3. Garder un ton local', step3Desc:'Drôle, utile et conscient de la scène. Pas de jargon interne, pas de notes système, pas de discours marketing.', step4Title:'4. Finir sur une vraie prochaine étape', step4Desc:'Réserver un spectacle, voir une salle ou envoyer une correction — jamais un article sans suite.', explore:'Explorer', forComics:'Pour les humoristes', currentShows:'Spectacles actuels', getListed:'Être référencé' }
   },
   es: {
-    header: { subtitle:'Actúa, contrata un comediante o lista tu show en pariscomedy.com' },
+    header: { subtitle:'Actúa, contrata un comediante o lista tu show en pariscomedy.com', title:'Sobre Paris Comedy' },
     listing: { title:'Lista Tu Show' },
     contact: { subtitle:'Rellena el formulario o escríbenos por Instagram — respondemos rápido.' },
     faq: { title:'Preguntas frecuentes' },
@@ -522,7 +522,7 @@ const PAGE_COPY = {
     comedians: { stats:'{shows} shows verificados actualmente en {venues} locales. Última verificación: {latest}.', addressPending:'Dirección por confirmar', verifiedCount:'{count} shows verificados', runner:'Responsable del show', notConfirmed:'Aún sin confirmar', verifiedVia:'Verificado {date} vía {source}', recently:'recientemente', manualReview:'revisión manual', openListing:'Abrir ficha' }
   },
   de: {
-    header: { subtitle:'Auftreten, einen Comedian buchen oder Ihre Show auf pariscomedy.com eintragen' },
+    header: { subtitle:'Auftreten, einen Comedian buchen oder Ihre Show auf pariscomedy.com eintragen', title:'Über Paris Comedy' },
     listing: { title:'Ihre Show eintragen' },
     contact: { subtitle:'Füllen Sie das Formular aus oder schreiben Sie uns per Instagram — wir antworten schnell.' },
     faq: { title:'FAQ' },
@@ -546,7 +546,7 @@ const PAGE_COPY = {
     comedians: { stats:'{shows} aktuell verifizierte Shows in {venues} Locations. Letzte Verifizierung: {latest}.', addressPending:'Adresse wird bestätigt', verifiedCount:'{count} verifizierte Shows', runner:'Showrunner', notConfirmed:'Noch nicht bestätigt', verifiedVia:'Verifiziert {date} via {source}', recently:'kürzlich', manualReview:'manuelle Prüfung', openListing:'Eintrag öffnen' }
   },
   ja: {
-    header: { subtitle:'出演する、コメディアンを予約する、または pariscomedy.com にショーを掲載する' },
+    header: { subtitle:'出演する、コメディアンを予約する、または pariscomedy.com にショーを掲載する', title:'Paris Comedy について' },
     listing: { title:'ショーを掲載' },
     contact: { subtitle:'下記フォームにご記入いただくか、Instagramにてメッセージをお送りください — すぐにご返答します。' },
     faq: { title:'よくある質問' },
@@ -570,7 +570,7 @@ const PAGE_COPY = {
     comedians: { stats:'現在確認済みの公演は{venues}会場で{shows}件。最新確認日: {latest}。', addressPending:'住所確認中', verifiedCount:'確認済み {count} 件', runner:'主催者', notConfirmed:'未確認', verifiedVia:'{source} により {date} に確認', recently:'最近', manualReview:'手動確認', openListing:'掲載を見る' }
   },
   zh: {
-    header: { subtitle:'表演、预约喜剧演员，或在 pariscomedy.com 发布您的演出' },
+    header: { subtitle:'表演、预约喜剧演员，或在 pariscomedy.com 发布您的演出', title:'关于 Paris Comedy' },
     listing: { title:'发布您的演出' },
     contact: { subtitle:'填写下方表单，或在 Instagram 上发私信给我们 — 我们回复很快。' },
     faq: { title:'常见问题' },
