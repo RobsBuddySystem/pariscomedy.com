@@ -421,6 +421,21 @@
             <p style="margin-top:8px;"><a href="https://www.instagram.com/french_fried_comedy/" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">📸 DM @french_fried_comedy →</a></p>
             <p style="margin-top:10px;color:var(--text-muted);font-size:.9rem;" data-page-copy="book.formNote">Corrections and new show suggestions go to Chuck first, then get added to the verified public directory once confirmed.</p>
         </div>
+        <div data-reveal style="margin:0 0 20px;padding:18px;border:1px solid rgba(16,185,129,0.25);border-radius:16px;background:linear-gradient(135deg,rgba(16,185,129,0.09),rgba(59,130,246,0.08));">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:flex-start;">
+                <div style="max-width:620px;">
+                    <div style="font-size:0.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#34d399;margin-bottom:6px;" data-page-copy="book.quickBrief.badge">⚡ Fast brief starter</div>
+                    <h3 style="margin:0 0 8px;font-family:var(--font-display);font-size:1.15rem;line-height:1.25;" data-page-copy="book.quickBrief.heading">Don’t want to write from scratch? Pick the closest brief.</h3>
+                    <p style="margin:0;color:var(--text-muted);font-size:.93rem;line-height:1.6;" data-page-copy="book.quickBrief.desc">Mitzi’s latest booking report says the fastest money is still private/corporate entertainment and open Sunday inventory. These buttons pre-fill the form so buyers can send a usable brief in one tap.</p>
+                </div>
+                <div style="font-size:0.85rem;color:var(--text-muted);min-width:180px;" data-page-copy="book.quickBrief.response">Best for same-day quote requests</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:16px;">
+                <button type="button" class="btn btn-secondary" onclick="prefillBookingBrief('Sunday Private Booking','Hi Paris Comedy — I want to book a Sunday comedy slot.\n\nPreferred date: Apr 12 / Apr 19 / Apr 26 / May 3\nEvent type: brunch / birthday / expat meetup / other\nExpected group size: \nVenue or neighborhood: \nPreferred show time: \nBudget range: \nAnything else we should know: ')" style="justify-content:center;min-height:52px;" data-page-copy="book.quickBrief.sunday">🌞 Sunday private event</button>
+                <button type="button" class="btn btn-secondary" onclick="prefillBookingBrief('Corporate Event Booking','Hi Paris Comedy — I want a comedian for a company or private event in Paris.\n\nCompany / group: \nEvent date: \nAudience size: \nTone needed: bilingual / English-only / French-friendly\nHosting, stand-up set, or both: \nVenue: \nBudget range: \nAnything else we should know: ')" style="justify-content:center;min-height:52px;" data-page-copy="book.quickBrief.corporate">🏢 Corporate / team event</button>
+                <button type="button" class="btn btn-secondary" onclick="prefillBookingBrief('Get Listed — Sunday or New Show','Hi Paris Comedy — I run a show and want to get listed.\n\nShow name: \nVenue: \nDay + time: \nTicket link: \nWhat makes the room distinct: \nDo you want discovery only or promo support too? ')" style="justify-content:center;min-height:52px;" data-page-copy="book.quickBrief.listing">📋 List a room or new show</button>
+            </div>
+        </div>
         <form id="contactForm" class="contact-form">
             <input type="hidden" name="subject" id="contactSubject" value="General Inquiry">
             <div class="form-group">
@@ -550,6 +565,18 @@ if ("serviceWorker" in navigator) {
   </div>
 </div>
 <script>
+function prefillBookingBrief(subject, message) {
+  const subjectField = document.getElementById('contactSubject');
+  const form = document.getElementById('contactForm');
+  const messageField = form ? form.querySelector('textarea[name="message"]') : null;
+  if (subjectField) subjectField.value = subject;
+  if (messageField) {
+    messageField.value = message;
+    messageField.focus();
+    messageField.setSelectionRange(message.length, message.length);
+  }
+  if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 function openListingModal(tier, price) {
   document.getElementById('listingTierField').value = tier;
   document.getElementById('listingModalTier').textContent = tier + ' — ' + price;
