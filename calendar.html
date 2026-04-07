@@ -936,7 +936,7 @@
         <div id="weekSummaryContent">Loading…</div>
     </div>
 
-    <div class="calendar-decision-lane" data-reveal>
+    <div class="calendar-decision-lane" id="calendar-fast-pick" data-reveal>
         <div class="calendar-decision-head">
             <span class="calendar-decision-badge">⚡ Fastest booking decision this week</span>
             <h2>Pick your Wednesday room in 10 seconds — or take the Thursday backup.</h2>
@@ -1208,10 +1208,14 @@
 <div class="mobile-cta-bar" id="mobileCTABar">
   <div class="mobile-cta-bar-inner">
     <div class="mobile-cta-bar-text">
-      <span class="mobile-cta-bar-title">Next show: Wednesday · Free reservation</span>
-      <span class="mobile-cta-bar-sub">Velvet Bar Open Mic · Pigalle · 19:00</span>
+      <strong>⚡ Pick Wednesday or Thursday fast</strong>
+      Betty’s next-48-hours shortcut · Pigalle + FIAP
+      <span class="mobile-cta-bar-subline">Jump to the fast picker for 19:00, 20:30, 22:00, or the easy Thursday backup.</span>
     </div>
-    <a href="https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713?utm_source=pariscomedy&utm_medium=mobile_cta&utm_campaign=calendar" class="mobile-cta-bar-btn" target="_blank" rel="noopener">🎟️ Reserve</a>
+    <div class="mobile-cta-bar-actions">
+      <a href="#calendar-fast-pick" class="mobile-cta-bar-btn">🎟️ Pick a room</a>
+      <a href="shows.html#watch-proof" class="mobile-cta-bar-btn mobile-cta-bar-btn--ghost">▶ Watch clips</a>
+    </div>
     <button class="mobile-cta-bar-close" onclick="document.getElementById('mobileCTABar').style.display='none'" aria-label="Close">×</button>
   </div>
 </div>
