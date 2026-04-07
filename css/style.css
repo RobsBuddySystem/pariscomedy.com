@@ -150,6 +150,26 @@ img{max-width:100%;height:auto;display:block}
 .promo-countdown{display:inline-flex;align-items:center;justify-content:center;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.18);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 .promo-card--green .promo-countdown{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.16)}
 
+/* Calendar reel-first conversion lane */
+.calendar-reel-lane{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.95fr);gap:24px;align-items:stretch;margin:0 0 28px;padding:26px;border-radius:22px;border:1px solid rgba(255,51,102,.24);background:linear-gradient(135deg,rgba(255,51,102,.1),rgba(59,130,246,.11));box-shadow:0 12px 30px rgba(0,0,0,.22)}
+.calendar-reel-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;padding:6px 12px;border-radius:999px;background:rgba(255,51,102,.16);border:1px solid rgba(255,51,102,.28);color:var(--accent-light);font-size:.75rem;font-weight:700;letter-spacing:.02em}
+.calendar-reel-copy h2{font-family:var(--font-display);font-size:clamp(1.55rem,3vw,2.15rem);line-height:1.12;margin:0 0 12px}
+.calendar-reel-copy p{margin:0;color:var(--text-dim);font-size:.98rem;line-height:1.72}
+.calendar-reel-quotes{display:grid;gap:12px;margin-top:18px}
+.calendar-reel-quote{padding:14px 16px;border-radius:14px;background:rgba(10,10,20,.45);border:1px solid rgba(255,255,255,.08);color:var(--text);font-family:var(--font-display);font-size:1rem;line-height:1.5}
+.calendar-reel-quote-alt{background:rgba(59,130,246,.1)}
+.calendar-reel-panel{display:flex;flex-direction:column;gap:12px;justify-content:center;padding:22px;border-radius:18px;background:rgba(10,10,20,.6);border:1px solid rgba(255,255,255,.08)}
+.calendar-reel-panel-head{font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#93c5fd}
+.calendar-reel-card{display:flex;flex-direction:column;gap:6px;padding:14px 15px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--text);transition:transform .15s,border-color .15s,background .15s,box-shadow .15s}
+.calendar-reel-card strong{font-family:var(--font-display);font-size:1rem;line-height:1.28;color:var(--text)}
+.calendar-reel-card span{color:var(--text-dim);font-size:.88rem;line-height:1.55}
+.calendar-reel-card em{font-style:normal;color:#fff;font-size:.82rem;font-weight:700}
+.calendar-reel-card:hover{transform:translateY(-2px);color:var(--text);box-shadow:0 10px 22px rgba(0,0,0,.18);border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.07)}
+.calendar-reel-card--accent:hover{border-color:rgba(255,51,102,.42);background:rgba(255,51,102,.08)}
+.calendar-reel-card--gold:hover{border-color:rgba(245,158,11,.42);background:rgba(245,158,11,.08)}
+.calendar-reel-note{margin-top:2px;color:var(--text-muted);font-size:.84rem;line-height:1.55}
+.calendar-reel-note a{color:#fff;text-decoration:underline}
+
 /* Paris paperwork identity-hook conversion block */
 .bureau-card{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,.95fr);gap:22px;align-items:stretch;margin-top:28px;padding:24px;border-radius:22px;border:1px solid rgba(255,51,102,0.24);background:linear-gradient(135deg,rgba(255,51,102,0.08),rgba(245,158,11,0.1));box-shadow:0 12px 28px rgba(0,0,0,.2)}
 .bureau-badge{display:inline-block;margin-bottom:14px;padding:6px 12px;border-radius:999px;background:rgba(245,158,11,0.16);border:1px solid rgba(245,158,11,0.28);color:#fbbf24;font-size:.75rem;font-weight:700;letter-spacing:.02em}
@@ -571,7 +591,7 @@ textarea.form-input{min-height:120px;resize:vertical}
 @media(max-width:768px){
     .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);flex-direction:column;padding:20px;gap:16px}
     .nav-links.open{display:flex}.nav-toggle{display:block}
-    .hero{padding:120px 20px 60px}.hero-stats{gap:20px}.hero-actions{flex-direction:column;align-items:center}.hero-urgency-card{grid-template-columns:1fr;padding:18px;text-align:center}.hero-urgency-copy{text-align:center}.hero-urgency-kicker{justify-content:center}.hero-urgency-actions{grid-template-columns:1fr}
+    .hero{padding:120px 20px 60px}.hero-stats{gap:20px}.hero-actions{flex-direction:column;align-items:center}.hero-urgency-card{grid-template-columns:1fr;padding:18px;text-align:center}.hero-urgency-copy{text-align:center}.hero-urgency-kicker{justify-content:center}.hero-urgency-actions{grid-template-columns:1fr}.calendar-reel-lane{grid-template-columns:1fr;padding:20px}.calendar-reel-copy{text-align:center}.calendar-reel-badge{justify-content:center}.calendar-reel-panel{padding:18px}
     .section{padding:60px 0}.shows-grid{grid-template-columns:1fr}
     .calendar{padding:10px;gap:2px}.cal-day{min-height:48px;font-size:0.75rem;padding:4px 2px}.cal-dot{width:5px;height:5px}
     .map-container{height:280px}.venues-list{grid-template-columns:1fr}
