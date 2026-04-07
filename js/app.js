@@ -16,59 +16,59 @@ const META_TRANSLATIONS = {
     home: {
         en: {
             title: 'Paris Comedy — The Home of English-Language Comedy in Paris',
-            description: 'The home of English-language comedy in Paris. 29 verified weekly shows, 23 current venues. French Fried Comedy Night, Velvet Bar Comedy, and more. Reserve your spot on Eventbrite.',
+            description: 'The home of English-language comedy in Paris. 30 verified weekly shows, 23 current venues. French Fried Comedy Night, Velvet Bar Comedy, and more. Reserve your spot on Eventbrite.',
             ogTitle: 'Paris Comedy — English-Language Comedy in Paris',
-            ogDescription: '29 verified weekly shows in English & French across 23 current venues. Open mics, showcases, and the legendary French Fried Comedy Night. Reserve your spot.',
+            ogDescription: '30 verified weekly shows in English & French across 23 current venues. Open mics, showcases, and the legendary French Fried Comedy Night. Reserve your spot.',
             twitterTitle: 'Paris Comedy — English Comedy in Paris',
-            twitterDescription: '29 verified weekly English comedy shows in Paris. Reserve your spot.'
+            twitterDescription: '30 verified weekly English comedy shows in Paris. Reserve your spot.'
         },
         fr: {
             title: 'Paris Comedy — Le rendez-vous du stand-up en anglais à Paris',
-            description: 'Le point de repère du stand-up en anglais à Paris. 29 spectacles hebdomadaires vérifiés, 23 salles actuelles. French Fried Comedy Night, Velvet Bar Comedy et plus encore.',
+            description: 'Le point de repère du stand-up en anglais à Paris. 30 spectacles hebdomadaires vérifiés, 23 salles actuelles. French Fried Comedy Night, Velvet Bar Comedy et plus encore.',
             ogTitle: 'Paris Comedy — Stand-up en anglais à Paris',
-            ogDescription: '29 spectacles hebdomadaires vérifiés en anglais et en français dans 23 salles actuelles. Open mics, plateaux et la légendaire French Fried Comedy Night.',
+            ogDescription: '30 spectacles hebdomadaires vérifiés en anglais et en français dans 23 salles actuelles. Open mics, plateaux et la légendaire French Fried Comedy Night.',
             twitterTitle: 'Paris Comedy — Stand-up à Paris',
-            twitterDescription: '29 spectacles de stand-up vérifiés chaque semaine à Paris. Réservez votre place.'
+            twitterDescription: '30 spectacles de stand-up vérifiés chaque semaine à Paris. Réservez votre place.'
         },
         es: {
             title: 'Paris Comedy — La casa de la comedia en inglés en París',
-            description: 'La referencia de la comedia en inglés en París. 29 shows semanales verificados y 23 salas activas. French Fried Comedy Night, Velvet Bar Comedy y más.',
+            description: 'La referencia de la comedia en inglés en París. 30 shows semanales verificados y 23 salas activas. French Fried Comedy Night, Velvet Bar Comedy y más.',
             ogTitle: 'Paris Comedy — Comedia en inglés en París',
-            ogDescription: '29 shows semanales verificados en inglés y francés en 23 salas activas. Open mics, showcases y la legendaria French Fried Comedy Night.',
+            ogDescription: '30 shows semanales verificados en inglés y francés en 23 salas activas. Open mics, showcases y la legendaria French Fried Comedy Night.',
             twitterTitle: 'Paris Comedy — Comedia en París',
-            twitterDescription: '29 shows de comedia verificados cada semana en París. Reserva tu lugar.'
+            twitterDescription: '30 shows de comedia verificados cada semana en París. Reserva tu lugar.'
         },
         de: {
             title: 'Paris Comedy — Die Heimat der englischsprachigen Comedy in Paris',
-            description: 'Die Anlaufstelle für englischsprachige Comedy in Paris. 29 verifizierte wöchentliche Shows an 23 aktuellen Venues. French Fried Comedy Night, Velvet Bar Comedy und mehr.',
+            description: 'Die Anlaufstelle für englischsprachige Comedy in Paris. 30 verifizierte wöchentliche Shows an 23 aktuellen Venues. French Fried Comedy Night, Velvet Bar Comedy und mehr.',
             ogTitle: 'Paris Comedy — Englische Comedy in Paris',
-            ogDescription: '29 verifizierte wöchentliche Shows auf Englisch und Französisch an 23 aktuellen Venues. Open Mics, Showcases und die legendäre French Fried Comedy Night.',
+            ogDescription: '30 verifizierte wöchentliche Shows auf Englisch und Französisch an 23 aktuellen Venues. Open Mics, Showcases und die legendäre French Fried Comedy Night.',
             twitterTitle: 'Paris Comedy — Comedy in Paris',
-            twitterDescription: '29 verifizierte Comedyshows pro Woche in Paris. Reserviere deinen Platz.'
+            twitterDescription: '30 verifizierte Comedyshows pro Woche in Paris. Reserviere deinen Platz.'
         },
         ja: {
             title: 'Paris Comedy — パリの英語コメディの拠点',
-            description: 'パリで英語コメディを探すならここ。毎週29本の検証済みショー、現在の会場は23か所。French Fried Comedy Night や Velvet Bar Comedy などを掲載。',
+            description: 'パリで英語コメディを探すならここ。毎週30本の検証済みショー、現在の会場は23か所。French Fried Comedy Night や Velvet Bar Comedy などを掲載。',
             ogTitle: 'Paris Comedy — パリの英語コメディ',
-            ogDescription: '英語とフランス語の検証済みコメディショーが毎週29本、現在の会場は23か所。オープンマイク、ショーケース、French Fried Comedy Night。',
+            ogDescription: '英語とフランス語の検証済みコメディショーが毎週30本、現在の会場は23か所。オープンマイク、ショーケース、French Fried Comedy Night。',
             twitterTitle: 'Paris Comedy — パリのコメディ',
-            twitterDescription: 'パリで毎週29本の検証済みコメディショー。席を予約。'
+            twitterDescription: 'パリで毎週30本の検証済みコメディショー。席を予約。'
         },
         zh: {
             title: 'Paris Comedy — 巴黎英文单口喜剧中心',
-            description: '巴黎英文喜剧的聚集地。每周29场已核实演出、23个当前场地。French Fried Comedy Night、Velvet Bar Comedy 等都在这里。',
+            description: '巴黎英文喜剧的聚集地。每周30场已核实演出、23个当前场地。French Fried Comedy Night、Velvet Bar Comedy 等都在这里。',
             ogTitle: 'Paris Comedy — 巴黎英文喜剧',
-            ogDescription: '每周29场已核实的英语和法语喜剧演出，覆盖23个当前场地。开放麦、拼盘秀，以及招牌 French Fried Comedy Night。',
+            ogDescription: '每周30场已核实的英语和法语喜剧演出，覆盖23个当前场地。开放麦、拼盘秀，以及招牌 French Fried Comedy Night。',
             twitterTitle: 'Paris Comedy — 巴黎喜剧',
-            twitterDescription: '巴黎每周29场已核实喜剧演出。立即预订。'
+            twitterDescription: '巴黎每周30场已核实喜剧演出。立即预订。'
         },
         ko: {
             title: 'Paris Comedy — 파리 영어 코미디의 허브',
-            description: '파리의 영어 코미디를 찾는 가장 쉬운 출발점. 매주 검증된 29개 쇼와 현재 운영 중인 23개 공연장을 소개합니다.',
+            description: '파리의 영어 코미디를 찾는 가장 쉬운 출발점. 매주 검증된 30개 쇼와 현재 운영 중인 23개 공연장을 소개합니다.',
             ogTitle: 'Paris Comedy — 파리 영어 코미디',
-            ogDescription: '영어와 프랑스어 코미디 쇼 29개를 매주 확인해 보여드립니다. 오픈 마이크, 쇼케이스, French Fried Comedy Night까지 한곳에.',
+            ogDescription: '영어와 프랑스어 코미디 쇼 30개를 매주 확인해 보여드립니다. 오픈 마이크, 쇼케이스, French Fried Comedy Night까지 한곳에.',
             twitterTitle: 'Paris Comedy — 파리 코미디',
-            twitterDescription: '파리의 검증된 주간 코미디 쇼 29개. 지금 자리 예약하기.'
+            twitterDescription: '파리의 검증된 주간 코미디 쇼 30개. 지금 자리 예약하기.'
         },
     }
 };
