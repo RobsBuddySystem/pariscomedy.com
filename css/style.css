@@ -125,7 +125,11 @@ img{max-width:100%;height:auto;display:block}
 .other-show-card:hover{border-color:var(--border-light)}
 .other-show-name{font-family:var(--font-display);font-weight:600;margin-bottom:4px}
 .other-show-venue{color:var(--text-muted);font-size:0.82rem;margin-bottom:8px}
+.other-show-address{color:var(--accent-light);font-size:0.8rem;margin:-2px 0 8px;line-height:1.45}
 .other-show-desc{color:var(--text-dim);font-size:0.85rem;margin-bottom:10px}
+.other-show-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}
+.other-show-map-link{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--border);color:var(--text-muted);font-size:0.8rem;font-weight:600;transition:all var(--transition)}
+.other-show-map-link:hover{border-color:var(--accent);color:var(--text);background:rgba(124,58,237,0.08)}
 .other-show-link{font-size:0.85rem;font-weight:500}
 
 /* Trend/live conversion block */

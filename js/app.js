@@ -603,6 +603,25 @@ function renderAllShows(filter = 'all') {
     if (window._revealInit) window._revealInit(grid);
 }
 
+function resolveVenueForShow(show) {
+    if (!show || typeof VENUES === 'undefined') return null;
+    if (show.venue) {
+        const byId = VENUES.find(v => v.id === show.venue);
+        if (byId) return byId;
+    }
+    if (show.venueName) {
+        return VENUES.find(v => v.name === show.venueName) || null;
+    }
+    return null;
+}
+
+function getResolvedShowAddress(show) {
+    const venue = resolveVenueForShow(show);
+    if (venue?.hasExactAddress) return venue.address;
+    if (show?.address && show.address !== 'Paris') return show.address;
+    return '';
+}
+
 function renderOtherShows(dayFilter) {
     const container = document.getElementById('otherShowsList');
     if (!container || typeof OTHER_SHOWS === 'undefined') return;
@@ -621,14 +640,23 @@ function renderOtherShows(dayFilter) {
         if (window._revealInit) window._revealInit(container);
         return;
     }
-    container.innerHTML = shows.map(show => `
+    container.innerHTML = shows.map(show => {
+        const venue = resolveVenueForShow(show);
+        const exactAddress = getResolvedShowAddress(show);
+        const mapUrl = venue?.googleMapsUrl || '';
+        const reserveLabel = ({'fr':'Réservez votre place','es':'Reserva tu lugar','de':'Platz reservieren'})[currentLang] || 'Reserve Your Spot';
+        const mapLabel = ({'fr':'Voir la carte','es':'Ver mapa','de':'Karte öffnen'})[currentLang] || 'Open Map';
+        const dayLabel = Array.isArray(show.day) ? show.day.join(' & ') : show.day;
+        return `
         <div class="other-show-card${!show.paid ? ' placeholder-card' : ''}" data-reveal>
             <div class="other-show-name">${show.emoji || '🎤'} ${show.name}</div>
-            <div class="other-show-venue">📍 ${show.venueName} · ${Array.isArray(show.day) ? show.day.join(' & ') : show.day}${show.time ? ' · '+show.time : ''}</div>
+            <div class="other-show-venue">📍 ${show.venueName} · ${dayLabel}${show.time ? ' · '+show.time : ''}</div>
+            ${exactAddress ? `<div class="other-show-address">🗺️ ${exactAddress}</div>` : ''}
             <div class="other-show-desc">${show.description}</div>
-            ${show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link" style="display:inline-block;margin-top:8px;">🎟️ ${({'fr':'Réservez votre place','es':'Reserva tu lugar','de':'Platz reservieren'})[currentLang] || 'Reserve Your Spot'} →</a>` : `<div class="other-show-cta"><span class="placeholder-badge">📋 ${({'fr':'Pas encore référencé','es':'Aún no listado','de':'Noch nicht gelistet'})[currentLang] || 'Not yet listed'}</span> <a href="book.html" class="other-show-link">${({'fr':'Référencez-vous pour 1€/mois','es':'Inscríbete por 1€/mes','de':'Gelistet werden für 1€/Monat'})[currentLang] || 'Get listed for €1/month'} →</a></div>`}
+            ${show.bookingUrl ? `<div class="other-show-actions"><a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ ${reserveLabel} →</a>${mapUrl ? `<a href="${mapUrl}" target="_blank" rel="noopener" class="other-show-map-link">🗺️ ${mapLabel}</a>` : ''}</div>` : `<div class="other-show-cta"><span class="placeholder-badge">📋 ${({'fr':'Pas encore référencé','es':'Aún no listado','de':'Noch nicht gelistet'})[currentLang] || 'Not yet listed'}</span> <a href="book.html" class="other-show-link">${({'fr':'Référencez-vous pour 1€/mois','es':'Inscríbete por 1€/mes','de':'Gelistet werden für 1€/Monat'})[currentLang] || 'Get listed for €1/month'} →</a></div>`}
         </div>
-    `).join('');
+    `;
+    }).join('');
     if (window._revealInit) window._revealInit(container);
 }
 
