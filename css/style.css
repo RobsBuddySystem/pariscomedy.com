@@ -1,7 +1,9 @@
 /* Paris Comedy — Full Site Styles */
 :root {
     --bg: #0a0a14; --bg-card: #12121f; --bg-card-hover: #1a1a2e; --bg-alt: #0e0e1a;
+    --card-bg: var(--bg-card);
     --surface: #191928; --border: #2a2a40; --border-light: #363650;
+    --border-color: var(--border);
     --text: #e8e8f0; --text-dim: #9696b0; --text-muted: #6c6c8a;
     --accent: #ff3366; --accent-light: #ff5c8a; --accent-glow: rgba(255,51,102,0.15);
     --purple: #7c3aed; --purple-glow: rgba(124,58,237,0.15);
