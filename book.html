@@ -628,10 +628,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeListing
 <div class="mobile-cta-bar" id="mobileCTABar">
   <div class="mobile-cta-bar-inner">
     <div class="mobile-cta-bar-text">
-      <strong>🎭 Next show: Wednesday</strong>
-      Velvet Bar · Pigalle · Wednesday
+      <strong>💼 Fastest paid path: book a private / Sunday event</strong>
+      Same-day quote path for corporate gigs, birthdays, expat meetups, and open Sunday slots.
+      <span class="mobile-cta-bar-subline">Skip the blank page — jump straight to the pre-filled booking brief.</span>
     </div>
-    <a href="https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747?utm_source=pariscomedy&utm_medium=mobile_cta" class="mobile-cta-bar-btn" target="_blank" rel="noopener">🎟️ Reserve</a>
+    <div class="mobile-cta-bar-actions">
+      <a href="#contactForm" class="mobile-cta-bar-btn" onclick="prefillBookingBrief('Corporate Event Booking','Hi Paris Comedy — I want a comedian for a company or private event in Paris.\n\nCompany / group: \nEvent date: \nAudience size: \nTone needed: bilingual / English-only / French-friendly\nHosting, stand-up set, or both: \nVenue: \nBudget range: \nAnything else we should know: ')">🏢 Get quote</a>
+      <a href="#contactForm" class="mobile-cta-bar-btn mobile-cta-bar-btn--ghost" onclick="prefillBookingBrief('Sunday Private Booking','Hi Paris Comedy — I want to book a Sunday comedy slot.\n\nPreferred date: Apr 12 / Apr 19 / Apr 26 / May 3\nEvent type: brunch / birthday / expat meetup / other\nExpected group size: \nVenue or neighborhood: \nPreferred show time: \nBudget range: \nAnything else we should know: ')">🌞 Sunday slot</a>
+    </div>
     <button class="mobile-cta-bar-close" onclick="document.getElementById('mobileCTABar').style.display='none'" aria-label="Close">×</button>
   </div>
 </div>
