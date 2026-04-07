@@ -607,7 +607,8 @@ function mergeLocaleFallback(base, override) {
     return override == null ? base : override;
 }
 
-['fr', 'es', 'de', 'ja', 'zh'].forEach(lang => {
+['fr', 'es', 'de', 'ja', 'zh', 'ko'].forEach(lang => {
+    TRANSLATIONS[lang] = mergeLocaleFallback(TRANSLATIONS.en, TRANSLATIONS[lang]);
     PAGE_COPY[lang] = mergeLocaleFallback(PAGE_COPY.en, PAGE_COPY[lang]);
 });
 
