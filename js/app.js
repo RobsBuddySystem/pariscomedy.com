@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ─── Language Switcher ─── */
-const SUPPORTED_LANGS = ['en', 'fr', 'es', 'de', 'ja', 'zh'];
+const SUPPORTED_LANGS = ['en', 'fr', 'es', 'de', 'ja', 'zh', 'ko'];
 const META_TRANSLATIONS = {
     home: {
         en: {
@@ -61,6 +61,14 @@ const META_TRANSLATIONS = {
             ogDescription: '每周29场已核实的英语和法语喜剧演出，覆盖23个当前场地。开放麦、拼盘秀，以及招牌 French Fried Comedy Night。',
             twitterTitle: 'Paris Comedy — 巴黎喜剧',
             twitterDescription: '巴黎每周29场已核实喜剧演出。立即预订。'
+        },
+        ko: {
+            title: 'Paris Comedy — 파리 영어 코미디의 허브',
+            description: '파리의 영어 코미디를 찾는 가장 쉬운 출발점. 매주 검증된 29개 쇼와 현재 운영 중인 23개 공연장을 소개합니다.',
+            ogTitle: 'Paris Comedy — 파리 영어 코미디',
+            ogDescription: '영어와 프랑스어 코미디 쇼 29개를 매주 확인해 보여드립니다. 오픈 마이크, 쇼케이스, French Fried Comedy Night까지 한곳에.',
+            twitterTitle: 'Paris Comedy — 파리 코미디',
+            twitterDescription: '파리의 검증된 주간 코미디 쇼 29개. 지금 자리 예약하기.'
         },
     }
 };
@@ -122,7 +130,7 @@ function updateMetaForLanguage() {
 }
 
 function localeFromLang(lang) {
-    return ({ en:'en_US', fr:'fr_FR', es:'es_ES', de:'de_DE', ja:'ja_JP', zh:'zh_CN' })[lang] || 'en_US';
+    return ({ en:'en_US', fr:'fr_FR', es:'es_ES', de:'de_DE', ja:'ja_JP', zh:'zh_CN', ko:'ko_KR' })[lang] || 'en_US';
 }
 
 function setMetaTag(attr, value, content) {
@@ -235,7 +243,8 @@ function initPromoUrgency() {
         const dateText = card.dataset.promoDate;
         const expireText = card.dataset.promoExpire || dateText;
         const countdown = card.querySelector('.promo-countdown');
-        if (!dateText || !countdown) return;
+        const urgencyLabel = card.querySelector('.hero-urgency-label');
+        if (!dateText || (!countdown && !urgencyLabel)) return;
 
         const start = new Date(dateText);
         const expire = new Date(expireText);
@@ -259,8 +268,11 @@ function initPromoUrgency() {
         else if (days === 2) label = 'In 2 days';
         else if (days > 2) label = `In ${days} days`;
 
-        countdown.textContent = label;
-        countdown.setAttribute('aria-label', `Promo timing: ${label}`);
+        if (countdown) {
+            countdown.textContent = label;
+            countdown.setAttribute('aria-label', `Promo timing: ${label}`);
+        }
+        if (urgencyLabel) urgencyLabel.textContent = label;
     });
 }
 
