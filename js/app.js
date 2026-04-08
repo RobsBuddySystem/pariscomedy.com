@@ -70,6 +70,64 @@ const META_TRANSLATIONS = {
             twitterTitle: 'Paris Comedy — 파리 코미디',
             twitterDescription: '파리의 검증된 주간 코미디 쇼 30개. 지금 자리 예약하기.'
         },
+    },
+    comedians: {
+        en: {
+            title: 'Paris Comedy for Comedians — Current Shows Directory',
+            description: 'A comedians-first resource: currently verified English-language comedy shows in Paris, grouped by venue with live links, show runners, addresses, and paid listing options.',
+            ogTitle: 'Paris Comedy for Comedians — Current Shows Directory',
+            ogDescription: 'Currently verified English-language comedy shows in Paris, grouped by venue with runner info and live links.',
+            twitterTitle: 'Paris Comedy for Comedians',
+            twitterDescription: 'Verified English-language comedy shows in Paris, grouped by venue with live links.'
+        },
+        fr: {
+            title: 'Paris Comedy pour les humoristes — Répertoire des scènes actuelles',
+            description: 'Une ressource pensée pour les humoristes : les scènes de stand-up en anglais actuellement vérifiées à Paris, classées par lieu avec liens actifs, organisateurs, adresses et options de mise en avant.',
+            ogTitle: 'Paris Comedy pour les humoristes — Répertoire des scènes actuelles',
+            ogDescription: 'Scènes de stand-up en anglais actuellement vérifiées à Paris, classées par lieu avec organisateurs et liens actifs.',
+            twitterTitle: 'Paris Comedy pour les humoristes',
+            twitterDescription: 'Scènes de stand-up en anglais actuellement vérifiées à Paris, classées par lieu avec liens actifs.'
+        },
+        es: {
+            title: 'Paris Comedy para comediantes — Directorio de shows actuales',
+            description: 'Un recurso pensado para comediantes: shows de comedia en inglés verificados actualmente en París, agrupados por sala con enlaces activos, responsables, direcciones y opciones de listado destacado.',
+            ogTitle: 'Paris Comedy para comediantes — Directorio de shows actuales',
+            ogDescription: 'Shows de comedia en inglés verificados actualmente en París, agrupados por sala con información de responsables y enlaces activos.',
+            twitterTitle: 'Paris Comedy para comediantes',
+            twitterDescription: 'Shows de comedia en inglés verificados en París, agrupados por sala con enlaces activos.'
+        },
+        de: {
+            title: 'Paris Comedy für Comedians — Verzeichnis aktueller Shows',
+            description: 'Eine Ressource für Comedians: aktuell verifizierte englischsprachige Comedyshows in Paris, nach Venue sortiert mit aktiven Links, Veranstaltern, Adressen und Listing-Optionen.',
+            ogTitle: 'Paris Comedy für Comedians — Verzeichnis aktueller Shows',
+            ogDescription: 'Aktuell verifizierte englischsprachige Comedyshows in Paris, nach Venue sortiert mit Infos zu Veranstaltern und aktiven Links.',
+            twitterTitle: 'Paris Comedy für Comedians',
+            twitterDescription: 'Verifizierte englischsprachige Comedyshows in Paris, nach Venue sortiert mit aktiven Links.'
+        },
+        ja: {
+            title: 'Paris Comedy for Comedians — 最新ショーディレクトリ',
+            description: 'コメディアン向けの実用リソース。パリで現在確認済みの英語コメディショーを会場ごとに整理し、予約リンク、主催者情報、住所、有料掲載オプションをまとめています。',
+            ogTitle: 'Paris Comedy for Comedians — 最新ショーディレクトリ',
+            ogDescription: 'パリで現在確認済みの英語コメディショーを会場ごとに整理し、主催者情報と予約リンクを掲載。',
+            twitterTitle: 'Paris Comedy for Comedians',
+            twitterDescription: 'パリで現在確認済みの英語コメディショーを会場ごとに整理したディレクトリ。'
+        },
+        zh: {
+            title: 'Paris Comedy 面向喜剧演员 — 当前演出目录',
+            description: '给喜剧演员用的实用资源：巴黎当前已核实的英文喜剧演出，按场地分组，附带有效链接、主理人、地址和付费展示选项。',
+            ogTitle: 'Paris Comedy 面向喜剧演员 — 当前演出目录',
+            ogDescription: '巴黎当前已核实的英文喜剧演出，按场地分组，附主理人信息和有效链接。',
+            twitterTitle: 'Paris Comedy 面向喜剧演员',
+            twitterDescription: '巴黎已核实的英文喜剧演出目录，按场地分组并附有效链接。'
+        },
+        ko: {
+            title: 'Paris Comedy 코미디언 가이드 — 현재 쇼 디렉터리',
+            description: '코미디언을 위한 실전 자료입니다. 현재 검증된 파리의 영어 코미디 쇼를 공연장별로 정리하고, 예매 링크, 진행자 정보, 주소, 유료 노출 옵션까지 함께 제공합니다.',
+            ogTitle: 'Paris Comedy 코미디언 가이드 — 현재 쇼 디렉터리',
+            ogDescription: '현재 검증된 파리의 영어 코미디 쇼를 공연장별로 정리하고 진행자 정보와 링크를 제공합니다.',
+            twitterTitle: 'Paris Comedy 코미디언 가이드',
+            twitterDescription: '파리의 검증된 영어 코미디 쇼를 공연장별로 정리한 디렉터리.'
+        },
     }
 };
 
