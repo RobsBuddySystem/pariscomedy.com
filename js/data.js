@@ -244,7 +244,7 @@ const KEY_PLAYERS = [
       bioFr:'Humoriste américaine installée à Paris depuis plus de 12 ans. Elle a fait la première partie de Jerry Seinfeld et tourné avec Gad Elmaleh.',
       bioEs:'Comediante estadounidense en París desde hace más de 12 años. Abrió para Jerry Seinfeld y giró con Gad Elmaleh.' },
     { id:'robert', name:'Robert Hoehn', title:'Early Builder', emoji:'🍟',
-      instagram:'https://www.instagram.com/robertjhoehn/',
+      instagram:'https://www.instagram.com/Robertlericain/',
       bio:'American bilingual comedian and one of the early builders of the Paris English-language comedy scene. He launched French Fried Comedy Night in 2013 at Paname Art Café, helped give Paul Taylor one of his first regular stages, and produced and directed "La Bise" — the viral video that helped map the scene for a wider audience. He belongs in the timeline and listings as a key historical reference point.',
       bioFr:'Humoriste américain bilingue qui a fondé French Fried Comedy Night en 2013 au Paname Art Café — le plus ancien spectacle de stand-up en anglais encore en activité à Paris. Il a donné à Paul Taylor sa première scène régulière et a produit et réalisé \"La Bise\". Maintenant au Velvet Bar à Pigalle chaque mercredi.',
       bioEs:'Comediante estadounidense bilingüe y uno de los primeros constructores de la escena anglófona en París. Lanzó French Fried Comedy Night en 2013 en Paname Art Café, dio a Paul Taylor uno de sus primeros escenarios regulares y produjo/dirigió "La Bise". Aparece aquí como referencia histórica importante.' },
