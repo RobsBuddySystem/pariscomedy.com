@@ -75,7 +75,7 @@ const CURRENT_SHOWS_CUTOFF = new Date('2025-10-06T00:00:00+02:00');
 const OTHER_SHOWS_RAW = [
     { id:'kuhl-open-mic', name:'Kuhl Comedy Open Mic', venue:'toloache', venueName:'Toloache', address:'Paris', day:'Tuesday', time:'19:30', type:'openmic', emoji:'🎙️',
       description:'English stand-up open mic at Toloache every Tuesday at 19:30. Run by Kuhl Comedy — a friendly room for new voices and regulars alike.',
-      descFr:'Scène ouverte de stand-up en anglais chez Toloache chaque mardi à 19h30. Un room convivial pour les nouveaux comme pour les habitués.',
+      descFr:'Scène ouverte de stand-up en anglais chez Toloache chaque mardi à 19h30. Une salle conviviale pour les nouveaux comme pour les habitués.',
       bookingUrl:'https://www.eventbrite.fr/e/stand-up-open-mic-in-english-by-kuhl-comedy-tickets-1760885549079', paid:false,
       runner:'Kuhl Comedy', verificationSource:'Eventbrite', verifiedAt:'2026-04-05', showUrl:'https://www.eventbrite.fr/e/stand-up-open-mic-in-english-by-kuhl-comedy-tickets-1760885549079' },
     { id:'green-light', name:'Green Light Comedy', venue:'les-marquises', venueName:'Les Marquises', address:'Paris', day:'Tuesday', time:'20:15', type:'standup', emoji:'🟢',
