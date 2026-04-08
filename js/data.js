@@ -453,7 +453,17 @@ const TRANSLATIONS = {
         about: { title:'关于 Paris Comedy', what:'这是什么？', team:'谁在运营？', teamDesc:'Paris Comedy 由一群喜剧爱好者运营，他们相信巴黎的英语喜剧值得在互联网上拥有一个真正的家。', contactUs:'联系我们' },
         history: { title:'巴黎英语喜剧史', intro:'从一个有梦想的纽约人到每周30场已核实演出 — 巴黎如何成为欧洲最重要的英语喜剧城市之一。', keyPlayers:'关键人物', notableVisitors:'著名访客', visitorsIntro:'曾在巴黎舞台上表演的国际喜剧演员：', stages:'成长阶段' }
     },
-    ko: {},
+    ko: {
+        nav: { home:'홈', shows:'쇼', calendar:'캘린더', history:'역사', venues:'공연장', book:'쇼 예약', about:'소개' },
+        hero: { info:'🎟️ 좌석 예약 · 🍺 1인 1음료 · 🎩 공연자 팁', tag:'🇫🇷 파리에서 매주 열리는 이중언어 코미디', title:'Paris <span class="gradient-text">Comedy</span>', subtitle:'파리 영어 코미디의 홈', desc:'프랑스어와 영어로 즐기는 라이브 스탠드업. 오픈 마이크, 쇼케이스, 그리고 전설적인 French Fried Comedy Night까지. 매주 파리에서 만나요.', cta:'🎟️ 좌석 예약', browse:'쇼 둘러보기' },
+        stats: { shows:'30', showsLabel:'주간 쇼', venues:'23', venuesLabel:'공연장', bilingual:'FR+EN', bilingualLabel:'이중언어', est:'~2010', estLabel:'시작' },
+        sections: { featuredShows:'이번 주 추천 쇼', allShows:'전체 쇼', showsSub:'스탠드업과 오픈 마이크 — 매주 파리 곳곳에서', calendar:'캘린더', calendarSub:'날짜를 눌러 공연 확인', venues:'공연장 지도', venuesSub:'파리에서 코미디가 열리는 곳', bookShow:'쇼 예약', bookCTA:'프라이빗 쇼 문의', newsletter:'쇼 알림 받기', newsletterSub:'다가오는 쇼를 매주 이메일로 보내드립니다. 스팸 없이, 웃음만.', subscribe:'구독', quoteTitle:'이번 주 코미디 명언', videoTitle:'최신 클립', supportTitle:'씬 응원하기', testimonials:'관객 후기' },
+        filters: { all:'전체', standup:'스탠드업', openmic:'오픈 마이크' },
+        footer: { copyright:'© 2026 Paris Comedy · Made with 🍟 in Paris', tagline:'파리 영어 코미디의 홈. 약 2010년 시작.', contact:'문의', legal:'법적 고지', privacy:'개인정보', terms:'이용약관', pages:'페이지', comedians:'코미디언용', contactForm:'문의 폼' },
+        book: { perform:'무대에 서고 싶나요?', performDesc:'5분 분량의 소재와 약간의 배짱만 있으면 됩니다. 공연 문의 메일을 보내세요. 우리는 매주 수요일 오픈 마이크를 엽니다 — 실력 무관 환영.', corporate:'코미디언 섭외', corporateDesc:'기업 행사, 프라이빗 파티, 페스티벌, 팀빌딩 — 행사에 맞는 코미디언을 연결해 드립니다. 이중언어 공연자도 가능합니다.', list:'당신의 쇼 등록', listDesc:'파리에서 영어 코미디 나이트를 운영하시나요? 월 1유로로 pariscomedy.com에 소개할 수 있습니다.', contact:'문의하기', name:'이름', email:'이메일', message:'메시지', send:'보내기' },
+        about: { title:'Paris Comedy 소개', what:'이 사이트는?', team:'누가 운영하나요?', teamDesc:'Paris Comedy는 파리의 영어 코미디가 인터넷에서 제대로 된 집을 가져야 한다고 믿는 코미디 애호가들이 운영합니다.', contactUs:'문의하기' },
+        history: { title:'파리 영어 코미디의 역사', intro:'꿈을 품은 한 뉴요커에서 출발해 주간 30개의 검증된 쇼까지 — 파리가 어떻게 유럽에서 가장 중요한 영어 코미디 도시 중 하나가 되었는지.', keyPlayers:'핵심 인물', notableVisitors:'주목할 방문자', visitorsIntro:'파리 무대에 섰던 국제 코미디언들:', stages:'성장의 단계' }
+    },
 
 };
 
@@ -604,7 +614,30 @@ const PAGE_COPY = {
     history: { playerTitles:{ seb:'先驱', paul:'破圈人物', sarah:'女王', robert:'早期建设者', tamer:'重磅人物' } },
     comedians: { stats:'目前共有 {venues} 个场地的 {shows} 场已验证演出。最近一次核验：{latest}。', addressPending:'地址待确认', verifiedCount:'已验证 {count} 场', runner:'主理人', notConfirmed:'尚未确认', verifiedVia:'于 {date} 通过 {source} 核验', recently:'最近', manualReview:'人工复核', openListing:'打开条目' }
   },
-  ko: {},
+  ko: {
+    header: { subtitle:'무대에 서고, 코미디언을 섭외하고, pariscomedy.com에 쇼를 등록하세요', title:'Paris Comedy 소개' },
+    listing: { title:'쇼 등록하기' },
+    contact: { subtitle:'아래 양식을 작성하거나 인스타그램 DM을 보내세요 — 빠르게 답장합니다.' },
+    faq: { title:'자주 묻는 질문' },
+    book: {
+      listingIntro:'파리에서 영어 코미디 나이트를 운영하시나요? pariscomedy.com에 소개되세요 — 파리 영어 코미디 1위 가이드입니다.',
+      performCta:'📧 문의하기',
+      corporateCta:'📧 견적 받기',
+      basic:{ title:'기본 등록', feat1:'✅ 쇼 이름과 설명', feat2:'✅ 공연장과 일정 캘린더 노출', feat3:'❌ 티켓 링크 없음', cta:'시작하기' },
+      pro:{ badge:'가장 인기', title:'프로 등록', feat1:'✅ 기본 등록 전체 포함', feat2:'✅ 직접 티켓/예약 링크', feat3:'✅ 실선 카드 디자인', feat4:'✅ 지도에 공연장 핀 표시', feat5:'✅ 이메일 리스트 관리', feat6:'✅ 주 1회 대량 이메일 포함', cta:'프로 시작' },
+      full:{ title:'풀서비스 예약', feat1:'✅ 프로 등록 전체 포함', feat2:'✅ 전체 예약 운영 관리', feat3:'✅ 당신의 리스트에 주 1회 대량 이메일', feat4:'✅ 자동 이메일 캠페인', feat5:'✅ pariscomedy.com 전용 쇼 페이지', feat6:'✅ 캘린더 우선 배치', feat7:'✅ 프로모 이메일 제작 및 발송', cta:'풀서비스 선택' },
+      proof:{ badge:'📈 주최자가 여기 등록하는 이유', heading:'파리의 관광객과 외국인 거주자들은 이미 여기서 코미디를 찾고 있습니다.', p1:'오늘 점검 결과 예약 링크 상태는 양호합니다: <strong>현재 등록 29/29건 라이브 검증 완료</strong>. 즉, 누군가 pariscomedy.com에 들어와 당신의 쇼를 클릭하면 죽은 링크가 아니라 실제 예약 페이지로 이동합니다. 이 사이트는 발견을 예약으로 바꾸기 위해 만들었습니다.', p2:'주최자에게 이게 핵심 가치입니다: 구매 의도가 높은 트래픽, 깔끔한 링크, 그리고 <em>오늘 밤 파리 코미디</em>, <em>파리 영어 스탠드업</em>, <em>피갈에서 뭐 하지</em>를 검색하는 사람들에게 빠르게 발견되는 것.', stat1:'라이브 검증된 활성 예약 링크', stat2:'가이드에서 당신의 쇼를 발견 가능하게', stat3:'관광객·외국인·현지인을 위한 이중언어 포지셔닝', quote:'“Wrong Language, Right Feeling”은 이미 전환 문구로 잘 작동합니다. 파리의 외국인 커뮤니티에 자연스럽게 들리기 때문이죠. 쇼에 뚜렷한 분위기가 있다면 그렇게 패키징할 수 있습니다.', cta:'🚀 내 쇼 등록하기' },
+      fringe:{ badge:'🏴 에든버러 프린지 2026 · 프리뷰 시즌', heading:'에든버러 전에 한 시간 분량을 테스트하시나요?<br>파리는 완벽한 프리뷰 도시입니다.', desc:'따뜻하고, 이중언어이며, 코미디를 사랑하는 관객들. FFCN은 2013년부터 계속되어 왔습니다. 객석을 채우고 프로모션까지 맡아드리니, 이미 무대를 다져 놓은 상태로 에든버러에 들어갈 수 있습니다.', feat1:'✅ 파리 프리뷰 슬롯 (수/금/토)', feat2:'✅ Eventbrite + pariscomedy.com 등록', feat3:'✅ 파리 관객 대상 이메일 발송', feat4:'✅ 인스타그램 프로모 게시물 포함', feat5:'✅ 프로 등록 €5/월 또는 풀서비스 €30/월', cta:'🏴 프리뷰 슬롯 예약', secondary:'씬 보기 →' },
+      sunday:{ badge:'🗓️ 일요일 주요 슬롯 오픈', heading:'파리에서 일요일 쇼가 필요하신가요?', desc:'기업 브런치, 프라이빗 생일 파티, 외국인 모임, 팀 오프사이트 — 이중언어 코미디언 섭외와 홍보/등록 지원으로 객석을 빠르게 채워드립니다.', cta:'⚡ 일요일 슬롯 예약', response:'목표 응답: 당일' },
+      quickBrief:{ badge:'⚡ 빠른 브리프', heading:'처음부터 쓰기 싫다면 가장 가까운 브리프를 고르세요.', desc:'지금 가장 빨리 전환되는 건 여전히 기업/프라이빗 행사와 비어 있는 일요일 슬롯입니다. 이 버튼들은 폼을 미리 채워 한 번에 쓸 만한 요청을 보내게 해줍니다.', response:'당일 견적 요청에 적합', sunday:'🌞 일요일 프라이빗 이벤트', corporate:'🏢 기업 / 팀 이벤트', listing:'📋 공연장 또는 새 쇼 등록' },
+      messagePlaceholder:'원하시는 내용을 알려주세요...',
+      formNote:'수정 요청과 새 쇼 제안은 먼저 검토한 뒤, 확인되면 공개 디렉터리에 반영됩니다.',
+      faq:{ q1:'오픈 마이크는 어떻게 신청하나요?', a1:'수요일 19:00에 Velvet Bar에 오셔서 이름을 올리세요. 선착순이며 1인당 5분입니다.', q2:'공연하려면 비용이 드나요?', a2:'공연자에게는 비용이 없습니다. 좌석을 예약하고, 1인 1음료가 있으며, 마지막에 팁 모자를 돌립니다. 우리는 웃음을 위해 합니다.', q3:'프랑스어를 해야 하나요?', a3:'아니요. 쇼는 영어로 진행되며 일부는 이중언어입니다. 프랑스어는 있으면 좋지만 필수는 아닙니다.', q4:'기업 행사에 코미디언을 섭외할 수 있나요?', a4:'물론입니다. <a href="#contactForm" onclick="document.getElementById(\'contactSubject\').value=\'Book a comedian\'">위 양식을 작성</a>하고 행사 정보를 보내주시면 맞는 코미디언을 연결해 드립니다.', q5:'파리에서 코미디 쇼를 운영합니다. 등록할 수 있나요?', a5:'네. pariscomedy.com이 파리 영어 코미디의 완전한 가이드가 되길 원합니다. <a href="#contactForm" onclick="document.getElementById(\'contactSubject\').value=\'Get Listed\'">위 양식을 사용</a>하면 검토 후 공개 디렉터리에 반영합니다.' }
+    },
+    venues: { actions:{ map:'지도 열기', walk:'길찾기', transit:'대중교통', drive:'자동차', pending:'정확한 지도 링크는 아직 확인 중입니다.' }, map:{ tba:'공연 정보 예정' }, other:{ title:'파리의 다른 코미디 공연장', sub:'이 공연장들도 영어 코미디를 엽니다. 예약 링크까지 포함해 소개하고 싶으신가요?', cta:'등록하기', claim:'아직 등록되지 않은 쇼', claimCta:'이 항목 요청하기' } },
+    history: { playerTitles:{ seb:'개척자', paul:'브레이크아웃 스타', sarah:'여왕', robert:'초기 구축자', tamer:'헤비히터' } },
+    comedians: { nav:'코미디언용', contactNav:'문의', title:'코미디언을 위한 파리 코미디 쇼', subtitle:'무료 참고 + 제안 페이지입니다. 최근 활동이 검증된 쇼만 여기에 남습니다.', howTitle:'이 페이지가 작동하는 방식', howP1:'이 페이지는 배타적인 리스트가 아니라, 실제로 도움이 되는 공개 참고용 페이지입니다. 6개월 안에 검증 가능한 활동이 없으면 다시 확인될 때까지 현재 디렉터리에서 빠집니다.', howP2:'잘못된 정보, 누락된 정보, 새로 시작한 쇼가 있다면 Paris Comedy 문의 폼으로 보내주세요. Chuck이 수정과 새 제안을 검토하고, 확인된 내용만 공개 데이터 레이어에 반영합니다. 확실하지 않은 것은 추측하지 않고 수동 검토로 넘깁니다.', helper:'공연장별 정리 · 작동하는 링크 · 쇼 러너 정보(가능할 경우) · 공개 데이터 레이어 기반 업데이트 · Chuck 검토 · 유료 등록은 월 1€부터', cta:'수정 보내기 / 쇼 추가하기 →', footerBlurb:'코미디언, 관객, 쇼 러너를 위한 무료 참고 페이지.', pages:'페이지', needFix:'수정이 필요하신가요?', sendUpdate:'업데이트 보내기', stats:'현재 {venues}개 공연장에 {shows}개의 검증된 쇼가 있습니다. 최근 검증일: {latest}.', addressPending:'주소 확인 중', verifiedCount:'검증된 쇼 {count}개', runner:'쇼 러너', notConfirmed:'아직 확인되지 않음', verifiedVia:'{date}에 {source}를 통해 검증', recently:'최근', manualReview:'수동 검토', openListing:'항목 열기' }
+  },
 
 };
 
