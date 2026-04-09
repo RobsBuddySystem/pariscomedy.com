@@ -235,6 +235,16 @@ function pageCopy(path, fallback = '') {
     return obj ?? fallback;
 }
 
+function getBookingLinksVerifiedCount() {
+    return [...(typeof SHOWS !== 'undefined' ? SHOWS : []), ...(typeof OTHER_SHOWS !== 'undefined' ? OTHER_SHOWS : [])]
+        .filter(show => show.bookingUrl).length;
+}
+
+function getBookingLinksVerifiedLabel() {
+    const count = getBookingLinksVerifiedCount();
+    return `${count}/${count}`;
+}
+
 function applyTranslations() {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
@@ -246,8 +256,11 @@ function applyTranslations() {
         if (val) el.placeholder = val;
     });
     document.querySelectorAll('[data-page-copy]').forEach(el => {
-        const val = pageCopy(el.dataset.pageCopy, el.innerHTML);
-        if (val) el.innerHTML = val;
+        let val = pageCopy(el.dataset.pageCopy, el.innerHTML);
+        if (val) {
+            val = val.replaceAll('{bookingLinksVerified}', getBookingLinksVerifiedLabel());
+            el.innerHTML = val;
+        }
     });
     document.querySelectorAll('[data-page-copy-placeholder]').forEach(el => {
         const val = pageCopy(el.dataset.pageCopyPlaceholder, el.placeholder || '');
@@ -281,6 +294,9 @@ function initNav() {
 
 /* ─── Page-specific init ─── */
 function initPage() {
+    document.querySelectorAll('[data-booking-proof-count]').forEach(el => {
+        el.textContent = getBookingLinksVerifiedLabel();
+    });
     const page = document.body.dataset.page || 'home';
     if (page === 'home') {
         renderTonightBanner();
