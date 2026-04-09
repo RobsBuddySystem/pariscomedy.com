@@ -626,23 +626,19 @@ function renderFeaturedShows() {
     if (!grid) return;
     const featuredMain = SHOWS.filter(s => s.featured);
     const featuredOther = (typeof OTHER_SHOWS !== 'undefined' ? OTHER_SHOWS : []).filter(s => s.featured);
-    const frenchLead = currentLang === 'fr'
-        ? getUpcomingFrenchShowOccurrences(10).slice(0, 2).map(show => ({ ...show, languageBadge: 'fr' }))
-        : [];
     const velvetLead = featuredMain.find(show => show.id === 'velvet-comedy') || featuredMain[0] || null;
     const ffcnLead = featuredMain.find(show => show.id === 'ffcn') || featuredMain[0] || null;
     const preferredLeadId = currentLang === 'fr' ? velvetLead?.id : ffcnLead?.id;
-    const dedupedFeatured = [...frenchLead, ...featuredMain, ...featuredOther].filter((show, index, arr) =>
-        arr.findIndex(candidate => candidate.id === show.id && candidate.languageBadge === show.languageBadge) === index
+    const dedupedFeatured = [...featuredMain, ...featuredOther].filter((show, index, arr) =>
+        arr.findIndex(candidate => candidate.id === show.id) === index
     );
 
     const leadItems = [];
     const remainingItems = [];
 
     dedupedFeatured.forEach(show => {
-        const isFrenchLead = currentLang === 'fr' && show.languageBadge === 'fr';
-        const isPreferredPrimary = !show.languageBadge && show.id === preferredLeadId;
-        if (isFrenchLead || isPreferredPrimary) {
+        const isPreferredPrimary = show.id === preferredLeadId;
+        if (isPreferredPrimary) {
             leadItems.push(show);
         } else {
             remainingItems.push(show);
@@ -651,19 +647,7 @@ function renderFeaturedShows() {
 
     const allFeatured = [...leadItems, ...remainingItems];
 
-    grid.innerHTML = allFeatured.map(s => s.languageBadge === 'fr'
-        ? `<article class="show-card" data-reveal>
-            <div class="show-card-img" style="background:linear-gradient(135deg,#123047,#1d4b66);">${s.emoji || '🇫🇷'}</div>
-            <div class="show-card-body">
-                <span class="show-card-type type-standup">🇫🇷 En français</span>
-                <h3 class="show-card-title">${s.name}</h3>
-                <p class="show-card-venue">📍 ${s.venueName || 'Paris'}</p>
-                <p class="show-card-time">🕐 ${s.day} à ${s.time || 'horaire à confirmer'}</p>
-                <p class="show-card-desc">${s.description}</p>
-                <div class="show-card-footer">${s.bookingUrl ? `<a href="${s.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ Réserver →</a>` : '<span class="show-card-badge">Découvrir la salle</span>'}</div>
-            </div>
-        </article>`
-        : (s.id ? renderShowCard(s) : renderFeaturedShowCard(s))).join('');
+    grid.innerHTML = allFeatured.map(s => renderShowCard(s)).join('');
 }
 
 function renderAllShows(filter = 'all') {
