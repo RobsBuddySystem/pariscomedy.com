@@ -140,7 +140,7 @@ const OTHER_SHOWS_RAW = [
       runner:'Kiss Comedy Club', verificationSource:'Eventbrite', verifiedAt:'2026-04-05', showUrl:'https://www.eventbrite.fr/e/kiss-comedy-club-tickets-1935245083139' },
     { id:'south-comedy', name:'South Comedy Club', venue:'comedie-cafe', venueName:'Comédie Café', address:'Paris', day:'Wednesday', time:'20:00', type:'standup', emoji:'☀️',
       description:'One of the busiest English comedy rooms in Paris with a deep recurring calendar.',
-      descFr:'L’un des rooms de comédie en anglais les plus actifs de Paris, avec un calendrier dense.',
+      descFr:'L’une des salles de comédie en anglais les plus actives de Paris, avec un calendrier dense.',
       bookingUrl:'https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259', paid:false,
       runner:'South Comedy Club', verificationSource:'Eventbrite', verifiedAt:'2026-04-05', showUrl:'https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259' },
     { id:'theatre-bo-julie', name:'Oh My God She\'s Parisian! — Julie Coulon', venue:'theatre-bo', venueName:'Théâtre BO Saint-Martin', address:'19 Boulevard Saint-Martin, 75003 Paris', day:['Friday','Saturday'], time:'20:15', type:'standup', emoji:'🎭', featured:true,
