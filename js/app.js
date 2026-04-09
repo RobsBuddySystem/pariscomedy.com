@@ -128,6 +128,64 @@ const META_TRANSLATIONS = {
             twitterTitle: 'Paris Comedy 코미디언 가이드',
             twitterDescription: '파리의 검증된 영어 코미디 쇼를 공연장별로 정리한 디렉터리.'
         },
+    },
+    blog: {
+        en: {
+            title: 'Paris Comedy Blog — Shows, Scene Guides, and Comedy Tips in Paris',
+            description: 'Comedy-only coverage for Paris: practical guides for audiences and comedians, scene notes, neighborhood picks, and live show context tied to the current Paris Comedy directory.',
+            ogTitle: 'Paris Comedy Blog — Shows, Scene Guides, and Comedy Tips in Paris',
+            ogDescription: 'Find comedy guides, scene notes, and practical Paris show intel for audiences and comedians.',
+            twitterTitle: 'Paris Comedy Blog',
+            twitterDescription: 'Comedy-only coverage for Paris: show guides, scene notes, and practical tips.'
+        },
+        fr: {
+            title: 'Blog Paris Comedy — guides, scène et conseils stand-up à Paris',
+            description: 'Un blog 100 % comédie à Paris : guides pratiques pour le public et les humoristes, notes de scène, sélections par quartier et contexte utile relié au répertoire Paris Comedy.',
+            ogTitle: 'Blog Paris Comedy — guides, scène et conseils stand-up à Paris',
+            ogDescription: 'Guides spectacles, notes de scène et infos utiles sur la comédie à Paris pour le public et les humoristes.',
+            twitterTitle: 'Blog Paris Comedy',
+            twitterDescription: 'Couverture 100 % comédie à Paris : guides spectacles, infos de scène et conseils pratiques.'
+        },
+        es: {
+            title: 'Blog de Paris Comedy — guías, escena y consejos de comedia en París',
+            description: 'Cobertura solo de comedia en París: guías prácticas para público y comediantes, notas sobre la escena, selecciones por barrios y contexto útil conectado al directorio de Paris Comedy.',
+            ogTitle: 'Blog de Paris Comedy — guías, escena y consejos de comedia en París',
+            ogDescription: 'Guías de shows, notas de la escena y contexto práctico sobre la comedia en París para público y comediantes.',
+            twitterTitle: 'Blog de Paris Comedy',
+            twitterDescription: 'Cobertura solo de comedia en París: guías de shows, notas de la escena y consejos prácticos.'
+        },
+        de: {
+            title: 'Paris Comedy Blog — Show-Guides, Szenenotizen und Comedy-Tipps in Paris',
+            description: 'Nur Comedy aus Paris: praktische Guides für Publikum und Comedians, Szenenotizen, Viertel-Empfehlungen und nützlicher Live-Kontext rund um das aktuelle Paris-Comedy-Verzeichnis.',
+            ogTitle: 'Paris Comedy Blog — Show-Guides, Szenenotizen und Comedy-Tipps in Paris',
+            ogDescription: 'Comedy-Guides, Szenenotizen und praktische Paris-Infos für Publikum und Comedians.',
+            twitterTitle: 'Paris Comedy Blog',
+            twitterDescription: 'Comedy-only für Paris: Show-Guides, Szenenotizen und praktische Tipps.'
+        },
+        ja: {
+            title: 'Paris Comedyブログ — パリのショーガイド、シーン情報、コメディ実用メモ',
+            description: 'パリのコメディだけを扱うブログ。観客とコメディアン向けの実用ガイド、シーンノート、エリア別おすすめ、そしてParis Comedyの現行ディレクトリにつながるライブ情報を掲載。',
+            ogTitle: 'Paris Comedyブログ — パリのショーガイド、シーン情報、コメディ実用メモ',
+            ogDescription: 'ショーガイド、シーン情報、観客とコメディアン向けのパリ実用コメディ情報。',
+            twitterTitle: 'Paris Comedyブログ',
+            twitterDescription: 'パリのコメディ専門ブログ。ショーガイド、シーン情報、実用ヒントを掲載。'
+        },
+        zh: {
+            title: 'Paris Comedy 博客 — 巴黎喜剧演出指南、现场情报与实用建议',
+            description: '专注巴黎喜剧内容：为观众和喜剧演员提供实用指南、现场观察、街区推荐，以及与 Paris Comedy 当前目录联动的演出背景信息。',
+            ogTitle: 'Paris Comedy 博客 — 巴黎喜剧演出指南、现场情报与实用建议',
+            ogDescription: '面向观众和喜剧演员的巴黎喜剧演出指南、现场情报与实用信息。',
+            twitterTitle: 'Paris Comedy 博客',
+            twitterDescription: '专注巴黎喜剧：演出指南、现场情报与实用建议。'
+        },
+        ko: {
+            title: 'Paris Comedy 블로그 — 파리 쇼 가이드, 씬 노트, 코미디 팁',
+            description: '파리 코미디만 다루는 블로그입니다. 관객과 코미디언을 위한 실용 가이드, 씬 노트, 동네별 추천, 그리고 현재 Paris Comedy 디렉터리와 연결되는 라이브 쇼 맥락을 제공합니다.',
+            ogTitle: 'Paris Comedy 블로그 — 파리 쇼 가이드, 씬 노트, 코미디 팁',
+            ogDescription: '관객과 코미디언을 위한 파리 코미디 쇼 가이드, 씬 노트, 실전 정보.',
+            twitterTitle: 'Paris Comedy 블로그',
+            twitterDescription: '파리 코미디 전용 블로그: 쇼 가이드, 씬 노트, 실용 팁.'
+        }
     }
 };
 
