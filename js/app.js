@@ -1343,7 +1343,7 @@ function renderGrowthChart() {
         { year: '2022', shows: 6 },
         { year: '2024', shows: 8 },
         { year: '2025', shows: 14 },
-        { year: '2026', shows: 29 }
+        { year: '2026', shows: 30 }
     ];
     const maxShows = Math.max(...data.map(d => d.shows));
     container.innerHTML = data.map(d => {
