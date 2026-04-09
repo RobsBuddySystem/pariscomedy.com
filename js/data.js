@@ -219,8 +219,13 @@ const OTHER_SHOWS_RAW = [
       bookingUrl:'https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-214634947907', paid:false,
       runner:'Green Mic', verificationSource:'Eventbrite', verifiedAt:'2026-04-05', showUrl:'https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-214634947907' },
 
+    { id:'broadway-comedy-club', name:'Broadway Comedy Club - Paris', venue:'bonne-nouvelle', venueName:'25 Bd de Bonne Nouvelle', address:'25 Bd de Bonne Nouvelle, 75002 Paris', day:'daily', time:'19:00', type:'standup', emoji:'🎬', paid:true,
+      description:'Daily English and bilingual stand-up near Bonne Nouvelle with a high-volume schedule and one of the deepest recurring calendars in central Paris.',
+      descFr:'Stand-up en anglais et bilingue tous les soirs près de Bonne Nouvelle, avec un calendrier très dense au cœur de Paris.',
+      bookingUrl:'https://www.eventbrite.com/e/billets-broadway-comedy-club-paris-1978410990530',
+      runner:'Broadway Comedy Club Paris', verificationSource:'Eventbrite', verifiedAt:'2026-04-09', showUrl:'https://www.eventbrite.com/e/billets-broadway-comedy-club-paris-1978410990530' },
+
     /* stale / not recent enough for public current layer */
-    { id:'broadway-archive', name:'Broadway Comedy Club Paris', venueName:'25 Bd de Bonne Nouvelle', day:'daily', time:'19:00', type:'standup', emoji:'🎬', paid:true, bookingUrl:'https://www.eventbrite.com/e/billets-broadway-comedy-club-paris-1978410990530', runner:'Broadway Comedy Club Paris', verificationSource:'Eventbrite', verifiedAt:'2025-08-01', archived:true },
     { id:'paname-archive', name:'Paname English Stand-Up', venueName:'Paname Art Café', day:'Tuesday', time:'17:30', type:'standup', emoji:'🎤', paid:false, bookingUrl:'https://www.billetreduc.com/recherche.htm?q=stand+up+paname+art+cafe', runner:'Paname Art Café', verificationSource:'BilletReduc', verifiedAt:'2025-07-01', archived:true }
 ];
 
