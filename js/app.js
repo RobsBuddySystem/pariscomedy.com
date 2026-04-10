@@ -16,59 +16,59 @@ const META_TRANSLATIONS = {
     home: {
         en: {
             title: 'Paris Comedy — The Home of English-Language Comedy in Paris',
-            description: 'The home of English-language comedy in Paris. 30 verified weekly shows, 23 current venues. French Fried Comedy Night, Velvet Bar Comedy, and more. Reserve your spot on Eventbrite.',
+            description: 'The home of English-language comedy in Paris. {showCount} verified weekly shows, {venueCount} current venues. French Fried Comedy Night, Velvet Bar Comedy, and more. Reserve your spot on Eventbrite.',
             ogTitle: 'Paris Comedy — English-Language Comedy in Paris',
-            ogDescription: '30 verified weekly shows in English & French across 23 current venues. Open mics, showcases, and the legendary French Fried Comedy Night. Reserve your spot.',
+            ogDescription: '{showCount} verified weekly shows in English & French across {venueCount} current venues. Open mics, showcases, and the legendary French Fried Comedy Night. Reserve your spot.',
             twitterTitle: 'Paris Comedy — English Comedy in Paris',
-            twitterDescription: '30 verified weekly English comedy shows in Paris. Reserve your spot.'
+            twitterDescription: '{showCount} verified weekly English comedy shows in Paris. Reserve your spot.'
         },
         fr: {
             title: 'Paris Comedy — Le rendez-vous du stand-up en anglais à Paris',
-            description: 'Le point de repère du stand-up en anglais à Paris. 30 spectacles hebdomadaires vérifiés, 23 salles actuelles. French Fried Comedy Night, Velvet Bar Comedy et plus encore.',
+            description: 'Le point de repère du stand-up en anglais à Paris. {showCount} spectacles hebdomadaires vérifiés, {venueCount} salles actuelles. French Fried Comedy Night, Velvet Bar Comedy et plus encore.',
             ogTitle: 'Paris Comedy — Stand-up en anglais à Paris',
-            ogDescription: '30 spectacles hebdomadaires vérifiés en anglais et en français dans 23 salles actuelles. Open mics, plateaux et la légendaire French Fried Comedy Night.',
+            ogDescription: '{showCount} spectacles hebdomadaires vérifiés en anglais et en français dans {venueCount} salles actuelles. Open mics, plateaux et la légendaire French Fried Comedy Night.',
             twitterTitle: 'Paris Comedy — Stand-up à Paris',
-            twitterDescription: '30 spectacles de stand-up vérifiés chaque semaine à Paris. Réservez votre place.'
+            twitterDescription: '{showCount} spectacles de stand-up vérifiés chaque semaine à Paris. Réservez votre place.'
         },
         es: {
             title: 'Paris Comedy — La casa de la comedia en inglés en París',
-            description: 'La referencia de la comedia en inglés en París. 30 shows semanales verificados y 23 salas activas. French Fried Comedy Night, Velvet Bar Comedy y más.',
+            description: 'La referencia de la comedia en inglés en París. {showCount} shows semanales verificados y {venueCount} salas activas. French Fried Comedy Night, Velvet Bar Comedy y más.',
             ogTitle: 'Paris Comedy — Comedia en inglés en París',
-            ogDescription: '30 shows semanales verificados en inglés y francés en 23 salas activas. Open mics, showcases y la legendaria French Fried Comedy Night.',
+            ogDescription: '{showCount} shows semanales verificados en inglés y francés en {venueCount} salas activas. Open mics, showcases y la legendaria French Fried Comedy Night.',
             twitterTitle: 'Paris Comedy — Comedia en París',
-            twitterDescription: '30 shows de comedia verificados cada semana en París. Reserva tu lugar.'
+            twitterDescription: '{showCount} shows de comedia verificados cada semana en París. Reserva tu lugar.'
         },
         de: {
             title: 'Paris Comedy — Die Heimat der englischsprachigen Comedy in Paris',
-            description: 'Die Anlaufstelle für englischsprachige Comedy in Paris. 30 verifizierte wöchentliche Shows an 23 aktuellen Venues. French Fried Comedy Night, Velvet Bar Comedy und mehr.',
+            description: 'Die Anlaufstelle für englischsprachige Comedy in Paris. {showCount} verifizierte wöchentliche Shows an {venueCount} aktuellen Venues. French Fried Comedy Night, Velvet Bar Comedy und mehr.',
             ogTitle: 'Paris Comedy — Englische Comedy in Paris',
-            ogDescription: '30 verifizierte wöchentliche Shows auf Englisch und Französisch an 23 aktuellen Venues. Open Mics, Showcases und die legendäre French Fried Comedy Night.',
+            ogDescription: '{showCount} verifizierte wöchentliche Shows auf Englisch und Französisch an {venueCount} aktuellen Venues. Open Mics, Showcases und die legendäre French Fried Comedy Night.',
             twitterTitle: 'Paris Comedy — Comedy in Paris',
-            twitterDescription: '30 verifizierte Comedyshows pro Woche in Paris. Reserviere deinen Platz.'
+            twitterDescription: '{showCount} verifizierte Comedyshows pro Woche in Paris. Reserviere deinen Platz.'
         },
         ja: {
             title: 'Paris Comedy — パリの英語コメディの拠点',
-            description: 'パリで英語コメディを探すならここ。毎週30本の検証済みショー、現在の会場は23か所。French Fried Comedy Night や Velvet Bar Comedy などを掲載。',
+            description: 'パリで英語コメディを探すならここ。毎週{showCount}本の検証済みショー、現在の会場は{venueCount}か所。French Fried Comedy Night や Velvet Bar Comedy などを掲載。',
             ogTitle: 'Paris Comedy — パリの英語コメディ',
-            ogDescription: '英語とフランス語の検証済みコメディショーが毎週30本、現在の会場は23か所。オープンマイク、ショーケース、French Fried Comedy Night。',
+            ogDescription: '英語とフランス語の検証済みコメディショーが毎週{showCount}本、現在の会場は{venueCount}か所。オープンマイク、ショーケース、French Fried Comedy Night。',
             twitterTitle: 'Paris Comedy — パリのコメディ',
-            twitterDescription: 'パリで毎週30本の検証済みコメディショー。席を予約。'
+            twitterDescription: 'パリで毎週{showCount}本の検証済みコメディショー。席を予約。'
         },
         zh: {
             title: 'Paris Comedy — 巴黎英文单口喜剧中心',
-            description: '巴黎英文喜剧的聚集地。每周30场已核实演出、23个当前场地。French Fried Comedy Night、Velvet Bar Comedy 等都在这里。',
+            description: '巴黎英文喜剧的聚集地。每周{showCount}场已核实演出、{venueCount}个当前场地。French Fried Comedy Night、Velvet Bar Comedy 等都在这里。',
             ogTitle: 'Paris Comedy — 巴黎英文喜剧',
-            ogDescription: '每周30场已核实的英语和法语喜剧演出，覆盖23个当前场地。开放麦、拼盘秀，以及招牌 French Fried Comedy Night。',
+            ogDescription: '每周{showCount}场已核实的英语和法语喜剧演出，覆盖{venueCount}个当前场地。开放麦、拼盘秀，以及招牌 French Fried Comedy Night。',
             twitterTitle: 'Paris Comedy — 巴黎喜剧',
-            twitterDescription: '巴黎每周30场已核实喜剧演出。立即预订。'
+            twitterDescription: '巴黎每周{showCount}场已核实喜剧演出。立即预订。'
         },
         ko: {
             title: 'Paris Comedy — 파리 영어 코미디의 허브',
-            description: '파리의 영어 코미디를 찾는 가장 쉬운 출발점. 매주 검증된 30개 쇼와 현재 운영 중인 23개 공연장을 소개합니다.',
+            description: '파리의 영어 코미디를 찾는 가장 쉬운 출발점. 매주 검증된 {showCount}개 쇼와 현재 운영 중인 {venueCount}개 공연장을 소개합니다.',
             ogTitle: 'Paris Comedy — 파리 영어 코미디',
-            ogDescription: '영어와 프랑스어 코미디 쇼 30개를 매주 확인해 보여드립니다. 오픈 마이크, 쇼케이스, French Fried Comedy Night까지 한곳에.',
+            ogDescription: '영어와 프랑스어 코미디 쇼 {showCount}개를 매주 확인해 보여드립니다. 오픈 마이크, 쇼케이스, French Fried Comedy Night까지 한곳에.',
             twitterTitle: 'Paris Comedy — 파리 코미디',
-            twitterDescription: '파리의 검증된 주간 코미디 쇼 30개. 지금 자리 예약하기.'
+            twitterDescription: '파리의 검증된 주간 코미디 쇼 {showCount}개. 지금 자리 예약하기.'
         },
     },
     comedians: {
@@ -224,13 +224,13 @@ function updateMetaForLanguage() {
     const page = document.body?.dataset.metaPage || 'home';
     const meta = (META_TRANSLATIONS[page] && (META_TRANSLATIONS[page][currentLang] || META_TRANSLATIONS[page].en)) || null;
     if (!meta) return;
-    document.title = meta.title;
-    setMetaTag('name', 'description', meta.description);
-    setMetaTag('property', 'og:title', meta.ogTitle || meta.title);
-    setMetaTag('property', 'og:description', meta.ogDescription || meta.description);
+    document.title = injectInventoryPlaceholders(meta.title);
+    setMetaTag('name', 'description', injectInventoryPlaceholders(meta.description));
+    setMetaTag('property', 'og:title', injectInventoryPlaceholders(meta.ogTitle || meta.title));
+    setMetaTag('property', 'og:description', injectInventoryPlaceholders(meta.ogDescription || meta.description));
     setMetaTag('property', 'og:locale', localeFromLang(currentLang));
-    setMetaTag('name', 'twitter:title', meta.twitterTitle || meta.ogTitle || meta.title);
-    setMetaTag('name', 'twitter:description', meta.twitterDescription || meta.ogDescription || meta.description);
+    setMetaTag('name', 'twitter:title', injectInventoryPlaceholders(meta.twitterTitle || meta.ogTitle || meta.title));
+    setMetaTag('name', 'twitter:description', injectInventoryPlaceholders(meta.twitterDescription || meta.ogDescription || meta.description));
     const url = new URL(window.location.href);
     setMetaTag('property', 'og:url', url.toString());
     const canonical = document.querySelector('link[rel="canonical"]');
@@ -303,10 +303,40 @@ function getBookingLinksVerifiedLabel() {
     return `${count}/${count}`;
 }
 
+function getInventoryStats() {
+    const showCount = (typeof ALL_CURRENT_SHOWS !== 'undefined' ? ALL_CURRENT_SHOWS.length : [
+        ...(typeof SHOWS !== 'undefined' ? SHOWS : []),
+        ...(typeof OTHER_SHOWS !== 'undefined' ? OTHER_SHOWS : [])
+    ].length);
+    const venueCount = (typeof CURRENT_SHOWS_BY_VENUE !== 'undefined' ? CURRENT_SHOWS_BY_VENUE.length : 0);
+    return { showCount, venueCount };
+}
+
+function injectInventoryPlaceholders(value) {
+    if (typeof value !== 'string') return value;
+    const { showCount, venueCount } = getInventoryStats();
+    return value
+        .replaceAll('{showCount}', String(showCount))
+        .replaceAll('{venueCount}', String(venueCount));
+}
+
+function applyInventoryCounts() {
+    const { showCount, venueCount } = getInventoryStats();
+    document.querySelectorAll('[data-inventory-count]').forEach(el => {
+        const type = el.dataset.inventoryCount;
+        if (type === 'shows') el.textContent = showCount;
+        if (type === 'venues') el.textContent = venueCount;
+    });
+    document.querySelectorAll('[data-inventory-text]').forEach(el => {
+        const template = el.dataset.inventoryText || el.textContent || '';
+        el.textContent = injectInventoryPlaceholders(template);
+    });
+}
+
 function applyTranslations() {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
-        const val = t(key);
+        const val = injectInventoryPlaceholders(t(key));
         if (val) el.innerHTML = val;
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
@@ -316,18 +346,20 @@ function applyTranslations() {
     document.querySelectorAll('[data-page-copy]').forEach(el => {
         let val = pageCopy(el.dataset.pageCopy, el.innerHTML);
         if (val) {
+            val = injectInventoryPlaceholders(val);
             val = val.replaceAll('{bookingLinksVerified}', getBookingLinksVerifiedLabel());
             el.innerHTML = val;
         }
     });
     document.querySelectorAll('[data-page-copy-placeholder]').forEach(el => {
-        const val = pageCopy(el.dataset.pageCopyPlaceholder, el.placeholder || '');
+        const val = injectInventoryPlaceholders(pageCopy(el.dataset.pageCopyPlaceholder, el.placeholder || ''));
         if (val) el.placeholder = val;
     });
     document.querySelectorAll('[data-fr]').forEach(el => {
         if (!el.dataset.defaultContent) el.dataset.defaultContent = el.innerHTML;
         el.innerHTML = currentLang === 'fr' ? el.dataset.fr : el.dataset.defaultContent;
     });
+    applyInventoryCounts();
 }
 
 /* ─── Navigation ─── */
