@@ -1601,7 +1601,8 @@ document.addEventListener('DOMContentLoaded', () => {
         es: 'Próximo show en',
         de: 'Nächste Show in',
         ja: '次のショーまで',
-        zh: '下场演出',
+        zh: '下场演出还有',
+        ko: '다음 쇼까지',
     };
 
     function getTonightShows() {
