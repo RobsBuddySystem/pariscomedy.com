@@ -13,6 +13,10 @@ a{color:inherit;text-decoration:none}
 nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #222;position:sticky;top:0;background:#0a0a0a;z-index:100}
 .nav-logo{font-size:18px;font-weight:700;letter-spacing:-0.5px}
 .nav-logo span{color:#f5c518}
+.nav-active{color:#f0f0f0!important}
+.lang-toggle{display:flex;gap:4px}
+.lang-btn{padding:4px 10px;border-radius:6px;border:1px solid #333;background:transparent;color:#888;font-size:12px;cursor:pointer}
+.lang-btn.active{background:#222;color:#f0f0f0;border-color:#555}
 .nav-links{display:flex;gap:20px;font-size:14px;color:#888;align-items:center}
 .nav-links a:hover{color:#f0f0f0}
 .nav-submit{padding:9px 18px;background:#f5c518;color:#000;font-weight:700;font-size:13px;border-radius:8px;border:none;cursor:pointer;white-space:nowrap}
@@ -86,12 +90,16 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 <body>
 
 <nav>
-  <div class="nav-logo">Paris<span>Comedy</span></div>
+  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
   <div class="nav-links">
     <a href="/">Shows</a>
-    <a href="/comedians.html" style="color:#f5c518">Comedians</a>
-    <a href="/#venues">Venues</a>
-    <button class="nav-submit" onclick="openModal(null,'')">Submit bio ⚡ €1</button>
+    <a href="/comedians.html" class="nav-active">Comedians</a>
+    <a href="/venues.html">Venues</a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+    </div>
+    <button class="nav-submit">Submit bio ⚡ €1</button>
   </div>
 </nav>
 
