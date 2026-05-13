@@ -10,37 +10,33 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#f0f0f0;min-height:100vh}
 a{color:inherit;text-decoration:none}
 
-/* NAV */
 nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #222;position:sticky;top:0;background:#0a0a0a;z-index:100}
 .nav-logo{font-size:18px;font-weight:700;letter-spacing:-0.5px}
 .nav-logo span{color:#f5c518}
-.nav-links{display:flex;gap:20px;font-size:14px;color:#888}
+.nav-links{display:flex;gap:20px;font-size:14px;color:#888;align-items:center}
 .nav-links a:hover{color:#f0f0f0}
+.nav-submit{padding:9px 18px;background:#f5c518;color:#000;font-weight:700;font-size:13px;border-radius:8px;border:none;cursor:pointer;white-space:nowrap}
+.nav-submit:hover{opacity:.9}
 
-/* HERO */
 .hero{text-align:center;padding:60px 24px 40px;background:linear-gradient(180deg,#111 0%,#0a0a0a 100%)}
 .hero h1{font-size:clamp(28px,5vw,52px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:16px}
 .hero h1 span{color:#f5c518}
-.hero p{color:#888;font-size:16px;max-width:500px;margin:0 auto 24px}
+.hero p{color:#888;font-size:16px;max-width:520px;margin:0 auto 24px}
 .stats-bar{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;font-size:13px;color:#666}
 .stats-bar strong{color:#f5c518;font-size:20px;display:block}
 
-/* FILTERS */
 .filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:24px 16px 0}
 .filter-btn{padding:8px 18px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;font-size:13px;cursor:pointer;transition:all .15s}
 .filter-btn:hover{border-color:#666;color:#f0f0f0}
 .filter-btn.active{background:#f5c518;border-color:#f5c518;color:#000;font-weight:600}
 
-/* SEARCH */
 .search-wrap{padding:16px 24px 0;max-width:400px;margin:0 auto}
 .search-wrap input{width:100%;padding:10px 16px;border-radius:8px;border:1px solid #333;background:#111;color:#f0f0f0;font-size:14px;outline:none}
 .search-wrap input:focus{border-color:#555}
 
-/* GRID */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding:24px;max-width:1200px;margin:0 auto}
 
-/* CARD */
-.card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px;transition:border-color .15s}
+.card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s}
 .card:hover{border-color:#333}
 .card-top{display:flex;align-items:center;gap:12px}
 .card-photo{width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;background:#222}
@@ -52,14 +48,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .tag-fr{background:#3a1a1a;color:#e07a7a}
 .tag-bi{background:#1a3a2a;color:#7ae0a0}
 .card-bio{font-size:13px;color:#888;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.card-actions{display:flex;gap:8px;margin-top:auto;padding-top:4px}
-.btn-ig{flex:1;padding:8px;border-radius:8px;border:1px solid #333;background:transparent;color:#888;font-size:12px;text-align:center;cursor:pointer;transition:all .15s}
-.btn-ig:hover{border-color:#666;color:#f0f0f0}
-.btn-submit{flex:2;padding:8px;border-radius:8px;border:none;background:#f5c518;color:#000;font-size:12px;font-weight:700;cursor:pointer;transition:opacity .15s}
-.btn-submit:hover{opacity:.9}
-.hidden{display:none!important}
+.card-actuality{font-size:12px;color:#f5c518;line-height:1.4;border-top:1px solid #1e1e1e;padding-top:8px;font-style:italic}
+.card-ig{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#888;margin-top:auto;padding-top:4px}
+.card-ig:hover{color:#f0f0f0}
 
-/* HOW SECTION */
 .how-section{max-width:800px;margin:0 auto;padding:48px 24px 64px}
 .how-section h2{font-size:24px;font-weight:700;margin-bottom:8px;text-align:center}
 .how-section .sub{text-align:center;color:#666;font-size:14px;margin-bottom:32px}
@@ -70,7 +62,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .step-desc{font-size:13px;color:#666;line-height:1.5}
 .step-price{display:inline-block;margin-top:8px;background:#f5c518;color:#000;font-size:11px;font-weight:700;padding:3px 8px;border-radius:10px}
 
-/* MODAL */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center;padding:16px}
 .modal-bg.open{display:flex}
 .modal{background:#111;border:1px solid #333;border-radius:16px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;padding:28px}
@@ -86,7 +77,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .btn-pay:disabled{opacity:.5;cursor:not-allowed}
 #qr-section{display:none;text-align:center;padding-top:16px}
 #qr-section p{font-size:13px;color:#888;margin-top:8px}
-#qr-section .bolt11{font-size:9px;color:#444;word-break:break-all;margin-top:8px;max-height:60px;overflow:hidden}
+#qr-section .bolt11{font-size:9px;color:#444;word-break:break-all;margin-top:8px}
 .err{color:#e07a7a;font-size:13px;margin-top:8px}
 </style>
 </head>
@@ -98,12 +89,13 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
     <a href="/">Shows</a>
     <a href="/comedians.html" style="color:#f5c518">Comedians</a>
     <a href="/#venues">Venues</a>
+    <button class="nav-submit" onclick="openModal(null,'')">Submit bio ⚡ €1</button>
   </div>
 </nav>
 
 <div class="hero">
   <h1>Paris Comedy<br><span>Comedians Directory</span></h1>
-  <p>The scene — English, French, bilingual. 59 comedians performing in Paris.</p>
+  <p>Meet the 59 comedians shaping the Paris stand-up scene — English, French, bilingual.</p>
   <div class="stats-bar">
     <div><strong id="count-total">59</strong>comedians</div>
     <div><strong id="count-en">—</strong>English</div>
@@ -125,29 +117,29 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 <div class="grid" id="grid"></div>
 
 <section class="how-section" id="how">
-  <h2>Get Booked in Paris</h2>
-  <p class="sub">Submit your bio directly to show runners — pay once, land in the right inbox.</p>
+  <h2>Get your bio in front of show bookers</h2>
+  <p class="sub">One payment — your bio lands directly in show bookers' inboxes. They decide.</p>
   <div class="steps">
     <div class="step">
       <div class="step-num">1️⃣</div>
-      <div class="step-title">Find your profile</div>
-      <div class="step-desc">Already performing in Paris? Your name is probably here. Search above.</div>
+      <div class="step-title">Hit "Submit bio"</div>
+      <div class="step-desc">Pick a show from the list, write 2 sentences about your act, add your email.</div>
     </div>
     <div class="step">
       <div class="step-num">2️⃣</div>
-      <div class="step-title">Click "Submit bio"</div>
-      <div class="step-desc">Pick a show, write 2 sentences about your act, add your email.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">3️⃣</div>
-      <div class="step-title">Pay ⚡€1</div>
+      <div class="step-title">Pay ⚡ €1</div>
       <div class="step-desc">Lightning invoice — instant, no account needed. Phoenix, Muun, or Wallet of Satoshi.</div>
       <span class="step-price">⚡ €1 via Lightning</span>
     </div>
     <div class="step">
-      <div class="step-num">4️⃣</div>
+      <div class="step-num">3️⃣</div>
       <div class="step-title">Bio delivered</div>
-      <div class="step-desc">Your bio lands in the show runner's inbox the moment payment settles.</div>
+      <div class="step-desc">The show booker receives your bio the moment payment settles. The rest is up to them.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4️⃣</div>
+      <div class="step-title">Your profile here</div>
+      <div class="step-desc">Not listed yet? Submit your bio and we'll add your profile to the directory.</div>
     </div>
   </div>
 </section>
@@ -156,19 +148,19 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 <div class="modal-bg" id="modal-bg">
   <div class="modal">
     <h3>Submit your bio ⚡</h3>
-    <div class="sub">€1 via Lightning — paid directly to the show runner's inbox.</div>
+    <div class="sub">€1 via Lightning — your bio goes straight to the show booker's inbox. They decide.</div>
     <div id="form-section">
       <label>Your name</label>
       <input type="text" id="m-name" placeholder="Stage name">
       <label>Email</label>
       <input type="email" id="m-email" placeholder="you@example.com">
       <label>Your bio (2–3 sentences)</label>
-      <textarea id="m-bio" placeholder="Tell the show runner who you are and what your act is about…"></textarea>
+      <textarea id="m-bio" placeholder="Tell the booker who you are and what your act is about…"></textarea>
       <label>Submit to show</label>
       <select id="m-show"></select>
       <div class="modal-btns">
         <button class="btn-cancel" id="btn-cancel">Cancel</button>
-        <button class="btn-pay" id="btn-pay">Get invoice ⚡€1</button>
+        <button class="btn-pay" id="btn-pay">Get invoice ⚡ €1</button>
       </div>
       <div class="err" id="m-err"></div>
     </div>
@@ -176,19 +168,16 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
       <p>Scan with your Lightning wallet to pay €1</p>
       <canvas id="qr-canvas" width="220" height="220"></canvas>
       <div class="bolt11" id="bolt11-text"></div>
-      <p style="margin-top:12px;font-size:12px;color:#666">After payment your bio is delivered automatically.</p>
+      <p style="margin-top:12px;font-size:12px;color:#666">After payment your bio is delivered to the booker automatically.</p>
     </div>
   </div>
 </div>
 
 <script>
-const COMICS = [{"slug": "az", "name": "AZ", "langs": ["fr"], "instagram": "https://www.instagram.com/az_officiel/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-az_1753888774.jpg", "bio": ""}, {"slug": "abi-roberts", "name": "Abi Roberts", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=abi-roberts&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "British stand-up comedian performing regularly in Paris English comedy rooms."}, {"slug": "adrien-montowski", "name": "Adrien Montowski", "langs": ["fr"], "instagram": "https://www.instagram.com/adrienmontowski/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-adrianmontowski_1754050881.jpg", "bio": ""}, {"slug": "ahmed-sparrow", "name": "Ahmed Sparrow", "langs": ["fr"], "instagram": "https://www.instagram.com/ahmed_sparrow/", "photo": "https://www.panameartcafe.com/storage/files/artists/ahmed_1745933895.jpg", "bio": ""}, {"slug": "alan-mehanna", "name": "Alan Mehanna", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=alan-mehanna&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language comedian performing regularly in Paris."}, {"slug": "alex-di-mambro", "name": "Alex Di Mambro", "langs": ["fr"], "instagram": "https://www.instagram.com/alexdimambro_/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/alex-dimambro-portrait-paname-art-cafe_1735046611.jpg", "bio": ""}, {"slug": "booder", "name": "Booder", "langs": ["fr"], "instagram": "https://www.instagram.com/booder_officiel/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-booder_1753952044.jpg", "bio": ""}, {"slug": "cal-dune", "name": "Cal Dune", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=cal-dune&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Stand-up comedian and FFCN regular in the Paris English comedy scene."}, {"slug": "charly-nyobe", "name": "Charly Nyobe", "langs": ["fr"], "instagram": "https://www.instagram.com/charly_nyobe/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-charlynyobe_1753888825.jpg", "bio": ""}, {"slug": "clement-nassif", "name": "Clement Nassif", "langs": ["en", "fr"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=clement-nassif&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Bilingual stand-up comedian performing in Paris comedy rooms."}, {"slug": "dave-strom", "name": "Dave Strom", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=dave-strom&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language stand-up comedian performing in Paris comedy venues."}, {"slug": "david-azencot", "name": "David Azencot", "langs": ["fr"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=david-azencot&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "French stand-up comedian performing in Paris comedy venues."}, {"slug": "david-azria", "name": "David Azria", "langs": ["fr"], "instagram": "https://www.instagram.com/davidazria_/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-azria_1754318321.jpg", "bio": ""}, {"slug": "emy", "name": "Emy", "langs": ["fr"], "instagram": "https://www.instagram.com/emy_bng/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-emy_1754321506.jpg", "bio": ""}, {"slug": "fern-brady", "name": "Fern Brady", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=fern-brady&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Scottish stand-up comedian touring Paris comedy venues."}, {"slug": "gad-elmaleh", "name": "Gad Elmaleh", "langs": ["fr", "en"], "instagram": "https://www.instagram.com/gadelmaleh/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-gadelmaleh_1753952102.jpg", "bio": "French comedy legend who crossed over to perform in English, doing sets in New York and appearing on major US platforms. He bridged French and American comedy. Toured with Sarah Donnelly."}, {"slug": "ghislain-blique", "name": "Ghislain Blique", "langs": ["fr"], "instagram": "https://www.instagram.com/ghislain.blique/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-ghislainblique_1754059757.jpg", "bio": ""}, {"slug": "guillaume-fosko", "name": "Guillaume Fosko", "langs": ["fr"], "instagram": "https://www.instagram.com/_fosko_/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-fosko_1753951668.jpg", "bio": ""}, {"slug": "harriet-kemsley", "name": "Harriet Kemsley", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=harriet-kemsley&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "British stand-up comedian performing in Paris English comedy rooms."}, {"slug": "hugo-tout-seul", "name": "Hugo Tout seul", "langs": ["fr"], "instagram": "https://www.instagram.com/hugotoutseul/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-hugotoutseul_1754052544.jpg", "bio": ""}, {"slug": "ilyes-djadel", "name": "Ilyes Djadel", "langs": ["fr"], "instagram": "https://www.instagram.com/ilyesdjadel/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-ilyesdjadel_1753967232.jpg", "bio": ""}, {"slug": "ilyes-mela", "name": "Ilyes Mela", "langs": ["fr"], "instagram": "https://www.instagram.com/ilyesmela/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-ilyesmela_1753891075.jpg", "bio": ""}, {"slug": "imen-lahmar", "name": "Imen Lahmar", "langs": ["fr"], "instagram": "https://www.instagram.com/meniways/?locale=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-imenlahmar_1753884920.jpg", "bio": ""}, {"slug": "jill-wallace", "name": "Jill Wallace", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=jill-wallace&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language stand-up comedian performing in Paris comedy rooms."}, {"slug": "john-brennan", "name": "John Brennan", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=john-brennan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language stand-up comedian performing in Paris comedy venues."}, {"slug": "julie-coulon", "name": "Julie Coulon", "langs": ["fr", "en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=julie-coulon&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Runs 'Oh My God She's Parisian!' at Theatre BO Saint-Martin. Bilingual comedian with a strong expat-friendly premise."}, {"slug": "julie-haddad-kan", "name": "Julie Haddad Kan", "langs": ["en", "fr"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=julie-haddad-kan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Comedian performing in Paris bilingual comedy rooms including FFCN."}, {"slug": "lorene-cadeau", "name": "Lorene Cadeau", "langs": ["fr", "en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=lorene-cadeau&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "FFCN alumna with 'Real Life in Paris' set (1.9K+ views). French comic performing in English — instantly Paris-specific premise that lands fast with expat rooms."}, {"slug": "lotfi-abdelli", "name": "Lotfi Abdelli", "langs": ["fr"], "instagram": "https://www.instagram.com/lotfiabdelli/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-lotfi_1754324224.jpg", "bio": ""}, {"slug": "luke-thompson", "name": "Luke Thompson", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=luke-thompson&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language stand-up comedian performing regularly at FFCN and Paris comedy rooms."}, {"slug": "maddie-storm", "name": "Maddie Storm", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=maddie-storm&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Runs The Dissident Comedy Show (Wed 20:30) at The Dissident Club. Alternative English stand-up with a central-Paris edge."}, {"slug": "mahe", "name": "Mahé", "langs": ["fr"], "instagram": "https://www.instagram.com/maheoff/reels/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-mahe_1754322660.jpg", "bio": ""}, {"slug": "marc-rouge", "name": "Marc Rougé", "langs": ["fr"], "instagram": "https://www.instagram.com/rougemarc/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-marc_1753890892.jpg", "bio": ""}, {"slug": "marine-leonardi", "name": "Marine Léonardi", "langs": ["fr"], "instagram": "https://www.instagram.com/marineleonardi/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-marineleonardi_1753967642.jpg", "bio": ""}, {"slug": "nadege", "name": "Nadège", "langs": ["fr"], "instagram": "https://www.instagram.com/nadege100gene/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nadege_1753966324.jpg", "bio": ""}, {"slug": "nick-mukoko", "name": "Nick Mukoko", "langs": ["fr"], "instagram": "https://www.instagram.com/nickmukoko/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nickmukoko_1753888899.jpg", "bio": ""}, {"slug": "nina-azoulai", "name": "Nina Azoulai", "langs": ["fr"], "instagram": "https://www.instagram.com/nina.azoulai/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nina_1753891766.jpg", "bio": ""}, {"slug": "noman-hosni", "name": "Noman Hosni", "langs": ["fr", "en"], "instagram": "https://www.instagram.com/nomanhosni/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=noman-hosni&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "One of France's biggest comedy stars who bridges the French and English comedy worlds. Regular performer at English-language shows in Paris."}, {"slug": "nordine-ganso", "name": "Nordine Ganso", "langs": ["fr"], "instagram": "https://www.instagram.com/nordine.ganso/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nordineganso_1754054811.jpg", "bio": ""}, {"slug": "omar-dhobb", "name": "Omar Dhobb", "langs": ["fr"], "instagram": "https://www.instagram.com/omardhobb/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-omardhobb-1_1754058000.jpg", "bio": ""}, {"slug": "patti-mansbach", "name": "Patti Mansbach", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=patti-mansbach&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "FFCN alumna. Her 'Fear of Getting a French Boyfriend' set on French Fried Comedy Night has 12K+ YouTube views — a clean, crowd-forward premise that lands hard in the bilingual room."}, {"slug": "paul-taylor", "name": "Paul Taylor", "langs": ["en", "fr"], "instagram": "https://www.instagram.com/paul_taylor_uk/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=paul-taylor&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "British comedian who moved to Paris in 2009 and got his start at French Fried Comedy Night, hosted by Robert Hoehn. His 2016 'La Bise' video — produced and directed by Robert — went viral with 3M+ views, leading Canal+ to give him 'What The Fuck France,' the first English show on French TV. #Franglais, 'So British', and 'Bisoubye x' tours sold out across France. 1.5M+ followers across platforms."}, {"slug": "randy-j-dreams", "name": "Randy J Dreams", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=randy-j-dreams&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Runs MANGO English Stand-Up at Le Paris de l'Humour Wed 19:45. English-language MC with regular Eventbrite shows."}, {"slug": "redouane-bougheraba", "name": "Redouane Bougheraba", "langs": ["fr"], "instagram": "https://www.instagram.com/redouanebougheraba/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-redouane_1753969463.jpg", "bio": ""}, {"slug": "rey-mendes", "name": "Rey Mendes", "langs": ["fr"], "instagram": "https://www.instagram.com/rey_mendes_o/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignete-reymendes_1754320913.jpg", "bio": ""}, {"slug": "robert-hoehn", "name": "Robert Hoehn", "langs": ["en", "fr"], "instagram": "@Robertlericain", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=robert-hoehn&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "American bilingual comedian and one of the early builders of the Paris English-language comedy scene. Launched French Fried Comedy Night in 2013 at Paname Art Cafe, helped give Paul Taylor one of his first regular stages, and produced/directed 'La Bise' — the viral video that helped map the scene. Now runs FFCN at Velvet Bar Wednesdays."}, {"slug": "romain-raulin", "name": "Romain Raulin", "langs": ["fr"], "instagram": "https://www.instagram.com/romain_raulin/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-romainraulin_1754062399.jpg", "bio": ""}, {"slug": "roman-frayssinet", "name": "Roman Frayssinet", "langs": ["fr"], "instagram": "https://www.instagram.com/romanfrayssinet/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-roman_1753967689.jpg", "bio": ""}, {"slug": "sacko-camara", "name": "Sacko Camara", "langs": ["fr"], "instagram": "https://www.instagram.com/panayotispascot/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-sackocamara_1754064626.jpg", "bio": ""}, {"slug": "sarah-donnelly", "name": "Sarah Donnelly", "langs": ["en"], "instagram": "https://www.instagram.com/sarahdonnellycomedian/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=sarah-donnelly&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "American comedian in Paris 12+ years. She opened for Jerry Seinfeld, toured with Gad Elmaleh, and regularly performs at Theatre BO Saint-Martin. Her special 'The Only American in Paris' is on YouTube. A pillar of the Paris English comedy scene."}, {"slug": "sebastian-marx", "name": "Sebastian Marx", "langs": ["en", "fr"], "instagram": "https://www.instagram.com/sebastianmarxcomedy/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=sebastian-marx&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "New Yorker who fell in love with a French woman and moved to Paris. Created 'New York Comedy Night' at SoGymnase — the FIRST regular English stand-up show in Paris. Appeared on Jamel Comedy Club (Canal+), got a radio gig on RTL with Stephane Bern, and later France Inter. He proved English-language comedy could work in Paris."}, {"slug": "sophie-loustalot", "name": "Sophie Loustalot", "langs": ["fr"], "instagram": "https://www.instagram.com/sophieloustalot/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-sophieloustalot_1753890961.jpg", "bio": ""}, {"slug": "soun-dembele", "name": "Soun Dembele", "langs": ["fr"], "instagram": "https://www.instagram.com/soun_dembele/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-soun_1754055169.jpg", "bio": "Passionné de stand up, Soun joue partout où il peut jouer. De la cave d’un bar jusqu’au Zénith de Clermont Ferrand, Soun fait hurler de rire son public avec une voix et une prestance hors du commun."}, {"slug": "tamer-kattan", "name": "Tamer Kattan", "langs": ["en"], "instagram": "@tamerkat", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=tamer-kattan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "New York comedian who made Paris his second home. 159K+ followers on social media. Regular collaborator with Robert Hoehn and a favorite on the Paris English-language circuit."}, {"slug": "tania-dutel", "name": "Tania Dutel", "langs": ["fr", "en"], "instagram": "https://www.instagram.com/taniadutel/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=tania-dutel&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "French comedian who performs brilliantly in both French and English. Known for sharp observational humor and fearless stage presence. A regular at English-language shows in Paris and proof that the scene is truly bilingual."}, {"slug": "tareek", "name": "Tareek", "langs": ["fr"], "instagram": "https://www.instagram.com/tareekoff/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-tareek_1753967472.jpg", "bio": ""}, {"slug": "tom-baldetti", "name": "Tom Baldetti", "langs": ["fr"], "instagram": "https://www.instagram.com/tombaldetti/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-tombaldetti_1753968053.jpg", "bio": ""}, {"slug": "victor-patrascan", "name": "Victor Patrascan", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=victor-patrascan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language comedian with his own show, a fixture in the Paris English comedy scene."}, {"slug": "yassine-hitch", "name": "Yassine Hitch", "langs": ["fr"], "instagram": "https://www.instagram.com/yassine.hitch/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-yassinehitch_1754052310.jpg", "bio": ""}];
-const SHOWS = [{"id": 30, "name": "Blast Off All Stars", "venue": "", "days": "[\"Saturday\"]", "lang": "en"}, {"id": 34, "name": "Broadway Comedy Club - Paris", "venue": "", "days": "[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\",\"Sunday\"]", "lang": "en"}, {"id": 31, "name": "Charonne Comedy Club", "venue": "", "days": "[\"Saturday\"]", "lang": "en"}, {"id": 10, "name": "Comedy Crush Wednesday Show", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 23, "name": "Comedy Lab", "venue": "", "days": "[\"Thursday\",\"Saturday\"]", "lang": "en"}, {"id": 6, "name": "Cuba Compagnie Comedy Club", "venue": "", "days": "[\"Tuesday\"]", "lang": "en"}, {"id": 25, "name": "English Stand-Up Comedy in Paris — Friday Night Show", "venue": "", "days": "[\"Friday\"]", "lang": "en"}, {"id": 19, "name": "FIAP Comedy Club", "venue": "", "days": "[\"Thursday\"]", "lang": "en"}, {"id": 3, "name": "French Fried Comedy Night", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 7, "name": "Funny Women Paris", "venue": "", "days": "[\"Tuesday\"]", "lang": "en"}, {"id": 5, "name": "Green Light Comedy", "venue": "", "days": "[\"Tuesday\"]", "lang": "en"}, {"id": 33, "name": "Green Mic Comedy Show", "venue": "", "days": "[\"Sunday\"]", "lang": "en"}, {"id": 24, "name": "Green Mic Showcase", "venue": "", "days": "[\"Friday\"]", "lang": "en"}, {"id": 21, "name": "Greenwashing Comedy Club", "venue": "", "days": "[\"Thursday\"]", "lang": "en"}, {"id": 29, "name": "IntégRire Comedy Night", "venue": "", "days": "[\"Saturday\"]", "lang": "en"}, {"id": 27, "name": "Kinto Comedy Club", "venue": "", "days": "[\"Friday\"]", "lang": "en"}, {"id": 16, "name": "Kiss Comedy Club", "venue": "Le Coquin", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 4, "name": "Kuhl Comedy Open Mic", "venue": "", "days": "[\"Tuesday\"]", "lang": "en"}, {"id": 9, "name": "LOFI Comedy Club", "venue": "Fada Paris", "days": "[\"Tuesday\"]", "lang": "en"}, {"id": 14, "name": "MANGO English Stand-Up", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 13, "name": "Mic Drop Comedy Club", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 11, "name": "Millennial Meltdown", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 18, "name": "Oh My God She's Parisian! — Julie Coulon", "venue": "", "days": "[\"Friday\",\"Saturday\"]", "lang": "en"}, {"id": 32, "name": "Oscar Comedy Club", "venue": "", "days": "[\"Sunday\"]", "lang": "en"}, {"id": 8, "name": "Rocket Comedy Club", "venue": "", "days": "[\"Tuesday\"]", "lang": "en"}, {"id": 28, "name": "Smash Comedy Club", "venue": "", "days": "[\"Saturday\"]", "lang": "en"}, {"id": 17, "name": "South Comedy Club", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 22, "name": "Sparkle Comedy Club", "venue": "", "days": "[\"Thursday\"]", "lang": "en"}, {"id": 12, "name": "The Dissident Comedy Show", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 20, "name": "The Englishman Comedy Night", "venue": "The Englishman Cocktail Club", "days": "[\"Thursday\"]", "lang": "en"}, {"id": 26, "name": "The Open Mic Express", "venue": "", "days": "[\"Friday\"]", "lang": "en"}, {"id": 2, "name": "Velvet Bar Comedy — Le meilleur du stand-up", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 1, "name": "Velvet Bar Comedy — Open Mic", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 15, "name": "Wednesday Night Comedy", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}];
-
+const COMICS = [{"slug": "az", "name": "AZ", "langs": ["fr"], "instagram": "https://www.instagram.com/az_officiel/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-az_1753888774.jpg", "bio": "", "actuality": "Currently active in the Paris comedy scene, AZ has amassed a following of 206K on Instagram with engaging performances showcased through 34 posts."}, {"slug": "abi-roberts", "name": "Abi Roberts", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=abi-roberts&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "British stand-up comedian performing regularly in Paris English comedy rooms.", "actuality": "Abi Roberts is a regular performer at English comedy nights in Paris."}, {"slug": "adrien-montowski", "name": "Adrien Montowski", "langs": ["fr"], "instagram": "https://www.instagram.com/adrienmontowski/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-adrianmontowski_1754050881.jpg", "bio": "", "actuality": "Known for his viral comedy skits, Adrien Montowski consistently engages a growing French-speaking audience on Instagram."}, {"slug": "ahmed-sparrow", "name": "Ahmed Sparrow", "langs": ["fr"], "instagram": "https://www.instagram.com/ahmed_sparrow/", "photo": "https://www.panameartcafe.com/storage/files/artists/ahmed_1745933895.jpg", "bio": "", "actuality": "Currently captivating Paris' comedy scene with his humorous insights, amassing over 113K followers on Instagram."}, {"slug": "alan-mehanna", "name": "Alan Mehanna", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=alan-mehanna&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language comedian performing regularly in Paris.", "actuality": "Alan Mehanna is currently captivating Paris audiences with his engaging English-language comedy performances."}, {"slug": "alex-di-mambro", "name": "Alex Di Mambro", "langs": ["fr"], "instagram": "https://www.instagram.com/alexdimambro_/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/alex-dimambro-portrait-paname-art-cafe_1735046611.jpg", "bio": "", "actuality": "Alex Di Mambro, with 190K followers on Instagram, is a prominent figure in Paris' comedy scene, known for his popular social media content."}, {"slug": "booder", "name": "Booder", "langs": ["fr"], "instagram": "https://www.instagram.com/booder_officiel/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-booder_1753952044.jpg", "bio": "", "actuality": "Currently captivating Paris' comedy scene with his humorous take on daily life, amassing 1 million followers on Instagram."}, {"slug": "cal-dune", "name": "Cal Dune", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=cal-dune&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Stand-up comedian and FFCN regular in the Paris English comedy scene.", "actuality": "Cal Dune is a consistent performer at the French Football Club's comedy nights in Paris."}, {"slug": "charly-nyobe", "name": "Charly Nyobe", "langs": ["fr"], "instagram": "https://www.instagram.com/charly_nyobe/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-charlynyobe_1753888825.jpg", "bio": "", "actuality": "Currently active on Instagram with a follower base of 49K, Charly Nyobe is a prominent figure in the Paris comedy scene."}, {"slug": "clement-nassif", "name": "Clement Nassif", "langs": ["en", "fr"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=clement-nassif&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Bilingual stand-up comedian performing in Paris comedy rooms.", "actuality": "Clement Nassif, a bilingual stand-up, brings laughs to Paris comedy stages with English and French humor."}, {"slug": "dave-strom", "name": "Dave Strom", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=dave-strom&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language stand-up comedian performing in Paris comedy venues.", "actuality": "Currently entertaining Paris audiences with his English stand-up comedy at various venues."}, {"slug": "david-azencot", "name": "David Azencot", "langs": ["fr"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=david-azencot&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "French stand-up comedian performing in Paris comedy venues.", "actuality": "Currently active on Paris' comedy scene, David Azencot captivates audiences with his French stand-up performances at various comedy clubs."}, {"slug": "david-azria", "name": "David Azria", "langs": ["fr"], "instagram": "https://www.instagram.com/davidazria_/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-azria_1754318321.jpg", "bio": "", "actuality": "Known for his vibrant Instagram presence with 77K followers, David Azria is a prominent figure in the Paris comedy scene."}, {"slug": "emy", "name": "Emy", "langs": ["fr"], "instagram": "https://www.instagram.com/emy_bng/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-emy_1754321506.jpg", "bio": "", "actuality": "Emy, with over 67k followers on Instagram, is a popular figure in the Paris comedy scene, known for her engaging performances."}, {"slug": "fern-brady", "name": "Fern Brady", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=fern-brady&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Scottish stand-up comedian touring Paris comedy venues.", "actuality": "Scottish comedian Fern Brady continues to captivate Paris audiences with her witty English-language stand-up shows at various city venues."}, {"slug": "gad-elmaleh", "name": "Gad Elmaleh", "langs": ["fr", "en"], "instagram": "https://www.instagram.com/gadelmaleh/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-gadelmaleh_1753952102.jpg", "bio": "French comedy legend who crossed over to perform in English, doing sets in New York and appearing on major US platforms. He bridged French and American comedy. Toured with Sarah Donnelly.", "actuality": "Currently, Gad Elmaleh continues to bridge French and American comedy scenes with his bilingual stand-up sets in Paris and US appearances."}, {"slug": "ghislain-blique", "name": "Ghislain Blique", "langs": ["fr"], "instagram": "https://www.instagram.com/ghislain.blique/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-ghislainblique_1754059757.jpg", "bio": "", "actuality": "Currently popular on Instagram with over 19K followers, Ghislain Blique is a renowned French-speaking comedian in the Paris scene."}, {"slug": "guillaume-fosko", "name": "Guillaume Fosko", "langs": ["fr"], "instagram": "https://www.instagram.com/_fosko_/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-fosko_1753951668.jpg", "bio": "", "actuality": "Known for his viral humor, Guillaume Fosko consistently entertains 85K French-speaking followers on Instagram."}, {"slug": "harriet-kemsley", "name": "Harriet Kemsley", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=harriet-kemsley&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "British stand-up comedian performing in Paris English comedy rooms.", "actuality": "Currently delighting French audiences with her unique British humor at English comedy nights in Paris."}, {"slug": "hugo-tout-seul", "name": "Hugo Tout seul", "langs": ["fr"], "instagram": "https://www.instagram.com/hugotoutseul/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-hugotoutseul_1754052544.jpg", "bio": "", "actuality": "Hugo Tout seul, Paris' popular stand-up comedian, maintains a lively presence with over 1M Instagram followers."}, {"slug": "ilyes-djadel", "name": "Ilyes Djadel", "langs": ["fr"], "instagram": "https://www.instagram.com/ilyesdjadel/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-ilyesdjadel_1753967232.jpg", "bio": "", "actuality": "Ilyes Djadel, a Parisian stand-up comedian with 771K followers on Instagram, is currently captivating French audiences with his comedic charm."}, {"slug": "ilyes-mela", "name": "Ilyes Mela", "langs": ["fr"], "instagram": "https://www.instagram.com/ilyesmela/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-ilyesmela_1753891075.jpg", "bio": "", "actuality": "Currently making waves in Paris comedy scene with over 100k followers on Instagram."}, {"slug": "imen-lahmar", "name": "Imen Lahmar", "langs": ["fr"], "instagram": "https://www.instagram.com/meniways/?locale=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-imenlahmar_1753884920.jpg", "bio": "", "actuality": "Currently captivating Paris with over 35K followers on Instagram, Imen Lahmar continues to dominate the French comedy scene."}, {"slug": "jill-wallace", "name": "Jill Wallace", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=jill-wallace&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language stand-up comedian performing in Paris comedy rooms.", "actuality": "Jill Wallace is currently captivating Paris' English-speaking audiences with her stand-up comedy acts at various comedy venues."}, {"slug": "john-brennan", "name": "John Brennan", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=john-brennan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language stand-up comedian performing in Paris comedy venues.", "actuality": "John Brennan continues to captivate Paris audiences with his English-language stand-up performances at local comedy venues."}, {"slug": "julie-coulon", "name": "Julie Coulon", "langs": ["fr", "en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=julie-coulon&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Runs 'Oh My God She's Parisian!' at Theatre BO Saint-Martin. Bilingual comedian with a strong expat-friendly premise.", "actuality": "Julie Coulon currently hosts 'Oh My God She's Parisian!', a bilingual comedy show appealing to ex-pats at Theatre BO Saint-Martin in Paris."}, {"slug": "julie-haddad-kan", "name": "Julie Haddad Kan", "langs": ["en", "fr"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=julie-haddad-kan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Comedian performing in Paris bilingual comedy rooms including FFCN.", "actuality": "Currently witty and bilingual, Julie Haddad Kan delights audiences at Parisian comedy venues such as FFCN."}, {"slug": "lorene-cadeau", "name": "Lorene Cadeau", "langs": ["fr", "en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=lorene-cadeau&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "FFCN alumna with 'Real Life in Paris' set (1.9K+ views). French comic performing in English — instantly Paris-specific premise that lands fast with expat rooms.", "actuality": "Currently active with the popular \"Real Life in Paris\" stand-up routine, Lorene Cadeau entertains expats with her bilingual (English + French) comedy performances in Paris."}, {"slug": "lotfi-abdelli", "name": "Lotfi Abdelli", "langs": ["fr"], "instagram": "https://www.instagram.com/lotfiabdelli/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-lotfi_1754324224.jpg", "bio": "", "actuality": "Currently gaining viral laughs with his relatable humor on social media, Lotfi Abdelli is a household name in the vibrant Paris comedy scene."}, {"slug": "luke-thompson", "name": "Luke Thompson", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=luke-thompson&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language stand-up comedian performing regularly at FFCN and Paris comedy rooms.", "actuality": "Currently active at FFCN and Paris comedy rooms, Luke Thompson is a regular English-language stand-up comedian in the scene."}, {"slug": "maddie-storm", "name": "Maddie Storm", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=maddie-storm&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Runs The Dissident Comedy Show (Wed 20:30) at The Dissident Club. Alternative English stand-up with a central-Paris edge.", "actuality": "Maddie Storm is currently hosting 'The Dissident Comedy Show' every Wednesday at 8:30 PM at The Dissident Club, bringing alternative English stand-up comedy with a central Paris twist."}, {"slug": "mahe", "name": "Mahé", "langs": ["fr"], "instagram": "https://www.instagram.com/maheoff/reels/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-mahe_1754322660.jpg", "bio": "", "actuality": "Currently captivating Paris' comedy scene with his witty humor, amassing over 73K followers on Instagram."}, {"slug": "marc-rouge", "name": "Marc Rougé", "langs": ["fr"], "instagram": "https://www.instagram.com/rougemarc/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-marc_1753890892.jpg", "bio": "", "actuality": "Known for his sharp wit and linguistic prowess, Marc Rougé is currently captivating Parisian audiences with his innovative stand-up routines in French."}, {"slug": "marine-leonardi", "name": "Marine Léonardi", "langs": ["fr"], "instagram": "https://www.instagram.com/marineleonardi/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-marineleonardi_1753967642.jpg", "bio": "", "actuality": "Currently gaining viral fame in Paris with over a million followers on Instagram."}, {"slug": "nadege", "name": "Nadège", "langs": ["fr"], "instagram": "https://www.instagram.com/nadege100gene/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nadege_1753966324.jpg", "bio": "", "actuality": "Known for her vibrant stage presence, Nadège is currently captivating Parisian audiences with her humorous take on everyday life."}, {"slug": "nick-mukoko", "name": "Nick Mukoko", "langs": ["fr"], "instagram": "https://www.instagram.com/nickmukoko/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nickmukoko_1753888899.jpg", "bio": "", "actuality": "Known for his popular Instagram presence with 49K followers, Nick Mukoko is a vibrant force in the Paris comedy scene."}, {"slug": "nina-azoulai", "name": "Nina Azoulai", "langs": ["fr"], "instagram": "https://www.instagram.com/nina.azoulai/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nina_1753891766.jpg", "bio": "", "actuality": "Currently gaining a wide following in Paris with her witty humor, Nina Azoulai has amassed 116K Instagram followers."}, {"slug": "noman-hosni", "name": "Noman Hosni", "langs": ["fr", "en"], "instagram": "https://www.instagram.com/nomanhosni/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=noman-hosni&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "One of France's biggest comedy stars who bridges the French and English comedy worlds. Regular performer at English-language shows in Paris.", "actuality": "Currently, Noman Hosni, a bilingual comedy sensation, regularly performs at English-language shows in Paris, bridging French and English comedy worlds."}, {"slug": "nordine-ganso", "name": "Nordine Ganso", "langs": ["fr"], "instagram": "https://www.instagram.com/nordine.ganso/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nordineganso_1754054811.jpg", "bio": "", "actuality": "Currently dominating Paris' comedy scene with over 400k followers on Instagram."}, {"slug": "omar-dhobb", "name": "Omar Dhobb", "langs": ["fr"], "instagram": "https://www.instagram.com/omardhobb/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-omardhobb-1_1754058000.jpg", "bio": "", "actuality": "Currently gaining traction in Paris with over 10K followers on Instagram, Omar Dhobb is a rising force in the French comedy scene."}, {"slug": "patti-mansbach", "name": "Patti Mansbach", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=patti-mansbach&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "FFCN alumna. Her 'Fear of Getting a French Boyfriend' set on French Fried Comedy Night has 12K+ YouTube views — a clean, crowd-forward premise that lands hard in the bilingual room.", "actuality": "Currently gaining traction with over 12K YouTube views for her 'Fear of Getting a French Boyfriend' set on Paris's French Fried Comedy Night."}, {"slug": "paul-taylor", "name": "Paul Taylor", "langs": ["en", "fr"], "instagram": "https://www.instagram.com/paul_taylor_uk/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=paul-taylor&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "British comedian who moved to Paris in 2009 and got his start at French Fried Comedy Night, hosted by Robert Hoehn. His 2016 'La Bise' video — produced and directed by Robert — went viral with 3M+ views, leading Canal+ to give him 'What The Fuck France,' the first English show on French TV. #Franglais, 'So British', and 'Bisoubye x' tours sold out across France. 1.5M+ followers across platforms.", "actuality": "Currently touring France with his acclaimed 'Bisoubye x' stand-up show, Paul Taylor continues to blend English and French humor on stage."}, {"slug": "randy-j-dreams", "name": "Randy J Dreams", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=randy-j-dreams&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Runs MANGO English Stand-Up at Le Paris de l'Humour Wed 19:45. English-language MC with regular Eventbrite shows.", "actuality": "Currently hosts 'MANGO English Stand-Up' weekly at Le Paris de l'Humour on Wednesdays."}, {"slug": "redouane-bougheraba", "name": "Redouane Bougheraba", "langs": ["fr"], "instagram": "https://www.instagram.com/redouanebougheraba/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-redouane_1753969463.jpg", "bio": "", "actuality": "Known for captivating a million followers on Instagram, Redouane Bougheraba is a prominent figure in the Paris comedy scene."}, {"slug": "rey-mendes", "name": "Rey Mendes", "langs": ["fr"], "instagram": "https://www.instagram.com/rey_mendes_o/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignete-reymendes_1754320913.jpg", "bio": "", "actuality": "Rey Mendes continues to captivate Paris audiences with his sharp wit and bilingual charm in popular comedy clubs."}, {"slug": "robert-hoehn", "name": "Robert Hoehn", "langs": ["en", "fr"], "instagram": "@Robertlericain", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=robert-hoehn&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "American bilingual comedian and one of the early builders of the Paris English-language comedy scene. Launched French Fried Comedy Night in 2013 at Paname Art Cafe, helped give Paul Taylor one of his first regular stages, and produced/directed 'La Bise' — the viral video that helped map the scene. Now runs FFCN at Velvet Bar Wednesdays.", "actuality": "Currently hosting French Fried Comedy Night at Velvet Bar in Paris, where he launched the English-language comedy scene and helped boost Paul Taylor's career."}, {"slug": "romain-raulin", "name": "Romain Raulin", "langs": ["fr"], "instagram": "https://www.instagram.com/romain_raulin/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-romainraulin_1754062399.jpg", "bio": "", "actuality": "Romain Raulin, with 3.4K followers on Instagram, is currently captivating Parisian audiences with his unique stand-up comedy routines."}, {"slug": "roman-frayssinet", "name": "Roman Frayssinet", "langs": ["fr"], "instagram": "https://www.instagram.com/romanfrayssinet/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-roman_1753967689.jpg", "bio": "", "actuality": "Currently garnering 986K followers on Instagram for his stand-up comedy acts in French."}, {"slug": "sacko-camara", "name": "Sacko Camara", "langs": ["fr"], "instagram": "https://www.instagram.com/panayotispascot/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-sackocamara_1754064626.jpg", "bio": "", "actuality": "Known for his viral comedy sketches, Sacko Camara is a popular figure in the Paris comedy scene."}, {"slug": "sarah-donnelly", "name": "Sarah Donnelly", "langs": ["en"], "instagram": "https://www.instagram.com/sarahdonnellycomedian/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=sarah-donnelly&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "American comedian in Paris 12+ years. She opened for Jerry Seinfeld, toured with Gad Elmaleh, and regularly performs at Theatre BO Saint-Martin. Her special 'The Only American in Paris' is on YouTube. A pillar of the Paris English comedy scene.", "actuality": "Sarah Donnelly, an American comedian in Paris for over a decade, continues to captivate audiences at Theatre BO Saint-Martin and beyond, with her special 'The Only American in Paris' available on YouT"}, {"slug": "sebastian-marx", "name": "Sebastian Marx", "langs": ["en", "fr"], "instagram": "https://www.instagram.com/sebastianmarxcomedy/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=sebastian-marx&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "New Yorker who fell in love with a French woman and moved to Paris. Created 'New York Comedy Night' at SoGymnase — the FIRST regular English stand-up show in Paris. Appeared on Jamel Comedy Club (Canal+), got a radio gig on RTL with Stephane Bern, and later France Inter. He proved English-language comedy could work in Paris.", "actuality": ""}, {"slug": "sophie-loustalot", "name": "Sophie Loustalot", "langs": ["fr"], "instagram": "https://www.instagram.com/sophieloustalot/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-sophieloustalot_1753890961.jpg", "bio": "", "actuality": ""}, {"slug": "soun-dembele", "name": "Soun Dembele", "langs": ["fr"], "instagram": "https://www.instagram.com/soun_dembele/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-soun_1754055169.jpg", "bio": "Passionné de stand up, Soun joue partout où il peut jouer. De la cave d’un bar jusqu’au Zénith de Clermont Ferrand, Soun fait hurler de rire son public avec une voix et une prestance hors du commun.", "actuality": ""}, {"slug": "tamer-kattan", "name": "Tamer Kattan", "langs": ["en"], "instagram": "@tamerkat", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=tamer-kattan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "New York comedian who made Paris his second home. 159K+ followers on social media. Regular collaborator with Robert Hoehn and a favorite on the Paris English-language circuit.", "actuality": ""}, {"slug": "tania-dutel", "name": "Tania Dutel", "langs": ["fr", "en"], "instagram": "https://www.instagram.com/taniadutel/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=tania-dutel&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "French comedian who performs brilliantly in both French and English. Known for sharp observational humor and fearless stage presence. A regular at English-language shows in Paris and proof that the scene is truly bilingual.", "actuality": ""}, {"slug": "tareek", "name": "Tareek", "langs": ["fr"], "instagram": "https://www.instagram.com/tareekoff/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-tareek_1753967472.jpg", "bio": "", "actuality": ""}, {"slug": "tom-baldetti", "name": "Tom Baldetti", "langs": ["fr"], "instagram": "https://www.instagram.com/tombaldetti/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-tombaldetti_1753968053.jpg", "bio": "", "actuality": ""}, {"slug": "victor-patrascan", "name": "Victor Patrascan", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=victor-patrascan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language comedian with his own show, a fixture in the Paris English comedy scene.", "actuality": ""}, {"slug": "yassine-hitch", "name": "Yassine Hitch", "langs": ["fr"], "instagram": "https://www.instagram.com/yassine.hitch/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-yassinehitch_1754052310.jpg", "bio": "", "actuality": ""}];
+const SHOWS = [{"id": 30, "name": "Blast Off All Stars", "venue": ""}, {"id": 34, "name": "Broadway Comedy Club - Paris", "venue": ""}, {"id": 31, "name": "Charonne Comedy Club", "venue": ""}, {"id": 10, "name": "Comedy Crush Wednesday Show", "venue": ""}, {"id": 23, "name": "Comedy Lab", "venue": ""}, {"id": 6, "name": "Cuba Compagnie Comedy Club", "venue": ""}, {"id": 25, "name": "English Stand-Up Comedy in Paris — Friday Night Show", "venue": ""}, {"id": 19, "name": "FIAP Comedy Club", "venue": ""}, {"id": 3, "name": "French Fried Comedy Night", "venue": ""}, {"id": 7, "name": "Funny Women Paris", "venue": ""}, {"id": 5, "name": "Green Light Comedy", "venue": ""}, {"id": 33, "name": "Green Mic Comedy Show", "venue": ""}, {"id": 24, "name": "Green Mic Showcase", "venue": ""}, {"id": 21, "name": "Greenwashing Comedy Club", "venue": ""}, {"id": 29, "name": "IntégRire Comedy Night", "venue": ""}, {"id": 27, "name": "Kinto Comedy Club", "venue": ""}, {"id": 16, "name": "Kiss Comedy Club", "venue": "Le Coquin"}, {"id": 4, "name": "Kuhl Comedy Open Mic", "venue": ""}, {"id": 9, "name": "LOFI Comedy Club", "venue": "Fada Paris"}, {"id": 14, "name": "MANGO English Stand-Up", "venue": ""}, {"id": 13, "name": "Mic Drop Comedy Club", "venue": ""}, {"id": 11, "name": "Millennial Meltdown", "venue": ""}, {"id": 18, "name": "Oh My God She's Parisian! — Julie Coulon", "venue": ""}, {"id": 32, "name": "Oscar Comedy Club", "venue": ""}, {"id": 8, "name": "Rocket Comedy Club", "venue": ""}, {"id": 28, "name": "Smash Comedy Club", "venue": ""}, {"id": 17, "name": "South Comedy Club", "venue": ""}, {"id": 22, "name": "Sparkle Comedy Club", "venue": ""}, {"id": 12, "name": "The Dissident Comedy Show", "venue": ""}, {"id": 20, "name": "The Englishman Comedy Night", "venue": "The Englishman Cocktail Club"}, {"id": 26, "name": "The Open Mic Express", "venue": ""}, {"id": 2, "name": "Velvet Bar Comedy — Le meilleur du stand-up", "venue": ""}, {"id": 1, "name": "Velvet Bar Comedy — Open Mic", "venue": ""}, {"id": 15, "name": "Wednesday Night Comedy", "venue": ""}];
 let activeFilter = 'all';
-let currentComicSlug = null;
 
-// Count stats
 function counts() {
   let en=0,fr=0,bi=0;
   COMICS.forEach(c=>{
@@ -201,37 +190,37 @@ function counts() {
 }
 counts();
 
-// Build show selector
-const sel = document.getElementById('m-show');
+const sel=document.getElementById('m-show');
 SHOWS.forEach(s=>{
   const o=document.createElement('option');
   o.value=s.id; o.textContent=s.name+(s.venue?' — '+s.venue:'');
   sel.appendChild(o);
 });
 
-// Render grid
 function renderGrid() {
-  const q = document.getElementById('search').value.toLowerCase();
-  const grid = document.getElementById('grid');
+  const q=document.getElementById('search').value.toLowerCase();
+  const grid=document.getElementById('grid');
   grid.innerHTML='';
   COMICS.forEach(c=>{
     const hasEn=c.langs.includes('en'), hasFr=c.langs.includes('fr');
-    const langKey = (hasEn&&hasFr)?'bi':hasEn?'en':'fr';
+    const langKey=(hasEn&&hasFr)?'bi':hasEn?'en':'fr';
     if(activeFilter!=='all'&&activeFilter!==langKey) return;
     if(q&&!c.name.toLowerCase().includes(q)) return;
-    
-    const card=document.createElement('div');
-    card.className='card';
-    
+
     let tagHtml='';
     if(hasEn&&hasFr) tagHtml='<span class="tag tag-bi">Bilingual</span>';
     else if(hasEn) tagHtml='<span class="tag tag-en">English</span>';
     else tagHtml='<span class="tag tag-fr">Français</span>';
-    
-    const igBtn = c.instagram
-      ? `<a href="${c.instagram.startsWith('http')?c.instagram:'https://instagram.com/'+c.instagram.replace('@','')}" target="_blank" class="btn-ig">📷 Instagram</a>`
-      : `<span class="btn-ig" style="opacity:.3;cursor:default">📷 —</span>`;
-    
+
+    const igHtml=c.instagram
+      ?`<a href="${c.instagram.startsWith('http')?c.instagram:'https://instagram.com/'+c.instagram.replace('@','')}" target="_blank" class="card-ig">📷 Instagram</a>`
+      :'';
+
+    const actualityHtml=c.actuality
+      ?`<div class="card-actuality">📍 ${c.actuality}</div>`:'';
+
+    const card=document.createElement('div');
+    card.className='card';
     card.innerHTML=`
       <div class="card-top">
         <img class="card-photo" src="${c.photo}" alt="${c.name}" onerror="this.src='https://api.dicebear.com/7.x/adventurer/svg?seed=${c.slug}&backgroundColor=b6e3f4'">
@@ -241,17 +230,14 @@ function renderGrid() {
         </div>
       </div>
       ${c.bio?`<div class="card-bio">${c.bio}</div>`:''}
-      <div class="card-actions">
-        ${igBtn}
-        <button class="btn-submit" onclick="openModal('${c.slug}','${c.name.replace(/'/g,"\'")}')">Submit bio ⚡€1</button>
-      </div>
+      ${actualityHtml}
+      ${igHtml}
     `;
     grid.appendChild(card);
   });
 }
 renderGrid();
 
-// Filters
 document.querySelectorAll('.filter-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
@@ -262,17 +248,19 @@ document.querySelectorAll('.filter-btn').forEach(btn=>{
 });
 document.getElementById('search').addEventListener('input',renderGrid);
 
-// Modal
 function openModal(slug,name) {
-  currentComicSlug=slug;
-  document.getElementById('m-name').value=name;
+  document.getElementById('m-name').value=name||'';
   document.getElementById('m-err').textContent='';
   document.getElementById('form-section').style.display='';
   document.getElementById('qr-section').style.display='none';
+  document.getElementById('btn-pay').disabled=false;
+  document.getElementById('btn-pay').textContent='Get invoice ⚡ €1';
   document.getElementById('modal-bg').classList.add('open');
 }
 document.getElementById('btn-cancel').onclick=()=>document.getElementById('modal-bg').classList.remove('open');
-document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target===document.getElementById('modal-bg'))document.getElementById('modal-bg').classList.remove('open')});
+document.getElementById('modal-bg').addEventListener('click',e=>{
+  if(e.target===document.getElementById('modal-bg')) document.getElementById('modal-bg').classList.remove('open');
+});
 
 document.getElementById('btn-pay').onclick=async()=>{
   const name=document.getElementById('m-name').value.trim();
@@ -283,51 +271,44 @@ document.getElementById('btn-pay').onclick=async()=>{
   errEl.textContent='';
   if(!name||!email||!bio){errEl.textContent='Please fill in all fields.';return;}
   if(!lid){errEl.textContent='Please select a show.';return;}
-  
+
   const btn=document.getElementById('btn-pay');
   btn.disabled=true; btn.textContent='Getting invoice…';
-  
+
   try {
     const cfg=await fetch('/api-config.json').then(r=>r.json()).catch(()=>({api:''}));
     const API=cfg.api||'';
-    if(!API){errEl.textContent='Payment API offline. Try again later.';btn.disabled=false;btn.textContent='Get invoice ⚡€1';return;}
-    
+    if(!API){errEl.textContent='Payment API offline. Try again later.';btn.disabled=false;btn.textContent='Get invoice ⚡ €1';return;}
+
     const resp=await fetch(`${API}/api/listings/${lid}/bio-invoice`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({comic_slug:currentComicSlug,name,email,bio_text:bio})
+      body:JSON.stringify({name,email,bio_text:bio})
     });
     const data=await resp.json();
-    if(!resp.ok){errEl.textContent=data.detail||'Error creating invoice.';btn.disabled=false;btn.textContent='Get invoice ⚡€1';return;}
-    
+    if(!resp.ok){errEl.textContent=data.detail||'Error creating invoice.';btn.disabled=false;btn.textContent='Get invoice ⚡ €1';return;}
+
     const bolt11=data.bolt11||data.payment_request;
-    if(!bolt11){errEl.textContent='No invoice returned.';btn.disabled=false;btn.textContent='Get invoice ⚡€1';return;}
-    
+    if(!bolt11){errEl.textContent='No invoice returned.';btn.disabled=false;btn.textContent='Get invoice ⚡ €1';return;}
+
     document.getElementById('bolt11-text').textContent=bolt11;
     document.getElementById('form-section').style.display='none';
     document.getElementById('qr-section').style.display='';
     drawQR(bolt11);
   } catch(e) {
     errEl.textContent='Network error: '+e.message;
-    btn.disabled=false; btn.textContent='Get invoice ⚡€1';
+    btn.disabled=false; btn.textContent='Get invoice ⚡ €1';
   }
 };
 
-// QR generator (pure JS, no external libs)
 function drawQR(text){
-  // Use a simple canvas-based QR via goqr.me API image
   const canvas=document.getElementById('qr-canvas');
   const ctx=canvas.getContext('2d');
-  ctx.clearRect(0,0,220,220);
-  ctx.fillStyle='#fff';ctx.fillRect(0,0,220,220);
-  ctx.fillStyle='#888';ctx.font='12px sans-serif';ctx.fillText('Loading QR…',60,110);
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,220,220);
   const img=new Image();
   img.crossOrigin='anonymous';
   img.onload=()=>{ctx.clearRect(0,0,220,220);ctx.drawImage(img,0,0,220,220);};
-  img.onerror=()=>{ctx.fillStyle='#111';ctx.fillRect(0,0,220,220);ctx.fillStyle='#f5c518';ctx.font='11px monospace';
-    // fallback: show bolt11 text as copyable
-    document.getElementById('bolt11-text').style.maxHeight='none';
-    ctx.fillText('Tap below to copy',20,110);};
+  img.onerror=()=>{document.getElementById('bolt11-text').style.maxHeight='none';};
   img.src=`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent('lightning:'+text)}`;
 }
 </script>
