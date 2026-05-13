@@ -124,17 +124,7 @@
 
 <section class="hero">
   <h1>Paris comedians</h1>
-  <p>Every English and French stand-up active in Paris. Find open mics, submit your bio to show runners, get booked.</p>
-
-  <div class="how-it-works" id="how">
-    <h3>⚡ How to submit your bio for €1</h3>
-    <div class="steps">
-      <div class="step"><div class="num">1</div><div class="txt"><b>Find a show</b> — pick any open mic or showcase below</div></div>
-      <div class="step"><div class="num">2</div><div class="txt"><b>Click "Submit bio ⚡€1"</b> — enter your email + 2-sentence bio</div></div>
-      <div class="step"><div class="num">3</div><div class="txt"><b>Pay €1 via Lightning</b> — scan the QR with any Lightning wallet (Phoenix, Wallet of Satoshi, Muun…)</div></div>
-      <div class="step"><div class="num">4</div><div class="txt"><b>Done</b> — your bio lands in the show runner's inbox instantly. No middleman.</div></div>
-    </div>
-  </div>
+  <p>Every English and French stand-up active in Paris. Find your peers, then submit your bio to get booked.</p>
 </section>
 
 <div class="stats-line">
@@ -149,6 +139,19 @@
 </div>
 
 <div class="grid" id="grid"></div>
+
+<div style="max-width:960px;margin:0 auto;padding:0 20px 20px;">
+  <div class="how-it-works" id="how">
+    <h3>⚡ You're a Paris comedian — here's how to get booked for €1</h3>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><div class="txt"><b>Click "Submit bio ⚡€1"</b> on any comedian card above</div></div>
+      <div class="step"><div class="num">2</div><div class="txt"><b>Pick a show</b> — FFCN, Velvet Open Mic, Green Mic Showcase, and more</div></div>
+      <div class="step"><div class="num">3</div><div class="txt"><b>Fill your email + 2-sentence bio</b> — who you are, what you do</div></div>
+      <div class="step"><div class="num">4</div><div class="txt"><b>Pay €1 via Lightning</b> — scan with Phoenix, Muun, or Wallet of Satoshi</div></div>
+      <div class="step"><div class="num">5</div><div class="txt"><b>Done</b> — your bio goes straight to the show runner's inbox. No middleman, no waiting list.</div></div>
+    </div>
+  </div>
+</div>
 
 <div class="mbg" id="mbg" onclick="if(event.target===this)close_m()">
   <div class="modal"><button class="close" onclick="close_m()">✕</button><div id="mc"></div></div>
@@ -237,7 +240,8 @@ async function payBio(){
   if(!email){alert('Email required');return;}
   show_m('<p style="text-align:center;padding:30px;color:var(--mute)">Generating Lightning invoice…</p>');
   try{
-    const r=await fetch(`/api/listings/${lid}/bio-invoice`,{
+    const API='https://discharge-economics-series-dean.trycloudflare.com';
+    const r=await fetch(`${API}/api/listings/${lid}/bio-invoice`,{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({performer_email:email,performer_name:name,bio_text:bio})
     });
