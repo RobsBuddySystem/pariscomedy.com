@@ -240,7 +240,9 @@ async function payBio(){
   if(!email){alert('Email required');return;}
   show_m('<p style="text-align:center;padding:30px;color:var(--mute)">Generating Lightning invoice…</p>');
   try{
-    const API='https://discharge-economics-series-dean.trycloudflare.com';
+    const cfg=await fetch('/api-config.json').then(r=>r.json()).catch(()=>({api:''}));
+    const API=cfg.api||'';
+    if(!API){show_m('<p style="color:var(--accent);text-align:center;padding:20px">Payment API offline. Try again soon.</p>');return;}
     const r=await fetch(`${API}/api/listings/${lid}/bio-invoice`,{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({performer_email:email,performer_name:name,bio_text:bio})
