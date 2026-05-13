@@ -48,9 +48,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .tag-fr{background:#3a1a1a;color:#e07a7a}
 .tag-bi{background:#1a3a2a;color:#7ae0a0}
 .card-bio{font-size:13px;color:#888;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.card-actuality{font-size:12px;color:#f5c518;line-height:1.4;border-top:1px solid #1e1e1e;padding-top:8px;font-style:italic}
-.card-ig{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#888;margin-top:auto;padding-top:4px}
-.card-ig:hover{color:#f0f0f0}
+.card-btns{display:flex;gap:8px;margin-top:auto;padding-top:8px}
+.btn-card{flex:1;padding:8px 0;border-radius:8px;border:1px solid #333;background:transparent;color:#aaa;font-size:12px;font-weight:600;text-align:center;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:4px}
+.btn-card:hover{border-color:#666;color:#f0f0f0}
+.actuality-bubble{font-size:12px;color:#f5c518;line-height:1.5;background:#1a1500;border:1px solid #3a2e00;border-radius:8px;padding:8px 10px;margin-top:4px;display:none}
+.actuality-bubble.open{display:block}
 
 .how-section{max-width:800px;margin:0 auto;padding:48px 24px 64px}
 .how-section h2{font-size:24px;font-weight:700;margin-bottom:8px;text-align:center}
@@ -212,12 +214,10 @@ function renderGrid() {
     else if(hasEn) tagHtml='<span class="tag tag-en">English</span>';
     else tagHtml='<span class="tag tag-fr">Français</span>';
 
-    const igHtml=c.instagram
-      ?`<a href="${c.instagram.startsWith('http')?c.instagram:'https://instagram.com/'+c.instagram.replace('@','')}" target="_blank" class="card-ig">📷 Instagram</a>`
+    const igUrl=c.instagram
+      ?(c.instagram.startsWith('http')?c.instagram:'https://instagram.com/'+c.instagram.replace('@',''))
       :'';
-
-    const actualityHtml=c.actuality
-      ?`<div class="card-actuality">📍 ${c.actuality}</div>`:'';
+    const uid='ac-'+c.slug;
 
     const card=document.createElement('div');
     card.className='card';
@@ -230,8 +230,15 @@ function renderGrid() {
         </div>
       </div>
       ${c.bio?`<div class="card-bio">${c.bio}</div>`:''}
-      ${actualityHtml}
-      ${igHtml}
+      <div class="card-btns">
+        ${igUrl
+          ?`<a href="${igUrl}" target="_blank" class="btn-card">📷 Instagram</a>`
+          :`<span class="btn-card" style="opacity:.3;cursor:default;pointer-events:none">📷 —</span>`}
+        ${c.actuality
+          ?`<button class="btn-card" onclick="toggleActuality('${uid}')">📍 Actuality</button>`
+          :`<span class="btn-card" style="opacity:.3;cursor:default;pointer-events:none">📍 —</span>`}
+      </div>
+      ${c.actuality?`<div class="actuality-bubble" id="${uid}">${c.actuality}</div>`:''}
     `;
     grid.appendChild(card);
   });
@@ -300,6 +307,11 @@ document.getElementById('btn-pay').onclick=async()=>{
     btn.disabled=false; btn.textContent='Get invoice ⚡ €1';
   }
 };
+
+function toggleActuality(id){
+  const el=document.getElementById(id);
+  if(el) el.classList.toggle('open');
+}
 
 function drawQR(text){
   const canvas=document.getElementById('qr-canvas');
