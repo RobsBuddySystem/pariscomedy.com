@@ -1,298 +1,335 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Paris Comedians — English & French Stand-Up Directory · pariscomedy.com</title>
-<meta name="description" content="Every English and French stand-up comedian performing in Paris. Photos, bios, Instagram. Submit your bio to open mics for €1 via Lightning.">
-<link rel="canonical" href="https://pariscomedy.com/comedians.html">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paris Comedy — Comedians Directory</title>
+<meta name="description" content="The definitive directory of stand-up comedians performing in Paris. English, French, bilingual.">
 <style>
-  :root{--bg:#0d0d10;--card:#1a1a22;--card2:#23232e;--ink:#f5f5f7;--mute:#9aa0a6;
-    --accent:#ff3366;--gold:#d4af37;--ok:#25c28b;--border:#2a2a36;}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html,body{background:var(--bg);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    font-size:16px;-webkit-tap-highlight-color:transparent;}
-  a{color:inherit;text-decoration:none;}
-  header{position:sticky;top:0;z-index:5;background:#0d0d10ee;
-    backdrop-filter:blur(12px);border-bottom:1px solid var(--border);
-    padding:12px 20px;display:flex;align-items:center;gap:16px;}
-  .brand{font-size:18px;font-weight:800;letter-spacing:-.3px;}
-  .brand span{color:var(--accent);}
-  .nav-links{display:flex;gap:18px;font-size:14px;margin-left:auto;}
-  .nav-links a{color:var(--mute);}
-  .nav-links a:hover,.nav-links a.active{color:var(--ink);}
-  .cta-btn{background:var(--accent);color:#fff;border:none;border-radius:10px;
-    padding:8px 18px;font-size:14px;font-weight:700;cursor:pointer;
-    text-decoration:none;white-space:nowrap;display:inline-block;}
-  .hero{padding:32px 20px 8px;max-width:960px;margin:0 auto;}
-  .hero h1{font-size:30px;margin:0 0 6px;letter-spacing:-.5px;}
-  .hero p{color:var(--mute);font-size:15px;line-height:1.6;max-width:520px;}
-  .stats-line{padding:10px 20px 6px;max-width:960px;margin:0 auto;
-    font-size:13px;color:var(--mute);}
-  .stats-line b{color:var(--ok);}
-  .filters{padding:4px 20px 8px;max-width:960px;margin:0 auto;
-    display:flex;gap:8px;flex-wrap:wrap;}
-  .filters input{background:var(--card);border:1px solid var(--border);color:var(--ink);
-    border-radius:10px;padding:9px 14px;font-size:14px;flex:1;min-width:180px;outline:none;}
-  .filters input:focus{border-color:var(--accent);}
-  .fbtn{background:var(--card);border:1px solid var(--border);color:var(--mute);
-    border-radius:999px;padding:7px 16px;font-size:13px;font-weight:600;cursor:pointer;}
-  .fbtn.on{background:var(--accent);border-color:var(--accent);color:#fff;}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
-    gap:14px;padding:8px 20px 0;max-width:960px;margin:0 auto;}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;
-    padding:16px;transition:border-color .15s;}
-  .card:hover{border-color:#555;}
-  .card img{width:56px;height:56px;border-radius:50%;object-fit:cover;
-    background:var(--card2);display:block;margin-bottom:10px;}
-  .card .name{font-weight:800;font-size:16px;margin-bottom:2px;}
-  .card .meta{color:var(--mute);font-size:12px;margin-bottom:8px;}
-  .card .bio{font-size:12.5px;color:#c8cbd0;line-height:1.5;margin-bottom:10px;
-    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
-  .tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
-  .tag{font-size:10px;font-weight:700;text-transform:uppercase;padding:2px 8px;
-    border-radius:999px;letter-spacing:.4px;}
-  .tag.en{background:#1a2940;color:#7ec7ff;}
-  .tag.fr{background:#2b1c2f;color:#d496ff;}
-  .tag.bi{background:#1a2e1e;color:var(--ok);}
-  .actions{display:flex;gap:6px;flex-wrap:wrap;}
-  .actions a,.actions button{font:inherit;font-size:12px;font-weight:600;
-    padding:6px 12px;border-radius:8px;text-decoration:none;cursor:pointer;
-    border:1px solid var(--border);background:var(--card2);color:var(--ink);}
-  .actions a:hover,.actions button:hover{border-color:var(--accent);}
-  .actions .primary{background:var(--accent);border-color:var(--accent);color:#fff;}
-  .how-section{max-width:960px;margin:28px auto 0;padding:0 20px 60px;}
-  .how-box{background:var(--card);border:1px solid rgba(212,175,55,0.3);
-    border-radius:16px;padding:20px 22px;}
-  .how-box h3{font-size:15px;font-weight:800;margin-bottom:12px;color:var(--gold);}
-  .steps{display:flex;flex-direction:column;gap:10px;}
-  .step{display:flex;gap:12px;align-items:flex-start;font-size:14px;}
-  .step .num{background:var(--accent);color:#fff;border-radius:50%;
-    width:24px;height:24px;display:flex;align-items:center;justify-content:center;
-    font-size:11px;font-weight:800;flex-shrink:0;margin-top:1px;}
-  .step .txt{color:var(--mute);line-height:1.5;}
-  .step .txt b{color:var(--ink);}
-  .mbg{display:none;position:fixed;inset:0;background:#000b;z-index:100;
-    align-items:center;justify-content:center;padding:16px;}
-  .mbg.open{display:flex;}
-  .modal{background:var(--card);border:1px solid var(--border);border-radius:20px;
-    padding:28px;max-width:400px;width:100%;position:relative;
-    max-height:90vh;overflow-y:auto;}
-  .modal h2{margin:0 0 6px;font-size:20px;}
-  .modal p{color:var(--mute);font-size:14px;margin:0 0 10px;line-height:1.5;}
-  .modal label{display:block;font-size:13px;font-weight:600;margin:10px 0 3px;}
-  .modal input,.modal textarea,.modal select{width:100%;background:var(--card2);
-    border:1px solid var(--border);color:var(--ink);border-radius:10px;
-    padding:10px 14px;font:inherit;font-size:14px;outline:none;}
-  .modal input:focus,.modal textarea:focus,.modal select:focus{border-color:var(--accent);}
-  .modal textarea{min-height:80px;resize:vertical;}
-  .modal .close{position:absolute;top:14px;right:16px;background:none;border:none;
-    font-size:20px;cursor:pointer;color:var(--mute);}
-  .modal .sbtn{width:100%;margin-top:14px;padding:13px;background:var(--accent);
-    border:none;border-radius:12px;color:#fff;font:inherit;font-size:15px;
-    font-weight:800;cursor:pointer;}
-  .price-big{font-size:32px;font-weight:900;color:var(--gold);text-align:center;
-    margin:10px 0 2px;}
-  .price-sub{color:var(--mute);font-size:12px;text-align:center;margin-bottom:12px;}
-  .qr-wrap{background:var(--card2);border-radius:12px;padding:16px;
-    display:flex;justify-content:center;margin:10px 0;}
-  .copy-in{width:100%;background:var(--bg);border:1px solid var(--border);
-    color:var(--mute);font-size:10px;padding:8px;border-radius:8px;
-    font-family:monospace;cursor:pointer;}
-  .banner{padding:10px 14px;border-radius:10px;font-size:13px;
-    font-weight:600;margin:10px 0;text-align:center;}
-  .banner.ok{border:1px solid var(--ok);color:var(--ok);background:#0a2e1e;}
-  .banner.warn{border:1px solid #ffb020;color:#ffb020;background:#2c1e00;}
-  .empty{text-align:center;color:var(--mute);padding:60px 20px;font-size:15px;}
-  @media(max-width:600px){
-    .hero h1{font-size:24px;}
-    .nav-links{display:none;}
-    .grid{grid-template-columns:1fr 1fr;}
-    .card img{width:44px;height:44px;}
-    .card .name{font-size:14px;}
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#f0f0f0;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #222;position:sticky;top:0;background:#0a0a0a;z-index:100}
+.nav-logo{font-size:18px;font-weight:700;letter-spacing:-0.5px}
+.nav-logo span{color:#f5c518}
+.nav-links{display:flex;gap:20px;font-size:14px;color:#888}
+.nav-links a:hover{color:#f0f0f0}
+
+/* HERO */
+.hero{text-align:center;padding:60px 24px 40px;background:linear-gradient(180deg,#111 0%,#0a0a0a 100%)}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:16px}
+.hero h1 span{color:#f5c518}
+.hero p{color:#888;font-size:16px;max-width:500px;margin:0 auto 24px}
+.stats-bar{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;font-size:13px;color:#666}
+.stats-bar strong{color:#f5c518;font-size:20px;display:block}
+
+/* FILTERS */
+.filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:24px 16px 0}
+.filter-btn{padding:8px 18px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;font-size:13px;cursor:pointer;transition:all .15s}
+.filter-btn:hover{border-color:#666;color:#f0f0f0}
+.filter-btn.active{background:#f5c518;border-color:#f5c518;color:#000;font-weight:600}
+
+/* SEARCH */
+.search-wrap{padding:16px 24px 0;max-width:400px;margin:0 auto}
+.search-wrap input{width:100%;padding:10px 16px;border-radius:8px;border:1px solid #333;background:#111;color:#f0f0f0;font-size:14px;outline:none}
+.search-wrap input:focus{border-color:#555}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding:24px;max-width:1200px;margin:0 auto}
+
+/* CARD */
+.card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px;transition:border-color .15s}
+.card:hover{border-color:#333}
+.card-top{display:flex;align-items:center;gap:12px}
+.card-photo{width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;background:#222}
+.card-meta{flex:1;min-width:0}
+.card-name{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-tags{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
+.tag{padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;letter-spacing:.3px}
+.tag-en{background:#1a3a5c;color:#7ab3e0}
+.tag-fr{background:#3a1a1a;color:#e07a7a}
+.tag-bi{background:#1a3a2a;color:#7ae0a0}
+.card-bio{font-size:13px;color:#888;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card-actions{display:flex;gap:8px;margin-top:auto;padding-top:4px}
+.btn-ig{flex:1;padding:8px;border-radius:8px;border:1px solid #333;background:transparent;color:#888;font-size:12px;text-align:center;cursor:pointer;transition:all .15s}
+.btn-ig:hover{border-color:#666;color:#f0f0f0}
+.btn-submit{flex:2;padding:8px;border-radius:8px;border:none;background:#f5c518;color:#000;font-size:12px;font-weight:700;cursor:pointer;transition:opacity .15s}
+.btn-submit:hover{opacity:.9}
+.hidden{display:none!important}
+
+/* HOW SECTION */
+.how-section{max-width:800px;margin:0 auto;padding:48px 24px 64px}
+.how-section h2{font-size:24px;font-weight:700;margin-bottom:8px;text-align:center}
+.how-section .sub{text-align:center;color:#666;font-size:14px;margin-bottom:32px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.step{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:20px}
+.step-num{font-size:28px;margin-bottom:8px}
+.step-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.step-desc{font-size:13px;color:#666;line-height:1.5}
+.step-price{display:inline-block;margin-top:8px;background:#f5c518;color:#000;font-size:11px;font-weight:700;padding:3px 8px;border-radius:10px}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center;padding:16px}
+.modal-bg.open{display:flex}
+.modal{background:#111;border:1px solid #333;border-radius:16px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;padding:28px}
+.modal h3{font-size:18px;font-weight:700;margin-bottom:4px}
+.modal .sub{font-size:13px;color:#666;margin-bottom:20px}
+.modal label{display:block;font-size:12px;color:#888;margin-bottom:4px;margin-top:12px}
+.modal input,.modal textarea,.modal select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid #333;background:#0a0a0a;color:#f0f0f0;font-size:14px;outline:none}
+.modal textarea{resize:vertical;min-height:80px}
+.modal input:focus,.modal textarea:focus,.modal select:focus{border-color:#555}
+.modal-btns{display:flex;gap:8px;margin-top:20px}
+.btn-cancel{flex:1;padding:10px;border-radius:8px;border:1px solid #333;background:transparent;color:#888;cursor:pointer}
+.btn-pay{flex:2;padding:10px;border-radius:8px;border:none;background:#f5c518;color:#000;font-weight:700;cursor:pointer;font-size:14px}
+.btn-pay:disabled{opacity:.5;cursor:not-allowed}
+#qr-section{display:none;text-align:center;padding-top:16px}
+#qr-section p{font-size:13px;color:#888;margin-top:8px}
+#qr-section .bolt11{font-size:9px;color:#444;word-break:break-all;margin-top:8px;max-height:60px;overflow:hidden}
+.err{color:#e07a7a;font-size:13px;margin-top:8px}
 </style>
 </head>
 <body>
-<header>
-  <a href="/" class="brand">paris<span>comedy</span>.com</a>
-  <nav class="nav-links">
-    <a href="shows.html">Shows</a>
-    <a href="calendar.html">Calendar</a>
-    <a href="comedians.html" class="active" style="color:var(--ink)">Comedians</a>
-    <a href="venues.html">Venues</a>
-  </nav>
-  <a href="#how" class="cta-btn" style="margin-left:auto">Submit bio ⚡€1</a>
-</header>
 
-<section class="hero">
-  <h1>Paris comedians</h1>
-  <p>Every English and French stand-up active in Paris. Find your peers — then submit your bio to get booked.</p>
-</section>
+<nav>
+  <div class="nav-logo">Paris<span>Comedy</span></div>
+  <div class="nav-links">
+    <a href="/">Shows</a>
+    <a href="/comedians.html" style="color:#f5c518">Comedians</a>
+    <a href="/#venues">Venues</a>
+  </div>
+</nav>
 
-<div class="stats-line">
-  <b id="vis-count">46</b> comedians · <span id="en-count">13</span> English · <span id="fr-count">33</span> French+Bilingual
+<div class="hero">
+  <h1>Paris Comedy<br><span>Comedians Directory</span></h1>
+  <p>The scene — English, French, bilingual. 59 comedians performing in Paris.</p>
+  <div class="stats-bar">
+    <div><strong id="count-total">59</strong>comedians</div>
+    <div><strong id="count-en">—</strong>English</div>
+    <div><strong id="count-fr">—</strong>French</div>
+    <div><strong id="count-bi">—</strong>Bilingual</div>
+  </div>
 </div>
 
 <div class="filters">
-  <input type="search" id="search" placeholder="Search by name…" oninput="render()">
-  <button class="fbtn on" id="btn-all" onclick="setLang('all')">All</button>
-  <button class="fbtn" id="btn-en" onclick="setLang('en')">🇬🇧 English</button>
-  <button class="fbtn" id="btn-fr" onclick="setLang('fr')">🇫🇷 French</button>
+  <button class="filter-btn active" data-lang="all">All</button>
+  <button class="filter-btn" data-lang="en">🇬🇧 English</button>
+  <button class="filter-btn" data-lang="fr">🇫🇷 French</button>
+  <button class="filter-btn" data-lang="bi">🌍 Bilingual</button>
+</div>
+<div class="search-wrap">
+  <input type="text" id="search" placeholder="Search comedians…" autocomplete="off">
 </div>
 
 <div class="grid" id="grid"></div>
 
 <section class="how-section" id="how">
-  <div class="how-box">
-    <h3>⚡ You're a Paris comedian — here's how to get booked for €1</h3>
-    <div class="steps">
-      <div class="step"><div class="num">1</div><div class="txt"><b>Find yourself above</b> — or search your name. Click your card.</div></div>
-      <div class="step"><div class="num">2</div><div class="txt"><b>Click "Submit bio ⚡€1"</b> — pick a show: FFCN, Velvet Open Mic, Green Mic Showcase, and more</div></div>
-      <div class="step"><div class="num">3</div><div class="txt"><b>Fill your email + 2-sentence bio</b> — who you are, what you do</div></div>
-      <div class="step"><div class="num">4</div><div class="txt"><b>Pay €1 via Lightning</b> — scan the QR with Phoenix, Muun, or Wallet of Satoshi</div></div>
-      <div class="step"><div class="num">5</div><div class="txt"><b>Done</b> — your bio goes straight to the show runner's inbox. No middleman, no waiting list.</div></div>
+  <h2>Get Booked in Paris</h2>
+  <p class="sub">Submit your bio directly to show runners — pay once, land in the right inbox.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1️⃣</div>
+      <div class="step-title">Find your profile</div>
+      <div class="step-desc">Already performing in Paris? Your name is probably here. Search above.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2️⃣</div>
+      <div class="step-title">Click "Submit bio"</div>
+      <div class="step-desc">Pick a show, write 2 sentences about your act, add your email.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3️⃣</div>
+      <div class="step-title">Pay ⚡€1</div>
+      <div class="step-desc">Lightning invoice — instant, no account needed. Phoenix, Muun, or Wallet of Satoshi.</div>
+      <span class="step-price">⚡ €1 via Lightning</span>
+    </div>
+    <div class="step">
+      <div class="step-num">4️⃣</div>
+      <div class="step-title">Bio delivered</div>
+      <div class="step-desc">Your bio lands in the show runner's inbox the moment payment settles.</div>
     </div>
   </div>
 </section>
 
-<div class="mbg" id="mbg" onclick="if(event.target===this)closeM()">
-  <div class="modal"><button class="close" onclick="closeM()">✕</button><div id="mc"></div></div>
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <h3>Submit your bio ⚡</h3>
+    <div class="sub">€1 via Lightning — paid directly to the show runner's inbox.</div>
+    <div id="form-section">
+      <label>Your name</label>
+      <input type="text" id="m-name" placeholder="Stage name">
+      <label>Email</label>
+      <input type="email" id="m-email" placeholder="you@example.com">
+      <label>Your bio (2–3 sentences)</label>
+      <textarea id="m-bio" placeholder="Tell the show runner who you are and what your act is about…"></textarea>
+      <label>Submit to show</label>
+      <select id="m-show"></select>
+      <div class="modal-btns">
+        <button class="btn-cancel" id="btn-cancel">Cancel</button>
+        <button class="btn-pay" id="btn-pay">Get invoice ⚡€1</button>
+      </div>
+      <div class="err" id="m-err"></div>
+    </div>
+    <div id="qr-section">
+      <p>Scan with your Lightning wallet to pay €1</p>
+      <canvas id="qr-canvas" width="220" height="220"></canvas>
+      <div class="bolt11" id="bolt11-text"></div>
+      <p style="margin-top:12px;font-size:12px;color:#666">After payment your bio is delivered automatically.</p>
+    </div>
+  </div>
 </div>
 
 <script>
-const COMICS = [{"id": 22, "slug": "az", "stage_name": "AZ", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/az_officiel/?hl=fr", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": "https://www.facebook.com/azdrole/?locale=fr_FR", "youtube": null, "website": "https://www.panameartcafe.com/artiste/az", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-az_1753888774.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 28, "slug": "adrien-montowski", "stage_name": "Adrien Montowski", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/adrienmontowski/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/johndramma", "tiktok": null, "facebook": "https://www.facebook.com/adrienmontowski", "youtube": "https://youtube.com/shorts/sLiw96crjIc?si=nEv_wGgyv6kjgIOE", "website": "https://www.panameartcafe.com/artiste/adrien-montowski", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-adrianmontowski_1754050881.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 21, "slug": "ahmed-sparrow", "stage_name": "Ahmed Sparrow", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/ahmed_sparrow/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/AhmedSparrowOff", "tiktok": null, "facebook": "https://www.facebook.com/p/Ahmed-Sparrow-Officiel-100090503430565/", "youtube": "https://www.youtube.com/watch?v=Q2TWptMgTIc", "website": "https://www.panameartcafe.com/artiste/ahmed-sparrow", "photo_url": "https://www.panameartcafe.com/storage/files/artists/ahmed_1745933895.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 29, "slug": "alex-di-mambro", "stage_name": "Alex Di Mambro", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/alexdimambro_/?hl=fr", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": "https://www.facebook.com/DiMambroAlexandre/?locale=fr_FR", "youtube": null, "website": "https://www.panameartcafe.com/artiste/alex-di-mambro", "photo_url": "https://www.panameartcafe.com/storage/files/artists/alex-dimambro-portrait-paname-art-cafe_1735046611.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 23, "slug": "booder", "stage_name": "Booder", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/booder_officiel/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/Booder_officiel", "tiktok": null, "facebook": "https://www.facebook.com/pages/booder/160651037323639", "youtube": null, "website": "https://www.panameartcafe.com/artiste/booder", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-booder_1753952044.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 30, "slug": "charly-nyobe", "stage_name": "Charly Nyobe", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/charly_nyobe/?hl=fr", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/CharlyNyobe", "tiktok": null, "facebook": "https://www.facebook.com/pages/Charly-Nyobe/464154890302850", "youtube": "https://youtube.com/shorts/F0UO1mmQNOs?si=HvGCiKU5hn-nUXBq", "website": "https://www.panameartcafe.com/artiste/charly-nyobe", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-charlynyobe_1753888825.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 24, "slug": "david-azria", "stage_name": "David Azria", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/davidazria_/?hl=fr", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": "https://www.facebook.com/davidazriaa/", "youtube": null, "website": "https://www.panameartcafe.com/artiste/david-azria", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-azria_1754318321.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 46, "slug": "emy", "stage_name": "Emy", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/emy_bng/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": null, "youtube": "https://youtube.com/shorts/oXQCqfocQU0?si=rZ8GtcONOPYiUsPa", "website": "https://www.panameartcafe.com/artiste/emy", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-emy_1754321506.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 6, "slug": "gad-elmaleh", "stage_name": "Gad Elmaleh", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/gadelmaleh/", "languages": "[\"fr\",\"en\"]", "based_in": "Paris", "bio": "French comedy legend who crossed over to perform in English, doing sets in New York and appearing on major US platforms. He bridged French and American comedy. Toured with Sarah Donnelly.", "notes": "The Bridge. A-list — reach only for special nights.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:02:52", "twitter": "https://twitter.com/GadElmalehMania", "tiktok": null, "facebook": "https://www.facebook.com/gadelmaleh", "youtube": null, "website": "https://www.panameartcafe.com/artiste/gad-elmaleh", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-gadelmaleh_1753952102.jpg", "source": "seed", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 31, "slug": "ghislain-blique", "stage_name": "Ghislain Blique", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/ghislain.blique/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/GhislainBlique", "tiktok": null, "facebook": "https://www.facebook.com/ghislain.blique", "youtube": null, "website": "https://www.panameartcafe.com/artiste/ghislain-blique", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-ghislainblique_1754059757.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 52, "slug": "guillaume-fosko", "stage_name": "Guillaume Fosko", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/_fosko_/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": "https://www.facebook.com/p/Guillaume-Fosko-100063561013057/?locale=fr_FR", "youtube": null, "website": "https://www.panameartcafe.com/artiste/guillaume-fosko", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-fosko_1753951668.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 32, "slug": "hugo-tout-seul", "stage_name": "Hugo Tout seul", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/hugotoutseul/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/Hugotoutseul", "tiktok": null, "facebook": "https://www.facebook.com/hugotoutseul", "youtube": "https://www.youtube.com/watch?v=lZ42WkX6TPI", "website": "https://www.panameartcafe.com/artiste/hugo-tout-seul", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-hugotoutseul_1754052544.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 33, "slug": "ilyes-djadel", "stage_name": "Ilyes Djadel", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/ilyesdjadel/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/ilyesdjadeloff", "tiktok": null, "facebook": "https://www.facebook.com/profile.php?id=100001509011564", "youtube": "https://www.youtube.com/channel/UCQ0ix8RLpGxRXrnNxBRKi1A", "website": "https://www.panameartcafe.com/artiste/ilyes-djadel", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-ilyesdjadel_1753967232.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 34, "slug": "ilyes-mela", "stage_name": "Ilyes Mela", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/ilyesmela/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/ilyesmela", "tiktok": null, "facebook": "https://www.facebook.com/p/Ilyes-Mela-100076424783799/", "youtube": "https://www.youtube.com/watch?v=20nybV6Z7Zg&list=PL5O_uq6J4HqWGFpAYo71DJ820waOnz7AO", "website": "https://www.panameartcafe.com/artiste/ilyes-mela", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-ilyesmela_1753891075.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 45, "slug": "imen-lahmar", "stage_name": "Imen Lahmar", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/meniways/?locale=fr", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": null, "youtube": "https://youtube.com/shorts/0cgKKBSGh8o?si=z458_IBzpy7f3wUD", "website": "https://www.panameartcafe.com/artiste/imen-lahmar", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-imenlahmar_1753884920.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 9, "slug": "julie-coulon", "stage_name": "Julie Coulon", "legal_name": null, "email": null, "phone": null, "instagram": null, "languages": "[\"fr\",\"en\"]", "based_in": "Paris", "bio": "Runs 'Oh My God She's Parisian!' at Theatre BO Saint-Martin. Bilingual comedian with a strong expat-friendly premise.", "notes": "Runs 'Oh My God She's Parisian!' at Theatre BO.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:02:52", "twitter": null, "tiktok": null, "facebook": null, "youtube": null, "website": null, "photo_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=julie-coulon&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "source": "seed", "venues_performed": "[\"theatre-bo\"]", "last_seen": null}, {"id": 55, "slug": "lorene-cadeau", "stage_name": "Lorene Cadeau", "legal_name": null, "email": null, "phone": null, "instagram": null, "languages": "[\"fr\", \"en\"]", "based_in": "Paris", "bio": "FFCN alumna with 'Real Life in Paris' set (1.9K+ views). French comic performing in English — instantly Paris-specific premise that lands fast with expat rooms.", "notes": "FFCN alumna — clip verified from legacy pariscomedy.com archive.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": null, "youtube": "https://www.youtube.com/watch?v=m90TdHx7jPI", "website": null, "photo_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=lorene-cadeau&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "source": "french-fried-comedy-night", "venues_performed": "[\"french-fried-comedy-night\", \"paname-art-cafe\"]", "last_seen": null}, {"id": 26, "slug": "lotfi-abdelli", "stage_name": "Lotfi Abdelli", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/lotfiabdelli/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": null, "youtube": "https://www.youtube.com/watch?v=LS2bB3kF5as", "website": "https://www.panameartcafe.com/artiste/lotfi-abdelli", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-lotfi_1754324224.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 10, "slug": "maddie-storm", "stage_name": "Maddie Storm", "legal_name": null, "email": null, "phone": null, "instagram": null, "languages": "[\"en\"]", "based_in": "Paris", "bio": "Runs The Dissident Comedy Show (Wed 20:30) at The Dissident Club. Alternative English stand-up with a central-Paris edge.", "notes": "Runs The Dissident Comedy Show (Wed 20:30).", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:02:52", "twitter": null, "tiktok": null, "facebook": null, "youtube": null, "website": null, "photo_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=maddie-storm&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "source": "seed", "venues_performed": "[\"dissident-club\"]", "last_seen": null}, {"id": 47, "slug": "mahe", "stage_name": "Mahé", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/maheoff/reels/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": null, "youtube": "https://www.youtube.com/watch?v=o4zMwaoFRbw", "website": "https://www.panameartcafe.com/artiste/mahe", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-mahe_1754322660.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 51, "slug": "marc-rouge", "stage_name": "Marc Rougé", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/rougemarc/?hl=fr", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": null, "youtube": "https://www.youtube.com/watch?v=wKWrmYjYzcc", "website": "https://www.panameartcafe.com/artiste/marc-rouge", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-marc_1753890892.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 38, "slug": "marine-leonardi", "stage_name": "Marine Léonardi", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/marineleonardi/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": null, "youtube": null, "website": "https://www.panameartcafe.com/artiste/marine-leonardi", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-marineleonardi_1753967642.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 48, "slug": "nadege", "stage_name": "Nadège", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/nadege100gene/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": "https://www.facebook.com/p/Nadege100gene-100057230178949/", "youtube": null, "website": "https://www.panameartcafe.com/artiste/nadege", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-nadege_1753966324.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 40, "slug": "nick-mukoko", "stage_name": "Nick Mukoko", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/nickmukoko/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/NickMukoko?lang=fr", "tiktok": null, "facebook": "https://www.facebook.com/Nick-Mukoko-1445911879005847/?fref=ts", "youtube": null, "website": "https://www.panameartcafe.com/artiste/nick-mukoko", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-nickmukoko_1753888899.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 49, "slug": "nina-azoulai", "stage_name": "Nina Azoulai", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/nina.azoulai/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": "https://facebook.com/p/Nina-Azoulai-100042176897274/?locale=fr_FR", "youtube": "https://www.youtube.com/watch?v=5wUgxjz3jxQ", "website": "https://www.panameartcafe.com/artiste/nina-azoulai", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-nina_1753891766.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 7, "slug": "noman-hosni", "stage_name": "Noman Hosni", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/nomanhosni/", "languages": "[\"fr\", \"en\"]", "based_in": "Paris", "bio": "One of France's biggest comedy stars who bridges the French and English comedy worlds. Regular performer at English-language shows in Paris.", "notes": "French Star. French-language focus.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:02:52", "twitter": null, "tiktok": null, "facebook": null, "youtube": null, "website": null, "photo_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=noman-hosni&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "source": "seed", "venues_performed": "[\"french-fried-comedy-night\"]", "last_seen": null}, {"id": 39, "slug": "nordine-ganso", "stage_name": "Nordine Ganso", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/nordine.ganso/?hl=fr", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": "https://www.facebook.com/nordineganso3/", "youtube": null, "website": "https://www.panameartcafe.com/artiste/nordine-ganso", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-nordineganso_1754054811.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 27, "slug": "omar-dhobb", "stage_name": "Omar Dhobb", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/omardhobb/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/AbdelBichkou", "tiktok": null, "facebook": "https://www.facebook.com/pages/Abdelkrim-Bichkou/152987628169546?fref=ts", "youtube": null, "website": "https://www.panameartcafe.com/artiste/omar-dhobb", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-omardhobb-1_1754058000.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 54, "slug": "patti-mansbach", "stage_name": "Patti Mansbach", "legal_name": null, "email": null, "phone": null, "instagram": null, "languages": "[\"en\"]", "based_in": "Paris", "bio": "FFCN alumna. Her 'Fear of Getting a French Boyfriend' set on French Fried Comedy Night has 12K+ YouTube views — a clean, crowd-forward premise that lands hard in the bilingual room.", "notes": "FFCN alumna — clip verified from legacy pariscomedy.com archive.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": null, "youtube": "https://www.youtube.com/watch?v=3nBPtHLxSV4", "website": null, "photo_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=patti-mansbach&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "source": "french-fried-comedy-night", "venues_performed": "[\"french-fried-comedy-night\", \"paname-art-cafe\"]", "last_seen": null}, {"id": 4, "slug": "paul-taylor", "stage_name": "Paul Taylor", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/paul_taylor_uk/", "languages": "[\"en\",\"fr\"]", "based_in": "Paris", "bio": "British comedian who moved to Paris in 2009 and got his start at French Fried Comedy Night, hosted by Robert Hoehn. His 2016 'La Bise' video — produced and directed by Robert — went viral with 3M+ views, leading Canal+ to give him 'What The Fuck France,' the first English show on French TV. #Franglais, 'So British', and 'Bisoubye x' tours sold out across France. 1.5M+ followers across platforms.", "notes": "The Breakout. FR/EN bilingual, large audience.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:02:52", "twitter": null, "tiktok": null, "facebook": null, "youtube": "https://www.youtube.com/@paultaylorcomedy", "website": "https://en.wikipedia.org/wiki/Paul_Taylor_(comedian)", "photo_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=paul-taylor&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "source": "seed", "venues_performed": "[\"french-fried-comedy-night\", \"paname-art-cafe\", \"velvet-bar\"]", "last_seen": null}, {"id": 11, "slug": "randy-j-dreams", "stage_name": "Randy J Dreams", "legal_name": null, "email": null, "phone": null, "instagram": null, "languages": "[\"en\"]", "based_in": "Paris", "bio": "Runs MANGO English Stand-Up at Le Paris de l'Humour Wed 19:45. English-language MC with regular Eventbrite shows.", "notes": "Runs MANGO English Stand-Up at Le Paris de l'Humour.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:02:52", "twitter": null, "tiktok": null, "facebook": null, "youtube": null, "website": null, "photo_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=randy-j-dreams&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "source": "seed", "venues_performed": "[\"paris-humour\"]", "last_seen": null}, {"id": 25, "slug": "redouane-bougheraba", "stage_name": "Redouane Bougheraba", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/redouanebougheraba/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/redouaneshow", "tiktok": null, "facebook": "https://www.facebook.com/redoneshow?fref=ts", "youtube": "https://youtube.com/shorts/WvwTBO2sc10?si=qiP-9a-V0HRCv77l", "website": "https://www.panameartcafe.com/artiste/redouane-bougheraba", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-redouane_1753969463.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 42, "slug": "rey-mendes", "stage_name": "Rey Mendes", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/rey_mendes_o/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": "https://www.facebook.com/Reymendeso/photos", "youtube": "https://www.youtube.com/watch?v=IFqZ5dM74wQ", "website": "https://www.panameartcafe.com/artiste/rey-mendes", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignete-reymendes_1754320913.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 1, "slug": "robert-hoehn", "stage_name": "Robert Hoehn", "legal_name": null, "email": "mrmovie@mac.com", "phone": null, "instagram": "@Robertlericain", "languages": "[\"en\",\"fr\"]", "based_in": "Paris", "bio": "American bilingual comedian and one of the early builders of the Paris English-language comedy scene. Launched French Fried Comedy Night in 2013 at Paname Art Cafe, helped give Paul Taylor one of his first regular stages, and produced/directed 'La Bise' — the viral video that helped map the scene. Now runs FFCN at Velvet Bar Wednesdays.", "notes": "You. American stand-up in Paris, host FFCN, bilingual.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:02:52", "twitter": null, "tiktok": null, "facebook": null, "youtube": null, "website": null, "photo_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=robert-hoehn&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "source": "seed", "venues_performed": "[\"french-fried-comedy-night\", \"paname-art-cafe\", \"velvet-bar\"]", "last_seen": null}, {"id": 43, "slug": "romain-raulin", "stage_name": "Romain Raulin", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/romain_raulin/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": "https://www.facebook.com/romain.raulin", "youtube": "https://www.youtube.com/watch?v=nmQjn2xaLkA", "website": "https://www.panameartcafe.com/artiste/romain-raulin", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-romainraulin_1754062399.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 50, "slug": "roman-frayssinet", "stage_name": "Roman Frayssinet", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/romanfrayssinet/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": "https://www.facebook.com/romanintheflimst/?locale=fr_FR", "youtube": null, "website": "https://www.panameartcafe.com/artiste/roman-frayssinet", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-roman_1753967689.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 41, "slug": "sacko-camara", "stage_name": "Sacko Camara", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/panayotispascot/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": "https://www.facebook.com/yotis.vine/?ref=br_rs", "youtube": null, "website": "https://www.panameartcafe.com/artiste/sacko-camara", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-sackocamara_1754064626.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 5, "slug": "sarah-donnelly", "stage_name": "Sarah Donnelly", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/sarahdonnellycomedian/", "languages": "[\"en\"]", "based_in": "Paris", "bio": "American comedian in Paris 12+ years. She opened for Jerry Seinfeld, toured with Gad Elmaleh, and regularly performs at Theatre BO Saint-Martin. Her special 'The Only American in Paris' is on YouTube. A pillar of the Paris English comedy scene.", "notes": "Regular at Theatre BO Saint-Martin.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:02:52", "twitter": null, "tiktok": null, "facebook": null, "youtube": "https://www.youtube.com/watch?v=a2_N_CRoRz0", "website": null, "photo_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=sarah-donnelly&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "source": "seed", "venues_performed": "[\"french-fried-comedy-night\", \"theatre-bo\", \"velvet-bar\"]", "last_seen": null}, {"id": 3, "slug": "sebastian-marx", "stage_name": "Sebastian Marx", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/sebastianmarxcomedy/", "languages": "[\"en\",\"fr\"]", "based_in": "Paris", "bio": "New Yorker who fell in love with a French woman and moved to Paris. Created 'New York Comedy Night' at SoGymnase — the FIRST regular English stand-up show in Paris. Appeared on Jamel Comedy Club (Canal+), got a radio gig on RTL with Stephane Bern, and later France Inter. He proved English-language comedy could work in Paris.", "notes": "The Pioneer — long-running English stand-up anchor in Paris.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:02:52", "twitter": null, "tiktok": null, "facebook": null, "youtube": null, "website": null, "photo_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=sebastian-marx&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "source": "seed", "venues_performed": "[\"french-fried-comedy-night\", \"paname-art-cafe\", \"velvet-bar\"]", "last_seen": null}, {"id": 44, "slug": "sophie-loustalot", "stage_name": "Sophie Loustalot", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/sophieloustalot/?hl=fr", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": null, "tiktok": null, "facebook": null, "youtube": "https://www.youtube.com/watch?v=q6SZtv03Zfw", "website": "https://www.panameartcafe.com/artiste/sophie-loustalot", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-sophieloustalot_1753890961.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 53, "slug": "soun-dembele", "stage_name": "Soun Dembele", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/soun_dembele/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": "Passionné de stand up, Soun joue partout où il peut jouer. De la cave d’un bar jusqu’au Zénith de Clermont Ferrand, Soun fait hurler de rire son public avec une voix et une prestance hors du commun.", "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/soun4930?lang=fr", "tiktok": null, "facebook": "https://www.facebook.com/SounDembeleStandUp/", "youtube": "https://www.youtube.com/watch?v=ZeRtZrWRO7c", "website": "https://www.panameartcafe.com/artiste/soun-dembele", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-soun_1754055169.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 2, "slug": "tamer-kattan", "stage_name": "Tamer Kattan", "legal_name": null, "email": null, "phone": null, "instagram": "@tamerkat", "languages": "[\"en\"]", "based_in": "Paris", "bio": "New York comedian who made Paris his second home. 159K+ followers on social media. Regular collaborator with Robert Hoehn and a favorite on the Paris English-language circuit.", "notes": "NY-to-Paris collaborator. Frequent FFCN partner.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:02:52", "twitter": null, "tiktok": null, "facebook": null, "youtube": null, "website": null, "photo_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=tamer-kattan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "source": "seed", "venues_performed": "[\"french-fried-comedy-night\", \"velvet-bar\"]", "last_seen": null}, {"id": 8, "slug": "tania-dutel", "stage_name": "Tania Dutel", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/taniadutel/", "languages": "[\"fr\", \"en\"]", "based_in": "Paris", "bio": "French comedian who performs brilliantly in both French and English. Known for sharp observational humor and fearless stage presence. A regular at English-language shows in Paris and proof that the scene is truly bilingual.", "notes": "Rising star, French scene.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:02:52", "twitter": null, "tiktok": null, "facebook": null, "youtube": null, "website": null, "photo_url": "https://api.dicebear.com/7.x/adventurer/svg?seed=tania-dutel&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "source": "seed", "venues_performed": "[\"french-fried-comedy-night\"]", "last_seen": null}, {"id": 37, "slug": "tareek", "stage_name": "Tareek", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/tareekoff/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/tareekofficiel", "tiktok": null, "facebook": "https://www.facebook.com/pages/Tareek/1406821182869010?fref=ts", "youtube": "https://www.youtube.com/watch?v=GYBBQVUykxM", "website": "https://www.panameartcafe.com/artiste/tareek", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-tareek_1753967472.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 36, "slug": "tom-baldetti", "stage_name": "Tom Baldetti", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/tombaldetti/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/BaldettiTom", "tiktok": null, "facebook": null, "youtube": null, "website": "https://www.panameartcafe.com/artiste/tom-baldetti", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-tombaldetti_1753968053.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}, {"id": 35, "slug": "yassine-hitch", "stage_name": "Yassine Hitch", "legal_name": null, "email": null, "phone": null, "instagram": "https://www.instagram.com/yassine.hitch/", "languages": "[\"fr\"]", "based_in": "Paris", "bio": null, "notes": "Resident/guest artist at Paname Art Cafe.", "status": "active", "is_placeholder": 0, "created_at": "2026-04-14 00:16:45", "twitter": "https://twitter.com/yassine_hitch", "tiktok": null, "facebook": "https://www.facebook.com/yassine.hitch.1", "youtube": null, "website": "https://www.panameartcafe.com/artiste/yassine-hitch", "photo_url": "https://www.panameartcafe.com/storage/files/artists/vignette-yassinehitch_1754052310.jpg", "source": "paname-art-cafe", "venues_performed": "[\"paname-art-cafe\"]", "last_seen": null}];
-const API = "https://discharge-economics-series-dean.trycloudflare.com";
-let LANG = 'all';
+const COMICS = [{"slug": "az", "name": "AZ", "langs": ["fr"], "instagram": "https://www.instagram.com/az_officiel/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-az_1753888774.jpg", "bio": ""}, {"slug": "abi-roberts", "name": "Abi Roberts", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=abi-roberts&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "British stand-up comedian performing regularly in Paris English comedy rooms."}, {"slug": "adrien-montowski", "name": "Adrien Montowski", "langs": ["fr"], "instagram": "https://www.instagram.com/adrienmontowski/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-adrianmontowski_1754050881.jpg", "bio": ""}, {"slug": "ahmed-sparrow", "name": "Ahmed Sparrow", "langs": ["fr"], "instagram": "https://www.instagram.com/ahmed_sparrow/", "photo": "https://www.panameartcafe.com/storage/files/artists/ahmed_1745933895.jpg", "bio": ""}, {"slug": "alan-mehanna", "name": "Alan Mehanna", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=alan-mehanna&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language comedian performing regularly in Paris."}, {"slug": "alex-di-mambro", "name": "Alex Di Mambro", "langs": ["fr"], "instagram": "https://www.instagram.com/alexdimambro_/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/alex-dimambro-portrait-paname-art-cafe_1735046611.jpg", "bio": ""}, {"slug": "booder", "name": "Booder", "langs": ["fr"], "instagram": "https://www.instagram.com/booder_officiel/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-booder_1753952044.jpg", "bio": ""}, {"slug": "cal-dune", "name": "Cal Dune", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=cal-dune&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Stand-up comedian and FFCN regular in the Paris English comedy scene."}, {"slug": "charly-nyobe", "name": "Charly Nyobe", "langs": ["fr"], "instagram": "https://www.instagram.com/charly_nyobe/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-charlynyobe_1753888825.jpg", "bio": ""}, {"slug": "clement-nassif", "name": "Clement Nassif", "langs": ["en", "fr"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=clement-nassif&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Bilingual stand-up comedian performing in Paris comedy rooms."}, {"slug": "dave-strom", "name": "Dave Strom", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=dave-strom&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language stand-up comedian performing in Paris comedy venues."}, {"slug": "david-azencot", "name": "David Azencot", "langs": ["fr"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=david-azencot&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "French stand-up comedian performing in Paris comedy venues."}, {"slug": "david-azria", "name": "David Azria", "langs": ["fr"], "instagram": "https://www.instagram.com/davidazria_/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-azria_1754318321.jpg", "bio": ""}, {"slug": "emy", "name": "Emy", "langs": ["fr"], "instagram": "https://www.instagram.com/emy_bng/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-emy_1754321506.jpg", "bio": ""}, {"slug": "fern-brady", "name": "Fern Brady", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=fern-brady&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Scottish stand-up comedian touring Paris comedy venues."}, {"slug": "gad-elmaleh", "name": "Gad Elmaleh", "langs": ["fr", "en"], "instagram": "https://www.instagram.com/gadelmaleh/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-gadelmaleh_1753952102.jpg", "bio": "French comedy legend who crossed over to perform in English, doing sets in New York and appearing on major US platforms. He bridged French and American comedy. Toured with Sarah Donnelly."}, {"slug": "ghislain-blique", "name": "Ghislain Blique", "langs": ["fr"], "instagram": "https://www.instagram.com/ghislain.blique/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-ghislainblique_1754059757.jpg", "bio": ""}, {"slug": "guillaume-fosko", "name": "Guillaume Fosko", "langs": ["fr"], "instagram": "https://www.instagram.com/_fosko_/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-fosko_1753951668.jpg", "bio": ""}, {"slug": "harriet-kemsley", "name": "Harriet Kemsley", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=harriet-kemsley&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "British stand-up comedian performing in Paris English comedy rooms."}, {"slug": "hugo-tout-seul", "name": "Hugo Tout seul", "langs": ["fr"], "instagram": "https://www.instagram.com/hugotoutseul/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-hugotoutseul_1754052544.jpg", "bio": ""}, {"slug": "ilyes-djadel", "name": "Ilyes Djadel", "langs": ["fr"], "instagram": "https://www.instagram.com/ilyesdjadel/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-ilyesdjadel_1753967232.jpg", "bio": ""}, {"slug": "ilyes-mela", "name": "Ilyes Mela", "langs": ["fr"], "instagram": "https://www.instagram.com/ilyesmela/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-ilyesmela_1753891075.jpg", "bio": ""}, {"slug": "imen-lahmar", "name": "Imen Lahmar", "langs": ["fr"], "instagram": "https://www.instagram.com/meniways/?locale=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-imenlahmar_1753884920.jpg", "bio": ""}, {"slug": "jill-wallace", "name": "Jill Wallace", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=jill-wallace&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language stand-up comedian performing in Paris comedy rooms."}, {"slug": "john-brennan", "name": "John Brennan", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=john-brennan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language stand-up comedian performing in Paris comedy venues."}, {"slug": "julie-coulon", "name": "Julie Coulon", "langs": ["fr", "en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=julie-coulon&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Runs 'Oh My God She's Parisian!' at Theatre BO Saint-Martin. Bilingual comedian with a strong expat-friendly premise."}, {"slug": "julie-haddad-kan", "name": "Julie Haddad Kan", "langs": ["en", "fr"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=julie-haddad-kan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Comedian performing in Paris bilingual comedy rooms including FFCN."}, {"slug": "lorene-cadeau", "name": "Lorene Cadeau", "langs": ["fr", "en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=lorene-cadeau&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "FFCN alumna with 'Real Life in Paris' set (1.9K+ views). French comic performing in English — instantly Paris-specific premise that lands fast with expat rooms."}, {"slug": "lotfi-abdelli", "name": "Lotfi Abdelli", "langs": ["fr"], "instagram": "https://www.instagram.com/lotfiabdelli/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-lotfi_1754324224.jpg", "bio": ""}, {"slug": "luke-thompson", "name": "Luke Thompson", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=luke-thompson&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language stand-up comedian performing regularly at FFCN and Paris comedy rooms."}, {"slug": "maddie-storm", "name": "Maddie Storm", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=maddie-storm&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Runs The Dissident Comedy Show (Wed 20:30) at The Dissident Club. Alternative English stand-up with a central-Paris edge."}, {"slug": "mahe", "name": "Mahé", "langs": ["fr"], "instagram": "https://www.instagram.com/maheoff/reels/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-mahe_1754322660.jpg", "bio": ""}, {"slug": "marc-rouge", "name": "Marc Rougé", "langs": ["fr"], "instagram": "https://www.instagram.com/rougemarc/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-marc_1753890892.jpg", "bio": ""}, {"slug": "marine-leonardi", "name": "Marine Léonardi", "langs": ["fr"], "instagram": "https://www.instagram.com/marineleonardi/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-marineleonardi_1753967642.jpg", "bio": ""}, {"slug": "nadege", "name": "Nadège", "langs": ["fr"], "instagram": "https://www.instagram.com/nadege100gene/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nadege_1753966324.jpg", "bio": ""}, {"slug": "nick-mukoko", "name": "Nick Mukoko", "langs": ["fr"], "instagram": "https://www.instagram.com/nickmukoko/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nickmukoko_1753888899.jpg", "bio": ""}, {"slug": "nina-azoulai", "name": "Nina Azoulai", "langs": ["fr"], "instagram": "https://www.instagram.com/nina.azoulai/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nina_1753891766.jpg", "bio": ""}, {"slug": "noman-hosni", "name": "Noman Hosni", "langs": ["fr", "en"], "instagram": "https://www.instagram.com/nomanhosni/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=noman-hosni&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "One of France's biggest comedy stars who bridges the French and English comedy worlds. Regular performer at English-language shows in Paris."}, {"slug": "nordine-ganso", "name": "Nordine Ganso", "langs": ["fr"], "instagram": "https://www.instagram.com/nordine.ganso/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nordineganso_1754054811.jpg", "bio": ""}, {"slug": "omar-dhobb", "name": "Omar Dhobb", "langs": ["fr"], "instagram": "https://www.instagram.com/omardhobb/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-omardhobb-1_1754058000.jpg", "bio": ""}, {"slug": "patti-mansbach", "name": "Patti Mansbach", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=patti-mansbach&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "FFCN alumna. Her 'Fear of Getting a French Boyfriend' set on French Fried Comedy Night has 12K+ YouTube views — a clean, crowd-forward premise that lands hard in the bilingual room."}, {"slug": "paul-taylor", "name": "Paul Taylor", "langs": ["en", "fr"], "instagram": "https://www.instagram.com/paul_taylor_uk/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=paul-taylor&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "British comedian who moved to Paris in 2009 and got his start at French Fried Comedy Night, hosted by Robert Hoehn. His 2016 'La Bise' video — produced and directed by Robert — went viral with 3M+ views, leading Canal+ to give him 'What The Fuck France,' the first English show on French TV. #Franglais, 'So British', and 'Bisoubye x' tours sold out across France. 1.5M+ followers across platforms."}, {"slug": "randy-j-dreams", "name": "Randy J Dreams", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=randy-j-dreams&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "Runs MANGO English Stand-Up at Le Paris de l'Humour Wed 19:45. English-language MC with regular Eventbrite shows."}, {"slug": "redouane-bougheraba", "name": "Redouane Bougheraba", "langs": ["fr"], "instagram": "https://www.instagram.com/redouanebougheraba/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-redouane_1753969463.jpg", "bio": ""}, {"slug": "rey-mendes", "name": "Rey Mendes", "langs": ["fr"], "instagram": "https://www.instagram.com/rey_mendes_o/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignete-reymendes_1754320913.jpg", "bio": ""}, {"slug": "robert-hoehn", "name": "Robert Hoehn", "langs": ["en", "fr"], "instagram": "@Robertlericain", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=robert-hoehn&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "American bilingual comedian and one of the early builders of the Paris English-language comedy scene. Launched French Fried Comedy Night in 2013 at Paname Art Cafe, helped give Paul Taylor one of his first regular stages, and produced/directed 'La Bise' — the viral video that helped map the scene. Now runs FFCN at Velvet Bar Wednesdays."}, {"slug": "romain-raulin", "name": "Romain Raulin", "langs": ["fr"], "instagram": "https://www.instagram.com/romain_raulin/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-romainraulin_1754062399.jpg", "bio": ""}, {"slug": "roman-frayssinet", "name": "Roman Frayssinet", "langs": ["fr"], "instagram": "https://www.instagram.com/romanfrayssinet/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-roman_1753967689.jpg", "bio": ""}, {"slug": "sacko-camara", "name": "Sacko Camara", "langs": ["fr"], "instagram": "https://www.instagram.com/panayotispascot/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-sackocamara_1754064626.jpg", "bio": ""}, {"slug": "sarah-donnelly", "name": "Sarah Donnelly", "langs": ["en"], "instagram": "https://www.instagram.com/sarahdonnellycomedian/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=sarah-donnelly&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "American comedian in Paris 12+ years. She opened for Jerry Seinfeld, toured with Gad Elmaleh, and regularly performs at Theatre BO Saint-Martin. Her special 'The Only American in Paris' is on YouTube. A pillar of the Paris English comedy scene."}, {"slug": "sebastian-marx", "name": "Sebastian Marx", "langs": ["en", "fr"], "instagram": "https://www.instagram.com/sebastianmarxcomedy/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=sebastian-marx&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "New Yorker who fell in love with a French woman and moved to Paris. Created 'New York Comedy Night' at SoGymnase — the FIRST regular English stand-up show in Paris. Appeared on Jamel Comedy Club (Canal+), got a radio gig on RTL with Stephane Bern, and later France Inter. He proved English-language comedy could work in Paris."}, {"slug": "sophie-loustalot", "name": "Sophie Loustalot", "langs": ["fr"], "instagram": "https://www.instagram.com/sophieloustalot/?hl=fr", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-sophieloustalot_1753890961.jpg", "bio": ""}, {"slug": "soun-dembele", "name": "Soun Dembele", "langs": ["fr"], "instagram": "https://www.instagram.com/soun_dembele/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-soun_1754055169.jpg", "bio": "Passionné de stand up, Soun joue partout où il peut jouer. De la cave d’un bar jusqu’au Zénith de Clermont Ferrand, Soun fait hurler de rire son public avec une voix et une prestance hors du commun."}, {"slug": "tamer-kattan", "name": "Tamer Kattan", "langs": ["en"], "instagram": "@tamerkat", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=tamer-kattan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "New York comedian who made Paris his second home. 159K+ followers on social media. Regular collaborator with Robert Hoehn and a favorite on the Paris English-language circuit."}, {"slug": "tania-dutel", "name": "Tania Dutel", "langs": ["fr", "en"], "instagram": "https://www.instagram.com/taniadutel/", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=tania-dutel&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "French comedian who performs brilliantly in both French and English. Known for sharp observational humor and fearless stage presence. A regular at English-language shows in Paris and proof that the scene is truly bilingual."}, {"slug": "tareek", "name": "Tareek", "langs": ["fr"], "instagram": "https://www.instagram.com/tareekoff/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-tareek_1753967472.jpg", "bio": ""}, {"slug": "tom-baldetti", "name": "Tom Baldetti", "langs": ["fr"], "instagram": "https://www.instagram.com/tombaldetti/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-tombaldetti_1753968053.jpg", "bio": ""}, {"slug": "victor-patrascan", "name": "Victor Patrascan", "langs": ["en"], "instagram": "", "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=victor-patrascan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf", "bio": "English-language comedian with his own show, a fixture in the Paris English comedy scene."}, {"slug": "yassine-hitch", "name": "Yassine Hitch", "langs": ["fr"], "instagram": "https://www.instagram.com/yassine.hitch/", "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-yassinehitch_1754052310.jpg", "bio": ""}];
+const SHOWS = [{"id": 30, "name": "Blast Off All Stars", "venue": "", "days": "[\"Saturday\"]", "lang": "en"}, {"id": 34, "name": "Broadway Comedy Club - Paris", "venue": "", "days": "[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\",\"Sunday\"]", "lang": "en"}, {"id": 31, "name": "Charonne Comedy Club", "venue": "", "days": "[\"Saturday\"]", "lang": "en"}, {"id": 10, "name": "Comedy Crush Wednesday Show", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 23, "name": "Comedy Lab", "venue": "", "days": "[\"Thursday\",\"Saturday\"]", "lang": "en"}, {"id": 6, "name": "Cuba Compagnie Comedy Club", "venue": "", "days": "[\"Tuesday\"]", "lang": "en"}, {"id": 25, "name": "English Stand-Up Comedy in Paris — Friday Night Show", "venue": "", "days": "[\"Friday\"]", "lang": "en"}, {"id": 19, "name": "FIAP Comedy Club", "venue": "", "days": "[\"Thursday\"]", "lang": "en"}, {"id": 3, "name": "French Fried Comedy Night", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 7, "name": "Funny Women Paris", "venue": "", "days": "[\"Tuesday\"]", "lang": "en"}, {"id": 5, "name": "Green Light Comedy", "venue": "", "days": "[\"Tuesday\"]", "lang": "en"}, {"id": 33, "name": "Green Mic Comedy Show", "venue": "", "days": "[\"Sunday\"]", "lang": "en"}, {"id": 24, "name": "Green Mic Showcase", "venue": "", "days": "[\"Friday\"]", "lang": "en"}, {"id": 21, "name": "Greenwashing Comedy Club", "venue": "", "days": "[\"Thursday\"]", "lang": "en"}, {"id": 29, "name": "IntégRire Comedy Night", "venue": "", "days": "[\"Saturday\"]", "lang": "en"}, {"id": 27, "name": "Kinto Comedy Club", "venue": "", "days": "[\"Friday\"]", "lang": "en"}, {"id": 16, "name": "Kiss Comedy Club", "venue": "Le Coquin", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 4, "name": "Kuhl Comedy Open Mic", "venue": "", "days": "[\"Tuesday\"]", "lang": "en"}, {"id": 9, "name": "LOFI Comedy Club", "venue": "Fada Paris", "days": "[\"Tuesday\"]", "lang": "en"}, {"id": 14, "name": "MANGO English Stand-Up", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 13, "name": "Mic Drop Comedy Club", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 11, "name": "Millennial Meltdown", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 18, "name": "Oh My God She's Parisian! — Julie Coulon", "venue": "", "days": "[\"Friday\",\"Saturday\"]", "lang": "en"}, {"id": 32, "name": "Oscar Comedy Club", "venue": "", "days": "[\"Sunday\"]", "lang": "en"}, {"id": 8, "name": "Rocket Comedy Club", "venue": "", "days": "[\"Tuesday\"]", "lang": "en"}, {"id": 28, "name": "Smash Comedy Club", "venue": "", "days": "[\"Saturday\"]", "lang": "en"}, {"id": 17, "name": "South Comedy Club", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 22, "name": "Sparkle Comedy Club", "venue": "", "days": "[\"Thursday\"]", "lang": "en"}, {"id": 12, "name": "The Dissident Comedy Show", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 20, "name": "The Englishman Comedy Night", "venue": "The Englishman Cocktail Club", "days": "[\"Thursday\"]", "lang": "en"}, {"id": 26, "name": "The Open Mic Express", "venue": "", "days": "[\"Friday\"]", "lang": "en"}, {"id": 2, "name": "Velvet Bar Comedy — Le meilleur du stand-up", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 1, "name": "Velvet Bar Comedy — Open Mic", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}, {"id": 15, "name": "Wednesday Night Comedy", "venue": "", "days": "[\"Wednesday\"]", "lang": "en"}];
 
-function setLang(l) {
-  LANG = l;
-  ['all','en','fr'].forEach(x => document.getElementById('btn-'+x).classList.toggle('on', x===l));
-  render();
-}
+let activeFilter = 'all';
+let currentComicSlug = null;
 
-function getLangs(c) {
-  try { return JSON.parse(c.languages || '[]'); } catch { return []; }
-}
-
-function render() {
-  const q = document.getElementById('search').value.toLowerCase();
-  let list = COMICS.filter(c => !c.is_placeholder);
-  if (LANG !== 'all') list = list.filter(c => {
-    const l = getLangs(c);
-    return LANG === 'en' ? l.includes('en') : l.includes('fr');
+// Count stats
+function counts() {
+  let en=0,fr=0,bi=0;
+  COMICS.forEach(c=>{
+    const hasEn=c.langs.includes('en'), hasFr=c.langs.includes('fr');
+    if(hasEn&&hasFr) bi++; else if(hasEn) en++; else if(hasFr) fr++;
   });
-  if (q) list = list.filter(c => (c.stage_name || '').toLowerCase().includes(q));
+  document.getElementById('count-en').textContent=en;
+  document.getElementById('count-fr').textContent=fr;
+  document.getElementById('count-bi').textContent=bi;
+}
+counts();
 
-  document.getElementById('vis-count').textContent = list.length;
-  const en = list.filter(c => { const l=getLangs(c); return l.includes('en')&&!l.includes('fr'); }).length;
-  const fr = list.length - en;
-  document.getElementById('en-count').textContent = en;
-  document.getElementById('fr-count').textContent = fr;
+// Build show selector
+const sel = document.getElementById('m-show');
+SHOWS.forEach(s=>{
+  const o=document.createElement('option');
+  o.value=s.id; o.textContent=s.name+(s.venue?' — '+s.venue:'');
+  sel.appendChild(o);
+});
 
+// Render grid
+function renderGrid() {
+  const q = document.getElementById('search').value.toLowerCase();
   const grid = document.getElementById('grid');
-  if (!list.length) { grid.innerHTML = '<div class="empty">No comedians match.</div>'; return; }
-  grid.innerHTML = list.map(c => {
-    const l = getLangs(c);
-    const tag = l.includes('en') && l.includes('fr')
-      ? '<span class="tag bi">EN+FR</span>'
-      : l.includes('en') ? '<span class="tag en">English</span>'
-      : l.includes('fr') ? '<span class="tag fr">French</span>' : '';
-    const ig = c.instagram && c.instagram.startsWith('http')
-      ? `<a href="${esc(c.instagram)}" target="_blank" rel="noopener">Instagram</a>` : '';
-    const bio = c.bio ? `<div class="bio">${esc(c.bio)}</div>` : '';
-    return `<div class="card">
-      <img src="${esc(c.photo_url||'')}" alt="${esc(c.stage_name)}"
-        onerror="this.style.display='none'">
-      <div class="name">${esc(c.stage_name)}</div>
-      <div class="meta">Paris</div>
-      <div class="tags">${tag}</div>
-      ${bio}
-      <div class="actions">
-        ${ig}
-        <button class="primary" onclick="openBio(${c.id},${JSON.stringify(c.stage_name)})">Submit bio ⚡€1</button>
+  grid.innerHTML='';
+  COMICS.forEach(c=>{
+    const hasEn=c.langs.includes('en'), hasFr=c.langs.includes('fr');
+    const langKey = (hasEn&&hasFr)?'bi':hasEn?'en':'fr';
+    if(activeFilter!=='all'&&activeFilter!==langKey) return;
+    if(q&&!c.name.toLowerCase().includes(q)) return;
+    
+    const card=document.createElement('div');
+    card.className='card';
+    
+    let tagHtml='';
+    if(hasEn&&hasFr) tagHtml='<span class="tag tag-bi">Bilingual</span>';
+    else if(hasEn) tagHtml='<span class="tag tag-en">English</span>';
+    else tagHtml='<span class="tag tag-fr">Français</span>';
+    
+    const igBtn = c.instagram
+      ? `<a href="${c.instagram.startsWith('http')?c.instagram:'https://instagram.com/'+c.instagram.replace('@','')}" target="_blank" class="btn-ig">📷 Instagram</a>`
+      : `<span class="btn-ig" style="opacity:.3;cursor:default">📷 —</span>`;
+    
+    card.innerHTML=`
+      <div class="card-top">
+        <img class="card-photo" src="${c.photo}" alt="${c.name}" onerror="this.src='https://api.dicebear.com/7.x/adventurer/svg?seed=${c.slug}&backgroundColor=b6e3f4'">
+        <div class="card-meta">
+          <div class="card-name">${c.name}</div>
+          <div class="card-tags">${tagHtml}</div>
+        </div>
       </div>
-    </div>`;
-  }).join('');
+      ${c.bio?`<div class="card-bio">${c.bio}</div>`:''}
+      <div class="card-actions">
+        ${igBtn}
+        <button class="btn-submit" onclick="openModal('${c.slug}','${c.name.replace(/'/g,"\'")}')">Submit bio ⚡€1</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
 }
+renderGrid();
 
-function esc(s) {
-  if (!s) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+// Filters
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter=btn.dataset.lang;
+    renderGrid();
+  });
+});
+document.getElementById('search').addEventListener('input',renderGrid);
+
+// Modal
+function openModal(slug,name) {
+  currentComicSlug=slug;
+  document.getElementById('m-name').value=name;
+  document.getElementById('m-err').textContent='';
+  document.getElementById('form-section').style.display='';
+  document.getElementById('qr-section').style.display='none';
+  document.getElementById('modal-bg').classList.add('open');
 }
+document.getElementById('btn-cancel').onclick=()=>document.getElementById('modal-bg').classList.remove('open');
+document.getElementById('modal-bg').addEventListener('click',e=>{if(e.target===document.getElementById('modal-bg'))document.getElementById('modal-bg').classList.remove('open')});
 
-const SHOWS = [
-  {id:3,  name:"French Fried Comedy Night",    venue:"Velvet Bar"},
-  {id:1,  name:"Velvet Bar Comedy — Open Mic", venue:"Velvet Bar"},
-  {id:24, name:"Green Mic Showcase",           venue:"Au Soleil de la Butte"},
-  {id:18, name:"Oh My God She's Parisian!",    venue:"Théâtre BO Saint-Martin"},
-  {id:2,  name:"Velvet Bar Comedy Best Of",    venue:"Velvet Bar"},
-];
-
-function openBio(id, name) {
-  showM(`
-    <h2>Submit your bio</h2>
-    <p>Pay <strong style="color:var(--gold)">€1</strong> via Lightning — bio goes straight to the show runner.</p>
-    <label>Your email</label>
-    <input type="email" id="b-email" placeholder="you@example.com" autocomplete="email">
-    <label>Stage name</label>
-    <input id="b-name" value="${esc(name)}" placeholder="Your stage name">
-    <label>Your bio (2–3 sentences)</label>
-    <textarea id="b-bio" placeholder="5 years doing stand-up in Paris, bilingual EN/FR, started at FFCN…"></textarea>
-    <label>Submit to which show?</label>
-    <select id="b-show">
-      ${SHOWS.map(s=>`<option value="${s.id}">${esc(s.name)} — ${esc(s.venue)}</option>`).join('')}
-    </select>
-    <button class="sbtn" onclick="payBio()">Pay €1 & submit ⚡</button>
-  `);
-}
-
-async function payBio() {
-  const email = document.getElementById('b-email').value.trim();
-  const name  = document.getElementById('b-name').value.trim();
-  const bio   = document.getElementById('b-bio').value.trim();
-  const lid   = document.getElementById('b-show').value;
-  if (!email) { alert('Email required'); return; }
-  showM('<p style="text-align:center;padding:30px;color:var(--mute)">Generating Lightning invoice…</p>');
+document.getElementById('btn-pay').onclick=async()=>{
+  const name=document.getElementById('m-name').value.trim();
+  const email=document.getElementById('m-email').value.trim();
+  const bio=document.getElementById('m-bio').value.trim();
+  const lid=document.getElementById('m-show').value;
+  const errEl=document.getElementById('m-err');
+  errEl.textContent='';
+  if(!name||!email||!bio){errEl.textContent='Please fill in all fields.';return;}
+  if(!lid){errEl.textContent='Please select a show.';return;}
+  
+  const btn=document.getElementById('btn-pay');
+  btn.disabled=true; btn.textContent='Getting invoice…';
+  
   try {
-    const r = await fetch(`${API}/api/listings/${lid}/bio-invoice`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({performer_email: email, performer_name: name, bio_text: bio})
+    const cfg=await fetch('/api-config.json').then(r=>r.json()).catch(()=>({api:''}));
+    const API=cfg.api||'';
+    if(!API){errEl.textContent='Payment API offline. Try again later.';btn.disabled=false;btn.textContent='Get invoice ⚡€1';return;}
+    
+    const resp=await fetch(`${API}/api/listings/${lid}/bio-invoice`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({comic_slug:currentComicSlug,name,email,bio_text:bio})
     });
-    const d = await r.json();
-    if (!d.bolt11) throw new Error(d.detail || 'No invoice returned');
-    const banner = d.lnd_configured
-      ? '<div class="banner ok">⚡ Scan with any Lightning wallet. Settles in seconds.</div>'
-      : '<div class="banner warn">⚠ Test mode</div>';
-    showM(`
-      <h2>Pay €1 to submit</h2>
-      <div class="price-big">${(d.amount_sats||1800).toLocaleString()} sats</div>
-      <div class="price-sub">≈ €1 · expires 30 min</div>
-      ${banner}
-      <div class="qr-wrap"><div id="qr-target"></div></div>
-      <input class="copy-in" readonly value="${d.bolt11}" onclick="this.select();document.execCommand('copy')" title="Click to copy">
-      <p style="color:var(--mute);font-size:12px;text-align:center;margin-top:8px">After payment, your bio is forwarded to the show runner automatically.</p>
-    `);
-    loadQR(d.bolt11);
-  } catch(err) {
-    showM(`<p style="color:var(--accent);text-align:center;padding:20px">Error: ${err.message}</p>`);
+    const data=await resp.json();
+    if(!resp.ok){errEl.textContent=data.detail||'Error creating invoice.';btn.disabled=false;btn.textContent='Get invoice ⚡€1';return;}
+    
+    const bolt11=data.bolt11||data.payment_request;
+    if(!bolt11){errEl.textContent='No invoice returned.';btn.disabled=false;btn.textContent='Get invoice ⚡€1';return;}
+    
+    document.getElementById('bolt11-text').textContent=bolt11;
+    document.getElementById('form-section').style.display='none';
+    document.getElementById('qr-section').style.display='';
+    drawQR(bolt11);
+  } catch(e) {
+    errEl.textContent='Network error: '+e.message;
+    btn.disabled=false; btn.textContent='Get invoice ⚡€1';
   }
-}
+};
 
-function loadQR(bolt11) {
-  if (typeof QRCode !== 'undefined') { _qr(bolt11); return; }
-  const s = document.createElement('script');
-  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
-  s.onload = () => _qr(bolt11);
-  document.head.appendChild(s);
+// QR generator (pure JS, no external libs)
+function drawQR(text){
+  // Use a simple canvas-based QR via goqr.me API image
+  const canvas=document.getElementById('qr-canvas');
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,220,220);
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,220,220);
+  ctx.fillStyle='#888';ctx.font='12px sans-serif';ctx.fillText('Loading QR…',60,110);
+  const img=new Image();
+  img.crossOrigin='anonymous';
+  img.onload=()=>{ctx.clearRect(0,0,220,220);ctx.drawImage(img,0,0,220,220);};
+  img.onerror=()=>{ctx.fillStyle='#111';ctx.fillRect(0,0,220,220);ctx.fillStyle='#f5c518';ctx.font='11px monospace';
+    // fallback: show bolt11 text as copyable
+    document.getElementById('bolt11-text').style.maxHeight='none';
+    ctx.fillText('Tap below to copy',20,110);};
+  img.src=`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent('lightning:'+text)}`;
 }
-function _qr(b) { new QRCode(document.getElementById('qr-target'), {text:b.toUpperCase(), width:210, height:210, correctLevel:QRCode.CorrectLevel.M}); }
-function showM(h) { document.getElementById('mc').innerHTML = h; document.getElementById('mbg').classList.add('open'); }
-function closeM() { document.getElementById('mbg').classList.remove('open'); }
-
-render();
 </script>
 </body>
 </html>
