@@ -60,21 +60,6 @@
     "last_seen": "2026-05-16T00:55:52+00:00"
   },
   {
-    "id": "2",
-    "name": "Velvet Bar Comedy — Showcase",
-    "venue": "velvet-bar-pigalle",
-    "url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719",
-    "langs": [],
-    "start_date": null,
-    "end_date": "2026-07-29T22:00:00+02:00",
-    "recurrence": "",
-    "description": "",
-    "cover_image": "",
-    "source": "import",
-    "comics": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
-  },
-  {
     "id": "10",
     "name": "Comedy Crush Wednesday Show",
     "venue": "paris",
