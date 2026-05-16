@@ -373,7 +373,7 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=maddie-storm&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "Runs The Dissident Comedy Show (Wed 20:30) at The Dissident Club. Alternative English stand-up with a central-Paris edge.",
     "actuality": "Stand Up The Dissident Comedy Show Hosted By Maddie Storm",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00"
   },
   {
     "slug": "mahe",
@@ -507,7 +507,7 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=paul-taylor&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "British comedian who moved to Paris in 2009 and got his start at French Fried Comedy Night, hosted by Robert Hoehn. His 2016 'La Bise' video — produced and directed by Robert — went viral with 3M+ views, leading Canal+ to give him 'What The Fuck France,' the first English show on French TV. #Franglais, 'So British', and 'Bisoubye x' tours sold out across France. 1.5M+ followers across platforms.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00"
   },
   {
     "slug": "randy-j-dreams",
@@ -580,7 +580,7 @@
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-roman_1753967689.jpg",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T01:01:15+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00"
   },
   {
     "slug": "sacko-camara",
@@ -617,7 +617,7 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=sebastian-marx&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "New Yorker who fell in love with a French woman and moved to Paris. Created 'New York Comedy Night' at SoGymnase — the FIRST regular English stand-up show in Paris. Appeared on Jamel Comedy Club (Canal+), got a radio gig on RTL with Stephane Bern, and later France Inter. He proved English-language comedy could work in Paris.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00"
   },
   {
     "slug": "sophie-loustalot",
@@ -629,7 +629,7 @@
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-sophieloustalot_1753890961.jpg",
     "bio": "",
     "actuality": "Sophie Loustalot Dans Fantasme at Théâtre BO Saint-Martin",
-    "last_seen": "2026-05-16T01:01:15+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00"
   },
   {
     "slug": "soun-dembele",
@@ -678,7 +678,7 @@
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-tareek_1753967472.jpg",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T01:01:15+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00"
   },
   {
     "slug": "tom-baldetti",
@@ -715,5 +715,678 @@
     "bio": "",
     "actuality": "",
     "last_seen": "2026-05-16T01:01:15+00:00"
+  },
+  {
+    "slug": "manu-payet",
+    "name": "Manu Payet",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "tristan-lopin",
+    "name": "Tristan Lopin",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "constance",
+    "name": "Constance",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "blanche-gardin",
+    "name": "Blanche Gardin",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "fary",
+    "name": "Fary",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "panayotis-pascot",
+    "name": "Panayotis Pascot",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "haroun",
+    "name": "Haroun",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "verino",
+    "name": "Verino",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "donel-jack-sman",
+    "name": "Donel Jack'sman",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "mathieu-mad-nian",
+    "name": "Mathieu Madénian",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "bun-hay-mean",
+    "name": "Bun Hay Mean",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "pierre-emmanuel-barr",
+    "name": "Pierre-Emmanuel Barré",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "yacine-belhousse",
+    "name": "Yacine Belhousse",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "doully",
+    "name": "Doully",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "laura-felpin",
+    "name": "Laura Felpin",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "marina-rollman",
+    "name": "Marina Rollman",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "nora-hamzawi",
+    "name": "Nora Hamzawi",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "sandrine-sarroche",
+    "name": "Sandrine Sarroche",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "hakim-jemili",
+    "name": "Hakim Jemili",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "mahaut-drama",
+    "name": "Mahaut Drama",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "roman-doduik",
+    "name": "Roman Doduik",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "camille-lellouche",
+    "name": "Camille Lellouche",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "stephen-trowell",
+    "name": "Stephen Trowell",
+    "langs": [
+      "en"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "British comedian, Paris-based, regular at FFCN.",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "tom-mayhew",
+    "name": "Tom Mayhew",
+    "langs": [
+      "en"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "UK stand-up, frequent Paris dates.",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "aydan-greatrick",
+    "name": "Aydan Greatrick",
+    "langs": [
+      "en"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "Anglo-Irish comedian working the Paris English circuit.",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "sammy-vore",
+    "name": "Sammy Vore",
+    "langs": [
+      "en"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "American comedian on the Paris English-language circuit.",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "diala-el-khatib",
+    "name": "Diala El Khatib",
+    "langs": [
+      "en"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "Beirut-via-Paris stand-up, English rooms.",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "yuriko-kotani",
+    "name": "Yuriko Kotani",
+    "langs": [
+      "en"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "Japanese-British comedian, Paris tour stops.",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "robert-le-ricain",
+    "name": "Robert le Ricain",
+    "langs": [
+      "en",
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "American-in-Paris stand-up, bilingual material, FFCN regular.",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "becky-conroy",
+    "name": "Becky Conroy",
+    "langs": [
+      "en"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "Paris-based American comic, host at SpotlightParis.",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "antonia-lassar",
+    "name": "Antonia Lassar",
+    "langs": [
+      "en"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "Comedian and actor, Paris English-room dates.",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "kaytlin-bailey",
+    "name": "Kaytlin Bailey",
+    "langs": [
+      "en"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "American touring comedian.",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "mehdi-bousaidan",
+    "name": "Mehdi Bousaidan",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "Québécois-Canadian comedian, Paris French dates.",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "adam-naas",
+    "name": "Adam Naas",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "marie-reno",
+    "name": "Marie Reno",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "olivier-de-benoist",
+    "name": "Olivier de Benoist",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "florence-foresti",
+    "name": "Florence Foresti",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "anne-roumanoff",
+    "name": "Anne Roumanoff",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "j-r-my-charbonnel",
+    "name": "Jérémy Charbonnel",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "issa-doumbia",
+    "name": "Issa Doumbia",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "in-s-reg",
+    "name": "Inès Reg",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "audrey-vernon",
+    "name": "Audrey Vernon",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "antonia-de-rendinger",
+    "name": "Antonia de Rendinger",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "lodie-poux",
+    "name": "Élodie Poux",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "sophia-aram",
+    "name": "Sophia Aram",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "sarah-cohen-hadria",
+    "name": "Sarah Cohen-Hadria",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "antony-giuliani",
+    "name": "Antony Giuliani",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "Antony Giuliani Dans Blagues at Théâtre BO Saint-Martin",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "teddy-the-bear",
+    "name": "Teddy The Bear",
+    "langs": [
+      "en"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "Teddy The Bear In Paris Live English Comedy",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "lou-anne-protin",
+    "name": "Lou Anne Protin",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "Lou Anne Protin Dans Incorrigible at Théâtre BO Saint-Martin",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "nicolas-zog",
+    "name": "Nicolas Zog",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "Nicolas Zog Dans Good Vibes at Théâtre BO Saint-Martin",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "morgane-meli",
+    "name": "Morgane Meli",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "Morgane Meli Dans Magma at Théâtre BO Saint-Martin",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "alexis-arabia",
+    "name": "Alexis Arabia",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "Alexis Arabia Dans Mortels at Théâtre BO Saint-Martin",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "open-secret-longform-improv",
+    "name": "Open Secret Longform Improv",
+    "langs": [
+      "en"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "Open Secret Longform Improv In English",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "nadia-richard",
+    "name": "Nadia Richard",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "Nadia Richard Dans Pourquoi Jattire Les Connards at Théâtre BO Saint-Martin",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "samia-orosemane",
+    "name": "Samia Orosemane",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "Samia Orosemane Dans Je Suis Une Boufonne at Théâtre BO Saint-Martin",
+    "last_seen": "2026-05-16T14:53:17+00:00"
+  },
+  {
+    "slug": "julie-collas",
+    "name": "Julie Collas",
+    "langs": [
+      "fr"
+    ],
+    "instagram": "",
+    "photo": "",
+    "bio": "",
+    "actuality": "Julie Collas Dans Oh My God She S Parisian at Théâtre BO Saint-Martin",
+    "last_seen": "2026-05-16T14:53:17+00:00"
   }
 ]
