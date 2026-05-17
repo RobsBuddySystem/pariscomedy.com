@@ -76,6 +76,11 @@ footer{border-top:1px solid var(--border);padding:40px 24px;text-align:center;co
 footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 .footer-links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;font-size:14px}
 .footer-lightning{margin-top:8px;font-size:12px;color:#555}
+.tip-jar{margin:24px auto 0;max-width:320px;background:#161616;border:1px solid #2a1a4a;border-radius:14px;padding:20px 24px;text-align:center}
+.tip-jar a.tip-btn{display:inline-block;padding:11px 28px;border-radius:10px;background:#f5c518;color:#111;font-size:15px;font-weight:700;text-decoration:none;transition:opacity .2s}
+.tip-jar a.tip-btn:hover{opacity:.85}
+.tip-jar .tip-label{margin-top:10px;font-size:12px;color:#666}
+.tip-jar .tip-addr{margin-top:4px;font-size:12px;color:#888;font-family:monospace}
 </style>
 </head>
 <body>
@@ -169,7 +174,12 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 </section>
 
 <footer>
-  <div class="footer-links">
+  <div class="tip-jar">
+    <a href="lightning:tip@pariscomedy.com" class="tip-btn">⚡ Tip Robert</a>
+    <div class="tip-label">Pay with any Lightning wallet</div>
+    <div class="tip-addr">tip@pariscomedy.com</div>
+  </div>
+  <div class="footer-links" style="margin-top:24px">
     <a href="/">Home</a>
     <a href="/shows.html">Shows</a>
     <a href="/venues.html">Venues</a>
@@ -182,7 +192,13 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 </footer>
 
 <script>
-const TOP_SHOWS = [{"id": "23", "name": "Comedy Lab", "venue": "chat-noir", "url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679", "langs": [], "start_date": null, "end_date": "2027-04-13T20:00:00+02:00", "recurrence": "", "description": "", "cover_image": "", "source": "import", "comics": [], "last_seen": "2026-05-16T00:55:52+00:00"}, {"id": "34", "name": "Broadway Comedy Club - Paris", "venue": "bonne-nouvelle", "url": "https://www.eventbrite.com/e/billets-broadway-comedy-club-paris-1978410990530", "langs": [], "start_date": null, "end_date": "2027-03-07T00:00:00+01:00", "recurrence": "", "description": "", "cover_image": "", "source": "import", "comics": [], "last_seen": "2026-05-16T00:55:52+00:00"}, {"id": "4", "name": "Kuhl Comedy Open Mic", "venue": "toloache", "url": "https://www.eventbrite.fr/e/english-stand-up-open-mic-on-taco-tuesday-by-kuhl-comedy-tickets-1760885549079", "langs": [], "start_date": null, "end_date": "2026-10-06T21:30:00+02:00", "recurrence": "", "description": "", "cover_image": "", "source": "import", "comics": [], "last_seen": "2026-05-16T00:55:52+00:00"}, {"id": "17", "name": "South Comedy Club", "venue": "paris", "url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259", "langs": [], "start_date": null, "end_date": "2026-08-26T22:00:00+02:00", "recurrence": "", "description": "", "cover_image": "", "source": "import", "comics": [], "last_seen": "2026-05-16T00:55:52+00:00"}, {"id": "10", "name": "Comedy Crush Wednesday Show", "venue": "paris", "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1982356098454", "langs": [], "start_date": null, "end_date": "2026-07-29T21:30:00+02:00", "recurrence": "", "description": "", "cover_image": "", "source": "import", "comics": [], "last_seen": "2026-05-16T00:55:52+00:00"}, {"id": "1", "name": "Velvet Bar Comedy — Open Mic", "venue": "velvet-bar-pigalle", "url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719", "langs": [], "start_date": null, "end_date": "2026-07-29T20:00:00+02:00", "recurrence": "", "description": "", "cover_image": "", "source": "import", "comics": [], "last_seen": "2026-05-16T00:55:52+00:00"}];
+const TOP_SHOWS = [
+  {name:"French Fried Comedy Night",venue:"Paname Comedy Club",day:"Wednesday",time:"22:00",url:"https://www.eventbrite.com/e/french-fried-comedy-night-may-27-tickets-1988770573321"},
+  {name:"Velvet Bar Comedy — Showcase",venue:"Velvet Bar, Pigalle",day:"Wednesday",time:"20:30",url:"https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719"},
+  {name:"Green Mic Showcase",venue:"Green Mic, Montmartre",day:"Friday",time:"20:30",url:"https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-573952757147"},
+  {name:"Comedy Lab",venue:"Chat Noir, Pigalle",day:"Thu & Sat",time:"20:00",url:"https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679"},
+  {name:"Kinto Comedy Club",venue:"Kinto, Marais",day:"Friday",time:"19:30",url:"https://www.eventbrite.fr/e/kinto-comedy-club-au-poincon-tickets-1981428458859"}
+];
 
 const grid = document.getElementById('shows-grid');
 TOP_SHOWS.forEach(s => {

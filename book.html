@@ -266,11 +266,18 @@ footer a:hover{color:var(--text)}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-// ---- CONSTANTS (replace before deploy) ----
-const APPS_SCRIPT_URL = 'APPS_SCRIPT_URL';
 const BULL_BITCOIN_REFERRAL_URL = 'https://app.bullbitcoin.com/registration/robertlericain';
 const LIGHTNING_ADDRESS = 'payments@pariscomedy.com';
-// -------------------------------------------
+
+let _apiBase = '';
+async function getApi() {
+  if (_apiBase) return _apiBase;
+  try {
+    const cfg = await fetch('/api-config.json').then(r => r.json());
+    _apiBase = cfg.api || '';
+  } catch(e) { _apiBase = ''; }
+  return _apiBase;
+}
 
 // Render QR codes
 window.addEventListener('DOMContentLoaded', () => {
@@ -297,10 +304,9 @@ function copyAddr(addr, btn) {
 }
 
 async function postForm(payload) {
-  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'APPS_SCRIPT_URL') {
-    throw new Error('Form endpoint not configured. Please contact us directly.');
-  }
-  const r = await fetch(APPS_SCRIPT_URL, {
+  const api = await getApi();
+  if (!api) throw new Error('Could not reach server. Please email bookings@pariscomedy.com directly.');
+  const r = await fetch(api + '/api/book', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(payload)
