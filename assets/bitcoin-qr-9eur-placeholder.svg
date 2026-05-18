@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#1e1e1e" rx="8"/>
+  <text x="100" y="80" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#888">Bitcoin QR</text>
+  <text x="100" y="105" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#888">coming soon</text>
+  <text x="100" y="130" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#f59e0b" font-weight="bold">€9/month</text>
+</svg>
