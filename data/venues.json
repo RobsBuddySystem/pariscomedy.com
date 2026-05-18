@@ -2,10 +2,19 @@
   {
     "slug": "velvet-bar",
     "name": "Velvet Bar",
-    "address": "33 Rue Pigalle, 75009 Paris",
-    "url": "",
-    "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "address": "43 Rue Saint-Honoré, 75001 Paris",
+    "url": "https://velvet-bar.fr/",
+    "langs": [
+      "fr",
+      "en"
+    ],
+    "lat": 48.8607768,
+    "lng": 2.3454208,
+    "metro": "Châtelet (M1/M4/M7/M11/M14)",
+    "source": "velvet-bar.fr/contact + Eventbrite 1977106148713",
+    "verified_at": "2026-05-18T12:24:55+00:00",
+    "last_seen": "2026-05-18T00:00:00+00:00",
+    "source_url": "https://velvet-bar.fr/"
   },
   {
     "slug": "fiap",
@@ -240,7 +249,9 @@
       "fr",
       "en"
     ],
-    "last_seen": "2026-05-16T01:01:15+00:00"
+    "last_seen": "2026-05-16T01:01:15+00:00",
+    "source_url": "https://www.panameartcafe.com",
+    "verified_at": "2026-05-18T12:26:23+00:00"
   },
   {
     "slug": "theatre-bo",
@@ -250,7 +261,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T01:01:16+00:00"
+    "last_seen": "2026-05-16T01:01:16+00:00",
+    "source_url": "https://theatrebo.fr",
+    "verified_at": "2026-05-18T12:27:09+00:00"
   },
   {
     "slug": "palais-des-glaces",
@@ -260,7 +273,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T01:01:16+00:00"
+    "last_seen": "2026-05-16T01:01:16+00:00",
+    "source_url": "https://www.palaisdesglaces.com",
+    "verified_at": "2026-05-18T12:28:15+00:00"
   },
   {
     "slug": "le-petit-local",
@@ -271,7 +286,9 @@
       "fr",
       "en"
     ],
-    "last_seen": "2026-05-16T01:01:16+00:00"
+    "last_seen": "2026-05-16T01:01:16+00:00",
+    "source_url": "https://www.lepetitlocal.fr",
+    "verified_at": "2026-05-18T12:29:02+00:00"
   },
   {
     "slug": "le-point-virgule",
@@ -281,7 +298,10 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T01:01:17+00:00"
+    "last_seen": "2026-05-16T01:01:17+00:00",
+    "neighborhood": "Le Marais",
+    "source_url": "https://www.lepointvirgule.com",
+    "verified_at": "2026-05-18T12:30:04+00:00"
   },
   {
     "slug": "madame-sarfati",
@@ -322,7 +342,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://theatredugymnase.paris",
+    "verified_at": "2026-05-18T12:31:44+00:00"
   },
   {
     "slug": "bobino",
@@ -332,7 +354,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://www.bobino.fr",
+    "verified_at": "2026-05-18T12:32:33+00:00"
   },
   {
     "slug": "l-olympia",
@@ -343,7 +367,9 @@
       "fr",
       "en"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://www.olympiahall.com",
+    "verified_at": "2026-05-18T12:33:20+00:00"
   },
   {
     "slug": "le-grand-rex",
@@ -353,7 +379,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://www.legrandrex.com",
+    "verified_at": "2026-05-18T12:34:08+00:00"
   },
   {
     "slug": "le-r-publique",
@@ -444,7 +472,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://www.apollotheatre.fr",
+    "verified_at": "2026-05-18T12:35:30+00:00"
   },
   {
     "slug": "le-paradis-latin",
@@ -455,7 +485,9 @@
       "fr",
       "en"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://www.paradislatin.com",
+    "verified_at": "2026-05-18T12:36:22+00:00"
   },
   {
     "slug": "th-tre-edgar",
