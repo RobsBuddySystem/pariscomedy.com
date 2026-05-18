@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Paris Comedy — Comedians Directory</title>
 <meta name="description" content="The definitive directory of stand-up comedians performing in Paris. English, French, bilingual.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Paris Stand-Up Comedians","description":"Comedians performing English and bilingual stand-up comedy in Paris","url":"https://pariscomedy.com/comedians.html"}
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#f0f0f0;min-height:100vh}
@@ -214,6 +217,7 @@ function renderGrid() {
   const grid=document.getElementById('grid');
   grid.innerHTML='';
   COMICS.forEach(c=>{
+    if(c.is_archived) return;
     const hasEn=c.langs.includes('en'), hasFr=c.langs.includes('fr');
     const langKey=(hasEn&&hasFr)?'bi':hasEn?'en':'fr';
     if(activeFilter!=='all'&&activeFilter!==langKey) return;
@@ -233,7 +237,7 @@ function renderGrid() {
     card.className='card';
     card.innerHTML=`
       <div class="card-top">
-        <img class="card-photo" src="${c.photo}" alt="${c.name}" onerror="this.src='https://api.dicebear.com/7.x/adventurer/svg?seed=${c.slug}&backgroundColor=b6e3f4'">
+        <img class="card-photo" src="${c.photo}" alt="${c.name}" loading="lazy" onerror="this.src='https://api.dicebear.com/7.x/adventurer/svg?seed=${c.slug}&backgroundColor=b6e3f4'">
         <div class="card-meta">
           <div class="card-name">${c.name}</div>
           <div class="card-tags">${tagHtml}</div>

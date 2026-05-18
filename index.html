@@ -3,8 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Paris Comedy — English Stand-Up Comedy in Paris</title>
-<meta name="description" content="The home of English-language stand-up comedy in Paris. Browse shows, find venues, book Robert for your event.">
+<title>Paris Comedy — English Stand-Up Comedy in Paris Tonight</title>
+<meta name="description" content="The home of English-language stand-up comedy in Paris. Every show, every venue, every night. Find what's on tonight.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Paris Comedy",
+  "url": "https://pariscomedy.com",
+  "description": "The home of English-language stand-up comedy in Paris",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://pariscomedy.com/shows.html?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--purple:#7c3aed;--purple-light:#9d5ff5;--bg:#0a0a0a;--card:#111;--border:#1e1e1e;--text:#f0f0f0;--muted:#888;--yellow:#f5c518;--gold:#f59e0b}
@@ -23,33 +37,66 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .nav-links a:hover{color:var(--text)}
 .nav-active{color:var(--text)!important}
 
-/* Hero */
-.hero{text-align:center;padding:72px 24px 52px;background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,.15) 0%, transparent 70%)}
-.hero h1{font-size:clamp(32px,6vw,64px);font-weight:800;letter-spacing:-2px;line-height:1.1;margin-bottom:18px}
-.hero h1 .accent{color:var(--purple-light)}
-.hero p{color:var(--muted);font-size:17px;max-width:520px;margin:0 auto 32px;line-height:1.6}
-.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+/* Hero — 2-column split */
+.hero-wrap{max-width:1100px;margin:0 auto;padding:56px 24px 40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media(max-width:760px){.hero-wrap{grid-template-columns:1fr;padding:36px 18px 28px}}
+.hero-left{}
+.hero-left h1{font-size:clamp(28px,5vw,56px);font-weight:800;letter-spacing:-2px;line-height:1.1;margin-bottom:18px}
+.hero-left h1 .accent{color:var(--purple-light)}
+.hero-left p{color:var(--muted);font-size:16px;max-width:460px;margin:0 0 28px;line-height:1.6}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
 .btn-primary{padding:13px 28px;background:var(--purple);color:#fff;border-radius:10px;font-weight:700;font-size:15px;transition:opacity .2s;display:inline-block}
 .btn-primary:hover{opacity:.9}
 .btn-secondary{padding:13px 28px;border:1px solid #444;color:var(--text);border-radius:10px;font-weight:600;font-size:15px;transition:border-color .2s;display:inline-block}
 .btn-secondary:hover{border-color:#777}
 
+/* Tonight right panel */
+.hero-right{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;min-height:220px}
+.tonight-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.tonight-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tonight-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:6px;box-shadow:0 0 8px #4ade80}
+.tonight-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.tonight-row:last-child{border-bottom:0}
+.tonight-time{font-size:13px;font-weight:700;color:var(--yellow);min-width:42px;flex-shrink:0}
+.tonight-info{}
+.tonight-name{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
+.tonight-venue{font-size:12px;color:var(--muted);margin-top:2px}
+.tonight-proof{font-size:11px;color:#666;margin-top:2px}
+.next-night-msg{padding:20px 0;text-align:center;color:var(--muted);font-size:14px;line-height:1.6}
+.next-night-msg strong{color:var(--text)}
+.next-night-msg a{color:var(--purple-light);font-weight:600}
+
 /* Sections */
 section{max-width:1100px;margin:0 auto;padding:56px 24px}
 .section-title{font-size:clamp(22px,3vw,32px);font-weight:800;letter-spacing:-0.5px;margin-bottom:6px}
-.section-sub{color:var(--muted);font-size:14px;margin-bottom:32px}
+.section-sub{color:var(--muted);font-size:14px;margin-bottom:24px}
 .section-cta{display:inline-block;margin-top:24px;color:var(--purple-light);font-size:14px;font-weight:600}
 .section-cta:hover{text-decoration:underline}
 
+/* Vibe filter chips */
+.chip-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.chip{padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid var(--border);color:var(--muted);background:var(--card);cursor:pointer;transition:all .15s;user-select:none}
+.chip:hover{border-color:#444;color:var(--text)}
+.chip.active{background:var(--purple);border-color:var(--purple);color:#fff}
+.chip-lang{border-color:#2a1a4a;color:#c4b5fd}
+.chip-lang.active{background:#4c1d95;border-color:#7c3aed;color:#fff}
+
 /* Shows grid */
 .shows-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.show-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:border-color .2s}
+.show-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:border-color .2s;display:flex;flex-direction:column;gap:8px}
 .show-card:hover{border-color:#333}
-.show-card-name{font-size:15px;font-weight:700;margin-bottom:4px}
-.show-card-venue{font-size:12px;color:#666;margin-bottom:6px}
-.show-card-meta{font-size:13px;color:var(--muted);margin-bottom:12px}
-.show-card-btn{display:block;text-align:center;padding:9px;border-radius:8px;background:var(--yellow);color:#000;font-size:12px;font-weight:700}
+.show-card-name{font-size:15px;font-weight:700}
+.show-card-venue{font-size:12px;color:#666}
+.show-card-meta{font-size:13px;color:var(--muted)}
+.show-proof{display:flex;gap:12px;font-size:11px;color:#555;margin-top:2px}
+.show-proof span{display:inline-flex;align-items:center;gap:4px}
+.show-card-btn{display:block;text-align:center;padding:9px;border-radius:8px;background:var(--yellow);color:#000;font-size:12px;font-weight:700;margin-top:auto}
 .show-card-btn:hover{opacity:.9}
+.show-vibe-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.vibe-tag{font-size:10px;padding:2px 7px;border-radius:4px;background:#1a1a2e;color:#c4b5fd;border:1px solid #2a1a4a;font-weight:600}
+.no-shows-msg{padding:32px 20px;text-align:center;color:var(--muted);font-size:15px;grid-column:1/-1;line-height:1.7}
+.no-shows-msg strong{color:var(--text)}
+.no-shows-msg a{color:var(--purple-light);font-weight:600}
 
 /* Featured shows */
 .featured-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
@@ -134,17 +181,23 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   </div>
 </nav>
 
-<div class="hero">
-  <h1>The Home of<br><span class="accent">English-Language</span><br>Comedy in Paris</h1>
-  <p>Stand-up every night of the week. English, French, bilingual. Tourists, expats, locals — all welcome.</p>
-  <div class="cta-row">
-    <a href="/venues.html" class="btn-primary">Browse Shows →</a>
-    <a href="/book.html" class="btn-secondary">Book a Private Show →</a>
+<!-- Hero — 2-column: text left, tonight panel right -->
+<div class="hero-wrap">
+  <div class="hero-left">
+    <h1>The Home of<br><span class="accent">English-Language</span><br>Comedy in Paris</h1>
+    <p>Stand-up every night of the week. English, French, bilingual. Tourists, expats, locals — all welcome.</p>
+    <div class="cta-row">
+      <a href="#shows-section" class="btn-primary">Find Tonight's Show →</a>
+      <a href="/book.html" class="btn-secondary">Book a Private Show</a>
+    </div>
+  </div>
+  <div class="hero-right" id="tonight-panel">
+    <!-- populated by JS -->
   </div>
 </div>
 
 <div class="stats">
-  <div class="stat"><div class="stat-num">34+</div><div class="stat-label">Active shows</div></div>
+  <div class="stat"><div class="stat-num" id="stat-shows">34+</div><div class="stat-label">Active shows</div></div>
   <div class="stat"><div class="stat-num">27+</div><div class="stat-label">Venues</div></div>
   <div class="stat"><div class="stat-num">7</div><div class="stat-label">Nights per week</div></div>
   <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Years running</div></div>
@@ -155,7 +208,6 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   <div class="section-title">Featured Shows</div>
   <div class="section-sub">Verified, highlighted comedy nights in Paris</div>
   <div class="featured-grid" id="featured-grid">
-    <!-- Inline featured shows -->
     <div class="featured-card">
       <div>
         <span class="featured-badge">⭐ FEATURED</span>
@@ -163,7 +215,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
       </div>
       <div class="featured-card-name">Velvet Bar</div>
       <div class="featured-card-show">Velvet Bar Comedy — Le meilleur du stand-up</div>
-      <div class="featured-card-meta">Wednesday &middot; 20:30 &middot; M: Pigalle</div>
+      <div class="featured-card-meta">Wednesday &middot; 20:30 &middot; M° Châtelet (M1/M4/M7/M11/M14) &middot; 43 Rue Saint-Honoré, 75001</div>
       <div class="featured-video">
         <iframe src="https://www.youtube.com/embed/jBb6cobfcdo" allowfullscreen loading="lazy" title="Velvet Bar Comedy show"></iframe>
       </div>
@@ -175,11 +227,29 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   </div>
 </section>
 
-<section>
+<section id="shows-section">
   <div class="section-title">Shows This Week</div>
-  <div class="section-sub">Top English-language comedy nights in Paris</div>
+  <div class="section-sub">English-language comedy nights in Paris — filtered live by tonight</div>
+
+  <!-- Vibe filter chips -->
+  <div class="chip-bar" id="chip-bar">
+    <button class="chip active" data-filter="all" onclick="setFilter('all',this)">All nights</button>
+    <button class="chip" data-filter="tonight" onclick="setFilter('tonight',this)">Tonight</button>
+    <button class="chip" data-filter="weekend" onclick="setFilter('weekend',this)">Weekend</button>
+    <span style="width:1px;background:var(--border);margin:0 4px"></span>
+    <button class="chip chip-lang" data-vibe="English" onclick="toggleVibe('English',this)">English</button>
+    <button class="chip chip-lang" data-vibe="Bilingual" onclick="toggleVibe('Bilingual',this)">Bilingual</button>
+    <span style="width:1px;background:var(--border);margin:0 4px"></span>
+    <button class="chip" data-vibe="Open Mic" onclick="toggleVibe('Open Mic',this)">Open Mic</button>
+    <button class="chip" data-vibe="Showcase" onclick="toggleVibe('Showcase',this)">Showcase</button>
+    <button class="chip" data-vibe="Improv" onclick="toggleVibe('Improv',this)">Improv</button>
+    <button class="chip" data-vibe="Storytelling" onclick="toggleVibe('Storytelling',this)">Storytelling</button>
+    <button class="chip" data-vibe="Alt" onclick="toggleVibe('Alt',this)">Alt</button>
+    <button class="chip" data-vibe="Dark" onclick="toggleVibe('Dark',this)">Dark</button>
+  </div>
+
   <div class="shows-grid" id="shows-grid"></div>
-  <a href="/venues.html" class="section-cta">See all 34+ shows →</a>
+  <a href="/shows.html" class="section-cta">See all shows →</a>
 </section>
 
 <!-- Connection Section -->
@@ -282,29 +352,219 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 </footer>
 
 <script>
+// ── DATA (baked daily by refresh_pariscomedy.py) ──────────────────────────
 const TOP_SHOWS = [
-  {name:"French Fried Comedy Night",venue:"Paname Comedy Club",day:"Wednesday",time:"22:00",url:"https://www.eventbrite.com/e/french-fried-comedy-night-may-27-tickets-1988770573321"},
-  {name:"Velvet Bar Comedy — Showcase",venue:"Velvet Bar, Pigalle",day:"Wednesday",time:"20:30",url:"https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719"},
-  {name:"Green Mic Showcase",venue:"Green Mic, Montmartre",day:"Friday",time:"20:30",url:"https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-573952757147"},
-  {name:"Comedy Lab",venue:"Chat Noir, Pigalle",day:"Thu & Sat",time:"20:00",url:"https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679"},
-  {name:"Kinto Comedy Club",venue:"Kinto, Marais",day:"Friday",time:"19:30",url:"https://www.eventbrite.fr/e/kinto-comedy-club-au-poincon-tickets-1981428458859"}
+  {name:"French Fried Comedy Night",venue:"Velvet Bar, 43 Rue Saint-Honoré, 75001",day:"Wednesday",time:"22:00",url:"https://www.eventbrite.com/e/french-fried-comedy-night-may-27-tickets-1988770573321",langs:["EN","FR"],type:"showcase",comics_on_bill:6},
+  {name:"Velvet Bar Comedy — Showcase",venue:"Velvet Bar, 43 Rue Saint-Honoré, 75001 (Châtelet)",day:"Wednesday",time:"20:30",url:"https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719",langs:["EN","FR"],type:"showcase",comics_on_bill:5},
+  {name:"Green Mic Showcase",venue:"Au Soleil de la Butte, Montmartre",day:"Friday",time:"20:30",url:"https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-573952757147",langs:["EN"],type:"showcase",comics_on_bill:0},
+  {name:"Comedy Lab",venue:"Chat Noir, 76 Rue Jean-Pierre Timbaud, 75011 (Oberkampf)",day:"Thursday",time:"20:00",url:"https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679",langs:["EN"],type:"showcase",comics_on_bill:0},
+  {name:"Kinto Comedy Club",venue:"Kinto, Marais",day:"Friday",time:"19:30",url:"https://www.eventbrite.fr/e/kinto-comedy-club-au-poincon-tickets-1981428458859",langs:["EN","FR"],type:"showcase",comics_on_bill:0}
 ];
+const SHOWS = [];
+// ── END DATA ──────────────────────────────────────────────────────────────
 
-const grid = document.getElementById('shows-grid');
-TOP_SHOWS.forEach(s => {
-  const card = document.createElement('div');
-  card.className = 'show-card';
-  card.innerHTML = `
-    <div class="show-card-name">${s.name}</div>
-    <div class="show-card-venue">${s.venue}</div>
-    <div class="show-card-meta">${s.day} &middot; ${s.time}</div>
-    <a href="${s.url}" target="_blank" class="show-card-btn">Book tickets →</a>`;
-  grid.appendChild(card);
-});
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const WEEKEND = new Set(['Friday','Saturday','Sunday']);
 
-function toggleFaq(el) {
-  el.parentElement.classList.toggle('open');
+function todayName() { return DAYS[new Date().getDay()]; }
+
+function inferVibes(s) {
+  const txt = ((s.name||'') + ' ' + (s.desc||'')).toLowerCase();
+  const tags = [];
+  if (s.langs) {
+    if (s.langs.includes('EN') && s.langs.includes('FR')) tags.push('Bilingual');
+    else if (s.langs.includes('EN')) tags.push('English');
+    else tags.push('French');
+  }
+  if (/open.?mic|open mic/.test(txt)) tags.push('Open Mic');
+  else if (/showcase|show/.test(txt)) tags.push('Showcase');
+  if (/improv/.test(txt)) tags.push('Improv');
+  if (/storytelling|story/.test(txt)) tags.push('Storytelling');
+  if (/alt comedy|alternative/.test(txt)) tags.push('Alt');
+  if (/dark/.test(txt)) tags.push('Dark');
+  if (/crowd.?work/.test(txt)) tags.push('Crowd Work');
+  if (/roast/.test(txt)) tags.push('Roast');
+  return [...new Set(tags)];
 }
+
+// Merge TOP_SHOWS + SHOWS, dedupe by url, filter archived
+function allShows() {
+  const seen = new Set();
+  const out = [];
+  for (const s of [...TOP_SHOWS, ...SHOWS]) {
+    if (s.is_archived || s._stale) continue;
+    const key = s.url || s.name;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push({...s, _vibes: inferVibes(s)});
+  }
+  return out;
+}
+
+// Find next night that has shows (starting from today, up to 7 days ahead)
+function nextComedyNight(shows) {
+  const today = new Date().getDay();
+  const showsByDay = {};
+  for (const s of shows) {
+    const d = s.day;
+    if (!showsByDay[d]) showsByDay[d] = [];
+    showsByDay[d].push(s);
+  }
+  for (let offset = 0; offset < 7; offset++) {
+    const name = DAYS[(today + offset) % 7];
+    if (showsByDay[name] && showsByDay[name].length > 0)
+      return { day: name, count: showsByDay[name].length, offset };
+  }
+  return null;
+}
+
+// ── TONIGHT PANEL ─────────────────────────────────────────────────────────
+function renderTonightPanel() {
+  const panel = document.getElementById('tonight-panel');
+  const shows = allShows();
+  const today = todayName();
+  const tonight = shows.filter(s => s.day === today).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+
+  if (tonight.length === 0) {
+    const next = nextComedyNight(shows);
+    const msg = next
+      ? `<div class="next-night-msg">
+           <span style="font-size:24px">🌙</span><br><br>
+           Comedy is quiet on ${today}s.<br>
+           <strong>Next up: ${next.day === DAYS[(new Date().getDay()+1)%7] ? 'Tomorrow' : next.day}</strong>
+           — ${next.count} show${next.count!==1?'s':''}<br><br>
+           <a href="#shows-section">See the full week →</a>
+         </div>`
+      : `<div class="next-night-msg">Check back soon for upcoming shows.</div>`;
+    panel.innerHTML = `<div class="tonight-header"><span><span class="tonight-dot"></span><span class="tonight-label">Tonight · ${today}</span></span></div>${msg}`;
+    return;
+  }
+
+  const rows = tonight.slice(0,5).map(s => {
+    const proof = s.comics_on_bill > 0 ? `<span>🎤 ${s.comics_on_bill} comics</span>` : '';
+    const vibes = s._vibes.slice(0,2).map(v=>`<span class="vibe-tag">${v}</span>`).join('');
+    return `<div class="tonight-row">
+      <div class="tonight-time">${s.time||'—'}</div>
+      <div class="tonight-info">
+        <div class="tonight-name"><a href="${s.url||'#'}" target="_blank">${s.name}</a></div>
+        <div class="tonight-venue">${s.venue||''}</div>
+        ${proof || vibes ? `<div class="tonight-proof">${proof}${vibes}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  panel.innerHTML = `
+    <div class="tonight-header">
+      <span><span class="tonight-dot"></span><span class="tonight-label">Tonight · ${today}</span></span>
+      <span style="font-size:12px;color:var(--muted)">${tonight.length} show${tonight.length!==1?'s':''}</span>
+    </div>
+    ${rows}`;
+}
+
+// ── SHOWS GRID ────────────────────────────────────────────────────────────
+let activeFilter = 'all';
+let activeVibes = new Set();
+
+function setFilter(f, el) {
+  activeFilter = f;
+  document.querySelectorAll('.chip[data-filter]').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderGrid();
+}
+
+function toggleVibe(v, el) {
+  if (activeVibes.has(v)) { activeVibes.delete(v); el.classList.remove('active'); }
+  else { activeVibes.add(v); el.classList.add('active'); }
+  renderGrid();
+}
+
+function renderGrid() {
+  const grid = document.getElementById('shows-grid');
+  const shows = allShows();
+  const today = todayName();
+
+  let filtered = shows;
+  if (activeFilter === 'tonight') filtered = shows.filter(s => s.day === today);
+  else if (activeFilter === 'weekend') filtered = shows.filter(s => WEEKEND.has(s.day));
+
+  if (activeVibes.size > 0)
+    filtered = filtered.filter(s => s._vibes && [...activeVibes].some(v => s._vibes.includes(v)));
+
+  // Sort: tonight first, then by day order from today
+  const todayIdx = new Date().getDay();
+  filtered.sort((a,b) => {
+    const ai = (DAYS.indexOf(a.day) - todayIdx + 7) % 7;
+    const bi = (DAYS.indexOf(b.day) - todayIdx + 7) % 7;
+    if (ai !== bi) return ai - bi;
+    return (a.time||'').localeCompare(b.time||'');
+  });
+
+  if (filtered.length === 0) {
+    const next = nextComedyNight(shows);
+    const msg = next && activeFilter === 'tonight'
+      ? `Comedy is quiet on ${today}s. <strong>Comedy returns ${next.day === DAYS[(todayIdx+1)%7] ? 'tomorrow' : next.day}</strong> — <a href="#shows-section" onclick="setFilter('all',document.querySelector('[data-filter=all]'))">${next.count} show${next.count!==1?'s':''}</a>`
+      : 'No shows match that filter.';
+    grid.innerHTML = `<div class="no-shows-msg">${msg}</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(s => {
+    const proof = s.comics_on_bill > 0
+      ? `<div class="show-proof"><span>🎤 ${s.comics_on_bill} comics on the bill</span></div>` : '';
+    const vibeHtml = s._vibes && s._vibes.length
+      ? `<div class="show-vibe-tags">${s._vibes.slice(0,3).map(v=>`<span class="vibe-tag">${v}</span>`).join('')}</div>` : '';
+    return `<div class="show-card">
+      <div class="show-card-name">${s.name}</div>
+      <div class="show-card-venue">${s.venue||''}</div>
+      <div class="show-card-meta">${s.day} &middot; ${s.time||'—'}</div>
+      ${proof}
+      ${vibeHtml}
+      <a href="${s.url||'#'}" target="_blank" class="show-card-btn">Book tickets →</a>
+    </div>`;
+  }).join('');
+
+  // Update stat counter
+  const statEl = document.getElementById('stat-shows');
+  if (statEl) statEl.textContent = shows.length + '+';
+}
+
+// ── INJECT JSON-LD EVENT SCHEMAS ──────────────────────────────────────────
+function injectEventSchemas() {
+  const today = new Date();
+  const schemas = TOP_SHOWS.map(s => {
+    // Find next occurrence of this show's day-of-week
+    const dayIdx = DAYS.indexOf(s.day);
+    const diff = (dayIdx - today.getDay() + 7) % 7;
+    const d = new Date(today); d.setDate(d.getDate() + diff);
+    const dateStr = d.toISOString().split('T')[0];
+    return {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": s.name,
+      "startDate": `${dateStr}T${s.time||'20:00'}:00`,
+      "location": {
+        "@type": "Place",
+        "name": s.venue ? s.venue.split(',')[0] : "Paris",
+        "address": { "@type": "PostalAddress", "addressLocality": "Paris", "addressCountry": "FR" }
+      },
+      "url": s.url,
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "organizer": { "@type": "Organization", "name": "Paris Comedy" }
+    };
+  });
+  const el = document.createElement('script');
+  el.type = 'application/ld+json';
+  el.textContent = JSON.stringify(schemas);
+  document.head.appendChild(el);
+}
+
+function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+renderTonightPanel();
+renderGrid();
+injectEventSchemas();
 </script>
 </body>
 </html>
