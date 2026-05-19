@@ -229,7 +229,7 @@ footer a:hover{color:var(--text)}
       <div class="payment-grid">
         <div class="payment-col">
           <h4>⚡ Lightning (Bitcoin)</h4>
-          <div class="payment-qr-placeholder">Bitcoin QR<br>coming soon<br>€9/month</div>
+          <div class="payment-qr-placeholder">Bitcoin QR<br>coming soon<br>€1/month</div>
           <p>payments@pariscomedy.com<br>Scan with any Lightning wallet</p>
           <a href="https://app.bullbitcoin.com/registration/robertlericain" target="_blank">New to Bitcoin? Get sats here →</a>
         </div>
@@ -368,7 +368,7 @@ function render() {
     if (v.tier === 'featured') tierBadge = '<span class="badge badge-featured">⭐ FEATURED</span>';
     else if (v.tier === 'pro') tierBadge = '<span class="badge badge-pro">⭐ PRO</span>';
 
-    const verifiedBadge = v.verified ? '<span class="badge badge-verified">✓ Verified</span>' : '';
+    const verifiedBadge = v.verified ? '<span class="badge badge-verified" title="Listed as active — not yet claim-verified by booker">Listed</span>' : '';
 
     // Video embed
     const videoHtml = (v.video_url && (v.tier === 'featured' || v.tier === 'pro'))
