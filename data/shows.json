@@ -693,6 +693,46 @@
     "_archive_reason": "page contains: 'Postponed'"
   },
   {
+    "id": "eb-1987985662632",
+    "name": "Coucou Social Night English Paris Fr",
+    "venue": "",
+    "url": "https://www.eventbrite.fr/e/coucou-social-night-english-paris-fr-tickets-1987985662632",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:37+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1979303186111",
+    "name": "Coucou Social Night English Paris Fr",
+    "venue": "",
+    "url": "https://www.eventbrite.fr/e/coucou-social-night-english-paris-fr-tickets-1979303186111",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:37+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
     "id": "eb-1987769005605",
     "name": "Improvised Powerpoint Comedy Show In English May 16",
     "venue": "",
@@ -721,7 +761,7 @@
     "langs": [
       "en"
     ],
-    "start_date": "2026-05-20T20:00:00+02:00",
+    "start_date": null,
     "end_date": null,
     "recurrence": "",
     "description": "",
@@ -758,7 +798,7 @@
     "langs": [
       "en"
     ],
-    "start_date": "2026-05-27T20:00:00+02:00",
+    "start_date": null,
     "end_date": null,
     "recurrence": "",
     "description": "",
@@ -848,6 +888,26 @@
     "_archive_reason": "page contains: 'Postponed'"
   },
   {
+    "id": "eb-1989159402319",
+    "name": "Accelerate Your Career 3 Pillars Of Career Ownership",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/accelerate-your-career-3-pillars-of-career-ownership-tickets-1989159402319",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:35+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
     "id": "eb-1987894947300",
     "name": "Bad Dates English Standup In Paris On Love Dating",
     "venue": "",
@@ -868,10 +928,410 @@
     "_archive_reason": "page contains: 'Postponed'"
   },
   {
+    "id": "eb-1988781320466",
+    "name": "When A 2Nd Job Doesnt Add Up Re Tax Strategy For Spouses Of Breadwinners",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/when-a-2nd-job-doesnt-add-up-re-tax-strategy-for-spouses-of-breadwinners-tickets-1988781320466",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:35+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985638587467",
+    "name": "Paris Fashion Week Mens Celebrity Runway Experience",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-fashion-week-mens-celebrity-runway-experience-tickets-1985638587467",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1983192027741",
+    "name": "Unique Fashion Show",
+    "venue": "",
+    "url": "https://www.eventbrite.fr/e/unique-fashion-show-tickets-1983192027741",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985611917697",
+    "name": "Paris Fashion Week Vip Red Carpet Runway Show",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-fashion-week-vip-red-carpet-runway-show-tickets-1985611917697",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985612364032",
+    "name": "Celebrity Streetwear Fashion Show Paris",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/celebrity-streetwear-fashion-show-paris-tickets-1985612364032",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985436982461",
+    "name": "Paris Fashion Week Runway Show",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-fashion-week-runway-show-tickets-1985436982461",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985638583455",
+    "name": "Vip Mens Fashion Show Paris Runway Experience",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/vip-mens-fashion-show-paris-runway-experience-tickets-1985638583455",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
     "id": "eb-1985638598500",
     "name": "Vip Red Carpet Mens Designer Showcase Paris",
     "venue": "",
     "url": "https://www.eventbrite.com/e/vip-red-carpet-mens-designer-showcase-paris-tickets-1985638598500",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985638714848",
+    "name": "Celebrity Mens Streetwear Fashion Show Paris",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/celebrity-mens-streetwear-fashion-show-paris-tickets-1985638714848",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985612572656",
+    "name": "Exclusive Streetwear Fashion Show Paris",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/exclusive-streetwear-fashion-show-paris-tickets-1985612572656",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1892007157339",
+    "name": "Paris Fashion Week Runway Show Mens Ss 27",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-fashion-week-runway-show-mens-ss-27-tickets-1892007157339",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985638571419",
+    "name": "Paris Fashion Week Mens Vip Red Carpet Runway Show",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-fashion-week-mens-vip-red-carpet-runway-show-tickets-1985638571419",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1988172242698",
+    "name": "Leaders Lounge Your Monthly Leadership Recharge",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/leaders-lounge-your-monthly-leadership-recharge-tickets-1988172242698",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1988953748202",
+    "name": "Women 50 Attract Your Soulmate Masterclass Stop Kissing Frogs",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/women-50-attract-your-soulmate-masterclass-stop-kissing-frogs-tickets-1988953748202",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1884730071379",
+    "name": "Red Carpet Paris Fashion Week Event Mens Ss 27",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/red-carpet-paris-fashion-week-event-mens-ss-27-tickets-1884730071379",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1989124791798",
+    "name": "Red Carpet Paris Fashion Week Mixer Mens Ss 27",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/red-carpet-paris-fashion-week-mixer-mens-ss-27-tickets-1989124791798",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985611939763",
+    "name": "Vip Fashion Show Paris Fashion Week Runway",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/vip-fashion-show-paris-fashion-week-runway-tickets-1985611939763",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985638607527",
+    "name": "Celebrity Mens Fashion Showcase Paris Fashion Week",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/celebrity-mens-fashion-showcase-paris-fashion-week-tickets-1985638607527",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985638807124",
+    "name": "Exclusive Mens Streetwear Fashion Show Paris",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/exclusive-mens-streetwear-fashion-show-paris-tickets-1985638807124",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985436839032",
+    "name": "Red Carpet Paris Fashion Week Runway Show",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/red-carpet-paris-fashion-week-runway-show-tickets-1985436839032",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:33+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1988436614441",
+    "name": "From Paycheck To Ownership How People Are Buying Businesses Right Now",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/from-paycheck-to-ownership-how-people-are-buying-businesses-right-now-tickets-1988436614441",
     "langs": [
       "en"
     ],
@@ -1053,6 +1513,203 @@
     "_archive_reason": "page contains: 'Postponed'"
   },
   {
+    "id": "eb-1985110652399",
+    "name": "Paris Yoga Club June 14 With Lucy",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-yoga-club-june-14-with-lucy-tickets-1985110652399",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:31+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1988767451985",
+    "name": "French Fried Comedy Night May 27",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/french-fried-comedy-night-may-27-tickets-1988767451985",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:29+00:00"
+  },
+  {
+    "id": "eb-1856408460679",
+    "name": "Expats Paris Meet Mingle Night",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/expats-paris-meet-mingle-night-tickets-1856408460679",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:29+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1856269996529",
+    "name": "Expats Paris Meet Mingle Night",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/expats-paris-meet-mingle-night-tickets-1856269996529",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:29+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1977202468809",
+    "name": "The Stylist Collective Paris Fashion Week Runway Event By Adonis Musa",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/the-stylist-collective-paris-fashion-week-runway-event-by-adonis-musa-tickets-1977202468809",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:29+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1988034887866",
+    "name": "Paris Fashion Week The Musa Showroom Global Runway Event",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-fashion-week-the-musa-showroom-global-runway-event-tickets-1988034887866",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:29+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1987389571708",
+    "name": "Investor Connect Pitch Network Night Paris",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/investor-connect-pitch-network-night-paris-tickets-1987389571708",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:29+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985638576434",
+    "name": "Celebrity Mens Fashion Night Paris Fashion Week",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/celebrity-mens-fashion-night-paris-fashion-week-tickets-1985638576434",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:29+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1909474322099",
+    "name": "Paris Fashion Week Showroom By Musa Mens Ss 27",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-fashion-week-showroom-by-musa-mens-ss-27-tickets-1909474322099",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:29+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1980158875501",
+    "name": "Smglobal Catwalk Paris Gala Fashion Week Edition Oct 3 2026",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/smglobal-catwalk-paris-gala-fashion-week-edition-oct-3-2026-tickets-1980158875501",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:29+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
     "id": "eb-1988263170666",
     "name": "Blast Off All Stars English Stand Up Comedy May 23",
     "venue": "",
@@ -1073,10 +1730,130 @@
     "_archive_reason": "page contains: 'Postponed'"
   },
   {
+    "id": "eb-1985638721869",
+    "name": "Paris Mens Streetwear Fashion Night Pfw",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-mens-streetwear-fashion-night-pfw-tickets-1985638721869",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:27+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1989124788789",
+    "name": "Paris Mens Streetwear Fashion Mixer Pfw",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-mens-streetwear-fashion-mixer-pfw-tickets-1989124788789",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:27+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1902307004459",
+    "name": "Paris Fashion Week Streetwear Presentation Mens Ss 27",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-fashion-week-streetwear-presentation-mens-ss-27-tickets-1902307004459",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:27+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1988520896531",
+    "name": "Paris Mens Streetwear Fashion Showroom Night Pfw",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-mens-streetwear-fashion-showroom-night-pfw-tickets-1988520896531",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:27+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985638710836",
+    "name": "Paris Fashion Week Mens Vip Streetwear Runway Experience",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-fashion-week-mens-vip-streetwear-runway-experience-tickets-1985638710836",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:27+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
     "id": "eb-1985638793082",
     "name": "Paris Mens Urban Luxury Streetwear Showcase",
     "venue": "",
     "url": "https://www.eventbrite.com/e/paris-mens-urban-luxury-streetwear-showcase-tickets-1985638793082",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:27+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1985638789070",
+    "name": "Paris Fashion Week Mens Celebrity Street Style Runway",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/paris-fashion-week-mens-celebrity-street-style-runway-tickets-1985638789070",
     "langs": [
       "en"
     ],
@@ -1153,6 +1930,43 @@
     "_archive_reason": "page contains: 'Postponed'"
   },
   {
+    "id": "eb-1976058445003",
+    "name": "Un Noel A La Francaise Paris",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/un-noel-a-la-francaise-paris-tickets-1976058445003",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:26+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1988770573321",
+    "name": "French Fried Comedy Night May 27",
+    "venue": "",
+    "url": "https://www.eventbrite.com/e/french-fried-comedy-night-may-27-tickets-1988770573321",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "english-rooms",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:26+00:00"
+  },
+  {
     "id": "eb-1977106148713",
     "name": "Velvet Bar Comedy Open Mic Stand Up Comedy A Paris",
     "venue": "",
@@ -1188,6 +2002,26 @@
     "source": "english-rooms",
     "comics": [],
     "last_seen": "2026-05-16T01:01:26+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
+    "id": "eb-1987742955689",
+    "name": "La Journey",
+    "venue": "",
+    "url": "https://www.eventbrite.fr/e/la-journey-tickets-1987742955689",
+    "langs": [
+      "en"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "eventbrite-paris",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:24+00:00",
     "is_archived": true,
     "_freshness_checked": "2026-05-18T12:25:01+00:00",
     "_archive_reason": "page contains: 'Postponed'"
@@ -1274,6 +2108,26 @@
     "_archive_reason": "page contains: 'Postponed'"
   },
   {
+    "id": "eb-1987595054312",
+    "name": "Apollo Boxing Night 20062026",
+    "venue": "",
+    "url": "https://www.eventbrite.fr/e/apollo-boxing-night-20062026-tickets-1987595054312",
+    "langs": [
+      "fr"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "eventbrite-paris",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:23+00:00",
+    "is_archived": true,
+    "_freshness_checked": "2026-05-18T12:25:01+00:00",
+    "_archive_reason": "page contains: 'Postponed'"
+  },
+  {
     "id": "eb-1986006290276",
     "name": "Greenwashing Comedy Club A La Bom",
     "venue": "",
@@ -1335,6 +2189,74 @@
     "_archive_reason": "page contains: 'Postponed'"
   },
   {
+    "id": "pv-4211",
+    "name": "",
+    "venue": "le-point-virgule",
+    "url": "https://www.lepointvirgule.com/event-pro/4211/",
+    "langs": [
+      "fr"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "pointvirgule",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:17+00:00"
+  },
+  {
+    "id": "pv-4325",
+    "name": "",
+    "venue": "le-point-virgule",
+    "url": "https://www.lepointvirgule.com/event-pro/4325/",
+    "langs": [
+      "fr"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "pointvirgule",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:17+00:00"
+  },
+  {
+    "id": "pv-4199",
+    "name": "",
+    "venue": "le-point-virgule",
+    "url": "https://www.lepointvirgule.com/event-pro/4199/",
+    "langs": [
+      "fr"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "pointvirgule",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:17+00:00"
+  },
+  {
+    "id": "pv-4082",
+    "name": "",
+    "venue": "le-point-virgule",
+    "url": "https://www.lepointvirgule.com/event-pro/4082/",
+    "langs": [
+      "fr"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "recurrence": "",
+    "description": "",
+    "cover_image": "",
+    "source": "pointvirgule",
+    "comics": [],
+    "last_seen": "2026-05-16T01:01:17+00:00"
+  },
+  {
     "id": "eb-1988766993614",
     "name": "French Fried Comedy Night May 20",
     "venue": "",
@@ -1342,7 +2264,7 @@
     "langs": [
       "en"
     ],
-    "start_date": "2026-05-20T20:00:00+02:00",
+    "start_date": null,
     "end_date": null,
     "recurrence": "",
     "description": "",

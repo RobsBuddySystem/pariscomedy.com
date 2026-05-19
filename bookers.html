@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Bookers — Paris Comedy</title>
+<meta name="description" content="Claim your show, add dates and lineups, connect with comics. Paris Comedy — the home of English-language stand-up in Paris.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#7c3aed;--purple-light:#9d5ff5;--bg:#0a0a0a;--card:#111;--border:#1e1e1e;--text:#f0f0f0;--muted:#888;--yellow:#f5c518;--gold:#f59e0b}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+a{color:inherit;text-decoration:none}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:100;flex-wrap:wrap;gap:8px}
+.nav-logo{font-size:18px;font-weight:700;letter-spacing:-0.5px}
+.nav-logo span{color:var(--yellow)}
+.nav-links{display:flex;gap:20px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+.nav-links a:hover{color:var(--text)}
+.nav-active{color:var(--text)!important}
+
+.hero{text-align:center;padding:60px 24px 40px;background:linear-gradient(180deg,#111 0%,#0a0a0a 100%)}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:16px}
+.hero h1 span{color:var(--yellow)}
+.hero p{color:var(--muted);font-size:16px;max-width:540px;margin:0 auto 28px;line-height:1.6}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{padding:13px 28px;background:var(--purple);color:#fff;border-radius:10px;font-weight:700;font-size:15px;display:inline-block}
+.btn-primary:hover{opacity:.9}
+.btn-secondary{padding:13px 28px;border:1px solid #444;color:var(--text);border-radius:10px;font-weight:600;font-size:15px;display:inline-block}
+.btn-secondary:hover{border-color:#888}
+
+section{max-width:800px;margin:0 auto;padding:56px 24px}
+.section-title{font-size:clamp(22px,3vw,32px);font-weight:800;letter-spacing:-0.5px;margin-bottom:8px}
+.section-sub{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.6}
+
+.claim-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px}
+.claim-box h2{font-size:20px;font-weight:700;margin-bottom:6px}
+.claim-box .sub{color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.field label{font-size:12px;color:var(--muted);font-weight:500}
+.field input,.field textarea,.field select{padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:#0a0a0a;color:var(--text);font-size:14px;outline:none;transition:border-color .2s;font-family:inherit}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--yellow)}
+.field textarea{resize:vertical;min-height:90px}
+.req{color:var(--yellow)}
+.btn-submit{width:100%;padding:13px;border-radius:10px;border:none;background:var(--yellow);color:#000;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px}
+.btn-submit:hover{opacity:.9}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed}
+.error-msg{color:#e07a7a;font-size:13px;margin-top:8px;min-height:16px}
+.success-msg{display:none;text-align:center;padding:24px;color:#7ae07a;font-size:15px;font-weight:600;line-height:1.6}
+
+/* Claimable shows list */
+.shows-list{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.show-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;flex-wrap:wrap}
+.show-row-name{font-size:14px;font-weight:600;flex:1}
+.show-row-meta{font-size:12px;color:var(--muted)}
+.show-row-claim{padding:6px 14px;border-radius:8px;border:1px solid var(--yellow);color:var(--yellow);font-size:12px;font-weight:700;cursor:pointer;background:transparent;white-space:nowrap}
+.show-row-claim:hover{background:var(--yellow);color:#000}
+
+/* Booker Plus teaser */
+.plus-teaser{background:#111;border:1px solid #2a1a4a;border-radius:16px;padding:32px;text-align:center;margin-top:40px}
+.plus-teaser h2{font-size:20px;font-weight:700;color:var(--purple-light);margin-bottom:8px}
+.plus-teaser p{color:var(--muted);font-size:14px;margin-bottom:16px;line-height:1.6}
+.lock-badge{display:inline-block;padding:4px 12px;border-radius:10px;background:#1a1a2e;color:#c4b5fd;font-size:12px;font-weight:700;margin:3px}
+.coming-soon{display:inline-block;margin-top:16px;padding:10px 24px;border-radius:10px;border:1px solid #2a1a4a;color:var(--purple-light);font-size:14px;font-weight:600}
+
+footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;color:var(--muted);font-size:13px}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--text)}
+.footer-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/shows.html">Shows</a>
+    <a href="/venues.html">Venues</a>
+    <a href="/book.html">Book / Connect</a>
+    <a href="/comedians.html">For Comedians</a>
+    <a href="/bookers.html" class="nav-active">Bookers</a>
+    <a href="/pricing.html">Pricing</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Run a Comedy Show<br>in <span>Paris</span>?</h1>
+  <p>Claim your show, add dates and lineups, connect with comics.</p>
+  <div class="cta-row">
+    <a href="#claim" class="btn-primary">Claim a Show →</a>
+    <a href="/book.html#show-runner" class="btn-secondary">List a New Show</a>
+  </div>
+</div>
+
+<section>
+  <div class="section-title">Claimable Shows</div>
+  <div class="section-sub">These shows are listed from public sources. If you run one, claim it to manage dates, add lineups, and connect with comics.</div>
+  <div class="shows-list" id="shows-list">
+    <div style="color:var(--muted);font-size:14px;padding:12px 0">Loading shows…</div>
+  </div>
+</section>
+
+<section id="claim" style="padding-top:0">
+  <div class="claim-box">
+    <h2>Claim an Existing Show</h2>
+    <div class="sub">Already running one of these shows? Tell us how you're involved and we'll update the listing under your name.</div>
+    <div id="claim-form">
+      <div class="field">
+        <label>Show name <span class="req">*</span></label>
+        <input type="text" id="cl-show" placeholder="The name of your comedy night">
+      </div>
+      <div class="field">
+        <label>Your name <span class="req">*</span></label>
+        <input type="text" id="cl-name" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label>Email <span class="req">*</span></label>
+        <input type="email" id="cl-email" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label>Your role</label>
+        <select id="cl-role">
+          <option value="">Select…</option>
+          <option value="producer">Show producer</option>
+          <option value="venue_owner">Venue owner</option>
+          <option value="mc">MC / Host</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Proof of ownership — how do you run this show? <span class="req">*</span></label>
+        <textarea id="cl-proof" placeholder="Describe your role, how long you've been running it, any links to confirm…"></textarea>
+      </div>
+      <div class="error-msg" id="cl-err"></div>
+      <button class="btn-submit" id="cl-btn" onclick="submitClaim()">Submit claim →</button>
+    </div>
+    <div class="success-msg" id="cl-success">
+      Thanks! We'll review your claim and be in touch within 48 hours.
+    </div>
+  </div>
+
+  <div class="plus-teaser">
+    <h2>🔒 Booker Plus — Coming Soon</h2>
+    <p>Upgrade to promote your show to the top of listings and message comics directly.</p>
+    <div>
+      <span class="lock-badge">🔒 Promote shows to top of listings</span>
+      <span class="lock-badge">🔒 Send direct messages to comics</span>
+      <span class="lock-badge">🔒 Feature show on homepage</span>
+    </div>
+    <p style="margin-top:16px;font-size:13px;color:#555">€1/month or €12/year — <a href="/pricing.html" style="color:var(--purple-light)">see pricing →</a></p>
+    <a class="coming-soon">🎁 Early access: join the waitlist on the <a href="/pricing.html" style="color:var(--purple-light)">pricing page</a></a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/shows.html">Shows</a>
+    <a href="/venues.html">Venues</a>
+    <a href="/book.html">Book / Connect</a>
+    <a href="/comedians.html">For Comedians</a>
+    <a href="/bookers.html">Bookers</a>
+    <a href="/pricing.html">Pricing</a>
+  </div>
+  <div>payments@pariscomedy.com &nbsp;|&nbsp; <a href="https://instagram.com/pariscomedy" target="_blank">@pariscomedy</a></div>
+</footer>
+
+<script>
+// Load claimable shows from shows_upcoming.json
+fetch('/data/shows_upcoming.json')
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(shows => {
+    const list = document.getElementById('shows-list');
+    const first8 = shows.slice(0, 8);
+    if (!first8.length) {
+      list.innerHTML = '<div style="color:var(--muted);font-size:14px;padding:12px 0">No shows found.</div>';
+      return;
+    }
+    list.innerHTML = first8.map(s => `
+      <div class="show-row">
+        <div>
+          <div class="show-row-name">${s.emoji || '🎭'} ${s.show_name}</div>
+          <div class="show-row-meta">${s.venue} · ${s.neighborhood} · ${s.date}</div>
+        </div>
+        <button class="show-row-claim" onclick="prefillClaim('${s.show_name.replace(/'/g,'\\\'')}')" >Claim →</button>
+      </div>`).join('');
+  })
+  .catch(() => {
+    document.getElementById('shows-list').innerHTML = '<div style="color:var(--muted);font-size:14px;padding:12px 0">Could not load shows. <a href="#claim" style="color:var(--yellow)">Go directly to claim form →</a></div>';
+  });
+
+function prefillClaim(showName) {
+  document.getElementById('cl-show').value = showName;
+  document.getElementById('claim').scrollIntoView({behavior:'smooth'});
+  setTimeout(() => document.getElementById('cl-name').focus(), 400);
+}
+
+let _apiBase = '';
+async function getApi() {
+  if (_apiBase) return _apiBase;
+  try { const cfg = await fetch('/api-config.json').then(r=>r.json()); _apiBase = cfg.api||''; }
+  catch(e) { _apiBase = ''; }
+  return _apiBase;
+}
+
+async function submitClaim() {
+  const show = document.getElementById('cl-show').value.trim();
+  const name = document.getElementById('cl-name').value.trim();
+  const email = document.getElementById('cl-email').value.trim();
+  const role = document.getElementById('cl-role').value;
+  const proof = document.getElementById('cl-proof').value.trim();
+  const err = document.getElementById('cl-err');
+  err.textContent = '';
+  if (!show || !name || !email || !proof) { err.textContent = 'Please fill in all required fields.'; return; }
+  const btn = document.getElementById('cl-btn');
+  btn.disabled = true; btn.textContent = 'Submitting…';
+  try {
+    const api = await getApi();
+    if (!api) throw new Error('Server offline — email payments@pariscomedy.com');
+    const r = await fetch(api + '/api/book', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({_type:'claim_show', show_name:show, name, email, role, proof})
+    });
+    if (!r.ok) throw new Error('Server error ' + r.status);
+    document.getElementById('claim-form').style.display = 'none';
+    document.getElementById('cl-success').style.display = 'block';
+  } catch(e) {
+    err.textContent = e.message;
+    btn.disabled = false; btn.textContent = 'Submit claim →';
+  }
+}
+</script>
+</body>
+</html>

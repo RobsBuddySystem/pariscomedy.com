@@ -9,7 +9,11 @@
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-az_1753888774.jpg",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T01:01:15+00:00"
+    "last_seen": "2026-05-16T01:01:15+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "abi-roberts",
@@ -21,7 +25,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=abi-roberts&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "British stand-up comedian performing regularly in Paris English comedy rooms.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "adrien-montowski",
@@ -34,7 +42,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 10K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "ahmed-sparrow",
@@ -47,7 +59,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 113K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "alan-mehanna",
@@ -59,7 +75,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=alan-mehanna&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "English-language comedian performing regularly in Paris.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "alex-di-mambro",
@@ -71,7 +91,11 @@
     "photo": "https://www.panameartcafe.com/storage/files/artists/alex-dimambro-portrait-paname-art-cafe_1735046611.jpg",
     "bio": "",
     "actuality": "Alex Di Mambro at Théâtre BO Saint-Martin",
-    "last_seen": "2026-05-16T01:01:15+00:00"
+    "last_seen": "2026-05-16T01:01:15+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "booder",
@@ -84,7 +108,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 1M followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "cal-dune",
@@ -96,7 +124,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=cal-dune&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "Stand-up comedian and FFCN regular in the Paris English comedy scene.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "charly-nyobe",
@@ -108,7 +140,11 @@
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-charlynyobe_1753888825.jpg",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T01:01:15+00:00"
+    "last_seen": "2026-05-16T01:01:15+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "clement-nassif",
@@ -121,7 +157,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=clement-nassif&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "Bilingual stand-up comedian performing in Paris comedy rooms.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "dave-strom",
@@ -133,7 +173,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=dave-strom&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "English-language stand-up comedian performing in Paris comedy venues.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "david-azencot",
@@ -145,7 +189,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=david-azencot&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "French stand-up comedian performing in Paris comedy venues.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "david-azria",
@@ -157,7 +205,11 @@
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-azria_1754318321.jpg",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T01:01:15+00:00"
+    "last_seen": "2026-05-16T01:01:15+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "emy",
@@ -170,7 +222,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 67K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "fern-brady",
@@ -182,7 +238,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=fern-brady&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "Scottish stand-up comedian touring Paris comedy venues.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "gad-elmaleh",
@@ -195,7 +255,11 @@
     "bio": "French comedy legend who crossed over to perform in English, doing sets in New York and appearing on major US platforms. He bridged French and American comedy. Toured with Sarah Donnelly.",
     "actuality": "Active in Paris comedy — Instagram 2M followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "ghislain-blique",
@@ -208,7 +272,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 19K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "guillaume-fosko",
@@ -221,7 +289,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 86K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "harriet-kemsley",
@@ -233,7 +305,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=harriet-kemsley&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "British stand-up comedian performing in Paris English comedy rooms.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "hugo-tout-seul",
@@ -246,7 +322,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 1M followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "ilyes-djadel",
@@ -259,7 +339,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 771K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "ilyes-mela",
@@ -272,7 +356,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 102K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "imen-lahmar",
@@ -284,7 +372,11 @@
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-imenlahmar_1753884920.jpg",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T01:01:15+00:00"
+    "last_seen": "2026-05-16T01:01:15+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "jill-wallace",
@@ -296,7 +388,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=jill-wallace&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "English-language stand-up comedian performing in Paris comedy rooms.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "john-brennan",
@@ -308,7 +404,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=john-brennan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "English-language stand-up comedian performing in Paris comedy venues.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "julie-coulon",
@@ -321,7 +421,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=julie-coulon&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "Runs 'Oh My God She's Parisian!' at Theatre BO Saint-Martin. Bilingual comedian with a strong expat-friendly premise.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "julie-haddad-kan",
@@ -334,7 +438,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=julie-haddad-kan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "Comedian performing in Paris bilingual comedy rooms including FFCN.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "lorene-cadeau",
@@ -347,7 +455,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=lorene-cadeau&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "FFCN alumna with 'Real Life in Paris' set (1.9K+ views). French comic performing in English — instantly Paris-specific premise that lands fast with expat rooms.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "lotfi-abdelli",
@@ -360,7 +472,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 2M followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "luke-thompson",
@@ -372,7 +488,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=luke-thompson&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "English-language stand-up comedian performing regularly at FFCN and Paris comedy rooms.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "maddie-storm",
@@ -384,7 +504,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=maddie-storm&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "Runs The Dissident Comedy Show (Wed 20:30) at The Dissident Club. Alternative English stand-up with a central-Paris edge.",
     "actuality": "Stand Up The Dissident Comedy Show Hosted By Maddie Storm",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "mahe",
@@ -397,7 +521,11 @@
     "bio": "",
     "actuality": "",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "marc-rouge",
@@ -409,7 +537,11 @@
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-marc_1753890892.jpg",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T01:01:15+00:00"
+    "last_seen": "2026-05-16T01:01:15+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "marine-leonardi",
@@ -422,7 +554,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 1M followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "nadege",
@@ -435,7 +571,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 299K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "nick-mukoko",
@@ -448,7 +588,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 49K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "nina-azoulai",
@@ -461,7 +605,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 116K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "noman-hosni",
@@ -475,7 +623,11 @@
     "bio": "One of France's biggest comedy stars who bridges the French and English comedy worlds. Regular performer at English-language shows in Paris.",
     "actuality": "Active in Paris comedy — Instagram 57K followers.",
     "last_seen": "2026-05-16T00:55:52+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "nordine-ganso",
@@ -487,7 +639,11 @@
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-nordineganso_1754054811.jpg",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T01:01:15+00:00"
+    "last_seen": "2026-05-16T01:01:15+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "omar-dhobb",
@@ -500,7 +656,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 10K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "patti-mansbach",
@@ -512,7 +672,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=patti-mansbach&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "FFCN alumna. Her 'Fear of Getting a French Boyfriend' set on French Fried Comedy Night has 12K+ YouTube views — a clean, crowd-forward premise that lands hard in the bilingual room.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "paul-taylor",
@@ -526,7 +690,11 @@
     "bio": "British comedian who moved to Paris in 2009 and got his start at French Fried Comedy Night, hosted by Robert Hoehn. His 2016 'La Bise' video — produced and directed by Robert — went viral with 3M+ views, leading Canal+ to give him 'What The Fuck France,' the first English show on French TV. #Franglais, 'So British', and 'Bisoubye x' tours sold out across France. 1.5M+ followers across platforms.",
     "actuality": "",
     "last_seen": "2026-05-16T14:53:17+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "randy-j-dreams",
@@ -538,7 +706,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=randy-j-dreams&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "Runs MANGO English Stand-Up at Le Paris de l'Humour Wed 19:45. English-language MC with regular Eventbrite shows.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "redouane-bougheraba",
@@ -551,7 +723,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 1M followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "rey-mendes",
@@ -564,7 +740,11 @@
     "bio": "",
     "actuality": "",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "robert-hoehn",
@@ -578,7 +758,11 @@
     "bio": "American bilingual comedian and one of the early builders of the Paris English-language comedy scene. Launched French Fried Comedy Night in 2013 at Paname Art Cafe, helped give Paul Taylor one of his first regular stages, and produced/directed 'La Bise' — the viral video that helped map the scene. Now runs FFCN at Velvet Bar Wednesdays.",
     "actuality": "Active in Paris comedy — Instagram 2,366 followers.",
     "last_seen": "2026-05-16T00:55:52+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "romain-raulin",
@@ -591,7 +775,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 3,469 followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "roman-frayssinet",
@@ -604,7 +792,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 987K followers.",
     "last_seen": "2026-05-16T14:53:17+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "sacko-camara",
@@ -617,7 +809,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 516K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "sarah-donnelly",
@@ -630,7 +826,11 @@
     "bio": "American comedian in Paris 12+ years. She opened for Jerry Seinfeld, toured with Gad Elmaleh, and regularly performs at Theatre BO Saint-Martin. Her special 'The Only American in Paris' is on YouTube. A pillar of the Paris English comedy scene.",
     "actuality": "",
     "last_seen": "2026-05-16T00:55:52+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "sebastian-marx",
@@ -644,7 +844,11 @@
     "bio": "New Yorker who fell in love with a French woman and moved to Paris. Created 'New York Comedy Night' at SoGymnase — the FIRST regular English stand-up show in Paris. Appeared on Jamel Comedy Club (Canal+), got a radio gig on RTL with Stephane Bern, and later France Inter. He proved English-language comedy could work in Paris.",
     "actuality": "",
     "last_seen": "2026-05-16T14:53:17+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "sophie-loustalot",
@@ -656,7 +860,11 @@
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-sophieloustalot_1753890961.jpg",
     "bio": "",
     "actuality": "Sophie Loustalot Dans Fantasme at Théâtre BO Saint-Martin",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "soun-dembele",
@@ -669,7 +877,11 @@
     "bio": "Passionné de stand up, Soun joue partout où il peut jouer. De la cave d’un bar jusqu’au Zénith de Clermont Ferrand, Soun fait hurler de rire son public avec une voix et une prestance hors du commun.",
     "actuality": "Active in Paris comedy — Instagram 19K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "tamer-kattan",
@@ -682,7 +894,11 @@
     "bio": "New York comedian who made Paris his second home. 159K+ followers on social media. Regular collaborator with Robert Hoehn and a favorite on the Paris English-language circuit.",
     "actuality": "Active in Paris comedy — Instagram 168K followers.",
     "last_seen": "2026-05-16T00:55:52+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "tania-dutel",
@@ -696,7 +912,11 @@
     "bio": "French comedian who performs brilliantly in both French and English. Known for sharp observational humor and fearless stage presence. A regular at English-language shows in Paris and proof that the scene is truly bilingual.",
     "actuality": "Active in Paris comedy — Instagram 137K followers.",
     "last_seen": "2026-05-16T00:55:52+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "tareek",
@@ -709,7 +929,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 155K followers.",
     "last_seen": "2026-05-16T14:53:17+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "tom-baldetti",
@@ -722,7 +946,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 940K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "victor-patrascan",
@@ -734,7 +962,11 @@
     "photo": "https://api.dicebear.com/7.x/adventurer/svg?seed=victor-patrascan&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf",
     "bio": "English-language comedian with his own show, a fixture in the Paris English comedy scene.",
     "actuality": "",
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "yassine-hitch",
@@ -747,7 +979,11 @@
     "bio": "",
     "actuality": "Active in Paris comedy — Instagram 12K followers.",
     "last_seen": "2026-05-16T01:01:15+00:00",
-    "_ig_checked": "2026-05-18T12:27:51+00:00"
+    "_ig_checked": "2026-05-18T12:27:51+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "manu-payet",
@@ -759,7 +995,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "tristan-lopin",
@@ -771,7 +1011,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "constance",
@@ -783,7 +1027,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "blanche-gardin",
@@ -795,7 +1043,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "fary",
@@ -807,7 +1059,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "panayotis-pascot",
@@ -819,7 +1075,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "haroun",
@@ -831,7 +1091,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "verino",
@@ -843,7 +1107,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "donel-jack-sman",
@@ -855,7 +1123,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "mathieu-mad-nian",
@@ -867,7 +1139,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "bun-hay-mean",
@@ -879,7 +1155,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "pierre-emmanuel-barr",
@@ -891,7 +1171,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "yacine-belhousse",
@@ -903,7 +1187,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "doully",
@@ -915,7 +1203,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "laura-felpin",
@@ -927,7 +1219,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "marina-rollman",
@@ -939,7 +1235,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "nora-hamzawi",
@@ -951,7 +1251,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "sandrine-sarroche",
@@ -963,7 +1267,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "hakim-jemili",
@@ -975,7 +1283,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "mahaut-drama",
@@ -987,7 +1299,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "roman-doduik",
@@ -999,7 +1315,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "camille-lellouche",
@@ -1011,7 +1331,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "stephen-trowell",
@@ -1023,7 +1347,11 @@
     "photo": "",
     "bio": "British comedian, Paris-based, regular at FFCN.",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "tom-mayhew",
@@ -1035,7 +1363,11 @@
     "photo": "",
     "bio": "UK stand-up, frequent Paris dates.",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "aydan-greatrick",
@@ -1047,7 +1379,11 @@
     "photo": "",
     "bio": "Anglo-Irish comedian working the Paris English circuit.",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "sammy-vore",
@@ -1059,7 +1395,11 @@
     "photo": "",
     "bio": "American comedian on the Paris English-language circuit.",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "diala-el-khatib",
@@ -1071,7 +1411,11 @@
     "photo": "",
     "bio": "Beirut-via-Paris stand-up, English rooms.",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "yuriko-kotani",
@@ -1083,7 +1427,11 @@
     "photo": "",
     "bio": "Japanese-British comedian, Paris tour stops.",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "robert-le-ricain",
@@ -1096,7 +1444,11 @@
     "photo": "",
     "bio": "American-in-Paris stand-up, bilingual material, FFCN regular.",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "becky-conroy",
@@ -1108,7 +1460,11 @@
     "photo": "",
     "bio": "Paris-based American comic, host at SpotlightParis.",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "antonia-lassar",
@@ -1120,7 +1476,11 @@
     "photo": "",
     "bio": "Comedian and actor, Paris English-room dates.",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "kaytlin-bailey",
@@ -1132,7 +1492,11 @@
     "photo": "",
     "bio": "American touring comedian.",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "mehdi-bousaidan",
@@ -1144,7 +1508,11 @@
     "photo": "",
     "bio": "Québécois-Canadian comedian, Paris French dates.",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "adam-naas",
@@ -1156,7 +1524,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "marie-reno",
@@ -1168,7 +1540,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "olivier-de-benoist",
@@ -1180,7 +1556,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "florence-foresti",
@@ -1192,7 +1572,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "anne-roumanoff",
@@ -1204,7 +1588,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "j-r-my-charbonnel",
@@ -1216,7 +1604,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "issa-doumbia",
@@ -1228,7 +1620,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "in-s-reg",
@@ -1240,7 +1636,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "audrey-vernon",
@@ -1252,7 +1652,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "antonia-de-rendinger",
@@ -1264,7 +1668,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "lodie-poux",
@@ -1276,7 +1684,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "sophia-aram",
@@ -1288,7 +1700,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "sarah-cohen-hadria",
@@ -1300,7 +1716,11 @@
     "photo": "",
     "bio": "",
     "actuality": "",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "antony-giuliani",
@@ -1312,7 +1732,11 @@
     "photo": "",
     "bio": "",
     "actuality": "Antony Giuliani Dans Blagues at Théâtre BO Saint-Martin",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "teddy-the-bear",
@@ -1324,7 +1748,11 @@
     "photo": "",
     "bio": "",
     "actuality": "Teddy The Bear In Paris Live English Comedy",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "lou-anne-protin",
@@ -1336,7 +1764,11 @@
     "photo": "",
     "bio": "",
     "actuality": "Lou Anne Protin Dans Incorrigible at Théâtre BO Saint-Martin",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "nicolas-zog",
@@ -1348,7 +1780,11 @@
     "photo": "",
     "bio": "",
     "actuality": "Nicolas Zog Dans Good Vibes at Théâtre BO Saint-Martin",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "morgane-meli",
@@ -1360,7 +1796,11 @@
     "photo": "",
     "bio": "",
     "actuality": "Morgane Meli Dans Magma at Théâtre BO Saint-Martin",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "alexis-arabia",
@@ -1372,7 +1812,11 @@
     "photo": "",
     "bio": "",
     "actuality": "Alexis Arabia Dans Mortels at Théâtre BO Saint-Martin",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "open-secret-longform-improv",
@@ -1384,7 +1828,11 @@
     "photo": "",
     "bio": "",
     "actuality": "Open Secret Longform Improv In English",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "nadia-richard",
@@ -1396,7 +1844,11 @@
     "photo": "",
     "bio": "",
     "actuality": "Nadia Richard Dans Pourquoi Jattire Les Connards at Théâtre BO Saint-Martin",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "samia-orosemane",
@@ -1408,7 +1860,11 @@
     "photo": "",
     "bio": "",
     "actuality": "Samia Orosemane Dans Je Suis Une Boufonne at Théâtre BO Saint-Martin",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   },
   {
     "slug": "julie-collas",
@@ -1420,6 +1876,10 @@
     "photo": "",
     "bio": "",
     "actuality": "Julie Collas Dans Oh My God She S Parisian at Théâtre BO Saint-Martin",
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "claimed": false,
+    "source": "admin_seeded",
+    "verification_status": "unverified",
+    "upcoming_shows": []
   }
 ]

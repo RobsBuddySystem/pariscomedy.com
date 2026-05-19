@@ -1,0 +1,272 @@
+{
+  "_comment": "Paris Comedy data schema — documentation only. The static site uses JSON seed files and localStorage, not a real database.",
+  "version": "1.0",
+  "date": "2026-05-19",
+  "entities": {
+    "users": {
+      "description": "Registered users (comedians, bookers, admins). Not implemented yet — profiles are unclaimed admin-seeded records.",
+      "fields": [
+        {"name": "id", "type": "uuid", "description": "Unique user ID"},
+        {"name": "email", "type": "string", "description": "Login email"},
+        {"name": "role", "type": "enum[comedian,booker,admin]", "description": "Primary role"},
+        {"name": "created_at", "type": "datetime"},
+        {"name": "subscription_tier", "type": "enum[free,comic_plus,booker_plus]"}
+      ],
+      "relationships": ["profiles", "messages", "subscriptions", "claim_requests"],
+      "roles_that_can_access": ["admin", "self"]
+    },
+    "profiles": {
+      "description": "Public profile for a user (comedian or booker). May exist before a user account (admin-seeded).",
+      "fields": [
+        {"name": "id", "type": "uuid"},
+        {"name": "user_id", "type": "uuid", "description": "null if unclaimed"},
+        {"name": "slug", "type": "string"},
+        {"name": "display_name", "type": "string"},
+        {"name": "bio", "type": "text"},
+        {"name": "photo_url", "type": "url"},
+        {"name": "source", "type": "enum[admin_seeded,self_submitted,scraped]"},
+        {"name": "claimed", "type": "boolean"},
+        {"name": "verification_status", "type": "enum[unverified,pending,verified]"},
+        {"name": "created_at", "type": "datetime"},
+        {"name": "updated_at", "type": "datetime"}
+      ],
+      "relationships": ["users", "comedian_profiles", "booker_profiles"],
+      "roles_that_can_access": ["public", "admin", "self"]
+    },
+    "comedian_profiles": {
+      "description": "Comedian-specific fields extending profiles.",
+      "fields": [
+        {"name": "profile_id", "type": "uuid"},
+        {"name": "langs", "type": "array[enum[en,fr,bi]]"},
+        {"name": "instagram", "type": "url"},
+        {"name": "actuality", "type": "text", "description": "Auto-generated recent activity note — may be outdated"},
+        {"name": "upcoming_shows", "type": "array[show_instance_id]"},
+        {"name": "last_seen", "type": "datetime"},
+        {"name": "is_archived", "type": "boolean"}
+      ],
+      "relationships": ["profiles", "performances", "applications"],
+      "roles_that_can_access": ["public", "admin", "self"]
+    },
+    "booker_profiles": {
+      "description": "Booker/show-runner specific fields.",
+      "fields": [
+        {"name": "profile_id", "type": "uuid"},
+        {"name": "show_ids", "type": "array[show_id]"},
+        {"name": "venue_ids", "type": "array[venue_id]"},
+        {"name": "contact_email", "type": "string"}
+      ],
+      "relationships": ["profiles", "shows", "venues", "messages"],
+      "roles_that_can_access": ["admin", "self", "comic_plus_comedian"]
+    },
+    "venues": {
+      "description": "Physical locations where comedy shows happen.",
+      "fields": [
+        {"name": "id", "type": "uuid"},
+        {"name": "name", "type": "string"},
+        {"name": "address", "type": "string"},
+        {"name": "arrondissement", "type": "string"},
+        {"name": "neighborhood", "type": "string"},
+        {"name": "metro", "type": "string"},
+        {"name": "venue_website", "type": "url"},
+        {"name": "instagram", "type": "url"},
+        {"name": "claimed", "type": "boolean"},
+        {"name": "claimed_by_user_id", "type": "uuid"},
+        {"name": "source", "type": "enum[admin_seeded,scraped,self_submitted]"}
+      ],
+      "relationships": ["shows", "claim_requests"],
+      "roles_that_can_access": ["public", "admin"]
+    },
+    "shows": {
+      "description": "A recurring comedy show (e.g. French Fried Comedy Night). Not a specific date.",
+      "fields": [
+        {"name": "id", "type": "integer"},
+        {"name": "name", "type": "string"},
+        {"name": "venue_id", "type": "uuid"},
+        {"name": "day_of_week", "type": "string"},
+        {"name": "typical_time", "type": "time"},
+        {"name": "language", "type": "array[enum[en,fr]]"},
+        {"name": "show_type", "type": "enum[open_mic,showcase,solo_show,improv,storytelling,mixed]"},
+        {"name": "claimed", "type": "boolean"},
+        {"name": "claimed_by_user_id", "type": "uuid"},
+        {"name": "promoted", "type": "boolean", "description": "Booker Plus feature — shows at top of listings"},
+        {"name": "source", "type": "enum[admin_seeded,scraped,self_submitted]"},
+        {"name": "verification_status", "type": "enum[unverified,pending,verified]"}
+      ],
+      "relationships": ["venues", "show_instances", "booker_profiles"],
+      "roles_that_can_access": ["public", "admin"]
+    },
+    "show_instances": {
+      "description": "A specific dated occurrence of a show.",
+      "fields": [
+        {"name": "id", "type": "string", "description": "slug-YYYYMMDD format"},
+        {"name": "show_name", "type": "string"},
+        {"name": "date", "type": "date"},
+        {"name": "day", "type": "string"},
+        {"name": "start_time", "type": "time"},
+        {"name": "venue", "type": "string"},
+        {"name": "neighborhood", "type": "string"},
+        {"name": "language", "type": "array[string]"},
+        {"name": "show_type", "type": "string"},
+        {"name": "emoji", "type": "string"},
+        {"name": "description", "type": "text"},
+        {"name": "ticket_url", "type": "url"},
+        {"name": "source_url", "type": "url"},
+        {"name": "price_info", "type": "string"},
+        {"name": "verification_status", "type": "enum[admin_seeded,verified]"},
+        {"name": "last_verified_at", "type": "date"},
+        {"name": "claimed", "type": "boolean"},
+        {"name": "promoted", "type": "boolean"}
+      ],
+      "relationships": ["shows", "performances", "ticket_clicks"],
+      "roles_that_can_access": ["public", "admin"]
+    },
+    "performances": {
+      "description": "A comedian appearing in a specific show instance.",
+      "fields": [
+        {"name": "id", "type": "uuid"},
+        {"name": "show_instance_id", "type": "string"},
+        {"name": "comedian_profile_id", "type": "uuid"},
+        {"name": "slot_order", "type": "integer"},
+        {"name": "confirmed", "type": "boolean"},
+        {"name": "source", "type": "enum[admin_entered,comedian_claimed,booker_entered]"}
+      ],
+      "relationships": ["show_instances", "comedian_profiles"],
+      "roles_that_can_access": ["public", "admin"]
+    },
+    "applications": {
+      "description": "A comedian applying to perform at a show.",
+      "fields": [
+        {"name": "id", "type": "uuid"},
+        {"name": "comedian_profile_id", "type": "uuid"},
+        {"name": "show_id", "type": "integer"},
+        {"name": "message", "type": "text"},
+        {"name": "status", "type": "enum[pending,accepted,declined]"},
+        {"name": "submitted_at", "type": "datetime"}
+      ],
+      "relationships": ["comedian_profiles", "shows"],
+      "roles_that_can_access": ["admin", "self", "show_booker"]
+    },
+    "messages": {
+      "description": "Direct messages between comedians and bookers. Gated behind Comic Plus / Booker Plus.",
+      "fields": [
+        {"name": "id", "type": "uuid"},
+        {"name": "from_user_id", "type": "uuid"},
+        {"name": "to_user_id", "type": "uuid"},
+        {"name": "body", "type": "text"},
+        {"name": "sent_at", "type": "datetime"},
+        {"name": "read_at", "type": "datetime"}
+      ],
+      "relationships": ["users"],
+      "roles_that_can_access": ["admin", "self", "recipient"],
+      "notes": "Sending requires Comic Plus (comedian→booker) or Booker Plus (booker→comedian)"
+    },
+    "subscriptions": {
+      "description": "Paid subscription records. Not yet implemented — waitlist only.",
+      "fields": [
+        {"name": "id", "type": "uuid"},
+        {"name": "user_id", "type": "uuid"},
+        {"name": "tier", "type": "enum[comic_plus,booker_plus]"},
+        {"name": "price_eur_cents", "type": "integer"},
+        {"name": "billing_period", "type": "enum[monthly,annual]"},
+        {"name": "status", "type": "enum[active,cancelled,waitlist]"},
+        {"name": "started_at", "type": "datetime"},
+        {"name": "ends_at", "type": "datetime"}
+      ],
+      "relationships": ["users"],
+      "roles_that_can_access": ["admin", "self"]
+    },
+    "payments": {
+      "description": "Payment records (Lightning or card). Not yet implemented.",
+      "fields": [
+        {"name": "id", "type": "uuid"},
+        {"name": "user_id", "type": "uuid"},
+        {"name": "amount_eur_cents", "type": "integer"},
+        {"name": "method", "type": "enum[lightning,card]"},
+        {"name": "status", "type": "enum[pending,settled,failed]"},
+        {"name": "created_at", "type": "datetime"}
+      ],
+      "relationships": ["users", "subscriptions"],
+      "roles_that_can_access": ["admin", "self"]
+    },
+    "promotions": {
+      "description": "Promoted show slots. Booker Plus feature.",
+      "fields": [
+        {"name": "id", "type": "uuid"},
+        {"name": "show_id", "type": "integer"},
+        {"name": "booker_user_id", "type": "uuid"},
+        {"name": "promoted_from", "type": "datetime"},
+        {"name": "promoted_until", "type": "datetime"},
+        {"name": "active", "type": "boolean"}
+      ],
+      "relationships": ["shows", "users"],
+      "roles_that_can_access": ["admin", "self"]
+    },
+    "ticket_clicks": {
+      "description": "Client-side outbound click tracking. Stored in localStorage as array of {id, url, timestamp}.",
+      "fields": [
+        {"name": "id", "type": "string", "description": "show_instance id"},
+        {"name": "url", "type": "url", "description": "Destination ticket URL"},
+        {"name": "timestamp", "type": "datetime"}
+      ],
+      "storage": "localStorage key: ticket_clicks",
+      "relationships": ["show_instances"],
+      "roles_that_can_access": ["client_only"]
+    },
+    "sources": {
+      "description": "Where show listings come from. Used for trust/provenance display.",
+      "fields": [
+        {"name": "id", "type": "string"},
+        {"name": "name", "type": "string"},
+        {"name": "type", "type": "enum[eventbrite_search,venue_site,instagram,manual]"},
+        {"name": "url", "type": "url"},
+        {"name": "last_checked", "type": "date"},
+        {"name": "status", "type": "enum[manual,automated]"}
+      ],
+      "relationships": ["show_instances", "scrape_runs"],
+      "roles_that_can_access": ["public", "admin"]
+    },
+    "scrape_runs": {
+      "description": "Log of automated or manual source checks. Not yet implemented.",
+      "fields": [
+        {"name": "id", "type": "uuid"},
+        {"name": "source_id", "type": "string"},
+        {"name": "run_at", "type": "datetime"},
+        {"name": "shows_found", "type": "integer"},
+        {"name": "shows_added", "type": "integer"},
+        {"name": "status", "type": "enum[ok,error]"},
+        {"name": "notes", "type": "text"}
+      ],
+      "relationships": ["sources"],
+      "roles_that_can_access": ["admin"]
+    },
+    "claim_requests": {
+      "description": "Requests to claim a show or venue profile. Reviewed manually by admin.",
+      "fields": [
+        {"name": "id", "type": "uuid"},
+        {"name": "type", "type": "enum[show,venue,comedian_profile]"},
+        {"name": "target_id", "type": "string"},
+        {"name": "requester_name", "type": "string"},
+        {"name": "requester_email", "type": "string"},
+        {"name": "requester_role", "type": "string"},
+        {"name": "proof_text", "type": "text"},
+        {"name": "status", "type": "enum[pending,approved,denied]"},
+        {"name": "submitted_at", "type": "datetime"}
+      ],
+      "relationships": ["shows", "venues", "profiles"],
+      "roles_that_can_access": ["admin"]
+    },
+    "admin_notes": {
+      "description": "Internal notes attached to any entity. Admin use only.",
+      "fields": [
+        {"name": "id", "type": "uuid"},
+        {"name": "entity_type", "type": "string"},
+        {"name": "entity_id", "type": "string"},
+        {"name": "note", "type": "text"},
+        {"name": "created_by", "type": "string"},
+        {"name": "created_at", "type": "datetime"}
+      ],
+      "relationships": [],
+      "roles_that_can_access": ["admin"]
+    }
+  }
+}
