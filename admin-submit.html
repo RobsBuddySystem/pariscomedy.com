@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<!-- TODO: add password gate before sharing URL -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — Submit Show — Paris Comedy</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0a;--card:#111;--border:#1e1e1e;--text:#f0f0f0;--muted:#888;--yellow:#f5c518;--purple:#7c3aed;--green:#4ade80;--red:#e07a7a}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:32px 24px}
+a{color:inherit;text-decoration:none}
+h1{font-size:22px;font-weight:800;margin-bottom:4px}
+.subtitle{font-size:13px;color:var(--muted);margin-bottom:32px}
+.badge-admin{display:inline-block;background:#2a1a00;border:1px solid #7c5010;color:#f5c518;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;margin-right:8px;vertical-align:middle}
+
+.section{margin-bottom:40px}
+.section-title{font-size:15px;font-weight:700;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+form{display:flex;flex-direction:column;gap:14px;max-width:640px}
+label{font-size:13px;color:var(--muted);margin-bottom:4px;display:block}
+input,select,textarea{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:#0f0f0f;color:var(--text);font-size:14px;outline:none;font-family:inherit}
+input:focus,select:focus,textarea:focus{border-color:var(--purple)}
+textarea{min-height:80px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:500px){.row2{grid-template-columns:1fr}}
+
+.btn-submit{padding:12px 24px;background:var(--yellow);color:#0a0a0a;font-weight:800;font-size:14px;border:none;border-radius:10px;cursor:pointer;align-self:flex-start}
+.btn-submit:hover{opacity:.9}
+.btn-copy{padding:8px 14px;background:#1e1e1e;color:var(--muted);font-size:12px;font-weight:600;border:1px solid var(--border);border-radius:6px;cursor:pointer}
+.btn-copy:hover{color:var(--text)}
+.msg{font-size:13px;margin-top:8px;padding:10px 14px;border-radius:8px;display:none}
+.msg.ok{background:#0d2b1a;border:1px solid #2a5c3a;color:var(--green)}
+.msg.err{background:#2b0d0d;border:1px solid #5c2a2a;color:var(--red)}
+
+/* JSON preview */
+.json-preview{background:#0f0f0f;border:1px solid var(--border);border-radius:10px;padding:16px;max-width:640px;margin-top:16px}
+.json-preview pre{font-size:12px;color:#aaa;white-space:pre-wrap;word-break:break-all;max-height:300px;overflow-y:auto}
+.json-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.json-header span{font-size:12px;color:var(--muted);font-weight:600}
+
+/* Source registry */
+table{width:100%;max-width:800px;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px 12px;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600}
+td{padding:8px 12px;border-bottom:1px solid #161616;vertical-align:top}
+.source-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.src-admin{background:#2a1a00;color:#f5c518}
+.src-scraper{background:#1a2a0a;color:#7ae0a0}
+.src-claim{background:#1a1a2e;color:#7ab3e0}
+.src-manual{background:#2a0a1a;color:#e07ab3}
+</style>
+</head>
+<body>
+
+<h1><span class="badge-admin">ADMIN</span> Submit a Show</h1>
+<p class="subtitle">Internal seeding form. Content submitted here is labeled <strong>admin_seeded / unverified</strong> in the data. Not visible to the public in nav.</p>
+
+<div class="section">
+  <div class="section-title">Show Entry Form</div>
+  <form id="show-form">
+    <div>
+      <label>Show name *</label>
+      <input type="text" id="f-name" placeholder="e.g. English Comedy Night at Paname" required>
+    </div>
+    <div class="row2">
+      <div>
+        <label>Date (YYYY-MM-DD) *</label>
+        <input type="date" id="f-date" required>
+      </div>
+      <div>
+        <label>Time (HH:MM, 24h)</label>
+        <input type="time" id="f-time" placeholder="20:00">
+      </div>
+    </div>
+    <div>
+      <label>Venue name *</label>
+      <input type="text" id="f-venue" placeholder="e.g. Paname Art Café" required>
+    </div>
+    <div>
+      <label>Venue address</label>
+      <input type="text" id="f-address" placeholder="e.g. 157 Quai de Valmy, Paris 75010">
+    </div>
+    <div>
+      <label>Language</label>
+      <select id="f-lang">
+        <option value="en">English</option>
+        <option value="fr">French</option>
+        <option value="bilingual">Bilingual</option>
+        <option value="mixed">Mixed</option>
+      </select>
+    </div>
+    <div>
+      <label>Ticket / booking URL</label>
+      <input type="url" id="f-ticket" placeholder="https://www.eventbrite.fr/e/...">
+    </div>
+    <div>
+      <label>Price (display string)</label>
+      <input type="text" id="f-price" placeholder="e.g. €10–€15 / Free entry">
+    </div>
+    <div class="row2">
+      <div>
+        <label>Source *</label>
+        <select id="f-source">
+          <option value="admin_seeded">admin_seeded</option>
+          <option value="scraper_eventbrite">scraper_eventbrite</option>
+          <option value="scraper_facebook">scraper_facebook</option>
+          <option value="manual_booker">manual_booker</option>
+          <option value="claim_verified">claim_verified</option>
+        </select>
+      </div>
+      <div>
+        <label>Verification status</label>
+        <select id="f-vstatus">
+          <option value="unverified">unverified</option>
+          <option value="pending">pending</option>
+          <option value="verified">verified</option>
+        </select>
+      </div>
+    </div>
+    <div>
+      <label>Notes (internal only)</label>
+      <textarea id="f-notes" placeholder="Any context — scraped from?, booker contact, caveats…"></textarea>
+    </div>
+    <div>
+      <button type="button" class="btn-submit" onclick="buildPreview()">Preview JSON →</button>
+    </div>
+  </form>
+
+  <div class="json-preview" id="preview-box" style="display:none">
+    <div class="json-header">
+      <span>JSON preview (copy → paste into data/shows_upcoming.json)</span>
+      <button class="btn-copy" onclick="copyJson()">Copy</button>
+    </div>
+    <pre id="preview-json"></pre>
+    <button type="button" class="btn-submit" style="margin-top:12px;font-size:13px;padding:10px 20px" onclick="submitShow()">Submit to API →</button>
+    <div class="msg" id="submit-msg"></div>
+  </div>
+</div>
+
+<!-- Source Registry -->
+<div class="section">
+  <div class="section-title">Source Registry</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Source ID</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Trust level</th>
+        <th>Last used</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="source-tag src-admin">admin_seeded</span></td>
+        <td>Manual</td>
+        <td>Entered directly by admin. Unclaimed. May be outdated.</td>
+        <td>Low — display with "admin-seeded" label</td>
+        <td>2026-05-19</td>
+      </tr>
+      <tr>
+        <td><span class="source-tag src-scraper">scraper_eventbrite</span></td>
+        <td>Scraper</td>
+        <td>Automated pull from Eventbrite Paris listings. Structured data.</td>
+        <td>Medium — check ticket URL validity before publishing</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><span class="source-tag src-scraper">scraper_facebook</span></td>
+        <td>Scraper</td>
+        <td>Automated pull from Facebook Events (Paris comedy pages).</td>
+        <td>Low — OCR-heavy, verify venue and date manually</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><span class="source-tag src-manual">manual_booker</span></td>
+        <td>Manual</td>
+        <td>Submitted by a booker or promoter via the book.html form.</td>
+        <td>Medium — self-reported; verify with venue if possible</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><span class="source-tag src-claim">claim_verified</span></td>
+        <td>Claim</td>
+        <td>Booker has claimed and verified the show via bookers.html.</td>
+        <td>High — display ✓ Verified Booker label</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+let _lastJson = '';
+
+function pad(n){ return String(n).padStart(2,'0'); }
+
+function buildId(name, date){
+  return (date + '-' + name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')).slice(0,60);
+}
+
+function buildPreview(){
+  const name    = document.getElementById('f-name').value.trim();
+  const date    = document.getElementById('f-date').value;
+  const time    = document.getElementById('f-time').value || '20:00';
+  const venue   = document.getElementById('f-venue').value.trim();
+  const address = document.getElementById('f-address').value.trim();
+  const lang    = document.getElementById('f-lang').value;
+  const ticket  = document.getElementById('f-ticket').value.trim();
+  const price   = document.getElementById('f-price').value.trim();
+  const source  = document.getElementById('f-source').value;
+  const vstatus = document.getElementById('f-vstatus').value;
+  const notes   = document.getElementById('f-notes').value.trim();
+
+  if (!name || !date || !venue) {
+    alert('Name, date, and venue are required.');
+    return;
+  }
+
+  const obj = {
+    id: buildId(name, date),
+    name,
+    date,
+    time,
+    venue,
+    address: address || null,
+    language: lang,
+    ticket_url: ticket || null,
+    price: price || null,
+    source,
+    verification_status: vstatus,
+    claimed: false,
+    notes_internal: notes || null,
+    created_at: new Date().toISOString().slice(0,10)
+  };
+
+  _lastJson = JSON.stringify(obj, null, 2);
+  document.getElementById('preview-json').textContent = _lastJson;
+  document.getElementById('preview-box').style.display = 'block';
+  document.getElementById('preview-box').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function copyJson(){
+  if (!_lastJson) return;
+  navigator.clipboard.writeText(_lastJson).then(()=>{
+    const btn = document.querySelector('.btn-copy');
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(()=>{ btn.textContent = orig; }, 1800);
+  });
+}
+
+let _apiBase = '';
+async function getApi(){
+  if (_apiBase) return _apiBase;
+  try { const cfg = await fetch('/api-config.json').then(r=>r.json()); _apiBase = cfg.api||''; }
+  catch(e){ _apiBase=''; }
+  return _apiBase;
+}
+
+async function submitShow(){
+  const msgEl = document.getElementById('submit-msg');
+  msgEl.style.display = 'none';
+  if (!_lastJson){ alert('Build preview first.'); return; }
+  let payload;
+  try { payload = JSON.parse(_lastJson); } catch(e){ return; }
+  payload._type = 'admin_show_submit';
+
+  try {
+    const api = await getApi();
+    if (!api){ throw new Error('No API configured'); }
+    const res = await fetch(api + '/api/book', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    msgEl.className = 'msg ok';
+    msgEl.textContent = 'Submitted. Check the sheet.';
+  } catch(e){
+    msgEl.className = 'msg err';
+    msgEl.textContent = 'Error: ' + e.message + '. Copy the JSON and paste manually.';
+  }
+  msgEl.style.display = 'block';
+}
+</script>
+</body>
+</html>
