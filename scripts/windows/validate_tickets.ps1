@@ -9,7 +9,7 @@ New-Item -ItemType Directory -Force -Path $LOG_DIR | Out-Null
 "=== $(Get-Date -Format o) ===" | Out-File -FilePath $LOG -Append -Encoding utf8
 
 if (-not (Test-Path $REPO)) {
-  "REPO missing at $REPO — clone with: git clone https://github.com/RobsBuddySystem/pariscomedy.com.git $REPO" |
+  "REPO missing at $REPO -- clone with: git clone https://github.com/RobsBuddySystem/pariscomedy.com.git $REPO" |
     Out-File -FilePath $LOG -Append -Encoding utf8
   exit 2
 }
