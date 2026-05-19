@@ -12,7 +12,7 @@ echo "=== ssh $HOST 'echo ok' ==="
 $SSH "echo ok" 2>&1
 echo
 
-OS=$($SSH "uname -s 2>/dev/null || echo Windows" 2>/dev/null)
+OS=$($SSH "uname -s 2>/dev/null || echo Windows" 2>/dev/null | tr -d '\r\n ')
 echo "=== detected OS: $OS ==="
 echo
 
