@@ -6,6 +6,8 @@ REPO="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO"
 
 LOG="/tmp/pariscomedy-hourly.log"
+ERR="/tmp/pariscomedy-hourly.err"
+: >"$LOG"; : >"$ERR"   # truncate at start of each run
 {
   echo "=== $(date -u +%Y-%m-%dT%H:%M:%SZ) ==="
   python3 scripts/validate_tickets.py
