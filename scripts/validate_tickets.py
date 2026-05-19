@@ -73,7 +73,7 @@ def classify(url: str) -> str:
     return "unknown"
 
 def main():
-    shows = json.loads(SHOWS.read_text())
+    shows = json.loads(SHOWS.read_text(encoding="utf-8"))
     cache: dict[str, str] = {}
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     counts = {"active":0, "ended":0, "sold_out":0, "unavailable":0, "unknown":0}
@@ -93,15 +93,15 @@ def main():
         if status == "unknown":
             review.append({"id": s.get("id"), "ticket_url": url, "reason": "validator returned unknown", "checked_at": now})
 
-    SHOWS.write_text(json.dumps(shows, ensure_ascii=False, indent=2))
+    SHOWS.write_text(json.dumps(shows, ensure_ascii=False, indent=2), encoding="utf-8")
 
     existing = []
     if REVIEW.exists():
-        try: existing = json.loads(REVIEW.read_text())
+        try: existing = json.loads(REVIEW.read_text(encoding="utf-8"))
         except Exception: existing = []
     keep_ids = {(r.get("id"), r.get("ticket_url")) for r in review}
     existing = [r for r in existing if (r.get("id"), r.get("ticket_url")) not in keep_ids]
-    REVIEW.write_text(json.dumps(existing + review, ensure_ascii=False, indent=2))
+    REVIEW.write_text(json.dumps(existing + review, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(json.dumps({"counts": counts, "total": len(shows), "checked_at": now}))
 
