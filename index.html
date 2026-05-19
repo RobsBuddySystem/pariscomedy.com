@@ -164,12 +164,6 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 </head>
 <body>
 
-<!-- Launch Banner -->
-<div class="launch-banner">
-  🎉 Paris Comedy is live — find your next show tonight.
-  <a href="/shows.html">See what's on →</a>
-</div>
-
 <nav>
   <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
   <div class="nav-links">
@@ -422,6 +416,10 @@ for (const s of SHOWS_DATA) {
   s.venue      = s.venue      || s.venue_name || '';
   s.ticket_url = s.ticket_url || s.booking_url || '';
   s.last_verified_at = s.last_verified_at || (s.last_checked ? String(s.last_checked).slice(0,10) : '');
+  s.show_type = s.show_type || ({standup:'showcase', openmic:'open_mic', open_mic:'open_mic', showcase:'showcase', solo_show:'solo_show'}[s.type] || 'showcase');
+  s.emoji = s.emoji || ({open_mic:'🎙️', showcase:'🎭', solo_show:'⭐'}[s.show_type] || '🎭');
+  s.description = s.description || '';
+  s.neighborhood = s.neighborhood || '';
   if (!s.day && s.date) {
     const [y,m,d] = s.date.split('-').map(Number);
     s.day = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][new Date(Date.UTC(y,m-1,d)).getUTCDay()];
