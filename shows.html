@@ -150,6 +150,7 @@ for (const s of SHOWS_DATA) {
   s.show_name  = s.show_name  || s.name || '';
   s.venue      = s.venue      || s.venue_name || '';
   s.ticket_url = s.ticket_url || s.booking_url || '';
+  s.last_verified_at = s.last_verified_at || (s.last_checked ? String(s.last_checked).slice(0,10) : '');
   if (!s.day && s.date) {
     const [y,m,d] = s.date.split('-').map(Number);
     s.day = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][new Date(Date.UTC(y,m-1,d)).getUTCDay()];
@@ -185,7 +186,8 @@ function typeBadge(t) {
 }
 
 function verifiedDate(d) {
-  const [y,m,day] = d.split('-').map(Number);
+  if (!d) return 'recently';
+  const [y,m,day] = String(d).split('-').map(Number);
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   return `${day} ${months[m-1]} ${y}`;
 }
