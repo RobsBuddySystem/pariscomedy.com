@@ -186,11 +186,12 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 <!-- Hero — 2-column: text left, tonight panel right -->
 <div class="hero-wrap">
   <div class="hero-left">
-    <h1>The Home of<br><span class="accent">English-Language</span><br>Comedy in Paris</h1>
-    <p>Stand-up every night of the week. English, French, bilingual. Tourists, expats, locals — all welcome.</p>
+    <h1>Find a comedy show<br>in <span class="accent">Paris</span> tonight.</h1>
+    <p>Stand-up every night of the week — English, French, bilingual. Tourists, expats, locals, all welcome. No fake listings.</p>
     <div class="cta-row">
-      <a href="#shows-section" class="btn-primary">Find Tonight's Show →</a>
-      <a href="/book.html" class="btn-secondary">Book a Private Show</a>
+      <a href="#shows-section" class="btn-primary">What's on tonight →</a>
+      <a href="/shows.html" class="btn-secondary">Browse all shows</a>
+      <a href="/book.html" class="btn-secondary" style="border-color:#2a1a4a;color:#c4b5fd">Book private show</a>
     </div>
   </div>
   <div class="hero-right" id="tonight-panel">
@@ -252,6 +253,49 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 
   <div class="shows-grid" id="shows-grid"></div>
   <a href="/shows.html" class="section-cta">See all shows →</a>
+</section>
+
+<!-- What's On grid — 3 columns: Tonight / This Week / Coming Up -->
+<section style="padding-top:0">
+  <div class="section-title">What's On</div>
+  <div class="section-sub">A quick look at what's happening now and soon</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:8px">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:10px"><span style="width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:6px;box-shadow:0 0 8px #4ade80"></span>Tonight</div>
+      <div id="whats-on-tonight" style="font-size:13px;color:#ccc;line-height:1.8">Loading…</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:10px">This Week</div>
+      <div id="whats-on-week" style="font-size:13px;color:#ccc;line-height:1.8">Loading…</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:10px">Coming Up</div>
+      <div id="whats-on-upcoming" style="font-size:13px;color:#ccc;line-height:1.8"><a href="/shows.html" style="color:var(--purple-light)">See full calendar →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- Private & Corporate Booking CTA -->
+<section style="background:linear-gradient(135deg,#0f0a1e,#0a0a0a);border-top:1px solid #1e1e1e;border-bottom:1px solid #1e1e1e;text-align:center;padding-top:48px;padding-bottom:48px">
+  <div style="max-width:560px;margin:0 auto">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--purple-light);text-transform:uppercase;margin-bottom:12px">Private &amp; Corporate</div>
+    <div class="section-title" style="margin-bottom:12px">Need a comedian for your event?</div>
+    <p style="color:var(--muted);font-size:15px;line-height:1.6;margin-bottom:24px">Corporate nights, private parties, expat meetups, birthday shows. Robert books English-language acts across Paris and beyond.</p>
+    <a href="/book.html#booker" class="btn-primary" style="font-size:15px">Make an enquiry →</a>
+  </div>
+</section>
+
+<!-- Email capture bar -->
+<section style="background:#111;border-top:1px solid var(--border);padding-top:40px;padding-bottom:40px;text-align:center">
+  <div style="max-width:480px;margin:0 auto">
+    <div style="font-size:16px;font-weight:700;margin-bottom:6px">Get the Paris Comedy weekly</div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:18px">What's on this week, new shows, and occasional tips for comics — straight to your inbox. No spam.</div>
+    <form id="newsletter-form" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center" onsubmit="submitNewsletter(event)">
+      <input type="email" id="nl-email" placeholder="your@email.com" required style="padding:11px 14px;border-radius:8px;border:1px solid var(--border);background:#0a0a0a;color:var(--text);font-size:14px;outline:none;flex:1;min-width:200px">
+      <button type="submit" style="padding:11px 20px;border-radius:8px;border:none;background:var(--yellow);color:#000;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap">Subscribe</button>
+    </form>
+    <div id="nl-msg" style="font-size:13px;margin-top:10px;display:none"></div>
+  </div>
 </section>
 
 <!-- Connection Section -->
@@ -635,6 +679,62 @@ renderTonightPanel();
 renderGrid();
 renderWeekRow();
 injectEventSchemas();
+renderWhatsOn();
+
+// ── WHAT'S ON grid ────────────────────────────────────────────────────────
+function renderWhatsOn() {
+  // Tonight
+  const tonightEl = document.getElementById('whats-on-tonight');
+  if (tonightEl) {
+    if (TONIGHT_SHOWS.length === 0) {
+      tonightEl.innerHTML = '<span style="color:#555">No shows tonight — <a href="/shows.html" style="color:var(--purple-light)">browse this week →</a></span>';
+    } else {
+      tonightEl.innerHTML = TONIGHT_SHOWS.slice(0,4).map(s =>
+        `<div style="margin-bottom:4px"><span style="color:var(--yellow);font-weight:700">${s.start_time}</span> ${s.show_name}</div>`
+      ).join('') + (TONIGHT_SHOWS.length > 4 ? `<div style="color:#555">+${TONIGHT_SHOWS.length-4} more</div>` : '');
+    }
+  }
+  // This Week
+  const weekEl = document.getElementById('whats-on-week');
+  if (weekEl) {
+    const DAY_ABBR = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const upcomingWeek = WEEK_SHOWS.filter(s => s.date > todayParis).slice(0,5);
+    if (upcomingWeek.length === 0) {
+      weekEl.innerHTML = '<a href="/shows.html" style="color:var(--purple-light)">See shows →</a>';
+    } else {
+      weekEl.innerHTML = upcomingWeek.map(s => {
+        const [y,m,d] = s.date.split('-').map(Number);
+        const dt = new Date(y,m-1,d);
+        return `<div style="margin-bottom:4px"><span style="color:#666">${DAY_ABBR[dt.getDay()]}</span> ${s.show_name}</div>`;
+      }).join('');
+    }
+  }
+}
+
+// ── NEWSLETTER ────────────────────────────────────────────────────────────
+async function submitNewsletter(e) {
+  e.preventDefault();
+  const email = document.getElementById('nl-email').value.trim();
+  const msgEl = document.getElementById('nl-msg');
+  msgEl.style.display = 'none';
+  if (!email) return;
+  try {
+    const api = await getApi();
+    if (api) {
+      await fetch(api + '/api/book', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({_type:'newsletter_signup', email})
+      });
+    }
+    msgEl.style.color = '#4ade80';
+    msgEl.textContent = 'You\'re on the list. See you next week.';
+  } catch(err) {
+    msgEl.style.color = '#e07a7a';
+    msgEl.textContent = 'Something went wrong — try again later.';
+  }
+  msgEl.style.display = 'block';
+  document.getElementById('nl-email').value = '';
+}
 </script>
 </body>
 </html>
