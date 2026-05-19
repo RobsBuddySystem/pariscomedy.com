@@ -1,38 +1,45 @@
 # Windows hourly ticket-status validator for pariscomedy.com.
-# Invokes the existing Python validator + bake step, then rsyncs results
-# back to the Mac Studio if reachable.
-$ErrorActionPreference = "Stop"
+# Pulls repo, runs validator + bake, commits/pushes if changed.
+$ErrorActionPreference = "Continue"
 $REPO    = "C:\pariscomedy\_repo"
-$LOG     = "C:\pariscomedy\logs\hourly.log"
-$MAC     = "chuck@macstudio.tail6669ff.ts.net"
-$MAC_REPO = "/Users/chuck/Documents/Claude/Projects/pariscomedy.com/_repo"
+$LOG_DIR = "C:\pariscomedy\logs"
+$LOG     = Join-Path $LOG_DIR "hourly.log"
 
-New-Item -ItemType Directory -Force -Path (Split-Path $LOG) | Out-Null
-"=== $(Get-Date -Format o) ===" | Tee-Object -FilePath $LOG -Append
+New-Item -ItemType Directory -Force -Path $LOG_DIR | Out-Null
+"=== $(Get-Date -Format o) ===" | Out-File -FilePath $LOG -Append -Encoding utf8
+
+if (-not (Test-Path $REPO)) {
+  "REPO missing at $REPO — clone with: git clone https://github.com/RobsBuddySystem/pariscomedy.com.git $REPO" |
+    Out-File -FilePath $LOG -Append -Encoding utf8
+  exit 2
+}
 
 Push-Location $REPO
 try {
-  # Confirm Ollama is up (for any LLM-assisted classification later)
+  # Ollama sanity (informational, non-fatal)
   try {
     $r = Invoke-WebRequest -Uri "http://localhost:11434/api/tags" -TimeoutSec 3 -UseBasicParsing
-    "Ollama OK ($($r.StatusCode))" | Tee-Object -FilePath $LOG -Append
+    "Ollama OK ($($r.StatusCode))" | Out-File -FilePath $LOG -Append -Encoding utf8
   } catch {
-    "Ollama NOT reachable on :11434 — $($_.Exception.Message)" | Tee-Object -FilePath $LOG -Append
+    "Ollama unreachable: $($_.Exception.Message)" | Out-File -FilePath $LOG -Append -Encoding utf8
   }
 
-  # Run validator + bake
-  python scripts\validate_tickets.py 2>&1 | Tee-Object -FilePath $LOG -Append
-  python scripts\bake_shows.py        2>&1 | Tee-Object -FilePath $LOG -Append
+  (git fetch --quiet origin main 2>&1; git reset --hard origin/main 2>&1) | Out-File -FilePath $LOG -Append -Encoding utf8
 
-  # Sync results to Mac Studio (best-effort; ssh + scp via Tailscale)
-  try {
-    scp -o ConnectTimeout=8 -o BatchMode=yes `
-      data\shows_generated.json data\review_queue.json `
-      "$MAC`:$MAC_REPO/data/" 2>&1 | Tee-Object -FilePath $LOG -Append
-    "synced to Mac" | Tee-Object -FilePath $LOG -Append
-  } catch {
-    "Mac sync failed: $($_.Exception.Message)" | Tee-Object -FilePath $LOG -Append
+  (python scripts\validate_tickets.py 2>&1) | Out-File -FilePath $LOG -Append -Encoding utf8
+  (python scripts\bake_shows.py        2>&1) | Out-File -FilePath $LOG -Append -Encoding utf8
+
+  $diff = git status --porcelain data/shows_generated.json data/review_queue.json index.html shows.html 2>&1
+  if (-not $diff) {
+    "no-op (no diff)" | Out-File -FilePath $LOG -Append -Encoding utf8
+    exit 0
   }
+
+  (git add data/shows_generated.json data/review_queue.json index.html shows.html 2>&1) | Out-File -FilePath $LOG -Append -Encoding utf8
+  $stamp = (Get-Date -Format "yyyy-MM-ddTHH:mmZ")
+  (git commit -m "hourly[win]: revalidate ticket statuses ($stamp)" 2>&1) | Out-File -FilePath $LOG -Append -Encoding utf8
+  (git push 2>&1) | Out-File -FilePath $LOG -Append -Encoding utf8
+  "pushed" | Out-File -FilePath $LOG -Append -Encoding utf8
 } finally {
   Pop-Location
 }
