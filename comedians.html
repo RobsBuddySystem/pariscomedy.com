@@ -318,7 +318,7 @@ document.getElementById('btn-pay').onclick=async()=>{
   try {
     const cfg=await fetch('/api-config.json').then(r=>r.json()).catch(()=>({api:''}));
     const API=cfg.api||'';
-    if(!API){errEl.textContent='Server offline. Email bio@pariscomedy.com directly.';btn.disabled=false;btn.textContent='Submit bio →';return;}
+    if(!API){errEl.textContent='Server offline. Email bio.com directly.';btn.disabled=false;btn.textContent='Submit bio →';return;}
 
     const resp=await fetch(`${API}/api/book`,{
       method:'POST',
@@ -330,7 +330,7 @@ document.getElementById('btn-pay').onclick=async()=>{
     document.getElementById('form-section').style.display='none';
     document.getElementById('qr-section').style.display='';
   } catch(e) {
-    errEl.textContent='Network error. Email bio@pariscomedy.com directly.';
+    errEl.textContent='Network error. Email bio.com directly.';
     btn.disabled=false; btn.textContent='Submit bio →';
   }
 };
@@ -363,7 +363,7 @@ function drawQR(text){
     <a href="/bookers.html" style="color:#666">Bookers</a>
     <a href="/pricing.html" style="color:#666">Pricing</a>
   </div>
-  <div>payments@pariscomedy.com &nbsp;|&nbsp; <a href="https://instagram.com/pariscomedy" target="_blank" style="color:#666">@pariscomedy</a></div>
+  <div>payments@pariscomedy.com </div>
 </footer>
 
 </body>
