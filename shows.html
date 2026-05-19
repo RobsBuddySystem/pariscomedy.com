@@ -133,8 +133,7 @@ footer a{color:#666}footer a:hover{color:#f0f0f0}
     <a href="/about.html">About</a>
   </div>
   <div style="margin:10px 0;font-size:12px;color:#444">Every listing shows its source and last-checked date.</div>
-  <div> on Instagram</div>
-  <div class="footer-extra">
+    <div class="footer-extra">
     <a href="/book.html#show-runner">List a show →</a> &nbsp;|&nbsp; <a href="/book.html">Missing a show? Submit it →</a>
   </div>
 </footer>
@@ -198,8 +197,12 @@ let activeDay = 'all';
 // ── INIT TAB ───────────────────────────────────────────────────────────────
 (function initTab() {
   const today = todayParis();
-  const hasTonightShows = SHOWS_DATA.some(s => s.date === today);
-  activeTab = hasTonightShows ? 'tonight' : 'week';
+  const nowP = new Date(new Date().toLocaleString('en-CA',{timeZone:'Europe/Paris',hour12:false}).replace(', ','T'));
+  const hasTonight = SHOWS_DATA.some(s => s.date === today
+    && (s.ticket_url_status || 'active') === 'active'
+    && (!s.start_time || (() => { const [h,m]=s.start_time.split(':').map(Number);
+        return nowP.getHours() < h || (nowP.getHours() === h && nowP.getMinutes() < m); })()));
+  activeTab = hasTonight ? 'tonight' : 'week';
   document.getElementById('tab-' + activeTab).classList.add('active');
 })();
 
