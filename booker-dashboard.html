@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Booker Dashboard — Paris Comedy</title>
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#7c3aed;--purple-light:#9d5ff5;--bg:#0a0a0a;--card:#111;--border:#1e1e1e;--text:#f0f0f0;--muted:#888;--yellow:#f5c518;--gold:#f59e0b;--green:#10b981;--red:#ef4444}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+a{color:var(--purple-light);text-decoration:none}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100}
+.nav-logo{font-size:18px;font-weight:700}
+.nav-logo span{color:var(--yellow)}
+.nav-right{display:flex;gap:14px;align-items:center;font-size:13px;color:var(--muted)}
+.btn{padding:8px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:600;font-size:13px}
+.btn-primary{background:var(--purple);color:#fff}
+.btn-primary:hover{opacity:.9}
+.btn-secondary{background:var(--border);color:var(--text)}
+.btn-danger{background:var(--red);color:#fff}
+.btn-success{background:var(--green);color:#fff}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+
+/* Auth gate */
+#auth-gate{max-width:480px;margin:80px auto;padding:32px;background:var(--card);border:1px solid var(--border);border-radius:12px}
+#auth-gate h1{font-size:24px;font-weight:800;margin-bottom:8px}
+#auth-gate p{color:var(--muted);margin-bottom:20px;line-height:1.5}
+input,select,textarea{width:100%;padding:10px 12px;background:#0f0f0f;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;font-family:inherit}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--purple)}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.field{margin-bottom:14px}
+.err{color:var(--red);font-size:13px;margin-top:6px;min-height:18px}
+
+/* Dashboard layout */
+#dashboard{display:none;padding:20px;max-width:1400px;margin:0 auto;gap:20px;grid-template-columns:1fr 420px}
+#dashboard.active{display:grid}
+@media(max-width:1024px){#dashboard.active{grid-template-columns:1fr}}
+
+.panel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.panel h2{font-size:16px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+
+/* Show selector + form */
+.show-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.show-item{padding:10px 12px;background:#0f0f0f;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.show-item:hover{border-color:#444}
+.show-item.active{border-color:var(--purple);background:#1a0f2a}
+.show-item .meta{color:var(--muted);font-size:11px}
+
+/* Filters */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.filter-chip{padding:5px 11px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:11px;cursor:pointer}
+.filter-chip.active{background:var(--purple);border-color:var(--purple);color:#fff}
+
+/* Comic grid */
+.comic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;max-height:600px;overflow-y:auto;padding:4px}
+.comic-card{background:#0f0f0f;border:1px solid var(--border);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;font-size:12px}
+.comic-card:hover{border-color:#444}
+.comic-photo{width:100%;aspect-ratio:1;background:#1a1a1a;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#444;font-size:32px}
+.comic-photo img{width:100%;height:100%;object-fit:cover}
+.comic-name{font-weight:700;font-size:13px;line-height:1.2}
+.comic-meta{color:var(--muted);font-size:11px;line-height:1.4}
+.comic-badges{display:flex;gap:4px;flex-wrap:wrap}
+.badge{padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700}
+.badge-en{background:#1a3a5c;color:#7ab3e0}
+.badge-fr{background:#3a2a1a;color:#e0a07a}
+.badge-recent{background:#14532d;color:#4ade80}
+.badge-upcoming{background:#2a1a5a;color:#a07ae0}
+.badge-touring{background:#3a1a4a;color:#e07ae0}
+
+/* Lineup panel */
+.slot{background:#0f0f0f;border:1px dashed var(--border);border-radius:8px;padding:10px;margin-bottom:6px;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.slot.filled{border-style:solid;border-color:var(--green);background:#0a1a14}
+.slot-name{font-weight:600;flex:1}
+.slot-status{font-size:10px;padding:2px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
+.slot-status.invited{background:#2a2a1a;color:var(--yellow)}
+.slot-status.booked{background:#14532d;color:#4ade80}
+.slot-status.declined{background:#3a1a1a;color:#e07a7a}
+.slot-status.confirmed{background:#1a3a5c;color:#7ab3e0}
+
+.empty{color:#555;font-size:13px;text-align:center;padding:20px}
+.success-toast{position:fixed;bottom:20px;right:20px;background:var(--green);color:#fff;padding:12px 18px;border-radius:8px;font-weight:600;display:none;z-index:1000}
+.success-toast.show{display:block}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+  <div class="nav-right">
+    <span id="booker-email-display"></span>
+    <button class="btn btn-ghost" onclick="logout()">Sign out</button>
+  </div>
+</nav>
+
+<!-- Auth gate -->
+<div id="auth-gate">
+  <h1>Booker Dashboard</h1>
+  <p>Enter your email to get a one-time access token by email. Paste the token to access your lineups.</p>
+  <div class="field">
+    <label>Booker email</label>
+    <input type="email" id="auth-email" placeholder="you@yourshow.com">
+  </div>
+  <button class="btn btn-primary" onclick="requestToken()">Send me a token →</button>
+  <div class="err" id="auth-err"></div>
+  <div style="margin:18px 0 0;border-top:1px solid var(--border);padding-top:18px">
+    <div class="field">
+      <label>Have a token? Paste it here</label>
+      <input type="text" id="auth-token" placeholder="e.g. K9dF7-aB3z2">
+    </div>
+    <button class="btn btn-primary" onclick="useToken()">Sign in →</button>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard">
+
+  <div>
+    <!-- Show form -->
+    <div class="panel">
+      <h2>Your shows</h2>
+      <div class="show-list" id="show-list"></div>
+      <details>
+        <summary style="cursor:pointer;color:var(--purple-light);font-weight:600;font-size:13px;margin-bottom:10px">+ Create a new show</summary>
+        <div class="form-row">
+          <div class="field"><label>Title</label><input id="new-title" placeholder="Wednesday Showcase"></div>
+          <div class="field"><label>Venue</label><input id="new-venue" placeholder="Velvet Bar"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Date</label><input id="new-date" type="date"></div>
+          <div class="field"><label>Time</label><input id="new-time" type="time" value="20:30"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Slots</label><input id="new-slots" type="number" value="5" min="1" max="20"></div>
+          <div class="field"><label>Pay / requirements</label><input id="new-notes" placeholder="e.g. 5 min, bring 2 audience"></div>
+        </div>
+        <button class="btn btn-primary" onclick="createShow()">Create show</button>
+      </details>
+    </div>
+
+    <!-- Comics -->
+    <div class="panel" style="margin-top:14px">
+      <h2>Comics directory <span style="font-weight:400;color:var(--muted);font-size:12px" id="comic-count"></span></h2>
+      <input id="comic-search" placeholder="Search by name…" oninput="renderComics()">
+      <div class="filters">
+        <button class="filter-chip active" data-filter="all">All</button>
+        <button class="filter-chip" data-filter="recent">Performed in Paris (3mo)</button>
+        <button class="filter-chip" data-filter="upcoming">Has upcoming show</button>
+        <button class="filter-chip" data-filter="touring">Touring / one-man</button>
+        <button class="filter-chip" data-filter="en">English</button>
+        <button class="filter-chip" data-filter="fr">French</button>
+      </div>
+      <div class="comic-grid" id="comic-grid"></div>
+    </div>
+  </div>
+
+  <!-- Lineup builder -->
+  <div class="panel" id="lineup-panel" style="position:sticky;top:80px;align-self:start;height:fit-content">
+    <h2>Lineup <span id="lineup-show-title" style="font-weight:400;color:var(--muted);font-size:12px"></span></h2>
+    <div id="lineup-slots"><div class="empty">Select or create a show to build a lineup.</div></div>
+    <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+      <button class="btn btn-success" onclick="notifyComics()" id="notify-btn" disabled>Notify booked comics</button>
+      <button class="btn btn-secondary" onclick="exportLineup()" id="export-btn" disabled>Export as text</button>
+    </div>
+    <div style="margin-top:10px;font-size:11px;color:var(--muted)">Notifications go through manual review before delivery. No private emails are exposed.</div>
+  </div>
+
+</div>
+
+<div class="success-toast" id="toast"></div>
+
+<script>
+const API_BASE_PROMISE = fetch('/api-config.json').then(r => r.json()).then(c => c.api);
+let TOKEN = localStorage.getItem('booker_token') || '';
+let EMAIL = localStorage.getItem('booker_email') || '';
+let COMICS = [];
+let SHOWS = [];
+let CURRENT_SHOW = null;
+let FILTER = 'all';
+
+async function api(path, opts={}) {
+  const base = await API_BASE_PROMISE;
+  const headers = Object.assign({'Content-Type':'application/json'}, opts.headers||{}, TOKEN ? {'X-Booker-Token': TOKEN} : {});
+  const r = await fetch(base + path, Object.assign({}, opts, {headers}));
+  if (!r.ok) {
+    const j = await r.json().catch(()=>({detail:r.statusText}));
+    throw new Error(j.detail || ('HTTP '+r.status));
+  }
+  return r.json();
+}
+
+function toast(msg, kind='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.background = kind==='success' ? 'var(--green)' : 'var(--red)';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+async function requestToken() {
+  const email = document.getElementById('auth-email').value.trim();
+  if (!email) { document.getElementById('auth-err').textContent='Email required'; return; }
+  try {
+    const r = await api('/api/booker/auth', {method:'POST', body: JSON.stringify({email})});
+    if (r.dev_token) {
+      document.getElementById('auth-err').textContent = '';
+      document.getElementById('auth-token').value = r.dev_token;
+      toast('Token shown (email not configured) — click Sign in');
+    } else {
+      document.getElementById('auth-err').textContent = 'Token sent to ' + email + ' — check your inbox.';
+    }
+  } catch(e) { document.getElementById('auth-err').textContent = e.message; }
+}
+
+async function useToken() {
+  TOKEN = document.getElementById('auth-token').value.trim();
+  if (!TOKEN) { document.getElementById('auth-err').textContent='Token required'; return; }
+  try {
+    const r = await api('/api/booker/comics');
+    EMAIL = document.getElementById('auth-email').value.trim() || EMAIL || 'booker';
+    localStorage.setItem('booker_token', TOKEN);
+    localStorage.setItem('booker_email', EMAIL);
+    enterDashboard(r);
+  } catch(e) { document.getElementById('auth-err').textContent = e.message; }
+}
+
+function logout() {
+  TOKEN=''; EMAIL=''; localStorage.removeItem('booker_token'); localStorage.removeItem('booker_email');
+  location.reload();
+}
+
+async function enterDashboard(comicsResp) {
+  document.getElementById('auth-gate').style.display='none';
+  document.getElementById('dashboard').classList.add('active');
+  document.getElementById('booker-email-display').textContent = EMAIL;
+  COMICS = comicsResp.comics;
+  document.getElementById('comic-count').textContent = `(${COMICS.length})`;
+  await loadShows();
+  renderComics();
+  document.querySelectorAll('.filter-chip').forEach(c => c.onclick = () => { FILTER = c.dataset.filter; document.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active')); c.classList.add('active'); renderComics(); });
+}
+
+async function loadShows() {
+  const r = await api('/api/booker/shows');
+  SHOWS = r.shows;
+  renderShowList();
+}
+
+function renderShowList() {
+  const el = document.getElementById('show-list');
+  if (!SHOWS.length) { el.innerHTML = '<div class="empty">No shows yet — create one below.</div>'; return; }
+  el.innerHTML = SHOWS.map(s => `
+    <div class="show-item ${CURRENT_SHOW && CURRENT_SHOW.id===s.id ? 'active' : ''}" onclick="selectShow(${s.id})">
+      <div><strong>${esc(s.title)}</strong><div class="meta">${esc(s.venue)} · ${s.show_date} ${s.show_time||''}</div></div>
+      <div class="meta">${s.lineup.length}/${s.slots}</div>
+    </div>`).join('');
+}
+
+function selectShow(id) {
+  CURRENT_SHOW = SHOWS.find(s => s.id===id);
+  renderShowList();
+  renderLineup();
+}
+
+async function createShow() {
+  const payload = {
+    title: document.getElementById('new-title').value.trim(),
+    venue: document.getElementById('new-venue').value.trim(),
+    date: document.getElementById('new-date').value,
+    time: document.getElementById('new-time').value,
+    slots: parseInt(document.getElementById('new-slots').value || '5'),
+    notes: document.getElementById('new-notes').value.trim(),
+  };
+  if (!payload.title || !payload.date) { toast('Title and date required','error'); return; }
+  try {
+    const r = await api('/api/booker/shows', {method:'POST', body:JSON.stringify(payload)});
+    toast('Show created');
+    await loadShows();
+    selectShow(r.show_id);
+    ['new-title','new-venue','new-notes'].forEach(id => document.getElementById(id).value='');
+  } catch(e) { toast(e.message,'error'); }
+}
+
+function esc(s) { return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function renderComics() {
+  const q = document.getElementById('comic-search').value.toLowerCase();
+  let list = COMICS.filter(c => c.name.toLowerCase().includes(q));
+  if (FILTER==='recent') list = list.filter(c => c.recent_paris);
+  if (FILTER==='upcoming') list = list.filter(c => c.has_upcoming);
+  if (FILTER==='touring') list = list.filter(c => c.touring);
+  if (FILTER==='en') list = list.filter(c => (c.langs||[]).includes('en'));
+  if (FILTER==='fr') list = list.filter(c => (c.langs||[]).includes('fr'));
+  const grid = document.getElementById('comic-grid');
+  if (!list.length) { grid.innerHTML='<div class="empty">No comics match.</div>'; return; }
+  grid.innerHTML = list.slice(0, 60).map(c => `
+    <div class="comic-card">
+      <div class="comic-photo">${c.photo ? `<img src="${esc(c.photo)}" loading="lazy" onerror="this.parentNode.textContent='🎤'">` : '🎤'}</div>
+      <div class="comic-name">${esc(c.name)}</div>
+      <div class="comic-badges">
+        ${(c.langs||[]).map(l => `<span class="badge badge-${l}">${l.toUpperCase()}</span>`).join('')}
+        ${c.recent_paris ? '<span class="badge badge-recent">Paris 3mo</span>' : ''}
+        ${c.has_upcoming ? '<span class="badge badge-upcoming">Upcoming</span>' : ''}
+        ${c.touring ? '<span class="badge badge-touring">Touring</span>' : ''}
+      </div>
+      ${c.actuality ? `<div class="comic-meta">${esc(c.actuality.substring(0,80))}</div>` : ''}
+      ${c.instagram ? `<a href="${esc(c.instagram)}" target="_blank" rel="noopener" style="font-size:11px">Instagram ↗</a>` : ''}
+      <button class="btn btn-primary" style="margin-top:auto;padding:6px;font-size:11px" onclick="inviteComic('${esc(c.slug)}','${esc(c.name)}')">+ Invite to lineup</button>
+    </div>
+  `).join('');
+}
+
+async function inviteComic(slug, name) {
+  if (!CURRENT_SHOW) { toast('Select a show first','error'); return; }
+  try {
+    await api('/api/booker/lineup', {method:'POST', body:JSON.stringify({show_id: CURRENT_SHOW.id, comic_slug: slug, comic_name: name})});
+    toast('Added: ' + name);
+    await loadShows();
+    selectShow(CURRENT_SHOW.id);
+  } catch(e) { toast(e.message,'error'); }
+}
+
+function renderLineup() {
+  const panel = document.getElementById('lineup-slots');
+  document.getElementById('lineup-show-title').textContent = CURRENT_SHOW ? `· ${CURRENT_SHOW.title}` : '';
+  if (!CURRENT_SHOW) { panel.innerHTML='<div class="empty">Select a show.</div>'; return; }
+  const lu = CURRENT_SHOW.lineup;
+  const slots = CURRENT_SHOW.slots;
+  let html = '';
+  for (let i=0; i<slots; i++) {
+    const row = lu[i];
+    if (row) {
+      html += `
+        <div class="slot filled">
+          <div class="slot-name">${i+1}. ${esc(row.comic_name)}</div>
+          <span class="slot-status ${row.status}">${row.status}</span>
+          <button class="btn btn-ghost" style="padding:4px 8px;font-size:11px" onclick="removeFromLineup(${row.id})">×</button>
+        </div>`;
+    } else {
+      html += `<div class="slot">Slot ${i+1} — empty</div>`;
+    }
+  }
+  panel.innerHTML = html;
+  document.getElementById('notify-btn').disabled = lu.length === 0;
+  document.getElementById('export-btn').disabled = lu.length === 0;
+}
+
+async function removeFromLineup(id) {
+  if (!confirm('Remove this comic?')) return;
+  try { await api('/api/booker/lineup/' + id, {method:'DELETE'}); toast('Removed'); await loadShows(); selectShow(CURRENT_SHOW.id); }
+  catch(e) { toast(e.message,'error'); }
+}
+
+async function notifyComics() {
+  if (!CURRENT_SHOW) return;
+  if (!confirm('Send booking invitations to all uninvited comics on this lineup?')) return;
+  try {
+    const r = await api('/api/booker/notify', {method:'POST', body:JSON.stringify({show_id: CURRENT_SHOW.id})});
+    toast(`${r.notifications_queued} invitations queued for review`);
+    await loadShows(); selectShow(CURRENT_SHOW.id);
+  } catch(e) { toast(e.message,'error'); }
+}
+
+function exportLineup() {
+  if (!CURRENT_SHOW) return;
+  const s = CURRENT_SHOW;
+  const txt = [
+    `${s.title}`, `${s.venue} — ${s.show_date} ${s.show_time||''}`, '',
+    `Lineup (${s.lineup.length}/${s.slots}):`,
+    ...s.lineup.map((c,i) => `${i+1}. ${c.comic_name} [${c.status}]${c.note ? ' — '+c.note : ''}`),
+    '', s.notes ? `Notes: ${s.notes}` : ''
+  ].join('\n');
+  const blob = new Blob([txt], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `lineup-${s.show_date}-${s.title.replace(/\s+/g,'_')}.txt`;
+  a.click();
+}
+
+// Auto-login if token persists
+if (TOKEN) { useToken(); }
+</script>
+</body>
+</html>
