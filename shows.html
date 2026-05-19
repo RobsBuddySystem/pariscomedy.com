@@ -128,8 +128,11 @@ footer a{color:#666}footer a:hover{color:#f0f0f0}
     <a href="/venues.html">Venues</a>
     <a href="/book.html">Book / Connect</a>
     <a href="/comedians.html">For Comedians</a>
+    <a href="/bookers.html">Bookers</a>
+    <a href="/pricing.html">Pricing</a>
     <a href="/about.html">About</a>
   </div>
+  <div style="margin:10px 0;font-size:12px;color:#444">Every listing shows its source and last-checked date.</div>
   <div><a href="https://instagram.com/pariscomedy" target="_blank">@pariscomedy</a> on Instagram</div>
   <div class="footer-extra">
     <a href="/book.html#show-runner">List a show →</a> &nbsp;|&nbsp; <a href="/book.html">Missing a show? Submit it →</a>
@@ -348,7 +351,7 @@ function render() {
         &nbsp;&nbsp;<a href="${s.source_url}" target="_blank" rel="noopener">Source &#8599;</a>
       </div>
       <div class="card-actions">
-        <a href="${s.ticket_url}" target="_blank" rel="noopener" class="btn-tickets">Get Tickets &rarr;</a>
+        <a href="/r.html?id=${encodeURIComponent(s.id)}&url=${encodeURIComponent(s.ticket_url)}" target="_blank" rel="noopener" class="btn-tickets">Get Tickets &rarr;</a>
         <div class="card-links">
           <a href="/book.html">Claim This Show</a>
           <a href="/book.html">Something wrong?</a>

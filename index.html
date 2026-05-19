@@ -606,15 +606,26 @@ function renderWeekRow() {
     return;
   }
 
-  row.innerHTML = cards.map(s => {
+  // Vibe labels for first 3 cards (demo of promoted feature)
+  const vibeLabels = ['intimate','bilingual','late night'];
+  const vibePills = [
+    'background:#2d1a4a;color:#c4b5fd',
+    'background:#1a3a2a;color:#7ae0a0',
+    'background:#1a1a2e;color:#7ab3e0'
+  ];
+
+  row.innerHTML = cards.map((s, idx) => {
     const [y,m,d] = s.date.split('-').map(Number);
     const dt = new Date(y,m-1,d);
     const badge = `${DAY_ABBR[dt.getDay()]} &middot; ${MONTH_ABBR[m-1]} ${d}`;
-    return `<div style="background:#111;border:1px solid #1e1e1e;border-radius:10px;padding:16px;min-width:200px;flex-shrink:0">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;color:#f5c518;margin-bottom:4px">${badge}</div>
+    const vibePill = idx < 3 ? `<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;${vibePills[idx]};display:inline-block;margin-top:4px">${vibeLabels[idx]}</span>` : '';
+    const featuredBadge = idx === 0 ? '<!-- Promoted: admin_demo --><span style="font-size:9px;background:#f59e0b;color:#000;padding:2px 6px;border-radius:6px;font-weight:700;float:right">⭐ Featured</span>' : '';
+    return `<div style="background:#111;border:1px solid #1e1e1e;border-radius:10px;padding:16px;min-width:200px;flex-shrink:0;position:relative">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;color:#f5c518;margin-bottom:4px">${badge}${featuredBadge}</div>
       <div style="font-size:14px;font-weight:700;margin-bottom:4px">${s.show_name}</div>
-      <div style="font-size:12px;color:#888;margin-bottom:12px">${s.start_time} &middot; ${s.neighborhood}</div>
-      <a href="${s.ticket_url}" target="_blank" rel="noopener" style="display:block;text-align:center;padding:7px;border-radius:6px;background:#f5c518;color:#000;font-size:11px;font-weight:700">Tickets &rarr;</a>
+      <div style="font-size:12px;color:#888;margin-bottom:4px">${s.start_time} &middot; ${s.neighborhood}</div>
+      ${vibePill}
+      <div style="margin-top:12px"><a href="/r.html?id=${encodeURIComponent(s.id)}&url=${encodeURIComponent(s.ticket_url)}" target="_blank" rel="noopener" style="display:block;text-align:center;padding:7px;border-radius:6px;background:#f5c518;color:#000;font-size:11px;font-weight:700">Tickets &rarr;</a></div>
     </div>`;
   }).join('');
 }

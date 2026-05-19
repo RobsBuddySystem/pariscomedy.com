@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Redirecting… — Paris Comedy</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#f0f0f0;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
+.msg{max-width:400px}
+.msg h1{font-size:22px;font-weight:700;margin-bottom:12px}
+.msg p{font-size:15px;color:#888;margin-bottom:24px;line-height:1.6}
+.spinner{width:32px;height:32px;border:3px solid #333;border-top-color:#f5c518;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fallback{font-size:13px;color:#555;margin-top:16px}
+.fallback a{color:#f5c518}
+</style>
+</head>
+<body>
+<div class="msg">
+  <div class="spinner"></div>
+  <h1>Redirecting to ticket page…</h1>
+  <p id="show-name">Loading…</p>
+  <div class="fallback">If nothing happens, <a id="manual-link" href="#">click here to go directly</a>.</div>
+</div>
+<script>
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id') || '';
+  const url = params.get('url') || '';
+
+  if (!url) {
+    document.getElementById('show-name').textContent = 'No destination URL provided.';
+    document.getElementById('manual-link').href = '/shows.html';
+    document.getElementById('manual-link').textContent = 'go to shows';
+    return;
+  }
+
+  // Log click to localStorage
+  try {
+    const clicks = JSON.parse(localStorage.getItem('ticket_clicks') || '[]');
+    clicks.push({ id, url, timestamp: new Date().toISOString() });
+    // Keep last 200 clicks
+    if (clicks.length > 200) clicks.splice(0, clicks.length - 200);
+    localStorage.setItem('ticket_clicks', JSON.stringify(clicks));
+  } catch(e) {
+    // localStorage may be blocked — non-fatal
+  }
+
+  // Update UI
+  document.getElementById('show-name').textContent = 'Taking you to: ' + (id ? id.replace(/-/g,' ') : 'ticket page');
+  document.getElementById('manual-link').href = url;
+
+  // Redirect after 300ms
+  setTimeout(function() {
+    window.location.href = url;
+  }, 300);
+})();
+</script>
+</body>
+</html>
