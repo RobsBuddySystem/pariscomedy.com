@@ -204,21 +204,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 <section>
   <div class="section-title">Featured Shows</div>
   <div class="section-sub">Upcoming comedy nights in Paris</div>
-  <div class="featured-grid" id="featured-grid">
-    <div class="featured-card">
-      <div>
-        <span class="featured-badge">⭐ FEATURED</span>
-        <!-- verified-badge removed: not yet claim-verified -->
-      </div>
-      <div class="featured-card-name">Velvet Bar</div>
-      <div class="featured-card-show">Velvet Bar Comedy — Le meilleur du stand-up</div>
-      <div class="featured-card-meta">Wednesday &middot; 20:30 &middot; M° Châtelet (M1/M4/M7/M11/M14) &middot; 43 Rue Saint-Honoré, 75001</div>
-      <div class="featured-video">
-        <iframe src="https://www.youtube.com/embed/jBb6cobfcdo" allowfullscreen loading="lazy" title="Velvet Bar Comedy show"></iframe>
-      </div>
-      <a href="https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338" target="_blank" class="featured-card-btn">Book tickets →</a>
-    </div>
-  </div>
+  <div class="featured-grid" id="featured-grid"></div>
   <div class="featured-section-cta">
     These shows are Featured — <a href="/venues.html">your show could be here →</a>
   </div>
@@ -318,18 +304,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   </div>
 </section>
 
-<section style="background:linear-gradient(180deg,transparent,rgba(124,58,237,.06),transparent);padding-top:40px;padding-bottom:40px">
-  <div class="section-title">Watch Robert Live</div>
-  <div class="section-sub">Stand-up comedy sets from Paris and beyond</div>
-  <div class="video-row">
-    <div class="video-wrap">
-      <iframe src="https://www.youtube.com/embed/jBb6cobfcdo" title="Robert stand-up comedy" allowfullscreen loading="lazy"></iframe>
-    </div>
-    <div class="video-wrap">
-      <iframe src="https://www.youtube.com/embed/5oHnhumlTdY" title="Robert stand-up comedy" allowfullscreen loading="lazy"></iframe>
-    </div>
-  </div>
-</section>
+
 
 <section>
   <div class="section-title">What People Say</div>
@@ -449,6 +424,33 @@ const WEEK_SHOWS = PUBLIC_SHOWS.filter(s => s.date >= todayParis && s.date <= we
   if (a.date !== b.date) return a.date.localeCompare(b.date);
   return a.start_time.localeCompare(b.start_time);
 });
+
+// Featured-grid rotation: 3 deterministic-per-day picks across distinct venues.
+(function renderFeatured() {
+  const host = document.getElementById('featured-grid');
+  if (!host) return;
+  const pool = WEEK_SHOWS.length ? WEEK_SHOWS : PUBLIC_SHOWS;
+  if (!pool.length) { host.style.display = 'none'; return; }
+  const seed = todayParis.split('-').reduce((a,c) => a + +c, 0);
+  const seen = new Set();
+  const picks = [];
+  for (let i = 0; i < pool.length && picks.length < 3; i++) {
+    const s = pool[(i * 7 + seed) % pool.length];
+    const key = s.venue || s.show_name;
+    if (seen.has(key)) continue;
+    seen.add(key); picks.push(s);
+  }
+  const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  host.innerHTML = picks.map(s => {
+    const [y,m,d] = s.date.split('-').map(Number);
+    const dn = DAYS[new Date(Date.UTC(y,m-1,d)).getUTCDay()];
+    return `<div class="featured-card">
+      <div class="featured-card-name">${s.show_name||''}</div>
+      <div class="featured-card-meta">${dn} ${m}/${d} &middot; ${s.start_time||''} &middot; ${s.venue||''}${s.neighborhood?(' &middot; '+s.neighborhood):''}</div>
+      <a href="/r.html?id=${encodeURIComponent(s.id||'')}&url=${encodeURIComponent(s.ticket_url||'')}" target="_blank" rel="noopener" class="featured-card-btn">Get tickets &rarr;</a>
+    </div>`;
+  }).join('');
+})();
 
 // Legacy compat for grid
 const TOP_SHOWS = [];
