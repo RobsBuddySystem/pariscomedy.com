@@ -14,3 +14,9 @@ pipeline/output/metrics_*.json
 
 # Keep: review_queue.json is committed so Mac Studio can serve it
 # !pipeline/output/review_queue.json
+
+# Backend (do not commit secrets or runtime artefacts)
+backend/env
+backend/venv/
+backend/backups/
+backend/__pycache__/
