@@ -22,7 +22,12 @@
     "address": "30 Rue Cabanis, 75014 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8305381,
+    "lng": 2.3382095,
+    "source_url": "https://www.openstreetmap.org/way/52130668",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "caf-oscar-oscar-comedy-club",
@@ -30,7 +35,9 @@
     "address": "Café Oscar, 6 Rue de la Harpe, 75005 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "green-mic",
@@ -38,7 +45,9 @@
     "address": "49 Rue de la Vieuville, 75018 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "le-kib-l",
@@ -46,7 +55,9 @@
     "address": "12 Rue de l'Échauffée, 75013 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "cuba-compagnie",
@@ -54,7 +65,12 @@
     "address": "47 Rue de Montreuil, 75011 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8571533,
+    "lng": 2.3685599,
+    "source_url": "https://www.openstreetmap.org/way/392957086",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "le-noddi",
@@ -62,7 +78,12 @@
     "address": "99 Rue de Belleville, 75010 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8504291,
+    "lng": 2.3507524,
+    "source_url": "https://www.openstreetmap.org/node/7833586273",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "toloache",
@@ -70,7 +91,12 @@
     "address": "Toloache, 75010 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8867361,
+    "lng": 2.3474587,
+    "source_url": "https://www.openstreetmap.org/node/5894325885",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "c-sure",
@@ -78,7 +104,12 @@
     "address": "53 Rue de Montreuil, 75011 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8398174,
+    "lng": 2.353964,
+    "source_url": "https://www.openstreetmap.org/way/17044233",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "sparkle-comedy-club",
@@ -86,7 +117,9 @@
     "address": "TBD",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "the-englishman-cocktail-club",
@@ -94,7 +127,12 @@
     "address": "47 Rue de Richelieu, 75001 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8684335,
+    "lng": 2.3611792,
+    "source_url": "https://www.openstreetmap.org/node/3688065257",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "la-pomme-d-eve",
@@ -102,7 +140,12 @@
     "address": "4 Rue de la Bücherie, 75005 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8471623,
+    "lng": 2.3479012,
+    "source_url": "https://www.openstreetmap.org/node/10048944671",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "paname-comedy-club",
@@ -110,7 +153,12 @@
     "address": "47 Boulevard Saint-Martin, 75010 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.888896,
+    "lng": 2.3534657,
+    "source_url": "https://www.openstreetmap.org/node/7167036662",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "chat-noir",
@@ -118,7 +166,12 @@
     "address": "68 Boulevard de Clichy, 75018 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8835796,
+    "lng": 2.33413,
+    "source_url": "https://www.openstreetmap.org/node/5678455822",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "broadway-comedy-club-paris",
@@ -126,39 +179,61 @@
     "address": "TBD near Bonne Nouvelle",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "les-marquises",
     "name": "Les Marquises",
-    "address": "TBD",
+    "address": "145 Rue Oberkampf, 75011 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8667135,
+    "lng": 2.3812373,
+    "source_url": "https://www.openstreetmap.org/node/418074935",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "fada-paris",
     "name": "Fada Paris",
-    "address": "TBD",
+    "address": "64 Rue Jean-Jacques Rousseau, 75001 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8641437,
+    "lng": 2.3438575,
+    "source_url": "https://www.openstreetmap.org/node/9760625643",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "le-paris-de-l-humour",
     "name": "Le Paris de l'Humour",
-    "address": "TBD",
+    "address": "8 Rue Pradier, 75019 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8750366,
+    "lng": 2.3815287,
+    "source_url": "https://www.openstreetmap.org/node/1645342893",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "speechless",
     "name": "Speechless",
-    "address": "TBD",
+    "address": "145 Rue de Montreuil, 75011 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8505194,
+    "lng": 2.3881913,
+    "source_url": "https://www.openstreetmap.org/node/9332433217",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "le-coquin",
@@ -166,7 +241,9 @@
     "address": "12 Rue Saint-Sabin, 75011 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "kinto",
@@ -174,15 +251,25 @@
     "address": "6 Rue du Poinçon, 75004 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 50.3573341,
+    "lng": 3.5259977,
+    "source_url": "https://www.openstreetmap.org/node/10111551564",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "the-dissident-club",
     "name": "The Dissident Club",
-    "address": "TBD",
+    "address": "58 Rue Richer, 75009 Paris",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "lat": 48.8741216,
+    "lng": 2.342726,
+    "source_url": "https://www.openstreetmap.org/node/2369244236",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "charonne-comedy-club",
@@ -190,7 +277,9 @@
     "address": "TBD in Charonne",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "comedy-crush",
@@ -198,7 +287,9 @@
     "address": "TBD",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "int-grire-comedy-club",
@@ -206,7 +297,9 @@
     "address": "TBD",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "rocket-comedy-club",
@@ -214,7 +307,9 @@
     "address": "TBD in Belleville",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "smash-comedy-club",
@@ -222,7 +317,9 @@
     "address": "TBD",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "south-comedy-club",
@@ -230,7 +327,9 @@
     "address": "TBD",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "oh-my-god-she-s-parisian-julie-coulon",
@@ -238,7 +337,9 @@
     "address": "TBD — Theatre stage",
     "url": "",
     "langs": [],
-    "last_seen": "2026-05-16T00:55:52+00:00"
+    "last_seen": "2026-05-16T00:55:52+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "paname-art-cafe",
@@ -312,7 +413,12 @@
       "fr",
       "en"
     ],
-    "last_seen": "2026-05-16T01:01:17+00:00"
+    "last_seen": "2026-05-16T01:01:17+00:00",
+    "lat": 48.8621814,
+    "lng": 2.3420488,
+    "source_url": "https://www.openstreetmap.org/node/4950703376",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "la-nouvelle-seine",
@@ -322,7 +428,12 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T01:01:17+00:00"
+    "last_seen": "2026-05-16T01:01:17+00:00",
+    "lat": 48.8516968,
+    "lng": 2.3506148,
+    "source_url": "https://www.openstreetmap.org/way/618750324",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "cafe-de-la-gare",
@@ -332,7 +443,12 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T01:01:17+00:00"
+    "last_seen": "2026-05-16T01:01:17+00:00",
+    "lat": 48.8598058,
+    "lng": 2.3531806,
+    "source_url": "https://www.openstreetmap.org/node/1426955707",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "th-tre-du-gymnase",
@@ -391,7 +507,12 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "lat": 48.8677584,
+    "lng": 2.3619007,
+    "source_url": "https://www.openstreetmap.org/way/56347022",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "th-tre-tr-vise",
@@ -401,7 +522,12 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "lat": 48.8734883,
+    "lng": 2.3453635,
+    "source_url": "https://www.openstreetmap.org/node/1427702644",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "le-splendid",
@@ -411,7 +537,12 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "lat": 48.8707058,
+    "lng": 2.3567665,
+    "source_url": "https://www.openstreetmap.org/node/795606504",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "th-tre-des-b-liers-parisiens",
@@ -421,7 +552,12 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "lat": 48.893704,
+    "lng": 2.344303,
+    "source_url": "https://www.openstreetmap.org/node/1674922865",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "le-chazz-comedy-club",
@@ -432,7 +568,9 @@
       "fr",
       "en"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "barons-perch-s",
@@ -442,7 +580,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "th-tre-des-mathurins",
@@ -452,7 +592,12 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "lat": 48.8733076,
+    "lng": 2.3256182,
+    "source_url": "https://www.openstreetmap.org/node/1223611307",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "th-tre-le-bout",
@@ -462,7 +607,12 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "lat": 48.8813235,
+    "lng": 2.3376448,
+    "source_url": "https://www.openstreetmap.org/node/655320465",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "l-apollo-th-tre",
@@ -497,7 +647,12 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "lat": 48.8415161,
+    "lng": 2.3244452,
+    "source_url": "https://www.openstreetmap.org/node/1427128336",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "th-tre-le-m-ry",
@@ -507,7 +662,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "com-die-bastille",
@@ -517,7 +674,12 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "lat": 48.8588953,
+    "lng": 2.3700779,
+    "source_url": "https://www.openstreetmap.org/node/4004690170",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "la-com-die-saint-michel",
@@ -527,7 +689,12 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "lat": 48.8446184,
+    "lng": 2.3396091,
+    "source_url": "https://www.openstreetmap.org/node/9991628631",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "th-tre-des-deux-nes",
@@ -561,7 +728,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://www.lecomedyclub.com",
+    "verified_at": "2026-05-18T12:38:59+00:00"
   },
   {
     "slug": "th-tre-du-marais",
@@ -571,7 +740,10 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "neighborhood": "Marais",
+    "source_url": "https://www.theatredumarais.fr",
+    "verified_at": "2026-05-18T12:39:51+00:00"
   },
   {
     "slug": "th-tre-du-petit-saint-martin",
@@ -581,7 +753,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url_confidence": "not_found",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   },
   {
     "slug": "th-tre-bo-avenue",
@@ -591,7 +765,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://theatrebo.fr",
+    "verified_at": "2026-05-18T12:40:38+00:00"
   },
   {
     "slug": "la-java",
@@ -601,7 +777,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://www.la-java.fr",
+    "verified_at": "2026-05-18T12:41:29+00:00"
   },
   {
     "slug": "le-trianon",
@@ -612,7 +790,9 @@
       "fr",
       "en"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://www.letrianon.fr",
+    "verified_at": "2026-05-18T12:42:22+00:00"
   },
   {
     "slug": "la-scala-paris",
@@ -622,7 +802,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://lascala-paris.com",
+    "verified_at": "2026-05-18T12:43:11+00:00"
   },
   {
     "slug": "la-cigale",
@@ -633,7 +815,9 @@
       "fr",
       "en"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://www.lacigale.fr",
+    "verified_at": "2026-05-18T12:44:03+00:00"
   },
   {
     "slug": "th-tre-antoine",
@@ -643,7 +827,9 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "source_url": "https://theatre-antoine.com",
+    "verified_at": "2026-05-18T12:45:00+00:00"
   },
   {
     "slug": "th-tre-saint-georges",
@@ -653,6 +839,11 @@
     "langs": [
       "fr"
     ],
-    "last_seen": "2026-05-16T14:53:17+00:00"
+    "last_seen": "2026-05-16T14:53:17+00:00",
+    "lat": 48.8782052,
+    "lng": 2.337077,
+    "source_url": "https://www.openstreetmap.org/way/69562761",
+    "source_url_confidence": "nominatim",
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
   }
 ]

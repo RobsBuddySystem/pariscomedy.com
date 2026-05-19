@@ -60,7 +60,7 @@ const SHOWS = [
       description:'Curated showcase — the best comics in Paris on one stage. Bilingual, unpredictable, unforgettable.',
       descFr:'Showcase soigné — les meilleurs humoristes de Paris sur une même scène. Bilingue, imprévisible, inoubliable.',
       descEs:'Showcase curado — los mejores cómicos de París en un escenario. Bilingüe, impredecible, inolvidable.',
-      bookingUrl:'https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1825871804719' + UTM, featured:true },
+      bookingUrl:'https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338' + UTM, featured:true },
     { id:'ffcn', name:'French Fried Comedy Night', shortName:'FFCN', venue:'velvet', type:'standup', day:'Wednesday', time:'22:00', price:'Free', emoji:'🍟',
       description:'THE bilingual comedy show. American & French comics, English & French jokes, same night. The show that started it all.',
       descFr:'LE spectacle de comédie bilingue. Humoristes américains et français, blagues en anglais et en français, le même soir.',

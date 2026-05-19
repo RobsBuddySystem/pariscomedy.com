@@ -1,4 +1,27 @@
 /* Paris Comedy — Main App */
+
+/* Tracking redirect helper — all outbound show links must go through /r.html */
+function trackUrl(url) {
+    if (!url) return '#';
+    return '/r.html?url=' + encodeURIComponent(url);
+}
+
+/* Expired-show guard — returns true if show is still active.
+   Generated instances (shows_generated.json) always have start_date set.
+   Undated shows (start_date null) are not rendered publicly. */
+function isShowActive(show) {
+    if (show.is_archived) return false;
+    const endField = show.end_date || show.expires;
+    if (endField && new Date(endField) < new Date()) return false;
+    if (!show.start_date) return false; // undated shows not public
+    return true;
+}
+
+/* Booking URL helper — handles both old format (url) and new format (booking_url) */
+function getBookUrl(show) {
+    return show.booking_url || show.url || '#';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initLanguage();
     initNav();
@@ -528,7 +551,7 @@ function renderFrenchFocus() {
                 <p class="show-card-time">🕐 ${show.day} à ${show.time || 'horaire à confirmer'}</p>
                 <p class="show-card-desc">${show.description || 'Stand-up en français à Paris.'}</p>
                 <div class="show-card-footer">
-                    ${show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ Réserver →</a>` : '<span class="show-card-badge">📍 À découvrir sur place</span>'}
+                    ${show.bookingUrl ? `<a href="${trackUrl(show.bookingUrl)}" target="_blank" rel="noopener" class="show-card-link">🎟️ Réserver →</a>` : '<span class="show-card-badge">📍 À découvrir sur place</span>'}
                 </div>
             </div>
         </article>`).join('');
@@ -569,10 +592,12 @@ function renderThisWeek() {
             Object.entries(upcoming).forEach(([, dates]) => {
                 dates.forEach(({ d, label }) => {
                     const venueName = show.venueName || (show.venue ? (VENUES || []).find(v => v.id === show.venue)?.name || '' : '');
-                    const link = show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">Reserve →</a>` : `<a href="book.html" class="btn btn-ghost btn-sm" style="margin-top:10px;">Get Listed →</a>`;
+                    const link = show.bookingUrl ? `<a href="${trackUrl(show.bookingUrl)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">Book Now →</a>` : `<a href="book.html" class="btn btn-ghost btn-sm" style="margin-top:10px;">Get Listed →</a>`;
                     const isTonight = d.toDateString() === now.toDateString();
                     const badge = isTonight ? '<span style="background:#ff3366;color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:middle;">TONIGHT</span>' : '';
-                    cards.push({ ts: d.getTime(), time: show.time || '', html: `<div class="show-card" style="padding:16px 18px;display:flex;flex-direction:column;gap:4px;" data-reveal data-reveal-delay="1"><div style="font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;">${label}${badge}</div><div style="font-size:1.05rem;font-weight:700;font-family:var(--font-display);">${show.emoji || '🎤'} ${show.name}</div><div style="font-size:.85rem;color:var(--text-muted);">${show.time || ''} · ${venueName}</div>${link}</div>` });
+                    const fullLabel = `${label}${show.time ? ' at ' + show.time : ''}`;
+                    const reportLinkDaily = `<a href="mailto:hello@pariscomedy.com?subject=Outdated+listing&body=Show:+${encodeURIComponent(show.name)}%0AURL:+${encodeURIComponent(show.bookingUrl||'')}" class="report-link" style="font-size:0.75rem;color:#aaa;display:block;margin-top:0.5rem;">⚑ Report outdated listing</a>`;
+                    cards.push({ ts: d.getTime(), time: show.time || '', html: `<div class="show-card" style="padding:16px 18px;display:flex;flex-direction:column;gap:4px;" data-reveal data-reveal-delay="1"><div style="font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;">${fullLabel}${badge}</div><div style="font-size:1.05rem;font-weight:700;font-family:var(--font-display);">${show.emoji || '🎤'} ${show.name}</div><div style="font-size:.85rem;color:var(--text-muted);">${venueName}</div>${link}${reportLinkDaily}</div>` });
                 });
             });
             return;
@@ -583,15 +608,18 @@ function renderThisWeek() {
             if (!upcoming[dayName]) return;
             upcoming[dayName].forEach(({ d, label }) => {
                 const venueName = show.venueName || (show.venue ? (VENUES || []).find(v => v.id === show.venue)?.name || '' : '');
-                const link = show.bookingUrl ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">Reserve →</a>` : `<a href="book.html" class="btn btn-ghost btn-sm" style="margin-top:10px;">Get Listed →</a>`;
+                const link = show.bookingUrl ? `<a href="${trackUrl(show.bookingUrl)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">Book Now →</a>` : `<a href="book.html" class="btn btn-ghost btn-sm" style="margin-top:10px;">Get Listed →</a>`;
                 const isTonight = d.toDateString() === now.toDateString();
                 const badge = isTonight ? '<span style="background:#ff3366;color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:middle;">TONIGHT</span>' : '';
+                const fullLabel2 = `${label}${show.time ? ' at ' + show.time : ''}`;
+                const reportLinkWeek = `<a href="mailto:hello@pariscomedy.com?subject=Outdated+listing&body=Show:+${encodeURIComponent(show.name)}%0AURL:+${encodeURIComponent(show.bookingUrl||'')}" class="report-link" style="font-size:0.75rem;color:#aaa;display:block;margin-top:0.5rem;">⚑ Report outdated listing</a>`;
                 cards.push({ ts: d.getTime(), time: show.time || '', html: `
                     <div class="show-card" style="padding:16px 18px;display:flex;flex-direction:column;gap:4px;" data-reveal data-reveal-delay="1">
-                        <div style="font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;">${label}${badge}</div>
+                        <div style="font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;">${fullLabel2}${badge}</div>
                         <div style="font-size:1.05rem;font-weight:700;font-family:var(--font-display);">${show.emoji || '🎤'} ${show.name}</div>
-                        <div style="font-size:.85rem;color:var(--text-muted);">${show.time || ''} · ${venueName}</div>
+                        <div style="font-size:.85rem;color:var(--text-muted);">${venueName}</div>
                         ${link}
+                        ${reportLinkWeek}
                     </div>` });
             });
         });
@@ -624,8 +652,9 @@ function renderShowCard(show) {
             </div>
             <div class="show-card-footer">
                 ${currentLang !== 'fr' ? `<span class="show-card-price">${show.price}</span>` : ''}
-                <a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ ${({'fr':'Réservez votre place','es':'Reserva tu lugar','de':'Platz reservieren','ja':'席を予約する','zh':'预订座位','ko':'좌석 예약'})[currentLang] || 'Reserve Your Spot'} →</a>
+                <a href="${trackUrl(show.bookingUrl)}" target="_blank" rel="noopener" class="show-card-link">🎟️ ${({'fr':'Réservez votre place','es':'Reserva tu lugar','de':'Platz reservieren','ja':'席を予約する','zh':'预订座位','ko':'좌석 예약'})[currentLang] || 'Reserve Your Spot'} →</a>
             </div>
+            <a href="mailto:hello@pariscomedy.com?subject=Outdated+listing&body=Show:+${encodeURIComponent(show.name)}%0AURL:+${encodeURIComponent(show.bookingUrl||show.url||'')}" class="report-link" style="font-size:0.75rem;color:#aaa;display:block;margin-top:0.5rem;">⚑ Report outdated listing</a>
         </div>
     </article>`;
 }
@@ -651,10 +680,11 @@ function renderUpNext() {
     upcoming.forEach((d, idx) => {
         if (cards.length >= 3) return;
         const dn = DAY_NAMES[d.getDay()];
-        const label = `${dn} · ${d.getDate()} ${MONTHS[d.getMonth()]}`;
+        const label = `${dn}, ${MONTHS[d.getMonth()]} ${d.getDate()} at ${show => show.time || ''}`;
         SHOWS.forEach(show => {
             if (cards.length >= 3) return;
             if (show.day !== dn) return;
+            if (!isShowActive(show)) return;
             // Avoid duplicate shows already added
             if (cards.find(c => c.id === show.id)) return;
             const venue = (typeof VENUES !== 'undefined') ? VENUES.find(v => v.id === show.venue) : null;
@@ -662,18 +692,20 @@ function renderUpNext() {
             const neighborhood = venue ? venue.neighborhood : '';
             const isTomorrow = idx === 0;
             const badge = isTomorrow ? '<span style="background:var(--accent);color:#fff;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:999px;margin-left:6px;">TOMORROW</span>' : '';
+            const dateLabel = `${dn}, ${MONTHS[d.getMonth()]} ${d.getDate()}${show.time ? ' at ' + show.time : ''}`;
             const reserveBtn = show.bookingUrl
-                ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:12px;font-size:.85rem;" onclick="if(typeof trackReserve==='function')trackReserve('${show.shortName||show.name}','${show.bookingUrl}')">🎟️ Reserve Free →</a>`
+                ? `<a href="${trackUrl(show.bookingUrl)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:12px;font-size:.85rem;">🎟️ Book Now →</a>`
                 : `<a href="shows.html" class="btn btn-ghost btn-sm" style="margin-top:12px;font-size:.85rem;">See Show Details →</a>`;
             const desc = currentLang === 'fr' ? (show.descFr || show.description) : show.description;
             cards.push({ id: show.id, html: `
                 <div class="show-card" style="padding:18px 20px;display:flex;flex-direction:column;gap:6px;border-top:3px solid var(--accent);" data-reveal>
-                    <div style="font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;">${label}${badge}</div>
+                    <div style="font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;">${dateLabel}${badge}</div>
                     <div style="font-size:1.1rem;font-weight:700;font-family:var(--font-display);">${show.emoji || '🎤'} ${show.name}</div>
                     <div style="font-size:.83rem;color:var(--text-muted);">🕐 ${show.time} &nbsp;·&nbsp; 📍 ${venueName}${neighborhood ? ', ' + neighborhood : ''}</div>
                     <div style="font-size:.88rem;color:var(--text-dim);margin-top:4px;line-height:1.4;">${desc}</div>
                     ${currentLang !== 'fr' ? '<div style="font-size:.78rem;color:var(--text-muted);margin-top:2px;">✅ Free entry · 1 drink min</div>' : ''}
                     ${reserveBtn}
+                    <a href="mailto:hello@pariscomedy.com?subject=Outdated+listing&body=Show:+${encodeURIComponent(show.name)}%0AURL:+${encodeURIComponent(show.bookingUrl||'')}" class="report-link" style="font-size:0.75rem;color:#aaa;display:block;margin-top:0.5rem;">⚑ Report outdated listing</a>
                 </div>` });
         });
     });
@@ -694,7 +726,7 @@ function renderFeaturedShowCard(show) {
     const dayStr = Array.isArray(show.day) ? show.day.join(' & ') : show.day;
     const timeStr = ({'fr':`Chaque ${dayStr} à ${show.time}`,'es':`Cada ${dayStr} a las ${show.time}`,'de':`Jeden ${dayStr} um ${show.time}`})[currentLang] || `Every ${dayStr} at ${show.time}`;
     const reserveLink = show.bookingUrl
-        ? `<a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ ${({'fr':'Réservez','es':'Reservar','de':'Reservieren'})[currentLang]||'Reserve'} →</a>`
+        ? `<a href="${trackUrl(show.bookingUrl)}" target="_blank" rel="noopener" class="show-card-link">🎟️ ${({'fr':'Réservez','es':'Reservar','de':'Reservieren'})[currentLang]||'Reserve'} →</a>`
         : `<a href="book.html" class="show-card-link">${({'fr':'En savoir plus','es':'Más info','de':'Mehr Info'})[currentLang]||'Learn More'} →</a>`;
     return `<article class="show-card" data-type="${show.type}" data-reveal>
         <div class="show-card-img" style="background:linear-gradient(135deg,${show.type==='standup'?'#1a0515,#2a1020':'#0a1a0f,#102a15'});">${show.emoji}</div>
@@ -707,6 +739,7 @@ function renderFeaturedShowCard(show) {
             <div class="show-card-footer">
                 ${reserveLink}
             </div>
+            <a href="mailto:hello@pariscomedy.com?subject=Outdated+listing&body=Show:+${encodeURIComponent(show.name)}%0AURL:+${encodeURIComponent(show.bookingUrl||show.url||'')}" class="report-link" style="font-size:0.75rem;color:#aaa;display:block;margin-top:0.5rem;">⚑ Report outdated listing</a>
         </div>
     </article>`;
 }
@@ -714,8 +747,9 @@ function renderFeaturedShowCard(show) {
 function renderFeaturedShows() {
     const grid = document.getElementById('featuredShowsGrid');
     if (!grid) return;
-    const featuredMain = SHOWS.filter(s => s.featured);
-    const featuredOther = (typeof OTHER_SHOWS !== 'undefined' ? OTHER_SHOWS : []).filter(s => s.featured);
+    // Only show featured shows that are still active (not expired)
+    const featuredMain = SHOWS.filter(s => s.featured && isShowActive(s));
+    const featuredOther = (typeof OTHER_SHOWS !== 'undefined' ? OTHER_SHOWS : []).filter(s => s.featured && isShowActive(s));
     const velvetLead = featuredMain.find(show => show.id === 'velvet-comedy') || featuredMain[0] || null;
     const ffcnLead = featuredMain.find(show => show.id === 'ffcn') || featuredMain[0] || null;
     const preferredLeadId = currentLang === 'fr' ? velvetLead?.id : ffcnLead?.id;
@@ -801,7 +835,8 @@ function renderOtherShows(dayFilter) {
             <div class="other-show-venue">📍 ${show.venueName} · ${dayLabel}${show.time ? ' · '+show.time : ''}</div>
             ${exactAddress ? `<div class="other-show-address">🗺️ ${exactAddress}</div>` : ''}
             <div class="other-show-desc">${show.description}</div>
-            ${show.bookingUrl ? `<div class="other-show-actions"><a href="${show.bookingUrl}" target="_blank" rel="noopener" class="show-card-link">🎟️ ${reserveLabel} →</a>${mapUrl ? `<a href="${mapUrl}" target="_blank" rel="noopener" class="other-show-map-link">🗺️ ${mapLabel}</a>` : ''}</div>` : `<div class="other-show-cta"><span class="placeholder-badge">📋 ${({'fr':'Pas encore référencé','es':'Aún no listado','de':'Noch nicht gelistet'})[currentLang] || 'Not yet listed'}</span> <a href="book.html" class="other-show-link">${({'fr':'Référencez-vous pour 1€/mois','es':'Inscríbete por 1€/mes','de':'Gelistet werden für 1€/Monat'})[currentLang] || 'Get listed for €1/month'} →</a></div>`}
+            ${show.bookingUrl ? `<div class="other-show-actions"><a href="${trackUrl(show.bookingUrl)}" target="_blank" rel="noopener" class="show-card-link">🎟️ ${reserveLabel} →</a>${mapUrl ? `<a href="${mapUrl}" target="_blank" rel="noopener" class="other-show-map-link">🗺️ ${mapLabel}</a>` : ''}</div>` : `<div class="other-show-cta"><span class="placeholder-badge">📋 ${({'fr':'Pas encore référencé','es':'Aún no listado','de':'Noch nicht gelistet'})[currentLang] || 'Not yet listed'}</span> <a href="book.html" class="other-show-link">${({'fr':'Référencez-vous pour 1€/mois','es':'Inscríbete por 1€/mes','de':'Gelistet werden für 1€/Monat'})[currentLang] || 'Get listed for €1/month'} →</a></div>`}
+            <a href="mailto:hello@pariscomedy.com?subject=Outdated+listing&body=Show:+${encodeURIComponent(show.name)}%0AURL:+${encodeURIComponent(show.bookingUrl||'')}" class="report-link" style="font-size:0.75rem;color:#aaa;display:block;margin-top:0.5rem;">⚑ Report outdated listing</a>
         </div>
     `;
     }).join('');
@@ -900,7 +935,7 @@ function renderCalendar() {
             tooltip.className = 'cal-tooltip';
             tooltip.innerHTML = dayEvents.map(e => {
                 const reserveLink = e.bookingUrl
-                    ? `<a href="${e.bookingUrl}" target="_blank" rel="noopener" class="cal-tooltip-reserve">🎟️ Reserve →</a>`
+                    ? `<a href="${trackUrl(e.bookingUrl)}" target="_blank" rel="noopener" class="cal-tooltip-reserve">🎟️ Book Now →</a>`
                     : '';
                 return `<div class="cal-tooltip-row">${e.emoji} <strong>${e.shortName}</strong> · ${e.time} · ${e.venue}${reserveLink}</div>`;
             }).join('');
@@ -1197,7 +1232,7 @@ function renderTonightBanner() {
                 <div class="tonight-banner tonight-banner-next">
                     <span class="tonight-label">${({'fr':'Prochain spectacle','es':'Próximo show','de':'Nächste Show','ja':'次のショー','zh':'下一场演出','ko':'다음 공연'})[currentLang] || 'Next show'}</span>
                     <span class="tonight-shows">${nextShow.emoji || '🎤'} <strong>${nextShow.shortName || nextShow.name}</strong> — ${nextDayName} at ${nextShow.time || nextShow.time}</span>
-                    ${nextShow.bookingUrl ? `<a href="${nextShow.bookingUrl}" target="_blank" rel="noopener" class="tonight-cta">🎟️ Reserve →</a>` : ''}
+                    ${nextShow.bookingUrl ? `<a href="${trackUrl(nextShow.bookingUrl)}" target="_blank" rel="noopener" class="tonight-cta">🎟️ Book Now →</a>` : ''}
                 </div>`;
         } else {
             container.style.display = 'none';
@@ -1253,7 +1288,7 @@ function renderTonightBanner() {
         const badge = startsInBadge(s.time);
         const shareBtn = `<button class="tonight-share-btn" onclick="(${shareShow.toString()})(event,'${(s.shortName||s.name).replace(/'/g,"\\'")}','${s.time}','${s.venue.replace(/'/g,"\\'")}','${s.bookingUrl||''}')" title="Share this show" aria-label="Share ${(s.shortName||s.name).replace(/'/g,"\\'")}">📤</button>`;
         const link = s.bookingUrl
-            ? `<span class="tonight-show-item"><a href="${s.bookingUrl}" target="_blank" rel="noopener" class="tonight-show-link">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue}${badge ? ' ' + badge : ''} ${s.ours ? '🎟️' : ''}</a>${shareBtn}</span>`
+            ? `<span class="tonight-show-item"><a href="${trackUrl(s.bookingUrl)}" target="_blank" rel="noopener" class="tonight-show-link">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue}${badge ? ' ' + badge : ''} ${s.ours ? '🎟️' : ''}</a>${shareBtn}</span>`
             : `<span class="tonight-show-item"><span class="tonight-show-nolink">${s.emoji} <strong>${s.shortName || s.name}</strong> ${s.time} @ ${s.venue}${badge ? ' ' + badge : ''}</span>${shareBtn}</span>`;
         return link;
     }).join('<span class="tonight-sep">·</span>');
@@ -1307,7 +1342,7 @@ function renderComediansDirectory() {
                             <div style="color:var(--text-muted);font-size:.82rem;margin-top:4px;">${pageCopy('comedians.verifiedVia', 'Verified {date} via {source}').replace('{date}', show.verifiedAt || pageCopy('comedians.recently', 'recently')).replace('{source}', show.verificationSource || pageCopy('comedians.manualReview', 'manual review'))}</div>
                         </div>
                         <div>
-                            ${show.showUrl ? `<a href="${show.showUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">${pageCopy('comedians.openListing', 'Open listing')} →</a>` : ''}
+                            ${show.showUrl ? `<a href="${trackUrl(show.showUrl)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">${pageCopy('comedians.openListing', 'Open listing')} →</a>` : ''}
                         </div>
                     </div>
                 </article>`).join('')}

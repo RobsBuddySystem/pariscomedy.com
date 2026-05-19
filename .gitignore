@@ -1,2 +1,16 @@
 data/intake/*.sqlite3
 data/intake/*.jsonl
+
+# Pipeline — intermediate stage outputs (regenerated each run)
+pipeline/logs/*.log
+pipeline/output/raw_scraped.json
+pipeline/output/_fixture_raw_scraped.json
+pipeline/output/normalized.json
+pipeline/output/llm_classified.json
+pipeline/output/deduped.json
+pipeline/output/classified.json
+pipeline/output/validated.json
+pipeline/output/metrics_*.json
+
+# Keep: review_queue.json is committed so Mac Studio can serve it
+# !pipeline/output/review_queue.json

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  macOS LaunchAgent: com.pariscomedy.receive
+  Watches data/shows_generated.json for changes (written by rsync from openclawpc).
+  When the file changes, runs receive_on_mac.sh to regenerate + commit + push.
+
+  Install:
+    cp pipeline/automation/macstudio.launchd.plist \
+       ~/Library/LaunchAgents/com.pariscomedy.receive.plist
+    launchctl load ~/Library/LaunchAgents/com.pariscomedy.receive.plist
+
+  Uninstall:
+    launchctl unload ~/Library/LaunchAgents/com.pariscomedy.receive.plist
+
+  Check logs:
+    tail -f /tmp/pariscomedy-receive.log
+    tail -f /tmp/pariscomedy-receive-error.log
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.pariscomedy.receive</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/chuck/Documents/Claude/Projects/pariscomedy.com/_repo/pipeline/sync/receive_on_mac.sh</string>
+  </array>
+
+  <!-- Watch for rsync writes from openclawpc -->
+  <key>WatchPaths</key>
+  <array>
+    <string>/Users/chuck/Documents/Claude/Projects/pariscomedy.com/_repo/data/shows_generated.json</string>
+  </array>
+
+  <!-- Do NOT run at load — only when WatchPaths fires -->
+  <key>RunAtLoad</key>
+  <false/>
+
+  <!-- Throttle: don't trigger more than once per 60 seconds -->
+  <key>ThrottleInterval</key>
+  <integer>60</integer>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/pariscomedy-receive.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/tmp/pariscomedy-receive-error.log</string>
+
+  <!-- Working directory -->
+  <key>WorkingDirectory</key>
+  <string>/Users/chuck/Documents/Claude/Projects/pariscomedy.com/_repo</string>
+
+  <!-- Environment -->
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>HOME</key>
+    <string>/Users/chuck</string>
+  </dict>
+</dict>
+</plist>
