@@ -163,6 +163,8 @@ footer a:hover{color:var(--text)}
     <a href="/venues.html" class="nav-active">Venues</a>
     <a href="/book.html">Book / Connect</a>
     <a href="/comedians.html">For Comedians</a>
+    <a href="/bookers.html">Bookers</a>
+    <a href="/pricing.html">Pricing</a>
   </div>
 </nav>
 
@@ -289,6 +291,8 @@ footer a:hover{color:var(--text)}
     <a href="/venues.html">Venues</a>
     <a href="/book.html">Book / Connect</a>
     <a href="/comedians.html">For Comedians</a>
+    <a href="/bookers.html">Bookers</a>
+    <a href="/pricing.html">Pricing</a>
   </div>
   <div>payments@pariscomedy.com &nbsp;|&nbsp; <a href="https://instagram.com/pariscomedy" target="_blank">@pariscomedy</a></div>
 </footer>
@@ -411,7 +415,10 @@ function render() {
         ${bookerBtn}
         <a href="${mapsLink(v)}" target="_blank" class="btn-map">Map →</a>
       </div>
-      ${featuredHint}`;
+      ${featuredHint}
+      <div style="text-align:right;margin-top:6px">
+        <a href="/bookers.html#claim" style="font-size:11px;color:#555;text-decoration:underline">Claim this venue →</a>
+      </div>`;
     grid.appendChild(card);
   });
 }
