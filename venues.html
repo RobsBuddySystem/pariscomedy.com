@@ -171,7 +171,7 @@ footer a:hover{color:var(--text)}
 <div class="hero">
   <h1>Comedy Venues <span>in Paris</span></h1>
   <p>Every English-language stand-up venue in the city. Filter by night or neighbourhood.</p>
-  <a href="#claim" onclick="openClaimModal();return false;" class="hero-cta">Run a show? Get listed FREE →</a>
+  <a href="#claim" onclick="openClaimModal();return false;" class="hero-cta">Run a show? Submit your venue →</a>
 </div>
 
 <div class="filters">
@@ -200,47 +200,8 @@ footer a:hover{color:var(--text)}
 <div class="modal-overlay" id="upgrade-modal">
   <div class="modal">
     <button class="modal-close" onclick="closeUpgrade()">×</button>
-    <h2>Featured listing feature</h2>
-    <p class="modal-sub">This feature is available on Featured listings.</p>
-    <ul class="modal-features">
-      <li>Video proof embedded on your card</li>
-      <li>Verified badge shown to audiences</li>
-      <li>Top placement in search results</li>
-      <li>Gold highlighted card — stands out instantly</li>
-    </ul>
-    <div class="modal-giveaway" id="upgrade-giveaway">
-      🎉 Right now: <strong>FREE for the first 100 show runners.</strong><br>
-      <span id="upgrade-slots-left">99 spots remaining.</span>
-    </div>
-    <button class="btn-claim" onclick="closeUpgrade();openClaimModal()">Claim free Featured spot →</button>
-    <button class="btn-pro-learn" onclick="toggleProDetails()">Learn about Pro →</button>
-    <div class="pro-details" id="pro-details">
-      <h3>Pro listing includes:</h3>
-      <ul>
-        <li>Everything in Featured</li>
-        <li>Booker contact button on your card</li>
-        <li>Priority placement above all Featured listings</li>
-        <li>Analytics — see how many people clicked your show</li>
-        <li>Direct intro to Robert's booker network</li>
-      </ul>
-    </div>
-    <div class="payment-section" id="payment-section">
-      <p style="font-size:13px;color:var(--muted);margin-bottom:4px">Giveaway is full. Featured listing is now paid:</p>
-      <div class="payment-grid">
-        <div class="payment-col">
-          <h4>⚡ Lightning (Bitcoin)</h4>
-          <div class="payment-qr-placeholder">Bitcoin QR<br>coming soon<br>€1/month</div>
-          <p>payments@pariscomedy.com<br>Scan with any Lightning wallet</p>
-          <a href="https://app.bullbitcoin.com/registration/robertlericain" target="_blank">New to Bitcoin? Get sats here →</a>
-        </div>
-        <div class="payment-col">
-          <h4>💳 Card (SumUp)</h4>
-          <div class="payment-qr-placeholder">SumUp QR<br>coming soon</div>
-          <p>Scan to pay by card<br>Visa, Mastercard, Amex accepted</p>
-        </div>
-      </div>
-      <p class="payment-after">After paying, fill in your show details and we activate within 24 hours.</p>
-    </div>
+    <h2>Promotion options</h2>
+    <p class="modal-sub">Promoted listings are coming soon. <a href="mailto:hello@pariscomedy.com">Get in touch</a> to be notified when they launch.</p>
   </div>
 </div>
 
@@ -276,10 +237,10 @@ footer a:hover{color:var(--text)}
         <input type="email" id="cl-email" placeholder="you@example.com">
       </div>
       <div class="claim-error" id="cl-err"></div>
-      <button class="claim-btn" id="cl-btn" onclick="submitClaim()">Claim my free Featured spot →</button>
+      <button class="claim-btn" id="cl-btn" onclick="submitClaim()">Submit my show →</button>
     </div>
     <div class="claim-success" id="claim-success">
-      You're in! Your Featured listing goes live within 24 hours. No payment needed. Check your inbox for confirmation.
+      Submitted! We'll review your show and add it to the calendar. Check your inbox for confirmation.
     </div>
   </div>
 </div>
@@ -377,11 +338,7 @@ function render() {
 
     // Lock features (shown on hover for free cards)
     const lockHtml = (v.tier === 'free')
-      ? `<div class="lock-features">
-           <span class="lock-item" onclick="openUpgrade(event)">🔒 Video proof — Featured</span>
-           <span class="lock-item" onclick="openUpgrade(event)">🔒 Verified badge — Featured</span>
-           <span class="lock-item" onclick="openUpgrade(event)">🔒 Booker contact — Pro</span>
-         </div>`
+      ? ''
       : '';
 
     // Booker button (Pro only)
@@ -391,7 +348,7 @@ function render() {
 
     // Get Featured hint (for non-featured cards, show after first featured card)
     const featuredHint = (v.tier === 'free' && idx > 0)
-      ? `<div class="get-featured-hint" onclick="openClaimModal()">Get Featured like this →</div>`
+      ? ''
       : '';
 
     card.innerHTML = `
@@ -519,7 +476,7 @@ async function submitClaim() {
   } catch(e) {
     err.textContent = e.message;
     btn.disabled = false;
-    btn.textContent = 'Claim my free Featured spot →';
+    btn.textContent = 'Submit my show →';
   }
 }
 
