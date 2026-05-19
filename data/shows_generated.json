@@ -18,7 +18,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "lofi-20260519",
@@ -39,7 +41,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260519",
@@ -60,7 +64,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kuhl-open-mic-20260519",
@@ -81,7 +87,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "cuba-compagnie-20260519",
@@ -102,7 +110,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-light-20260519",
@@ -123,7 +133,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "velvet-openmic-20260520",
@@ -144,7 +156,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "unavailable",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260520",
@@ -165,7 +179,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "wednesday-night-comedy-20260520",
@@ -186,7 +202,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "mango-20260520",
@@ -207,7 +225,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "millennial-meltdown-20260520",
@@ -228,7 +248,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "mic-drop-20260520",
@@ -249,7 +271,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kiss-comedy-20260520",
@@ -270,7 +294,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "south-comedy-20260520",
@@ -291,7 +317,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "velvet-comedy-20260520",
@@ -312,7 +340,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-crush-20260520",
@@ -333,7 +363,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "dissident-20260520",
@@ -354,7 +386,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "ffcn-20260520",
@@ -375,7 +409,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "unavailable",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260521",
@@ -396,7 +432,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "fiap-20260521",
@@ -417,7 +455,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "englishman-night-20260521",
@@ -438,7 +478,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "greenwashing-20260521",
@@ -459,7 +501,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-lab-chat-noir-20260521",
@@ -480,7 +524,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260522",
@@ -501,7 +547,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kinto-20260522",
@@ -522,7 +570,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "theatre-bo-julie-20260522",
@@ -543,7 +593,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-mic-showcase-20260522",
@@ -564,7 +616,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "coucou-friday-20260522",
@@ -585,7 +639,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "smash-20260523",
@@ -606,7 +662,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "integrire-20260523",
@@ -627,7 +685,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260523",
@@ -648,7 +708,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "charonne-20260523",
@@ -669,7 +731,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-lab-chat-noir-20260523",
@@ -690,7 +754,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "theatre-bo-julie-20260523",
@@ -711,7 +777,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "oscar-20260524",
@@ -732,7 +800,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260524",
@@ -753,7 +823,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-mic-sunday-20260524",
@@ -774,7 +846,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260525",
@@ -795,7 +869,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "rocket-20260526",
@@ -816,7 +892,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "lofi-20260526",
@@ -837,7 +915,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260526",
@@ -858,7 +938,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kuhl-open-mic-20260526",
@@ -879,7 +961,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "cuba-compagnie-20260526",
@@ -900,7 +984,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-light-20260526",
@@ -921,7 +1007,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "velvet-openmic-20260527",
@@ -942,7 +1030,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "unavailable",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260527",
@@ -963,7 +1053,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "wednesday-night-comedy-20260527",
@@ -984,7 +1076,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "mango-20260527",
@@ -1005,7 +1099,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "millennial-meltdown-20260527",
@@ -1026,7 +1122,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "mic-drop-20260527",
@@ -1047,7 +1145,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kiss-comedy-20260527",
@@ -1068,7 +1168,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "south-comedy-20260527",
@@ -1089,7 +1191,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "velvet-comedy-20260527",
@@ -1110,7 +1214,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-crush-20260527",
@@ -1131,7 +1237,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "dissident-20260527",
@@ -1152,7 +1260,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "ffcn-20260527",
@@ -1173,7 +1283,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "unavailable",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260528",
@@ -1194,7 +1306,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "fiap-20260528",
@@ -1215,7 +1329,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "englishman-night-20260528",
@@ -1236,7 +1352,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "greenwashing-20260528",
@@ -1257,7 +1375,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-lab-chat-noir-20260528",
@@ -1278,7 +1398,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260529",
@@ -1299,7 +1421,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kinto-20260529",
@@ -1320,7 +1444,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "theatre-bo-julie-20260529",
@@ -1341,7 +1467,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-mic-showcase-20260529",
@@ -1362,7 +1490,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "coucou-friday-20260529",
@@ -1383,7 +1513,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "smash-20260530",
@@ -1404,7 +1536,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "integrire-20260530",
@@ -1425,7 +1559,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260530",
@@ -1446,7 +1582,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "charonne-20260530",
@@ -1467,7 +1605,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-lab-chat-noir-20260530",
@@ -1488,7 +1628,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "theatre-bo-julie-20260530",
@@ -1509,7 +1651,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "oscar-20260531",
@@ -1530,7 +1674,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260531",
@@ -1551,7 +1697,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-mic-sunday-20260531",
@@ -1572,7 +1720,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260601",
@@ -1593,7 +1743,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "rocket-20260602",
@@ -1614,7 +1766,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "lofi-20260602",
@@ -1635,7 +1789,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260602",
@@ -1656,7 +1812,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kuhl-open-mic-20260602",
@@ -1677,7 +1835,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "cuba-compagnie-20260602",
@@ -1698,7 +1858,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-light-20260602",
@@ -1719,7 +1881,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "velvet-openmic-20260603",
@@ -1740,7 +1904,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "unavailable",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260603",
@@ -1761,7 +1927,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "wednesday-night-comedy-20260603",
@@ -1782,7 +1950,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "mango-20260603",
@@ -1803,7 +1973,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "millennial-meltdown-20260603",
@@ -1824,7 +1996,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "mic-drop-20260603",
@@ -1845,7 +2019,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kiss-comedy-20260603",
@@ -1866,7 +2042,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "south-comedy-20260603",
@@ -1887,7 +2065,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "velvet-comedy-20260603",
@@ -1908,7 +2088,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-crush-20260603",
@@ -1929,7 +2111,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "dissident-20260603",
@@ -1950,7 +2134,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "ffcn-20260603",
@@ -1971,7 +2157,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "unavailable",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260604",
@@ -1992,7 +2180,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "fiap-20260604",
@@ -2013,7 +2203,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "englishman-night-20260604",
@@ -2034,7 +2226,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "greenwashing-20260604",
@@ -2055,7 +2249,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-lab-chat-noir-20260604",
@@ -2076,7 +2272,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260605",
@@ -2097,7 +2295,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kinto-20260605",
@@ -2118,7 +2318,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "theatre-bo-julie-20260605",
@@ -2139,7 +2341,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-mic-showcase-20260605",
@@ -2160,7 +2364,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "coucou-friday-20260605",
@@ -2181,7 +2387,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "smash-20260606",
@@ -2202,7 +2410,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "integrire-20260606",
@@ -2223,7 +2433,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260606",
@@ -2244,7 +2456,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "charonne-20260606",
@@ -2265,7 +2479,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-lab-chat-noir-20260606",
@@ -2286,7 +2502,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "theatre-bo-julie-20260606",
@@ -2307,7 +2525,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "oscar-20260607",
@@ -2328,7 +2548,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260607",
@@ -2349,7 +2571,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-mic-sunday-20260607",
@@ -2370,7 +2594,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260608",
@@ -2391,7 +2617,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "rocket-20260609",
@@ -2412,7 +2640,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "lofi-20260609",
@@ -2433,7 +2663,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260609",
@@ -2454,7 +2686,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kuhl-open-mic-20260609",
@@ -2475,7 +2709,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "cuba-compagnie-20260609",
@@ -2496,7 +2732,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-light-20260609",
@@ -2517,7 +2755,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "velvet-openmic-20260610",
@@ -2538,7 +2778,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "unavailable",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260610",
@@ -2559,7 +2801,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "wednesday-night-comedy-20260610",
@@ -2580,7 +2824,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "mango-20260610",
@@ -2601,7 +2847,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "millennial-meltdown-20260610",
@@ -2622,7 +2870,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "mic-drop-20260610",
@@ -2643,7 +2893,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kiss-comedy-20260610",
@@ -2664,7 +2916,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "south-comedy-20260610",
@@ -2685,7 +2939,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "velvet-comedy-20260610",
@@ -2706,7 +2962,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-crush-20260610",
@@ -2727,7 +2985,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "dissident-20260610",
@@ -2748,7 +3008,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "ffcn-20260610",
@@ -2769,7 +3031,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "unavailable",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260611",
@@ -2790,7 +3054,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "fiap-20260611",
@@ -2811,7 +3077,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "englishman-night-20260611",
@@ -2832,7 +3100,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "greenwashing-20260611",
@@ -2853,7 +3123,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-lab-chat-noir-20260611",
@@ -2874,7 +3146,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260612",
@@ -2895,7 +3169,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kinto-20260612",
@@ -2916,7 +3192,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "theatre-bo-julie-20260612",
@@ -2937,7 +3215,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-mic-showcase-20260612",
@@ -2958,7 +3238,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "coucou-friday-20260612",
@@ -2979,7 +3261,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "smash-20260613",
@@ -3000,7 +3284,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "integrire-20260613",
@@ -3021,7 +3307,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260613",
@@ -3042,7 +3330,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "charonne-20260613",
@@ -3063,7 +3353,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-lab-chat-noir-20260613",
@@ -3084,7 +3376,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "theatre-bo-julie-20260613",
@@ -3105,7 +3399,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "oscar-20260614",
@@ -3126,7 +3422,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260614",
@@ -3147,7 +3445,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-mic-sunday-20260614",
@@ -3168,7 +3468,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260615",
@@ -3189,7 +3491,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "rocket-20260616",
@@ -3210,7 +3514,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "lofi-20260616",
@@ -3231,7 +3537,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260616",
@@ -3252,7 +3560,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kuhl-open-mic-20260616",
@@ -3273,7 +3583,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "cuba-compagnie-20260616",
@@ -3294,7 +3606,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "green-light-20260616",
@@ -3315,7 +3629,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "velvet-openmic-20260617",
@@ -3336,7 +3652,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "unavailable",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260617",
@@ -3357,7 +3675,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "wednesday-night-comedy-20260617",
@@ -3378,7 +3698,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "mango-20260617",
@@ -3399,7 +3721,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "millennial-meltdown-20260617",
@@ -3420,7 +3744,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "mic-drop-20260617",
@@ -3441,7 +3767,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "kiss-comedy-20260617",
@@ -3462,7 +3790,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "south-comedy-20260617",
@@ -3483,7 +3813,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "velvet-comedy-20260617",
@@ -3504,7 +3836,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-crush-20260617",
@@ -3525,7 +3859,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "dissident-20260617",
@@ -3546,7 +3882,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "ffcn-20260617",
@@ -3567,7 +3905,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "unavailable",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "broadway-comedy-club-20260618",
@@ -3588,7 +3928,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "fiap-20260618",
@@ -3609,7 +3951,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "englishman-night-20260618",
@@ -3630,7 +3974,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "greenwashing-20260618",
@@ -3651,7 +3997,9 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "ended",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   },
   {
     "id": "comedy-lab-chat-noir-20260618",
@@ -3672,6 +4020,8 @@
     "is_archived": false,
     "langs": [
       "en"
-    ]
+    ],
+    "ticket_url_status": "active",
+    "ticket_url_checked_at": "2026-05-19T21:11:44+00:00"
   }
 ]
