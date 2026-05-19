@@ -92,6 +92,7 @@ footer a:hover{color:var(--text)}
   <button class="tab-btn active" onclick="showPath('show-runner', this)">Run a show</button>
   <button class="tab-btn" onclick="showPath('comedian', this)">I'm a comedian</button>
   <button class="tab-btn" onclick="showPath('booker', this)">Book talent</button>
+  <button class="tab-btn" onclick="showPath('message', this)">Send a message</button>
 </div>
 
 <div class="sections">
@@ -235,8 +236,63 @@ footer a:hover{color:var(--text)}
       <div class="success-msg" id="bk-success">
         Robert will be in touch within 24 hours.
       </div>
-      <div style="margin-top:20px;padding:14px 16px;background:#0f0f1a;border:1px solid #2a1a4a;border-radius:10px;font-size:13px;color:#888;line-height:1.6">
-        💬 Direct messaging to comics — available with Booker Plus (€1/month). <a href="/pricing.html" style="color:#9d5ff5;font-weight:600">Join waitlist →</a>
+    </div>
+  </div>
+
+  <!-- Path 4: Send a message -->
+  <div class="path" id="message">
+    <div class="section-card">
+      <h2>Send a message</h2>
+      <p class="subhead">Reach out to a booker, comic, or venue. Messages are reviewed before delivery — usually within 24 hours.</p>
+      <div id="form-message">
+        <input type="text" id="msg-website" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
+        <div class="form-row">
+          <div class="field">
+            <label>Your name <span class="req">*</span></label>
+            <input type="text" id="msg-name" placeholder="Your name">
+          </div>
+          <div class="field">
+            <label>Your email <span class="req">*</span></label>
+            <input type="email" id="msg-email" placeholder="you@example.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>You are a… <span class="req">*</span></label>
+            <select id="msg-sender-type">
+              <option value="comic">Comic</option>
+              <option value="booker">Booker</option>
+              <option value="venue">Venue</option>
+              <option value="fan">Fan</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Reaching out to… <span class="req">*</span></label>
+            <select id="msg-recipient-type">
+              <option value="booker">A booker</option>
+              <option value="comic">A comic</option>
+              <option value="venue">A venue</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Recipient name or show ID (if known)</label>
+          <input type="text" id="msg-recipient-id" placeholder="e.g. French Fried Comedy Night, or leave blank for general">
+        </div>
+        <div class="field">
+          <label>Subject <span class="req">*</span></label>
+          <input type="text" id="msg-subject" maxlength="200" placeholder="What's this about?">
+        </div>
+        <div class="field">
+          <label>Message <span class="req">*</span></label>
+          <textarea id="msg-body" rows="6" maxlength="5000" placeholder="Your message (10–5000 characters)…"></textarea>
+        </div>
+        <div class="error-msg" id="msg-err"></div>
+        <button class="btn-primary" onclick="submitMessage()">Send message →</button>
+        <p style="font-size:12px;color:#666;margin-top:10px">Messages are reviewed before delivery to protect inboxes. We don't share private email addresses publicly.</p>
+      </div>
+      <div class="success-msg" id="msg-success">
+        Message received. We'll review and forward it within 24 hours. You'll get a copy by email if delivery succeeds.
       </div>
     </div>
   </div>
@@ -360,6 +416,48 @@ async function submitBooker() {
   } catch(e) {
     err.textContent = e.message;
     btn.disabled = false; btn.textContent = 'Send request →';
+  }
+}
+
+async function submitMessage() {
+  const v = id => document.getElementById(id).value.trim();
+  const payload = {
+    sender_name: v('msg-name'),
+    sender_email: v('msg-email'),
+    sender_type: v('msg-sender-type'),
+    recipient_type: v('msg-recipient-type'),
+    recipient_id: v('msg-recipient-id'),
+    subject: v('msg-subject'),
+    message: v('msg-body'),
+    source_page: location.pathname,
+    website: document.getElementById('msg-website').value,  // honeypot
+    timestamp: new Date().toISOString(),
+  };
+  const err = document.getElementById('msg-err');
+  err.textContent = '';
+  if (!payload.sender_name || !payload.sender_email || !payload.subject || !payload.message) {
+    err.textContent = 'Please fill in name, email, subject and message.';
+    return;
+  }
+  if (payload.message.length < 10) { err.textContent = 'Message must be at least 10 characters.'; return; }
+  const btn = document.querySelector('#message .btn-primary');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  try {
+    const cfg = await fetch('/api-config.json').then(r => r.json());
+    const r = await fetch(cfg.api + '/api/message', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+    if (!r.ok) {
+      const data = await r.json().catch(() => ({}));
+      throw new Error(data.detail || ('Error ' + r.status));
+    }
+    document.getElementById('form-message').style.display = 'none';
+    document.getElementById('msg-success').style.display = 'block';
+  } catch(e) {
+    err.textContent = e.message || 'Send failed. Please try again.';
+    btn.disabled = false; btn.textContent = 'Send message →';
   }
 }
 </script>
