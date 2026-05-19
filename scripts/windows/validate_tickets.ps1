@@ -6,40 +6,52 @@ $LOG_DIR = "C:\pariscomedy\logs"
 $LOG     = Join-Path $LOG_DIR "hourly.log"
 
 New-Item -ItemType Directory -Force -Path $LOG_DIR | Out-Null
-"=== $(Get-Date -Format o) ===" | Out-File -FilePath $LOG -Append -Encoding utf8
+
+function Log([string]$msg) {
+  $line = "$(Get-Date -Format o) $msg"
+  Add-Content -Path $LOG -Value $line -Encoding utf8
+}
+
+Log "=== run start ==="
 
 if (-not (Test-Path $REPO)) {
-  "REPO missing at $REPO -- clone with: git clone https://github.com/RobsBuddySystem/pariscomedy.com.git $REPO" |
-    Out-File -FilePath $LOG -Append -Encoding utf8
+  Log "REPO missing at $REPO -- clone with: git clone https://github.com/RobsBuddySystem/pariscomedy.com.git $REPO"
   exit 2
 }
 
 Push-Location $REPO
 try {
-  # Ollama sanity (informational, non-fatal)
   try {
     $r = Invoke-WebRequest -Uri "http://localhost:11434/api/tags" -TimeoutSec 3 -UseBasicParsing
-    "Ollama OK ($($r.StatusCode))" | Out-File -FilePath $LOG -Append -Encoding utf8
+    Log "Ollama OK ($($r.StatusCode))"
   } catch {
-    "Ollama unreachable: $($_.Exception.Message)" | Out-File -FilePath $LOG -Append -Encoding utf8
+    Log "Ollama unreachable: $($_.Exception.Message)"
   }
 
-  (git fetch --quiet origin main 2>&1; git reset --hard origin/main 2>&1) | Out-File -FilePath $LOG -Append -Encoding utf8
+  $fetch = & git fetch --quiet origin main 2>&1 | Out-String
+  if ($fetch) { Log "git-fetch: $fetch" }
+  $reset = & git reset --hard origin/main 2>&1 | Out-String
+  Log "git-reset: $reset"
 
-  (python scripts\validate_tickets.py 2>&1) | Out-File -FilePath $LOG -Append -Encoding utf8
-  (python scripts\bake_shows.py        2>&1) | Out-File -FilePath $LOG -Append -Encoding utf8
+  $vout = & python scripts\validate_tickets.py 2>&1 | Out-String
+  Log "validator: $vout"
 
-  $diff = git status --porcelain data/shows_generated.json data/review_queue.json index.html shows.html 2>&1
-  if (-not $diff) {
-    "no-op (no diff)" | Out-File -FilePath $LOG -Append -Encoding utf8
+  $bout = & python scripts\bake_shows.py 2>&1 | Out-String
+  Log "bake: $bout"
+
+  $diff = & git status --porcelain data/shows_generated.json data/review_queue.json index.html shows.html 2>&1 | Out-String
+  if (-not $diff.Trim()) {
+    Log "no-op (no diff)"
     exit 0
   }
 
-  (git add data/shows_generated.json data/review_queue.json index.html shows.html 2>&1) | Out-File -FilePath $LOG -Append -Encoding utf8
+  & git add data/shows_generated.json data/review_queue.json index.html shows.html 2>&1 | Out-Null
   $stamp = (Get-Date -Format "yyyy-MM-ddTHH:mmZ")
-  (git commit -m "hourly[win]: revalidate ticket statuses ($stamp)" 2>&1) | Out-File -FilePath $LOG -Append -Encoding utf8
-  (git push 2>&1) | Out-File -FilePath $LOG -Append -Encoding utf8
-  "pushed" | Out-File -FilePath $LOG -Append -Encoding utf8
+  $commit = & git commit -m "hourly[win]: revalidate ticket statuses ($stamp)" 2>&1 | Out-String
+  Log "commit: $commit"
+  $push = & git push 2>&1 | Out-String
+  Log "push: $push"
 } finally {
   Pop-Location
+  Log "=== run end ==="
 }
