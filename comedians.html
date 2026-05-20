@@ -224,7 +224,8 @@ function initPage() {
   document.getElementById('count-total').textContent = COMICS.length;
   counts();
   const sel = document.getElementById('m-show');
-  SHOWS.forEach(s => {
+  const showList = (typeof SHOWS !== 'undefined' && Array.isArray(SHOWS)) ? SHOWS : [];
+  showList.forEach(s => {
     const o = document.createElement('option');
     o.value = s.id; o.textContent = s.name + (s.venue ? ' — ' + s.venue : '');
     sel.appendChild(o);
