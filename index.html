@@ -371,11 +371,12 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 <footer>
   <div class="tip-jar">
     <div style="font-size:14px;font-weight:700;margin-bottom:4px">Support Paris Comedy</div>
-    <div class="tip-label">Pay with any Lightning wallet</div>
-    <div style="display:flex;align-items:center;gap:8px;justify-content:center;margin-top:8px">
-      <span class="tip-addr" id="tip-addr">payments@pariscomedy.com</span>
-      <button onclick="copyTip()" style="padding:6px 10px;border-radius:6px;border:1px solid #2a1a4a;background:transparent;color:#888;font-size:12px;cursor:pointer">Copy</button>
+    <div class="tip-label">Keeping the directory free \u2014 tip any amount</div>
+    <a class="tip-btn" href="https://pay.sumup.com/b2c/Q7EXVGM8?utm_source=qr&amp;utm_medium=digital&amp;utm_campaign=image" target="_blank" rel="noopener" style="margin-top:10px">Tip by card \u2192</a>
+    <div style="margin-top:12px">
+      <img src="/assets/sumup-tip-qr.svg" alt="Scan to tip Paris Comedy via SumUp" width="120" height="120" style="background:#fff;border-radius:8px;padding:6px">
     </div>
+    <div class="tip-label">Scan to tip \u00b7 secure card payment via SumUp</div>
   </div>
   <div class="footer-links" style="margin-top:24px">
     <a href="/">Home</a>
@@ -711,12 +712,6 @@ renderWhatsOn();
   el.textContent = `${M[start.getMonth()]} ${start.getDate()}–` +
     (start.getMonth() === end.getMonth() ? '' : M[end.getMonth()] + ' ') + end.getDate();
 })();
-
-function copyTip() {
-  navigator.clipboard && navigator.clipboard.writeText('payments@pariscomedy.com');
-  event.target.textContent = 'Copied';
-  setTimeout(function () { event.target.textContent = 'Copy'; }, 1500);
-}
 
 // ── WHAT'S ON grid ────────────────────────────────────────────────────────
 function renderWhatsOn() {
