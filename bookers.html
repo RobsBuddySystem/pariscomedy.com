@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>For Bookers — Paris Comedy</title>
 <meta name="description" content="Claim your show, add dates and lineups, connect with comics. Paris Comedy — the home of English-language stand-up in Paris.">
+<link rel="canonical" href="https://pariscomedy.com/bookers.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="For Bookers — Paris Comedy">
+<meta property="og:description" content="Claim your show, add lineups and connect with comics on Paris Comedy.">
+<meta property="og:url" content="https://pariscomedy.com/bookers.html">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com/","email":"payments@pariscomedy.com","description":"The home of English-language stand-up comedy in Paris."}</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--purple:#7c3aed;--purple-light:#9d5ff5;--bg:#0a0a0a;--card:#111;--border:#1e1e1e;--text:#f0f0f0;--muted:#888;--yellow:#f5c518;--gold:#f59e0b}
@@ -284,19 +291,12 @@ footer a:hover{color:var(--text)}
   <div>payments@pariscomedy.com </div>
 </footer>
 
+<script src="/js/leadcapture.js"></script>
 <script>
 function prefillClaim(showName) {
   document.getElementById('cl-show').value = showName;
   document.getElementById('claim').scrollIntoView({behavior:'smooth'});
   setTimeout(() => document.getElementById('cl-name').focus(), 400);
-}
-
-let _apiBase = '';
-async function getApi() {
-  if (_apiBase) return _apiBase;
-  try { const cfg = await fetch('/api-config.json').then(r=>r.json()); _apiBase = cfg.api||''; }
-  catch(e) { _apiBase = ''; }
-  return _apiBase;
 }
 
 async function submitClaim() {
@@ -309,40 +309,23 @@ async function submitClaim() {
   err.textContent = '';
   if (!show || !name || !email || !proof) { err.textContent = 'Please fill in all required fields.'; return; }
   const btn = document.getElementById('cl-btn');
-  btn.disabled = true; btn.textContent = 'Submitting…';
-  const subject = 'Show claim: ' + show;
+  btn.disabled = true; btn.textContent = 'Submitting\u2026';
   const body = 'Show: ' + show + '\nName: ' + name + '\nEmail: ' + email +
-               '\nRole: ' + role + '\nProof: ' + proof +
-               '\nSource: bookers.html\nTime: ' + new Date().toISOString();
-  let captured = false;
-  try {
-    const api = await getApi();
-    if (api) {
-      const r = await fetch(api + '/api/message', {
-        method: 'POST', headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
-          sender_name: name, sender_email: email, sender_type: 'booker',
-          recipient_type: 'venue', subject: subject,
-          message: body, source_page: 'bookers.html'
-        })
-      });
-      captured = r.ok;
-    }
-  } catch(e) { captured = false; }
-
-  const mailto = 'mailto:payments@pariscomedy.com?subject=' +
-    encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+               '\nRole: ' + role + '\nProof: ' + proof;
+  const res = await LeadCapture.submit({
+    route: '/api/claim-show',
+    formType: 'claim-show',
+    payload: {name: name, email: email, role: role || 'booker', target: show, message: body},
+    mailtoSubject: 'Show claim: ' + show,
+    mailtoBody: body
+  });
   document.getElementById('claim-form').style.display = 'none';
   const box = document.getElementById('cl-success');
-  box.style.display = 'block';
-  box.innerHTML =
-    (captured
-      ? 'Claim received for <strong>' + show + '</strong>. We&rsquo;ll review and be in touch within 48 hours.<br><br>'
-      : 'Almost done — <a href="' + mailto + '" style="color:var(--yellow);font-weight:700">' +
-        'send your claim email &rarr;</a> so we can verify it.<br><br>') +
-    'While you&rsquo;re here: <strong>Booker Plus</strong> promotes this show to the top of ' +
-    'listings and lets you message comics directly. <a href="/pricing.html#booker-plus" ' +
-    'style="color:var(--purple-light);font-weight:700">Start Booker Plus — €1/month &rarr;</a>';
+  LeadCapture.renderResult(box, res, 'Claim for ' + show);
+  box.innerHTML += '<div style="margin-top:12px">While you\u2019re here: <strong>Booker Plus</strong> ' +
+    'promotes this show to the top of listings and lets you message comics directly. ' +
+    '<a href="/pricing.html#booker-plus" style="color:var(--purple-light);font-weight:700">' +
+    'Start Booker Plus \u2014 \u20ac1/month \u2192</a></div>';
 }
 </script>
 </body>

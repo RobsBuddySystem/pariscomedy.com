@@ -169,6 +169,7 @@ footer a:hover{color:var(--text)}
   <div>payments@pariscomedy.com</div>
 </footer>
 
+<script src="/js/leadcapture.js"></script>
 <script>
 let billing = 'monthly';
 function setBilling(b) {
@@ -186,14 +187,6 @@ function openIntent(type) {
   f.querySelector('input').focus();
 }
 
-let _apiBase = '';
-async function getApi() {
-  if (_apiBase) return _apiBase;
-  try { const cfg = await fetch('/api-config.json').then(r => r.json()); _apiBase = cfg.api || ''; }
-  catch (e) { _apiBase = ''; }
-  return _apiBase;
-}
-
 async function submitIntent(ev, type, planName) {
   ev.preventDefault();
   const name  = document.getElementById(type + '-name').value.trim();
@@ -204,44 +197,27 @@ async function submitIntent(ev, type, planName) {
     err.textContent = 'Name and a valid email are required.'; return false;
   }
   const price = billing === 'yearly' ? '€12/year' : '€1/month';
-  const subject = planName + ' signup (' + price + ')';
+  const planLabel = planName + ' — ' + price;
   const body = 'Plan: ' + planName + '\nBilling: ' + price + '\nName: ' + name +
-               '\nEmail: ' + email + '\nRole: ' + type + '\nSource: pricing.html\nTime: ' +
-               new Date().toISOString();
+               '\nEmail: ' + email + '\nRole: ' + type;
 
-  // Primary: capture to the API review queue (durable, emails Robert).
-  let captured = false;
-  try {
-    const api = await getApi();
-    if (api) {
-      const r = await fetch(api + '/api/message', {
-        method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          sender_name: name, sender_email: email, sender_type: type,
-          recipient_type: 'booker', subject: subject,
-          message: body, source_page: 'pricing.html'
-        })
-      });
-      captured = r.ok;
-    }
-  } catch (e) { captured = false; }
-
-  // Fallback that never loses the lead: prefilled email to payments@pariscomedy.com.
-  const mailto = 'mailto:payments@pariscomedy.com?subject=' +
-    encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  const res = await LeadCapture.submit({
+    route: '/api/pricing-intent',
+    formType: 'pricing-intent',
+    payload: {name: name, email: email, role: type, plan: planLabel, message: body},
+    mailtoSubject: planName + ' signup (' + price + ')',
+    mailtoBody: body
+  });
 
   document.getElementById('intent-' + type).style.display = 'none';
   const box = document.getElementById(type + '-success');
   box.classList.add('show');
-  box.innerHTML =
-    '<strong>' + planName + ' — ' + price + '</strong><br>' +
-    (captured
-      ? 'Got it. We&rsquo;ll email you payment instructions (card or Lightning) within a few hours and activate your upgrade the same day.<br>'
-      : 'Almost there — confirm your signup so we can activate it: <a href="' + mailto +
-        '" style="color:var(--yellow);font-weight:700">send confirmation email &rarr;</a><br>') +
+  LeadCapture.renderResult(box, res, planLabel);
+  box.innerHTML +=
     '<div class="pay-line">Pay now by Lightning: ' +
     '<span class="pay-addr" id="pa-' + type + '">payments@pariscomedy.com</span>' +
-    '<button class="copy-btn" onclick="copyAddr(\'pa-' + type + '\')">Copy</button></div>';
+    '<button class="copy-btn" onclick="copyAddr(\'pa-' + type + '\')">Copy</button></div>' +
+    '<div style="margin-top:10px"><img src="/assets/lightning-qr.svg" alt="Lightning QR for payments@pariscomedy.com" width="120" height="120" style="background:#fff;border-radius:8px;padding:6px"></div>';
   return false;
 }
 

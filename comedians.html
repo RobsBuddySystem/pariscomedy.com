@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Paris Comedy — Comedians Directory</title>
 <meta name="description" content="The definitive directory of stand-up comedians performing in Paris. English, French, bilingual.">
+<link rel="canonical" href="https://pariscomedy.com/comedians.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Comedians — Paris Comedy">
+<meta property="og:description" content="The directory of English-language stand-up comedians performing in Paris.">
+<meta property="og:url" content="https://pariscomedy.com/comedians.html">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com/","email":"payments@pariscomedy.com","description":"The home of English-language stand-up comedy in Paris."}</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ItemList","name":"Paris Stand-Up Comedians","description":"Comedians performing English and bilingual stand-up comedy in Paris","url":"https://pariscomedy.com/comedians.html"}
 </script>
@@ -181,24 +188,24 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
       <textarea id="m-bio" placeholder="Tell the booker who you are and what your act is about…"></textarea>
       <label>Submit to show (optional)</label>
       <select id="m-show"><option value="">— No specific show —</option></select>
-      <div style="background:#0a0a0a;border:1px solid #2a1a4a;border-radius:10px;padding:14px;margin:14px 0;text-align:center">
-        <div style="font-size:13px;color:#f5c518;font-weight:700;margin-bottom:6px">⚡ Pay €1 via Lightning (optional)</div>
-        <div style="font-size:14px;font-weight:700;color:#9d5ff5">payments@pariscomedy.com</div>
-        <div style="font-size:11px;color:#555;margin-top:4px">Any Lightning wallet · instant · no account needed</div>
-      </div>
+      <label>Choose your plan</label>
+      <select id="m-plan" onchange="updatePlanInfo()">
+        <option value="free">Free profile — €0 (listed in the directory)</option>
+        <option value="bioblast">Bio blast — €1 one-time (bio sent straight to bookers)</option>
+        <option value="comicplus">Comic Plus — €1/month or €12/year (highlighted + message bookers)</option>
+      </select>
+      <div id="plan-info" style="background:#0a0a0a;border:1px solid #2a1a4a;border-radius:10px;padding:14px;margin:14px 0;font-size:12px;color:#888;line-height:1.6"></div>
       <div class="modal-btns">
         <button class="btn-cancel" id="btn-cancel">Cancel</button>
-        <button class="btn-pay" id="btn-pay">Submit bio →</button>
+        <button class="btn-pay" id="btn-pay">Submit →</button>
       </div>
       <div class="err" id="m-err"></div>
     </div>
-    <div id="qr-section">
-      <p style="color:#7ae07a;font-weight:600">Bio submitted! We'll be in touch within 24 hours.</p>
-      <button class="btn-cancel" id="btn-close-success" style="margin-top:16px">Close</button>
-    </div>
+    <div id="qr-section"></div>
   </div>
 </div>
 
+<script src="/js/leadcapture.js"></script>
 <script>
 // Emergency fallback — 3 known comedians if fetch fails
 const COMICS_FALLBACK = [
@@ -342,53 +349,68 @@ document.getElementById('modal-bg').addEventListener('click',e=>{
   if(e.target===document.getElementById('modal-bg')) document.getElementById('modal-bg').classList.remove('open');
 });
 
+const PLAN_INFO={
+  free:'Free profile — €0. Your bio is listed in the public comedian directory. No payment needed.',
+  bioblast:'Bio blast — €1 one-time. We send your bio straight to show bookers&rsquo; inboxes. Pay by Lightning after you submit.',
+  comicplus:'Comic Plus — €1/month or €12/year. Get highlighted on the homepage, appear higher in the directory, and message bookers directly.'
+};
+function updatePlanInfo(){
+  const v=document.getElementById('m-plan').value;
+  document.getElementById('plan-info').innerHTML=PLAN_INFO[v]||'';
+  document.getElementById('btn-pay').textContent=(v==='free')?'Submit profile →':'Submit & pay →';
+}
+document.addEventListener('DOMContentLoaded',updatePlanInfo);
+
 document.getElementById('btn-pay').onclick=async()=>{
   const name=document.getElementById('m-name').value.trim();
   const email=document.getElementById('m-email').value.trim();
   const bio=document.getElementById('m-bio').value.trim();
   const show=document.getElementById('m-show').options[document.getElementById('m-show').selectedIndex]?.text||'';
+  const plan=document.getElementById('m-plan').value;
   const errEl=document.getElementById('m-err');
   errEl.textContent='';
   if(!name||!email||!bio){errEl.textContent='Please fill in your name, email, and bio.';return;}
 
   const btn=document.getElementById('btn-pay');
-  btn.disabled=true; btn.textContent='Submitting…';
+  btn.disabled=true; btn.textContent='Submitting\u2026';
 
-  try {
-    const cfg=await fetch('/api-config.json').then(r=>r.json()).catch(()=>({api:''}));
-    const API=cfg.api||'';
-    if(!API){errEl.textContent='Server offline. Email bio.com directly.';btn.disabled=false;btn.textContent='Submit bio →';return;}
+  const planLabel={free:'Free profile',bioblast:'Bio blast (\u20ac1 one-time)',comicplus:'Comic Plus (\u20ac1/month or \u20ac12/year)'}[plan];
+  const body='Plan: '+planLabel+'\nName: '+name+'\nEmail: '+email+
+             '\nShow: '+(show||'(none)')+'\nBio: '+bio;
+  const res=await LeadCapture.submit({
+    route:'/api/comic-profile', formType:'comic-profile',
+    payload:{name:name,email:email,role:'comic',plan:planLabel,target:show,message:body},
+    mailtoSubject:'Comedian '+planLabel+': '+name, mailtoBody:body
+  });
 
-    const resp=await fetch(`${API}/api/book`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({_type:'bio',name,email,bio,show,message:bio})
-    });
-    if(!resp.ok){errEl.textContent='Server error '+resp.status+'. Try again.';btn.disabled=false;btn.textContent='Submit bio →';return;}
-
-    document.getElementById('form-section').style.display='none';
-    document.getElementById('qr-section').style.display='';
-  } catch(e) {
-    errEl.textContent='Network error. Email bio.com directly.';
-    btn.disabled=false; btn.textContent='Submit bio →';
+  document.getElementById('form-section').style.display='none';
+  const qs=document.getElementById('qr-section');
+  qs.style.display='';
+  let html='';
+  if(res.status==='sent'){
+    html='<p style="color:#7ae07a;font-weight:600">Profile submitted! We&rsquo;ll be in touch within 24 hours.</p>';
+  }else{
+    html='<p style="color:#f5c518;font-weight:600">Saved locally — the server is temporarily unavailable. '+
+      '<a href="'+res.mailto+'" style="color:#f5c518">Send by email \u2192</a></p>';
   }
+  if(plan!=='free'){
+    html+='<div style="background:#0a0a0a;border:1px solid #2a1a4a;border-radius:10px;padding:14px;margin-top:14px;text-align:center">'+
+      '<div style="font-size:13px;color:#f5c518;font-weight:700;margin-bottom:6px">\u26a1 Pay '+
+      (plan==='bioblast'?'\u20ac1 one-time':'\u20ac1/month or \u20ac12/year')+' via Lightning</div>'+
+      '<div style="display:flex;align-items:center;gap:8px;justify-content:center">'+
+      '<span id="cm-addr" style="font-size:14px;font-weight:700;color:#9d5ff5">payments@pariscomedy.com</span>'+
+      '<button onclick="navigator.clipboard&&navigator.clipboard.writeText(\'payments@pariscomedy.com\');this.textContent=\'Copied\'" '+
+      'style="padding:5px 10px;border-radius:6px;border:1px solid #333;background:transparent;color:#888;font-size:12px;cursor:pointer">Copy</button></div>'+
+      '<img src="/assets/lightning-qr.svg" alt="Lightning QR" width="120" height="120" style="background:#fff;border-radius:8px;padding:6px;margin-top:10px">'+
+      '</div>';
+  }
+  qs.innerHTML=html+'<button class="btn-cancel" id="btn-close-success" style="margin-top:16px">Close</button>';
+  document.getElementById('btn-close-success').onclick=()=>document.getElementById('modal-bg').classList.remove('open');
 };
-document.getElementById('btn-close-success').onclick=()=>document.getElementById('modal-bg').classList.remove('open');
 
 function toggleActuality(id){
   const el=document.getElementById(id);
   if(el) el.classList.toggle('open');
-}
-
-function drawQR(text){
-  const canvas=document.getElementById('qr-canvas');
-  const ctx=canvas.getContext('2d');
-  ctx.fillStyle='#fff'; ctx.fillRect(0,0,220,220);
-  const img=new Image();
-  img.crossOrigin='anonymous';
-  img.onload=()=>{ctx.clearRect(0,0,220,220);ctx.drawImage(img,0,0,220,220);};
-  img.onerror=()=>{document.getElementById('bolt11-text').style.maxHeight='none';};
-  img.src=`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent('lightning:'+text)}`;
 }
 </script>
 
@@ -397,12 +419,13 @@ function drawQR(text){
     <a href="/" style="color:#666">Home</a>
     <a href="/shows.html" style="color:#666">Shows</a>
     <a href="/venues.html" style="color:#666">Venues</a>
-    <a href="/book.html" style="color:#666">Book a Show</a>
-    <a href="/comedians.html" style="color:#666">For Comedians</a>
+    <a href="/comedians.html" style="color:#666">Comedians</a>
     <a href="/bookers.html" style="color:#666">Bookers</a>
     <a href="/pricing.html" style="color:#666">Pricing</a>
+    <a href="/book.html" style="color:#666">Book / Connect</a>
+    <a href="/about.html" style="color:#666">About</a>
   </div>
-  <div>payments@pariscomedy.com </div>
+  <div>payments@pariscomedy.com</div>
 </footer>
 
 </body>

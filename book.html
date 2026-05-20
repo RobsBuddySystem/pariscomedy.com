@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Connect — Paris Comedy</title>
 <meta name="description" content="List your show, submit your comedian bio, or book talent through Paris Comedy — the home of English-language stand-up in Paris.">
+<link rel="canonical" href="https://pariscomedy.com/book.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Book / Connect — Paris Comedy">
+<meta property="og:description" content="List your show, submit your comedian bio, or book talent through Paris Comedy.">
+<meta property="og:url" content="https://pariscomedy.com/book.html">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com/","email":"payments@pariscomedy.com","description":"The home of English-language stand-up comedy in Paris."}</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--purple:#7c3aed;--purple-light:#9d5ff5;--bg:#0a0a0a;--card:#111;--border:#1e1e1e;--text:#f0f0f0;--muted:#888;--yellow:#f5c518;--gold:#f59e0b}
@@ -314,6 +321,97 @@ footer a:hover{color:var(--text)}
   <div>payments@pariscomedy.com </div>
 </footer>
 
+<script src="/js/leadcapture.js"></script>
+<script>
+// ── Tab navigation ────────────────────────────────────────────────────────
+function showPath(id, btn) {
+  document.querySelectorAll('.path').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Handle anchor links on load
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.replace('#', '');
+  const validPaths = ['show-runner', 'comedian', 'booker'];
+  if (validPaths.includes(hash)) {
+    const btn = document.querySelector(`.tab-btn[onclick*="${hash}"]`);
+    if (btn) showPath(hash, btn);
+  }
+});
+
+// \u2500\u2500 Form handlers (revenue-safe via LeadCapture) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+async function runForm(opts) {
+  const btn = opts.btn;
+  btn.disabled = true; const label = btn.textContent; btn.textContent = 'Submitting\u2026';
+  const res = await LeadCapture.submit(opts.lead);
+  opts.form.style.display = 'none';
+  opts.success.style.display = 'block';
+  LeadCapture.renderResult(opts.success, res, opts.label);
+}
+
+async function submitShowRunner() {
+  const g = id => document.getElementById(id).value.trim();
+  const showname=g('sr-showname'), venue=g('sr-venue'), email=g('sr-email');
+  const err=document.getElementById('sr-err'); err.textContent='';
+  if(!showname||!venue||!email){err.textContent='Please fill in Show name, Venue and Email.';return;}
+  const body='Show: '+showname+'\nVenue: '+venue+'\nDay: '+g('sr-day')+'\nTime: '+g('sr-time')+
+             '\nEventbrite: '+g('sr-eventbrite')+'\nEmail: '+email;
+  await runForm({btn:document.querySelector('#show-runner .btn-primary'),
+    form:document.getElementById('form-show-runner'), success:document.getElementById('sr-success'),
+    label:'Show listing submitted',
+    lead:{route:'/api/show-submission',formType:'show-submission',
+      payload:{name:showname,email:email,target:venue,message:body},
+      mailtoSubject:'List my show: '+showname, mailtoBody:body}});
+}
+
+async function submitComedian() {
+  const g = id => document.getElementById(id).value.trim();
+  const name=g('co-name'), email=g('co-email'), bio=g('co-bio');
+  const err=document.getElementById('co-err'); err.textContent='';
+  if(!name||!email||!bio){err.textContent='Please fill in Name, Email and Bio.';return;}
+  const body='Name: '+name+'\nEmail: '+email+'\nLevel: '+g('co-level')+'\nStyle: '+g('co-style')+
+             '\nVideo: '+g('co-video')+'\nBio: '+bio;
+  await runForm({btn:document.querySelector('#comedian .btn-primary'),
+    form:document.getElementById('form-comedian'), success:document.getElementById('co-success'),
+    label:'Comedian bio submitted',
+    lead:{route:'/api/comic-profile',formType:'comic-profile',
+      payload:{name:name,email:email,role:'comic',message:body},
+      mailtoSubject:'Comedian bio: '+name, mailtoBody:body}});
+}
+
+async function submitBooker() {
+  const g = id => document.getElementById(id).value.trim();
+  const name=g('bk-name'), email=g('bk-email'), eventtype=g('bk-eventtype');
+  const err=document.getElementById('bk-err'); err.textContent='';
+  if(!name||!email||!eventtype){err.textContent='Please fill in Name, Email and Event type.';return;}
+  const body='Name: '+name+'\nEmail: '+email+'\nEvent type: '+eventtype+'\nDate: '+g('bk-date')+
+             '\nBudget: '+g('bk-budget')+'\nLocation: '+g('bk-location');
+  await runForm({btn:document.querySelector('#booker .btn-primary'),
+    form:document.getElementById('form-booker'), success:document.getElementById('bk-success'),
+    label:'Private booking request sent',
+    lead:{route:'/api/private-booking',formType:'private-booking',
+      payload:{name:name,email:email,role:'booker',message:body},
+      mailtoSubject:'Private booking: '+eventtype, mailtoBody:body}});
+}
+
+async function submitMessage() {
+  const g = id => document.getElementById(id).value.trim();
+  if(document.getElementById('msg-website').value){return;}  // honeypot
+  const name=g('msg-name'), email=g('msg-email'), subject=g('msg-subject'), msg=g('msg-body');
+  const err=document.getElementById('msg-err'); err.textContent='';
+  if(!name||!email||!subject||!msg){err.textContent='Please fill in name, email, subject and message.';return;}
+  if(msg.length<10){err.textContent='Message must be at least 10 characters.';return;}
+  const body='From: '+name+' <'+email+'>\nSubject: '+subject+'\n\n'+msg;
+  await runForm({btn:document.querySelector('#message .btn-primary'),
+    form:document.getElementById('form-message'), success:document.getElementById('msg-success'),
+    label:'Message sent',
+    lead:{route:'/api/leads',formType:'message',
+      payload:{name:name,email:email,role:g('msg-sender-type'),target:g('msg-recipient-type'),message:body},
+      mailtoSubject:'Message: '+subject, mailtoBody:body}});
+}
+</script>
 <script>
 // ── Tab navigation ────────────────────────────────────────────────────────
 function showPath(id, btn) {
