@@ -33,19 +33,25 @@ try {
   $reset = & git reset --hard origin/main 2>&1 | Out-String
   Log "git-reset: $reset"
 
+  $dout = & python scripts\discover_shows.py 2>&1 | Out-String
+  Log "discover: $dout"
+
+  $aout = & python scripts\comic_actuality.py 2>&1 | Out-String
+  Log "actuality: $aout"
+
   $vout = & python scripts\validate_tickets.py 2>&1 | Out-String
   Log "validator: $vout"
 
   $bout = & python scripts\bake_shows.py 2>&1 | Out-String
   Log "bake: $bout"
 
-  $diff = & git status --porcelain data/shows_generated.json data/review_queue.json index.html shows.html 2>&1 | Out-String
+  $diff = & git status --porcelain data/shows_generated.json data/review_queue.json data/discovered_shows.json data/scrape_conflicts.json data/organizers.json data/comic_actuality.json data/comic_actuality_unverified.json index.html shows.html 2>&1 | Out-String
   if (-not $diff.Trim()) {
     Log "no-op (no diff)"
     exit 0
   }
 
-  & git add data/shows_generated.json data/review_queue.json index.html shows.html 2>&1 | Out-Null
+  & git add data/shows_generated.json data/review_queue.json data/discovered_shows.json data/scrape_conflicts.json data/organizers.json data/comic_actuality.json data/comic_actuality_unverified.json index.html shows.html 2>&1 | Out-Null
   $stamp = (Get-Date -Format "yyyy-MM-ddTHH:mmZ")
   $commit = & git commit -m "hourly[win]: revalidate ticket statuses ($stamp)" 2>&1 | Out-String
   Log "commit: $commit"
