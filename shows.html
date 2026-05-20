@@ -80,6 +80,13 @@ footer a{color:#666}footer a:hover{color:#f0f0f0}
 .footer-extra{margin-top:10px;font-size:12px;color:#444}
 .footer-extra a{color:#555}
 .footer-extra a:hover{color:#888}
+#spotlight{max-width:1100px;margin:8px auto 0;padding:0 24px}
+.spotlight-card{background:linear-gradient(135deg,rgba(245,197,24,.12),rgba(124,58,237,.08));border:1px solid #f5c518;border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:8px;position:relative}
+.spotlight-tag{display:inline-block;align-self:flex-start;background:#f5c518;color:#000;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:6px}
+.spotlight-name{font-size:20px;font-weight:800;line-height:1.2}
+.spotlight-meta{font-size:13px;color:#aaa}
+.spotlight-btn{align-self:flex-start;margin-top:6px;background:#f5c518;color:#000;font-size:13px;font-weight:700;padding:9px 18px;border-radius:8px}
+.spotlight-btn:hover{opacity:.9}
 </style>
 </head>
 <body>
@@ -118,6 +125,8 @@ footer a{color:#666}footer a:hover{color:#f0f0f0}
   <button class="day-btn" id="day-Sat" onclick="setDay('Sat')">Sat</button>
   <button class="day-btn" id="day-Sun" onclick="setDay('Sun')">Sun</button>
 </div>
+
+<div id="spotlight"></div>
 
 <div class="grid" id="shows-grid"></div>
 
@@ -303,6 +312,36 @@ function setDay(d) {
   document.getElementById('day-' + d).classList.add('active');
   render();
 }
+
+// ── DAILY SPOTLIGHT ────────────────────────────────────────────────────────
+// One highlighted show, rotates daily. Anchored so 2026-05-20 shows FFCN.
+function renderSpotlight() {
+  const host = document.getElementById('spotlight');
+  if (!host) return;
+  const today = todayParis();
+  const seen = new Set();
+  const pool = SHOWS_DATA
+    .filter(s => s.date >= today && (s.ticket_url_status || 'active') === 'active')
+    .filter(s => { const k = s.recurring_id || s.id; if (seen.has(k)) return false; seen.add(k); return true; })
+    .sort((a,b) => (a.recurring_id||a.id).localeCompare(b.recurring_id||b.id));
+  if (!pool.length) { host.innerHTML = ''; return; }
+  const dayNum    = Math.floor(Date.parse(today + 'T00:00:00Z') / 864e5);
+  const anchorDay = Math.floor(Date.parse('2026-05-20T00:00:00Z') / 864e5);
+  let anchorIdx = pool.findIndex(s => (s.recurring_id || s.id || '').toLowerCase().startsWith('ffcn'));
+  if (anchorIdx < 0) anchorIdx = 0;
+  const idx = (((dayNum - anchorDay) + anchorIdx) % pool.length + pool.length) % pool.length;
+  const s = pool[idx];
+  const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const [y,m,d] = s.date.split('-').map(Number);
+  const dn = DAYS[new Date(Date.UTC(y,m-1,d)).getUTCDay()];
+  host.innerHTML = `<div class="spotlight-card">
+    <span class="spotlight-tag">\u2b50 Featured show today</span>
+    <div class="spotlight-name">${s.emoji||''} ${s.show_name||''}</div>
+    <div class="spotlight-meta">${dn} ${m}/${d} &middot; ${s.start_time||''} &middot; ${s.venue||''}${s.neighborhood?(' &middot; '+s.neighborhood):''}</div>
+    <a href="/r.html?id=${encodeURIComponent(s.id||'')}&url=${encodeURIComponent(s.ticket_url||'')}" target="_blank" rel="noopener" class="spotlight-btn">Get tickets &rarr;</a>
+  </div>`;
+}
+renderSpotlight();
 
 render();
 </script>

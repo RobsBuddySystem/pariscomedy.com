@@ -145,6 +145,11 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;co
 footer a{color:var(--muted)}
 footer a:hover{color:var(--text)}
 .footer-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+#spotlight{max-width:1200px;margin:8px auto 0;padding:0 24px}
+.spotlight-card{background:linear-gradient(135deg,rgba(245,158,11,.14),rgba(124,58,237,.08));border:1px solid var(--gold);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:6px}
+.spotlight-tag{display:inline-block;align-self:flex-start;background:var(--gold);color:#000;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:6px}
+.spotlight-name{font-size:20px;font-weight:800}
+.spotlight-meta{font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -188,6 +193,8 @@ footer a:hover{color:var(--text)}
   </div>
 </div>
 <div class="count" id="count"></div>
+<div id="spotlight"></div>
+
 <div class="grid" id="grid"></div>
 
 <!-- Upgrade Modal -->
@@ -268,6 +275,26 @@ function badgeClass(t) { return 'badge badge-' + (t || 'showcase'); }
 function badgeLabel(t) {
   const m = {open_mic:'Open Mic', showcase:'Showcase', flagship:'Flagship', solo_show:'Solo Show'};
   return m[t] || t;
+}
+
+function renderSpotlight() {
+  const host = document.getElementById('spotlight');
+  if (!host) return;
+  const seen = new Set();
+  const pool = VENUES.filter(v => { const k=v.name; if(seen.has(k))return false; seen.add(k); return true; })
+    .slice().sort((a,b) => a.name.localeCompare(b.name));
+  if (!pool.length) { host.innerHTML=''; return; }
+  const today = new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Paris'});
+  const dayNum = Math.floor(Date.parse(today+'T00:00:00Z')/864e5);
+  const v = pool[((dayNum % pool.length)+pool.length)%pool.length];
+  const addr = (v.address && v.address!=='TBD') ? v.address : '';
+  const metro = (v.metro && v.metro!=='TBD') ? v.metro : '';
+  host.innerHTML = `<div class="spotlight-card">
+    <span class="spotlight-tag">\u2b50 Featured venue today</span>
+    <div class="spotlight-name">${v.name}</div>
+    <div class="spotlight-meta">${[v.neighborhood&&v.neighborhood!=='TBD'?v.neighborhood:'', addr, metro].filter(Boolean).join(' \u00b7 ')}</div>
+    ${v.notes?`<div class="spotlight-meta">${v.notes}</div>`:''}
+  </div>`;
 }
 
 function render() {
@@ -459,6 +486,7 @@ async function submitClaim() {
   }
 }
 
+renderSpotlight();
 render();
 </script>
 </body>
