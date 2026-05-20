@@ -243,11 +243,11 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:8px">
     <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px">
       <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:10px"><span style="width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:6px;box-shadow:0 0 8px #4ade80"></span>Tonight</div>
-      <div id="whats-on-tonight" style="font-size:13px;color:#ccc;line-height:1.8">Loading…</div>
+      <div id="whats-on-tonight" style="font-size:13px;color:#ccc;line-height:1.8"><a href="/shows.html?tab=tonight" style="color:var(--purple-light)">See tonight&rsquo;s shows →</a></div>
     </div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px">
       <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:10px">This Week</div>
-      <div id="whats-on-week" style="font-size:13px;color:#ccc;line-height:1.8">Loading…</div>
+      <div id="whats-on-week" style="font-size:13px;color:#ccc;line-height:1.8"><a href="/shows.html" style="color:var(--purple-light)">See this week →</a></div>
     </div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px">
       <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:10px">Coming Up</div>
@@ -287,7 +287,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
     <a href="/book.html#show-runner" class="connect-card">
       <div class="connect-icon">🎤</div>
       <div class="connect-title">I run a comedy show</div>
-      <div class="connect-sub">Submit your show and get in front of Paris Comedy audiences. Promotion options coming soon.</div>
+      <div class="connect-sub">Submit your show and get in front of Paris Comedy audiences. Promote it from €1/month.</div>
       <span class="connect-btn">Get listed →</span>
     </a>
     <a href="/book.html#comedian" class="connect-card">
@@ -344,7 +344,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I get a Featured listing?</div>
-      <div class="faq-a">Submit your show via the <a href="/book.html#show-runner" style="color:var(--purple-light)">Get listed</a> form. Promoted placement options are coming soon.</div>
+      <div class="faq-a">Submit your show via the <a href="/book.html#show-runner" style="color:var(--purple-light)">Get listed</a> form, then promote it to the top of listings with <a href="/pricing.html#booker-plus" style="color:var(--purple-light)">Booker Plus (€1/month)</a>.</div>
     </div>
   </div>
 </section>
@@ -354,7 +354,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">
     <div>
       <h2 style="font-size:22px;font-weight:700">Coming Up This Week</h2>
-      <p style="color:#888;font-size:14px;margin-top:4px">Upcoming comedy shows in Paris &middot; May 19–25</p>
+      <p style="color:#888;font-size:14px;margin-top:4px">Upcoming comedy shows in Paris &middot; <span id="week-range"></span></p>
     </div>
     <a href="/shows.html" style="color:#f5c518;font-size:13px;font-weight:600">See all shows &rarr;</a>
   </div>
@@ -363,9 +363,12 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 
 <footer>
   <div class="tip-jar">
-    <a href="lightning:tip.com" class="tip-btn">⚡ Tip Robert</a>
+    <div style="font-size:14px;font-weight:700;margin-bottom:4px">Support Paris Comedy</div>
     <div class="tip-label">Pay with any Lightning wallet</div>
-    <div class="tip-addr">tip.com</div>
+    <div style="display:flex;align-items:center;gap:8px;justify-content:center;margin-top:8px">
+      <span class="tip-addr" id="tip-addr">payments@pariscomedy.com</span>
+      <button onclick="copyTip()" style="padding:6px 10px;border-radius:6px;border:1px solid #2a1a4a;background:transparent;color:#888;font-size:12px;cursor:pointer">Copy</button>
+    </div>
   </div>
   <div class="footer-links" style="margin-top:24px">
     <a href="/">Home</a>
@@ -689,6 +692,23 @@ renderGrid();
 renderWeekRow();
 injectEventSchemas();
 renderWhatsOn();
+
+// Dynamic "this week" range (Europe/Paris).
+(function () {
+  const el = document.getElementById('week-range');
+  if (!el) return;
+  const M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const start = new Date(todayParis + 'T00:00:00');
+  const end = new Date(start); end.setDate(end.getDate() + 6);
+  el.textContent = `${M[start.getMonth()]} ${start.getDate()}–` +
+    (start.getMonth() === end.getMonth() ? '' : M[end.getMonth()] + ' ') + end.getDate();
+})();
+
+function copyTip() {
+  navigator.clipboard && navigator.clipboard.writeText('payments@pariscomedy.com');
+  event.target.textContent = 'Copied';
+  setTimeout(function () { event.target.textContent = 'Copy'; }, 1500);
+}
 
 // ── WHAT'S ON grid ────────────────────────────────────────────────────────
 function renderWhatsOn() {
