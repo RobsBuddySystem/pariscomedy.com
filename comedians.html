@@ -234,6 +234,14 @@ function initPage() {
 }
 
 
+function counts() {
+  const en = COMICS.filter(c => !c.is_archived && c.langs.includes('en') && !c.langs.includes('fr')).length;
+  const fr = COMICS.filter(c => !c.is_archived && c.langs.includes('fr') && !c.langs.includes('en')).length;
+  const bi = COMICS.filter(c => !c.is_archived && c.langs.includes('en') && c.langs.includes('fr')).length;
+  const set = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
+  set('count-en',en); set('count-fr',fr); set('count-bi',bi);
+}
+
 function renderSpotlight() {
   const host = document.getElementById('spotlight');
   if (!host) return;
