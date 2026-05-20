@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pricing — Paris Comedy</title>
-<meta name="description" content="The first 100 members get lifetime Comic Plus or Booker Plus for a single €1 payment. Free forever for everyone else.">
+<meta name="description" content="The first 100 comedians get lifetime Comic Plus for a single €1 payment. Booker Plus is €1/month. Free forever for everyone else.">
 <link rel="canonical" href="https://pariscomedy.com/pricing.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Pricing — Paris Comedy">
-<meta property="og:description" content="First 100 members: lifetime access for €1. Free forever for everyone else.">
+<meta property="og:description" content="First 100 comedians: lifetime Comic Plus for €1. Booker Plus €1/month.">
 <meta property="og:url" content="https://pariscomedy.com/pricing.html">
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com/","email":"payments@pariscomedy.com","description":"The home of English-language stand-up comedy in Paris."}</script>
@@ -90,11 +90,11 @@ footer a:hover{color:var(--text)}
 
 <div class="hero">
   <h1>Founding Member offer.</h1>
-  <p>Everyone browses and lists for free. The first 100 members lock in lifetime Plus access.</p>
+  <p>Everyone browses and lists for free. The first 100 comedians lock in lifetime Comic Plus.</p>
   <div class="founding-banner">
-    ⭐ <strong>First 100 only:</strong> one payment of <strong>€1</strong> = <strong>lifetime</strong>
-    Comic Plus or Booker Plus. No subscription, never billed again. After 100 members this
-    closes for good.
+    ⭐ <strong>First 100 comedians only:</strong> one payment of <strong>€1</strong> = <strong>lifetime</strong>
+    Comic Plus. No subscription, never billed again. After 100 it closes for good.
+    (Booker Plus is a separate monthly plan — see below.)
   </div>
 </div>
 
@@ -139,23 +139,21 @@ footer a:hover{color:var(--text)}
 
   <!-- Booker Plus -->
   <div class="plan-card featured" id="booker-plus">
-    <span class="plan-tag">Founding · lifetime</span>
     <div class="plan-name">Booker Plus</div>
-    <div class="plan-price">€1 <small>once — lifetime</small></div>
+    <div class="plan-price">€1 <small>/ month · or €12 / year</small></div>
     <div class="plan-desc">For show runners who want visibility and direct access to comics.</div>
     <ul class="plan-features">
       <li>Everything in Free</li>
       <li>Promote shows to the top of listings</li>
       <li>Message comics directly</li>
       <li>Feature a show in the homepage slot</li>
-      <li>Founding Member badge on your shows</li>
     </ul>
-    <button class="btn-plan btn-start" onclick="openIntent('booker')">Claim my €1 lifetime spot →</button>
+    <button class="btn-plan btn-start" onclick="openIntent('booker')">Start Booker Plus →</button>
     <form class="intent-form" id="intent-booker" onsubmit="return submitIntent(event,'booker','Booker Plus')">
       <input type="text"  id="booker-name"  placeholder="Your name" required>
       <input type="email" id="booker-email" placeholder="your@email.com" required>
       <div class="intent-error" id="booker-err"></div>
-      <button type="submit">Continue to €1 payment →</button>
+      <button type="submit">Continue →</button>
     </form>
     <div class="celebrate" id="booker-celebrate"></div>
   </div>
@@ -163,8 +161,7 @@ footer a:hover{color:var(--text)}
 </div>
 
 <div class="footer-note">
-  €1 is a one-time payment via SumUp (card). It buys lifetime Plus access for the first 100
-  members — there is no recurring charge, ever. Questions? payments@pariscomedy.com
+  Comic Plus: a one-time €1 via SumUp buys lifetime access for the first 100 comedians — never billed again. Booker Plus: €1/month (or €12/year), pay the first month via SumUp, invoiced by email thereafter. Cancel anytime. Questions? payments@pariscomedy.com
 </div>
 
 <footer>
@@ -200,7 +197,10 @@ async function submitIntent(ev, type, planName) {
   if (!name || !email || email.indexOf('@') < 0) {
     err.textContent = 'Name and a valid email are required.'; return false;
   }
-  var body = 'Plan: ' + planName + ' (Founding Member — €1 lifetime)\n' +
+  var isComic = (type === 'comic');
+  var planDesc = isComic ? 'Founding Member — €1 lifetime'
+                         : '€1/month (or €12/year), invoiced monthly';
+  var body = 'Plan: ' + planName + ' (' + planDesc + ')\n' +
              'Name: ' + name + '\nEmail: ' + email + '\nRole: ' + type;
 
   // Capture the member BEFORE sending them to the payment page.
@@ -208,26 +208,41 @@ async function submitIntent(ev, type, planName) {
     route: '/api/pricing-intent',
     formType: 'pricing-intent',
     payload: {name: name, email: email, role: type,
-              plan: planName + ' — Founding Member (€1 lifetime)', message: body},
-    mailtoSubject: planName + ' — Founding Member (€1 lifetime)',
+              plan: planName + ' — ' + planDesc, message: body},
+    mailtoSubject: planName + ' signup',
     mailtoBody: body
   });
 
   document.getElementById('intent-' + type).style.display = 'none';
   var box = document.getElementById(type + '-celebrate');
   box.classList.add('show');
-  box.innerHTML =
-    '<img class="badge" src="/assets/founding-member-badge.svg" alt="Paris Comedy Founding Member badge">' +
-    '<h3>You&rsquo;re a Founding Member 🎉</h3>' +
-    '<p>' + name + ', your ' + planName + ' spot is reserved. ' +
-    (res.status === 'sent'
-      ? 'Pay €1 once below to activate lifetime access — you&rsquo;ll never be billed again.'
-      : 'We saved your details locally (server busy). Pay €1 below, then ' +
-        '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
-    '</p>' +
-    '<a class="pay-btn" href="' + SUMUP_1EURO + '" target="_blank" rel="noopener">Pay €1 — lifetime →</a>' +
-    '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
-    '<div class="pay-note">Secure card payment via SumUp · one-time €1 · scan or tap</div>';
+
+  if (isComic) {
+    box.innerHTML =
+      '<img class="badge" src="/assets/founding-member-badge.svg" alt="Paris Comedy Founding Member badge">' +
+      '<h3>You&rsquo;re a Founding Member 🎉</h3>' +
+      '<p>' + name + ', your Comic Plus spot is reserved. ' +
+      (res.status === 'sent'
+        ? 'Pay €1 once below to activate lifetime access — you&rsquo;ll never be billed again.'
+        : 'We saved your details locally (server busy). Pay €1 below, then ' +
+          '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
+      '</p>' +
+      '<a class="pay-btn" href="' + SUMUP_1EURO + '" target="_blank" rel="noopener">Pay €1 — lifetime →</a>' +
+      '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
+      '<div class="pay-note">Secure card payment via SumUp · one-time €1 · scan or tap</div>';
+  } else {
+    box.innerHTML =
+      '<h3>Booker Plus — you&rsquo;re in 🎭</h3>' +
+      '<p>' + name + ', your Booker Plus is reserved. ' +
+      (res.status === 'sent'
+        ? 'Pay your first month (€1) below — we then invoice you €1/month by email. Cancel anytime.'
+        : 'We saved your details locally (server busy). Pay the first €1 below, then ' +
+          '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
+      '</p>' +
+      '<a class="pay-btn" href="' + SUMUP_1EURO + '" target="_blank" rel="noopener">Pay €1 — first month →</a>' +
+      '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
+      '<div class="pay-note">Secure card payment via SumUp · €1/month, invoiced by email · cancel anytime</div>';
+  }
   return false;
 }
 </script>
