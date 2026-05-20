@@ -75,10 +75,11 @@ footer a:hover{color:var(--text)}
     <a href="/">Home</a>
     <a href="/shows.html">Shows</a>
     <a href="/venues.html">Venues</a>
-    <a href="/book.html">Book / Connect</a>
-    <a href="/comedians.html">For Comedians</a>
+    <a href="/comedians.html">Comedians</a>
     <a href="/bookers.html" class="nav-active">Bookers</a>
     <a href="/pricing.html">Pricing</a>
+    <a href="/book.html">Book / Connect</a>
+    <a href="/about.html">About</a>
   </div>
 </nav>
 
@@ -95,7 +96,125 @@ footer a:hover{color:var(--text)}
   <div class="section-title">Claimable Shows</div>
   <div class="section-sub">These shows are listed from public sources. If you run one, claim it to manage dates, add lineups, and connect with comics.</div>
   <div class="shows-list" id="shows-list">
-    <div style="color:var(--muted);font-size:14px;padding:12px 0">Loading shows…</div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 Broadway Comedy Club - Paris</div>
+        <div class="show-row-meta">25 Bd de Bonne Nouvelle · Tuesday 19:00 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('Broadway Comedy Club - Paris')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 Kuhl Comedy Open Mic</div>
+        <div class="show-row-meta">Toloache · Tuesday 19:30 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('Kuhl Comedy Open Mic')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 Cuba Compagnie Comedy Club</div>
+        <div class="show-row-meta">Cuba Compagnie · Tuesday 19:30 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('Cuba Compagnie Comedy Club')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 Green Light Comedy</div>
+        <div class="show-row-meta">Les Marquises · Tuesday 20:15 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('Green Light Comedy')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 Kiss Comedy Club</div>
+        <div class="show-row-meta">Le Coquin · Wednesday 20:00 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('Kiss Comedy Club')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 South Comedy Club</div>
+        <div class="show-row-meta">Comédie Café · Wednesday 20:00 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('South Comedy Club')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 Velvet Bar Comedy — Le meilleur du stand-up</div>
+        <div class="show-row-meta">Velvet Bar · Wednesday 20:30 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('Velvet Bar Comedy — Le meilleur du stand-up')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 Comedy Crush Wednesday Show</div>
+        <div class="show-row-meta">Les Cariatiades · Wednesday 20:30 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('Comedy Crush Wednesday Show')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 The Dissident Comedy Show</div>
+        <div class="show-row-meta">The Dissident Club · Wednesday 20:30 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('The Dissident Comedy Show')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 French Fried Comedy Night</div>
+        <div class="show-row-meta">Velvet Bar · Wednesday 22:00 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('French Fried Comedy Night')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 The Englishman Comedy Night</div>
+        <div class="show-row-meta">The Englishman Cocktail Club · Thursday 20:00 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('The Englishman Comedy Night')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 Comedy Lab</div>
+        <div class="show-row-meta">Chat Noir · Thursday 20:00 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('Comedy Lab')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 Green Mic Showcase</div>
+        <div class="show-row-meta">Au Soleil de la Butte · Friday 20:30 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('Green Mic Showcase')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 English Stand-Up Comedy in Paris — Friday Night Show</div>
+        <div class="show-row-meta">La Pomme d'Eve · Friday 20:30 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('English Stand-Up Comedy in Paris — Friday Night Show')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 Smash Comedy Club</div>
+        <div class="show-row-meta">Comédie Café · Saturday 19:00 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('Smash Comedy Club')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 Oscar Comedy Club</div>
+        <div class="show-row-meta">Café Oscar · Sunday 17:00 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('Oscar Comedy Club')">Claim this show →</button>
+    </div>
+    <div class="show-row">
+      <div>
+        <div class="show-row-name">🎭 Green Mic Comedy Show</div>
+        <div class="show-row-meta">Ma Cocotte du Faubourg · Sunday 19:30 · public listing</div>
+      </div>
+      <button class="show-row-claim" onclick="prefillClaim('Green Mic Comedy Show')">Claim this show →</button>
+    </div>
   </div>
 </section>
 
@@ -139,15 +258,15 @@ footer a:hover{color:var(--text)}
   </div>
 
   <div class="plus-teaser">
-    <h2>🔒 Booker Plus — Coming Soon</h2>
-    <p>Upgrade to promote your show to the top of listings and message comics directly.</p>
+    <h2>Booker Plus — €1/month</h2>
+    <p>Promote your shows to the top of listings, message comics directly, and feature a show in the homepage slot.</p>
     <div>
-      <span class="lock-badge">🔒 Promote shows to top of listings</span>
-      <span class="lock-badge">🔒 Send direct messages to comics</span>
-      <span class="lock-badge">🔒 Feature show on homepage</span>
+      <span class="lock-badge">Promote shows to top of listings</span>
+      <span class="lock-badge">Send direct messages to comics</span>
+      <span class="lock-badge">Feature show on homepage</span>
     </div>
-    <p style="margin-top:16px;font-size:13px;color:#555">€1/month or €12/year — <a href="/pricing.html" style="color:var(--purple-light)">see pricing →</a></p>
-    <a class="coming-soon">🎁 Early access: join the waitlist on the <a href="/pricing.html" style="color:var(--purple-light)">pricing page</a></a>
+    <p style="margin-top:16px;font-size:13px;color:#888">€1/month or €12/year.</p>
+    <a href="/pricing.html#booker-plus" class="btn-primary" style="margin-top:8px">Start Booker Plus →</a>
   </div>
 </section>
 
@@ -156,38 +275,16 @@ footer a:hover{color:var(--text)}
     <a href="/">Home</a>
     <a href="/shows.html">Shows</a>
     <a href="/venues.html">Venues</a>
-    <a href="/book.html">Book / Connect</a>
-    <a href="/comedians.html">For Comedians</a>
+    <a href="/comedians.html">Comedians</a>
     <a href="/bookers.html">Bookers</a>
     <a href="/pricing.html">Pricing</a>
+    <a href="/book.html">Book / Connect</a>
+    <a href="/about.html">About</a>
   </div>
   <div>payments@pariscomedy.com </div>
 </footer>
 
 <script>
-// Load claimable shows from shows_upcoming.json
-fetch('/data/shows_upcoming.json')
-  .then(r => r.ok ? r.json() : Promise.reject())
-  .then(shows => {
-    const list = document.getElementById('shows-list');
-    const first8 = shows.slice(0, 8);
-    if (!first8.length) {
-      list.innerHTML = '<div style="color:var(--muted);font-size:14px;padding:12px 0">No shows found.</div>';
-      return;
-    }
-    list.innerHTML = first8.map(s => `
-      <div class="show-row">
-        <div>
-          <div class="show-row-name">${s.emoji || '🎭'} ${s.show_name}</div>
-          <div class="show-row-meta">${s.venue} · ${s.neighborhood} · ${s.date}</div>
-        </div>
-        <button class="show-row-claim" onclick="prefillClaim('${s.show_name.replace(/'/g,'\\\'')}')" >Claim →</button>
-      </div>`).join('');
-  })
-  .catch(() => {
-    document.getElementById('shows-list').innerHTML = '<div style="color:var(--muted);font-size:14px;padding:12px 0">Could not load shows. <a href="#claim" style="color:var(--yellow)">Go directly to claim form →</a></div>';
-  });
-
 function prefillClaim(showName) {
   document.getElementById('cl-show').value = showName;
   document.getElementById('claim').scrollIntoView({behavior:'smooth'});
@@ -213,20 +310,39 @@ async function submitClaim() {
   if (!show || !name || !email || !proof) { err.textContent = 'Please fill in all required fields.'; return; }
   const btn = document.getElementById('cl-btn');
   btn.disabled = true; btn.textContent = 'Submitting…';
+  const subject = 'Show claim: ' + show;
+  const body = 'Show: ' + show + '\nName: ' + name + '\nEmail: ' + email +
+               '\nRole: ' + role + '\nProof: ' + proof +
+               '\nSource: bookers.html\nTime: ' + new Date().toISOString();
+  let captured = false;
   try {
     const api = await getApi();
-    if (!api) throw new Error('Server offline — email payments@pariscomedy.com');
-    const r = await fetch(api + '/api/book', {
-      method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({_type:'claim_show', show_name:show, name, email, role, proof})
-    });
-    if (!r.ok) throw new Error('Server error ' + r.status);
-    document.getElementById('claim-form').style.display = 'none';
-    document.getElementById('cl-success').style.display = 'block';
-  } catch(e) {
-    err.textContent = e.message;
-    btn.disabled = false; btn.textContent = 'Submit claim →';
-  }
+    if (api) {
+      const r = await fetch(api + '/api/message', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          sender_name: name, sender_email: email, sender_type: 'booker',
+          recipient_type: 'venue', subject: subject,
+          message: body, source_page: 'bookers.html'
+        })
+      });
+      captured = r.ok;
+    }
+  } catch(e) { captured = false; }
+
+  const mailto = 'mailto:payments@pariscomedy.com?subject=' +
+    encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  document.getElementById('claim-form').style.display = 'none';
+  const box = document.getElementById('cl-success');
+  box.style.display = 'block';
+  box.innerHTML =
+    (captured
+      ? 'Claim received for <strong>' + show + '</strong>. We&rsquo;ll review and be in touch within 48 hours.<br><br>'
+      : 'Almost done — <a href="' + mailto + '" style="color:var(--yellow);font-weight:700">' +
+        'send your claim email &rarr;</a> so we can verify it.<br><br>') +
+    'While you&rsquo;re here: <strong>Booker Plus</strong> promotes this show to the top of ' +
+    'listings and lets you message comics directly. <a href="/pricing.html#booker-plus" ' +
+    'style="color:var(--purple-light);font-weight:700">Start Booker Plus — €1/month &rarr;</a>';
 }
 </script>
 </body>
