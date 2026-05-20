@@ -65,7 +65,7 @@ const SHOWS = [
       description:'THE bilingual comedy show. American & French comics, English & French jokes, same night. The show that started it all.',
       descFr:'LE spectacle de comédie bilingue. Humoristes américains et français, blagues en anglais et en français, le même soir.',
       descEs:'EL show de comedia bilingüe. Cómicos americanos y franceses, chistes en inglés y francés, la misma noche.',
-      bookingUrl:'https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747' + UTM, featured:true },
+      bookingUrl:'https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838453379' + UTM, featured:true },
     /* Paname removed from our shows — not our venue */
 ];
 
