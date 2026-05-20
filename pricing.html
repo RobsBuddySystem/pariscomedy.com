@@ -4,11 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pricing — Paris Comedy</title>
-<meta name="description" content="Free forever for comics, bookers and fans. Comic Plus and Booker Plus unlock messaging and promotion for €1/month or €12/year.">
+<meta name="description" content="The first 100 members get lifetime Comic Plus or Booker Plus for a single €1 payment. Free forever for everyone else.">
 <link rel="canonical" href="https://pariscomedy.com/pricing.html">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Pricing — Paris Comedy">
-<meta property="og:description" content="Free forever. Comic Plus and Booker Plus for €1/month or €12/year.">
+<meta property="og:description" content="First 100 members: lifetime access for €1. Free forever for everyone else.">
 <meta property="og:url" content="https://pariscomedy.com/pricing.html">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com/","email":"payments@pariscomedy.com","description":"The home of English-language stand-up comedy in Paris."}</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--purple:#7c3aed;--purple-light:#9d5ff5;--bg:#0a0a0a;--card:#111;--border:#1e1e1e;--text:#f0f0f0;--muted:#888;--yellow:#f5c518;--gold:#f59e0b}
@@ -21,44 +24,48 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .nav-links a:hover{color:var(--text)}
 .nav-active{color:var(--text)!important}
 
-.hero{text-align:center;padding:60px 24px 24px}
-.hero h1{font-size:clamp(28px,5vw,52px);font-weight:800;letter-spacing:-1px;margin-bottom:16px}
-.hero p{color:var(--muted);font-size:16px;max-width:480px;margin:0 auto}
+.hero{text-align:center;padding:56px 24px 16px}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:800;letter-spacing:-1px;margin-bottom:14px}
+.hero p{color:var(--muted);font-size:16px;max-width:520px;margin:0 auto}
+.founding-banner{margin:22px auto 0;max-width:560px;background:linear-gradient(135deg,rgba(245,197,24,.16),rgba(124,58,237,.12));border:1px solid var(--gold);border-radius:14px;padding:16px 20px;font-size:14px;line-height:1.6}
+.founding-banner strong{color:var(--gold)}
 
-.billing-toggle{display:flex;gap:0;justify-content:center;margin:24px auto 0;width:fit-content;border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.billing-toggle button{padding:9px 20px;background:transparent;border:none;color:var(--muted);font-size:13px;font-weight:700;cursor:pointer}
-.billing-toggle button.active{background:var(--purple);color:#fff}
-
-.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px;max-width:980px;margin:0 auto;padding:36px 24px}
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px;max-width:980px;margin:0 auto;padding:32px 24px}
 .plan-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:12px}
-.plan-card.featured{border-color:var(--purple);box-shadow:0 0 20px rgba(124,58,237,.15)}
+.plan-card.featured{border-color:var(--gold);box-shadow:0 0 22px rgba(245,197,24,.14)}
+.plan-tag{align-self:flex-start;background:var(--gold);color:#000;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:6px}
 .plan-name{font-size:18px;font-weight:800}
 .plan-price{font-size:32px;font-weight:800;color:var(--yellow)}
-.plan-price span{font-size:14px;color:var(--muted);font-weight:400}
+.plan-price small{font-size:14px;color:var(--muted);font-weight:600}
+.plan-price .strike{font-size:15px;color:#555;text-decoration:line-through;font-weight:600;margin-left:6px}
 .plan-desc{font-size:13px;color:var(--muted);line-height:1.5}
 .plan-features{list-style:none;display:flex;flex-direction:column;gap:8px;flex:1}
 .plan-features li{font-size:13px;color:#ccc;display:flex;align-items:flex-start;gap:8px}
 .plan-features li::before{content:'✓';color:#4ade80;font-weight:700;flex-shrink:0}
 .btn-plan{width:100%;padding:12px;border-radius:10px;border:none;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px}
 .btn-free{background:#1e1e1e;color:var(--muted);cursor:default}
-.btn-start{background:var(--purple);color:#fff}
+.btn-start{background:var(--gold);color:#000}
 .btn-start:hover{opacity:.9}
 
 .intent-form{margin-top:12px;display:none;flex-direction:column;gap:8px}
 .intent-form.open{display:flex}
 .intent-form input{padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:#0a0a0a;color:var(--text);font-size:14px;outline:none}
-.intent-form input:focus{border-color:var(--purple)}
+.intent-form input:focus{border-color:var(--gold)}
 .intent-form button{padding:11px;border-radius:8px;border:none;background:var(--gold);color:#000;font-weight:700;cursor:pointer}
 .intent-error{font-size:12px;color:#e07a7a}
-.intent-success{display:none;font-size:13px;color:#ccc;background:#0f1a0f;border:1px solid #1d3a1d;border-radius:10px;padding:14px;line-height:1.6}
-.intent-success.show{display:block}
-.intent-success strong{color:var(--yellow)}
-.pay-line{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
-.pay-addr{font-family:monospace;background:#0a0a0a;border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:13px}
-.copy-btn{padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;cursor:pointer}
-.copy-btn:hover{color:var(--text);border-color:#555}
 
-.footer-note{text-align:center;max-width:600px;margin:0 auto;padding:0 24px 48px;font-size:13px;color:#666;line-height:1.6}
+.celebrate{display:none;margin-top:14px;text-align:center;background:linear-gradient(135deg,rgba(245,197,24,.14),rgba(124,58,237,.12));border:1px solid var(--gold);border-radius:14px;padding:20px}
+.celebrate.show{display:block}
+.celebrate img.badge{width:150px;height:150px}
+.celebrate h3{font-size:16px;font-weight:800;color:var(--gold);margin:8px 0 4px}
+.celebrate p{font-size:13px;color:#ccc;line-height:1.6;margin-bottom:12px}
+.pay-btn{display:inline-block;background:var(--gold);color:#000;font-weight:800;font-size:15px;padding:13px 26px;border-radius:10px;margin-top:4px}
+.pay-btn:hover{opacity:.9}
+.pay-qr{margin-top:12px}
+.pay-qr img{width:130px;height:130px;background:#fff;border-radius:8px;padding:6px}
+.pay-note{font-size:11px;color:#777;margin-top:8px}
+
+.footer-note{text-align:center;max-width:600px;margin:0 auto;padding:8px 24px 48px;font-size:13px;color:#666;line-height:1.6}
 footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;color:var(--muted);font-size:13px}
 footer a{color:var(--muted)}
 footer a:hover{color:var(--text)}
@@ -82,11 +89,12 @@ footer a:hover{color:var(--text)}
 </nav>
 
 <div class="hero">
-  <h1>Simple, honest pricing.</h1>
-  <p>Everyone gets real value for free. Comic Plus and Booker Plus unlock messaging and promotion.</p>
-  <div class="billing-toggle">
-    <button id="bill-monthly" class="active" onclick="setBilling('monthly')">€1 / month</button>
-    <button id="bill-yearly" onclick="setBilling('yearly')">€12 / year</button>
+  <h1>Founding Member offer.</h1>
+  <p>Everyone browses and lists for free. The first 100 members lock in lifetime Plus access.</p>
+  <div class="founding-banner">
+    ⭐ <strong>First 100 only:</strong> one payment of <strong>€1</strong> = <strong>lifetime</strong>
+    Comic Plus or Booker Plus. No subscription, never billed again. After 100 members this
+    closes for good.
   </div>
 </div>
 
@@ -95,7 +103,7 @@ footer a:hover{color:var(--text)}
   <!-- Free -->
   <div class="plan-card">
     <div class="plan-name">Free</div>
-    <div class="plan-price">€0 <span>forever</span></div>
+    <div class="plan-price">€0 <small>forever</small></div>
     <div class="plan-desc">For comics, bookers and fans alike.</div>
     <ul class="plan-features">
       <li>Browse every show in Paris</li>
@@ -108,51 +116,55 @@ footer a:hover{color:var(--text)}
 
   <!-- Comic Plus -->
   <div class="plan-card featured" id="comic-plus">
+    <span class="plan-tag">Founding · lifetime</span>
     <div class="plan-name">Comic Plus</div>
-    <div class="plan-price"><span class="price-amt" data-monthly="€1 / month" data-yearly="€12 / year">€1 / month</span></div>
+    <div class="plan-price">€1 <small>once — lifetime</small></div>
     <div class="plan-desc">For comedians who want to reach bookers directly.</div>
     <ul class="plan-features">
       <li>Everything in Free</li>
       <li>Message bookers directly</li>
       <li>Highlighted profile &amp; search placement</li>
       <li>Priority placement on show pages</li>
+      <li>Founding Member badge on your profile</li>
     </ul>
-    <button class="btn-plan btn-start" onclick="openIntent('comic')">Start Comic Plus →</button>
+    <button class="btn-plan btn-start" onclick="openIntent('comic')">Claim my €1 lifetime spot →</button>
     <form class="intent-form" id="intent-comic" onsubmit="return submitIntent(event,'comic','Comic Plus')">
       <input type="text"  id="comic-name"  placeholder="Your name" required>
       <input type="email" id="comic-email" placeholder="your@email.com" required>
       <div class="intent-error" id="comic-err"></div>
-      <button type="submit">Reserve my spot →</button>
+      <button type="submit">Continue to €1 payment →</button>
     </form>
-    <div class="intent-success" id="comic-success"></div>
+    <div class="celebrate" id="comic-celebrate"></div>
   </div>
 
   <!-- Booker Plus -->
   <div class="plan-card featured" id="booker-plus">
+    <span class="plan-tag">Founding · lifetime</span>
     <div class="plan-name">Booker Plus</div>
-    <div class="plan-price"><span class="price-amt" data-monthly="€1 / month" data-yearly="€12 / year">€1 / month</span></div>
+    <div class="plan-price">€1 <small>once — lifetime</small></div>
     <div class="plan-desc">For show runners who want visibility and direct access to comics.</div>
     <ul class="plan-features">
       <li>Everything in Free</li>
       <li>Promote shows to the top of listings</li>
       <li>Message comics directly</li>
       <li>Feature a show in the homepage slot</li>
+      <li>Founding Member badge on your shows</li>
     </ul>
-    <button class="btn-plan btn-start" onclick="openIntent('booker')">Start Booker Plus →</button>
+    <button class="btn-plan btn-start" onclick="openIntent('booker')">Claim my €1 lifetime spot →</button>
     <form class="intent-form" id="intent-booker" onsubmit="return submitIntent(event,'booker','Booker Plus')">
       <input type="text"  id="booker-name"  placeholder="Your name" required>
       <input type="email" id="booker-email" placeholder="your@email.com" required>
       <div class="intent-error" id="booker-err"></div>
-      <button type="submit">Reserve my spot →</button>
+      <button type="submit">Continue to €1 payment →</button>
     </form>
-    <div class="intent-success" id="booker-success"></div>
+    <div class="celebrate" id="booker-celebrate"></div>
   </div>
 
 </div>
 
 <div class="footer-note">
-  Payment is handled directly — pick a plan, we send you instructions for card or
-  Lightning, and your upgrade is activated the same day. Cancel anytime by email.
+  €1 is a one-time payment via SumUp (card). It buys lifetime Plus access for the first 100
+  members — there is no recurring charge, ever. Questions? payments@pariscomedy.com
 </div>
 
 <footer>
@@ -171,61 +183,52 @@ footer a:hover{color:var(--text)}
 
 <script src="/js/leadcapture.js"></script>
 <script>
-let billing = 'monthly';
-function setBilling(b) {
-  billing = b;
-  document.getElementById('bill-monthly').classList.toggle('active', b === 'monthly');
-  document.getElementById('bill-yearly').classList.toggle('active', b === 'yearly');
-  document.querySelectorAll('.price-amt').forEach(el => {
-    el.textContent = b === 'yearly' ? el.dataset.yearly : el.dataset.monthly;
-  });
-}
+var SUMUP_1EURO = 'https://pay.sumup.com/b2c/Q9TM3HKU?utm_source=qr&utm_medium=digital&utm_campaign=image';
 
 function openIntent(type) {
-  const f = document.getElementById('intent-' + type);
+  var f = document.getElementById('intent-' + type);
   f.classList.add('open');
   f.querySelector('input').focus();
 }
 
 async function submitIntent(ev, type, planName) {
   ev.preventDefault();
-  const name  = document.getElementById(type + '-name').value.trim();
-  const email = document.getElementById(type + '-email').value.trim();
-  const err   = document.getElementById(type + '-err');
+  var name  = document.getElementById(type + '-name').value.trim();
+  var email = document.getElementById(type + '-email').value.trim();
+  var err   = document.getElementById(type + '-err');
   err.textContent = '';
   if (!name || !email || email.indexOf('@') < 0) {
     err.textContent = 'Name and a valid email are required.'; return false;
   }
-  const price = billing === 'yearly' ? '€12/year' : '€1/month';
-  const planLabel = planName + ' — ' + price;
-  const body = 'Plan: ' + planName + '\nBilling: ' + price + '\nName: ' + name +
-               '\nEmail: ' + email + '\nRole: ' + type;
+  var body = 'Plan: ' + planName + ' (Founding Member — €1 lifetime)\n' +
+             'Name: ' + name + '\nEmail: ' + email + '\nRole: ' + type;
 
-  const res = await LeadCapture.submit({
+  // Capture the member BEFORE sending them to the payment page.
+  var res = await LeadCapture.submit({
     route: '/api/pricing-intent',
     formType: 'pricing-intent',
-    payload: {name: name, email: email, role: type, plan: planLabel, message: body},
-    mailtoSubject: planName + ' signup (' + price + ')',
+    payload: {name: name, email: email, role: type,
+              plan: planName + ' — Founding Member (€1 lifetime)', message: body},
+    mailtoSubject: planName + ' — Founding Member (€1 lifetime)',
     mailtoBody: body
   });
 
   document.getElementById('intent-' + type).style.display = 'none';
-  const box = document.getElementById(type + '-success');
+  var box = document.getElementById(type + '-celebrate');
   box.classList.add('show');
-  LeadCapture.renderResult(box, res, planLabel);
-  box.innerHTML +=
-    '<div class="pay-line">Pay now by Lightning: ' +
-    '<span class="pay-addr" id="pa-' + type + '">payments@pariscomedy.com</span>' +
-    '<button class="copy-btn" onclick="copyAddr(\'pa-' + type + '\')">Copy</button></div>' +
-    '<div style="margin-top:10px"><img src="/assets/lightning-qr.svg" alt="Lightning QR for payments@pariscomedy.com" width="120" height="120" style="background:#fff;border-radius:8px;padding:6px"></div>';
+  box.innerHTML =
+    '<img class="badge" src="/assets/founding-member-badge.svg" alt="Paris Comedy Founding Member badge">' +
+    '<h3>You&rsquo;re a Founding Member 🎉</h3>' +
+    '<p>' + name + ', your ' + planName + ' spot is reserved. ' +
+    (res.status === 'sent'
+      ? 'Pay €1 once below to activate lifetime access — you&rsquo;ll never be billed again.'
+      : 'We saved your details locally (server busy). Pay €1 below, then ' +
+        '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
+    '</p>' +
+    '<a class="pay-btn" href="' + SUMUP_1EURO + '" target="_blank" rel="noopener">Pay €1 — lifetime →</a>' +
+    '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
+    '<div class="pay-note">Secure card payment via SumUp · one-time €1 · scan or tap</div>';
   return false;
-}
-
-function copyAddr(id) {
-  const t = document.getElementById(id).textContent;
-  navigator.clipboard && navigator.clipboard.writeText(t);
-  event.target.textContent = 'Copied';
-  setTimeout(function () { event.target.textContent = 'Copy'; }, 1500);
 }
 </script>
 </body>

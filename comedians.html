@@ -192,7 +192,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
       <select id="m-plan" onchange="updatePlanInfo()">
         <option value="free">Free profile — €0 (listed in the directory)</option>
         <option value="bioblast">Bio blast — €1 one-time (bio sent straight to bookers)</option>
-        <option value="comicplus">Comic Plus — €1/month or €12/year (highlighted + message bookers)</option>
+        <option value="comicplus">Comic Plus — €1 lifetime, Founding Member (highlighted + message bookers)</option>
       </select>
       <div id="plan-info" style="background:#0a0a0a;border:1px solid #2a1a4a;border-radius:10px;padding:14px;margin:14px 0;font-size:12px;color:#888;line-height:1.6"></div>
       <div class="modal-btns">
@@ -351,8 +351,8 @@ document.getElementById('modal-bg').addEventListener('click',e=>{
 
 const PLAN_INFO={
   free:'Free profile — €0. Your bio is listed in the public comedian directory. No payment needed.',
-  bioblast:'Bio blast — €1 one-time. We send your bio straight to show bookers&rsquo; inboxes. Pay by Lightning after you submit.',
-  comicplus:'Comic Plus — €1/month or €12/year. Get highlighted on the homepage, appear higher in the directory, and message bookers directly.'
+  bioblast:'Bio blast — €1 one-time. We send your bio straight to show bookers&rsquo; inboxes. Pay €1 by card after you submit.',
+  comicplus:'Comic Plus — €1 once, lifetime (Founding Member, first 100 only). Highlighted on the homepage, higher in the directory, message bookers directly.'
 };
 function updatePlanInfo(){
   const v=document.getElementById('m-plan').value;
@@ -374,7 +374,7 @@ document.getElementById('btn-pay').onclick=async()=>{
   const btn=document.getElementById('btn-pay');
   btn.disabled=true; btn.textContent='Submitting\u2026';
 
-  const planLabel={free:'Free profile',bioblast:'Bio blast (\u20ac1 one-time)',comicplus:'Comic Plus (\u20ac1/month or \u20ac12/year)'}[plan];
+  const planLabel={free:'Free profile',bioblast:'Bio blast (\u20ac1 one-time)',comicplus:'Comic Plus (\u20ac1 lifetime — Founding Member)'}[plan];
   const body='Plan: '+planLabel+'\nName: '+name+'\nEmail: '+email+
              '\nShow: '+(show||'(none)')+'\nBio: '+bio;
   const res=await LeadCapture.submit({
@@ -394,14 +394,14 @@ document.getElementById('btn-pay').onclick=async()=>{
       '<a href="'+res.mailto+'" style="color:#f5c518">Send by email \u2192</a></p>';
   }
   if(plan!=='free'){
-    html+='<div style="background:#0a0a0a;border:1px solid #2a1a4a;border-radius:10px;padding:14px;margin-top:14px;text-align:center">'+
-      '<div style="font-size:13px;color:#f5c518;font-weight:700;margin-bottom:6px">\u26a1 Pay '+
-      (plan==='bioblast'?'\u20ac1 one-time':'\u20ac1/month or \u20ac12/year')+' via Lightning</div>'+
-      '<div style="display:flex;align-items:center;gap:8px;justify-content:center">'+
-      '<span id="cm-addr" style="font-size:14px;font-weight:700;color:#9d5ff5">payments@pariscomedy.com</span>'+
-      '<button onclick="navigator.clipboard&&navigator.clipboard.writeText(\'payments@pariscomedy.com\');this.textContent=\'Copied\'" '+
-      'style="padding:5px 10px;border-radius:6px;border:1px solid #333;background:transparent;color:#888;font-size:12px;cursor:pointer">Copy</button></div>'+
-      '<img src="/assets/lightning-qr.svg" alt="Lightning QR" width="120" height="120" style="background:#fff;border-radius:8px;padding:6px;margin-top:10px">'+
+    var SUMUP='https://pay.sumup.com/b2c/Q9TM3HKU?utm_source=qr&utm_medium=digital&utm_campaign=image';
+    html+='<div style="background:linear-gradient(135deg,rgba(245,197,24,.14),rgba(124,58,237,.12));border:1px solid #f5c518;border-radius:12px;padding:16px;margin-top:14px;text-align:center">'+
+      '<img src="/assets/founding-member-badge.svg" alt="Founding Member badge" width="120" height="120">'+
+      '<div style="font-size:14px;font-weight:800;color:#f5c518;margin:6px 0">You\u2019re a Founding Member \ud83c\udf89</div>'+
+      '<div style="font-size:12px;color:#ccc;margin-bottom:10px">One payment of \u20ac1 = lifetime access. First 100 members only \u2014 no recurring charge.</div>'+
+      '<a href="'+SUMUP+'" target="_blank" rel="noopener" style="display:inline-block;background:#f5c518;color:#000;font-weight:800;font-size:14px;padding:11px 22px;border-radius:10px">Pay \u20ac1 \u2014 lifetime \u2192</a>'+
+      '<div style="margin-top:10px"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay \u20ac1 with SumUp" width="120" height="120" style="background:#fff;border-radius:8px;padding:6px"></div>'+
+      '<div style="font-size:11px;color:#777;margin-top:6px">Secure card payment via SumUp</div>'+
       '</div>';
   }
   qs.innerHTML=html+'<button class="btn-cancel" id="btn-close-success" style="margin-top:16px">Close</button>';
