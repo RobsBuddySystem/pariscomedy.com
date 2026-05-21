@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Performer Portal — Paris Comedy</title>
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#7c3aed;--purple-light:#9d5ff5;--bg:#0a0a0a;--card:#111;--border:#1e1e1e;--text:#f0f0f0;--muted:#888;--yellow:#f5c518;--gold:#f59e0b;--green:#10b981;--red:#ef4444}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+a{color:var(--purple-light);text-decoration:none}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:20;gap:12px;flex-wrap:wrap}
+.nav-logo{font-size:18px;font-weight:700}.nav-logo span{color:var(--yellow)}
+.nav-links{display:flex;gap:16px;align-items:center;font-size:13px;color:var(--muted);flex-wrap:wrap}.nav-links a:hover{color:var(--text)}
+main{max-width:1120px;margin:0 auto;padding:24px;display:grid;gap:16px}
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:10px 0 4px}
+h1{font-size:clamp(24px,4vw,38px);letter-spacing:-.3px}.sub{color:var(--muted);line-height:1.5;margin-top:6px;max-width:680px}
+.grid{display:grid;grid-template-columns:340px 1fr;gap:16px}.panel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px}.panel h2{font-size:16px;margin-bottom:12px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.status{display:flex;flex-direction:column;gap:10px}.status-row{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:13px;border-bottom:1px solid var(--border);padding-bottom:9px}.status-row strong{color:var(--text);text-align:right}
+.pill{display:inline-block;border-radius:999px;padding:4px 9px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}.pill.active{background:#123524;color:#4ade80}.pill.pending{background:#33270a;color:var(--gold)}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}input,textarea{width:100%;padding:11px 12px;background:#0f0f0f;border:1px solid var(--border);border-radius:8px;color:var(--text);font:inherit}textarea{min-height:110px;resize:vertical}input:focus,textarea:focus{outline:none;border-color:var(--purple)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{margin-bottom:12px}.wide{grid-column:1/-1}@media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+.btn{border:0;border-radius:8px;padding:11px 14px;font-weight:800;cursor:pointer;background:var(--purple);color:#fff}.btn.secondary{background:#1e1e1e;color:var(--text);border:1px solid var(--border)}.btn.gold{background:var(--gold);color:#000}.btn:disabled{opacity:.5;cursor:default}
+.auth{max-width:460px;margin:40px auto}.msg{margin-top:10px;color:var(--muted);line-height:1.45}.err{color:#fca5a5}.ok{color:#86efac}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+  <div class="nav-links">
+    <a href="/pricing.html">Pricing</a>
+    <a href="/booker-portal.html">Booker Portal</a>
+    <a href="/book.html">Book / Connect</a>
+  </div>
+</nav>
+<main>
+  <section class="top">
+    <div>
+      <h1>Performer Portal</h1>
+      <p class="sub">Sign in, check Comic Plus activation, and maintain the profile data Robert can use for listings and booker visibility.</p>
+    </div>
+    <a class="btn secondary" href="/pricing.html#comic-plus">Comic Plus</a>
+  </section>
+
+  <section class="panel auth" id="auth-panel">
+    <h2>Sign in</h2>
+    <div class="field"><label>Email</label><input id="auth-email" type="email" placeholder="you@email.com"></div>
+    <button class="btn" onclick="requestLink()">Send magic link</button>
+    <div class="msg" id="auth-msg"></div>
+  </section>
+
+  <section class="grid" id="portal" style="display:none">
+    <aside class="panel status">
+      <h2>Account</h2>
+      <div class="status-row"><span>Email</span><strong id="account-email"></strong></div>
+      <div class="status-row"><span>Plan</span><strong id="account-plan"></strong></div>
+      <div class="status-row"><span>Status</span><strong id="account-status"></strong></div>
+      <div class="status-row"><span>Founding #</span><strong id="account-founding"></strong></div>
+      <div class="status-row"><span>Payment</span><strong id="account-payment"></strong></div>
+      <div class="actions">
+        <a class="btn gold" id="pay-link" href="/pricing.html#comic-plus">Activate Comic Plus</a>
+        <button class="btn secondary" onclick="loadPortal()">Refresh</button>
+      </div>
+    </aside>
+
+    <section class="panel">
+      <h2>Profile</h2>
+      <form onsubmit="return saveProfile(event)">
+        <div class="form-grid">
+          <div class="field"><label>Display name</label><input id="display_name"></div>
+          <div class="field"><label>Stage name</label><input id="stage_name"></div>
+          <div class="field"><label>Instagram</label><input id="instagram" placeholder="@name"></div>
+          <div class="field"><label>Website</label><input id="website" placeholder="https://"></div>
+          <div class="field"><label>YouTube</label><input id="youtube" placeholder="https://"></div>
+          <div class="field"><label>Best clip</label><input id="video_url" placeholder="https://"></div>
+          <div class="field"><label>City</label><input id="city" value="Paris"></div>
+          <div class="field wide"><label>Bio</label><textarea id="bio" maxlength="1200"></textarea></div>
+        </div>
+        <button class="btn" type="submit">Save profile</button>
+        <span class="msg" id="save-msg"></span>
+      </form>
+    </section>
+  </section>
+</main>
+<script>
+let API='';
+async function apiBase(){if(API)return API;try{const c=await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json());API=c.api||'';}catch(e){API='';}return API;}
+async function api(path,opts={}){const base=await apiBase();const r=await fetch(base+path,Object.assign({credentials:'include'},opts,{headers:Object.assign({'Content-Type':'application/json'},opts.headers||{})}));const j=await r.json().catch(()=>({detail:r.statusText}));if(!r.ok)throw new Error(j.detail||('HTTP '+r.status));return j;}
+async function requestLink(){const email=document.getElementById('auth-email').value.trim();const msg=document.getElementById('auth-msg');msg.className='msg';if(!email){msg.textContent='Email required.';msg.classList.add('err');return;}try{const r=await api('/api/auth/request',{method:'POST',body:JSON.stringify({email})});msg.textContent=r.dev_verify_url?'Magic link created. Open it, then return here and refresh: '+r.dev_verify_url:r.message;msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}}
+async function loadPortal(){try{const me=await api('/api/me');if(!me.signed_in){document.getElementById('auth-panel').style.display='block';document.getElementById('portal').style.display='none';return;}document.getElementById('auth-panel').style.display='none';document.getElementById('portal').style.display='grid';const prof=await api('/api/member/profile?role=performer');const member=prof.member||{};const payment=(prof.payments||[]).find(p=>p.member_id===member.id)||{};fillAccount(me.user,member,payment);fillProfile(member);}catch(e){document.getElementById('auth-msg').textContent=e.message;}}
+function fillAccount(user,member,payment){document.getElementById('account-email').textContent=user.email||'';document.getElementById('account-plan').textContent=member.plan_label||'Performer Free';const active=member.status==='active';document.getElementById('account-status').innerHTML='<span class="pill '+(active?'active':'pending')+'">'+(member.status||'pending_payment').replace('_',' ')+'</span>';document.getElementById('account-founding').textContent=member.founding_number?('#'+member.founding_number):'Not assigned';document.getElementById('account-payment').textContent=payment.status?((payment.provider_ref||'pending')+' · '+payment.status):'No paid plan yet';const pay=document.getElementById('pay-link');pay.style.display=active?'none':'inline-block';if(payment.checkout_url)pay.href=payment.checkout_url;}
+function fillProfile(m){['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>{document.getElementById(id).value=m[id]||'';});}
+async function saveProfile(ev){ev.preventDefault();const msg=document.getElementById('save-msg');msg.textContent='Saving...';msg.className='msg';const payload={role:'performer'};['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>payload[id]=document.getElementById(id).value.trim());try{const r=await api('/api/member/profile',{method:'PATCH',body:JSON.stringify(payload)});fillProfile(r.member||{});msg.textContent='Saved.';msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}return false;}
+loadPortal();
+</script>
+</body>
+</html>

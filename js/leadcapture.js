@@ -57,8 +57,8 @@ window.LeadCapture = (function () {
     var mailto = buildMailto(opts.mailtoSubject || 'Paris Comedy enquiry',
                              opts.mailtoBody || JSON.stringify(payload, null, 2));
     try {
-      await postLead(opts.route, payload);
-      return {status: 'sent', mailto: mailto};
+      var data = await postLead(opts.route, payload);
+      return {status: 'sent', mailto: mailto, data: data};
     } catch (e) {
       var p = pending();
       p.push({route: opts.route, payload: payload, ts: Date.now()});

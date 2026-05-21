@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Booker Portal — Paris Comedy</title>
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#7c3aed;--purple-light:#9d5ff5;--bg:#0a0a0a;--card:#111;--border:#1e1e1e;--text:#f0f0f0;--muted:#888;--yellow:#f5c518;--gold:#f59e0b;--green:#10b981;--red:#ef4444}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+a{color:var(--purple-light);text-decoration:none}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:20;gap:12px;flex-wrap:wrap}
+.nav-logo{font-size:18px;font-weight:700}.nav-logo span{color:var(--yellow)}
+.nav-links{display:flex;gap:16px;align-items:center;font-size:13px;color:var(--muted);flex-wrap:wrap}.nav-links a:hover{color:var(--text)}
+main{max-width:1120px;margin:0 auto;padding:24px;display:grid;gap:16px}
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:10px 0 4px}
+h1{font-size:clamp(24px,4vw,38px);letter-spacing:-.3px}.sub{color:var(--muted);line-height:1.5;margin-top:6px;max-width:700px}
+.grid{display:grid;grid-template-columns:340px 1fr;gap:16px}.panel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px}.panel h2{font-size:16px;margin-bottom:12px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}input{width:100%;padding:11px 12px;background:#0f0f0f;border:1px solid var(--border);border-radius:8px;color:var(--text);font:inherit}input:focus{outline:none;border-color:var(--purple)}.field{margin-bottom:12px}
+.btn{border:0;border-radius:8px;padding:11px 14px;font-weight:800;cursor:pointer;background:var(--purple);color:#fff;display:inline-block}.btn.secondary{background:#1e1e1e;color:var(--text);border:1px solid var(--border)}.btn.gold{background:var(--gold);color:#000}.btn:disabled{opacity:.5;cursor:default}
+.msg{margin-top:10px;color:var(--muted);line-height:1.45}.err{color:#fca5a5}.ok{color:#86efac}
+.status{display:flex;flex-direction:column;gap:10px}.status-row{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:13px;border-bottom:1px solid var(--border);padding-bottom:9px}.status-row strong{color:var(--text);text-align:right}
+.pill{display:inline-block;border-radius:999px;padding:4px 9px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}.pill.active{background:#123524;color:#4ade80}.pill.pending{background:#33270a;color:var(--gold)}
+.steps{display:grid;gap:10px}.step{border:1px solid var(--border);border-radius:8px;padding:12px;background:#0f0f0f}.step strong{display:block;margin-bottom:4px}.step span{display:block;color:var(--muted);font-size:13px;line-height:1.45}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+  <div class="nav-links">
+    <a href="/pricing.html">Pricing</a>
+    <a href="/performer-portal.html">Performer Portal</a>
+    <a href="/booker-dashboard.html">Lineup Dashboard</a>
+  </div>
+</nav>
+<main>
+  <section class="top">
+    <div>
+      <h1>Booker Portal</h1>
+      <p class="sub">Check Booker Plus activation, get a dashboard token, and move into lineup building without exposing private comedian emails.</p>
+    </div>
+    <a class="btn secondary" href="/pricing.html#booker-plus">Booker Plus</a>
+  </section>
+
+  <section class="grid">
+    <aside class="panel">
+      <h2>Access token</h2>
+      <div class="field"><label>Booker email</label><input id="booker-email" type="email" placeholder="you@yourshow.com"></div>
+      <button class="btn" onclick="requestToken()">Send token</button>
+      <div class="field" style="margin-top:14px"><label>Token</label><input id="booker-token" placeholder="Paste token"></div>
+      <button class="btn secondary" onclick="useToken()">Load account</button>
+      <div class="msg" id="auth-msg"></div>
+    </aside>
+
+    <section class="panel status" id="status-panel">
+      <h2>Account</h2>
+      <div class="status-row"><span>Email</span><strong id="account-email">Not signed in</strong></div>
+      <div class="status-row"><span>Plan</span><strong id="account-plan">Unknown</strong></div>
+      <div class="status-row"><span>Status</span><strong id="account-status">No token</strong></div>
+      <div class="status-row"><span>Payment</span><strong id="account-payment">Unknown</strong></div>
+      <div class="actions">
+        <a class="btn gold" id="pay-link" href="/pricing.html#booker-plus">Activate Booker Plus</a>
+        <a class="btn" href="/booker-dashboard.html">Open lineup dashboard</a>
+      </div>
+    </section>
+  </section>
+
+  <section class="panel">
+    <h2>Workflow</h2>
+    <div class="steps">
+      <div class="step"><strong>1. Start Booker Plus</strong><span>Pricing creates the member and pending SumUp payment record with a reconciliation reference.</span></div>
+      <div class="step"><strong>2. Robert reconciles payment</strong><span>The admin endpoint marks the payment paid and activates the Booker Plus account.</span></div>
+      <div class="step"><strong>3. Build lineups</strong><span>The existing dashboard uses your token to create shows, search comics, save lineups, and queue invite notifications for manual review.</span></div>
+    </div>
+  </section>
+</main>
+<script>
+let API='';
+let TOKEN=localStorage.getItem('booker_token')||'';
+async function apiBase(){if(API)return API;try{const c=await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json());API=c.api||'';}catch(e){API='';}return API;}
+async function api(path,opts={}){const base=await apiBase();const headers=Object.assign({'Content-Type':'application/json'},TOKEN?{'X-Booker-Token':TOKEN}:{},opts.headers||{});const r=await fetch(base+path,Object.assign({},opts,{headers}));const j=await r.json().catch(()=>({detail:r.statusText}));if(!r.ok)throw new Error(j.detail||('HTTP '+r.status));return j;}
+async function requestToken(){const email=document.getElementById('booker-email').value.trim();const msg=document.getElementById('auth-msg');msg.className='msg';if(!email){msg.textContent='Email required.';msg.classList.add('err');return;}try{const r=await api('/api/booker/auth',{method:'POST',body:JSON.stringify({email})});localStorage.setItem('booker_email',email);if(r.dev_token){document.getElementById('booker-token').value=r.dev_token;msg.textContent='Token created. Click Load account.';}else{msg.textContent='Token sent to '+email+'.';}msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}}
+async function useToken(){TOKEN=document.getElementById('booker-token').value.trim()||TOKEN;const msg=document.getElementById('auth-msg');msg.className='msg';if(!TOKEN){msg.textContent='Token required.';msg.classList.add('err');return;}try{localStorage.setItem('booker_token',TOKEN);const r=await api('/api/booker/me');fillStatus(r);msg.textContent='Loaded.';msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}}
+function fillStatus(r){const member=(r.members||[])[0]||{};const payment=(r.payments||[]).find(p=>p.member_id===member.id)||{};document.getElementById('account-email').textContent=r.email||'';document.getElementById('account-plan').textContent=member.plan_label||'Booker Free / pending signup';const status=member.status||'pending_payment';document.getElementById('account-status').innerHTML='<span class="pill '+(status==='active'?'active':'pending')+'">'+status.replace('_',' ')+'</span>';document.getElementById('account-payment').textContent=payment.status?((payment.provider_ref||'pending')+' · '+payment.status):'No paid plan yet';const pay=document.getElementById('pay-link');pay.style.display=status==='active'?'none':'inline-block';if(payment.checkout_url)pay.href=payment.checkout_url;}
+document.getElementById('booker-token').value=TOKEN;
+if(TOKEN)useToken();
+</script>
+</body>
+</html>

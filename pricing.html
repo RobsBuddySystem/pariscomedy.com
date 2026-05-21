@@ -83,6 +83,8 @@ footer a:hover{color:var(--text)}
     <a href="/comedians.html">Comedians</a>
     <a href="/bookers.html">Bookers</a>
     <a href="/pricing.html" class="nav-active">Pricing</a>
+    <a href="/performer-portal.html">Performer Portal</a>
+    <a href="/booker-portal.html">Booker Portal</a>
     <a href="/book.html">Book / Connect</a>
     <a href="/about.html">About</a>
   </div>
@@ -216,6 +218,12 @@ async function submitIntent(ev, type, planName) {
   document.getElementById('intent-' + type).style.display = 'none';
   var box = document.getElementById(type + '-celebrate');
   box.classList.add('show');
+  var apiData = res.data || {};
+  var payment = apiData.payment || {};
+  var payUrl = payment.checkout_url || SUMUP_1EURO;
+  var reference = payment.reference ? '<br><strong>Payment reference:</strong> ' + esc(payment.reference) : '';
+  var portalUrl = apiData.portal_url || (isComic ? '/performer-portal.html' : '/booker-portal.html');
+  var portalLabel = isComic ? 'Open Performer Portal' : 'Open Booker Portal';
 
   if (isComic) {
     box.innerHTML =
@@ -223,11 +231,12 @@ async function submitIntent(ev, type, planName) {
       '<h3>You&rsquo;re a Founding Member 🎉</h3>' +
       '<p>' + name + ', your Comic Plus spot is reserved. ' +
       (res.status === 'sent'
-        ? 'Pay €1 once below to activate lifetime access — you&rsquo;ll never be billed again.'
+        ? 'Pay €1 once below to activate lifetime access — you&rsquo;ll never be billed again.' + reference
         : 'We saved your details locally (server busy). Pay €1 below, then ' +
           '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
       '</p>' +
-      '<a class="pay-btn" href="' + SUMUP_1EURO + '" target="_blank" rel="noopener">Pay €1 — lifetime →</a>' +
+      '<a class="pay-btn" href="' + payUrl + '" target="_blank" rel="noopener">Pay €1 — lifetime →</a>' +
+      '<br><a class="pay-btn" style="background:#1e1e1e;color:var(--text);margin-top:10px" href="' + portalUrl + '">' + portalLabel + ' →</a>' +
       '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
       '<div class="pay-note">Secure card payment via SumUp · one-time €1 · scan or tap</div>';
   } else {
@@ -235,15 +244,21 @@ async function submitIntent(ev, type, planName) {
       '<h3>Booker Plus — you&rsquo;re in 🎭</h3>' +
       '<p>' + name + ', your Booker Plus is reserved. ' +
       (res.status === 'sent'
-        ? 'Pay your first month (€1) below — we then invoice you €1/month by email. Cancel anytime.'
+        ? 'Pay your first month (€1) below — we then invoice you €1/month by email. Cancel anytime.' + reference
         : 'We saved your details locally (server busy). Pay the first €1 below, then ' +
           '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
       '</p>' +
-      '<a class="pay-btn" href="' + SUMUP_1EURO + '" target="_blank" rel="noopener">Pay €1 — first month →</a>' +
+      '<a class="pay-btn" href="' + payUrl + '" target="_blank" rel="noopener">Pay €1 — first month →</a>' +
+      '<br><a class="pay-btn" style="background:#1e1e1e;color:var(--text);margin-top:10px" href="' + portalUrl + '">' + portalLabel + ' →</a>' +
       '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
       '<div class="pay-note">Secure card payment via SumUp · €1/month, invoiced by email · cancel anytime</div>';
   }
   return false;
+}
+function esc(s) {
+  return String(s || '').replace(/[&<>"']/g, function (c) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
 }
 </script>
 </body>
