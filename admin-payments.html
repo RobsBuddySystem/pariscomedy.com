@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Payments — Paris Comedy</title>
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#7c3aed;--bg:#0a0a0a;--card:#111;--border:#1e1e1e;--text:#f0f0f0;--muted:#888;--gold:#f5c518;--green:#10b981;--red:#ef4444}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+main{max-width:1180px;margin:0 auto;padding:24px;display:grid;gap:16px}
+h1{font-size:28px;margin-bottom:4px}.sub{color:var(--muted)}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
+input,textarea,select{background:#0f0f0f;border:1px solid var(--border);border-radius:8px;color:var(--text);font:inherit;padding:10px 12px}
+input{min-width:260px}textarea{width:100%;min-height:150px;resize:vertical}
+button{border:0;border-radius:8px;background:var(--purple);color:#fff;font-weight:800;padding:10px 14px;cursor:pointer}
+button.secondary{background:#1e1e1e;border:1px solid var(--border);color:var(--text)}
+button.gold{background:var(--gold);color:#000}
+.msg{color:var(--muted);margin-top:8px}.err{color:#fca5a5}.ok{color:#86efac}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+th,td{text-align:left;border-bottom:1px solid var(--border);padding:9px 8px;vertical-align:top}
+th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.pill{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:800;text-transform:uppercase}
+.paid,.active,.matched{background:#123524;color:#4ade80}.pending,.pending_payment,.unmatched{background:#33270a;color:var(--gold)}.error{background:#3a1111;color:#fca5a5}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#1e1e1e}.tabs button.active{background:var(--purple)}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Admin Payments</h1>
+    <p class="sub">Pending members, paid records, SumUp imports, and CSV reconciliation.</p>
+  </header>
+
+  <section class="panel">
+    <div class="row">
+      <div><label>Admin secret</label><input id="secret" type="password" placeholder="PC_ADMIN_SECRET"></div>
+      <button onclick="saveSecret()">Save</button>
+      <button class="secondary" onclick="clearSecret()">Clear</button>
+    </div>
+    <div class="msg" id="secret-msg"></div>
+  </section>
+
+  <section class="panel">
+    <div class="tabs">
+      <button class="active" id="tab-pending" onclick="loadView('pending')">Pending payments</button>
+      <button id="tab-paid" onclick="loadView('paid')">Paid payments</button>
+      <button id="tab-members" onclick="loadView('members')">Members</button>
+      <button id="tab-imports" onclick="loadView('imports')">SumUp imports</button>
+    </div>
+    <div id="table-wrap" class="msg">Choose a view.</div>
+  </section>
+
+  <section class="panel">
+    <h2 style="font-size:16px;margin-bottom:10px">Import SumUp CSV</h2>
+    <textarea id="csv" placeholder="Paste SumUp CSV export here"></textarea>
+    <div class="row" style="margin-top:10px">
+      <button class="secondary" onclick="importCsv(true)">Dry run</button>
+      <button class="gold" onclick="importCsv(false)">Import and activate matches</button>
+    </div>
+    <div class="msg" id="import-msg"></div>
+  </section>
+</main>
+<script>
+let API='';
+async function apiBase(){if(API)return API;try{const c=await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json());API=c.api||'';}catch(e){API='';}return API;}
+function secret(){return localStorage.getItem('pc_admin_secret')||document.getElementById('secret').value.trim();}
+function saveSecret(){localStorage.setItem('pc_admin_secret',document.getElementById('secret').value.trim());document.getElementById('secret-msg').textContent='Saved locally in this browser.';}
+function clearSecret(){localStorage.removeItem('pc_admin_secret');document.getElementById('secret').value='';document.getElementById('secret-msg').textContent='Cleared.';}
+async function api(path,opts={}){const base=await apiBase();const r=await fetch(base+path,Object.assign({},opts,{headers:Object.assign({'Content-Type':'application/json'},opts.headers||{})}));const j=await r.json().catch(()=>({detail:r.statusText}));if(!r.ok)throw new Error(typeof j.detail==='string'?j.detail:JSON.stringify(j.detail));return j;}
+function setTab(v){document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+v).classList.add('active');}
+async function loadView(v){setTab(v);const raw=secret();const s=encodeURIComponent(raw);const wrap=document.getElementById('table-wrap');if(!raw){wrap.textContent='Enter admin secret, then choose a view.';return;}wrap.textContent='Loading...';try{let data;if(v==='pending')data=await api('/api/admin/payments/pending?secret='+s);if(v==='paid')data=await api('/api/admin/payments?status=paid&secret='+s);if(v==='members')data=await api('/api/admin/members?secret='+s);if(v==='imports')data=await api('/api/admin/payments/imports?secret='+s);render(v,data);}catch(e){wrap.innerHTML='<span class="err">'+esc(e.message)+'</span>';}}
+function render(v,data){let rows=data.payments||data.members||data.imports||[];if(!rows.length){document.getElementById('table-wrap').textContent='No records.';return;}let keys=v==='members'?['email','role','plan_label','status','founding_number','last_paid_at']:v==='imports'?['transaction_id','status','email','provider_ref','amount_cents','currency','created_at']:['email','role','provider_ref','plan_code','status','amount_cents','currency','paid_at','created_at'];document.getElementById('table-wrap').innerHTML='<table><thead><tr>'+keys.map(k=>'<th>'+k+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+keys.map(k=>cell(k,r[k])).join('')+'</tr>').join('')+'</tbody></table>';}
+function cell(k,v){let s=esc(v==null?'':v);if(k==='status')s='<span class="pill '+s+'">'+s.replace('_',' ')+'</span>';return '<td>'+s+'</td>';}
+async function importCsv(dry){const msg=document.getElementById('import-msg');msg.textContent='Importing...';msg.className='msg';try{const r=await api('/api/admin/payments/import-sumup',{method:'POST',body:JSON.stringify({secret:secret(),csv_text:document.getElementById('csv').value,dry_run:dry})});msg.innerHTML='<span class="ok">Processed '+r.processed+'. Matched '+r.matched.length+', unmatched '+r.unmatched.length+', skipped '+r.skipped.length+'.</span>';loadView('imports');}catch(e){msg.innerHTML='<span class="err">'+esc(e.message)+'</span>';}}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+document.getElementById('secret').value=localStorage.getItem('pc_admin_secret')||'';
+loadView('pending');
+</script>
+</body>
+</html>
