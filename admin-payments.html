@@ -58,6 +58,8 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04
     <h2 style="font-size:16px;margin-bottom:10px">Import SumUp CSV</h2>
     <textarea id="csv" placeholder="Paste SumUp CSV export here"></textarea>
     <div class="row" style="margin-top:10px">
+      <button class="secondary" onclick="syncSumUp(true)">Sync API dry run</button>
+      <button class="gold" onclick="syncSumUp(false)">Sync API and activate matches</button>
       <button class="secondary" onclick="importCsv(true)">Dry run</button>
       <button class="gold" onclick="importCsv(false)">Import and activate matches</button>
     </div>
@@ -76,6 +78,7 @@ async function loadView(v){setTab(v);const raw=secret();const s=encodeURICompone
 function render(v,data){let rows=data.payments||data.members||data.imports||[];if(!rows.length){document.getElementById('table-wrap').textContent='No records.';return;}let keys=v==='members'?['email','role','plan_label','status','founding_number','last_paid_at']:v==='imports'?['transaction_id','status','email','provider_ref','amount_cents','currency','created_at']:['email','role','provider_ref','plan_code','status','amount_cents','currency','paid_at','created_at'];document.getElementById('table-wrap').innerHTML='<table><thead><tr>'+keys.map(k=>'<th>'+k+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+keys.map(k=>cell(k,r[k])).join('')+'</tr>').join('')+'</tbody></table>';}
 function cell(k,v){let s=esc(v==null?'':v);if(k==='status')s='<span class="pill '+s+'">'+s.replace('_',' ')+'</span>';return '<td>'+s+'</td>';}
 async function importCsv(dry){const msg=document.getElementById('import-msg');msg.textContent='Importing...';msg.className='msg';try{const r=await api('/api/admin/payments/import-sumup',{method:'POST',body:JSON.stringify({secret:secret(),csv_text:document.getElementById('csv').value,dry_run:dry})});msg.innerHTML='<span class="ok">Processed '+r.processed+'. Matched '+r.matched.length+', unmatched '+r.unmatched.length+', skipped '+r.skipped.length+'.</span>';loadView('imports');}catch(e){msg.innerHTML='<span class="err">'+esc(e.message)+'</span>';}}
+async function syncSumUp(dry){const msg=document.getElementById('import-msg');msg.textContent='Syncing SumUp API...';msg.className='msg';try{const r=await api('/api/admin/payments/sync-sumup',{method:'POST',body:JSON.stringify({secret:secret(),dry_run:dry,days:14,limit:100})});msg.innerHTML='<span class="ok">API processed '+r.processed+'. Matched '+r.matched.length+', unmatched '+r.unmatched.length+', skipped '+r.skipped.length+'.</span>';loadView('imports');}catch(e){msg.innerHTML='<span class="err">'+esc(e.message)+'</span>';}}
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 document.getElementById('secret').value=localStorage.getItem('pc_admin_secret')||'';
 loadView('pending');
