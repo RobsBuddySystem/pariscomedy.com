@@ -178,6 +178,74 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
 
 </div>
 
+<!-- Offer Modal -->
+<div id="offer-modal" style="display:none;position:fixed;inset:0;background:#000a;z-index:200;align-items:center;justify-content:center">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;max-width:420px;width:92%;position:relative">
+    <button onclick="closeOfferModal()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer">✕</button>
+    <h2 style="font-size:16px;font-weight:700;margin-bottom:14px">Send Offer <span id="offer-comic-label" style="color:var(--muted);font-weight:400"></span></h2>
+    <div class="field">
+      <label>Show (optional)</label>
+      <select id="offer-show-select" style="width:100%;padding:10px 12px;background:#0f0f0f;border:1px solid var(--border);border-radius:8px;color:var(--text)">
+        <option value="">— no specific show —</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Message (optional)</label>
+      <textarea id="offer-message" placeholder="5 min set, Wed 20:30, Velvet Bar…" rows="3" style="resize:vertical"></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="sendOffer()">Send offer</button>
+    <div class="err" id="offer-err"></div>
+  </div>
+</div>
+
+<!-- Venues Tab (below main grid) -->
+<div id="venues-section" style="max-width:1400px;margin:14px auto;padding:0 20px;display:none">
+  <div class="panel">
+    <h2>Venues <button class="btn btn-primary" style="font-size:11px;padding:6px 10px" onclick="toggleVenueForm()">+ Add venue</button></h2>
+    <div id="venue-form" style="display:none;margin-bottom:14px;border:1px solid var(--border);border-radius:8px;padding:14px">
+      <div class="form-row">
+        <div class="field"><label>Name</label><input id="venue-name" placeholder="Velvet Bar"></div>
+        <div class="field"><label>Address</label><input id="venue-address" placeholder="39 Rue de Douai, 75009"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Capacity</label><input id="venue-capacity" type="number" placeholder="50"></div>
+        <div class="field"><label>Notes</label><input id="venue-notes" placeholder="Basement stage, BYOD PA"></div>
+      </div>
+      <button class="btn btn-primary" onclick="saveVenue()">Save venue</button>
+    </div>
+    <div id="venue-list" style="display:flex;flex-direction:column;gap:6px"><div class="empty">No venues yet.</div></div>
+  </div>
+</div>
+
+<!-- Surveys Tab -->
+<div id="surveys-section" style="max-width:1400px;margin:14px auto;padding:0 20px;display:none">
+  <div class="panel">
+    <h2>Surveys <button class="btn btn-primary" style="font-size:11px;padding:6px 10px" onclick="toggleSurveyForm()">+ Create survey</button></h2>
+    <div id="survey-form" style="display:none;margin-bottom:14px;border:1px solid var(--border);border-radius:8px;padding:14px">
+      <div class="field">
+        <label>Question</label>
+        <input id="survey-question" placeholder="Would you perform at our show again?">
+      </div>
+      <div class="field">
+        <label>Link to show (optional)</label>
+        <select id="survey-show-select" style="width:100%;padding:10px 12px;background:#0f0f0f;border:1px solid var(--border);border-radius:8px;color:var(--text)">
+          <option value="">— no specific show —</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="createSurvey()">Create survey</button>
+    </div>
+    <div id="survey-list" style="display:flex;flex-direction:column;gap:10px"><div class="empty">No surveys yet.</div></div>
+  </div>
+</div>
+
+<!-- Tab nav for extras (shown after login) -->
+<div id="extra-tabs" style="display:none;max-width:1400px;margin:14px auto;padding:0 20px">
+  <div style="display:flex;gap:8px">
+    <button class="btn btn-ghost" onclick="showTab('venues')">🏠 Venues</button>
+    <button class="btn btn-ghost" onclick="showTab('surveys')">📋 Surveys</button>
+  </div>
+</div>
+
 <div class="success-toast" id="toast"></div>
 
 <script>
@@ -321,6 +389,7 @@ function renderComics() {
       ${c.actuality ? `<div class="comic-meta">${esc(c.actuality.substring(0,80))}</div>` : ''}
       ${c.instagram ? `<a href="${esc(c.instagram)}" target="_blank" rel="noopener" style="font-size:11px">Instagram ↗</a>` : ''}
       <button class="btn btn-primary" style="margin-top:auto;padding:6px;font-size:11px" onclick="inviteComic('${esc(c.slug)}','${esc(c.name)}')">+ Invite to lineup</button>
+      <button class="btn btn-secondary" style="padding:6px;font-size:11px" onclick="openOfferModal('${esc(c.slug)}','${esc(c.name)}')">Send offer</button>
     </div>
   `).join('');
 }
@@ -394,6 +463,184 @@ function exportLineup() {
 
 // Auto-login if token persists
 if (TOKEN) { useToken(); }
+
+// ── Extra tabs ──────────────────────────────────────────────────────────────
+function showTab(tab) {
+  document.getElementById('venues-section').style.display = tab === 'venues' ? 'block' : 'none';
+  document.getElementById('surveys-section').style.display = tab === 'surveys' ? 'block' : 'none';
+  if (tab === 'venues') loadVenues();
+  if (tab === 'surveys') loadSurveys();
+}
+
+function _showExtraTabs() {
+  document.getElementById('extra-tabs').style.display = 'block';
+  // Pre-fill show selects
+  const selects = ['offer-show-select', 'survey-show-select'];
+  selects.forEach(id => {
+    const sel = document.getElementById(id);
+    const existingValues = Array.from(sel.options).map(o => o.value);
+    SHOWS.forEach(s => {
+      if (!existingValues.includes(String(s.id))) {
+        const o = document.createElement('option');
+        o.value = s.id;
+        o.textContent = `${s.title} — ${s.show_date}`;
+        sel.appendChild(o);
+      }
+    });
+  });
+}
+
+// ── Offer Modal ─────────────────────────────────────────────────────────────
+let OFFER_SLUG = '', OFFER_NAME = '';
+
+function openOfferModal(slug, name) {
+  OFFER_SLUG = slug; OFFER_NAME = name;
+  document.getElementById('offer-comic-label').textContent = `→ ${name}`;
+  document.getElementById('offer-err').textContent = '';
+  document.getElementById('offer-message').value = '';
+  document.getElementById('offer-modal').style.display = 'flex';
+}
+function closeOfferModal() {
+  document.getElementById('offer-modal').style.display = 'none';
+}
+
+async function sendOffer() {
+  const show_id = document.getElementById('offer-show-select').value || null;
+  const message = document.getElementById('offer-message').value.trim();
+  try {
+    await api('/api/booker/offers', {method:'POST', body: JSON.stringify({
+      comic_slug: OFFER_SLUG, comic_name: OFFER_NAME,
+      show_id: show_id ? parseInt(show_id) : null, message
+    })});
+    toast('Offer sent to ' + OFFER_NAME);
+    closeOfferModal();
+  } catch(e) {
+    document.getElementById('offer-err').textContent = e.message;
+  }
+}
+
+// ── Venues ───────────────────────────────────────────────────────────────────
+let VENUES = [];
+let EDIT_VENUE_ID = null;
+
+function toggleVenueForm() {
+  const f = document.getElementById('venue-form');
+  f.style.display = f.style.display === 'none' ? 'block' : 'none';
+}
+
+async function loadVenues() {
+  try {
+    const r = await api('/api/booker/venues');
+    VENUES = r.venues || [];
+    renderVenues();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+function renderVenues() {
+  const el = document.getElementById('venue-list');
+  if (!VENUES.length) { el.innerHTML = '<div class="empty">No venues yet.</div>'; return; }
+  el.innerHTML = VENUES.map(v => `
+    <div style="background:#0f0f0f;border:1px solid var(--border);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px">
+      <div>
+        <strong>${esc(v.name)}</strong>
+        ${v.address ? `<div style="color:var(--muted);font-size:12px">${esc(v.address)}</div>` : ''}
+        ${v.capacity ? `<div style="color:var(--muted);font-size:11px">Cap: ${v.capacity}</div>` : ''}
+        ${v.notes ? `<div style="color:var(--muted);font-size:11px">${esc(v.notes)}</div>` : ''}
+      </div>
+      <button class="btn btn-ghost" style="font-size:11px;padding:4px 8px" onclick="prefillVenueEdit(${v.id})">Edit</button>
+    </div>`).join('');
+}
+
+function prefillVenueEdit(id) {
+  const v = VENUES.find(x => x.id === id);
+  if (!v) return;
+  EDIT_VENUE_ID = id;
+  document.getElementById('venue-name').value = v.name || '';
+  document.getElementById('venue-address').value = v.address || '';
+  document.getElementById('venue-capacity').value = v.capacity || '';
+  document.getElementById('venue-notes').value = v.notes || '';
+  document.getElementById('venue-form').style.display = 'block';
+}
+
+async function saveVenue() {
+  const name = document.getElementById('venue-name').value.trim();
+  if (!name) { toast('Name required', 'error'); return; }
+  const payload = {
+    name,
+    address: document.getElementById('venue-address').value.trim() || null,
+    capacity: parseInt(document.getElementById('venue-capacity').value) || null,
+    notes: document.getElementById('venue-notes').value.trim() || null,
+  };
+  try {
+    if (EDIT_VENUE_ID) {
+      await api('/api/booker/venues/' + EDIT_VENUE_ID, {method:'PUT', body:JSON.stringify(payload)});
+      toast('Venue updated');
+    } else {
+      await api('/api/booker/venues', {method:'POST', body:JSON.stringify(payload)});
+      toast('Venue created');
+    }
+    EDIT_VENUE_ID = null;
+    ['venue-name','venue-address','venue-capacity','venue-notes'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('venue-form').style.display = 'none';
+    await loadVenues();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+// ── Surveys ──────────────────────────────────────────────────────────────────
+let SURVEYS = [];
+
+function toggleSurveyForm() {
+  const f = document.getElementById('survey-form');
+  f.style.display = f.style.display === 'none' ? 'block' : 'none';
+}
+
+async function loadSurveys() {
+  try {
+    const r = await api('/api/booker/surveys');
+    SURVEYS = r.surveys || [];
+    renderSurveys();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+function renderSurveys() {
+  const el = document.getElementById('survey-list');
+  if (!SURVEYS.length) { el.innerHTML = '<div class="empty">No surveys yet.</div>'; return; }
+  el.innerHTML = SURVEYS.map(s => `
+    <div style="background:#0f0f0f;border:1px solid var(--border);border-radius:8px;padding:12px 14px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px">
+        <strong>${esc(s.question)}</strong>
+        <span style="font-size:11px;color:var(--muted)">${s.status} · ${(s.responses||[]).length} responses</span>
+      </div>
+      <div style="color:var(--muted);font-size:11px;margin-bottom:6px">
+        Share link: <code style="background:#1a1a1a;padding:2px 6px;border-radius:4px">POST /api/surveys/${s.id}/respond</code>
+      </div>
+      ${(s.responses||[]).length ? `<div style="margin-top:8px;display:flex;flex-direction:column;gap:4px">
+        ${(s.responses||[]).map(r => `<div style="font-size:12px;border-left:2px solid var(--purple);padding-left:8px">${esc(r.answer)} ${r.respondent_email ? `<span style="color:var(--muted)">(${esc(r.respondent_email)})</span>` : ''}</div>`).join('')}
+      </div>` : ''}
+    </div>`).join('');
+}
+
+async function createSurvey() {
+  const question = document.getElementById('survey-question').value.trim();
+  if (!question) { toast('Question required', 'error'); return; }
+  const show_id = document.getElementById('survey-show-select').value || null;
+  try {
+    await api('/api/booker/surveys', {method:'POST', body:JSON.stringify({
+      question, show_id: show_id ? parseInt(show_id) : null
+    })});
+    toast('Survey created');
+    document.getElementById('survey-question').value = '';
+    document.getElementById('survey-form').style.display = 'none';
+    await loadSurveys();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+// Hook into enterDashboard to show extra tabs
+const _origEnterDashboard = enterDashboard;
+async function enterDashboard(comicsResp) {
+  await _origEnterDashboard(comicsResp);
+  _showExtraTabs();
+}
 </script>
 </body>
 </html>
