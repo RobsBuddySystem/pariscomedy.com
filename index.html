@@ -183,8 +183,12 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
     <a href="/" class="nav-active">Home</a>
     <a href="/shows.html">Shows</a>
     <a href="/venues.html">Venues</a>
+    <a href="/comedians.html">Comedians</a>
+    <a href="/bookers.html">Bookers</a>
+    <a href="/pricing.html">Pricing</a>
+    <a href="/login.html">Sign In</a>
     <a href="/book.html">Book / Connect</a>
-    <a href="/comedians.html">For Comedians</a>
+    <a href="/about.html">About</a>
   </div>
 </nav>
 
@@ -208,19 +212,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   <div class="section-title">Featured Shows</div>
   <div class="section-sub">Verified, highlighted comedy nights in Paris</div>
   <div class="featured-grid" id="featured-grid">
-    <div class="featured-card">
-      <div>
-        <span class="featured-badge">⭐ FEATURED</span>
-        <span class="verified-badge">✓ Verified</span>
-      </div>
-      <div class="featured-card-name">Velvet Bar</div>
-      <div class="featured-card-show">Velvet Bar Comedy — Le meilleur du stand-up</div>
-      <div class="featured-card-meta">Wednesday &middot; 20:30 &middot; M° Châtelet (M1/M4/M7/M11/M14) &middot; 43 Rue Saint-Honoré, 75001</div>
-      <div class="featured-video">
-        <iframe src="https://www.youtube.com/embed/jBb6cobfcdo" allowfullscreen loading="lazy" title="Velvet Bar Comedy show"></iframe>
-      </div>
-      <a href="https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338" target="_blank" class="featured-card-btn">Check current listing →</a>
-    </div>
+    <!-- 3 equal Featured cards rendered by renderFeatured() from /api/listings?featured=1 -->
   </div>
   <div class="featured-section-cta">
     These shows are Featured — <a href="/venues.html">your show could be here →</a>
@@ -724,6 +716,33 @@ function seededShuffle(arr, seed) {
   return a;
 }
 
+async function renderFeatured() {
+  const grid = document.getElementById('featured-grid');
+  if (!grid) return;
+  let api = '';
+  try { const c = await fetch('/api-config.json').then(r => r.json()); api = c.api || ''; } catch (e) {}
+  let listings = [];
+  try { listings = await fetch(api + '/api/listings?featured=1').then(r => r.json()); } catch (e) {}
+  const picks = (listings || []).slice(0, 3);
+  if (!picks.length) { grid.innerHTML = ''; return; }
+  grid.innerHTML = picks.map(l => {
+    const days = (l.days && l.days[0]) || '';
+    const venue = (l.venue && l.venue.name) || l.venue_name_raw || '';
+    const url = l.booking_url || l.show_url || '#';
+    return `
+    <div class="featured-card">
+      <div>
+        <span class="featured-badge">⭐ FEATURED</span>
+        ${l.verified_at ? '<span class="verified-badge">✓ Verified</span>' : ''}
+      </div>
+      <div class="featured-card-name">${(l.short_name || l.name || '').replace(/</g,'&lt;')}</div>
+      <div class="featured-card-show">${(l.name || '').replace(/</g,'&lt;')}</div>
+      <div class="featured-card-meta">${days} &middot; ${l.start_time || ''} &middot; ${venue.replace(/</g,'&lt;')}</div>
+      <a href="${url}" target="_blank" rel="noopener" class="featured-card-btn">Check current listing →</a>
+    </div>`;
+  }).join('');
+}
+
 function renderWeeklyFeatured() {
   const weekSeed = Math.floor(Date.now() / (7 * 24 * 3600000));
   const shuffled = seededShuffle(SHOWS_DATA, weekSeed);
@@ -777,6 +796,7 @@ function launchConfetti() {
 renderTonightPanel();
 renderGrid();
 renderWeekRow();
+renderFeatured();
 renderWeeklyFeatured();
 injectEventSchemas();
 </script>
