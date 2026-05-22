@@ -1,0 +1,58 @@
+name: commit-msg-check
+
+# Fails any push or PR whose new commits violate the commit message standard:
+#   YYYY-MM-DD HH:MM TZ | area | summary   (area = frontend|backend|data|infra|docs)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  commit-msg:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate commit messages
+        run: |
+          set -u
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            range="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+          else
+            before="${{ github.event.before }}"
+            after="${{ github.sha }}"
+            if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
+              range="$after~1..$after"
+            else
+              range="$before..$after"
+            fi
+          fi
+          echo "Checking commit range: $range"
+
+          fail=0
+          while IFS= read -r sha; do
+            [ -z "$sha" ] && continue
+            subject="$(git log -1 --format=%s "$sha")"
+            case "$subject" in
+              "Merge "*|"Revert "*) echo "  skip   $sha  $subject"; continue ;;
+            esac
+            if echo "$subject" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2} [A-Za-z][A-Za-z0-9+-]+ \| (frontend|backend|data|infra|docs) \| .+'; then
+              echo "  ok     $sha  $subject"
+            else
+              echo "  REJECT $sha  $subject"
+              fail=1
+            fi
+          done < <(git rev-list "$range" 2>/dev/null || git rev-list -1 "${{ github.sha }}")
+
+          if [ "$fail" -ne 0 ]; then
+            echo ""
+            echo "::error::Commit message format violation."
+            echo "Required: YYYY-MM-DD HH:MM TZ | area | summary"
+            echo "  area  = frontend | backend | data | infra | docs"
+            echo "  e.g.  2026-05-22 20:30 CEST | backend | add venue delete endpoint"
+            exit 1
+          fi
+          echo "All commit messages conform."
