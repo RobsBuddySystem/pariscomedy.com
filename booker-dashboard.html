@@ -135,6 +135,16 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
           <div class="field"><label>Slots</label><input id="new-slots" type="number" value="5" min="1" max="20"></div>
           <div class="field"><label>Pay / requirements</label><input id="new-notes" placeholder="e.g. 5 min, bring 2 audience"></div>
         </div>
+        <div class="form-row">
+          <div class="field"><label>Recurrence</label>
+            <select id="new-recurrence">
+              <option value="">One-time show</option>
+              <option value="weekly">Weekly (same day/time)</option>
+              <option value="biweekly">Every 2 weeks</option>
+              <option value="monthly">Monthly</option>
+            </select>
+          </div>
+        </div>
         <button class="btn btn-primary" onclick="createShow()">Create show</button>
       </details>
     </div>
@@ -273,6 +283,7 @@ async function createShow() {
     time: document.getElementById('new-time').value,
     slots: parseInt(document.getElementById('new-slots').value || '5'),
     notes: document.getElementById('new-notes').value.trim(),
+    recurrence: document.getElementById('new-recurrence').value || null,
   };
   if (!payload.title || !payload.date) { toast('Title and date required','error'); return; }
   try {
@@ -281,6 +292,7 @@ async function createShow() {
     await loadShows();
     selectShow(r.show_id);
     ['new-title','new-venue','new-notes'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('new-recurrence').value='';
   } catch(e) { toast(e.message,'error'); }
 }
 

@@ -54,6 +54,32 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04
     <div id="table-wrap" class="msg">Choose a view.</div>
   </section>
 
+  <section class="panel" id="add-comic-panel">
+    <h2 style="font-size:16px;margin-bottom:14px">Add Comic</h2>
+    <div class="row" style="flex-wrap:wrap;gap:12px;margin-bottom:12px">
+      <div><label>Name *</label><input id="comic-name" placeholder="Full stage name" style="min-width:200px"></div>
+      <div><label>Instagram handle</label><input id="comic-ig" placeholder="@handle or full URL" style="min-width:200px"></div>
+    </div>
+    <div class="row" style="flex-wrap:wrap;gap:12px;margin-bottom:12px">
+      <div><label>Photo URL</label><input id="comic-photo" placeholder="https://..." style="min-width:300px"></div>
+      <div><label>Language</label>
+        <select id="comic-lang">
+          <option value="en">English</option>
+          <option value="fr">French</option>
+          <option value="en,fr">Bilingual (en+fr)</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-bottom:12px"><label>Bio</label><textarea id="comic-bio" style="min-height:80px;width:100%" placeholder="Short bio…"></textarea></div>
+    <div class="row" style="gap:12px;margin-bottom:12px">
+      <div><label>Video URL</label><input id="comic-video" placeholder="https://youtu.be/..." style="min-width:300px"></div>
+    </div>
+    <div class="row" style="gap:8px">
+      <button class="gold" onclick="addComic()">Add Comic</button>
+      <span class="msg" id="comic-msg"></span>
+    </div>
+  </section>
+
   <section class="panel">
     <h2 style="font-size:16px;margin-bottom:10px">Import SumUp CSV</h2>
     <textarea id="csv" placeholder="Paste SumUp CSV export here"></textarea>
@@ -79,6 +105,7 @@ function render(v,data){let rows=data.payments||data.members||data.imports||[];i
 function cell(k,v){let s=esc(v==null?'':v);if(k==='status')s='<span class="pill '+s+'">'+s.replace('_',' ')+'</span>';return '<td>'+s+'</td>';}
 async function importCsv(dry){const msg=document.getElementById('import-msg');msg.textContent='Importing...';msg.className='msg';try{const r=await api('/api/admin/payments/import-sumup',{method:'POST',body:JSON.stringify({secret:secret(),csv_text:document.getElementById('csv').value,dry_run:dry})});msg.innerHTML='<span class="ok">Processed '+r.processed+'. Matched '+r.matched.length+', unmatched '+r.unmatched.length+', skipped '+r.skipped.length+'.</span>';loadView('imports');}catch(e){msg.innerHTML='<span class="err">'+esc(e.message)+'</span>';}}
 async function syncSumUp(dry){const msg=document.getElementById('import-msg');msg.textContent='Syncing SumUp API...';msg.className='msg';try{const r=await api('/api/admin/payments/sync-sumup',{method:'POST',body:JSON.stringify({secret:secret(),dry_run:dry,days:14,limit:100})});msg.innerHTML='<span class="ok">API processed '+r.processed+'. Matched '+r.matched.length+', unmatched '+r.unmatched.length+', skipped '+r.skipped.length+'.</span>';loadView('imports');}catch(e){msg.innerHTML='<span class="err">'+esc(e.message)+'</span>';}}
+async function addComic(){const msg=document.getElementById('comic-msg');msg.className='msg';const name=document.getElementById('comic-name').value.trim();if(!name){msg.innerHTML='<span class="err">Name is required.</span>';return;}let ig=document.getElementById('comic-ig').value.trim();if(ig&&!ig.startsWith('http'))ig='https://www.instagram.com/'+ig.replace('@','')+'/';const langs=document.getElementById('comic-lang').value.split(',');const body={name,instagram:ig,photo:document.getElementById('comic-photo').value.trim(),bio:document.getElementById('comic-bio').value.trim(),langs,video_url:document.getElementById('comic-video').value.trim(),is_placeholder:0};msg.textContent='Adding...';try{const r=await api('/api/admin/comics',{method:'POST',headers:{'X-Admin-Secret':secret()},body:JSON.stringify(body)});msg.innerHTML='<span class="ok">Comic added! Slug: <strong>'+esc(r.slug)+'</strong> — refresh comedians.html to see them live.</span>';['comic-name','comic-ig','comic-photo','comic-bio','comic-video'].forEach(id=>document.getElementById(id).value='');}catch(e){msg.innerHTML='<span class="err">'+esc(e.message)+'</span>';}}
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 document.getElementById('secret').value=localStorage.getItem('pc_admin_secret')||'';
 loadView('pending');
