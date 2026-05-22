@@ -186,7 +186,7 @@ async function api(path, opts={}) {
   if (!r.ok) {
     const j = await r.json().catch(()=>({detail:r.statusText}));
     const detail = j.detail && j.detail.error === 'paid_membership_required'
-      ? 'Booker Plus required. Open Booker Sign In to activate your account.'
+      ? 'Booker Plus required. Open Sign In to activate your account.'
       : (typeof j.detail === 'string' ? j.detail : JSON.stringify(j.detail || j));
     throw new Error(detail || ('HTTP '+r.status));
   }
