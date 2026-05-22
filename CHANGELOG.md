@@ -17,6 +17,13 @@ Tag stable milestones: `vYYYY.MM.DD-<label>` (e.g. `v2026.05.22-core-ready`).
 
 ## 2026-05-22
 
+- `2026-05-22 | infra | VCS + ops hardening sprint` — portable commit-policy
+  enforcement (`scripts/validate-commit-msg.sh`, `scripts/install-hooks.sh`);
+  GitHub Actions `commit-msg-check` + `gitleaks` in both repos; encrypted
+  off-machine runtime-data backup (`backup_runtime_data.sh` / `restore_runtime_data.sh`,
+  daily launchd schedule, `BACKUP_RUNBOOK.md`); `.editorconfig`, `.gitattributes`,
+  `dev-check.sh`, `RELEASE_CHECKLIST.md`, `SECRET_ROTATION.md`; machine-readable
+  `parity_check.sh --json`. Secret scan: gitleaks clean on both repos' full history.
 - `2026-05-22 20:17 CEST | backend | initial version-controlled baseline` — backend
   placed under Git for the first time; pushed to `RobsBuddySystem/pariscomedy-backend`
   (private). `.gitignore` excludes secrets, SQLite DBs, venv, node_modules, logs,

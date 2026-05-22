@@ -82,9 +82,39 @@ git log --follow --date=iso -- <path>
 
 ---
 
+## VCS tooling & operations
+
+Both repos carry an identical tooling baseline:
+
+| Tool | Path | Purpose |
+|------|------|---------|
+| Commit validator | `scripts/validate-commit-msg.sh` | enforces the dated commit format |
+| Hook installer | `scripts/install-hooks.sh` | installs the `commit-msg` hook |
+| Dev checks | `scripts/dev-check.sh` | pre-commit sanity checks |
+| Commit-msg CI | `.github/workflows/commit-msg-check.yml` | rejects bad commit messages on push/PR |
+| Secret scan CI | `.github/workflows/gitleaks.yml` | gitleaks on push/PR |
+| Editor config | `.editorconfig`, `.gitattributes` | consistent formatting / line endings |
+| Release gate | `RELEASE_CHECKLIST.md` | push-to-production checklist |
+
+Backend-only operations tooling:
+
+| Tool | Path | Purpose |
+|------|------|---------|
+| Parity check | `scripts/parity_check.sh` | frontend/backend SHA + health (`--json`) |
+| Backup | `scripts/backup_runtime_data.sh` | encrypted off-machine DB/leads backup |
+| Restore | `scripts/restore_runtime_data.sh` | verified restore from backup |
+| Backup schedule | `scripts/com.pariscomedy.backup.plist` | launchd daily 04:30 |
+| Backup runbook | `BACKUP_RUNBOOK.md` | setup + restore drill |
+| Secret rotation | `SECRET_ROTATION.md` | rotation checklist |
+
+Runtime-data backups go off-machine to private repo
+`RobsBuddySystem/pariscomedy-backups` (AES-256 encrypted).
+
 ## Risks / open items
-- The runtime SQLite DB (`data/paris.db`) and `leads.jsonl` are intentionally
-  NOT in git (user data + privacy). They have no off-machine backup in VCS —
-  schedule a separate encrypted backup.
+- The runtime SQLite DB (`data/paris.db`) and `leads.jsonl` are NOT in the code
+  repos (user data + privacy). They are backed up — encrypted — to
+  `RobsBuddySystem/pariscomedy-backups` daily; see `BACKUP_RUNBOOK.md`.
+- The backup encryption key (`~/.config/pariscomedy/backup.key`) is the single
+  point of failure for restores — keep an offline copy.
 - The app admin secret appears in plaintext in several local project docs —
-  rotate it and keep the new value only in the backend `.env` (never in any doc).
+  rotate it per `SECRET_ROTATION.md` and keep the new value only in `.env`.
