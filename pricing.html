@@ -29,6 +29,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .hero p{color:var(--muted);font-size:16px;max-width:520px;margin:0 auto}
 .founding-banner{margin:22px auto 0;max-width:560px;background:linear-gradient(135deg,rgba(245,197,24,.16),rgba(124,58,237,.12));border:1px solid var(--gold);border-radius:14px;padding:16px 20px;font-size:14px;line-height:1.6}
 .founding-banner strong{color:var(--gold)}
+.founding-count{display:block;margin-top:8px;color:var(--text);font-weight:700}
+.founding-count small{color:var(--muted);font-weight:600}
 
 .plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px;max-width:980px;margin:0 auto;padding:32px 24px}
 .plan-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:12px}
@@ -96,6 +98,7 @@ footer a:hover{color:var(--text)}
     ⭐ <strong>First 100 comedians only:</strong> one payment of <strong>€1</strong> = <strong>lifetime</strong>
     Comic Plus. No subscription, never billed again. After 100 it closes for good.
     (Booker Plus is a separate monthly plan — see below.)
+    <span class="founding-count" id="founding-count">Checking live count...</span>
   </div>
 </div>
 
@@ -183,6 +186,23 @@ footer a:hover{color:var(--text)}
 <script src="/js/leadcapture.js"></script>
 <script>
 var SUMUP_1EURO = 'https://pay.sumup.com/b2c/Q9TM3HKU?utm_source=qr&utm_medium=digital&utm_campaign=image';
+
+async function loadFoundingCount() {
+  var el = document.getElementById('founding-count');
+  if (!el) return;
+  try {
+    var cfg = await fetch('/api-config.json', {cache:'no-store'}).then(function(r){return r.json();});
+    var api = cfg.api || '';
+    var data = await fetch(api + '/api/member/founding-count', {cache:'no-store'}).then(function(r){return r.json();});
+    if (!data.ok) throw new Error('count unavailable');
+    el.innerHTML = data.active_count + ' active Comic Plus founders · ' +
+      data.pending_count + ' pending payment · ' +
+      '<small>' + data.remaining_active_slots + ' active slots left</small>';
+  } catch (e) {
+    el.textContent = 'Live count unavailable. Payment records are still saved server-side.';
+  }
+}
+loadFoundingCount();
 
 function openIntent(type) {
   var f = document.getElementById('intent-' + type);
