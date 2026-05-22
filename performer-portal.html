@@ -142,7 +142,43 @@ function fillProfile(m){['display_name','stage_name','bio','website','instagram'
 async function saveProfile(ev){ev.preventDefault();const msg=document.getElementById('save-msg');msg.textContent='Saving...';msg.className='msg';const payload={role:'performer'};['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>payload[id]=document.getElementById(id).value.trim());try{const r=await api('/api/member/profile',{method:'PATCH',body:JSON.stringify(payload)});fillProfile(r.member||{});msg.textContent='Saved.';msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}return false;}
 // Also store session_token when magic link verify redirects back with it in URL params
 (function(){const p=new URLSearchParams(location.search);const st=p.get('session_token');if(st)localStorage.setItem('pc_session_token',st);})();
-loadPortal();
+loadPortal().then(()=>{if(!localStorage.getItem('comic_tutorial_done'))setTimeout(showComicTutorial,800);});
+
+const COMIC_TUTORIAL=[
+  {title:'Welcome to your Performer Portal',body:'This is your home base on Paris Comedy. Set up your profile so bookers can find and book you.'},
+  {title:'1. Complete your profile',body:'Fill in your stage name, bio, languages, Instagram, and YouTube. This is what bookers see in the directory.'},
+  {title:'2. Add a photo',body:'Paste a direct image URL in the Photo URL field. Use a clear headshot — it appears on your public comedian card.'},
+  {title:'3. Booking offers',body:'When a booker wants to book you for a show, you\'ll see it here as an offer. You can accept or decline each one.'},
+  {title:'4. Upgrade to Comic Plus',body:'Unlock a fully published profile page with your own URL (pariscomedy.com/comedians/your-name). One-time lifetime fee.'},
+];
+let comicStep=0;
+function showComicTutorial(){comicStep=0;renderComicStep();}
+function renderComicStep(){
+  document.getElementById('ctut')?.remove();
+  const s=COMIC_TUTORIAL[comicStep];
+  const el=document.createElement('div');
+  el.id='ctut';
+  el.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:1000;display:flex;align-items:center;justify-content:center';
+  el.innerHTML=`<div style="background:#1a2035;border:1px solid #c9a84c;border-radius:12px;padding:28px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.6)">
+    <div style="font-size:11px;color:#c9a84c;margin-bottom:6px">Step ${comicStep+1} of ${COMIC_TUTORIAL.length}</div>
+    <h3 style="font-size:18px;margin:0 0 12px">${s.title}</h3>
+    <p style="color:#aaa;line-height:1.6;margin:0 0 20px">${s.body}</p>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <button onclick="skipComicTutorial()" style="background:transparent;border:none;color:#666;cursor:pointer;font-size:12px">Skip</button>
+      <div style="display:flex;gap:8px">
+        ${comicStep>0?`<button onclick="comicTutPrev()" style="background:transparent;border:1px solid #444;border-radius:6px;padding:6px 14px;color:#aaa;cursor:pointer;font-size:13px">← Back</button>`:''}
+        <button onclick="comicTutNext()" style="background:#7c3aed;border:none;border-radius:6px;padding:6px 16px;color:#fff;cursor:pointer;font-size:13px">${comicStep===COMIC_TUTORIAL.length-1?'Done ✓':'Next →'}</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:5px;margin-top:16px;justify-content:center">
+      ${COMIC_TUTORIAL.map((_,i)=>`<div style="width:8px;height:8px;border-radius:50%;background:${i===comicStep?'#c9a84c':'#333'}"></div>`).join('')}
+    </div>
+  </div>`;
+  document.body.appendChild(el);
+}
+function comicTutNext(){if(comicStep>=COMIC_TUTORIAL.length-1){skipComicTutorial();return;}comicStep++;renderComicStep();}
+function comicTutPrev(){if(comicStep>0){comicStep--;renderComicStep();}}
+function skipComicTutorial(){localStorage.setItem('comic_tutorial_done','1');document.getElementById('ctut')?.remove();}
 </script>
 </body>
 </html>

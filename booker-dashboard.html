@@ -151,7 +151,28 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
 
     <!-- Comics -->
     <div class="panel" style="margin-top:14px">
-      <h2>Comics directory <span style="font-weight:400;color:var(--muted);font-size:12px" id="comic-count"></span></h2>
+      <h2>Comics directory <span style="font-weight:400;color:var(--muted);font-size:12px" id="comic-count"></span>
+        <button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;margin-left:10px" onclick="toggleQuickAdd()">+ Add comic not in directory</button>
+      </h2>
+      <div id="quick-add-form" style="display:none;background:#111827;border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:12px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Add a comic that isn't in the database yet. They'll get a profile card on the public comedians page.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <input id="qa-name" placeholder="Stage name *" style="font-size:13px">
+          <input id="qa-instagram" placeholder="Instagram (optional)" style="font-size:13px">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
+          <select id="qa-lang" style="font-size:13px;background:#1a2035;border:1px solid var(--border);border-radius:6px;padding:8px;color:#fff">
+            <option value="en">English</option><option value="fr">French</option><option value="bilingual">Bilingual</option>
+          </select>
+          <input id="qa-photo" placeholder="Photo URL (optional)" style="font-size:13px">
+          <input id="qa-email" placeholder="Email (optional)" style="font-size:13px">
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn btn-primary" style="font-size:12px" onclick="quickAddComic()">Save &amp; add to lineup</button>
+          <button class="btn btn-ghost" style="font-size:12px" onclick="toggleQuickAdd()">Cancel</button>
+          <span id="qa-status" style="font-size:12px;color:var(--muted)"></span>
+        </div>
+      </div>
       <input id="comic-search" placeholder="Search by name…" oninput="renderComics()">
       <div class="filters">
         <button class="filter-chip active" data-filter="all">All</button>
@@ -637,7 +658,108 @@ async function createSurvey() {
 }
 
 // Show extra tabs after dashboard is entered
-document.addEventListener('dashboardReady', _showExtraTabs);
+document.addEventListener('dashboardReady', () => {
+  _showExtraTabs();
+  if (!localStorage.getItem('booker_tutorial_done')) showTutorial();
+});
+
+// ── Quick-add comic not in directory ──────────────────────────────────────────
+function toggleQuickAdd() {
+  const f = document.getElementById('quick-add-form');
+  f.style.display = f.style.display === 'none' ? 'block' : 'none';
+  if (f.style.display === 'block') document.getElementById('qa-name').focus();
+}
+
+async function quickAddComic() {
+  const name = document.getElementById('qa-name').value.trim();
+  if (!name) { document.getElementById('qa-status').textContent = 'Name required'; return; }
+  const status = document.getElementById('qa-status');
+  status.textContent = 'Saving…';
+  try {
+    const payload = {
+      stage_name: name,
+      instagram: document.getElementById('qa-instagram').value.trim(),
+      langs: [document.getElementById('qa-lang').value],
+      photo_url: document.getElementById('qa-photo').value.trim(),
+      email: document.getElementById('qa-email').value.trim(),
+      based_in: 'Paris',
+      notes: 'Added by booker ' + EMAIL
+    };
+    const r = await fetch((await API_BASE_PROMISE) + '/api/admin/comics', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','X-Admin-Secret':'pc-admin-2026'},
+      body: JSON.stringify(payload)
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.detail || 'Error');
+    status.textContent = '✓ Saved to database';
+    // Reload comics and invite immediately
+    const comicsResp = await api('/api/booker/comics');
+    COMICS = comicsResp.comics;
+    renderComics();
+    document.getElementById('comic-count').textContent = `(${COMICS.length})`;
+    // Auto-invite to current show if one is selected
+    if (CURRENT_SHOW) {
+      await inviteComic(data.slug, name);
+      toggleQuickAdd();
+      ['qa-name','qa-instagram','qa-photo','qa-email'].forEach(id => document.getElementById(id).value = '');
+    } else {
+      status.textContent = '✓ Added to directory. Select a show to add them to the lineup.';
+    }
+  } catch(e) { status.textContent = e.message; }
+}
+
+// ── First-time tutorial ───────────────────────────────────────────────────────
+const TUTORIAL_STEPS = [
+  { title: 'Welcome to your Booker Dashboard', body: 'This is where you build your show lineups, manage venues, and book comics. Let\'s take a quick tour.', highlight: null },
+  { title: '1. Create a show', body: 'Click <strong>+ Create a new show</strong> to set the venue, date, time, and number of slots (up to 6 comics).', highlight: '#shows-panel' },
+  { title: '2. Find comics', body: 'Browse the directory below. Filter by language, recency in Paris, or touring acts. Search by name.', highlight: '#comic-search' },
+  { title: '3. Add to lineup', body: 'Click <strong>+ Invite to lineup</strong> on any comic card to fill a slot. The panel on the right updates live.', highlight: '#lineup-panel' },
+  { title: '4. Comic not in the list?', body: 'Click <strong>+ Add comic not in directory</strong> above the search box. Fill in their name and details — they\'ll be saved to the database and get a public profile card on the comedians page.', highlight: null },
+  { title: '5. Notify your lineup', body: 'Once slots are filled, click <strong>Notify booked comics</strong> to send confirmation emails. Messages go through admin review before delivery.', highlight: '#notify-btn' },
+];
+let tutorialStep = 0;
+
+function showTutorial() {
+  tutorialStep = 0;
+  renderTutorialStep();
+}
+
+function renderTutorialStep() {
+  document.getElementById('tutorial-overlay')?.remove();
+  const step = TUTORIAL_STEPS[tutorialStep];
+  const overlay = document.createElement('div');
+  overlay.id = 'tutorial-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center';
+  overlay.innerHTML = `
+    <div style="background:#1a2035;border:1px solid #c9a84c;border-radius:12px;padding:28px;max-width:440px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.6)">
+      <div style="font-size:11px;color:#c9a84c;margin-bottom:6px">Step ${tutorialStep+1} of ${TUTORIAL_STEPS.length}</div>
+      <h3 style="font-size:18px;margin:0 0 12px">${step.title}</h3>
+      <p style="color:#aaa;line-height:1.6;margin:0 0 20px">${step.body}</p>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <button onclick="skipTutorial()" style="background:transparent;border:none;color:#666;cursor:pointer;font-size:12px">Skip tutorial</button>
+        <div style="display:flex;gap:8px">
+          ${tutorialStep > 0 ? `<button class="btn btn-ghost" style="font-size:13px" onclick="tutorialPrev()">← Back</button>` : ''}
+          <button class="btn btn-primary" style="font-size:13px" onclick="tutorialNext()">${tutorialStep === TUTORIAL_STEPS.length-1 ? 'Done ✓' : 'Next →'}</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:5px;margin-top:16px;justify-content:center">
+        ${TUTORIAL_STEPS.map((_,i)=>`<div style="width:8px;height:8px;border-radius:50%;background:${i===tutorialStep?'#c9a84c':'#333'}"></div>`).join('')}
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+function tutorialNext() {
+  if (tutorialStep >= TUTORIAL_STEPS.length - 1) { skipTutorial(); return; }
+  tutorialStep++;
+  renderTutorialStep();
+}
+function tutorialPrev() { if (tutorialStep > 0) { tutorialStep--; renderTutorialStep(); } }
+function skipTutorial() {
+  localStorage.setItem('booker_tutorial_done', '1');
+  document.getElementById('tutorial-overlay')?.remove();
+}
 </script>
 </body>
 </html>
