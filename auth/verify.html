@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signing you in — Paris Comedy</title>
+<style>
+  body { background: #0a0e1a; color: #fff; font-family: system-ui, sans-serif;
+         display: flex; align-items: center; justify-content: center;
+         min-height: 100vh; margin: 0; }
+  .box { text-align: center; max-width: 400px; padding: 2rem; }
+  .logo { color: #c9a84c; font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; }
+  .logo span { color: #fff; }
+  .spinner { width: 40px; height: 40px; border: 3px solid #333;
+             border-top-color: #c9a84c; border-radius: 50%;
+             animation: spin 0.8s linear infinite; margin: 0 auto 1.5rem; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .msg { color: #aaa; font-size: 0.95rem; }
+  .error { color: #c41e3a; }
+  .success { color: #4caf7d; }
+  a { color: #c9a84c; }
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="logo">Paris<span>Comedy</span></div>
+  <div class="spinner" id="spinner"></div>
+  <p class="msg" id="msg">Verifying your sign-in link…</p>
+</div>
+<script>
+(async () => {
+  const params = new URLSearchParams(location.search);
+  const token = params.get('token');
+  const spinner = document.getElementById('spinner');
+  const msg = document.getElementById('msg');
+
+  if (!token) {
+    spinner.style.display = 'none';
+    msg.className = 'msg error';
+    msg.innerHTML = 'No token found. <a href="/performer-portal.html">Try signing in again.</a>';
+    return;
+  }
+
+  try {
+    const resp = await fetch('https://api.pariscomedy.com/auth/verify?token=' + encodeURIComponent(token));
+    const data = await resp.json();
+
+    if (!resp.ok) {
+      throw new Error(data.detail || 'Invalid or expired link');
+    }
+
+    // Store session token
+    if (data.session_token) {
+      localStorage.setItem('pc_auth_token', data.session_token);
+      localStorage.setItem('pc_auth_email', data.email || '');
+    }
+
+    spinner.style.display = 'none';
+    msg.className = 'msg success';
+    msg.textContent = 'Signed in! Redirecting to your portal…';
+
+    setTimeout(() => {
+      window.location.href = '/performer-portal.html';
+    }, 1000);
+
+  } catch (e) {
+    spinner.style.display = 'none';
+    msg.className = 'msg error';
+    msg.innerHTML = e.message + '<br><br><a href="/performer-portal.html">Request a new link</a>';
+  }
+})();
+</script>
+</body>
+</html>
