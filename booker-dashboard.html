@@ -67,6 +67,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
 .badge-recent{background:#14532d;color:#4ade80}
 .badge-upcoming{background:#2a1a5a;color:#a07ae0}
 .badge-touring{background:#3a1a4a;color:#e07ae0}
+.badge-visitor{background:#3a2a1a;color:#e0a060}
 
 /* Lineup panel */
 .slot{background:#0f0f0f;border:1px dashed var(--border);border-radius:8px;padding:10px;margin-bottom:6px;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:8px}
@@ -416,6 +417,7 @@ function renderComics() {
         ${c.recent_paris ? '<span class="badge badge-recent">Paris 3mo</span>' : ''}
         ${c.has_upcoming ? '<span class="badge badge-upcoming">Upcoming</span>' : ''}
         ${c.touring ? '<span class="badge badge-touring">Touring</span>' : ''}
+        ${c.is_placeholder ? '<span class="badge badge-visitor">Visitor</span>' : ''}
       </div>
       ${c.actuality ? `<div class="comic-meta">${esc(c.actuality.substring(0,80))}</div>` : ''}
       ${c.instagram ? `<a href="${esc(c.instagram)}" target="_blank" rel="noopener" style="font-size:11px">Instagram ↗</a>` : ''}
@@ -578,8 +580,25 @@ function renderVenues() {
         ${v.capacity ? `<div style="color:var(--muted);font-size:11px">Cap: ${v.capacity}</div>` : ''}
         ${v.notes ? `<div style="color:var(--muted);font-size:11px">${esc(v.notes)}</div>` : ''}
       </div>
-      <button class="btn btn-ghost" style="font-size:11px;padding:4px 8px" onclick="prefillVenueEdit(${v.id})">Edit</button>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-ghost" style="font-size:11px;padding:4px 8px" onclick="prefillVenueEdit(${v.id})">Edit</button>
+        <button class="btn btn-ghost" style="font-size:11px;padding:4px 8px;color:var(--red,#e07a7a)" onclick="deleteVenue(${v.id})">Delete</button>
+      </div>
     </div>`).join('');
+}
+
+async function deleteVenue(id) {
+  const v = VENUES.find(x => x.id === id);
+  if (!await askConfirm('Delete venue "' + (v ? v.name : '') + '"? This cannot be undone.')) return;
+  try {
+    await api('/api/booker/venues/' + id, {method:'DELETE'});
+    toast('Venue deleted');
+    if (EDIT_VENUE_ID === id) {
+      EDIT_VENUE_ID = null;
+      document.getElementById('venue-form').style.display = 'none';
+    }
+    await loadVenues();
+  } catch(e) { toast(e.message, 'error'); }
 }
 
 function prefillVenueEdit(id) {
