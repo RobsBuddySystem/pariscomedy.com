@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reserved — Paris Comedy</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#f0f0f0;margin:0;padding:48px 24px;min-height:100vh}
+.box{max-width:560px;margin:60px auto;background:#111;border:1px solid #222;border-radius:14px;padding:36px}
+h1{font-size:24px;font-weight:800;margin:0 0 12px;letter-spacing:-.5px}
+p{color:#aaa;line-height:1.6;margin:0 0 16px;font-size:15px}
+.plan{display:inline-block;padding:4px 10px;background:#1a1a2e;color:#c4b5fd;border-radius:6px;font-size:13px;font-weight:700;margin-bottom:14px}
+.cta{display:inline-block;margin-top:18px;padding:11px 22px;border-radius:10px;background:#7c3aed;color:#fff;font-weight:700;text-decoration:none;font-size:14px}
+.cta:hover{opacity:.9}
+.note{margin-top:24px;padding:14px;background:#1a1500;border:1px solid #2a2000;border-radius:8px;color:#f5c518;font-size:13px;line-height:1.5}
+a.back{display:block;margin-top:18px;color:#666;font-size:13px;text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="plan" id="plan-label">Loading plan…</div>
+  <h1>You're on the early list</h1>
+  <p>Payment is going through SumUp. We're finalising the product setup with our payment processor — you'll get a checkout link by email within 24 hours.</p>
+  <p>Your spot in line is reserved. No card has been charged.</p>
+  <div class="note" id="contact-note">Questions? Email <a href="mailto:payments@pariscomedy.com" style="color:#f5c518">payments@pariscomedy.com</a></div>
+  <a href="/" class="back">← Back to Paris Comedy</a>
+</div>
+
+<script src="/assets/events.js" defer></script>
+<script>
+const PLAN_LABELS = {
+  comic_plus_lifetime: "Comic Plus — €1 lifetime (founding 100)",
+  comic_plus_monthly:  "Comic Plus — €1 / 30 days",
+  comic_plus_annual:   "Comic Plus — €12 / year",
+  booker_plus_intro:   "Booker Plus — €1/mo intro",
+  booker_plus_monthly: "Booker Plus — €5/mo",
+  featured_show_7d:    "Featured Show — €5 / 7 days",
+  featured_show_30d:   "Featured Show — €15 / 30 days",
+  featured_show_90d:   "Featured Show — €40 / 90 days",
+};
+const plan = new URLSearchParams(location.search).get('plan') || '';
+document.getElementById('plan-label').textContent = PLAN_LABELS[plan] || plan || 'Reserved';
+</script>
+</body>
+</html>

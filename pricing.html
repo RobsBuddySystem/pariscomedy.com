@@ -196,15 +196,26 @@ footer a:hover{color:var(--text)}
       📍 Best for: residencies, festivals, run-ups to a big date. One payment via SumUp; promo auto-ends at the expiry.
     </div>
     <button class="btn-plan btn-start" onclick="openIntent('promo')">Promote my show →</button>
-    <form class="intent-form" id="intent-promo" onsubmit="return submitIntent(event,'promo','Featured Show Promo')">
+    <form class="intent-form" id="intent-promo" onsubmit="return submitPromo(event)">
       <label for="promo-name" style="position:absolute;left:-9999px">Your name</label>
       <input type="text"  id="promo-name"  placeholder="Your name" required aria-label="Your name">
       <label for="promo-email" style="position:absolute;left:-9999px">Your email</label>
       <input type="email" id="promo-email" placeholder="your@email.com" required aria-label="Your email">
-      <label for="promo-show" style="position:absolute;left:-9999px">Show name</label>
-      <input type="text"  id="promo-show"  placeholder="Show name" required aria-label="Show name">
+      <label for="promo-show" style="position:absolute;left:-9999px">Show name or slug</label>
+      <input type="text"  id="promo-show"  placeholder="Show name or slug" required aria-label="Show name">
+      <div style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap">
+        <label style="cursor:pointer;padding:8px 14px;border:1px solid #333;border-radius:8px;background:#0f0f0f;font-size:13px">
+          <input type="radio" name="promo-tier" value="featured_show_7d" checked> €5 / 7d
+        </label>
+        <label style="cursor:pointer;padding:8px 14px;border:1px solid #333;border-radius:8px;background:#0f0f0f;font-size:13px">
+          <input type="radio" name="promo-tier" value="featured_show_30d"> €15 / 30d
+        </label>
+        <label style="cursor:pointer;padding:8px 14px;border:1px solid #333;border-radius:8px;background:#0f0f0f;font-size:13px">
+          <input type="radio" name="promo-tier" value="featured_show_90d"> €40 / 90d
+        </label>
+      </div>
       <div class="intent-error" id="promo-err"></div>
-      <button type="submit">Continue →</button>
+      <button type="submit">Continue to payment →</button>
     </form>
     <div class="celebrate" id="promo-celebrate"></div>
   </div>
@@ -255,6 +266,50 @@ function openIntent(type) {
   var f = document.getElementById('intent-' + type);
   f.classList.add('open');
   f.querySelector('input').focus();
+}
+
+async function submitPromo(ev) {
+  ev.preventDefault();
+  var name = document.getElementById('promo-name').value.trim();
+  var email = document.getElementById('promo-email').value.trim();
+  var show = document.getElementById('promo-show').value.trim();
+  var tier = document.querySelector('input[name="promo-tier"]:checked').value;
+  var err = document.getElementById('promo-err');
+  err.textContent = '';
+  if (!name || !email || !show || email.indexOf('@') < 0) {
+    err.textContent = 'Name, email, and show name are required.'; return false;
+  }
+  if (window.pcTrack) pcTrack('featured_promo_click', {tier: tier, show: show});
+  if (window.pcTrack) pcTrack('form_submit_attempt', {form: 'featured_promo', tier: tier});
+  try {
+    var api = '';
+    try { var c = await fetch('/api-config.json',{cache:'no-store'}).then(function(r){return r.json();}); api = c.api || ''; } catch(_) {}
+    var r = await fetch(api + '/api/checkout/intent', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        plan_code: tier, contact_email: email, contact_name: name,
+        target_slug: show.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,''),
+        target_kind: 'show',
+        metadata: {show_input: show}
+      })
+    });
+    var j = await r.json();
+    if (!r.ok || !j.ok) throw new Error(j.detail || 'Server error');
+    if (window.pcTrack) pcTrack('form_submit_success', {form: 'featured_promo', intent_id: j.intent_id, configured: j.configured});
+    document.getElementById('intent-promo').style.display = 'none';
+    var box = document.getElementById('promo-celebrate');
+    box.classList.add('show');
+    box.innerHTML =
+      '<h3>Featured Show reserved ⭐</h3>' +
+      '<p>' + esc(name) + ', your <strong>' + esc(j.plan) + '</strong> spot for <strong>' + esc(show) + '</strong> is reserved.</p>' +
+      '<p>Complete payment via SumUp below. Your show pins to the top of /venues.html for ' + j.period_days + ' days the moment we confirm payment.</p>' +
+      '<a class="pay-btn" href="' + j.checkout_url + '" target="_blank" rel="noopener">Pay €' + j.amount_eur + ' via SumUp →</a>' +
+      '<div class="pay-note" style="margin-top:10px">Intent #' + j.intent_id + ' · Payment confirmed within 24 hours via admin reconciliation.</div>';
+  } catch (e) {
+    err.textContent = e.message || 'Could not reserve — try again.';
+    if (window.pcTrack) pcTrack('form_submit_error', {form: 'featured_promo', error: e.message});
+  }
+  return false;
 }
 
 async function submitIntent(ev, type, planName) {
