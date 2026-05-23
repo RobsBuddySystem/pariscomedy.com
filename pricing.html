@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pricing — Paris Comedy</title>
-<meta name="description" content="The first 100 comedians get lifetime Comic Plus for a single €1 payment. Booker Plus is €1/month. Free forever for everyone else.">
+<meta name="description" content="The first 100 comedians get lifetime Comic Plus for a single €1 payment. Booker Plus is €5/month — €1/month for your first 6 months. Free forever for everyone else.">
 <link rel="canonical" href="https://pariscomedy.com/pricing.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Pricing — Paris Comedy">
-<meta property="og:description" content="First 100 comedians: lifetime Comic Plus for €1. Booker Plus €1/month.">
+<meta property="og:description" content="First 100 comedians: lifetime Comic Plus for €1. Booker Plus: first 6 months at €1, then €5/month.">
 <meta property="og:url" content="https://pariscomedy.com/pricing.html">
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com/","email":"payments@pariscomedy.com","description":"The home of English-language stand-up comedy in Paris."}</script>
@@ -144,7 +144,7 @@ footer a:hover{color:var(--text)}
   <!-- Booker Plus -->
   <div class="plan-card featured" id="booker-plus">
     <div class="plan-name">Booker Plus</div>
-    <div class="plan-price">€1 <small>/ month · unlimited shows</small></div>
+    <div class="plan-price">€5 <small>/ month · unlimited shows</small> <span class="strike">€5</span></div>
     <div class="plan-desc">For show runners who want lineups, visibility, and direct comic access — without exposing private emails. List as many shows as you want.</div>
     <ul class="plan-features">
       <li>Lineup dashboard with drag-and-drop comic cards</li>
@@ -156,7 +156,7 @@ footer a:hover{color:var(--text)}
       <li>Lineup analytics — who&rsquo;s confirmed, who&rsquo;s pending</li>
     </ul>
     <div style="background:#33270a;border:1px solid #f59e0b;border-radius:8px;padding:10px 12px;margin:10px 0;font-size:12px;color:#f5c518">
-      ⭐ <strong>First 100 bookers:</strong> founder rate locked at €1/mo forever, no price increases.
+      ⭐ <strong>Launch offer:</strong> €1/month for your first 6 months. Auto-renews at €5/mo after. Cancel anytime.
     </div>
     <button class="btn-plan btn-start" onclick="openIntent('booker')">Start Booker Plus →</button>
     <form class="intent-form" id="intent-booker" onsubmit="return submitIntent(event,'booker','Booker Plus')">
@@ -174,7 +174,7 @@ footer a:hover{color:var(--text)}
 </div>
 
 <div class="footer-note">
-  Comic Plus: a one-time €1 via SumUp buys lifetime access for the first 100 comedians — never billed again. Booker Plus: €1/month, unlimited shows. First 100 bookers lock the €1 rate forever — no price increases. Pay the first month via SumUp, invoiced by email thereafter. Cancel anytime. Questions? payments@pariscomedy.com
+  Comic Plus: a one-time €1 via SumUp buys lifetime access for the first 100 comedians — never billed again. Booker Plus: €5/month (unlimited shows), with a launch offer of €1/month for your first 6 months — auto-renews at €5 after, cancel anytime via email. Paid through SumUp. Questions? payments@pariscomedy.com
 </div>
 
 <footer>
@@ -230,7 +230,7 @@ async function submitIntent(ev, type, planName) {
   }
   var isComic = (type === 'comic');
   var planDesc = isComic ? 'Founding Member — €1 lifetime'
-                         : '€1/month (or €12/year), invoiced monthly';
+                         : '€1/month for 6 months, then €5/month — auto-renews via SumUp';
   var body = 'Plan: ' + planName + ' (' + planDesc + ')\n' +
              'Name: ' + name + '\nEmail: ' + email + '\nRole: ' + type;
 
@@ -273,14 +273,14 @@ async function submitIntent(ev, type, planName) {
       '<h3>Booker Plus — you&rsquo;re in 🎭</h3>' +
       '<p>' + name + ', your Booker Plus is reserved. ' +
       (res.status === 'sent'
-        ? 'Pay your first month (€1) below — we then invoice you €1/month by email. Cancel anytime.' + reference
+        ? 'Pay your first month (€1) below — auto-renews at €1/month for 6 months, then €5/month. Cancel anytime.' + reference
         : 'We saved your details locally (server busy). Pay the first €1 below, then ' +
           '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
       '</p>' +
       '<a class="pay-btn" href="' + payUrl + '" target="_blank" rel="noopener">Pay €1 — first month →</a>' +
       '<br><a class="pay-btn" style="background:#1e1e1e;color:var(--text);margin-top:10px" href="' + portalUrl + '">' + portalLabel + ' →</a>' +
       '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
-      '<div class="pay-note">Secure card payment via SumUp · €1/month, invoiced by email · cancel anytime</div>';
+      '<div class="pay-note">Secure card payment via SumUp · €1/month for 6 months, then €5/month · cancel anytime</div>';
   }
   return false;
 }
