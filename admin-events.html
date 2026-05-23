@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Events Dashboard — Paris Comedy Admin</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#f0f0f0;min-height:100vh;padding:24px}
+h1{font-size:22px;font-weight:800;margin-bottom:4px}
+.sub{color:#666;font-size:13px;margin-bottom:24px}
+.auth-form{max-width:360px;margin:80px auto}
+.auth-form input{width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:8px;color:#f0f0f0;font-size:14px;margin-bottom:10px}
+.auth-form button{width:100%;padding:11px;background:#7c3aed;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+.auth-form button:hover{opacity:.9}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:28px}
+.metric{background:#111;border:1px solid #1e1e1e;border-radius:10px;padding:16px}
+.metric-num{font-size:28px;font-weight:800;color:#9d5ff5}
+.metric-label{font-size:12px;color:#666;margin-top:4px}
+.section{margin-bottom:32px}
+.section h2{font-size:15px;font-weight:700;margin-bottom:12px;color:#aaa;letter-spacing:.05em;text-transform:uppercase}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:#666;padding:6px 8px;border-bottom:1px solid #1e1e1e;font-weight:600}
+td{padding:6px 8px;border-bottom:1px solid #111;color:#ccc}
+tr:hover td{background:#0f0f0f}
+.funnel{display:flex;flex-direction:column;gap:6px}
+.funnel-row{display:grid;grid-template-columns:220px 1fr 60px;align-items:center;gap:10px}
+.funnel-label{font-size:13px;color:#aaa}
+.funnel-bar-wrap{height:10px;background:#1a1a1a;border-radius:4px;overflow:hidden}
+.funnel-bar{height:100%;background:#7c3aed;border-radius:4px;transition:width .3s}
+.funnel-count{font-size:13px;font-weight:700;color:#9d5ff5;text-align:right}
+.days-row{display:flex;gap:8px;margin-bottom:20px}
+.day-btn{padding:5px 14px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;font-size:13px;cursor:pointer;font-weight:600;transition:all .15s}
+.day-btn:hover{border-color:#666;color:#f0f0f0}
+.day-btn.active{background:#7c3aed;border-color:#7c3aed;color:#fff}
+.error{color:#fca5a5;font-size:14px;padding:20px 0}
+#main{display:none}
+</style>
+</head>
+<body>
+
+<div class="auth-form" id="auth-form">
+  <h1>Events Dashboard</h1>
+  <p class="sub" style="margin-bottom:16px">Enter admin token to continue</p>
+  <input type="password" id="token-input" placeholder="Admin token" onkeydown="if(event.key==='Enter') loadData()">
+  <button onclick="loadData()">Enter →</button>
+  <div id="auth-error" style="color:#fca5a5;font-size:13px;margin-top:8px"></div>
+</div>
+
+<div id="main">
+  <h1>Paris Comedy — Events Dashboard</h1>
+  <p class="sub" id="last-updated"></p>
+
+  <div class="days-row">
+    <button class="day-btn active" onclick="switchDays(7,this)">7 days</button>
+    <button class="day-btn" onclick="switchDays(14,this)">14 days</button>
+    <button class="day-btn" onclick="switchDays(30,this)">30 days</button>
+    <button class="day-btn" onclick="switchDays(90,this)">90 days</button>
+  </div>
+
+  <div class="grid" id="metric-grid"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px">
+    <div class="section">
+      <h2>Top pages</h2>
+      <table><thead><tr><th>Path</th><th>Views</th></tr></thead><tbody id="top-pages"></tbody></table>
+    </div>
+    <div class="section">
+      <h2>Top referrers</h2>
+      <table><thead><tr><th>Source</th><th>Visits</th></tr></thead><tbody id="top-refs"></tbody></table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Events by type</h2>
+    <table><thead><tr><th>Event</th><th>Count</th></tr></thead><tbody id="by-type"></tbody></table>
+  </div>
+
+  <div class="section">
+    <h2>Conversion funnel</h2>
+    <div class="funnel" id="funnel"></div>
+  </div>
+</div>
+
+<script>
+let _token = '';
+let _days = 7;
+
+async function loadData(days) {
+  days = days || _days;
+  const tokenInput = document.getElementById('token-input');
+  if (!_token) _token = (tokenInput && tokenInput.value.trim()) || '';
+  if (!_token) { document.getElementById('auth-error').textContent = 'Token required'; return; }
+  let apiBase = '';
+  try { const c = await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json()); apiBase = c.api || ''; } catch(_) {}
+  const url = `${apiBase}/api/admin/events/summary?days=${days}&token=${encodeURIComponent(_token)}`;
+  const r = await fetch(url);
+  if (r.status === 401) {
+    document.getElementById('auth-error').textContent = 'Invalid token';
+    return;
+  }
+  if (!r.ok) { document.getElementById('auth-error').textContent = 'Server error ' + r.status; return; }
+  const d = await r.json();
+  document.getElementById('auth-form').style.display = 'none';
+  document.getElementById('main').style.display = 'block';
+  document.getElementById('last-updated').textContent = `Last ${days} days — refreshed ${new Date().toLocaleTimeString()}`;
+
+  // Metrics
+  const metrics = [
+    { label: 'Total events',      val: d.total_events    },
+    { label: 'Page views',         val: d.page_views      },
+    { label: 'Unique sessions',    val: d.unique_sessions },
+    { label: 'Ticket clicks',      val: (d.by_type.find(e=>e.event_type==='ticket_click')||{count:0}).count },
+    { label: 'Affiliate clicks',   val: (d.by_type.find(e=>e.event_type==='affiliate_click')||{count:0}).count },
+    { label: 'Pricing CTAs',       val: (d.by_type.find(e=>e.event_type==='pricing_cta_click')||{count:0}).count },
+    { label: 'Comic profile opens',val: (d.by_type.find(e=>e.event_type==='comic_profile_open')||{count:0}).count },
+    { label: 'Claim CTA clicks',   val: (d.by_type.find(e=>e.event_type==='claim_show_click')||{count:0}).count },
+    { label: 'Lineup exports',     val: (d.by_type.find(e=>e.event_type==='lineup_export')||{count:0}).count },
+    { label: 'Notify booked',      val: (d.by_type.find(e=>e.event_type==='notify_booked_comics')||{count:0}).count },
+    { label: 'Form errors',        val: (d.by_type.find(e=>e.event_type==='form_submit_error')||{count:0}).count },
+    { label: 'Newsletter signups', val: (d.by_type.find(e=>e.event_type==='newsletter_signup')||{count:0}).count },
+  ];
+  document.getElementById('metric-grid').innerHTML = metrics.map(m =>
+    `<div class="metric"><div class="metric-num">${(m.val||0).toLocaleString()}</div><div class="metric-label">${m.label}</div></div>`
+  ).join('');
+
+  // Top pages
+  document.getElementById('top-pages').innerHTML = (d.top_pages||[]).slice(0,10).map(p =>
+    `<tr><td>${p.path||'/'}</td><td>${(p.count||0).toLocaleString()}</td></tr>`).join('') || '<tr><td colspan="2" style="color:#555">No data</td></tr>';
+
+  // Top referrers
+  document.getElementById('top-refs').innerHTML = (d.top_referrers||[]).slice(0,10).map(r =>
+    `<tr><td>${r.referrer||'direct'}</td><td>${(r.count||0).toLocaleString()}</td></tr>`).join('') || '<tr><td colspan="2" style="color:#555">No data</td></tr>';
+
+  // By type
+  document.getElementById('by-type').innerHTML = (d.by_type||[]).map(e =>
+    `<tr><td>${e.event_type}</td><td>${(e.count||0).toLocaleString()}</td></tr>`).join('') || '<tr><td colspan="2" style="color:#555">No data</td></tr>';
+
+  // Funnel
+  const maxFunnel = Math.max(1, ...(d.funnel||[]).map(f=>f.count||0));
+  document.getElementById('funnel').innerHTML = (d.funnel||[]).map(f => {
+    const pct = Math.round(((f.count||0) / maxFunnel) * 100);
+    const label = (f.step||'').replace(/_/g,' ');
+    return `<div class="funnel-row">
+      <span class="funnel-label">${label}</span>
+      <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:${pct}%"></div></div>
+      <span class="funnel-count">${(f.count||0).toLocaleString()}</span>
+    </div>`;
+  }).join('');
+}
+
+function switchDays(days, btn) {
+  _days = days;
+  document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  loadData(days);
+}
+
+// Auto-load if token is in URL param ?token=...
+const urlToken = new URLSearchParams(location.search).get('token');
+if (urlToken) { _token = urlToken; loadData(); }
+</script>
+</body>
+</html>

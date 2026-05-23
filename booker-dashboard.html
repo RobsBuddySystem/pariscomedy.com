@@ -235,6 +235,10 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
       <button class="btn btn-secondary" onclick="exportLineup()" id="export-btn" disabled>Export as text</button>
     </div>
     <div style="margin-top:10px;font-size:11px;color:var(--muted)">Notifications go through manual review before delivery. No private emails are exposed.</div>
+    <div id="show-timeline-wrap" style="margin-top:18px;display:none">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Show timeline</div>
+      <div id="show-timeline-list" style="font-size:12px;color:var(--muted);line-height:1.9"></div>
+    </div>
   </div>
 
 </div>
@@ -469,6 +473,35 @@ function selectShow(id) {
   CURRENT_SHOW = SHOWS.find(s => s.id===id);
   renderShowList();
   renderLineup();
+  loadShowTimeline(id);
+}
+
+async function loadShowTimeline(showId) {
+  const wrap = document.getElementById('show-timeline-wrap');
+  const list = document.getElementById('show-timeline-list');
+  if (!wrap || !list) return;
+  try {
+    const token = TOKEN || '';
+    const r = await fetch(`/api/admin/events/timeline/${showId}?days=90&token=${encodeURIComponent(token)}`);
+    if (!r.ok) { wrap.style.display = 'none'; return; }
+    const data = await r.json();
+    if (!data.timeline || !data.timeline.length) { wrap.style.display = 'none'; return; }
+    const icons = {
+      page_view:'👁', ticket_click:'🎟', lineup_export:'📋',
+      notify_booked_comics:'📨', comic_follow:'🔔',
+      form_submit_success:'✅', form_submit_error:'❌', default:'•'
+    };
+    list.innerHTML = data.timeline.slice(0,20).map(ev => {
+      const icon = icons[ev.event_type] || icons.default;
+      const dt = ev.created_at ? ev.created_at.slice(0,16).replace('T',' ') : '';
+      return `<div style="display:flex;gap:6px;padding:3px 0;border-bottom:1px solid #1e1e1e">`+
+        `<span style="flex-shrink:0">${icon}</span>`+
+        `<span style="flex:1;color:#aaa">${ev.event_type.replace(/_/g,' ')}</span>`+
+        `<span style="color:#555;font-size:11px">${dt}</span>`+
+        `</div>`;
+    }).join('');
+    wrap.style.display = 'block';
+  } catch(_) { wrap.style.display = 'none'; }
 }
 
 async function createShow() {
@@ -685,6 +718,7 @@ async function removeFromLineup(id) {
 async function notifyComics() {
   if (!CURRENT_SHOW) return;
   if (!await askConfirm('Send booking invitations to all uninvited comics on this lineup?')) return;
+  if (window.pcTrack) pcTrack('notify_booked_comics', {show_id: CURRENT_SHOW.id, show_title: CURRENT_SHOW.title});
   try {
     const r = await api('/api/booker/notify', {method:'POST', body:JSON.stringify({show_id: CURRENT_SHOW.id})});
     toast(`${r.notifications_queued} invitations queued for review`);
@@ -706,6 +740,7 @@ function exportLineup() {
   a.href = URL.createObjectURL(blob);
   a.download = `lineup-${s.show_date}-${s.title.replace(/\s+/g,'_')}.txt`;
   a.click();
+  if (window.pcTrack) pcTrack('lineup_export', {show_id: s.id, show_title: s.title, comic_count: s.lineup.length});
 }
 
 // Auto-login if token persists
@@ -1014,5 +1049,6 @@ function skipTutorial() {
   document.getElementById('tutorial-overlay')?.remove();
 }
 </script>
+<script src="/assets/events.js" defer></script>
 </body>
 </html>

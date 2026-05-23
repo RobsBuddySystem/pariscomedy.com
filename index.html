@@ -865,6 +865,7 @@ async function submitNewsletter(ev) {
   if (!email) { msg.textContent = 'Email required.'; return false; }
   if (!consent) { msg.textContent = 'Please tick the consent box.'; return false; }
   msg.textContent = 'Subscribing…';
+  if (window.pcTrack) pcTrack('form_submit_attempt', {form: 'newsletter', source: 'index-footer'});
   try {
     let api = '';
     try { const c = await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json()); api = c.api || ''; } catch(_) {}
@@ -878,14 +879,18 @@ async function submitNewsletter(ev) {
     msg.style.color = '#4ade80';
     msg.textContent = 'Subscribed. Check your inbox for the first weekly digest.';
     document.getElementById('newsletter-email').value = '';
+    if (window.pcTrack) pcTrack('newsletter_signup', {source: 'index-footer'});
+    if (window.pcTrack) pcTrack('form_submit_success', {form: 'newsletter'});
   } catch (e) {
     msg.style.color = '#fca5a5';
     msg.textContent = e.message || 'Could not subscribe — try again later.';
+    if (window.pcTrack) pcTrack('form_submit_error', {form: 'newsletter', error: e.message});
   }
   return false;
 }
 </script>
 <script src="/assets/ads.js" defer></script>
 <script src="/assets/track.js" defer></script>
+<script src="/assets/events.js" defer></script>
 </body>
 </html>
