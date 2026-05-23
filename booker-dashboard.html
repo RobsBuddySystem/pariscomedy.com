@@ -85,6 +85,25 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
 .slot.drop-target{border-color:var(--purple-light);background:#1a0f2a;color:var(--purple-light)}
 .comic-card[draggable="true"]{cursor:grab}
 .comic-card.dragging{opacity:.4;cursor:grabbing}
+.comic-card .card-click-area{cursor:pointer}
+#comic-panel{position:fixed;top:0;right:-520px;width:min(520px,92vw);height:100vh;background:#0d0d0d;border-left:1px solid var(--border);box-shadow:-12px 0 28px rgba(0,0,0,.5);z-index:300;transition:right .25s ease;overflow-y:auto;padding:24px 24px 60px}
+#comic-panel.open{right:0}
+#comic-panel-backdrop{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:250;transition:opacity .25s}
+#comic-panel-backdrop.open{opacity:.55;pointer-events:auto}
+#comic-panel .cp-close{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1}
+#comic-panel .cp-photo{width:120px;height:120px;border-radius:14px;object-fit:cover;background:#222;margin-bottom:14px}
+#comic-panel h2.cp-name{font-size:22px;margin-bottom:6px}
+#comic-panel .cp-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
+#comic-panel .cp-bio{color:var(--text);line-height:1.5;margin-bottom:14px;font-size:13px}
+#comic-panel .cp-actuality{color:var(--muted);font-size:12px;margin-bottom:18px}
+#comic-panel .cp-video{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;margin-bottom:18px;border:1px solid var(--border)}
+#comic-panel .cp-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+#comic-panel .cp-links{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+#comic-panel .cp-section{border-top:1px solid var(--border);padding-top:14px;margin-top:14px}
+#comic-panel .cp-section h3{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+#comic-panel .cp-show{padding:9px 11px;background:#0f0f0f;border:1px solid var(--border);border-radius:7px;font-size:12px;display:flex;justify-content:space-between;gap:8px;margin-bottom:6px}
+#comic-panel .cp-show .when{color:var(--purple-light);font-weight:600}
+#comic-panel .cp-actions{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
 .slot-name{font-weight:600;flex:1}
 .slot-status{font-size:10px;padding:2px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
 .slot-status.invited{background:#2a2a1a;color:var(--yellow)}
@@ -199,6 +218,13 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
       <div class="comic-grid" id="comic-grid"></div>
     </div>
   </div>
+
+  <!-- Comic profile side panel -->
+  <div id="comic-panel-backdrop" onclick="closeComicPanel()"></div>
+  <aside id="comic-panel" aria-hidden="true">
+    <button class="cp-close" onclick="closeComicPanel()" aria-label="Close">✕</button>
+    <div id="comic-panel-body"></div>
+  </aside>
 
   <!-- Lineup builder -->
   <div class="panel" id="lineup-panel" style="position:sticky;top:80px;align-self:start;height:fit-content">
@@ -480,6 +506,7 @@ function renderComics() {
   if (!list.length) { grid.innerHTML='<div class="empty">No comics match.</div>'; return; }
   grid.innerHTML = list.slice(0, 60).map(c => `
     <div class="comic-card" draggable="true" data-slug="${esc(c.slug)}" data-name="${esc(c.name)}" ondragstart="onComicDragStart(event)" ondragend="onComicDragEnd(event)">
+      <div class="card-click-area" onclick="openComicPanel('${esc(c.slug)}')" title="View profile">
       <div class="comic-photo">${c.photo ? `<img src="${esc(c.photo)}" loading="lazy" onerror="this.parentNode.textContent='🎤'">` : '🎤'}</div>
       <div class="comic-name">${esc(c.name)}</div>
       <div class="comic-badges">
@@ -490,12 +517,81 @@ function renderComics() {
         ${c.is_placeholder ? '<span class="badge badge-visitor">Visitor</span>' : ''}
       </div>
       ${c.actuality ? `<div class="comic-meta">${esc(c.actuality.substring(0,80))}</div>` : ''}
-      ${c.instagram ? `<a href="${esc(c.instagram)}" target="_blank" rel="noopener" style="font-size:11px">Instagram ↗</a>` : ''}
-      <button class="btn btn-primary" style="margin-top:auto;padding:6px;font-size:11px" onclick="inviteComic('${esc(c.slug)}','${esc(c.name)}')">+ Invite to lineup</button>
-      <button class="btn btn-secondary" style="padding:6px;font-size:11px" onclick="openOfferModal('${esc(c.slug)}','${esc(c.name)}')">Send offer</button>
+      </div>
+      ${c.instagram ? `<a href="${esc(c.instagram)}" target="_blank" rel="noopener" style="font-size:11px" onclick="event.stopPropagation()">Instagram ↗</a>` : ''}
+      <button class="btn btn-primary" style="margin-top:auto;padding:6px;font-size:11px" onclick="event.stopPropagation(); inviteComic('${esc(c.slug)}','${esc(c.name)}')">+ Invite to lineup</button>
+      <button class="btn btn-secondary" style="padding:6px;font-size:11px" onclick="event.stopPropagation(); openOfferModal('${esc(c.slug)}','${esc(c.name)}')">Send offer</button>
     </div>
   `).join('');
 }
+
+function ytEmbedId(url) {
+  if (!url) return null;
+  const m = String(url).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{6,})/);
+  return m ? m[1] : null;
+}
+function comicUpcomingFor(c) {
+  // Join CURRENT_SHOW universe via SHOWS (already loaded); also use the
+  // generic public shows list if it's been hydrated globally. For now we
+  // look at SHOWS lineups for the show owner.
+  const out = [];
+  const slug = (c.slug||'').toLowerCase();
+  const cname = (c.name||'').toLowerCase().trim();
+  for (const s of SHOWS) {
+    for (const lu of (s.lineup||[])) {
+      if ((lu.comic_slug||'').toLowerCase() === slug) {
+        out.push({title: s.title, venue: s.venue, when: `${s.show_date} ${s.show_time||''}`});
+        break;
+      }
+    }
+    if ((s.title||'').toLowerCase().trim() === cname) {
+      out.push({title: s.title, venue: s.venue, when: `${s.show_date} ${s.show_time||''}`});
+    }
+  }
+  return out.slice(0, 8);
+}
+function openComicPanel(slug) {
+  const c = COMICS.find(x => x.slug === slug);
+  if (!c) return;
+  const ig = c.instagram ? (c.instagram.startsWith('http') ? c.instagram : 'https://instagram.com/' + c.instagram.replace(/^@/, '')) : '';
+  const yt = ytEmbedId(c.video_url || '');
+  const upcoming = comicUpcomingFor(c);
+  const langs = (c.langs||[]).map(l => `<span class="badge badge-${esc(l)}">${esc(l.toUpperCase())}</span>`).join('');
+  const newBadge = (c.first_seen && (Date.now() - new Date(c.first_seen).getTime()) < 14*86400000)
+    ? '<span class="badge" style="background:#14532d;color:#4ade80">NEW</span>' : '';
+  const upcomingHTML = upcoming.length
+    ? upcoming.map(s => `<div class="cp-show"><div><strong>${esc(s.title)}</strong><div style="color:var(--muted);font-size:11px">${esc(s.venue||'')}</div></div><div class="when">${esc(s.when)}</div></div>`).join('')
+    : '<div style="color:var(--muted);font-size:12px;padding:6px 0">No upcoming dates in your shows.</div>';
+
+  const body = document.getElementById('comic-panel-body');
+  body.innerHTML = `
+    ${c.photo ? `<img class="cp-photo" src="${esc(c.photo)}" alt="${esc(c.name)}" onerror="this.style.display='none'">` : ''}
+    <h2 class="cp-name">${esc(c.name)}</h2>
+    <div class="cp-badges">${langs}${newBadge}</div>
+    ${c.bio ? `<p class="cp-bio">${esc(c.bio)}</p>` : ''}
+    ${c.actuality ? `<p class="cp-actuality">${esc(c.actuality)}</p>` : ''}
+    ${yt ? `<div class="cp-video"><iframe loading="lazy" src="https://www.youtube.com/embed/${esc(yt)}" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe></div>` : ''}
+    <div class="cp-links">
+      ${ig ? `<a class="btn btn-secondary" href="${esc(ig)}" target="_blank" rel="noopener" style="padding:8px 12px;font-size:12px">Instagram ↗</a>` : ''}
+      ${c.tiktok ? `<a class="btn btn-secondary" href="${esc(c.tiktok)}" target="_blank" rel="noopener" style="padding:8px 12px;font-size:12px">TikTok ↗</a>` : ''}
+      ${c.website ? `<a class="btn btn-secondary" href="${esc(c.website)}" target="_blank" rel="noopener" style="padding:8px 12px;font-size:12px">Website ↗</a>` : ''}
+      <a class="btn btn-secondary" href="/c/${encodeURIComponent(c.slug)}.html" target="_blank" rel="noopener" style="padding:8px 12px;font-size:12px">Public page ↗</a>
+    </div>
+    <div class="cp-section"><h3>Upcoming shows</h3>${upcomingHTML}</div>
+    <div class="cp-actions">
+      <button class="btn btn-primary" style="padding:9px 14px;font-size:13px" onclick="inviteComic('${esc(c.slug)}','${esc(c.name)}'); closeComicPanel()">+ Invite to current lineup</button>
+      <button class="btn btn-secondary" style="padding:9px 14px;font-size:13px" onclick="openOfferModal('${esc(c.slug)}','${esc(c.name)}'); closeComicPanel()">Send offer</button>
+    </div>`;
+  document.getElementById('comic-panel').classList.add('open');
+  document.getElementById('comic-panel').setAttribute('aria-hidden', 'false');
+  document.getElementById('comic-panel-backdrop').classList.add('open');
+}
+function closeComicPanel() {
+  document.getElementById('comic-panel').classList.remove('open');
+  document.getElementById('comic-panel').setAttribute('aria-hidden', 'true');
+  document.getElementById('comic-panel-backdrop').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeComicPanel(); });
 
 async function inviteComic(slug, name, slotIndex) {
   if (!CURRENT_SHOW) { toast('Select a show first','error'); return; }
