@@ -10,10 +10,11 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#f0f0f0;min-height:100vh}
 a{color:inherit;text-decoration:none}
 nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #222;position:sticky;top:0;background:#0a0a0a;z-index:100}
-.nav-logo{font-size:18px;font-weight:700;letter-spacing:-0.5px}
+.nav-logo{font-size:18px;font-weight:700;letter-spacing:-0.5px;color:#f0f0f0}
 .nav-logo span{color:#f5c518}
-.nav-links{display:flex;gap:20px;font-size:14px;color:#888}
+.nav-links{display:flex;gap:16px;font-size:13px;color:#888;flex-wrap:wrap}
 .nav-links a:hover{color:#f0f0f0}
+@media(max-width:600px){nav{flex-wrap:wrap;gap:8px}.nav-links{gap:12px;font-size:12px}}
 .hero{text-align:center;padding:60px 24px 30px}
 .hero h1{font-size:clamp(28px,5vw,52px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:12px}
 .hero h1 span{color:#888}
@@ -30,12 +31,17 @@ footer{text-align:center;padding:40px 24px;color:#555;font-size:12px;border-top:
 </head>
 <body>
 <nav>
-  <div class="nav-logo">Paris<span>Comedy</span></div>
+  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
   <div class="nav-links">
     <a href="/">Home</a>
     <a href="/shows.html">Shows</a>
-    <a href="/comedians.html">Comedians</a>
     <a href="/venues.html">Venues</a>
+    <a href="/comedians.html">Comedians</a>
+    <a href="/bookers.html">Bookers</a>
+    <a href="/pricing.html">Pricing</a>
+    <a href="/login.html">Sign In</a>
+    <a href="/book.html">Book / Connect</a>
+    <a href="/about.html">About</a>
     <a href="/archive.html" style="color:#f0f0f0">Archive</a>
   </div>
 </nav>
