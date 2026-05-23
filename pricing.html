@@ -144,14 +144,18 @@ footer a:hover{color:var(--text)}
   <!-- Booker Plus -->
   <div class="plan-card featured" id="booker-plus">
     <div class="plan-name">Booker Plus</div>
-    <div class="plan-price">€1 <small>/ month · or €12 / year</small></div>
-    <div class="plan-desc">For show runners who want visibility and direct access to comics.</div>
+    <div class="plan-price">€1 <small>/ month · up to 2 shows</small></div>
+    <div class="plan-desc">For show runners who want lineups, visibility, and direct comic access — without exposing private emails.</div>
     <ul class="plan-features">
-      <li>Everything in Free</li>
+      <li>Lineup dashboard with drag-and-drop comic cards</li>
+      <li>Notify booked comics through our moderated channel</li>
+      <li>Up to <strong>2 active shows</strong> on this tier</li>
       <li>Promote shows to the top of listings</li>
-      <li>Message comics directly</li>
-      <li>Feature a show in the homepage slot</li>
+      <li>Featured slot rotation on the homepage</li>
     </ul>
+    <div style="background:#33270a;border:1px solid #f59e0b;border-radius:8px;padding:10px 12px;margin:10px 0;font-size:12px;color:#f5c518">
+      ⭐ <strong>First 100 bookers:</strong> founder rate locked at €1/mo forever, no price increases. After 100 sign-ups we discuss the next tier — but founding bookers never get bumped.
+    </div>
     <button class="btn-plan btn-start" onclick="openIntent('booker')">Start Booker Plus →</button>
     <form class="intent-form" id="intent-booker" onsubmit="return submitIntent(event,'booker','Booker Plus')">
       <input type="text"  id="booker-name"  placeholder="Your name" required>
@@ -160,12 +164,15 @@ footer a:hover{color:var(--text)}
       <button type="submit">Continue →</button>
     </form>
     <div class="celebrate" id="booker-celebrate"></div>
+    <div style="margin-top:14px;font-size:11px;color:var(--muted);line-height:1.4">
+      Need more than 2 shows? Reach out — we&rsquo;ll add a higher tier once we see the demand. For now, keep it simple.
+    </div>
   </div>
 
 </div>
 
 <div class="footer-note">
-  Comic Plus: a one-time €1 via SumUp buys lifetime access for the first 100 comedians — never billed again. Booker Plus: €1/month (or €12/year), pay the first month via SumUp, invoiced by email thereafter. Cancel anytime. Questions? payments@pariscomedy.com
+  Comic Plus: a one-time €1 via SumUp buys lifetime access for the first 100 comedians — never billed again. Booker Plus: €1/month (up to 2 shows). First 100 bookers lock the €1 rate forever — no price increases. Pay the first month via SumUp, invoiced by email thereafter. Cancel anytime. Questions? payments@pariscomedy.com
 </div>
 
 <footer>

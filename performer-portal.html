@@ -185,6 +185,59 @@ function renderComicStep(){
 function comicTutNext(){if(comicStep>=COMIC_TUTORIAL.length-1){skipComicTutorial();return;}comicStep++;renderComicStep();}
 function comicTutPrev(){if(comicStep>0){comicStep--;renderComicStep();}}
 function skipComicTutorial(){localStorage.setItem('comic_tutorial_done','1');document.getElementById('ctut')?.remove();}
+
+// ===== Comic-page claim flow =====
+// Triggered by deep-link `/performer-portal.html?claim=<slug>` from a comic page.
+(async function handleClaim() {
+  const params = new URLSearchParams(window.location.search);
+  const slug = (params.get('claim') || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
+  if (!slug) return;
+  // Persist across the magic-link round-trip — once signed in we redirect back here.
+  localStorage.setItem('pending_claim_slug', slug);
+  // Show banner.
+  const banner = document.createElement('div');
+  banner.id = 'claim-banner';
+  banner.style.cssText = 'background:linear-gradient(135deg,#33270a,#1a1a0a);border:1px solid #f59e0b;color:#f5c518;padding:14px 18px;margin:12px auto;max-width:780px;border-radius:10px;font-size:14px;line-height:1.5';
+  banner.innerHTML = `<strong>Claiming "${slug}"</strong><br><span style="color:#d4a04a">Sign in with your email below to confirm you are this comic. Once verified, you control the public page at <a href="/c/${encodeURIComponent(slug)}.html" style="color:#f5c518;text-decoration:underline">/c/${slug}.html</a>.</span>`;
+  document.querySelector('main').prepend(banner);
+  // If already signed in, fire the claim immediately.
+  try {
+    const me = await api('/api/me');
+    if (me.signed_in) {
+      await submitClaim(slug);
+    }
+  } catch (_) {}
+})();
+
+async function submitClaim(slug) {
+  try {
+    const r = await api('/api/performer/claim', {method:'POST', body:JSON.stringify({slug})});
+    const banner = document.getElementById('claim-banner');
+    if (banner) {
+      banner.style.borderColor = '#10b981';
+      banner.style.color = '#4ade80';
+      banner.innerHTML = `<strong>Claimed.</strong><br>You now own <a href="/c/${encodeURIComponent(slug)}.html" style="color:#4ade80;text-decoration:underline">/c/${slug}.html</a>. Update your profile below; the page refreshes on the next daily build.`;
+    }
+    localStorage.removeItem('pending_claim_slug');
+  } catch (e) {
+    const banner = document.getElementById('claim-banner');
+    if (banner) {
+      banner.style.borderColor = '#ef4444';
+      banner.style.color = '#fca5a5';
+      banner.innerHTML = `<strong>Claim failed:</strong> ${e.message}. Sign in first, then refresh this page.`;
+    }
+  }
+}
+
+// After sign-in (magic-link verify hits the API and loads /api/me), retry any pending claim.
+window.addEventListener('focus', async () => {
+  const pending = localStorage.getItem('pending_claim_slug');
+  if (!pending) return;
+  try {
+    const me = await api('/api/me');
+    if (me.signed_in) await submitClaim(pending);
+  } catch (_) {}
+});
 </script>
 </body>
 </html>
