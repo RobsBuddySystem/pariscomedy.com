@@ -42,10 +42,20 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
 
 /* Show selector + form */
 .show-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-.show-item{padding:10px 12px;background:#0f0f0f;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.show-item{padding:10px 12px;background:#0f0f0f;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .show-item:hover{border-color:#444}
 .show-item.active{border-color:var(--purple);background:#1a0f2a}
 .show-item .meta{color:var(--muted);font-size:11px}
+.show-group{border:1px solid var(--border);border-radius:8px;background:#0f0f0f;overflow:hidden}
+.show-group-header{padding:10px 12px;cursor:pointer;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:8px;user-select:none}
+.show-group-header:hover{background:#141414}
+.show-group-header.active-child{background:#1a0f2a;border-bottom:1px solid var(--purple)}
+.show-group-caret{color:var(--muted);font-size:11px;transition:transform .15s}
+.show-group.open .show-group-caret{transform:rotate(90deg)}
+.show-group-count{color:var(--purple-light);font-weight:700;font-size:11px;padding:2px 8px;border-radius:999px;background:#1a0f2a}
+.show-group-children{display:none;flex-direction:column;gap:4px;padding:6px 6px 6px 22px;border-top:1px solid var(--border);background:#0a0a0a}
+.show-group.open .show-group-children{display:flex}
+.show-group-children .show-item{padding:8px 10px;font-size:12px}
 
 /* Filters */
 .filters{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
@@ -70,8 +80,11 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
 .badge-visitor{background:#3a2a1a;color:#e0a060}
 
 /* Lineup panel */
-.slot{background:#0f0f0f;border:1px dashed var(--border);border-radius:8px;padding:10px;margin-bottom:6px;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.slot{background:#0f0f0f;border:1px dashed var(--border);border-radius:8px;padding:10px;margin-bottom:6px;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:8px;transition:border-color .12s,background .12s}
 .slot.filled{border-style:solid;border-color:var(--green);background:#0a1a14}
+.slot.drop-target{border-color:var(--purple-light);background:#1a0f2a;color:var(--purple-light)}
+.comic-card[draggable="true"]{cursor:grab}
+.comic-card.dragging{opacity:.4;cursor:grabbing}
 .slot-name{font-weight:600;flex:1}
 .slot-status{font-size:10px;padding:2px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
 .slot-status.invited{background:#2a2a1a;color:var(--yellow)}
@@ -362,11 +375,68 @@ async function loadShows() {
 function renderShowList() {
   const el = document.getElementById('show-list');
   if (!SHOWS.length) { el.innerHTML = '<div class="empty">No shows yet — create one below.</div>'; return; }
-  el.innerHTML = SHOWS.map(s => `
-    <div class="show-item ${CURRENT_SHOW && CURRENT_SHOW.id===s.id ? 'active' : ''}" onclick="selectShow(${s.id})">
+  // Group recurring shows by title + venue so a 10-week residency takes one row.
+  const groups = new Map();
+  for (const s of SHOWS) {
+    const key = `${s.title}|${s.venue}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(s);
+  }
+  // Sort each group by date asc; sort groups by their soonest date.
+  const groupList = [...groups.values()]
+    .map(arr => arr.slice().sort((a,b) => (a.show_date||'').localeCompare(b.show_date||'')))
+    .sort((a,b) => (a[0].show_date||'').localeCompare(b[0].show_date||''));
+
+  const currentId = CURRENT_SHOW && CURRENT_SHOW.id;
+  const expanded = window.__expandedShowGroups || (window.__expandedShowGroups = new Set());
+
+  el.innerHTML = groupList.map(group => {
+    const next = group[0];
+    if (group.length === 1) {
+      return showItemHTML(next, currentId === next.id);
+    }
+    const groupKey = `${next.title}|${next.venue}`;
+    const hasActiveChild = group.some(s => s.id === currentId);
+    const isOpen = expanded.has(groupKey) || hasActiveChild;
+    const children = group.slice(1).map(s => showItemHTML(s, currentId === s.id)).join('');
+    return `
+      <div class="show-group ${isOpen ? 'open' : ''}" data-group-key="${esc(groupKey)}">
+        <div class="show-group-header ${hasActiveChild && currentId !== next.id ? 'active-child' : ''}" onclick="toggleShowGroup('${esc(groupKey)}', event)">
+          <div>
+            <strong>${esc(next.title)}</strong>
+            <div class="meta">${esc(next.venue)} · next ${next.show_date} ${next.show_time||''}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="show-group-count">${group.length} dates</span>
+            <span class="show-group-caret">▶</span>
+          </div>
+        </div>
+        ${showItemHTML(next, currentId === next.id, true)}
+        <div class="show-group-children">${children}</div>
+      </div>`;
+  }).join('');
+}
+
+function showItemHTML(s, isActive, isGroupNext) {
+  if (isGroupNext) {
+    return `
+      <div class="show-item ${isActive ? 'active' : ''}" style="margin:6px;border-radius:6px" onclick="selectShow(${s.id}); event.stopPropagation();">
+        <div class="meta">Next · ${s.show_date} ${s.show_time||''}</div>
+        <div class="meta">${s.lineup.length}/${s.slots}</div>
+      </div>`;
+  }
+  return `
+    <div class="show-item ${isActive ? 'active' : ''}" onclick="selectShow(${s.id}); event.stopPropagation();">
       <div><strong>${esc(s.title)}</strong><div class="meta">${esc(s.venue)} · ${s.show_date} ${s.show_time||''}</div></div>
       <div class="meta">${s.lineup.length}/${s.slots}</div>
-    </div>`).join('');
+    </div>`;
+}
+
+function toggleShowGroup(key, ev) {
+  if (ev) ev.stopPropagation();
+  const set = window.__expandedShowGroups || (window.__expandedShowGroups = new Set());
+  if (set.has(key)) set.delete(key); else set.add(key);
+  renderShowList();
 }
 
 function selectShow(id) {
@@ -409,7 +479,7 @@ function renderComics() {
   const grid = document.getElementById('comic-grid');
   if (!list.length) { grid.innerHTML='<div class="empty">No comics match.</div>'; return; }
   grid.innerHTML = list.slice(0, 60).map(c => `
-    <div class="comic-card">
+    <div class="comic-card" draggable="true" data-slug="${esc(c.slug)}" data-name="${esc(c.name)}" ondragstart="onComicDragStart(event)" ondragend="onComicDragEnd(event)">
       <div class="comic-photo">${c.photo ? `<img src="${esc(c.photo)}" loading="lazy" onerror="this.parentNode.textContent='🎤'">` : '🎤'}</div>
       <div class="comic-name">${esc(c.name)}</div>
       <div class="comic-badges">
@@ -427,10 +497,12 @@ function renderComics() {
   `).join('');
 }
 
-async function inviteComic(slug, name) {
+async function inviteComic(slug, name, slotIndex) {
   if (!CURRENT_SHOW) { toast('Select a show first','error'); return; }
+  const body = {show_id: CURRENT_SHOW.id, comic_slug: slug, comic_name: name};
+  if (typeof slotIndex === 'number') body.slot_index = slotIndex;
   try {
-    await api('/api/booker/lineup', {method:'POST', body:JSON.stringify({show_id: CURRENT_SHOW.id, comic_slug: slug, comic_name: name})});
+    await api('/api/booker/lineup', {method:'POST', body:JSON.stringify(body)});
     toast('Added: ' + name);
     await loadShows();
     selectShow(CURRENT_SHOW.id);
@@ -443,9 +515,23 @@ function renderLineup() {
   if (!CURRENT_SHOW) { panel.innerHTML='<div class="empty">Select a show.</div>'; return; }
   const lu = CURRENT_SHOW.lineup;
   const slots = CURRENT_SHOW.slots;
+  // Place rows with an explicit slot_index at their slot; rows without one
+  // fall into the next free slot (legacy / non-drag adds).
+  const byIndex = new Array(slots).fill(null);
+  const unplaced = [];
+  for (const r of lu) {
+    if (typeof r.slot_index === 'number' && r.slot_index >= 0 && r.slot_index < slots && !byIndex[r.slot_index]) {
+      byIndex[r.slot_index] = r;
+    } else {
+      unplaced.push(r);
+    }
+  }
+  for (let i=0; i<slots && unplaced.length; i++) {
+    if (!byIndex[i]) byIndex[i] = unplaced.shift();
+  }
   let html = '';
   for (let i=0; i<slots; i++) {
-    const row = lu[i];
+    const row = byIndex[i];
     if (row) {
       html += `
         <div class="slot filled">
@@ -454,12 +540,44 @@ function renderLineup() {
           <button class="btn btn-ghost" style="padding:4px 8px;font-size:11px" onclick="removeFromLineup(${row.id})">×</button>
         </div>`;
     } else {
-      html += `<div class="slot">Slot ${i+1} — empty</div>`;
+      html += `<div class="slot" data-slot-index="${i}" ondragover="onSlotDragOver(event)" ondragleave="onSlotDragLeave(event)" ondrop="onSlotDrop(event)">Slot ${i+1} — drop a comic here</div>`;
     }
   }
   panel.innerHTML = html;
   document.getElementById('notify-btn').disabled = lu.length === 0;
   document.getElementById('export-btn').disabled = lu.length === 0;
+}
+
+function onComicDragStart(ev) {
+  const card = ev.currentTarget;
+  card.classList.add('dragging');
+  ev.dataTransfer.effectAllowed = 'copy';
+  ev.dataTransfer.setData('text/plain', JSON.stringify({
+    slug: card.dataset.slug,
+    name: card.dataset.name,
+  }));
+}
+function onComicDragEnd(ev) {
+  ev.currentTarget.classList.remove('dragging');
+  document.querySelectorAll('.slot.drop-target').forEach(el => el.classList.remove('drop-target'));
+}
+function onSlotDragOver(ev) {
+  ev.preventDefault();
+  ev.dataTransfer.dropEffect = 'copy';
+  ev.currentTarget.classList.add('drop-target');
+}
+function onSlotDragLeave(ev) {
+  ev.currentTarget.classList.remove('drop-target');
+}
+function onSlotDrop(ev) {
+  ev.preventDefault();
+  ev.currentTarget.classList.remove('drop-target');
+  let payload;
+  try { payload = JSON.parse(ev.dataTransfer.getData('text/plain') || '{}'); }
+  catch (_) { return; }
+  if (!payload.slug || !payload.name) return;
+  const idx = parseInt(ev.currentTarget.dataset.slotIndex, 10);
+  inviteComic(payload.slug, payload.name, Number.isFinite(idx) ? idx : undefined);
 }
 
 async function removeFromLineup(id) {
