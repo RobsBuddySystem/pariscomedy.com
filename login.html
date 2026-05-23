@@ -121,7 +121,7 @@ async function submitLogin(ev){
   try{
     if(mode==='comic'){
       const r=await api('/api/auth/request',{method:'POST',body:JSON.stringify({email})});
-      msg.textContent=r.dev_verify_url?'Magic link created. Open it once, then return to the performer portal.':'Magic link requested. Check the inbox or Robert/Postie delivery path.';
+      msg.textContent=r.dev_verify_url?'Magic link created. Open it once, then return to the performer portal.':'Magic link requested. Check the inbox or Postie delivery path.';
       msg.classList.add('ok');
       actions.innerHTML=(r.dev_verify_url?'<a class="btn gold" href="'+escapeAttr(r.dev_verify_url)+'">Open magic link</a>':'')+'<a class="btn secondary" href="/performer-portal.html">Open Performer Portal</a>';
     }else{

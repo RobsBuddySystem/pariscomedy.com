@@ -2,7 +2,7 @@
   "_comment": "Affiliate ad slot config. assets/ads.js renders these into <div data-ad-slot=NAME></div> placeholders. Set enabled=false to silence all slots site-wide (no DOM changes needed). One-command rollback: bash scripts/disable_affiliate_ads.sh.",
   "_updated": "2026-05-23",
   "enabled": false,
-  "_enabled_note": "Disabled until Robert signs up at eventbrite.com/affiliate-program and partner.getyourguide.com. When IDs are pasted in below, flip enabled=true.",
+  "_enabled_note": "Disabled until the operator signs up at eventbrite.com/affiliate-program and partner.getyourguide.com. When IDs are pasted in below, flip enabled=true.",
   "networks": {
     "eventbrite": {
       "label": "Tickets",

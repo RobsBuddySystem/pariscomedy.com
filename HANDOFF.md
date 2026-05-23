@@ -32,7 +32,7 @@ SumUp €1 link is wired into Comic Plus (lifetime) and Booker Plus (first month
 
 | # | Missing / broken | Impact | Fix |
 |---|---|---|---|
-| C1 | **SMTP not configured** — no `env` file with `SMTP_USER`/`SMTP_PASS` | No signup ever emails Robert. Notifications silently skipped. | Create `~/.openclaw/workspace/apps/paris-comedy/env` with Gmail address + app password + `NOTIFY_EMAIL`. Restart backend. |
+| C1 | **SMTP not configured** — no `env` file with `SMTP_USER`/`SMTP_PASS` | No signup ever emails the operator. Notifications silently skipped. | Create `~/.openclaw/workspace/apps/paris-comedy/env` with Gmail address + app password + `NOTIFY_EMAIL`. Restart backend. |
 | C2 | **Ephemeral Cloudflare tunnel** | Tunnel URL changes on every restart → `api-config.json` goes stale → all forms hit a dead URL. | Create a **named** Cloudflare tunnel (`cloudflared tunnel create pariscomedy`) bound to a stable hostname, e.g. `api.pariscomedy.com`. Pin that in `api-config.json` once, forever. |
 | C3 | **Backend is a manual `nohup` process** | Dies on reboot / crash, no auto-restart. | LaunchAgent plist with `KeepAlive` for the uvicorn process (template in `backend/README.md`). |
 | C4 | **No payment ↔ signup reconciliation** | When someone pays €1 on SumUp, nothing links the payment to their lead. You cannot tell who actually paid vs. who only filled the form. | SumUp webhook → an endpoint that marks the lead `paid`. Requires C2 (stable URL) first. |
@@ -89,7 +89,7 @@ The site sells "Comic Plus" and "Booker Plus" but there is **no account system**
 |---|---|
 | E1 | Transactional email: welcome, payment received, invoice, booking confirmation — none exist. |
 | E2 | Newsletter: signups are captured but nothing sends a newsletter. |
-| E3 | `NOTIFY_EMAIL` defaults to `chucklericain@gmail.com` — confirm the right inbox. |
+| E3 | `NOTIFY_EMAIL` defaults to the operator's personal inbox — confirm the right delivery address. |
 
 ---
 
@@ -97,7 +97,7 @@ The site sells "Comic Plus" and "Booker Plus" but there is **no account system**
 
 | # | State |
 |---|---|
-| S1 | `discover_shows.py` / `comic_actuality.py` write staging files (`discovered_shows.json`, `comic_actuality.json`); merging into live data is manual / Robert-gated. No merge tool. |
+| S1 | `discover_shows.py` / `comic_actuality.py` write staging files (`discovered_shows.json`, `comic_actuality.json`); merging into live data is manual / operator-gated. No merge tool. |
 | S2 | Hourly job fragile: macOS TCC blocks the LaunchAgent (needs Full Disk Access on `/bin/zsh`); tunnel rot. |
 | S3 | No alerting when the scraper finds conflicts (`scrape_conflicts.json`). |
 | S4 | Eventbrite events go stale (e.g. "Open Mic Express April 17" — ended). Validator catches these, but only when the hourly job runs. |
@@ -112,12 +112,12 @@ The site sells "Comic Plus" and "Booker Plus" but there is **no account system**
 | O2 | No analytics — visitor count, conversion rate unknown. |
 | O3 | No staging environment — every change goes straight to production. |
 | O4 | No runbook for: restarting the backend, rotating the tunnel, checking leads. |
-| O5 | Chuck (the agent) is not taught any of this — cannot run the site independently. |
+| O5 | The automation agent is not taught any of this — cannot run the site independently. |
 | O6 | Secrets would sit in a plaintext `env` file — no secrets management. |
 
 ---
 
-## 9. Legal & compliance (Robert: confirm these)
+## 9. Legal & compliance (operator: confirm these)
 
 | # | Missing |
 |---|---|
