@@ -356,6 +356,20 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   <div data-ad-slot="index-footer-rail"></div>
 </section>
 
+<section style="max-width:720px;margin:24px auto 0;padding:24px;background:#111;border:1px solid #1e1e1e;border-radius:12px">
+  <div style="font-size:18px;font-weight:700;margin-bottom:6px">Want to know what&rsquo;s on tonight?</div>
+  <div style="font-size:13px;color:#888;margin-bottom:14px;line-height:1.5">One weekly email — every show in Paris, every new venue, every comic worth catching. No spam, unsubscribe anytime.</div>
+  <form id="newsletter-form" onsubmit="return submitNewsletter(event)" style="display:flex;gap:8px;flex-wrap:wrap">
+    <label for="newsletter-email" style="position:absolute;left:-9999px">Email</label>
+    <input id="newsletter-email" type="email" required placeholder="you@example.com" style="flex:1;min-width:200px;padding:10px 12px;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:8px;color:#f0f0f0;font:inherit">
+    <button type="submit" style="background:var(--gold,#c9a84c);color:#000;border:0;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer">Subscribe →</button>
+  </form>
+  <label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:#777;cursor:pointer">
+    <input type="checkbox" id="newsletter-consent" checked> I agree to receive the Paris Comedy weekly digest. I can unsubscribe at any time.
+  </label>
+  <div id="newsletter-msg" style="margin-top:10px;font-size:13px;min-height:18px"></div>
+</section>
+
 <footer>
   <div class="footer-links" style="margin-top:24px">
     <a href="/">Home</a>
@@ -852,6 +866,35 @@ renderFeatured();
 renderFeaturedTonight();
 renderWeeklyFeatured();
 injectEventSchemas();
+
+async function submitNewsletter(ev) {
+  ev.preventDefault();
+  const email = document.getElementById('newsletter-email').value.trim();
+  const consent = document.getElementById('newsletter-consent').checked;
+  const msg = document.getElementById('newsletter-msg');
+  msg.style.color = '#888';
+  if (!email) { msg.textContent = 'Email required.'; return false; }
+  if (!consent) { msg.textContent = 'Please tick the consent box.'; return false; }
+  msg.textContent = 'Subscribing…';
+  try {
+    let api = '';
+    try { const c = await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json()); api = c.api || ''; } catch(_) {}
+    const r = await fetch(api + '/api/newsletter/subscribe', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({email, source: 'index-footer', consent: true}),
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.detail || ('HTTP ' + r.status));
+    msg.style.color = '#4ade80';
+    msg.textContent = 'Subscribed. Check your inbox for the first weekly digest.';
+    document.getElementById('newsletter-email').value = '';
+  } catch (e) {
+    msg.style.color = '#fca5a5';
+    msg.textContent = e.message || 'Could not subscribe — try again later.';
+  }
+  return false;
+}
 </script>
 <script src="/assets/ads.js" defer></script>
 </body>

@@ -133,8 +133,10 @@ footer a:hover{color:var(--text)}
     </ul>
     <button class="btn-plan btn-start" onclick="openIntent('comic')">Claim my €1 lifetime spot →</button>
     <form class="intent-form" id="intent-comic" onsubmit="return submitIntent(event,'comic','Comic Plus')">
-      <input type="text"  id="comic-name"  placeholder="Your name" required>
-      <input type="email" id="comic-email" placeholder="your@email.com" required>
+      <label for="comic-name" style="position:absolute;left:-9999px">Your name</label>
+      <input type="text"  id="comic-name"  placeholder="Your name" required aria-label="Your name">
+      <label for="comic-email" style="position:absolute;left:-9999px">Your email</label>
+      <input type="email" id="comic-email" placeholder="your@email.com" required aria-label="Your email">
       <div class="intent-error" id="comic-err"></div>
       <button type="submit">Continue to €1 payment →</button>
     </form>
@@ -160,8 +162,10 @@ footer a:hover{color:var(--text)}
     </div>
     <button class="btn-plan btn-start" onclick="openIntent('booker')">Start Booker Plus →</button>
     <form class="intent-form" id="intent-booker" onsubmit="return submitIntent(event,'booker','Booker Plus')">
-      <input type="text"  id="booker-name"  placeholder="Your name" required>
-      <input type="email" id="booker-email" placeholder="your@email.com" required>
+      <label for="booker-name" style="position:absolute;left:-9999px">Your name</label>
+      <input type="text"  id="booker-name"  placeholder="Your name" required aria-label="Your name">
+      <label for="booker-email" style="position:absolute;left:-9999px">Your email</label>
+      <input type="email" id="booker-email" placeholder="your@email.com" required aria-label="Your email">
       <div class="intent-error" id="booker-err"></div>
       <button type="submit">Continue →</button>
     </form>

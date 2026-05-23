@@ -133,13 +133,21 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 
 <div class="hero">
   <h1>Paris Comedy<br><span>Comedians Directory</span></h1>
-  <p>Meet the 59 comedians shaping the Paris stand-up scene — English, French, bilingual.</p>
+  <p>Meet the comedians shaping the Paris stand-up scene — English, French, bilingual.</p>
   <div class="stats-bar">
-    <div><strong id="count-total">59</strong>comedians</div>
+    <div><strong id="count-total">—</strong>comedians</div>
     <div><strong id="count-en">—</strong>English</div>
     <div><strong id="count-fr">—</strong>French</div>
     <div><strong id="count-bi">—</strong>Bilingual</div>
   </div>
+</div>
+
+<div style="max-width:980px;margin:8px auto 16px;padding:14px 18px;background:linear-gradient(135deg,#33270a 0%,#1a1a0a 100%);border:1px solid #f59e0b;border-radius:10px;color:#f5c518;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap">
+  <div style="font-size:13px;line-height:1.5;flex:1;min-width:240px">
+    <strong>Comic?</strong> Find your card below, click <strong>Profile →</strong>, then <strong>Claim this page</strong>.
+    Free forever. You control your bio, IG, TikTok, video clip, and upcoming shows.
+  </div>
+  <a href="/performer-portal.html" style="background:#f5c518;color:#000;padding:9px 14px;border-radius:7px;font-weight:700;font-size:13px;text-decoration:none">Sign in as a comic →</a>
 </div>
 
 <div class="filters">
@@ -149,7 +157,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
   <button class="filter-btn" data-lang="bi">🌍 Bilingual</button>
 </div>
 <div class="search-wrap">
-  <input type="text" id="search" placeholder="Search comedians…" autocomplete="off">
+  <label for="search" style="position:absolute;left:-9999px">Search comedians</label>
+  <input type="text" id="search" placeholder="Search comedians…" autocomplete="off" aria-label="Search comedians">
 </div>
 
 <!-- FEATURED COMICS -->
