@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Host: https://pariscomedy.com
 Sitemap: https://pariscomedy.com/sitemap.xml
