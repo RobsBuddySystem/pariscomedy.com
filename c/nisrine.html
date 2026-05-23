@@ -86,12 +86,60 @@ section.block h2{font-size:18px;margin-bottom:14px}
   <a class="btn gold" href="/performer-portal.html?claim=nisrine">Claim this page →</a>
 </div>
 
+  <section class="block" id="follow-block">
+    <h2>🔔 Get notified when Nisrine books a show</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:14px">Drop your email — we&rsquo;ll tell you when Nisrine is added to a Paris lineup. One email per show, no spam, unsubscribe in one click.</p>
+    <form id="follow-form" onsubmit="return submitFollow(event)" style="display:flex;gap:8px;flex-wrap:wrap">
+      <label for="follow-email" style="position:absolute;left:-9999px">Your email</label>
+      <input id="follow-email" type="email" required placeholder="you@example.com" aria-label="Your email" style="flex:1;min-width:200px;padding:10px 12px;background:#0f0f0f;border:1px solid var(--border);border-radius:8px;color:var(--text);font:inherit">
+      <button type="submit" class="btn primary" style="padding:10px 18px">Notify me →</button>
+    </form>
+    <label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--muted);cursor:pointer">
+      <input type="checkbox" id="follow-consent" checked> I agree to receive notifications about Nisrine&rsquo;s upcoming shows. Unsubscribe anytime.
+    </label>
+    <div id="follow-msg" style="margin-top:10px;font-size:13px;min-height:18px"></div>
+  </section>
+
+  <script>
+  async function submitFollow(ev) {
+    ev.preventDefault();
+    const email = document.getElementById('follow-email').value.trim();
+    const consent = document.getElementById('follow-consent').checked;
+    const msg = document.getElementById('follow-msg');
+    msg.style.color = '#888';
+    if (!email) { msg.textContent = 'Email required.'; return false; }
+    if (!consent) { msg.textContent = 'Please tick the consent box.'; return false; }
+    msg.textContent = 'Saving…';
+    try {
+      let api = '';
+      try { const c = await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json()); api = c.api || ''; } catch(_) {}
+      const r = await fetch(api + '/api/comic/follow', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({comic_slug: "nisrine", fan_email: email, consent: true}),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.detail || ('HTTP ' + r.status));
+      msg.style.color = '#4ade80';
+      msg.textContent = 'You&rsquo;re on the list. We&rsquo;ll email you when this comic books a Paris show.';
+      document.getElementById('follow-email').value = '';
+    } catch (e) {
+      msg.style.color = '#fca5a5';
+      msg.textContent = e.message || 'Could not save — try again later.';
+    }
+    return false;
+  }
+  </script>
+
   <section class="block">
     <h2>Upcoming shows</h2>
     <div class="empty">No upcoming dates listed yet.</div>
   </section>
 
+  <div data-ad-slot="comic-footer"></div>
+
   <p class="source-note">Page auto-generated from public sources. Comic owns this page once claimed.</p>
 </main>
+<script src="/assets/ads.js" defer></script>
 </body>
 </html>
