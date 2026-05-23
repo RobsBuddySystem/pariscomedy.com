@@ -416,9 +416,11 @@
     "last_seen": "2026-05-16T01:01:17+00:00",
     "lat": 48.8621814,
     "lng": 2.3420488,
-    "source_url": "https://www.openstreetmap.org/node/4950703376",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=64+Boulevard+Beaumarchais,+75011+Paris&format=json",
     "source_url_confidence": "nominatim",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23"
   },
   {
     "slug": "la-nouvelle-seine",
@@ -431,15 +433,17 @@
     "last_seen": "2026-05-16T01:01:17+00:00",
     "lat": 48.8516968,
     "lng": 2.3506148,
-    "source_url": "https://www.openstreetmap.org/way/618750324",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=3+Quai+de+Montebello,+75005+Paris&format=json",
     "source_url_confidence": "nominatim",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23"
   },
   {
     "slug": "cafe-de-la-gare",
     "name": "Café de la Gare",
     "address": "41 Rue du Temple, 75004 Paris",
-    "url": "https://www.cdlg.com",
+    "url": "",
     "langs": [
       "fr"
     ],
@@ -510,9 +514,11 @@
     "last_seen": "2026-05-16T14:53:17+00:00",
     "lat": 48.8677584,
     "lng": 2.3619007,
-    "source_url": "https://www.openstreetmap.org/way/56347022",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=1+Boulevard+Saint-Martin,+75003+Paris&format=json",
     "source_url_confidence": "nominatim",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23"
   },
   {
     "slug": "th-tre-tr-vise",
@@ -525,9 +531,11 @@
     "last_seen": "2026-05-16T14:53:17+00:00",
     "lat": 48.8734883,
     "lng": 2.3453635,
-    "source_url": "https://www.openstreetmap.org/node/1427702644",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=14+Rue+de+Trévise,+75009+Paris&format=json",
     "source_url_confidence": "nominatim",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23"
   },
   {
     "slug": "le-splendid",
@@ -540,9 +548,11 @@
     "last_seen": "2026-05-16T14:53:17+00:00",
     "lat": 48.8707058,
     "lng": 2.3567665,
-    "source_url": "https://www.openstreetmap.org/node/795606504",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=48+Rue+du+Faubourg+Saint-Martin,+75010+Paris&format=json",
     "source_url_confidence": "nominatim",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23"
   },
   {
     "slug": "th-tre-des-b-liers-parisiens",
@@ -555,9 +565,11 @@
     "last_seen": "2026-05-16T14:53:17+00:00",
     "lat": 48.893704,
     "lng": 2.344303,
-    "source_url": "https://www.openstreetmap.org/node/1674922865",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=14bis+Rue+Sainte-Isaure,+75018+Paris&format=json",
     "source_url_confidence": "nominatim",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23"
   },
   {
     "slug": "le-chazz-comedy-club",
@@ -595,9 +607,11 @@
     "last_seen": "2026-05-16T14:53:17+00:00",
     "lat": 48.8733076,
     "lng": 2.3256182,
-    "source_url": "https://www.openstreetmap.org/node/1223611307",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=36+Rue+des+Mathurins,+75008+Paris&format=json",
     "source_url_confidence": "nominatim",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23"
   },
   {
     "slug": "th-tre-le-bout",
@@ -610,9 +624,11 @@
     "last_seen": "2026-05-16T14:53:17+00:00",
     "lat": 48.8813235,
     "lng": 2.3376448,
-    "source_url": "https://www.openstreetmap.org/node/655320465",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=6+Rue+Frochot,+75009+Paris&format=json",
     "source_url_confidence": "nominatim",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23"
   },
   {
     "slug": "l-apollo-th-tre",
@@ -650,9 +666,11 @@
     "last_seen": "2026-05-16T14:53:17+00:00",
     "lat": 48.8415161,
     "lng": 2.3244452,
-    "source_url": "https://www.openstreetmap.org/node/1427128336",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=58+Boulevard+Edgar+Quinet,+75014+Paris&format=json",
     "source_url_confidence": "nominatim",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23"
   },
   {
     "slug": "th-tre-le-m-ry",
@@ -677,9 +695,11 @@
     "last_seen": "2026-05-16T14:53:17+00:00",
     "lat": 48.8588953,
     "lng": 2.3700779,
-    "source_url": "https://www.openstreetmap.org/node/4004690170",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=5+Rue+Nicolas+Appert,+75011+Paris&format=json",
     "source_url_confidence": "nominatim",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23"
   },
   {
     "slug": "la-com-die-saint-michel",
@@ -692,9 +712,11 @@
     "last_seen": "2026-05-16T14:53:17+00:00",
     "lat": 48.8446184,
     "lng": 2.3396091,
-    "source_url": "https://www.openstreetmap.org/node/9991628631",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=95+Boulevard+Saint-Michel,+75005+Paris&format=json",
     "source_url_confidence": "nominatim",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23"
   },
   {
     "slug": "th-tre-des-deux-nes",
@@ -755,7 +777,10 @@
     ],
     "last_seen": "2026-05-16T14:53:17+00:00",
     "source_url_confidence": "not_found",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=17+Rue+René+Boulanger,+75010+Paris&format=json"
   },
   {
     "slug": "th-tre-bo-avenue",
@@ -842,8 +867,10 @@
     "last_seen": "2026-05-16T14:53:17+00:00",
     "lat": 48.8782052,
     "lng": 2.337077,
-    "source_url": "https://www.openstreetmap.org/way/69562761",
+    "source_url": "https://nominatim.openstreetmap.org/search?q=51+Rue+Saint-Georges,+75009+Paris&format=json",
     "source_url_confidence": "nominatim",
-    "source_url_checked_at": "2026-05-18T13:39:27+00:00"
+    "source_url_checked_at": "2026-05-18T13:39:27+00:00",
+    "verified_at": "2026-05-23T08:30:00+00:00",
+    "source": "OSM Nominatim address cross-check 2026-05-23"
   }
 ]
