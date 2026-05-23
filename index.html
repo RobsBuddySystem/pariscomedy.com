@@ -223,6 +223,15 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   </div>
 </section>
 
+<!-- FEATURED TONIGHT (shows happening tonight) -->
+<section id="featured-tonight-section" style="display:none">
+  <div class="weekly-rotation-header">
+    <div class="weekly-rotation-title">🎤 Featured Tonight</div>
+    <div class="weekly-rotation-sub" id="tonight-rotation-label">Live shows in Paris tonight</div>
+  </div>
+  <div class="featured-grid" id="tonight-featured-grid"></div>
+</section>
+
 <!-- FEATURED SHOWS THIS WEEK (weekly rotation) -->
 <section id="featured-week-section">
   <div class="weekly-rotation-header">
@@ -754,6 +763,38 @@ async function renderFeatured() {
   }).join('');
 }
 
+function todayParisStr() {
+  // YYYY-MM-DD in Europe/Paris.
+  return new Intl.DateTimeFormat('sv-SE', {timeZone:'Europe/Paris', year:'numeric', month:'2-digit', day:'2-digit'}).format(new Date());
+}
+
+function renderFeaturedTonight() {
+  const today = todayParisStr();
+  const tonight = (SHOWS_DATA || []).filter(s => s.date === today);
+  const section = document.getElementById('featured-tonight-section');
+  const grid = document.getElementById('tonight-featured-grid');
+  if (!grid || !section) return;
+  if (!tonight.length) {
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = '';
+  const lbl = document.getElementById('tonight-rotation-label');
+  if (lbl) lbl.textContent = `${tonight.length} show${tonight.length===1?'':'s'} in Paris tonight`;
+  // Sort by start_time asc; show up to 3 cards visually, but if there are more
+  // we still want users to know — link the rest via the section CTA.
+  const picks = tonight.slice().sort((a,b) => (a.start_time||'').localeCompare(b.start_time||'')).slice(0,3);
+  grid.innerHTML = picks.map(s => `
+    <div class="featured-card">
+      <div><span class="featured-badge" style="background:#7c3aed;color:#fff">🎤 TONIGHT</span></div>
+      <div class="featured-card-name">${(s.show_name||'').replace(/</g,'&lt;')}</div>
+      <div class="featured-card-show">${(s.neighborhood||'').replace(/</g,'&lt;')}</div>
+      <div class="featured-card-meta">${s.start_time||''} &middot; ${(s.venue||'').replace(/</g,'&lt;')}</div>
+      <a href="/r.html?kind=show&id=${encodeURIComponent(s.id||s.show_name||'')}&url=${encodeURIComponent(s.ticket_url||'')}" target="_blank" rel="noopener sponsored" class="featured-card-btn">Get tickets →</a>
+    </div>
+  `).join('');
+}
+
 function renderWeeklyFeatured() {
   const weekSeed = Math.floor(Date.now() / (7 * 24 * 3600000));
   const shuffled = seededShuffle(SHOWS_DATA, weekSeed);
@@ -808,6 +849,7 @@ renderTonightPanel();
 renderGrid();
 renderWeekRow();
 renderFeatured();
+renderFeaturedTonight();
 renderWeeklyFeatured();
 injectEventSchemas();
 </script>

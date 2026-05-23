@@ -1232,11 +1232,12 @@ function render() {
   grid.innerHTML = shows.map(s => {
     const langs = s.language || ['en'];
     const isBi = langs.includes('en') && langs.includes('fr');
+    const isNew = (() => { if (!s.first_seen) return false; try { return (Date.now() - new Date(s.first_seen).getTime()) < 14*86400000; } catch(_) { return false; } })();
     return `<div class="show-card">
       <div class="card-top">
         <div class="card-name-row">
           <span class="card-emoji">${s.emoji}</span>
-          <span class="card-name">${s.show_name}</span>
+          <span class="card-name">${s.show_name}${isNew?' <span class="badge-vibe" style="background:#14532d;color:#4ade80;margin-left:6px">NEW</span>':''}</span>
         </div>
         <span class="card-date-badge">${fmtDateBadge(s.date)}</span>
       </div>
