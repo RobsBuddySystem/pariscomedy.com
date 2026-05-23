@@ -83,5 +83,6 @@ render('comics', ARCH_COMICS, c => `<div class="item"><div class="nm">${c.name}<
 render('shows',  ARCH_SHOWS,  s => `<div class="item"><div class="nm">${s.name}</div><div class="meta">${s.venue||''} · ended ${s.end_date||'—'}</div></div>`);
 render('venues', ARCH_VENUES, v => `<div class="item"><div class="nm">${v.name}</div><div class="meta">${v.address||''}</div></div>`);
 </script>
+<script src="/assets/track.js" defer></script>
 </body>
 </html>

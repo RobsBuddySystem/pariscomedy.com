@@ -294,8 +294,29 @@ function badgeLabel(t) {
   return m[t] || t;
 }
 
+// A venue is "featured for listing" today if either:
+//   (a) its day matches today's Paris day name (this is its show day), OR
+//   (b) it has paid_featured_until set to a future ISO timestamp.
+// Static `featured:true` / `tier:'featured'` flags are now metadata only — they
+// do NOT alone earn top-of-list placement on a day the show isn't running.
+function todayParisDay() {
+  // Long weekday name in Paris locale, e.g. "Wednesday".
+  return new Intl.DateTimeFormat('en-US', {timeZone:'Europe/Paris', weekday:'long'}).format(new Date());
+}
+function hasPaidPromo(v) {
+  if (!v.paid_featured_until) return false;
+  try { return new Date(v.paid_featured_until).getTime() > Date.now(); }
+  catch (_) { return false; }
+}
 function isFeaturedShow(v) {
-  return v.featured === true || v.tier === 'featured';
+  if (hasPaidPromo(v)) return true;
+  const today = todayParisDay();
+  // v.day can be a single day "Wednesday" or a combo "Thursday / Saturday".
+  if (typeof v.day === 'string' && v.day.toLowerCase().includes(today.toLowerCase())) {
+    // Show is on today AND venue is curated/featured tier (don't promote every Wed show).
+    return v.featured === true || v.tier === 'featured' || v.tier === 'pro';
+  }
+  return false;
 }
 
 function rotationSeed() {
@@ -317,13 +338,14 @@ function renderSpotlight() {
   const v = featuredPick(pool);
   const addr = (v.address && v.address!=='TBD') ? v.address : '';
   const metro = (v.metro && v.metro!=='TBD') ? v.metro : '';
+  const tagLabel = hasPaidPromo(v) ? '\u2b50 Featured (promoted)' : '\u2b50 Featured show tonight';
   host.innerHTML = `<div class="spotlight-card">
-    <span class="spotlight-tag">\u2b50 Featured show today</span>
+    <span class="spotlight-tag">${tagLabel}</span>
     <div class="spotlight-name">${v.show_name || v.name}</div>
     <div class="spotlight-meta">${[v.day, v.time, v.name, v.neighborhood&&v.neighborhood!=='TBD'?v.neighborhood:''].filter(Boolean).join(' \u00b7 ')}</div>
     <div class="spotlight-meta">${[addr, metro].filter(Boolean).join(' \u00b7 ')}</div>
     ${v.notes?`<div class="spotlight-meta">${v.notes}</div>`:''}
-    ${v.eventbrite_url?`<div class="card-actions"><a href="${v.eventbrite_url}" target="_blank" rel="noopener" class="btn-tickets">Book tickets \u2192</a></div>`:''}
+    ${v.eventbrite_url?`<div class="card-actions"><a href="/r.html?kind=venue&id=${encodeURIComponent(v.name||'')}&url=${encodeURIComponent(v.eventbrite_url)}" target="_blank" rel="noopener sponsored" class="btn-tickets">Book tickets \u2192</a></div>`:''}
   </div>`;
 }
 
@@ -355,7 +377,7 @@ function render() {
   filtered.forEach((v, idx) => {
     const card = document.createElement('div');
     let cardClass = 'card';
-    if (v.tier === 'featured') cardClass += ' featured';
+    if (isFeaturedShow(v)) cardClass += ' featured';
     else if (v.tier === 'pro') cardClass += ' pro';
     card.className = cardClass;
 
@@ -363,9 +385,12 @@ function render() {
       ? `<a href="${v.eventbrite_url}" target="_blank" class="btn-tickets">Book tickets →</a>`
       : `<span class="btn-tickets" style="opacity:.4;cursor:default">Eventbrite TBD</span>`;
 
-    // Tier badges
+    // Tier badges — only earn the gold FEATURED badge when actually featured
+    // for the current listing (today match or active paid promo).
     let tierBadge = '';
-    if (v.tier === 'featured') tierBadge = '<span class="badge badge-featured">⭐ FEATURED</span>';
+    if (isFeaturedShow(v)) tierBadge = hasPaidPromo(v)
+      ? '<span class="badge badge-featured" title="Promoted placement">⭐ FEATURED</span>'
+      : '<span class="badge badge-featured" title="Show is today">⭐ TONIGHT</span>';
     else if (v.tier === 'pro') tierBadge = '<span class="badge badge-pro">⭐ PRO</span>';
 
     const verifiedBadge = v.verified ? '<span class="badge badge-verified" title="Listed as active — not yet claim-verified by booker">Listed</span>' : '';
@@ -510,5 +535,6 @@ render();
 })();
 </script>
 <script src="/assets/ads.js" defer></script>
+<script src="/assets/track.js" defer></script>
 </body>
 </html>
