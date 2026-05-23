@@ -138,8 +138,11 @@ footer a{color:#666}footer a:hover{color:#f0f0f0}
   <button class="day-btn" id="day-Sun" onclick="setDay('Sun')">Sun</button>
 </div>
 
-<div class="vibe-bar">
-  <button class="vibe-btn" data-vibe="Bilingual" onclick="toggleVibe('Bilingual',this)">Bilingual</button>
+<div class="day-bar lang-bar" style="margin-top:6px">
+  <button class="lang-btn day-btn active" id="lang-all" onclick="setLang('all')">All</button>
+  <button class="lang-btn day-btn" id="lang-fr"  onclick="setLang('fr')">French</button>
+  <button class="lang-btn day-btn" id="lang-en"  onclick="setLang('en')">English</button>
+  <button class="lang-btn day-btn" id="lang-bi"  onclick="setLang('bi')">Bilingual</button>
 </div>
 
 <div id="eb-live-section" style="display:none;max-width:980px;margin:0 auto 28px;padding:0 24px">
@@ -194,7 +197,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2021-09-15T20:00:00+02:00",
-    "source_event_end": "2027-04-13T20:00:00+02:00"
+    "source_event_end": "2027-04-13T20:00:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "the-englishman-comedy-night-20260521",
@@ -219,7 +224,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2026-02-19T20:00:00+01:00",
-    "source_event_end": "2026-07-02T22:00:00+02:00"
+    "source_event_end": "2026-07-02T22:00:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "english-standup-friday-night-show-20260522",
@@ -244,7 +251,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2022-06-23T21:15:00+02:00",
-    "source_event_end": "2026-07-03T21:30:00+02:00"
+    "source_event_end": "2026-07-03T21:30:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "green-mic-showcase-20260522",
@@ -269,7 +278,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2023-03-12T20:30:00+01:00",
-    "source_event_end": "2026-06-26T21:45:00+02:00"
+    "source_event_end": "2026-06-26T21:45:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "comedy-lab-saturday-20260523",
@@ -294,7 +305,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2021-09-15T20:00:00+02:00",
-    "source_event_end": "2027-04-13T20:00:00+02:00"
+    "source_event_end": "2027-04-13T20:00:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "green-mic-comedy-show-20260524",
@@ -319,7 +332,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2021-11-28T19:00:00+01:00",
-    "source_event_end": "2026-06-28T20:45:00+02:00"
+    "source_event_end": "2026-06-28T20:45:00+02:00",
+    "language_confidence": "medium",
+    "needs_language_review": true
   },
   {
     "id": "oscar-comedy-club-20260524",
@@ -330,7 +345,6 @@ const SHOWS_DATA = [
     "venue": "Cafe Oscar",
     "neighborhood": "Latin Quarter",
     "language": [
-      "en",
       "fr"
     ],
     "show_type": "showcase",
@@ -345,7 +359,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2026-04-01T19:00:00+02:00",
-    "source_event_end": "2026-06-25T21:00:00+02:00"
+    "source_event_end": "2026-06-25T21:00:00+02:00",
+    "language_confidence": "low",
+    "needs_language_review": true
   },
   {
     "id": "cuba-compagnie-comedy-club-20260526",
@@ -370,7 +386,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2025-03-04T19:30:00+01:00",
-    "source_event_end": "2026-06-30T22:00:00+02:00"
+    "source_event_end": "2026-06-30T22:00:00+02:00",
+    "language_confidence": "medium",
+    "needs_language_review": true
   },
   {
     "id": "green-light-comedy-20260526",
@@ -395,7 +413,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2024-07-16T20:30:00+02:00",
-    "source_event_end": "2026-06-30T21:45:00+02:00"
+    "source_event_end": "2026-06-30T21:45:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "kuhl-comedy-open-mic-20260526",
@@ -420,7 +440,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2025-10-07T19:30:00+02:00",
-    "source_event_end": "2026-10-06T21:30:00+02:00"
+    "source_event_end": "2026-10-06T21:30:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "comedy-crush-wednesday-show-20260527",
@@ -431,7 +453,7 @@ const SHOWS_DATA = [
     "venue": "Paris",
     "neighborhood": "Paris",
     "language": [
-      "en"
+      "fr"
     ],
     "show_type": "showcase",
     "emoji": "💥",
@@ -445,7 +467,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2026-03-04T20:30:00+01:00",
-    "source_event_end": "2026-07-29T21:30:00+02:00"
+    "source_event_end": "2026-07-29T21:30:00+02:00",
+    "language_confidence": "low",
+    "needs_language_review": true
   },
   {
     "id": "south-comedy-club-20260527",
@@ -470,7 +494,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2025-10-01T20:00:00+02:00",
-    "source_event_end": "2026-08-26T22:00:00+02:00"
+    "source_event_end": "2026-08-26T22:00:00+02:00",
+    "language_confidence": "medium",
+    "needs_language_review": true
   },
   {
     "id": "the-dissident-comedy-show-20260527",
@@ -495,7 +521,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2026-04-08T20:30:00+02:00",
-    "source_event_end": "2026-07-22T22:00:00+02:00"
+    "source_event_end": "2026-07-22T22:00:00+02:00",
+    "language_confidence": "medium",
+    "needs_language_review": true
   },
   {
     "id": "velvet-bar-comedy-showcase-20260527",
@@ -506,7 +534,6 @@ const SHOWS_DATA = [
     "venue": "Velvet Bar",
     "neighborhood": "Chatelet",
     "language": [
-      "en",
       "fr"
     ],
     "show_type": "showcase",
@@ -521,7 +548,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2026-05-20T20:30:00+02:00",
-    "source_event_end": "2026-07-08T22:00:00+02:00"
+    "source_event_end": "2026-07-08T22:00:00+02:00",
+    "language_confidence": "low",
+    "needs_language_review": true
   },
   {
     "id": "kiss-comedy-club-20260527",
@@ -532,7 +561,7 @@ const SHOWS_DATA = [
     "venue": "Le Coquin",
     "neighborhood": "Paris",
     "language": [
-      "en"
+      "fr"
     ],
     "show_type": "showcase",
     "emoji": "💋",
@@ -546,7 +575,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2025-11-05T20:00:00+01:00",
-    "source_event_end": "2026-06-17T22:00:00+02:00"
+    "source_event_end": "2026-06-17T22:00:00+02:00",
+    "language_confidence": "low",
+    "needs_language_review": true
   },
   {
     "id": "comedy-lab-20260528",
@@ -571,7 +602,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2021-09-15T20:00:00+02:00",
-    "source_event_end": "2027-04-13T20:00:00+02:00"
+    "source_event_end": "2027-04-13T20:00:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "the-englishman-comedy-night-20260528",
@@ -596,7 +629,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2026-02-19T20:00:00+01:00",
-    "source_event_end": "2026-07-02T22:00:00+02:00"
+    "source_event_end": "2026-07-02T22:00:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "english-standup-friday-night-show-20260529",
@@ -621,7 +656,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2022-06-23T21:15:00+02:00",
-    "source_event_end": "2026-07-03T21:30:00+02:00"
+    "source_event_end": "2026-07-03T21:30:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "green-mic-showcase-20260529",
@@ -646,7 +683,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2023-03-12T20:30:00+01:00",
-    "source_event_end": "2026-06-26T21:45:00+02:00"
+    "source_event_end": "2026-06-26T21:45:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "comedy-lab-saturday-20260530",
@@ -671,7 +710,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2021-09-15T20:00:00+02:00",
-    "source_event_end": "2027-04-13T20:00:00+02:00"
+    "source_event_end": "2027-04-13T20:00:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "green-mic-comedy-show-20260531",
@@ -696,7 +737,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2021-11-28T19:00:00+01:00",
-    "source_event_end": "2026-06-28T20:45:00+02:00"
+    "source_event_end": "2026-06-28T20:45:00+02:00",
+    "language_confidence": "medium",
+    "needs_language_review": true
   },
   {
     "id": "oscar-comedy-club-20260531",
@@ -707,7 +750,6 @@ const SHOWS_DATA = [
     "venue": "Cafe Oscar",
     "neighborhood": "Latin Quarter",
     "language": [
-      "en",
       "fr"
     ],
     "show_type": "showcase",
@@ -722,7 +764,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2026-04-01T19:00:00+02:00",
-    "source_event_end": "2026-06-25T21:00:00+02:00"
+    "source_event_end": "2026-06-25T21:00:00+02:00",
+    "language_confidence": "low",
+    "needs_language_review": true
   },
   {
     "id": "cuba-compagnie-comedy-club-20260602",
@@ -747,7 +791,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2025-03-04T19:30:00+01:00",
-    "source_event_end": "2026-06-30T22:00:00+02:00"
+    "source_event_end": "2026-06-30T22:00:00+02:00",
+    "language_confidence": "medium",
+    "needs_language_review": true
   },
   {
     "id": "green-light-comedy-20260602",
@@ -772,7 +818,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2024-07-16T20:30:00+02:00",
-    "source_event_end": "2026-06-30T21:45:00+02:00"
+    "source_event_end": "2026-06-30T21:45:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "kuhl-comedy-open-mic-20260602",
@@ -797,7 +845,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2025-10-07T19:30:00+02:00",
-    "source_event_end": "2026-10-06T21:30:00+02:00"
+    "source_event_end": "2026-10-06T21:30:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "comedy-crush-wednesday-show-20260603",
@@ -808,7 +858,7 @@ const SHOWS_DATA = [
     "venue": "Paris",
     "neighborhood": "Paris",
     "language": [
-      "en"
+      "fr"
     ],
     "show_type": "showcase",
     "emoji": "💥",
@@ -822,7 +872,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2026-03-04T20:30:00+01:00",
-    "source_event_end": "2026-07-29T21:30:00+02:00"
+    "source_event_end": "2026-07-29T21:30:00+02:00",
+    "language_confidence": "low",
+    "needs_language_review": true
   },
   {
     "id": "south-comedy-club-20260603",
@@ -847,7 +899,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2025-10-01T20:00:00+02:00",
-    "source_event_end": "2026-08-26T22:00:00+02:00"
+    "source_event_end": "2026-08-26T22:00:00+02:00",
+    "language_confidence": "medium",
+    "needs_language_review": true
   },
   {
     "id": "the-dissident-comedy-show-20260603",
@@ -872,7 +926,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2026-04-08T20:30:00+02:00",
-    "source_event_end": "2026-07-22T22:00:00+02:00"
+    "source_event_end": "2026-07-22T22:00:00+02:00",
+    "language_confidence": "medium",
+    "needs_language_review": true
   },
   {
     "id": "velvet-bar-comedy-showcase-20260603",
@@ -883,7 +939,6 @@ const SHOWS_DATA = [
     "venue": "Velvet Bar",
     "neighborhood": "Chatelet",
     "language": [
-      "en",
       "fr"
     ],
     "show_type": "showcase",
@@ -898,7 +953,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2026-05-20T20:30:00+02:00",
-    "source_event_end": "2026-07-08T22:00:00+02:00"
+    "source_event_end": "2026-07-08T22:00:00+02:00",
+    "language_confidence": "low",
+    "needs_language_review": true
   },
   {
     "id": "kiss-comedy-club-20260603",
@@ -909,7 +966,7 @@ const SHOWS_DATA = [
     "venue": "Le Coquin",
     "neighborhood": "Paris",
     "language": [
-      "en"
+      "fr"
     ],
     "show_type": "showcase",
     "emoji": "💋",
@@ -923,7 +980,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2025-11-05T20:00:00+01:00",
-    "source_event_end": "2026-06-17T22:00:00+02:00"
+    "source_event_end": "2026-06-17T22:00:00+02:00",
+    "language_confidence": "low",
+    "needs_language_review": true
   },
   {
     "id": "comedy-lab-20260604",
@@ -948,7 +1007,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2021-09-15T20:00:00+02:00",
-    "source_event_end": "2027-04-13T20:00:00+02:00"
+    "source_event_end": "2027-04-13T20:00:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "the-englishman-comedy-night-20260604",
@@ -973,7 +1034,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2026-02-19T20:00:00+01:00",
-    "source_event_end": "2026-07-02T22:00:00+02:00"
+    "source_event_end": "2026-07-02T22:00:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "english-standup-friday-night-show-20260605",
@@ -998,7 +1061,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2022-06-23T21:15:00+02:00",
-    "source_event_end": "2026-07-03T21:30:00+02:00"
+    "source_event_end": "2026-07-03T21:30:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "green-mic-showcase-20260605",
@@ -1023,7 +1088,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2023-03-12T20:30:00+01:00",
-    "source_event_end": "2026-06-26T21:45:00+02:00"
+    "source_event_end": "2026-06-26T21:45:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "comedy-lab-saturday-20260606",
@@ -1048,7 +1115,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2021-09-15T20:00:00+02:00",
-    "source_event_end": "2027-04-13T20:00:00+02:00"
+    "source_event_end": "2027-04-13T20:00:00+02:00",
+    "language_confidence": "high",
+    "needs_language_review": false
   },
   {
     "id": "green-mic-comedy-show-20260607",
@@ -1073,7 +1142,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2021-11-28T19:00:00+01:00",
-    "source_event_end": "2026-06-28T20:45:00+02:00"
+    "source_event_end": "2026-06-28T20:45:00+02:00",
+    "language_confidence": "medium",
+    "needs_language_review": true
   },
   {
     "id": "oscar-comedy-club-20260607",
@@ -1084,7 +1155,6 @@ const SHOWS_DATA = [
     "venue": "Cafe Oscar",
     "neighborhood": "Latin Quarter",
     "language": [
-      "en",
       "fr"
     ],
     "show_type": "showcase",
@@ -1099,7 +1169,9 @@ const SHOWS_DATA = [
     "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
     "source_event_start": "2026-04-01T19:00:00+02:00",
-    "source_event_end": "2026-06-25T21:00:00+02:00"
+    "source_event_end": "2026-06-25T21:00:00+02:00",
+    "language_confidence": "low",
+    "needs_language_review": true
   }
 ];
 
@@ -1167,6 +1239,7 @@ function ticketButton(s) {
 // ── STATE ──────────────────────────────────────────────────────────────────
 let activeTab = 'tonight';
 let activeDay = 'all';
+let activeLang = 'all';
 let activeVibes = new Set();
 
 function inferVibes(s) {
@@ -1214,6 +1287,16 @@ function getFiltered() {
   if (activeDay !== 'all') {
     const fullDay = DAY_MAP[activeDay];
     shows = shows.filter(s => s.day === fullDay);
+  }
+  if (activeLang !== 'all') {
+    shows = shows.filter(s => {
+      const langs = s.language || ['fr'];
+      const isBi = langs.includes('en') && langs.includes('fr');
+      if (activeLang === 'bi') return isBi;
+      if (activeLang === 'en') return langs.includes('en') && !isBi;
+      if (activeLang === 'fr') return langs.includes('fr') && !isBi;
+      return true;
+    });
   }
   if (activeVibes.size) shows = shows.filter(s => {
     const vibes = inferVibes(s);
@@ -1290,8 +1373,15 @@ function setTab(t) {
 
 function setDay(d) {
   activeDay = d;
-  document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.day-bar:not(.lang-bar) .day-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('day-' + d).classList.add('active');
+  render();
+}
+
+function setLang(l) {
+  activeLang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('lang-' + l).classList.add('active');
   render();
 }
 

@@ -43,3 +43,22 @@ Read `~/Documents/chuck_vault/10-concepts/projects/ParisComedy-Session-Handoff-2
 
 - `data/affiliates.json` — placeholder refs across 8 programs (full checklist at `docs/revenue/Affiliate-Setup-Checklist.md`)
 - `PLAN_CATALOG` in `main.py` — 7 `TODO_*` SumUp product codes
+
+---
+
+## 2026-05-23 (later) — Language / Affiliate / Featured audit + fixes
+
+Triggered by Robert flagging Oscar Comedy Club as wrongly "Bilingual". See `docs/audits/ParisComedy-Language-Affiliate-Featured-Shows-Audit-2026-05-23.md` (also in chuck_vault).
+
+**Findings & fixes (all applied locally — pending push):**
+- 5 shows wrongly tagged bilingual → re-tagged French + `needs_language_review:true` (Oscar ×3, Velvet ×2).
+- 4 shows tagged English with no title-level evidence → re-tagged French + `needs_language_review:true` (Comedy Crush, Kiss Comedy Club).
+- 0 French-only shows in seed data before; 9 now (still ingestion-biased toward English — TODO: fix scraper queries).
+- `?aff=pariscomedy` confirmed PLACEHOLDER (not a real affiliate ID). Stripped from `data/affiliates.json`; `r.html` gated on `enabled:true`.
+- `renderWeeklyFeatured()` in `index.html` was FAKE (random `seededShuffle` labelled "FEATURED"). Rewritten to honor `editorial_featured` / `paid_featured_until` only; empty state shows "Promote your show" CTA.
+- New language filter on `/shows.html`: All / French / English / Bilingual.
+- 18 of 37 shows have `needs_language_review:true` — Robert review pass needed.
+
+**Phase 4 already added this session:** Eventbrite live sync (`/api/eb/shows`, 1h cache, 18 FFCN events) — separate from the audit work above.
+
+**i18n decision:** English launch first; French as Phase 3 with strict drift-prevention tests (see audit doc §7-8).

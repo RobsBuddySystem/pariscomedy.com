@@ -45,7 +45,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       const u = new URL(rawUrl);
       const host = u.hostname.replace(/^www\./, '');
       const net = cfg.networks && cfg.networks[host];
-      if (net && net.param && net.ref && !u.searchParams.has(net.param)) {
+      if (net && net.enabled === true && net.param && net.ref && !u.searchParams.has(net.param)) {
         u.searchParams.set(net.param, net.ref);
         return u.toString();
       }

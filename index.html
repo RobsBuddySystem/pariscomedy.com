@@ -799,26 +799,39 @@ function renderFeaturedTonight() {
 }
 
 function renderWeeklyFeatured() {
-  const weekSeed = Math.floor(Date.now() / (7 * 24 * 3600000));
-  const shuffled = seededShuffle(SHOWS_DATA, weekSeed);
-  const picks = shuffled.slice(0, 3);
+  // Honest featured logic: render shows that are explicitly featured only —
+  // editorial_featured===true OR paid_featured_until in the future. NO random
+  // shuffles. If nothing is genuinely featured, show empty state + Promote CTA.
   const grid = document.getElementById('weekly-featured-grid');
   if (!grid) return;
   const lbl = document.getElementById('week-rotation-label');
-  if (lbl) {
-    // days until next Monday
-    const now = new Date();
-    const dayOfWeek = now.getDay(); // 0=Sun
-    const daysToMonday = (8 - dayOfWeek) % 7 || 7;
-    lbl.textContent = `Rotates Monday · ${daysToMonday} day${daysToMonday!==1?'s':''} left`;
+  const now = Date.now();
+  const featured = (SHOWS_DATA || []).filter(s => {
+    if (s.editorial_featured === true) return true;
+    if (s.paid_featured_until) {
+      try { return new Date(s.paid_featured_until).getTime() > now; } catch(_) { return false; }
+    }
+    return false;
+  }).slice(0, 3);
+
+  if (!featured.length) {
+    if (lbl) lbl.textContent = 'No featured show this week';
+    grid.innerHTML = `
+      <div class="featured-card" style="grid-column:1/-1;text-align:center;border-style:dashed;box-shadow:none">
+        <div class="featured-card-name">No featured show yet</div>
+        <div class="featured-card-meta" style="margin:6px 0 14px">Want your show here? Pay-to-promote, 7/30/90-day periods.</div>
+        <a href="/pricing.html#featured-promo" class="featured-card-btn" style="max-width:240px;margin:0 auto">Promote your show →</a>
+      </div>`;
+    return;
   }
-  grid.innerHTML = picks.map(s => `
+  if (lbl) lbl.textContent = `${featured.length} featured this week`;
+  grid.innerHTML = featured.map(s => `
     <div class="featured-card">
       <div><span class="featured-badge">⭐ FEATURED THIS WEEK</span></div>
-      <div class="featured-card-name">${s.show_name}</div>
-      <div class="featured-card-show">${s.neighborhood||''}</div>
-      <div class="featured-card-meta">${s.day} &middot; ${s.start_time} &middot; ${s.venue}</div>
-      <a href="${s.ticket_url||'#'}" target="_blank" rel="noopener" class="featured-card-btn">Check current listing →</a>
+      <div class="featured-card-name">${(s.show_name||'').replace(/</g,'&lt;')}</div>
+      <div class="featured-card-show">${(s.neighborhood||'').replace(/</g,'&lt;')}</div>
+      <div class="featured-card-meta">${s.day||''} &middot; ${s.start_time||''} &middot; ${(s.venue||'').replace(/</g,'&lt;')}</div>
+      <a href="/r.html?kind=show&id=${encodeURIComponent(s.id||'')}&url=${encodeURIComponent(s.ticket_url||'')}" target="_blank" rel="noopener sponsored" class="featured-card-btn">Get tickets →</a>
     </div>
   `).join('');
 }

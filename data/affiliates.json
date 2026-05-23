@@ -1,31 +1,37 @@
 {
-  "_comment": "Central affiliate ref config. Update with real partner IDs as accounts are created. /r.html reads this file and injects the matching ref into outbound URLs before redirecting. Keeps affiliate IDs out of every HTML page so they can rotate without site-wide edits.",
+  "_comment": "Affiliate ref config. /r.html injects a ref ONLY if both `enabled:true` AND a non-empty `ref` are present. Until a program is approved, leave enabled:false so /r.html passes ticket URLs through untouched (no fake IDs).",
   "_updated": "2026-05-23",
+  "_rule": "Never invent affiliate IDs. Replace placeholder refs only after a network confirms approval.",
   "networks": {
     "eventbrite.com": {
       "param": "aff",
-      "ref": "pariscomedy",
-      "note": "Eventbrite Affiliate program (placeholder — register at eventbrite.com/affiliate-program; replace ref with real ID)"
+      "ref": "",
+      "enabled": false,
+      "note": "PLACEHOLDER. Apply at eventbrite.com/affiliate-program. On approval, set ref + enabled:true."
     },
     "eventbrite.fr": {
       "param": "aff",
-      "ref": "pariscomedy",
-      "note": "Same ref as .com, EB shares attribution across TLDs"
+      "ref": "",
+      "enabled": false,
+      "note": "Same ref as .com on approval; EB shares attribution across TLDs."
     },
     "ticketmaster.com": {
       "param": "camefrom",
-      "ref": "pariscomedy",
-      "note": "Ticketmaster Affiliate Network (placeholder)"
+      "ref": "",
+      "enabled": false,
+      "note": "PLACEHOLDER. Ticketmaster Affiliate Network."
     },
     "ticketmaster.fr": {
       "param": "camefrom",
-      "ref": "pariscomedy",
-      "note": "Ticketmaster FR"
+      "ref": "",
+      "enabled": false,
+      "note": "PLACEHOLDER."
     },
     "tripadvisor.com": {
       "param": "uniqid",
-      "ref": "pariscomedy",
-      "note": "TripAdvisor partner program (venue pages — discreet placement)"
+      "ref": "",
+      "enabled": false,
+      "note": "PLACEHOLDER. TripAdvisor partner program."
     }
   }
 }
