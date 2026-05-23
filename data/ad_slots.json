@@ -1,0 +1,48 @@
+{
+  "_comment": "Affiliate ad slot config. assets/ads.js renders these into <div data-ad-slot=NAME></div> placeholders. Set enabled=false to silence all slots site-wide (no DOM changes needed). One-command rollback: bash scripts/disable_affiliate_ads.sh.",
+  "_updated": "2026-05-23",
+  "enabled": false,
+  "_enabled_note": "Disabled until Robert signs up at eventbrite.com/affiliate-program and partner.getyourguide.com. When IDs are pasted in below, flip enabled=true.",
+  "networks": {
+    "eventbrite": {
+      "label": "Tickets",
+      "ref_param": "aff",
+      "ref": "",
+      "signup_url": "https://www.eventbrite.com/affiliate-program/",
+      "note": "Direct ticket-flow conversion. Highest match for our traffic (every show on the site links to EB)."
+    },
+    "getyourguide": {
+      "label": "Things to do in Paris",
+      "ref_param": "partner_id",
+      "ref": "",
+      "signup_url": "https://partner.getyourguide.com/",
+      "note": "Paris tourism context. Plays nicely on venue pages + index footer for visitors. ~8% commission on bookings."
+    }
+  },
+  "slots": {
+    "shows-sidebar": {
+      "network": "eventbrite",
+      "kind": "ticket-cta",
+      "headline": "Get tickets",
+      "body": "Most Paris shows sell out same-day. Book ahead through our partner Eventbrite — same price, supports the site."
+    },
+    "venues-inline": {
+      "network": "getyourguide",
+      "kind": "tourism-rail",
+      "headline": "While you're in Paris",
+      "body": "Skip-the-line tickets and tours near every venue we list. Curated via GetYourGuide."
+    },
+    "index-footer-rail": {
+      "network": "getyourguide",
+      "kind": "tourism-rail",
+      "headline": "Plan the rest of your night",
+      "body": "Dinner spots, walking tours, day trips. Paris-tested experiences from GetYourGuide."
+    },
+    "comic-footer": {
+      "network": "eventbrite",
+      "kind": "ticket-cta",
+      "headline": "Catch them live",
+      "body": "Most comics on this site have upcoming dates. Tickets through Eventbrite."
+    }
+  }
+}

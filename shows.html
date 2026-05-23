@@ -133,6 +133,10 @@ footer a{color:#666}footer a:hover{color:#f0f0f0}
 
 <div class="grid" id="shows-grid"></div>
 
+<div style="max-width:980px;margin:24px auto 0;padding:0 24px">
+  <div data-ad-slot="shows-sidebar"></div>
+</div>
+
 <footer>
   <div class="footer-links">
     <a href="/">Home</a>
@@ -1137,7 +1141,10 @@ function isFreshSource(s) {
 
 function ticketButton(s) {
   const label = 'Check Current Listing →';
-  return `<a href="${s.ticket_url}" target="_blank" rel="noopener" class="btn-tickets">${label}</a>`;
+  // Route every outbound ticket click through /r.html so the affiliate
+  // ref + click attribution is applied (see data/affiliates.json).
+  const href = `/r.html?kind=show&id=${encodeURIComponent(s.id || '')}&url=${encodeURIComponent(s.ticket_url || '')}`;
+  return `<a href="${href}" target="_blank" rel="noopener sponsored" class="btn-tickets">${label}</a>`;
 }
 
 // ── STATE ──────────────────────────────────────────────────────────────────
@@ -1307,5 +1314,6 @@ function injectEventSchemas() {
 render();
 injectEventSchemas();
 </script>
+<script src="/assets/ads.js" defer></script>
 </body>
 </html>

@@ -61,7 +61,7 @@ The site sells "Comic Plus" and "Booker Plus" but there is **no account system**
 
 | # | Missing | Notes |
 |---|---|---|
-| P1 | No recurring billing for Booker Plus | "€1/month invoiced by email" is currently just text. SumUp one-off links don't auto-recur. Options: SumUp subscription product, or Stripe Billing. |
+| P1 | No recurring billing for Booker Plus | "€1/month invoiced by email" is currently just text. SumUp one-off links don't auto-recur. Plan: SumUp subscription product when ready; until then email invoicing each month. SumUp only — no other processor. |
 | P2 | No invoice generation/tracking | Nothing creates, numbers, sends or stores invoices. Required for accounting (Pompei). |
 | P3 | No payment record | No table of who paid, how much, when, refunds. |
 | P4 | SumUp merchant is labelled **"FFC"**, not "Paris Comedy" | Rename in the SumUp dashboard, or confirm FFC is the intended legal payee. |
