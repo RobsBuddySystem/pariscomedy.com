@@ -8,24 +8,24 @@
       "M6"
     ],
     "confidence": 2,
-    "checked_at": "2026-05-20T06:56:04+00:00",
+    "checked_at": "2026-05-23T10:32:34+00:00",
     "type": "web_presence",
     "links": [
-      {
-        "title": "Abi Roberts - Wikipedia",
-        "url": "https://en.wikipedia.org/wiki/Abi_Roberts"
-      },
       {
         "title": "Abi Roberts - Comedian, writer and commentator",
         "url": "https://abiroberts.com/"
       },
       {
-        "title": "Laughs & Liberty: The Abi Roberts Show With Scotty at Com-Cast",
-        "url": "https://www.youtube.com/watch?v=VlfEXAE49Fs"
+        "title": "Abi Roberts - Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Abi_Roberts"
       },
       {
         "title": "Abi Roberts (@abirobertscomedy) • Instagram photos and videos",
         "url": "https://www.instagram.com/abirobertscomedy/"
+      },
+      {
+        "title": "Abi Roberts - YouTube",
+        "url": "https://www.youtube.com/c/AbiRobertsComedyDiva/videos"
       },
       {
         "title": "Abi Roberts - Facebook",
@@ -36,109 +36,215 @@
         "url": "https://thecomedyclub.co.uk/comedians/abi-roberts"
       },
       {
-        "title": "Abi Roberts tour dates & tickets 2026 | Ents24",
-        "url": "https://www.ents24.com/uk/tour-dates/abi-roberts"
-      },
-      {
-        "title": "Abi Roberts (@abirobertscomedy) • Instagram photos and videos",
-        "url": "https://www.instagram.com/abirobertscomedy/reels/"
+        "title": "A Thousand Words — Abi Roberts (Part 1 of 3) | UKColumn",
+        "url": "https://www.ukcolumn.org/video/a-thousand-words-abi-roberts-part-1-of-3"
       }
     ],
     "wikipedia": "https://en.wikipedia.org/wiki/Abi_Roberts"
   },
   {
-    "comic_slug": "booder",
-    "comic_name": "Booder",
+    "comic_slug": "alejandro",
+    "comic_name": "Alejandro",
     "fact": "web:active",
     "methods": [
       "M5",
       "M6"
     ],
     "confidence": 2,
-    "checked_at": "2026-05-20T06:56:04+00:00",
+    "checked_at": "2026-05-23T10:32:34+00:00",
     "type": "web_presence",
     "links": [
       {
-        "title": "Booder.fr - site officiel de l'artiste Booder",
-        "url": "https://booder.fr/"
+        "title": "Alejandro Paris (@alepariss) • Instagram photos and videos",
+        "url": "https://www.instagram.com/alepariss/"
       },
       {
-        "title": "Booder - Wikipedia",
-        "url": "https://en.wikipedia.org/wiki/Booder"
+        "title": "Alejandro Paris - YouTube",
+        "url": "https://www.youtube.com/@composeraleparis"
       },
       {
-        "title": "Booder | Comedy Show at L'Olympia, Paris | Tickets & seats",
-        "url": "https://www.olympiahall.com/en/upcoming-events/booder/"
-      },
-      {
-        "title": "Booder — Grokipedia",
-        "url": "https://grokipedia.com/page/booder"
-      },
-      {
-        "title": "Booder : Réservation de Billets & Places | Billet Réduc'",
-        "url": "https://www.billetreduc.com/spectacle-booder.htm"
-      },
-      {
-        "title": "Booder : billetterie & dates | Spectacles 2025-2026 - jds.fr",
-        "url": "https://www.jds.fr/artistes/booder-40_N"
-      },
-      {
-        "title": "Booder en spectacle, au théâtre, au cinéma - L'Officiel des spectacles",
-        "url": "https://www.offi.fr/artiste/booder-79839.html"
-      },
-      {
-        "title": "« Je n'aime pas la vulgarité » : Booder, l'humoriste qui fait autant ...",
-        "url": "https://www.leparisien.fr/culture-loisirs/humour/je-naime-pas-la-vulgarite-booder-lhumoriste-qui-fait-autant-marrer-les-maternelles-que-les-retraites-28-11-2024-46YLYRFSTVCXZC46ALKFL6AWWA.php"
+        "title": "Vidéos de Alejandro Paris - Dailymotion",
+        "url": "https://www.dailymotion.com/alexdagon"
       }
     ],
-    "wikipedia": "https://en.wikipedia.org/wiki/Booder"
+    "wikipedia": "https://en.wikipedia.org/wiki/Alejandro_Wiebe"
   },
   {
-    "comic_slug": "harriet-kemsley",
-    "comic_name": "Harriet Kemsley",
+    "comic_slug": "anna-beth",
+    "comic_name": "Anna Beth",
+    "fact": "show:1009192882077",
+    "methods": [
+      "M2",
+      "M4"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "performing",
+    "event_id": "1009192882077",
+    "event_name": "Bad Dates - English Standup in Paris on Love & Dating",
+    "date": "2024-10-01",
+    "url": "https://www.eventbrite.fr/e/bad-dates-english-standup-in-paris-on-love-dating-tickets-1009192882077"
+  },
+  {
+    "comic_slug": "aura",
+    "comic_name": "Aura",
+    "fact": "show:1989840111338",
+    "methods": [
+      "M2",
+      "M4"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "performing",
+    "event_id": "1989840111338",
+    "event_name": "Velvet Bar Comedy - Le meilleur du stand-up à Paris !!",
+    "date": "2026-05-20",
+    "url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338"
+  },
+  {
+    "comic_slug": "axelle",
+    "comic_name": "Axelle",
     "fact": "web:active",
     "methods": [
       "M5",
       "M6"
     ],
     "confidence": 2,
-    "checked_at": "2026-05-20T06:56:04+00:00",
+    "checked_at": "2026-05-23T10:32:34+00:00",
     "type": "web_presence",
     "links": [
       {
-        "title": "Harriet Kemsley - Wikipedia",
-        "url": "https://en.wikipedia.org/wiki/Harriet_Kemsley"
+        "title": "Axelle (@axelle.paris) • Instagram photos and videos",
+        "url": "https://www.instagram.com/axelle.paris/"
       },
       {
-        "title": "Harriet Kemsley looks back: 'My parents say I was a very well-behaved ...",
-        "url": "https://www.theguardian.com/lifeandstyle/2026/feb/22/harriet-kemsley-looks-back-my-parents-say-i-was-a-very-well-behaved-child-sadly-this-has-been-in-steady-decline-over-the-years"
+        "title": "Axelle Paris - Facebook",
+        "url": "https://www.facebook.com/axelle.paris.1/"
       },
       {
-        "title": "Harriet Kemsley",
-        "url": "https://harrietkemsley.com/"
+        "title": "AXELLE - YouTube",
+        "url": "https://www.youtube.com/@AXELLEJDH"
       },
       {
-        "title": "A divorce in her 30s wasn't in the plan. But comedian Harriet Kemsley ...",
-        "url": "https://uk.style.yahoo.com/harriet-kemsley-interview-comedian-divorce-parenting-last-one-standing-060003944.html"
+        "title": "Accueil - Axelle Girard",
+        "url": "https://axelle-girard.com/"
       },
       {
-        "title": "Harriet Kemsley — Wikipédia",
-        "url": "https://fr.wikipedia.org/wiki/Harriet_Kemsley"
+        "title": "AXELLE LAFONT - Trianon",
+        "url": "https://www.letrianon.fr/fr/programmation/axelle-lafont/"
       },
       {
-        "title": "Harriet Kemsley tour dates & tickets 2026 - 2027 | Ents24",
-        "url": "https://www.ents24.com/uk/tour-dates/harriet-kemsley"
+        "title": "Axelle J | AGENCE MARILOU - Agence de Mannequins & comédiens à Paris",
+        "url": "https://www.agence-marilou.com/mannequins-paris/femmes/5483-axelle/"
       },
       {
-        "title": "Harriet Kemsley - On The Mic",
-        "url": "https://www.onthemic.co.uk/comedians_list/harriet-kemsley/"
-      },
-      {
-        "title": "Home — Harriet Kemsley",
-        "url": "https://harrietkemsley.com/home"
+        "title": "Accueil - Axelle Red",
+        "url": "http://www.axelle-red.com/"
       }
     ],
-    "wikipedia": "https://en.wikipedia.org/wiki/Harriet_Kemsley"
+    "wikipedia": "https://en.wikipedia.org/wiki/Axelle_Laffont"
+  },
+  {
+    "comic_slug": "basile",
+    "comic_name": "Basile",
+    "fact": "web:active",
+    "methods": [
+      "M5",
+      "M6"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "web_presence",
+    "links": [
+      {
+        "title": "Home - Basile The Comedian",
+        "url": "https://basilelive.com/"
+      },
+      {
+        "title": "Basile dans Bon revoir - Le Point Virgule - Billet Réduc",
+        "url": "https://www.billetreduc.com/spectacle/basile-dans-bon-revoir-366570"
+      },
+      {
+        "title": "Billets pour Basile | Réservez en ligne sur Fnac Spectacles",
+        "url": "https://www.fnacspectacles.com/artist/basile/"
+      },
+      {
+        "title": "Basile dans Bon revoir au Point Virgule - Ticketac",
+        "url": "https://www.ticketac.com/spectacles/basile"
+      },
+      {
+        "title": "Basile à Le Point Virgule Paris 2025|tournéede Bon Revoir: billets",
+        "url": "https://www.jds.fr/paris/spectacles/humour/basile-bon-revoir-le-point-virgule-paris-1154257_A"
+      },
+      {
+        "title": "Tour Dates - Basile The Comedian",
+        "url": "https://basilelive.com/tour-dates/"
+      },
+      {
+        "title": "Spectacle Basile - Bon Revoir à Paris, Point Virgule : billets ...",
+        "url": "https://www.jds.fr/paris/spectacles/humour/basile-bon-revoir-784993_A"
+      },
+      {
+        "title": "Basile : Réservation de Billets & Places | Billet Réduc'",
+        "url": "https://www.billetreduc.com/spectacle-basile.htm"
+      }
+    ],
+    "wikipedia": "https://en.wikipedia.org/wiki/Saint-Basile,_Ardèche"
+  },
+  {
+    "comic_slug": "drew",
+    "comic_name": "Drew",
+    "fact": "web:active",
+    "methods": [
+      "M5",
+      "M6"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "web_presence",
+    "links": [
+      {
+        "title": "Drew Lynch (@thedrewlynch) • Instagram photos and videos",
+        "url": "https://www.instagram.com/TheDrewLynch/"
+      },
+      {
+        "title": "Drew Paris - YouTube",
+        "url": "https://www.youtube.com/@DrewParisOfficial"
+      },
+      {
+        "title": "Drew Barrymore Details Her 10th Annual Girls' Trip to Paris",
+        "url": "https://www.usmagazine.com/celebrity-news/news/drew-barrymore-details-her-10th-annual-girls-trip-to-paris/"
+      },
+      {
+        "title": "Drew Lynch - Stand-Up Comedian and YouTube Star | Official Website",
+        "url": "https://drewlynch.com/"
+      },
+      {
+        "title": "HOME | Drew Dunn",
+        "url": "https://www.drewdunncomedy.com/"
+      },
+      {
+        "title": "Drew Thomas - Comedian, Actor & Cirque du Soleil Performer",
+        "url": "https://www.comeseedrew.com/"
+      }
+    ],
+    "wikipedia": "https://en.wikipedia.org/wiki/Drew_Lynch"
+  },
+  {
+    "comic_slug": "gabrielle",
+    "comic_name": "Gabrielle",
+    "fact": "show:77709323679",
+    "methods": [
+      "M2",
+      "M4"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "performing",
+    "event_id": "77709323679",
+    "event_name": "English Stand Up Comedy in Paris - Thursday & Saturday Night Shows",
+    "date": "2021-09-15",
+    "url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679"
   },
   {
     "comic_slug": "ilyes-djadel",
@@ -149,42 +255,189 @@
       "M5"
     ],
     "confidence": 2,
-    "checked_at": "2026-05-20T06:56:04+00:00",
+    "checked_at": "2026-05-23T10:32:34+00:00",
     "type": "active_in_paris_comedy_search",
     "links": [
       {
-        "title": "Ilyes Djadel plusieurs dates | Billets sur Fnac Spectacles",
-        "url": "https://www.fnacspectacles.com/artist/ilyes-djadel/"
+        "title": "Ilyes Djadel : Réservation de Billets & Places | Billet Réduc'",
+        "url": "https://www.billetreduc.com/spectacle-ilyes-djadel.htm"
       },
       {
         "title": "Ilyes Djadel — Wikipédia",
         "url": "https://fr.wikipedia.org/wiki/Ilyes_Djadel"
       },
       {
-        "title": "Ilyes Djadel: his next show dates in Paris in 2025",
-        "url": "https://www.sortiraparis.com/en/what-to-see-in-paris/shows/articles/302359-ilyes-djadel-his-next-show-dates-in-paris-in-2025"
-      },
-      {
         "title": "Ilyes Djadel — DÉJÀ · Tournée 2027",
         "url": "https://www.ilyesdjadel.com/"
-      },
-      {
-        "title": "ILYES DJADEL - One-man show - Billet & Réservation",
-        "url": "https://www.ticketac.com/spectacles/ilyes-djadel"
-      },
-      {
-        "title": "Ilyes Djadel - Facebook",
-        "url": "https://www.facebook.com/p/Ilyes-Djadel-100044551594398/"
       },
       {
         "title": "Ilyes Djadel | Billets et Programmation | Ticketmaster",
         "url": "https://www.ticketmaster.fr/fr/artiste/ilyes-djadel/idartiste/2330"
       },
       {
-        "title": "Ilyes Djadel : billets & dates | Spectacles 2025-2026 - jds.fr",
-        "url": "https://www.jds.fr/artistes/ilyes-djadel-317_N"
+        "title": "Ilyes Djadel plusieurs dates | Billets sur Fnac Spectacles",
+        "url": "https://www.fnacspectacles.com/artist/ilyes-djadel/"
+      },
+      {
+        "title": "Ilyes Djadel - Facebook",
+        "url": "https://www.facebook.com/p/Ilyes-Djadel-100044551594398/"
+      },
+      {
+        "title": "Ilyes Djadel au Palais des Glaces 2026 | tournée Déjà : billetterie",
+        "url": "https://www.jds.fr/paris/spectacles/humour/ilyes-djadel-deja-palais-des-glaces-paris-1372282_A"
+      },
+      {
+        "title": "ILYES DJADEL - One-man show - Billet & Réservation - Ticketac",
+        "url": "https://www.ticketac.com/spectacles/ilyes-djadel"
       }
     ]
+  },
+  {
+    "comic_slug": "john-botros",
+    "comic_name": "John Botros",
+    "fact": "show:1989142502772",
+    "methods": [
+      "M1",
+      "M4"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "performing",
+    "event_id": "1989142502772",
+    "event_name": "English Standup Comedy- John Botros Bacon Croissant",
+    "date": "2026-05-23",
+    "url": "https://www.eventbrite.com/e/english-standup-comedy-john-botros-bacon-croissant-tickets-1989142502772"
+  },
+  {
+    "comic_slug": "john-botros",
+    "comic_name": "John Botros",
+    "fact": "web:active",
+    "methods": [
+      "M3",
+      "M5"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "active_in_paris_comedy_search",
+    "links": [
+      {
+        "title": "John Botros: Bacon Croissant - English Standup Comedy",
+        "url": "https://www.eventbrite.com/e/john-botros-bacon-croissant-english-standup-comedy-tickets-1984759364688"
+      },
+      {
+        "title": "John Botros: Bacon Croissant - English Standup Comedy",
+        "url": "https://happeningnext.com/event/john-botros-bacon-croissant-english-standup-comedy-eid1ef0kuiww4ba"
+      },
+      {
+        "title": "English Standup Comedy- John Botros Bacon Croissant - Blastoff Comedy",
+        "url": "https://www.blastoffcomedy.com/shows/english-standup-comedy-john-botros-bacon-croissant-may-23-2026"
+      },
+      {
+        "title": "English Standup Comedy- Blast Off Presents John Botros' Bang-Bang ...",
+        "url": "https://lapommedeve.com/event/english-standup-comedy-blast-off-presents-john-botros-bang-bang-comedy/"
+      },
+      {
+        "title": "John Botros | Friends, don't miss my first solo stand-up comedy show in ...",
+        "url": "https://www.instagram.com/p/DL_A5kzKD2s/"
+      },
+      {
+        "title": "PDF  English Standup Comedy- Bang Bang John Botros Solo Show",
+        "url": "https://becircadian.com/events/english-standup-comedy-bang-bang-john-botros-solo-show.pdf"
+      }
+    ]
+  },
+  {
+    "comic_slug": "justin",
+    "comic_name": "Justin",
+    "fact": "web:active",
+    "methods": [
+      "M5",
+      "M6"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "web_presence",
+    "links": [
+      {
+        "title": "JUSTIN (@cestjustejustin) • Instagram photos and videos",
+        "url": "https://www.instagram.com/cestjustejustin/"
+      },
+      {
+        "title": "Justin Barthélemy - Facebook",
+        "url": "https://www.facebook.com/justinmecalest/"
+      },
+      {
+        "title": "Justin Long - Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Justin_Long"
+      }
+    ],
+    "wikipedia": "https://en.wikipedia.org/wiki/Justin_Hamilton_(comedian)"
+  },
+  {
+    "comic_slug": "karthik",
+    "comic_name": "Karthik",
+    "fact": "web:active",
+    "methods": [
+      "M5",
+      "M6"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "web_presence",
+    "links": [
+      {
+        "title": "Karthik | We are thrilled to announce Passport Pals - Instagram",
+        "url": "https://www.instagram.com/p/DIa3-uyscoa/"
+      },
+      {
+        "title": "English Standup Comedy Special - Lost in Translation starring Karthik",
+        "url": "https://allevents.in/paris/english-standup-comedy-special-lost-in-translation-starring-karthik/10000950239480867"
+      },
+      {
+        "title": "Karthik Events - 1 Upcoming Activities and Tickets | Eventbrite",
+        "url": "https://www.eventbrite.co.uk/o/karthik-94807437793"
+      }
+    ],
+    "wikipedia": "https://en.wikipedia.org/wiki/Karthik_Kumar"
+  },
+  {
+    "comic_slug": "kenny",
+    "comic_name": "Kenny",
+    "fact": "web:active",
+    "methods": [
+      "M5",
+      "M6"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "web_presence",
+    "links": [
+      {
+        "title": "Kenny Paris (@kennyparis_) • Instagram photos and videos",
+        "url": "https://www.instagram.com/kennyparis_/"
+      },
+      {
+        "title": "KENNY VAGO LIVE - LE SOLO - PARIS - Paris, 75011 - Sortir à Paris - Le ...",
+        "url": "https://www.leparisien.fr/etudiant/sortir/paris/eve-kenny-vago-live-le-solo-paris-paris/"
+      },
+      {
+        "title": "Kenny Paris Profiles - Facebook",
+        "url": "https://www.facebook.com/public/Kenny-Paris/"
+      },
+      {
+        "title": "Catching up with Kenny G in Paris - YouTube",
+        "url": "https://www.youtube.com/watch?v=17CqVyPB5j8"
+      },
+      {
+        "title": "Kenny Vago à Le Solo Paris 2026 | du Kenny Vago Live : billets - jds.fr",
+        "url": "https://www.jds.fr/paris/spectacles/humour/kenny-vago-live-1273356_A"
+      },
+      {
+        "title": "Kenny vs. Spenny Tour 2026-2027 | Dates & Tickets",
+        "url": "https://comedy.tickets/tickets/kenny-vs-spenny/"
+      }
+    ],
+    "wikipedia": "https://en.wikipedia.org/wiki/Jon_Kenny"
   },
   {
     "comic_slug": "maddie-storm",
@@ -195,7 +448,7 @@
       "M4"
     ],
     "confidence": 2,
-    "checked_at": "2026-05-20T06:56:04+00:00",
+    "checked_at": "2026-05-23T10:32:34+00:00",
     "type": "performing",
     "event_id": "1985334998424",
     "event_name": "The Dissident Comedy Show",
@@ -205,57 +458,156 @@
   {
     "comic_slug": "maddie-storm",
     "comic_name": "Maddie Storm",
-    "fact": "show:1985335033529",
+    "fact": "show:1985335034532",
     "methods": [
       "M1",
       "M2",
       "M4"
     ],
     "confidence": 3,
-    "checked_at": "2026-05-20T06:56:04+00:00",
+    "checked_at": "2026-05-23T10:32:34+00:00",
     "type": "performing",
-    "event_id": "1985335033529",
+    "event_id": "1985335034532",
     "event_name": "The Dissident Comedy Show",
-    "date": "2026-05-20",
-    "url": "https://www.eventbrite.fr/e/the-dissident-comedy-show-tickets-1985335033529"
+    "date": "2026-05-27",
+    "url": "https://www.eventbrite.fr/e/the-dissident-comedy-show-tickets-1985335034532"
   },
   {
-    "comic_slug": "maddie-storm",
-    "comic_name": "Maddie Storm",
+    "comic_slug": "nikita",
+    "comic_name": "Nikita",
     "fact": "web:active",
     "methods": [
-      "M3",
-      "M5"
+      "M5",
+      "M6"
     ],
     "confidence": 2,
-    "checked_at": "2026-05-20T06:56:04+00:00",
-    "type": "active_in_paris_comedy_search",
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "web_presence",
     "links": [
       {
-        "title": "[STAND-UP] The Dissident Comedy Show: hosted by Maddie Storm",
-        "url": "https://happeningnext.com/event/stand-up-the-dissident-comedy-show-hosted-by-maddie-storm-eid1ef0kxhxn07r"
+        "title": "Nikita Nike 237 (@nikitanike52) - TikTok",
+        "url": "https://www.tiktok.com/@nikitanike52"
       },
       {
-        "title": "[STAND-UP] The Dissident Comedy Show: hosted by Maddie Storm",
-        "url": "https://stayhappening.com/e/stand-up-the-dissident-comedy-show-hosted-by-maddie-storm-E118SAYL3MXCO"
+        "title": "NIKITA PARRIS (@nikitaparris17) • Instagram photos and videos",
+        "url": "https://www.instagram.com/nikitaparris17/"
       },
       {
-        "title": "Maddie Storm (@thefrenchstormishere) • Instagram photos and videos",
-        "url": "https://www.instagram.com/thefrenchstormishere/"
+        "title": "Nikita à Paris: guide, avis, infos pratiques, plan - Cityzeum",
+        "url": "https://www.cityzeum.com/nikita"
       },
       {
-        "title": "The Dissident Comedy Show | Maddie Storm - LinkedIn",
-        "url": "https://www.linkedin.com/posts/maddie-storm-0a82651b3_the-dissident-comedy-show-activity-7440074411589652480-PhFJ"
+        "title": "Night in Paris - Live Gig by Roxanne & Nikita Phoenix in Paris / Ніч у ...",
+        "url": "https://www.youtube.com/watch?v=MGumRTPee5g"
       },
       {
-        "title": "[STAND-UP] The Dissident Comedy Show: hosted by Maddie Storm",
-        "url": "https://allevents.in/paris/stand-up-the-dissident-comedy-show-hosted-by-maddie-storm/100001989349320369"
+        "title": "Nikita Miller - Wikipedia",
+        "url": "https://de.wikipedia.org/wiki/Nikita_Miller"
       },
       {
-        "title": "Maddie Storm - Facebook",
-        "url": "https://www.facebook.com/thefrenchstormishere/"
+        "title": "Cabaret Russe Nikita - cabaret-paris.fr",
+        "url": "http://www.cabaret-paris.fr/cabarets/nikita/"
+      },
+      {
+        "title": "Home - Nikita Miller",
+        "url": "https://www.nikita-miller.de/"
       }
-    ]
+    ],
+    "wikipedia": "https://en.wikipedia.org/wiki/Nikita_Mirzani"
+  },
+  {
+    "comic_slug": "nina",
+    "comic_name": "Nina",
+    "fact": "web:active",
+    "methods": [
+      "M5",
+      "M6"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "web_presence",
+    "links": [
+      {
+        "title": "Matthieu Nina, dates de spectacle en 2026 et billetterie",
+        "url": "https://www.agendaculturel.fr/matthieu-nina"
+      },
+      {
+        "title": "Matthieu Nina - Singularist Paris",
+        "url": "https://www.singularist-paris.fr/fiche/comedien-ne/matthieu-nina"
+      },
+      {
+        "title": "Matthieu Nina dans En bas de l'échelle - BilletReduc.com",
+        "url": "https://www.billetreduc.com/spectacle/matthieu-nina-dans-en-bas-de-l-echelle-364796"
+      },
+      {
+        "title": "Billets pour Matthieu Nina | Réservez en ligne sur Fnac Spectacles",
+        "url": "https://www.fnacspectacles.com/artist/matthieu-nina/"
+      },
+      {
+        "title": "Matthieu Nina, a comedian with a disability, wows the ... - YouTube",
+        "url": "https://www.youtube.com/watch?v=Vlcz4LDXWZA"
+      },
+      {
+        "title": "Nina Deflache - Comedian | LinkedIn",
+        "url": "https://fr.linkedin.com/in/nina-deflache-4b8366127/en"
+      },
+      {
+        "title": "Matthieu Nina : son premier one man show au Théâtre Bo Saint Martin",
+        "url": "https://www.sortiraparis.com/scenes/spectacle/articles/320371-matthieu-nina-son-premier-one-man-show-au-theatre-bo-saint-martin"
+      },
+      {
+        "title": "MATTHIEU NINA dans EN BAS DE L'ECHELLE - Le Point Virgule - Paris ...",
+        "url": "https://www.leparisien.fr/etudiant/sortir/paris/eve-matthieu-nina-dans-en-bas-de-lechelle-point-virgule/"
+      }
+    ],
+    "wikipedia": "https://en.wikipedia.org/wiki/Nina_Conti"
+  },
+  {
+    "comic_slug": "noah",
+    "comic_name": "Noah",
+    "fact": "web:active",
+    "methods": [
+      "M5",
+      "M6"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "web_presence",
+    "links": [
+      {
+        "title": "Trevor Noah: The Nightmare of Losing Luggage in Paris | Stand-up Comedy",
+        "url": "https://www.youtube.com/watch?v=Z-WdC8YTbnI"
+      },
+      {
+        "title": "Trevor Noah | Gérard Drouot Productions - gdp.fr",
+        "url": "https://www.gdp.fr/en/artistes/trevor-noah"
+      },
+      {
+        "title": "Trevor Noah - Show + Comedy Paris｜L'Olympia",
+        "url": "https://www.olympiahall.com/en/upcoming-events/trevor-noah/"
+      },
+      {
+        "title": "Trevor Noah Tour 2026-2027 | Dates & Tickets - Comedy Tickets",
+        "url": "https://comedy.tickets/tickets/trevor-noah/"
+      },
+      {
+        "title": "Trevor Noah à La Seine Musicale",
+        "url": "https://www.laseinemusicale.com/spectacles-concerts/trevor-noah/"
+      },
+      {
+        "title": "Trevor Noah Tour 2026 - Trevor Noah Tour 2026: Tickets, Event Dates ...",
+        "url": "https://www.trevornoah.org/tour"
+      },
+      {
+        "title": "Trevor Noah - Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Trevor_Noah"
+      },
+      {
+        "title": "Trevor Noah",
+        "url": "https://www.trevornoah.com/"
+      }
+    ],
+    "wikipedia": "https://en.wikipedia.org/wiki/Trevor_Noah"
   },
   {
     "comic_slug": "nordine-ganso",
@@ -266,40 +618,40 @@
       "M5"
     ],
     "confidence": 2,
-    "checked_at": "2026-05-20T06:56:04+00:00",
+    "checked_at": "2026-05-23T10:32:34+00:00",
     "type": "active_in_paris_comedy_search",
     "links": [
+      {
+        "title": "Nordine Ganso — Wikipédia",
+        "url": "https://fr.wikipedia.org/wiki/Nordine_Ganso"
+      },
       {
         "title": "Nordine Ganso - Site Officiel",
         "url": "https://www.nordineganso.com/"
       },
       {
-        "title": "Nordine Ganso — Wikipédia",
-        "url": "https://fr.wikipedia.org/wiki/Nordine_Ganso"
+        "title": "Nordine Ganso : Réservation de Billets & Places | Billet Réduc'",
+        "url": "https://www.billetreduc.com/spectacle-nordine-ganso.htm"
+      },
+      {
+        "title": "Nordine Ganso - Facebook",
+        "url": "https://www.facebook.com/nordineganso3/"
       },
       {
         "title": "Billets pour Nordine Ganso | Réservez en ligne sur Fnac Spectacles",
         "url": "https://www.fnacspectacles.com/artist/nordine-ganso/"
       },
       {
-        "title": "Nordine Ganso en spectacle, au théâtre - L'Officiel des spectacles",
-        "url": "https://www.offi.fr/artiste/nordine-ganso-216228.html"
+        "title": "Nordine Ganso : billets & dates | Spectacles 2025-2026 - jds.fr",
+        "url": "https://www.jds.fr/artistes/nordine-ganso-151_N"
       },
       {
         "title": "« Je n'avais pas de plan B à l'humour », confesse Nordine Ganso",
         "url": "https://www.20minutes.fr/arts-stars/culture/4179578-20251019-plan-b-humour-confesse-nordine-ganso"
       },
       {
-        "title": "Nordine Ganso : billets & dates | Spectacles 2025-2026 - jds.fr",
-        "url": "https://www.jds.fr/artistes/nordine-ganso-151_N"
-      },
-      {
-        "title": "Nordine ganso - Sortiraparis.com",
-        "url": "https://www.sortiraparis.com/en/articles/tag/nordine-ganso"
-      },
-      {
-        "title": "Nordine Ganso spectacle 2026 dates de la tournée et billetterie",
-        "url": "https://www.agendaculturel.fr/nordine-ganso"
+        "title": "Nordine Ganso returns to the Palais des Glaces with Violet in September ...",
+        "url": "https://www.sortiraparis.com/en/what-to-see-in-paris/shows/articles/257796-nordine-ganso-returns-to-the-palais-des-glaces-with-violet-in-september-2024"
       }
     ]
   },
@@ -313,7 +665,7 @@
       "M6"
     ],
     "confidence": 3,
-    "checked_at": "2026-05-20T06:56:04+00:00",
+    "checked_at": "2026-05-23T10:32:34+00:00",
     "type": "active_in_paris_comedy_search",
     "links": [
       {
@@ -325,12 +677,12 @@
         "url": "https://biographycentral.com/biography/roman_frayssinet"
       },
       {
-        "title": "Roman Frayssinet - YouTube",
-        "url": "https://www.youtube.com/channel/UCIdnqo-pX3ZiM0YKAVRdTkA"
-      },
-      {
         "title": "Roman Frayssinet Biography: Girlfriend, Films, TV Series, Net Worth ...",
         "url": "https://www.thecityceleb.com/biography/personality/content-creator/writer/roman-frayssinet-biography-girlfriend-films-tv-series-net-worth-age-height-parents-siblings-religion/"
+      },
+      {
+        "title": "Roman Frayssinet - YouTube",
+        "url": "https://www.youtube.com/channel/UCIdnqo-pX3ZiM0YKAVRdTkA"
       },
       {
         "title": "Roman Frayssinet - Age, Bio, Family | Famous Birthdays",
@@ -338,18 +690,85 @@
       },
       {
         "title": "Roman Frayssinet - Ô Delà | Ticketmaster France",
-        "url": "https://romainfrayssinet.com/"
+        "url": "https://romainfrayssinet.com/evenements"
       },
       {
-        "title": "Roman Frayssinet | Show Comedy at L'Olympia, Paris | Tickets & seats",
-        "url": "https://www.olympiahall.com/en/upcoming-events/roman-frayssinet/"
+        "title": "Roman Frayssinet spectacle 2026 dates et billetterie",
+        "url": "https://www.agendaculturel.fr/roman-frayssinet"
       },
       {
-        "title": "Roman Frayssinet - The Movie Database (TMDB)",
-        "url": "https://www.themoviedb.org/person/1924403-roman-frayssinet"
+        "title": "ROMAN FRAYSSINET - Southside Production",
+        "url": "https://www.southsideproduction.com/artist/roman-frayssinet/"
       }
     ],
     "wikipedia": "https://en.wikipedia.org/wiki/Roman_Frayssinet"
+  },
+  {
+    "comic_slug": "tamer-kattan",
+    "comic_name": "Tamer Kattan",
+    "fact": "show:1990166629964",
+    "methods": [
+      "M1",
+      "M2",
+      "M4"
+    ],
+    "confidence": 3,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "performing",
+    "event_id": "1990166629964",
+    "event_name": "Surviving Paris - English Standup & Audience Horror Stories",
+    "date": "2026-06-09",
+    "url": "https://www.eventbrite.fr/e/surviving-paris-english-standup-audience-horror-stories-tickets-1990166629964"
+  },
+  {
+    "comic_slug": "tarik-tk",
+    "comic_name": "Tarik TK",
+    "fact": "show:1977373545504",
+    "methods": [
+      "M1",
+      "M2"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "performing",
+    "event_id": "1977373545504",
+    "event_name": "Standup Comedy in English : Green Light in Paris",
+    "date": "2026-05-26",
+    "url": "https://www.eventbrite.fr/e/standup-comedy-in-english-green-light-in-paris-tickets-1977373545504"
+  },
+  {
+    "comic_slug": "tarik-tk",
+    "comic_name": "Tarik TK",
+    "fact": "web:active",
+    "methods": [
+      "M3",
+      "M5"
+    ],
+    "confidence": 2,
+    "checked_at": "2026-05-23T10:32:34+00:00",
+    "type": "active_in_paris_comedy_search",
+    "links": [
+      {
+        "title": "Standup Comedy in English : \"0-Natural\" With Tarik TK",
+        "url": "https://tariktk.eventbrite.fr/"
+      },
+      {
+        "title": "Tarik TK (@tarikcomedy) • Instagram photos and videos",
+        "url": "https://www.instagram.com/tarikcomedy/"
+      },
+      {
+        "title": "Tarik TK Events - 3 Upcoming Activities and Tickets | Eventbrite",
+        "url": "https://www.eventbrite.com/o/tarik-tk-28965320811"
+      },
+      {
+        "title": "Green Mic Comedy - Anniversary Show - By Tarik TK #standupcomedy # ...",
+        "url": "https://www.youtube.com/watch?v=DyaTgMlqSd4"
+      },
+      {
+        "title": "Tarik TK (@TarikComedy) / Posts / X",
+        "url": "https://x.com/TarikComedy"
+      }
+    ]
   },
   {
     "comic_slug": "victor-patrascan",
@@ -360,7 +779,7 @@
       "M4"
     ],
     "confidence": 2,
-    "checked_at": "2026-05-20T06:56:04+00:00",
+    "checked_at": "2026-05-23T10:32:34+00:00",
     "type": "performing",
     "event_id": "1986320441912",
     "event_name": "Stand up Comedy in broken English • Victor Patrascan in Paris",
@@ -376,7 +795,7 @@
       "M5"
     ],
     "confidence": 2,
-    "checked_at": "2026-05-20T06:56:04+00:00",
+    "checked_at": "2026-05-23T10:32:34+00:00",
     "type": "active_in_paris_comedy_search",
     "links": [
       {
@@ -384,115 +803,33 @@
         "url": "https://victorpatrascan.com/"
       },
       {
+        "title": "Stand up Comedy in broken English • Victor Patrascan in Paris",
+        "url": "https://fienta.com/stand-up-comedy-in-broken-english-victor-patrascan-in-paris-176964"
+      },
+      {
         "title": "Stand up Comedy in broken English Victor Patrascan in Paris at Salle ...",
         "url": "https://www.broadwayworld.com/france/regional/Stand-up-Comedy-in-broken-English-Victor-Patrascan-in-Paris-4359128"
       },
       {
         "title": "Stand up Comedy in broken English • Victor Patrascan in Paris",
-        "url": "https://happeningnext.com/event/stand-up-comedy-in-broken-english-%E2%80%A2-victor-patrascan-in-paris-eid1ef0kvjb455a"
+        "url": "https://www.eventbrite.co.uk/e/stand-up-comedy-in-broken-english-victor-patrascan-in-paris-tickets-1990107122977"
       },
       {
         "title": "Stand up Comedy in broken English • Victor Patrascan in Paris",
-        "url": "https://www.eventbrite.co.uk/e/stand-up-comedy-in-broken-english-victor-patrascan-in-paris-tickets-1680663302179"
+        "url": "https://allevents.in/paris/stand-up-comedy-in-broken-english-%E2%80%A2-victor-patrascan-in-paris/100001680663302179"
+      },
+      {
+        "title": "Stand up Comedy in broken English • Victor Patrascan in Paris",
+        "url": "https://stayhappening.com/e/stand-up-comedy-in-broken-english-%E2%80%A2-victor-patrascan-in-paris-E118RV44BBUDM"
+      },
+      {
+        "title": "Stand up Comedy in broken English • Victor Patrascan in Paris",
+        "url": "https://touch-arts.com/wp-event/stand-up-comedy-in-broken-english-victor-patrascan-in-paris/"
       },
       {
         "title": "Stand up Comedy in broken English - Victor Patrascan in Paris On Frida ...",
         "url": "https://www.jorlio.com/Events/Details/Stand-up-Comedy-in-broken-English-Victor-Patrascan-in-Paris-On-Friday-13-March-2026"
       }
     ]
-  },
-  {
-    "comic_slug": "camille-lellouche",
-    "comic_name": "Camille Lellouche",
-    "fact": "web:active",
-    "methods": [
-      "M5",
-      "M6"
-    ],
-    "confidence": 2,
-    "checked_at": "2026-05-20T06:56:04+00:00",
-    "type": "web_presence",
-    "links": [
-      {
-        "title": "Camille Lellouche - Wikipedia",
-        "url": "https://en.wikipedia.org/wiki/Camille_Lellouche"
-      },
-      {
-        "title": "Camille Lellouche - The Movie Database (TMDB)",
-        "url": "https://www.themoviedb.org/person/1174837-camille-lellouche"
-      },
-      {
-        "title": "Camille Lellouche Wiki, Height, Age, Boyfriend, Family, Biography ...",
-        "url": "https://starsinformer.com/camille-lellouche/"
-      },
-      {
-        "title": "CAMILLE LELLOUCHE - Eclair Magazine",
-        "url": "https://eclair-magazine.com/camille-lellouche"
-      },
-      {
-        "title": "Camille Lellouche - Age, Bio, Family | Famous Birthdays",
-        "url": "https://www.famousbirthdays.com/people/camille-lellouche.html"
-      },
-      {
-        "title": "Camille Lellouche - YouTube",
-        "url": "https://www.youtube.com/@CamilleLellouche"
-      },
-      {
-        "title": "Camille Lellouche en spectacle, au théâtre, en concert, au cinéma - L ...",
-        "url": "https://www.offi.fr/artiste/camille-lellouche-99755.html"
-      },
-      {
-        "title": "Camille LELLOUCHE - Biographie, spectacles, films, théâtre et photos",
-        "url": "https://tpa.fr/acteurs-theatre/lellouche-camille-9911.html"
-      }
-    ],
-    "wikipedia": "https://en.wikipedia.org/wiki/Camille_Lellouche"
-  },
-  {
-    "comic_slug": "yuriko-kotani",
-    "comic_name": "Yuriko Kotani",
-    "fact": "web:active",
-    "methods": [
-      "M5",
-      "M6"
-    ],
-    "confidence": 2,
-    "checked_at": "2026-05-20T06:56:04+00:00",
-    "type": "web_presence",
-    "links": [
-      {
-        "title": "Yuriko Kotani - Wikipedia",
-        "url": "https://en.wikipedia.org/wiki/Yuriko_Kotani"
-      },
-      {
-        "title": "Yuriko Kotani",
-        "url": "https://www.yurikokotani.com/"
-      },
-      {
-        "title": "Yuriko Kotani コタニユリコ - YouTube",
-        "url": "https://www.youtube.com/@yuriko_kotani"
-      },
-      {
-        "title": "Videos — Yuriko Kotani",
-        "url": "https://www.yurikokotani.com/videos"
-      },
-      {
-        "title": "Yuriko Kotani - British Comedy Guide",
-        "url": "https://www.comedy.co.uk/people/yuriko_kotani/"
-      },
-      {
-        "title": "Yuriko Kotani - Getaway Comedy",
-        "url": "https://getawaycomedy.com/comedian/yuriko-kotani/"
-      },
-      {
-        "title": "Yuriko Kotani - Facebook",
-        "url": "https://www.facebook.com/YurikoKotaniComedy/"
-      },
-      {
-        "title": "Interview with Yuriko Kotani - Voice Magazine",
-        "url": "https://www.voicemag.uk/interview/5792/interview-with-yuriko-kotani"
-      }
-    ],
-    "wikipedia": "https://en.wikipedia.org/wiki/Yuriko_Kotani"
   }
 ]

@@ -1,16 +1,5 @@
 [
   {
-    "id": "disc-1001216875627-20260520",
-    "name": "Rocket Comedy Club",
-    "venue_name": "Cotte 23",
-    "start_date": "2026-05-20T20:00:00+02:00",
-    "time": "20:00",
-    "day": "Wednesday",
-    "booking_url": "https://www.eventbrite.com/e/rocket-comedy-club-tickets-1001216875627",
-    "source_url": "https://www.eventbrite.com/e/rocket-comedy-club-tickets-1001216875627",
-    "eventbrite_id": "1001216875627"
-  },
-  {
     "id": "disc-1001216875627-20260527",
     "name": "Rocket Comedy Club",
     "venue_name": "Cotte 23",
@@ -130,6 +119,61 @@
     "booking_url": "https://www.eventbrite.com/e/rocket-comedy-club-tickets-1001216875627",
     "source_url": "https://www.eventbrite.com/e/rocket-comedy-club-tickets-1001216875627",
     "eventbrite_id": "1001216875627"
+  },
+  {
+    "id": "disc-1001216875627-20260812",
+    "name": "Rocket Comedy Club",
+    "venue_name": "Cotte 23",
+    "start_date": "2026-08-12T20:00:00+02:00",
+    "time": "20:00",
+    "day": "Wednesday",
+    "booking_url": "https://www.eventbrite.com/e/rocket-comedy-club-tickets-1001216875627",
+    "source_url": "https://www.eventbrite.com/e/rocket-comedy-club-tickets-1001216875627",
+    "eventbrite_id": "1001216875627"
+  },
+  {
+    "id": "disc-1009192882077-20260526",
+    "name": "Bad Dates - English Standup in Paris on Love & Dating",
+    "venue_name": "Le Noddi",
+    "start_date": "2026-05-26T20:00:00+02:00",
+    "time": "20:00",
+    "day": "Tuesday",
+    "booking_url": "https://www.eventbrite.com/e/bad-dates-english-standup-in-paris-on-love-dating-tickets-1009192882077",
+    "source_url": "https://www.eventbrite.com/e/bad-dates-english-standup-in-paris-on-love-dating-tickets-1009192882077",
+    "eventbrite_id": "1009192882077"
+  },
+  {
+    "id": "disc-1009192882077-20260602",
+    "name": "Bad Dates - English Standup in Paris on Love & Dating",
+    "venue_name": "Le Noddi",
+    "start_date": "2026-06-02T20:00:00+02:00",
+    "time": "20:00",
+    "day": "Tuesday",
+    "booking_url": "https://www.eventbrite.com/e/bad-dates-english-standup-in-paris-on-love-dating-tickets-1009192882077",
+    "source_url": "https://www.eventbrite.com/e/bad-dates-english-standup-in-paris-on-love-dating-tickets-1009192882077",
+    "eventbrite_id": "1009192882077"
+  },
+  {
+    "id": "disc-1009192882077-20260609",
+    "name": "Bad Dates - English Standup in Paris on Love & Dating",
+    "venue_name": "Le Noddi",
+    "start_date": "2026-06-09T20:00:00+02:00",
+    "time": "20:00",
+    "day": "Tuesday",
+    "booking_url": "https://www.eventbrite.com/e/bad-dates-english-standup-in-paris-on-love-dating-tickets-1009192882077",
+    "source_url": "https://www.eventbrite.com/e/bad-dates-english-standup-in-paris-on-love-dating-tickets-1009192882077",
+    "eventbrite_id": "1009192882077"
+  },
+  {
+    "id": "disc-1009192882077-20260616",
+    "name": "Bad Dates - English Standup in Paris on Love & Dating",
+    "venue_name": "Le Noddi",
+    "start_date": "2026-06-16T20:00:00+02:00",
+    "time": "20:00",
+    "day": "Tuesday",
+    "booking_url": "https://www.eventbrite.com/e/bad-dates-english-standup-in-paris-on-love-dating-tickets-1009192882077",
+    "source_url": "https://www.eventbrite.com/e/bad-dates-english-standup-in-paris-on-love-dating-tickets-1009192882077",
+    "eventbrite_id": "1009192882077"
   },
   {
     "id": "disc-1251032715529-20260523",
@@ -627,17 +671,6 @@
     "eventbrite_id": "1760885549079"
   },
   {
-    "id": "disc-1935245083139-20260520",
-    "name": "Kiss Comedy Club",
-    "venue_name": "Coquin",
-    "start_date": "2026-05-20T20:00:00+01:00",
-    "time": "20:00",
-    "day": "Wednesday",
-    "booking_url": "https://www.eventbrite.com/e/kiss-comedy-club-tickets-1935245083139",
-    "source_url": "https://www.eventbrite.com/e/kiss-comedy-club-tickets-1935245083139",
-    "eventbrite_id": "1935245083139"
-  },
-  {
     "id": "disc-1935245083139-20260527",
     "name": "Kiss Comedy Club",
     "venue_name": "Coquin",
@@ -680,17 +713,6 @@
     "booking_url": "https://www.eventbrite.com/e/kiss-comedy-club-tickets-1935245083139",
     "source_url": "https://www.eventbrite.com/e/kiss-comedy-club-tickets-1935245083139",
     "eventbrite_id": "1935245083139"
-  },
-  {
-    "id": "disc-1982274965784-20260521",
-    "name": "Comedy for Hot People",
-    "venue_name": "The Englishman Cocktail Club",
-    "start_date": "2026-05-21T20:00:00+01:00",
-    "time": "20:00",
-    "day": "Thursday",
-    "booking_url": "https://www.eventbrite.com/e/comedy-for-hot-people-tickets-1982274965784",
-    "source_url": "https://www.eventbrite.com/e/comedy-for-hot-people-tickets-1982274965784",
-    "eventbrite_id": "1982274965784"
   },
   {
     "id": "disc-1982274965784-20260528",
@@ -768,17 +790,6 @@
     "booking_url": "https://www.eventbrite.com/e/mic-drop-comedy-club-special-mois-des-fiertes-tickets-1982354311108",
     "source_url": "https://www.eventbrite.com/e/mic-drop-comedy-club-special-mois-des-fiertes-tickets-1982354311108",
     "eventbrite_id": "1982354311108"
-  },
-  {
-    "id": "disc-1982356098454-20260520",
-    "name": "Comedy Crush's Wednesday Show",
-    "venue_name": "Les Cariatides",
-    "start_date": "2026-05-20T20:30:00+01:00",
-    "time": "20:30",
-    "day": "Wednesday",
-    "booking_url": "https://www.eventbrite.com/e/comedy-crushs-wednesday-show-tickets-1982356098454",
-    "source_url": "https://www.eventbrite.com/e/comedy-crushs-wednesday-show-tickets-1982356098454",
-    "eventbrite_id": "1982356098454"
   },
   {
     "id": "disc-1982356098454-20260527",
@@ -891,17 +902,6 @@
     "eventbrite_id": "1982356098454"
   },
   {
-    "id": "disc-1985334998424-20260520",
-    "name": "The Dissident Comedy Show",
-    "venue_name": "The Dissident Club",
-    "start_date": "2026-05-20T20:30:00+02:00",
-    "time": "20:30",
-    "day": "Wednesday",
-    "booking_url": "https://www.eventbrite.com/e/the-dissident-comedy-show-tickets-1985334998424",
-    "source_url": "https://www.eventbrite.com/e/the-dissident-comedy-show-tickets-1985334998424",
-    "eventbrite_id": "1985334998424"
-  },
-  {
     "id": "disc-1985334998424-20260527",
     "name": "The Dissident Comedy Show",
     "venue_name": "The Dissident Club",
@@ -1001,17 +1001,6 @@
     "eventbrite_id": "1985334998424"
   },
   {
-    "id": "disc-1985916648154-20260520",
-    "name": "OSCAR COMEDY CLUB",
-    "venue_name": "Café Oscar",
-    "start_date": "2026-05-20T19:00:00+02:00",
-    "time": "19:00",
-    "day": "Wednesday",
-    "booking_url": "https://www.eventbrite.com/e/oscar-comedy-club-tickets-1985916648154",
-    "source_url": "https://www.eventbrite.com/e/oscar-comedy-club-tickets-1985916648154",
-    "eventbrite_id": "1985916648154"
-  },
-  {
     "id": "disc-1985916648154-20260527",
     "name": "OSCAR COMEDY CLUB",
     "venue_name": "Café Oscar",
@@ -1089,17 +1078,6 @@
     "eventbrite_id": "1987379934884"
   },
   {
-    "id": "disc-1987388114349-20260522",
-    "name": "Kinto Comedy Club",
-    "venue_name": "Poinçon Paris",
-    "start_date": "2026-05-22T19:30:00+02:00",
-    "time": "19:30",
-    "day": "Friday",
-    "booking_url": "https://www.eventbrite.com/e/kinto-comedy-club-tickets-1987388114349",
-    "source_url": "https://www.eventbrite.com/e/kinto-comedy-club-tickets-1987388114349",
-    "eventbrite_id": "1987388114349"
-  },
-  {
     "id": "disc-1987388114349-20260529",
     "name": "Kinto Comedy Club",
     "venue_name": "Poinçon Paris",
@@ -1153,17 +1131,6 @@
     "booking_url": "https://www.eventbrite.com/e/kinto-comedy-club-tickets-1987388114349",
     "source_url": "https://www.eventbrite.com/e/kinto-comedy-club-tickets-1987388114349",
     "eventbrite_id": "1987388114349"
-  },
-  {
-    "id": "disc-1989145603045-20260522",
-    "name": "the stand-up comedy in English that will make you love (or not) Parisians!",
-    "venue_name": "THEATRE BO SAINT MARTIN",
-    "start_date": "2026-05-22T20:15:00+02:00",
-    "time": "20:15",
-    "day": "Friday",
-    "booking_url": "https://www.eventbrite.com/e/the-stand-up-comedy-in-english-that-will-make-you-love-or-not-parisians-tickets-1989145603045",
-    "source_url": "https://www.eventbrite.com/e/the-stand-up-comedy-in-english-that-will-make-you-love-or-not-parisians-tickets-1989145603045",
-    "eventbrite_id": "1989145603045"
   },
   {
     "id": "disc-1989145603045-20260529",
@@ -1230,17 +1197,6 @@
     "booking_url": "https://www.eventbrite.com/e/moise-tha-malice-et-sam-askhan-tickets-1989814245974",
     "source_url": "https://www.eventbrite.com/e/moise-tha-malice-et-sam-askhan-tickets-1989814245974",
     "eventbrite_id": "1989814245974"
-  },
-  {
-    "id": "disc-1989838453379-20260520",
-    "name": "FRENCH FRIED COMEDY NIGHT",
-    "venue_name": "Velvet Bar Paris",
-    "start_date": "2026-05-20T22:00:00+02:00",
-    "time": "22:00",
-    "day": "Wednesday",
-    "booking_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838453379",
-    "source_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838453379",
-    "eventbrite_id": "1989838453379"
   },
   {
     "id": "disc-1989838453379-20260527",
@@ -1320,17 +1276,6 @@
     "eventbrite_id": "1989838453379"
   },
   {
-    "id": "disc-1989840111338-20260520",
-    "name": "Velvet Bar Comedy - Le meilleur du stand-up à Paris !!",
-    "venue_name": "Velvet Bar Paris",
-    "start_date": "2026-05-20T20:30:00+02:00",
-    "time": "20:30",
-    "day": "Wednesday",
-    "booking_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "eventbrite_id": "1989840111338"
-  },
-  {
     "id": "disc-1989840111338-20260527",
     "name": "Velvet Bar Comedy - Le meilleur du stand-up à Paris !!",
     "venue_name": "Velvet Bar Paris",
@@ -1408,6 +1353,17 @@
     "eventbrite_id": "1989840111338"
   },
   {
+    "id": "disc-1990166629964-20260609",
+    "name": "Surviving Paris - English Standup & Audience Horror Stories",
+    "venue_name": "Le Noddi",
+    "start_date": "2026-06-09T20:00:00+02:00",
+    "time": "20:00",
+    "day": "Tuesday",
+    "booking_url": "https://www.eventbrite.com/e/surviving-paris-english-standup-audience-horror-stories-tickets-1990166629964",
+    "source_url": "https://www.eventbrite.com/e/surviving-paris-english-standup-audience-horror-stories-tickets-1990166629964",
+    "eventbrite_id": "1990166629964"
+  },
+  {
     "id": "disc-214634947907-20260524",
     "name": "Green Mic Comedy Show",
     "venue_name": "Ma Cocotte du Faubourg",
@@ -1474,17 +1430,6 @@
     "eventbrite_id": "214634947907"
   },
   {
-    "id": "disc-364336088047-20260521",
-    "name": "English Stand Up Comedy in Paris - Friday Night Show",
-    "venue_name": "La Pomme D'eve",
-    "start_date": "2026-05-21T21:15:00+02:00",
-    "time": "21:15",
-    "day": "Thursday",
-    "booking_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-friday-night-show-tickets-364336088047",
-    "source_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-friday-night-show-tickets-364336088047",
-    "eventbrite_id": "364336088047"
-  },
-  {
     "id": "disc-364336088047-20260528",
     "name": "English Stand Up Comedy in Paris - Friday Night Show",
     "venue_name": "La Pomme D'eve",
@@ -1549,17 +1494,6 @@
     "booking_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-friday-night-show-tickets-364336088047",
     "source_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-friday-night-show-tickets-364336088047",
     "eventbrite_id": "364336088047"
-  },
-  {
-    "id": "disc-77709323679-20260520",
-    "name": "English Stand Up Comedy in Paris - Thursday & Saturday Night Shows",
-    "venue_name": "76 Rue Jean-Pierre Timbaud",
-    "start_date": "2026-05-20T20:00:00+02:00",
-    "time": "20:00",
-    "day": "Wednesday",
-    "booking_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679",
-    "source_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679",
-    "eventbrite_id": "77709323679"
   },
   {
     "id": "disc-77709323679-20260527",
@@ -1683,6 +1617,17 @@
     "eventbrite_id": "77709323679"
   },
   {
+    "id": "disc-77709323679-20260812",
+    "name": "English Stand Up Comedy in Paris - Thursday & Saturday Night Shows",
+    "venue_name": "76 Rue Jean-Pierre Timbaud",
+    "start_date": "2026-08-12T20:00:00+02:00",
+    "time": "20:00",
+    "day": "Wednesday",
+    "booking_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679",
+    "source_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679",
+    "eventbrite_id": "77709323679"
+  },
+  {
     "id": "disc-927454971787-20260526",
     "name": "Standup Comedy in English : Green Light in Paris",
     "venue_name": "Les Marquises",
@@ -1747,5 +1692,71 @@
     "booking_url": "https://www.eventbrite.com/e/standup-comedy-in-english-green-light-in-paris-tickets-927454971787",
     "source_url": "https://www.eventbrite.com/e/standup-comedy-in-english-green-light-in-paris-tickets-927454971787",
     "eventbrite_id": "927454971787"
+  },
+  {
+    "id": "disc-929134074027-20260523",
+    "name": "English Stand Up in Paris: Queer Comedy Night",
+    "venue_name": "Le Noddi",
+    "start_date": "2026-05-23T21:00:00+02:00",
+    "time": "21:00",
+    "day": "Saturday",
+    "booking_url": "https://www.eventbrite.com/e/english-stand-up-in-paris-queer-comedy-night-tickets-929134074027",
+    "source_url": "https://www.eventbrite.com/e/english-stand-up-in-paris-queer-comedy-night-tickets-929134074027",
+    "eventbrite_id": "929134074027"
+  },
+  {
+    "id": "disc-929134074027-20260530",
+    "name": "English Stand Up in Paris: Queer Comedy Night",
+    "venue_name": "Le Noddi",
+    "start_date": "2026-05-30T21:00:00+02:00",
+    "time": "21:00",
+    "day": "Saturday",
+    "booking_url": "https://www.eventbrite.com/e/english-stand-up-in-paris-queer-comedy-night-tickets-929134074027",
+    "source_url": "https://www.eventbrite.com/e/english-stand-up-in-paris-queer-comedy-night-tickets-929134074027",
+    "eventbrite_id": "929134074027"
+  },
+  {
+    "id": "disc-929134074027-20260606",
+    "name": "English Stand Up in Paris: Queer Comedy Night",
+    "venue_name": "Le Noddi",
+    "start_date": "2026-06-06T21:00:00+02:00",
+    "time": "21:00",
+    "day": "Saturday",
+    "booking_url": "https://www.eventbrite.com/e/english-stand-up-in-paris-queer-comedy-night-tickets-929134074027",
+    "source_url": "https://www.eventbrite.com/e/english-stand-up-in-paris-queer-comedy-night-tickets-929134074027",
+    "eventbrite_id": "929134074027"
+  },
+  {
+    "id": "disc-929134074027-20260613",
+    "name": "English Stand Up in Paris: Queer Comedy Night",
+    "venue_name": "Le Noddi",
+    "start_date": "2026-06-13T21:00:00+02:00",
+    "time": "21:00",
+    "day": "Saturday",
+    "booking_url": "https://www.eventbrite.com/e/english-stand-up-in-paris-queer-comedy-night-tickets-929134074027",
+    "source_url": "https://www.eventbrite.com/e/english-stand-up-in-paris-queer-comedy-night-tickets-929134074027",
+    "eventbrite_id": "929134074027"
+  },
+  {
+    "id": "disc-929134074027-20260620",
+    "name": "English Stand Up in Paris: Queer Comedy Night",
+    "venue_name": "Le Noddi",
+    "start_date": "2026-06-20T21:00:00+02:00",
+    "time": "21:00",
+    "day": "Saturday",
+    "booking_url": "https://www.eventbrite.com/e/english-stand-up-in-paris-queer-comedy-night-tickets-929134074027",
+    "source_url": "https://www.eventbrite.com/e/english-stand-up-in-paris-queer-comedy-night-tickets-929134074027",
+    "eventbrite_id": "929134074027"
+  },
+  {
+    "id": "disc-929134074027-20260627",
+    "name": "English Stand Up in Paris: Queer Comedy Night",
+    "venue_name": "Le Noddi",
+    "start_date": "2026-06-27T21:00:00+02:00",
+    "time": "21:00",
+    "day": "Saturday",
+    "booking_url": "https://www.eventbrite.com/e/english-stand-up-in-paris-queer-comedy-night-tickets-929134074027",
+    "source_url": "https://www.eventbrite.com/e/english-stand-up-in-paris-queer-comedy-night-tickets-929134074027",
+    "eventbrite_id": "929134074027"
   }
 ]
