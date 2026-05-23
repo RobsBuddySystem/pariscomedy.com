@@ -1,32 +1,38 @@
-# WORKSESSION HUD — pariscomedy.com Phase 2 Events/GDPR Build 2026-05-23
+# WORKSESSION HUD — pariscomedy.com 2026-05-23
 
-## Status: DONE — Phase 2 GREEN ✅
+## Three-phase verification session: DONE
 
----
-
-## P0 audit fixes (commit 5acd236) ✅
-| Fix | Status |
-|-----|--------|
-| Remove unauthorized @pariscomedy Instagram links | ✅ |
-| Fix false "every link verified" claim in about.html | ✅ |
-| Replace stale "First 100 Featured listings FREE" banner | ✅ |
+| Phase | Status | Blockers |
+|-------|--------|----------|
+| **1. Production verification** | ✅ GREEN | None |
+| **2. Revenue activation (affiliate)** | 🟡 HOLD | Robert must register for 8 programs (Eventbrite first) |
+| **3. Payment activation (SumUp)** | 🔴 HOLD | 1 SumUp product covers 2 prices — need 7 distinct products |
 
 ---
 
-## Phase 2 build (commits 748dbcc + docs 7a59b5b, backend a5519b2) ✅
+## Phase 1 — Production verification: GREEN ✅
+- 15/15 checks pass against live site (https://pariscomedy.com)
+- Backend (https://api.pariscomedy.com): /api/health 200, /api/events 200, /api/admin/events 200 with token
+- All 12 public pages load events.js
+- CORS OK, no localhost leaks, no Stripe, no @pariscomedy
+- All major form endpoints respond OK (newsletter, book, leads, claim-show)
 
-| Phase | Task | Status |
-|-------|------|--------|
-| 1 | Backend: events table + track_event() + /api/events + /api/admin/events + DSR | ✅ DONE |
-| 2 | Client: assets/events.js + window.pcTrack() | ✅ DONE |
-| 3 | Consent banner (GDPR-minimal, non-blocking) | ✅ DONE |
-| 4 | Inject events.js into all 13 public pages | ✅ DONE |
-| 5 | Admin dashboard: admin-events.html (metrics + funnel) | ✅ DONE |
-| 6 | Show timeline: booker-dashboard.html | ✅ DONE |
-| 7 | Retention script: scripts/prune_events.py | ✅ DONE |
-| 8 | Tests (19/19 pass) + logs + reports + commit + push | ✅ DONE |
+## Phase 2 — Revenue activation: HOLD pending registration
+- Infrastructure ready: /r.html + data/affiliates.json + affiliate_click tracking all live
+- NO fake IDs in production (placeholder string "pariscomedy")
+- Checklist written: docs/revenue/Affiliate-Setup-Checklist.md
+- Order of priority: Eventbrite → GetYourGuide → BilletReduc → others
+
+## Phase 3 — Payment activation: HOLD
+- Comic Plus + Booker Plus share one SumUp checkout URL (€1 product Q9TM3HKU)
+- SumUp does not support recurring; recommend prepaid one-shot periods (7 SKUs)
+- Featured Show Promo: endpoint exists, no SumUp URLs yet, target_id schema mismatch
+- Authorization rule held: nobody marked paid without verified or admin action
 
 ---
 
-## GO/HOLD: GREEN ✅
-Phase 3 (affiliate activation) ready when Robert registers affiliate programs.
+## Next fastest revenue-positive step
+
+1. **Robert signs up for Eventbrite Affiliate Program** (24-hour approval) → paste real ref into `data/affiliates.json` → ~80% of ticket clicks earn 1.5% commission immediately.
+
+That single action turns existing infrastructure into recurring revenue.
