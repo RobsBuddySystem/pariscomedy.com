@@ -2308,7 +2308,7 @@
     ],
     "instagram": "https://www.instagram.com/paul_taylor_uk/",
     "photo": "https://api.dicebear.com/9.x/initials/svg?seed=Paul+Taylor&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40",
-    "bio": "British comedian who moved to Paris in 2009 and got his start at French Fried Comedy Night, hosted by Robert Hoehn. His 2016 'La Bise' video — produced and directed by Robert — went viral with 3M+ views, leading Canal+ to give him 'What The Fuck France,' the first English show on French TV. #Franglais, 'So British', and 'Bisoubye x' tours sold out across France. 1.5M+ followers across platforms.",
+    "bio": "British comedian who moved to Paris in 2009 and got his start at French Fried Comedy Night, hosted by Robert le Ricain. His 2016 'La Bise' video — produced and directed by Robert — went viral with 3M+ views, leading Canal+ to give him 'What The Fuck France,' the first English show on French TV. #Franglais, 'So British', and 'Bisoubye x' tours sold out across France. 1.5M+ followers across platforms.",
     "actuality": "Currently touring France with his acclaimed 'Bisoubye x' stand-up show, Paul Taylor continues to blend English and French humor on stage.",
     "_ig_checked": "2026-05-23T10:38:11+00:00"
   },
@@ -2446,28 +2446,16 @@
     "_ig_checked": "2026-05-23T10:38:11+00:00"
   },
   {
-    "slug": "robert-hoehn",
-    "name": "Robert Hoehn",
+    "slug": "robert-le-ricain",
+    "name": "Robert le Ricain",
     "langs": [
       "en",
       "fr"
     ],
-    "instagram": "@Robertlericain",
-    "photo": "https://api.dicebear.com/9.x/initials/svg?seed=Robert+Hoehn&backgroundColor=c41e3a&textColor=ffffff&fontSize=40",
-    "bio": "American bilingual comedian and one of the early builders of the Paris English-language comedy scene. Launched French Fried Comedy Night in 2013 at Paname Art Cafe, helped give Paul Taylor one of his first regular stages, and produced/directed 'La Bise' — the viral video that helped map the scene. Now runs FFCN at Velvet Bar Wednesdays.",
-    "actuality": "Currently hosting French Fried Comedy Night at Velvet Bar in Paris, where he launched the English-language comedy scene and helped boost Paul Taylor's career.",
-    "_ig_checked": "2026-05-23T10:38:11+00:00"
-  },
-  {
-    "slug": "robert-le-ricain",
-    "name": "Robert le Ricain",
-    "langs": [
-      "en"
-    ],
     "instagram": "https://www.instagram.com/robertlericain/",
     "photo": "https://storage.googleapis.com/showtime-uploads-317/global/acts/d97y/G4EN5F4JK3DGBIP6",
-    "bio": "",
-    "actuality": "Paris-based comedian performing at Green Mic Comedy and Paris English comedy venues.",
+    "bio": "American bilingual comedian and one of the early builders of the Paris English-language comedy scene. Launched French Fried Comedy Night in 2013 at Paname Art Cafe, helped give Paul Taylor one of his first regular stages, and produced/directed 'La Bise' — the viral video that helped map the scene. Now runs FFCN at Velvet Bar Wednesdays.",
+    "actuality": "Currently hosting French Fried Comedy Night at Velvet Bar in Paris, where he launched the English-language comedy scene and helped boost Paul Taylor's career.",
     "video_url": "https://youtu.be/eLnrNuQYP9o",
     "source": "confirmed.show/green-mic",
     "_ig_checked": "2026-05-23T10:38:11+00:00"
@@ -2746,8 +2734,8 @@
     ],
     "instagram": "@tamerkat",
     "photo": "https://api.dicebear.com/9.x/initials/svg?seed=Tamer+Kattan&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40",
-    "bio": "New York comedian who made Paris his second home. 159K+ followers on social media. Regular collaborator with Robert Hoehn and a favorite on the Paris English-language circuit.",
-    "actuality": "Tamer Kattan, a NY comedian with 159K+ followers, is a regular collaborator with Robert Hoehn and a beloved figure on Paris's English-language comedy scene.",
+    "bio": "New York comedian who made Paris his second home. 159K+ followers on social media. Regular collaborator with Robert le Ricain and a favorite on the Paris English-language circuit.",
+    "actuality": "Tamer Kattan, a NY comedian with 159K+ followers, is a regular collaborator with Robert le Ricain and a beloved figure on Paris's English-language comedy scene.",
     "_ig_checked": "2026-05-23T10:38:11+00:00"
   },
   {

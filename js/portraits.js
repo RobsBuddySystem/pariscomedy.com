@@ -283,7 +283,7 @@ const PORTRAITS = {
     </svg>`,
 
     /* ═══════════════════════════════════════════════════════
-       ROBERT HOEHN — 🍟 THE FOUNDER
+       ROBERT LE RICAIN — 🍟 THE FOUNDER
        American, curly gray/silver hair, salt-and-pepper beard,
        warm open smile, fit build, the host
        ═══════════════════════════════════════════════════════ */

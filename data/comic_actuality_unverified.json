@@ -1273,47 +1273,6 @@
     ]
   },
   {
-    "comic_slug": "robert-hoehn",
-    "comic_name": "Robert Hoehn",
-    "fact": "web:active",
-    "methods": [
-      "M5"
-    ],
-    "confidence": 1,
-    "checked_at": "2026-05-20T06:56:04+00:00",
-    "type": "web_presence",
-    "links": [
-      {
-        "title": "Robert Hoehn - Facebook",
-        "url": "https://www.facebook.com/RobertHoehn/"
-      },
-      {
-        "title": "Robert Hoehn - IMDb",
-        "url": "https://www.imdb.com/name/nm0388439/"
-      },
-      {
-        "title": "Robert Hoehn - Americans in France - YouTube",
-        "url": "https://www.youtube.com/watch?v=BhCjdT_Deno"
-      },
-      {
-        "title": "Robert Hoehn - Producer | LinkedIn",
-        "url": "https://www.linkedin.com/pub/dir/Robert/Hoehn/fr-5227-Paris-Area%2C-France"
-      },
-      {
-        "title": "Robert Hoehn - Comedian from Paris, France",
-        "url": "https://opencomedy.com/RobertHoehn"
-      },
-      {
-        "title": "ROBERT HOEHN - welovecomedy.fr",
-        "url": "https://www.welovecomedy.fr/artistes/robert-hoehn"
-      },
-      {
-        "title": "Robert Hoehn (@robertjhoehn) • Instagram photos and videos",
-        "url": "https://www.instagram.com/robertjhoehn/"
-      }
-    ]
-  },
-  {
     "comic_slug": "romain-raulin",
     "comic_name": "Romain Raulin",
     "fact": "web:active",
