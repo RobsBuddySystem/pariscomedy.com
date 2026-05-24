@@ -296,19 +296,23 @@ def check_homepage_truthfulness(failures: Failures) -> None:
     hardcoded dates, and overclaims are all forbidden."""
     HOMEPAGE = "https://pariscomedy.com/"
     FEATURED = "https://api.pariscomedy.com/api/listings?featured=1"
-    # Static stale-copy patterns (always forbidden)
+    # Static stale-copy patterns (always forbidden in the served HTML).
+    # Note: section titles like "Featured Tonight" / "Featured Shows This Week"
+    # are CONDITIONALLY forbidden (see bad_when_empty below) — they may appear
+    # in the rendered DOM only when JS confirms real data exists. The static
+    # HTML must never contain them as hardcoded strings.
     FORBIDDEN = [
-        ("May 19–25",                  "hardcoded date range"),
-        ("first 100 show runners",     "stale launch copy"),
-        ("First 100 Featured listings","stale launch banner"),
-        ("every show in Paris",        "overclaim — DB not fully verified"),
-        ("archive-2026-04-13",         "internal provenance leak"),
-        ("verification_source",        "internal provenance leak"),
-        ("runner_email",               "PII leak"),
-        ("Robert Hoehn",               "PII leak"),
-        ("chucklericain",              "PII leak"),
-        ("velvet-openmic",             "canceled slug"),
-        ("Velvet Bar Comedy — Open Mic","canceled show name"),
+        ("May 19–25",                       "hardcoded date range"),
+        ("first 100 show runners",          "stale launch copy"),
+        ("First 100 Featured listings",     "stale launch banner"),
+        ("every show in Paris",             "overclaim — DB not fully verified"),
+        ("archive-2026-04-13",              "internal provenance leak"),
+        ("verification_source",             "internal provenance leak"),
+        ("runner_email",                    "PII leak"),
+        ("Robert Hoehn",                    "PII leak"),
+        ("chucklericain",                   "PII leak"),
+        ("velvet-openmic",                  "canceled slug"),
+        ("Velvet Bar Comedy — Open Mic",    "canceled show name"),
     ]
     try:
         home = http_get(HOMEPAGE)
@@ -329,6 +333,9 @@ def check_homepage_truthfulness(failures: Failures) -> None:
         bad_when_empty = [
             "Verified, highlighted comedy nights in Paris",
             "These shows are Featured",
+            "Featured Tonight",
+            "Featured Shows This Week",
+            "Rotating weekly",
         ]
         for needle in bad_when_empty:
             if needle in home:

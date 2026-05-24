@@ -234,19 +234,22 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 </section>
 
 <!-- FEATURED TONIGHT (shows happening tonight) -->
+<!-- All headings start empty in the static HTML so a JS-disabled curl never
+     sees "Featured Tonight" / "Featured Shows This Week" / "Rotating weekly"
+     unless renderFeaturedTonight() / renderWeeklyFeatured() determine there is
+     actual data to show. Static markup must not contradict the API. -->
 <section id="featured-tonight-section" style="display:none">
   <div class="weekly-rotation-header">
-    <div class="weekly-rotation-title">🎤 Featured Tonight</div>
-    <div class="weekly-rotation-sub" id="tonight-rotation-label">Live shows in Paris tonight</div>
+    <div class="weekly-rotation-title" id="tonight-rotation-title"></div>
+    <div class="weekly-rotation-sub" id="tonight-rotation-label"></div>
   </div>
   <div class="featured-grid" id="tonight-featured-grid"></div>
 </section>
 
-<!-- FEATURED SHOWS THIS WEEK (weekly rotation) -->
-<section id="featured-week-section">
+<section id="featured-week-section" style="display:none">
   <div class="weekly-rotation-header">
-    <div class="weekly-rotation-title">⭐ Featured Shows This Week</div>
-    <div class="weekly-rotation-sub" id="week-rotation-label">Rotating weekly</div>
+    <div class="weekly-rotation-title" id="week-rotation-title"></div>
+    <div class="weekly-rotation-sub" id="week-rotation-label"></div>
   </div>
   <div class="featured-grid" id="weekly-featured-grid"></div>
 </section>
@@ -792,6 +795,8 @@ function renderFeaturedTonight() {
     return;
   }
   section.style.display = '';
+  const title = document.getElementById('tonight-rotation-title');
+  if (title) title.textContent = '🎤 Featured Tonight';
   const lbl = document.getElementById('tonight-rotation-label');
   if (lbl) lbl.textContent = `${tonight.length} show${tonight.length===1?'':'s'} in Paris tonight`;
   // Sort by start_time asc; show up to 3 cards visually, but if there are more
@@ -814,6 +819,8 @@ function renderWeeklyFeatured() {
   // shuffles. If nothing is genuinely featured, show empty state + Promote CTA.
   const grid = document.getElementById('weekly-featured-grid');
   if (!grid) return;
+  const section = document.getElementById('featured-week-section');
+  const title = document.getElementById('week-rotation-title');
   const lbl = document.getElementById('week-rotation-label');
   const now = Date.now();
   const featured = (SHOWS_DATA || []).filter(s => {
@@ -825,15 +832,14 @@ function renderWeeklyFeatured() {
   }).slice(0, 3);
 
   if (!featured.length) {
-    if (lbl) lbl.textContent = 'No featured show this week';
-    grid.innerHTML = `
-      <div class="featured-card" style="grid-column:1/-1;text-align:center;border-style:dashed;box-shadow:none">
-        <div class="featured-card-name">No featured show yet</div>
-        <div class="featured-card-meta" style="margin:6px 0 14px">Want your show here? Pay-to-promote, 7/30/90-day periods.</div>
-        <a href="/pricing.html#featured-promo" class="featured-card-btn" style="max-width:240px;margin:0 auto">Promote your show →</a>
-      </div>`;
+    // Honest empty state — hide the entire section so static curl never sees
+    // "Featured Shows This Week" or "Rotating weekly" when nothing is featured.
+    if (section) section.style.display = 'none';
     return;
   }
+  // Reveal section + populate title/label only when there are real featured rows.
+  if (section) section.style.display = '';
+  if (title) title.textContent = '⭐ Featured Shows This Week';
   if (lbl) lbl.textContent = `${featured.length} featured this week`;
   grid.innerHTML = featured.map(s => `
     <div class="featured-card">
