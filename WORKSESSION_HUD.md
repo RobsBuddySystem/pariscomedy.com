@@ -1,26 +1,23 @@
-# WORKSESSION HUD — Playwright helper for barbes_comedy + fever_paris 2026-05-24
+# WORKSESSION HUD — show-list correctness 2026-05-24
 
-## Phase: 5 — DONE
+## Phase: DONE
 ## GO/HOLD: GREEN ✅
 
-## Result
-- scripts/discovery/_playwright_helper.py (NEW) — reusable, lazy-imported, structured failure
-- barbes_comedy: 0 static → 1 raw via Playwright (4.1s), dropped no-date (canon-correct)
-- fever_paris: 0 static → 0 rendered (Fever DOM has no /m/<id> URLs); honest STUB emitted
-- Playwright + Chromium installed this session; daily cron will use them
-- SKIPPED path verified before install: clean structured reason, no crash
-- 17/17 sources still import; no aggregator source touched
+## Bugs fixed (all verified on rendered live DOM via Playwright)
+- FFCN now appears 4x on Wednesdays at 22:00
+- Velvet Open Mic now appears 4x on Wednesdays at 19:00
+- Velvet Showcase has explicit 20:30 time (no longer null)
+- Velvet Showcase + Kiss correctly tagged ['en','fr'] (bilingual)
+- "Source check stale" replaced with honest "Last checked"
+- EN filter now includes bilingual; BI filter requires both langs
+- Public API PII clean across /api/listings, /api/listings?featured=1, /api/shows
 
-## Guardrails
-- Before: ✅ GREEN
-- After: ✅ GREEN
-- Live regression: clean
+## Guardrails extended
+- check_invariants now scans all 3 public API endpoints
+- check_invariants now detects duplicate (name+venue+date+time) rows in SHOWS_DATA
 
-## Tomorrow's cron: trustable
-- GREEN | PARTIAL | FAILED honestly reflected
-- If Playwright vanishes, SKIPPED with install command, no silent zero
+## Commit pushed
+- 645cbab (shows.html + check_invariants)
+- (this commit will add docs/logs)
 
-## Open
-- task #43 Fever JSON API
-- task #44 closed by this session (Playwright wired)
-- new: extract visible-text dates for barbes_comedy
+## Next session can return to: barbes_comedy date-extraction regex (originally paused)
