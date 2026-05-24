@@ -217,15 +217,17 @@ def check_live_featured_api(failures: Failures) -> None:
         if runner and any(name.lower() in runner.lower()
                           for name in ("robert hoehn", "chuck", "chuckle ricain")):
             failures.add(f"live API: personal runner name leaked: {runner!r}")
-    # No single-org dominance: featured list must have ≥2 distinct venues
-    venues = {(r.get("venue") or {}).get("slug") for r in data
-              if isinstance(r, dict) and isinstance(r.get("venue"), dict)}
-    venues.discard(None)
-    if len(venues) < 2:
-        failures.add(
-            f"live API: featured list has only {len(venues)} venue(s); "
-            f"PROJECT_CANON requires ≥2 distinct venues / no single-org dominance"
-        )
+    # No single-org dominance: when the featured list is non-empty it must
+    # span ≥2 distinct venues. An empty featured list is canonically allowed.
+    if data:
+        venues = {(r.get("venue") or {}).get("slug") for r in data
+                  if isinstance(r, dict) and isinstance(r.get("venue"), dict)}
+        venues.discard(None)
+        if len(venues) < 2:
+            failures.add(
+                f"live API: featured list has only {len(venues)} venue(s); "
+                f"PROJECT_CANON requires ≥2 distinct venues / no single-org dominance"
+            )
 
 
 def check_scraper_run_state(failures: Failures) -> None:
@@ -282,7 +284,36 @@ def main() -> int:
     # Strict per-row proof audit runs in offline mode too — uses cached url_health.json
     check_audit_public_shows_strict(failures)
     check_provenance_block_test(failures)
+    check_archive_rows_clean(failures)
     return failures.report()
+
+
+def check_archive_rows_clean(failures: Failures) -> None:
+    """Any active+public_visible archive row must have today's verified_at OR an approval.
+    Cheap DB read — no network probe (audit_archive_rows.py does the probes)."""
+    import sqlite3 as _sqlite3
+    db_path = Path.home() / ".openclaw/workspace/apps/paris-comedy/data/paris.db"
+    if not db_path.exists():
+        return
+    today = __import__("datetime").datetime.now().date().isoformat()
+    try:
+        conn = _sqlite3.connect(str(db_path))
+        rows = conn.execute(
+            """SELECT id, slug, name, verified_at FROM show_listings
+               WHERE (source LIKE 'archive-%' OR source LIKE 'plateaux-%')
+                 AND status='active'
+                 AND COALESCE(public_visible, 1) = 1"""
+        ).fetchall()
+        conn.close()
+    except Exception as e:
+        failures.add(f"archive-rows check: DB read failed: {e!r}")
+        return
+    for rid, slug, name, lv in rows:
+        if (lv or "") != today:
+            failures.add(
+                f"archive row {slug!r} (id={rid}) is publicly active but verified_at={lv!r} "
+                f"is not today ({today}); run scripts/guardrails/audit_archive_rows.py"
+            )
 
 
 def check_provenance_block_test(failures: Failures) -> None:
