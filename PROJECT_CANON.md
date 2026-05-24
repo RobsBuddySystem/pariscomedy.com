@@ -26,6 +26,12 @@ ParisComedy.com is a **neutral directory for every stand-up comedy show in Paris
 
 No other reason creates a Featured card. No random shuffles. No "this week's pick." Empty state = empty section, not faked content.
 
+### Single canonical source of truth for public show instances
+- **The canonical source is `shows.html` → `const SHOWS_DATA`**. Every visible card on `/shows.html` renders from this array.
+- The backend DB `show_listings` table feeds **only** the homepage Featured cards (via `/api/listings?featured=1`) — never the directory grid. Backend remains the system-of-record for ticketed venues; SHOWS_DATA remains the system-of-record for what the public directory shows.
+- Mirror files (`js/data.js`, `data/shows_generated.json`, `generate_instances.py`) are **deprecated for new shows**. They survive only as historical/recurrence-seed references and must not contain any slug that conflicts with the canonical SHOWS_DATA or the canceled blocklist. `check_invariants.py` flags any mirror file that contains a canceled slug.
+- Drift between SHOWS_DATA and the backend DB is allowed (different surfaces), but neither may surface a slug listed in `data/canceled_shows.json`.
+
 ### No manual SHOWS_DATA patching
 - SHOWS_DATA in `shows.html` must never be hand-edited to add a show. New rows enter the directory through one of these paths only:
   1. `daily_discover.py` writes them after passing the LLM classifier + future-date filter, **and** the resulting ticket_url responds HTTP 2xx during the next `audit_public_shows.py --live-check` run, **or**

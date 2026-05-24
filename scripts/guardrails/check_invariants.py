@@ -281,7 +281,23 @@ def main() -> int:
         check_show_provenance(failures)
     # Strict per-row proof audit runs in offline mode too — uses cached url_health.json
     check_audit_public_shows_strict(failures)
+    check_provenance_block_test(failures)
     return failures.report()
+
+
+def check_provenance_block_test(failures: Failures) -> None:
+    """Run the negative-test that proves a fabricated SHOWS_DATA row is rejected."""
+    import subprocess
+    script = ROOT / "scripts" / "guardrails" / "test_provenance_blocks.py"
+    if not script.exists():
+        failures.add("test_provenance_blocks.py missing — guardrail demo not enforced")
+        return
+    p = subprocess.run(
+        ["python3", str(script)],
+        capture_output=True, text=True, timeout=30,
+    )
+    if p.returncode != 0:
+        failures.add("test_provenance_blocks.py FAILED — fabricated row was not rejected")
 
 
 def check_audit_public_shows_strict(failures: Failures) -> None:
@@ -320,16 +336,24 @@ def check_canceled_blocklist(failures: Failures) -> None:
     names = []
     for e in blocklist.get("canceled", []):
         names.extend(e.get("names", []))
-    # 1. shows.html SHOWS_DATA
-    sh = ROOT / "shows.html"
-    if sh.exists():
-        text = sh.read_text()
+    # 1. shows.html SHOWS_DATA + every mirror file
+    files_to_scan = [
+        ROOT / "shows.html",
+        ROOT / "js" / "data.js",
+        ROOT / "data" / "shows_generated.json",
+        ROOT / "generate_instances.py",
+        ROOT / "comedians.html",
+    ]
+    for path in files_to_scan:
+        if not path.exists():
+            continue
+        text = path.read_text()
         for s in slugs:
             if s in text:
-                failures.add(f"canceled blocklist: '{s}' found in shows.html")
+                failures.add(f"canceled blocklist: '{s}' in {path.relative_to(ROOT)}")
         for n in names:
             if n in text:
-                failures.add(f"canceled blocklist: '{n}' found in shows.html")
+                failures.add(f"canceled blocklist: '{n}' in {path.relative_to(ROOT)}")
     # 2. Live public API
     try:
         body = http_get("https://api.pariscomedy.com/api/listings")

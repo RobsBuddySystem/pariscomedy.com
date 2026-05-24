@@ -91,6 +91,10 @@ def extract_shows(html: str) -> list[dict]:
 
 
 def fetch_html(args) -> str:
+    import os
+    override = os.environ.get("PC_AUDIT_SHOWS_HTML_OVERRIDE", "")
+    if override and Path(override).exists():
+        return Path(override).read_text()
     if args.offline:
         return SHOWS_HTML.read_text()
     try:
@@ -186,6 +190,19 @@ def audit(rows: list[dict], *, strict: bool, health: dict) -> list[str]:
             failures.append(f"{rid!r}: missing verified_at / last_verified_at")
         if lv and lv > today:
             failures.append(f"{rid!r}: last_verified_at is in the future ({lv!r})")
+
+        # If the row claims it was verified today (which the JS uses to render
+        # "Source checked today"), require matching url_health entry stamped
+        # today. Otherwise the public copy lies.
+        if lv == today:
+            url = r.get("ticket_url") or ""
+            rec = health.get(url, {})
+            last_ok = rec.get("last_ok_at", "") or ""
+            if not last_ok.startswith(today):
+                failures.append(
+                    f"{rid!r}: last_verified_at={today} but no url_health.last_ok_at "
+                    f"recorded for today (would render 'Source checked today' falsely)"
+                )
 
         # Blocklist
         if stem in blocked_slugs or rid in blocked_slugs:
