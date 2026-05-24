@@ -1376,6 +1376,14 @@ function setDay(d) {
   activeDay = d;
   document.querySelectorAll('.day-bar:not(.lang-bar) .day-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('day-' + d).classList.add('active');
+  // Picking a specific weekday is meaningless inside the "Tonight" tab — switch
+  // to "All Upcoming" so the chosen day actually filters across the directory.
+  if (d !== 'all' && activeTab === 'tonight') {
+    activeTab = 'all';
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    const allTab = document.getElementById('tab-all');
+    if (allTab) allTab.classList.add('active');
+  }
   render();
 }
 
