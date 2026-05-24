@@ -27,3 +27,9 @@ $ python3 scripts/guardrails/audit_archive_rows.py      → ✅ GREEN (14 kept, 
 - /api/listings?featured=1 → `[]`
 - /shows.html, /index, /api/* — all clean across 11 forbidden strings
 - Playwright rendered DOM: featured section shows truthful empty state, no stale phrases visible
+
+## Homepage round-2 live regression (2026-05-24 18:35 CEST)
+- curl https://pariscomedy.com/ | grep -Ei 'Verified, highlighted|These shows are Featured|Featured Tonight|Featured Shows This Week|Rotating weekly|May 19|May 19–25|every show in Paris'
+  → empty (clean)
+- /api/listings?featured=1 → []
+- check_invariants.py → ✅ GREEN
