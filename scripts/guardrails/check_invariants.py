@@ -285,6 +285,7 @@ def main() -> int:
     check_audit_public_shows_strict(failures)
     check_provenance_block_test(failures)
     check_paris_places_normalizer(failures)
+    check_mirror_drift(failures)
     check_archive_rows_clean(failures)
     if not args.offline:
         check_listings_endpoint_consistency(failures)
@@ -471,6 +472,21 @@ def check_archive_rows_clean(failures: Failures) -> None:
                 f"archive row {slug!r} (id={rid}) is publicly active but verified_at={lv!r} "
                 f"is not today ({today}); run scripts/guardrails/audit_archive_rows.py"
             )
+
+
+def check_mirror_drift(failures: Failures) -> None:
+    """Fail if any known paris-comedy mirror still holds forbidden copy.
+    These mirrors are not deployed publicly, but they are footguns for
+    future cp/sync mistakes."""
+    import subprocess
+    script = ROOT / "scripts" / "guardrails" / "check_mirror_drift.py"
+    if not script.exists():
+        return
+    p = subprocess.run(["python3", str(script)], capture_output=True, text=True, timeout=15)
+    if p.returncode != 0:
+        for line in p.stdout.splitlines():
+            if line.strip().startswith("- "):
+                failures.add(f"mirror drift: {line.strip().lstrip('- ')}")
 
 
 def check_paris_places_normalizer(failures: Failures) -> None:
