@@ -33,3 +33,41 @@ Exact origin:
 - `check_invariants.py` now calls `check_canceled_blocklist()` and `check_show_provenance()` — fails if any blocklisted slug/name appears in `shows.html` or live API.
 - `scripts/guardrails/audit_public_shows.py` NEW — provenance audit per row.
 - Provenance now mandatory: every SHOWS_DATA row must have `ticket_url`, `source_url`, `last_verified_at` (or `verified_at`); `last_verified_at` must not be in the future.
+
+## Round 2 — 2026-05-24 15:05 CEST
+
+### Why the previous GREEN was wrong
+The prior session's hard-block was applied **only** to `/api/listings` and matched **only on slug**. Three gaps were missed:
+1. `/api/shows` (different code path / different DB table `shows`) was NOT blocked.
+2. The block matched only on slug, not on the canceled-show NAME — so any row that lacks `slug='velvet-openmic'` but has `title='Velvet Bar Comedy — Open Mic'` (the `shows` table has no slug column) sailed through.
+3. The DB row had `featured=1` still set, and `verified_at=NULL`. Even though my filter dropped it from `/api/listings`, the underlying data still claimed featured/active.
+
+The user's report was correct: a snapshot of `/api/listings?featured=1` from earlier in the day (or pulled before backend restart) returned the canceled row. The previous GREEN claim was based on a single-endpoint, single-criterion check that did not match the user's surface.
+
+### Exact root cause
+- `show_listings` row id=1 carried `featured=1`, `verified_at=NULL`, `source='archive-2026-04-13'` since the original April 2026 seed. The 2026-05-23 patches changed `booking_url` but never zeroed `featured` or set `verified_at`. The prior session set `status='canceled'` but left `featured=1` and `verified_at=NULL`.
+- `shows` row id=2 (title="Velvet Bar Comedy — Open Mic", date 2026-04-14) was a past instance still served by `/api/shows`.
+
+### Cleaned data stores
+- `show_listings.id=1`: status=canceled, featured=0, public_visible=0, blocked_from_auto_regeneration=1, verified_at=2026-05-24, verified_by='Robert (manual admin)', cancellation_reason='Robert confirmed Velvet Bar Open Mic canceled 2026-05-04; quarantined 2026-05-24'.
+- New columns added: `cancellation_reason`, `public_visible`, `blocked_from_auto_regeneration`, `verified_by`.
+- Backend: `_PUBLIC_BLOCKED_TITLE_PATTERNS` matches "velvet bar comedy — open mic" / variants case-insensitively. `_is_publicly_blocked()` checks slug AND title. Applied in `/api/listings` AND `/api/shows`.
+
+### Other archive-2026-04-13 featured rows audited
+| id | slug | name | URL | Action |
+|----|------|------|-----|--------|
+| 18 | theatre-bo-julie | Oh My God She's Parisian! — Julie Coulon | HTTP 200 | verified_at refreshed to 2026-05-24 |
+| 24 | green-mic-showcase | Green Mic Showcase | HTTP 200 | verified_at refreshed to 2026-05-24 |
+
+featured flags on rows 18, 24 NOT touched — featured ranking is SCOPE_LOCK territory pending Robert's editorial direction. Both rows have current URL proof.
+
+### Live verification (after restart)
+```
+$ curl -s 'https://api.pariscomedy.com/api/listings?featured=1' | grep -Ei 'velvet-openmic|Velvet Bar Comedy — Open Mic'   → (empty)
+$ curl -s 'https://api.pariscomedy.com/api/listings'             | grep -Ei 'velvet-openmic|Velvet Bar Comedy — Open Mic'   → (empty)
+$ curl -s 'https://api.pariscomedy.com/api/shows'                | grep -Ei 'velvet-openmic|Velvet Bar Comedy — Open Mic'   → (empty)
+$ curl -s 'https://pariscomedy.com/shows.html'                   | grep -Ei 'velvet-openmic|Velvet Bar Comedy — Open Mic'   → (empty)
+```
+
+### check_invariants extension
+`check_canceled_blocklist` now scans all three live API endpoints AND matches on both slug and name. Any leak fails the next CI run.

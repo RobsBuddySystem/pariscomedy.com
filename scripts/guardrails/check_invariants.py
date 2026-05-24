@@ -354,18 +354,24 @@ def check_canceled_blocklist(failures: Failures) -> None:
         for n in names:
             if n in text:
                 failures.add(f"canceled blocklist: '{n}' in {path.relative_to(ROOT)}")
-    # 2. Live public API
-    try:
-        body = http_get("https://api.pariscomedy.com/api/listings")
+    # 2. Live public API — every endpoint, slug AND title match
+    bodies: dict[str, str] = {}
+    for url in (
+        "https://api.pariscomedy.com/api/listings",
+        "https://api.pariscomedy.com/api/listings?featured=1",
+        "https://api.pariscomedy.com/api/shows",
+    ):
+        try:
+            bodies[url] = http_get(url)
+        except Exception as e:
+            failures.add(f"canceled blocklist live check failed for {url}: {e!r}")
+    for url, body in bodies.items():
         for s in slugs:
             if f'"slug":"{s}"' in body:
-                failures.add(f"canceled blocklist: '{s}' present in live /api/listings")
-        body2 = http_get("https://api.pariscomedy.com/api/listings?featured=1")
-        for s in slugs:
-            if f'"slug":"{s}"' in body2:
-                failures.add(f"canceled blocklist: '{s}' present in /api/listings?featured=1")
-    except Exception as e:
-        failures.add(f"canceled blocklist live check failed: {e!r}")
+                failures.add(f"canceled blocklist: slug '{s}' present in {url}")
+        for n in names:
+            if n in body:
+                failures.add(f"canceled blocklist: name {n!r} present in {url}")
 
 
 def check_show_provenance(failures: Failures) -> None:

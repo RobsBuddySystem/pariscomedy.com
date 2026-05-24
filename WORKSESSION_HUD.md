@@ -1,26 +1,24 @@
-# WORKSESSION HUD — Rollback canceled Velvet Open Mic / provenance audit 2026-05-24
+# WORKSESSION HUD — Velvet Open Mic Rollback Round 2 — 2026-05-24
 
 ## Phase: DONE
 ## GO/HOLD: GREEN ✅
 
-## Rollback
-- 4 invented Velvet Open Mic rows purged from SHOWS_DATA (canonical + push)
-- Backend DB row id=1 status → 'canceled' (audit row preserved)
-- Backend API hard-blocks velvet-openmic regardless of any query parameter
-- generate_instances.py / js/data.js / shows_generated.json / comedians.html all purged
-- Live verified via curl + Playwright DOM
+## Why round 1 was incomplete
+- Slug-only block (didn't match `shows` table which has title only)
+- `/api/shows` had no block
+- DB row still had featured=1, verified_at=NULL
 
-## Guardrails added
-- data/canceled_shows.json — canonical blocklist
-- check_invariants.check_canceled_blocklist
-- check_invariants.check_show_provenance
-- scripts/guardrails/audit_public_shows.py — per-row provenance audit
+## This round
+- Title-pattern + slug hard-block in BOTH /api/listings and /api/shows
+- DB row id=1 fully quarantined (4 new columns: cancellation_reason, public_visible, blocked_from_auto_regeneration, verified_by)
+- Other archive rows audited; Theatre BO + Green Mic verified_at refreshed (URLs HTTP 200)
+- check_invariants now scans 3 API endpoints AND matches names
 
-## Wednesday shows re-audited
-All 6 named shows (FFCN, Velvet Showcase, Kiss, South, Comedy Crush, The Dissident) have full provenance.
+## Four live curls all empty:
+- /api/listings?featured=1
+- /api/listings
+- /api/shows
+- /shows.html
 
-## Commits pushed
-- 61a22a4 backend (PUBLIC_BLOCKED_SLUGS + schema)
-- a570d10 push (purge + blocklist + audit + extended invariants)
-
-## Final status: GREEN ✅
+## Backend commit pushed: pariscomedy-backend HEAD
+## Push repo: this update
