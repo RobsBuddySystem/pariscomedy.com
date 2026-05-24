@@ -751,12 +751,7 @@ async function renderFeatured() {
   grid.innerHTML = picks.map(l => {
     const days = (l.days && l.days[0]) || '';
     const venue = (l.venue && l.venue.name) || l.venue_name_raw || '';
-    // Slugs with a live EB recurring series go through the resolver so the
-    // link always points to the next-future instance (never archived).
-    const EB_RESOLVED = {'ffcn':1, 'velvet-comedy':1, 'velvet-openmic':1};
-    const url = EB_RESOLVED[l.slug]
-      ? (api + '/api/eb/redirect/' + l.slug)
-      : (l.booking_url || l.show_url || '#');
+    const url = l.booking_url || l.show_url || '#';
     return `
     <div class="featured-card">
       <div>

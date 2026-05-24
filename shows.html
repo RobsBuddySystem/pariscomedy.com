@@ -145,12 +145,13 @@ footer a{color:#666}footer a:hover{color:#f0f0f0}
   <button class="lang-btn day-btn" id="lang-bi"  onclick="setLang('bi')">Bilingual</button>
 </div>
 
-<div id="eb-live-section" style="display:none;max-width:980px;margin:0 auto 28px;padding:0 24px">
-  <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:12px">
-    Live availability — updated hourly
-  </div>
-  <div id="eb-live-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px"></div>
-</div>
+<!-- Live availability banner removed 2026-05-24:
+     EB API key is scoped to ONE organization, so the banner would only ever
+     surface that org's events at the top of /shows.html, which is misleading
+     on a directory page that lists every Paris comedy show. Bring it back
+     ONLY when ingestion covers every organizer (multi-org). -->
+<div id="eb-live-section" style="display:none"></div>
+<div id="eb-live-grid" style="display:none"></div>
 <div class="grid" id="shows-grid"></div>
 
 <div style="max-width:980px;margin:24px auto 0;padding:0 24px">
