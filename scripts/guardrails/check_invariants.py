@@ -284,6 +284,7 @@ def main() -> int:
     # Strict per-row proof audit runs in offline mode too — uses cached url_health.json
     check_audit_public_shows_strict(failures)
     check_provenance_block_test(failures)
+    check_paris_places_normalizer(failures)
     check_archive_rows_clean(failures)
     if not args.offline:
         check_listings_endpoint_consistency(failures)
@@ -470,6 +471,22 @@ def check_archive_rows_clean(failures: Failures) -> None:
                 f"archive row {slug!r} (id={rid}) is publicly active but verified_at={lv!r} "
                 f"is not today ({today}); run scripts/guardrails/audit_archive_rows.py"
             )
+
+
+def check_paris_places_normalizer(failures: Failures) -> None:
+    """Ensure the Paris-places normalizer still classifies every Barbès
+    variant correctly and never misclassifies nearby places."""
+    import subprocess
+    script = ROOT / "scripts" / "guardrails" / "test_paris_places.py"
+    if not script.exists():
+        failures.add("test_paris_places.py missing — normalizer test not enforced")
+        return
+    p = subprocess.run(["python3", str(script)], capture_output=True, text=True, timeout=15)
+    if p.returncode != 0:
+        # Surface up to 6 failures
+        for line in p.stdout.splitlines():
+            if line.strip().startswith("- "):
+                failures.add(f"paris-places: {line.strip().lstrip('- ')}")
 
 
 def check_provenance_block_test(failures: Failures) -> None:
