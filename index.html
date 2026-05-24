@@ -187,7 +187,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 
 <!-- Launch Banner -->
 <div class="launch-banner">
-  🎉 Paris Comedy is live — every English stand-up show in Paris, one place.
+  🎉 Paris Comedy is live — a growing directory of English-language and bilingual comedy shows in Paris.
   <a href="/shows.html">Browse tonight's shows →</a>
 </div>
 
@@ -222,32 +222,20 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 </div>
 
 <!-- Featured Shows Section -->
-<section id="featured-shows-section">
-  <div class="section-title">Featured Shows</div>
-  <div class="section-sub" id="featured-shows-sub">Loading…</div>
-  <div class="featured-grid" id="featured-grid">
-    <!-- Cards rendered by renderFeatured() from /api/listings?featured=1.
-         Subtitle + CTA below are rewritten honestly based on what the API returns;
-         see renderFeatured() in the script block. -->
+<section id="tonight-in-paris-section" style="display:none">
+  <div class="weekly-rotation-header">
+    <div class="weekly-rotation-title" id="tonight-section-title"></div>
+    <div class="weekly-rotation-sub" id="tonight-section-label"></div>
   </div>
-  <div class="featured-section-cta" id="featured-shows-cta"></div>
+  <div class="featured-grid" id="tonight-show-grid"></div>
 </section>
 
-<!-- tonight section: rendered by renderFeaturedTonight() when there are matches -->
-<section id="featured-tonight-section" style="display:none">
+<section id="promoted-week-section" style="display:none">
   <div class="weekly-rotation-header">
-    <div class="weekly-rotation-title" id="tonight-rotation-title"></div>
-    <div class="weekly-rotation-sub" id="tonight-rotation-label"></div>
+    <div class="weekly-rotation-title" id="promoted-section-title"></div>
+    <div class="weekly-rotation-sub" id="promoted-section-label"></div>
   </div>
-  <div class="featured-grid" id="tonight-featured-grid"></div>
-</section>
-
-<section id="featured-week-section" style="display:none">
-  <div class="weekly-rotation-header">
-    <div class="weekly-rotation-title" id="week-rotation-title"></div>
-    <div class="weekly-rotation-sub" id="week-rotation-label"></div>
-  </div>
-  <div class="featured-grid" id="weekly-featured-grid"></div>
+  <div class="featured-grid" id="promoted-show-grid"></div>
 </section>
 
 <section id="shows-section">
@@ -276,7 +264,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
     <a href="/book.html#show-runner" class="connect-card">
       <div class="connect-icon">🎤</div>
       <div class="connect-title">I run a comedy show</div>
-      <div class="connect-sub">List your show, get in front of Paris audiences, and claim your free Featured listing while spots last.</div>
+      <div class="connect-sub">List your show and get in front of Paris audiences. Paid promotion is optional — see pricing.</div>
       <span class="connect-btn">Get listed →</span>
     </a>
     <a href="/book.html#comedian" class="connect-card">
@@ -323,7 +311,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
     </div>
 <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I get a Featured listing?</div>
-      <div class="faq-a">Featured placement is reserved for paid Featured Show Promos and editorial picks. See <a href="/pricing.html" style="color:var(--purple-light)">pricing</a> for promo tiers (€5 / 7 days · €15 / 30 days · €40 / 90 days). Every show in the directory is treated equally regardless of source.</div>
+      <div class="faq-a">Featured placement is reserved for paid Featured Show Promos and editorial picks. See <a href="/pricing.html" style="color:var(--purple-light)">pricing</a> for promo tiers (€5 / 7 days · €15 / 30 days · €40 / 90 days). Listings in the directory are not ranked by source — discovery surface is neutral.</div>
     </div>
   </div>
 </section>
@@ -738,71 +726,34 @@ function seededShuffle(arr, seed) {
   return a;
 }
 
-async function renderFeatured() {
-  const grid = document.getElementById('featured-grid');
-  const sub  = document.getElementById('featured-shows-sub');
-  const cta  = document.getElementById('featured-shows-cta');
-  if (!grid) return;
-  let api = '';
-  try { const c = await fetch('/api-config.json').then(r => r.json()); api = c.api || ''; } catch (e) {}
-  let listings = [];
-  try { listings = await fetch(api + '/api/listings?featured=1').then(r => r.json()); } catch (e) {}
-  const picks = (listings || []).slice(0, 3);
-  if (!picks.length) {
-    // Honest empty state — no fake cards, no "verified highlighted" claim.
-    grid.innerHTML = '';
-    if (sub) sub.textContent = 'No featured shows right now.';
-    if (cta) cta.innerHTML = 'Featured spots are open — <a href="/pricing.html#featured-promo">claim one →</a>';
-    return;
-  }
-  if (sub) sub.textContent = 'Editorial picks and paid Featured Show Promos.';
-  if (cta) cta.innerHTML = 'Want your show featured? <a href="/pricing.html#featured-promo">See pricing →</a>';
-  grid.innerHTML = picks.map(l => {
-    const days = (l.days && l.days[0]) || '';
-    const venue = (l.venue && l.venue.name) || l.venue_name_raw || '';
-    const url = l.booking_url || l.show_url || '#';
-    return `
-    <div class="featured-card">
-      <div>
-        <span class="featured-badge">⭐ FEATURED</span>
-        ${l.verified_at ? '<span class="verified-badge">✓ Verified</span>' : ''}
-      </div>
-      <div class="featured-card-name">${(l.short_name || l.name || '').replace(/</g,'&lt;')}</div>
-      <div class="featured-card-show">${(l.name || '').replace(/</g,'&lt;')}</div>
-      <div class="featured-card-meta">${days} &middot; ${l.start_time || ''} &middot; ${venue.replace(/</g,'&lt;')}</div>
-      <a href="${url}" target="_blank" rel="noopener" class="featured-card-btn">Check current listing →</a>
-    </div>`;
-  }).join('');
-}
-
 function todayParisStr() {
   // YYYY-MM-DD in Europe/Paris.
   return new Intl.DateTimeFormat('sv-SE', {timeZone:'Europe/Paris', year:'numeric', month:'2-digit', day:'2-digit'}).format(new Date());
 }
 
-function renderFeaturedTonight() {
+// Honest naming: this section lists day-of-week matches ("shows happening
+// tonight"). It is NOT featured (no paid promo, no editorial pick), so the
+// heading deliberately avoids the word "Featured". Section is hidden when
+// there are no tonight shows.
+function renderTonightInParis() {
   const today = todayParisStr();
   const tonight = (SHOWS_DATA || []).filter(s => s.date === today);
-  const section = document.getElementById('featured-tonight-section');
-  const grid = document.getElementById('tonight-featured-grid');
+  const section = document.getElementById('tonight-in-paris-section');
+  const grid = document.getElementById('tonight-show-grid');
   if (!grid || !section) return;
   if (!tonight.length) {
     section.style.display = 'none';
     return;
   }
   section.style.display = '';
-  const title = document.getElementById('tonight-rotation-title');
-  // Build title from non-adjacent tokens so the static HTML source never
-  // contains the literal substring matched by the invariant checker.
-  if (title) title.textContent = ['🎤','Featured','Tonight'].join(' ');
-  const lbl = document.getElementById('tonight-rotation-label');
-  if (lbl) lbl.textContent = `${tonight.length} show${tonight.length===1?'':'s'} in Paris tonight`;
-  // Sort by start_time asc; show up to 3 cards visually, but if there are more
-  // we still want users to know — link the rest via the section CTA.
+  const title = document.getElementById('tonight-section-title');
+  if (title) title.textContent = 'Tonight in Paris';
+  const lbl = document.getElementById('tonight-section-label');
+  if (lbl) lbl.textContent = `${tonight.length} show${tonight.length===1?'':'s'} happening tonight`;
   const picks = tonight.slice().sort((a,b) => (a.start_time||'').localeCompare(b.start_time||'')).slice(0,3);
   grid.innerHTML = picks.map(s => `
     <div class="featured-card">
-      <div><span class="featured-badge" style="background:#7c3aed;color:#fff">🎤 TONIGHT</span></div>
+      <div><span class="featured-badge" style="background:#7c3aed;color:#fff">TONIGHT</span></div>
       <div class="featured-card-name">${(s.show_name||'').replace(/</g,'&lt;')}</div>
       <div class="featured-card-show">${(s.neighborhood||'').replace(/</g,'&lt;')}</div>
       <div class="featured-card-meta">${s.start_time||''} &middot; ${(s.venue||'').replace(/</g,'&lt;')}</div>
@@ -811,44 +762,40 @@ function renderFeaturedTonight() {
   `).join('');
 }
 
-function renderWeeklyFeatured() {
-  // Honest featured logic: render shows that are explicitly featured only —
-  // editorial_featured===true OR paid_featured_until in the future. NO random
-  // shuffles. If nothing is genuinely featured, show empty state + Promote CTA.
-  const grid = document.getElementById('weekly-featured-grid');
-  if (!grid) return;
-  const section = document.getElementById('featured-week-section');
-  const title = document.getElementById('week-rotation-title');
-  const lbl = document.getElementById('week-rotation-label');
-  const now = Date.now();
-  const featured = (SHOWS_DATA || []).filter(s => {
-    if (s.editorial_featured === true) return true;
-    if (s.paid_featured_until) {
-      try { return new Date(s.paid_featured_until).getTime() > now; } catch(_) { return false; }
-    }
-    return false;
-  }).slice(0, 3);
-
-  if (!featured.length) {
-    // Empty state: hide section entirely; no headings or copy emitted.
-    if (section) section.style.display = 'none';
+// Promoted Shows — strictly paid/editorial. Gates on /api/listings?featured=1.
+// If the API returns [], the entire section stays display:none and no
+// "featured/promoted" copy is rendered anywhere.
+async function renderPromotedThisWeek() {
+  const grid = document.getElementById('promoted-show-grid');
+  const section = document.getElementById('promoted-week-section');
+  if (!grid || !section) return;
+  let api = '';
+  try { const c = await fetch('/api-config.json').then(r => r.json()); api = c.api || ''; } catch(_) {}
+  let promoted = [];
+  try { promoted = await fetch(api + '/api/listings?featured=1').then(r => r.json()); } catch(_) {}
+  promoted = (promoted || []).slice(0, 3);
+  if (!promoted.length) {
+    section.style.display = 'none';
     return;
   }
-  // Reveal section + populate title/label only when there are real featured rows.
-  // Title and label are assembled from token arrays so the static HTML source
-  // never contains the literal phrases matched by the invariant checker.
-  if (section) section.style.display = '';
-  if (title) title.textContent = ['⭐','Featured','Shows','This','Week'].join(' ');
-  if (lbl)   lbl.textContent   = ['Rotating','weekly'].join(' ') + ' · ' + featured.length + ' featured';
-  grid.innerHTML = featured.map(s => `
-    <div class="featured-card">
-      <div><span class="featured-badge">⭐ FEATURED THIS WEEK</span></div>
-      <div class="featured-card-name">${(s.show_name||'').replace(/</g,'&lt;')}</div>
-      <div class="featured-card-show">${(s.neighborhood||'').replace(/</g,'&lt;')}</div>
-      <div class="featured-card-meta">${s.day||''} &middot; ${s.start_time||''} &middot; ${(s.venue||'').replace(/</g,'&lt;')}</div>
-      <a href="/r.html?kind=show&id=${encodeURIComponent(s.id||'')}&url=${encodeURIComponent(s.ticket_url||'')}" target="_blank" rel="noopener sponsored" class="featured-card-btn">Get tickets →</a>
-    </div>
-  `).join('');
+  section.style.display = '';
+  const title = document.getElementById('promoted-section-title');
+  if (title) title.textContent = 'Promoted this week';
+  const lbl = document.getElementById('promoted-section-label');
+  if (lbl) lbl.textContent = `${promoted.length} paid or editorial pick${promoted.length===1?'':'s'}`;
+  grid.innerHTML = promoted.map(s => {
+    const days = (s.days && s.days[0]) || '';
+    const venue = (s.venue && s.venue.name) || s.venue_name_raw || '';
+    const url = s.booking_url || s.show_url || '#';
+    return `
+      <div class="featured-card">
+        <div><span class="featured-badge">PROMOTED</span></div>
+        <div class="featured-card-name">${(s.short_name || s.name || '').replace(/</g,'&lt;')}</div>
+        <div class="featured-card-show">${(s.name || '').replace(/</g,'&lt;')}</div>
+        <div class="featured-card-meta">${days} &middot; ${s.start_time || ''} &middot; ${venue.replace(/</g,'&lt;')}</div>
+        <a href="${url}" target="_blank" rel="noopener sponsored" class="featured-card-btn">Get tickets →</a>
+      </div>`;
+  }).join('');
 }
 
 // ── CONFETTI ──────────────────────────────────────────────────────────────
@@ -879,9 +826,8 @@ function launchConfetti() {
 renderTonightPanel();
 renderGrid();
 renderWeekRow();
-renderFeatured();
-renderFeaturedTonight();
-renderWeeklyFeatured();
+renderTonightInParis();
+renderPromotedThisWeek();
 injectEventSchemas();
 
 async function submitNewsletter(ev) {

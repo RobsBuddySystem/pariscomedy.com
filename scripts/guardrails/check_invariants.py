@@ -296,16 +296,25 @@ def check_homepage_truthfulness(failures: Failures) -> None:
     hardcoded dates, and overclaims are all forbidden."""
     HOMEPAGE = "https://pariscomedy.com/"
     FEATURED = "https://api.pariscomedy.com/api/listings?featured=1"
-    # Static stale-copy patterns (always forbidden in the served HTML).
-    # Note: section titles like "Featured Tonight" / "Featured Shows This Week"
-    # are CONDITIONALLY forbidden (see bad_when_empty below) — they may appear
-    # in the rendered DOM only when JS confirms real data exists. The static
-    # HTML must never contain them as hardcoded strings.
+    # Always-forbidden in served HTML — no token-array workarounds allowed.
+    # Per the homepage truthfulness rules: "Featured" only applies to
+    # paid/editorial rows from /api/listings?featured=1. Day-of-week sections
+    # must use "Tonight in Paris" or similar — never "Featured Tonight".
+    # Overclaims like "every English stand-up show" and "Every show in the
+    # directory is treated equally" are forbidden.
     FORBIDDEN = [
         ("May 19–25",                       "hardcoded date range"),
         ("first 100 show runners",          "stale launch copy"),
         ("First 100 Featured listings",     "stale launch banner"),
-        ("every show in Paris",             "overclaim — DB not fully verified"),
+        ("claim your free Featured listing","stale free-tier copy"),
+        ("every show in Paris",             "overclaim"),
+        ("every English stand-up show",     "overclaim"),
+        ("Every show in the directory",     "overclaim"),
+        ("Featured Tonight",                "day-of-week mislabeled as Featured"),
+        ("Featured Shows This Week",        "section name forbidden — use Promoted"),
+        ("Rotating weekly",                 "obsolete weekly-rotation copy"),
+        ("Verified, highlighted comedy nights in Paris", "overclaim"),
+        ("These shows are Featured",        "implies featured exist regardless of API"),
         ("archive-2026-04-13",              "internal provenance leak"),
         ("verification_source",             "internal provenance leak"),
         ("runner_email",                    "PII leak"),
@@ -329,19 +338,34 @@ def check_homepage_truthfulness(failures: Failures) -> None:
         feat = json.loads(http_get(FEATURED))
     except Exception:
         feat = None
-    if feat == []:
-        bad_when_empty = [
+    # Rendered-DOM check via Playwright — catches strings that JS injects.
+    # Same patterns as the static FORBIDDEN list must also be absent from the
+    # rendered DOM (no token-array workarounds tolerated).
+    try:
+        import importlib
+        pw = importlib.import_module("playwright.sync_api")
+        with pw.sync_playwright() as p:
+            b = p.chromium.launch(headless=True)
+            page = b.new_context(user_agent="PC-Invariants/1").new_page()
+            page.goto("https://pariscomedy.com/", wait_until="domcontentloaded", timeout=15000)
+            page.wait_for_timeout(2500)
+            body = page.inner_text("body")
+            b.close()
+        for rendered_forbidden in (
+            "Featured Tonight", "Featured Shows This Week", "Rotating weekly",
             "Verified, highlighted comedy nights in Paris",
             "These shows are Featured",
-            "Featured Tonight",
-            "Featured Shows This Week",
-            "Rotating weekly",
-        ]
-        for needle in bad_when_empty:
-            if needle in home:
+            "every English stand-up show", "Every show in the directory",
+            "claim your free Featured listing",
+        ):
+            if rendered_forbidden in body:
+                # If the featured API is non-empty, "Promoted"-style headings
+                # are allowed — but the strings above are still forbidden.
                 failures.add(
-                    f"featured API is empty but homepage still claims featured shows exist: {needle!r}"
+                    f"rendered DOM contains forbidden string: {rendered_forbidden!r}"
                 )
+    except Exception:
+        pass  # Playwright optional — static guard above is the floor
 
 
 def check_listings_endpoint_consistency(failures: Failures) -> None:
