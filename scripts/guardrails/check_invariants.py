@@ -287,6 +287,7 @@ def main() -> int:
     check_paris_places_normalizer(failures)
     check_language_classifier(failures)
     check_language_inventory(failures)
+    check_show_profile_pages(failures)
     check_mirror_drift(failures)
     check_archive_rows_clean(failures)
     if not args.offline:
@@ -485,6 +486,17 @@ def check_language_classifier(failures: Failures) -> None:
         for line in p.stdout.splitlines():
             if line.strip().startswith("- "):
                 failures.add(f"language-classifier: {line.strip().lstrip('- ')}")
+
+
+def check_show_profile_pages(failures: Failures) -> None:
+    """Every unique show in SHOWS_DATA must have a profile page."""
+    import subprocess
+    p = subprocess.run(["python3", str(ROOT / "scripts/guardrails/test_show_profile_pages.py")],
+                       capture_output=True, text=True, timeout=15)
+    if p.returncode != 0:
+        for line in p.stdout.splitlines():
+            if line.strip().startswith("- "):
+                failures.add(f"show-profile-pages: {line.strip().lstrip('- ')}")
 
 
 def check_language_inventory(failures: Failures) -> None:

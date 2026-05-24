@@ -552,7 +552,7 @@ const SHOWS_DATA = [
     "language": [],
     "show_type": "showcase",
     "emoji": "🎭",
-    "description": "Curated showcase — the best comics in Paris on one stage.",
+    "description": "Weekly showcase at Velvet Bar Paris.",
     "ticket_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
     "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
     "price_info": "varies",
@@ -969,7 +969,7 @@ const SHOWS_DATA = [
     "language": [],
     "show_type": "showcase",
     "emoji": "🎭",
-    "description": "Curated showcase — the best comics in Paris on one stage.",
+    "description": "Weekly showcase at Velvet Bar Paris.",
     "ticket_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
     "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
     "price_info": "varies",
@@ -1415,11 +1415,14 @@ function render() {
     const langs = s.language || ['en'];
     const isBi = langs.includes('en') && langs.includes('fr');
     const isNew = (() => { if (!s.first_seen) return false; try { return (Date.now() - new Date(s.first_seen).getTime()) < 14*86400000; } catch(_) { return false; } })();
+    // Stable show slug = id minus the trailing -YYYYMMDD date suffix.
+    const showSlug = (s.id || '').replace(/-\d{8}$/, '');
+    const profileHref = showSlug ? `/shows/${showSlug}.html` : '';
     return `<div class="show-card">
       <div class="card-top">
         <div class="card-name-row">
           <span class="card-emoji">${s.emoji}</span>
-          <span class="card-name">${s.show_name}${isNew?' <span class="badge-vibe" style="background:#14532d;color:#4ade80;margin-left:6px">NEW</span>':''}</span>
+          <a class="card-name" href="${profileHref}" style="color:inherit;text-decoration:none">${s.show_name}${isNew?' <span class="badge-vibe" style="background:#14532d;color:#4ade80;margin-left:6px">NEW</span>':''}</a>
         </div>
         <span class="card-date-badge">${fmtDateBadge(s.date)}</span>
       </div>
@@ -1437,6 +1440,7 @@ function render() {
       <div class="card-actions">
         ${ticketButton(s)}
         <div class="card-links">
+          ${profileHref ? `<a href="${profileHref}">Show page →</a>` : ''}
           <a href="/book.html">Claim This Show</a>
           <a href="/book.html">Something wrong?</a>
         </div>
