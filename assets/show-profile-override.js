@@ -3,6 +3,7 @@
 // lineup, links). Static HTML remains the fallback if API fails.
 // Never displays owner_email, RSVP emails, CRM data, or private lineup notes.
 (function(){
+  console.log('[show-profile-override] script started');
   function deriveSlug() {
     if (window.SHOW_SLUG) return String(window.SHOW_SLUG).trim();
     const m = location.pathname.match(/\/shows\/([a-z0-9-]+)\.html$/i);
@@ -23,7 +24,9 @@
     return dt.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric', timeZone:'UTC' });
   };
 
+  console.log('[show-profile-override] slug=' + slug);
   async function load() {
+    console.log('[show-profile-override] load() starting');
     let apiBase = 'https://api.pariscomedy.com';
     try { const c = await fetch('/api-config.json').then(r=>r.json()); if (c && c.api) apiBase = c.api; } catch(_) {}
     let data;
