@@ -279,7 +279,31 @@ def main() -> int:
         check_shows_list_correctness(failures)
         check_canceled_blocklist(failures)
         check_show_provenance(failures)
+    # Strict per-row proof audit runs in offline mode too — uses cached url_health.json
+    check_audit_public_shows_strict(failures)
     return failures.report()
+
+
+def check_audit_public_shows_strict(failures: Failures) -> None:
+    """Invoke audit_public_shows.py in strict mode and fail on any row that
+    lacks (a) recent live URL check, (b) signed manual approval, or (c)
+    recurrence_source_url."""
+    import subprocess
+    script = ROOT / "scripts" / "guardrails" / "audit_public_shows.py"
+    if not script.exists():
+        failures.add("audit_public_shows.py missing — provenance gate not enforced")
+        return
+    p = subprocess.run(
+        ["python3", str(script), "--offline", "--strict=true"],
+        capture_output=True, text=True, timeout=30,
+    )
+    if p.returncode != 0:
+        # Surface the first 6 failure lines from the audit output
+        lines = [ln for ln in p.stdout.splitlines() if ln.strip().startswith("- ")][:6]
+        for ln in lines:
+            failures.add(f"audit_public_shows: {ln.strip().lstrip('- ')}")
+        if not lines:
+            failures.add(f"audit_public_shows exited {p.returncode}; see output")
 
 
 def check_canceled_blocklist(failures: Failures) -> None:

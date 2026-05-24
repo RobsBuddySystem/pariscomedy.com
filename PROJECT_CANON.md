@@ -26,6 +26,15 @@ ParisComedy.com is a **neutral directory for every stand-up comedy show in Paris
 
 No other reason creates a Featured card. No random shuffles. No "this week's pick." Empty state = empty section, not faked content.
 
+### No manual SHOWS_DATA patching
+- SHOWS_DATA in `shows.html` must never be hand-edited to add a show. New rows enter the directory through one of these paths only:
+  1. `daily_discover.py` writes them after passing the LLM classifier + future-date filter, **and** the resulting ticket_url responds HTTP 2xx during the next `audit_public_shows.py --live-check` run, **or**
+  2. an operator runs `python3 scripts/guardrails/audit_public_shows.py --live-check` to record HTTP 2xx in `data/url_health.json`, **or**
+  3. a written approval entry is added to `data/show_approvals.json` (signed by Robert with a `valid_until` date), **or**
+  4. the row carries a `recurrence_source_url` field pointing to a current venue/organizer page documenting the schedule.
+- `check_invariants.py` runs the strict provenance audit on every commit; rows without one of the four proofs fail the build.
+- Canceled shows are tracked in `data/canceled_shows.json`. Any slug or name listed there is hard-blocked from public APIs and SHOWS_DATA.
+
 ### Honesty
 - All public claims must be provable. No "34+ shows / 27+ venues" unless the count is real.
 - No "every show verified / every link live" — claim only what we can prove.

@@ -1,0 +1,13 @@
+{
+  "_comment": "Manual approval ledger. Per PROJECT_CANON, any SHOWS_DATA row that lacks a live URL check OR a documented recurrence source must have a matching approval entry here, signed by Robert. Entries expire after 21 days — re-confirm to keep the row public.",
+  "_updated": "2026-05-24",
+  "_format": {
+    "slug_or_id": "show slug or full SHOWS_DATA id",
+    "approved_by": "Robert",
+    "approved_at": "YYYY-MM-DD",
+    "scope": "single | recurrence | range",
+    "valid_until": "YYYY-MM-DD",
+    "reason": "short explanation"
+  },
+  "approvals": []
+}

@@ -22,6 +22,8 @@
 14. **What counts as an English show** — `language: "en"` requires explicit English signal in title OR description, validated by the LLM classifier with `confidence ≥ 0.5`.
 15. **Whether French/bilingual shows are included** — yes, with `language: fr` or `language: bi` tags. Default scraper focus is English; `--include-french` flag broadens to FR.
 16. **Any rule that privileges Robert's shows** — there is none. Locked at zero privilege.
+17. **Manual SHOWS_DATA edits** — locked. New rows enter SHOWS_DATA only via the four paths documented in PROJECT_CANON.md → "No manual SHOWS_DATA patching." Any patch that adds rows without a matching url_health entry, show_approvals entry, or recurrence_source_url fails the build.
+18. **Canceled-show blocklist** — `data/canceled_shows.json` is canonical. Removing a slug from the blocklist (un-canceling) requires Robert's written approval and a Scope Change Proposal.
 
 ---
 
