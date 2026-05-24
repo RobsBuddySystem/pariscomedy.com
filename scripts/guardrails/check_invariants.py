@@ -285,6 +285,8 @@ def main() -> int:
     check_audit_public_shows_strict(failures)
     check_provenance_block_test(failures)
     check_paris_places_normalizer(failures)
+    check_language_classifier(failures)
+    check_language_inventory(failures)
     check_mirror_drift(failures)
     check_archive_rows_clean(failures)
     if not args.offline:
@@ -472,6 +474,28 @@ def check_archive_rows_clean(failures: Failures) -> None:
                 f"archive row {slug!r} (id={rid}) is publicly active but verified_at={lv!r} "
                 f"is not today ({today}); run scripts/guardrails/audit_archive_rows.py"
             )
+
+
+def check_language_classifier(failures: Failures) -> None:
+    """Classifier unit tests must pass."""
+    import subprocess
+    p = subprocess.run(["python3", str(ROOT / "scripts/guardrails/test_language_classifier.py")],
+                       capture_output=True, text=True, timeout=15)
+    if p.returncode != 0:
+        for line in p.stdout.splitlines():
+            if line.strip().startswith("- "):
+                failures.add(f"language-classifier: {line.strip().lstrip('- ')}")
+
+
+def check_language_inventory(failures: Failures) -> None:
+    """No SHOWS_DATA row may be tagged Bilingual without explicit evidence."""
+    import subprocess
+    p = subprocess.run(["python3", str(ROOT / "scripts/guardrails/test_language_inventory.py")],
+                       capture_output=True, text=True, timeout=60)
+    if p.returncode != 0:
+        for line in p.stdout.splitlines():
+            if line.strip().startswith("- "):
+                failures.add(f"language-inventory: {line.strip().lstrip('- ')}")
 
 
 def check_mirror_drift(failures: Failures) -> None:
