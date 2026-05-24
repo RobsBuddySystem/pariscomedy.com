@@ -287,7 +287,54 @@ def main() -> int:
     check_archive_rows_clean(failures)
     if not args.offline:
         check_listings_endpoint_consistency(failures)
+        check_homepage_truthfulness(failures)
     return failures.report()
+
+
+def check_homepage_truthfulness(failures: Failures) -> None:
+    """The homepage must not contradict the featured API. Stale launch copy,
+    hardcoded dates, and overclaims are all forbidden."""
+    HOMEPAGE = "https://pariscomedy.com/"
+    FEATURED = "https://api.pariscomedy.com/api/listings?featured=1"
+    # Static stale-copy patterns (always forbidden)
+    FORBIDDEN = [
+        ("May 19–25",                  "hardcoded date range"),
+        ("first 100 show runners",     "stale launch copy"),
+        ("First 100 Featured listings","stale launch banner"),
+        ("every show in Paris",        "overclaim — DB not fully verified"),
+        ("archive-2026-04-13",         "internal provenance leak"),
+        ("verification_source",        "internal provenance leak"),
+        ("runner_email",               "PII leak"),
+        ("Robert Hoehn",               "PII leak"),
+        ("chucklericain",              "PII leak"),
+        ("velvet-openmic",             "canceled slug"),
+        ("Velvet Bar Comedy — Open Mic","canceled show name"),
+    ]
+    try:
+        home = http_get(HOMEPAGE)
+    except Exception as e:
+        failures.add(f"homepage truthfulness: cannot fetch {HOMEPAGE}: {e!r}")
+        return
+    for needle, why in FORBIDDEN:
+        if needle in home:
+            failures.add(f"homepage contains forbidden copy ({why}): {needle!r}")
+    # API ↔ homepage consistency: if featured API is empty, homepage must
+    # NOT claim featured shows exist via the "Verified, highlighted comedy
+    # nights in Paris" subtitle or the "These shows are Featured" CTA.
+    try:
+        feat = json.loads(http_get(FEATURED))
+    except Exception:
+        feat = None
+    if feat == []:
+        bad_when_empty = [
+            "Verified, highlighted comedy nights in Paris",
+            "These shows are Featured",
+        ]
+        for needle in bad_when_empty:
+            if needle in home:
+                failures.add(
+                    f"featured API is empty but homepage still claims featured shows exist: {needle!r}"
+                )
 
 
 def check_listings_endpoint_consistency(failures: Failures) -> None:

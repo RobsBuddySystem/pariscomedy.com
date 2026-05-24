@@ -222,15 +222,15 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 </div>
 
 <!-- Featured Shows Section -->
-<section>
+<section id="featured-shows-section">
   <div class="section-title">Featured Shows</div>
-  <div class="section-sub">Verified, highlighted comedy nights in Paris</div>
+  <div class="section-sub" id="featured-shows-sub">Loading…</div>
   <div class="featured-grid" id="featured-grid">
-    <!-- 3 equal Featured cards rendered by renderFeatured() from /api/listings?featured=1 -->
+    <!-- Cards rendered by renderFeatured() from /api/listings?featured=1.
+         Subtitle + CTA below are rewritten honestly based on what the API returns;
+         see renderFeatured() in the script block. -->
   </div>
-  <div class="featured-section-cta">
-    These shows are Featured — <a href="/venues.html">your show could be here →</a>
-  </div>
+  <div class="featured-section-cta" id="featured-shows-cta"></div>
 </section>
 
 <!-- FEATURED TONIGHT (shows happening tonight) -->
@@ -334,7 +334,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">
     <div>
       <h2 style="font-size:22px;font-weight:700">Coming Up This Week</h2>
-      <p style="color:#888;font-size:14px;margin-top:4px">Upcoming comedy shows in Paris &middot; May 19–25</p>
+      <p style="color:#888;font-size:14px;margin-top:4px">Upcoming comedy shows in Paris this week</p>
     </div>
     <a href="/shows.html" style="color:#f5c518;font-size:13px;font-weight:600">See all shows &rarr;</a>
   </div>
@@ -347,7 +347,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 
 <section style="max-width:720px;margin:24px auto 0;padding:24px;background:#111;border:1px solid #1e1e1e;border-radius:12px">
   <div style="font-size:18px;font-weight:700;margin-bottom:6px">Want to know what&rsquo;s on tonight?</div>
-  <div style="font-size:13px;color:#888;margin-bottom:14px;line-height:1.5">One weekly email — every show in Paris, every new venue, every comic worth catching. No spam, unsubscribe anytime.</div>
+  <div style="font-size:13px;color:#888;margin-bottom:14px;line-height:1.5">One weekly email — verified English and bilingual comedy listings in Paris, new venues, new comics. No spam, unsubscribe anytime.</div>
   <form id="newsletter-form" onsubmit="return submitNewsletter(event)" style="display:flex;gap:8px;flex-wrap:wrap">
     <label for="newsletter-email" style="position:absolute;left:-9999px">Email</label>
     <input id="newsletter-email" type="email" required placeholder="you@example.com" style="flex:1;min-width:200px;padding:10px 12px;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:8px;color:#f0f0f0;font:inherit">
@@ -741,13 +741,23 @@ function seededShuffle(arr, seed) {
 
 async function renderFeatured() {
   const grid = document.getElementById('featured-grid');
+  const sub  = document.getElementById('featured-shows-sub');
+  const cta  = document.getElementById('featured-shows-cta');
   if (!grid) return;
   let api = '';
   try { const c = await fetch('/api-config.json').then(r => r.json()); api = c.api || ''; } catch (e) {}
   let listings = [];
   try { listings = await fetch(api + '/api/listings?featured=1').then(r => r.json()); } catch (e) {}
   const picks = (listings || []).slice(0, 3);
-  if (!picks.length) { grid.innerHTML = ''; return; }
+  if (!picks.length) {
+    // Honest empty state — no fake cards, no "verified highlighted" claim.
+    grid.innerHTML = '';
+    if (sub) sub.textContent = 'No featured shows right now.';
+    if (cta) cta.innerHTML = 'Featured spots are open — <a href="/pricing.html#featured-promo">claim one →</a>';
+    return;
+  }
+  if (sub) sub.textContent = 'Editorial picks and paid Featured Show Promos.';
+  if (cta) cta.innerHTML = 'Want your show featured? <a href="/pricing.html#featured-promo">See pricing →</a>';
   grid.innerHTML = picks.map(l => {
     const days = (l.days && l.days[0]) || '';
     const venue = (l.venue && l.venue.name) || l.venue_name_raw || '';
