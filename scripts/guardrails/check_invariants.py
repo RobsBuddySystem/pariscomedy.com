@@ -27,16 +27,18 @@ EXCLUDE_FROM_HTML_SCAN = {
     "logs", "docs",
 }
 
-FORBIDDEN_STRINGS_HTML = [
-    "@pariscomedy",
-    "instagram.com/pariscomedy",
-    "chucklericain@gmail.com",
-    "Robert Hoehn",
-    "First 100 Featured listings FREE",
-    "Every show listing is verified",
-    "Every Eventbrite link is live",
-    "34+ active shows",
-    "27+ venues",
+# NOTE: @pariscomedy must be the standalone IG handle, NOT the email suffix.
+# Use regex with a negative-lookbehind on email-local characters.
+FORBIDDEN_REGEX = [
+    (r"(?<![a-zA-Z0-9._%+\-])@pariscomedy\b", "@pariscomedy IG handle"),
+    (r"instagram\.com/pariscomedy", "instagram.com/pariscomedy link"),
+    (r"chucklericain@gmail\.com", "chucklericain@gmail.com PII"),
+    (r"\bRobert Hoehn\b", "Robert Hoehn real name"),
+    (r"First 100 Featured listings FREE", "stale launch banner"),
+    (r"Every show listing is verified", "false-claim verified"),
+    (r"Every Eventbrite link is live", "false-claim every link live"),
+    (r"\b34\+ active shows\b", "false-count 34+ shows"),
+    (r"\b27\+ venues\b", "false-count 27+ venues"),
 ]
 FORBIDDEN_CASE_INSENSITIVE = ["stripe"]
 
@@ -85,22 +87,22 @@ def http_get(url: str, timeout: int = 12) -> str:
 
 def check_repo_html_strings(failures: Failures) -> None:
     """Scan every .html in the repo for forbidden public copy."""
+    patterns = [(re.compile(p), label) for p, label in FORBIDDEN_REGEX]
+    stripe_re = re.compile(r"\bstripe\b", re.IGNORECASE)
     for pat in PUBLIC_HTML_GLOBS:
         for f in ROOT.glob(pat):
             if any(part in EXCLUDE_FROM_HTML_SCAN for part in f.parts):
                 continue
             text = f.read_text(errors="replace")
-            for needle in FORBIDDEN_STRINGS_HTML:
-                if needle in text:
+            for rx, label in patterns:
+                if rx.search(text):
                     failures.add(
-                        f"repo: '{needle}' present in {f.relative_to(ROOT)}"
+                        f"repo: {label} present in {f.relative_to(ROOT)}"
                     )
-            low = text.lower()
-            for needle in FORBIDDEN_CASE_INSENSITIVE:
-                if needle in low:
-                    failures.add(
-                        f"repo: '{needle}' (case-insensitive) present in {f.relative_to(ROOT)}"
-                    )
+            if stripe_re.search(text):
+                failures.add(
+                    f"repo: 'stripe' (word) present in {f.relative_to(ROOT)}"
+                )
 
 
 def check_live_pages(failures: Failures) -> None:
@@ -111,18 +113,14 @@ def check_live_pages(failures: Failures) -> None:
             bodies[url] = http_get(url)
         except Exception as e:
             failures.add(f"live: cannot fetch {url}: {e!r}")
+    patterns = [(re.compile(p), label) for p, label in FORBIDDEN_REGEX]
+    stripe_re = re.compile(r"\bstripe\b", re.IGNORECASE)
     for url, body in bodies.items():
-        for needle in FORBIDDEN_STRINGS_HTML:
-            if needle in body:
-                failures.add(f"live {url}: '{needle}' present")
-        low = body.lower()
-        for needle in FORBIDDEN_CASE_INSENSITIVE:
-            if needle in low:
-                # Stripe substring may appear inside CSS like 'stripe-pattern';
-                # require word boundary in URLs/copy
-                if re.search(r"\bstripe\b", low):
-                    failures.add(f"live {url}: '{needle}' (word) present")
-                    break
+        for rx, label in patterns:
+            if rx.search(body):
+                failures.add(f"live {url}: {label} present")
+        if stripe_re.search(body):
+            failures.add(f"live {url}: 'stripe' (word) present")
 
     # / vs /?lang=en banner copy must match
     home = bodies.get("https://pariscomedy.com/", "")
