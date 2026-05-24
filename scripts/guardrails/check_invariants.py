@@ -285,7 +285,78 @@ def main() -> int:
     check_audit_public_shows_strict(failures)
     check_provenance_block_test(failures)
     check_archive_rows_clean(failures)
+    if not args.offline:
+        check_listings_endpoint_consistency(failures)
     return failures.report()
+
+
+def check_listings_endpoint_consistency(failures: Failures) -> None:
+    """The featured-filtered endpoint must serve the same public fields as the
+    unfiltered endpoint. Any divergence is a split-brain bug (different
+    serializer, stale cache, stale process, or two backends)."""
+    FORBIDDEN_KEYS = {
+        "runner", "runner_email", "source", "verification_source",
+        "cancellation_reason", "quarantine_reason", "quarantined_at",
+        "quarantined_by", "previous_status", "verified_by",
+        "public_visible", "blocked_from_auto_regeneration",
+    }
+    FORBIDDEN_VALUE_SUBSTRINGS = ["archive-2026-04-13", "Robert-editorial",
+                                  "Robert Hoehn", "chucklericain"]
+    try:
+        full     = json.loads(http_get("https://api.pariscomedy.com/api/listings"))
+        featured = json.loads(http_get("https://api.pariscomedy.com/api/listings?featured=1"))
+    except Exception as e:
+        failures.add(f"listings-consistency: live fetch failed: {e!r}")
+        return
+
+    # 1. No forbidden keys leaked in either endpoint
+    for label, payload in (("/api/listings", full), ("/api/listings?featured=1", featured)):
+        for row in payload:
+            leaked = set(row.keys()) & FORBIDDEN_KEYS
+            if leaked:
+                failures.add(f"{label}: forbidden keys leaked: {sorted(leaked)}")
+
+    # 2. No forbidden substrings anywhere in either response body
+    for label, payload in (("/api/listings", full), ("/api/listings?featured=1", featured)):
+        body_str = json.dumps(payload)
+        for needle in FORBIDDEN_VALUE_SUBSTRINGS:
+            if needle in body_str:
+                failures.add(f"{label}: forbidden substring leaked: {needle!r}")
+
+    # 3. For every slug present in both, public fields must match
+    by_slug_full = {r["slug"]: r for r in full if r.get("slug")}
+    by_slug_feat = {r["slug"]: r for r in featured if r.get("slug")}
+    for slug in set(by_slug_full) & set(by_slug_feat):
+        a, b = by_slug_full[slug], by_slug_feat[slug]
+        for k in ("name", "status", "featured", "verified_at", "venue"):
+            if a.get(k) != b.get(k):
+                failures.add(
+                    f"split-brain on slug={slug!r} field={k}: "
+                    f"/api/listings={a.get(k)!r} vs "
+                    f"/api/listings?featured=1={b.get(k)!r}"
+                )
+
+    # 4. Featured endpoint must not return rows whose featured flag is 0
+    for r in featured:
+        if r.get("featured") != 1:
+            failures.add(
+                f"/api/listings?featured=1 returned row featured={r.get('featured')} "
+                f"(slug={r.get('slug')!r})"
+            )
+
+    # 5. canceled blocklist slugs must be absent in both
+    blocklist = ROOT / "data" / "canceled_shows.json"
+    if blocklist.exists():
+        try:
+            cancel = json.loads(blocklist.read_text())
+            slugs = {e["slug"] for e in cancel.get("canceled", [])}
+            for label, payload in (("/api/listings", full),
+                                   ("/api/listings?featured=1", featured)):
+                for row in payload:
+                    if (row.get("slug") or "") in slugs:
+                        failures.add(f"{label}: canceled slug present: {row['slug']!r}")
+        except Exception:
+            pass
 
 
 def check_archive_rows_clean(failures: Failures) -> None:
