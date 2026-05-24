@@ -58,3 +58,12 @@ summary: {"run_state":"FAILED",...}   ← honest, not silent
 - Reachable at run time for CLASSIFY calls (some accepted, some rejected = real classification).
 - Intermittent for EXTRACT_PROMPT (performer-name extraction) — non-blocking.
 - run_state honestly logged.
+
+## Playwright pass added 2026-05-24
+
+| Source | Static URLs | Playwright URLs | Outcome |
+|---|---:|---:|---|
+| barbes_comedy | 0 | 1 | 1 raw candidate, dropped no-date |
+| fever_paris | 0 | 0 | honest STUB (Fever uses opaque internal IDs, not /m/<id>- URLs even after JS) |
+
+Full venue_direct group with Playwright: 9 raw / 4 accepted / run_state GREEN.
