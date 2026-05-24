@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CRM — Paris Comedy Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#f0f0f0;min-height:100vh;padding:24px}
+h1{font-size:22px;font-weight:800;margin-bottom:6px}
+.sub{color:#666;font-size:13px;margin-bottom:18px}
+.auth{max-width:380px;margin:80px auto}
+.auth input{width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:8px;color:#f0f0f0;font-size:14px;margin-bottom:10px}
+.auth button{width:100%;padding:11px;background:#7c3aed;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+#main{display:none}
+.tabs{display:flex;gap:8px;border-bottom:1px solid #222;margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:9px 16px;border-radius:6px 6px 0 0;background:transparent;border:none;color:#888;cursor:pointer;font-weight:600;font-size:14px}
+.tab.active{background:#111;color:#fff;border-bottom:2px solid #7c3aed}
+.tab-panel{display:none;background:#111;border:1px solid #1e1e1e;border-radius:10px;padding:18px}
+.tab-panel.active{display:block}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.field{margin-bottom:10px}
+label{font-size:12px;color:#aaa;display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:9px 11px;background:#0f0f0f;border:1px solid #333;border-radius:8px;color:#f0f0f0;font-size:13px;font-family:inherit}
+textarea{min-height:120px;font-family:monospace;font-size:12px}
+button.primary{padding:10px 18px;background:#7c3aed;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px}
+button.primary:hover{opacity:.9}
+button.secondary{padding:10px 18px;background:#1a1a1a;color:#ccc;border:1px solid #333;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:14px}
+.metric{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:8px;padding:12px}
+.metric-num{font-size:24px;font-weight:800;color:#9d5ff5}
+.metric-label{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:.05em}
+.attestation{background:#1a1500;border:1px solid #f5c518;padding:12px;border-radius:8px;margin:14px 0;font-size:13px;color:#f5c518}
+.attestation input[type=checkbox]{width:auto;margin-right:8px}
+.preview{font-family:monospace;font-size:12px;background:#0f0f0f;padding:10px;border-radius:6px;max-height:280px;overflow:auto;color:#aaa;white-space:pre-wrap}
+.msg{margin-top:10px;font-size:13px;min-height:18px}
+.msg.ok{color:#4ade80}.msg.err{color:#fca5a5}
+table{width:100%;font-size:12px;border-collapse:collapse}
+th,td{padding:6px 8px;border-bottom:1px solid #1a1a1a;text-align:left;color:#ccc}
+th{color:#666;font-weight:600}
+.help{font-size:12px;color:#888;line-height:1.6;background:#0a0e1a;padding:10px;border-radius:6px;margin-bottom:10px}
+.help code{color:#9d5ff5}
+</style>
+</head>
+<body>
+
+<div class="auth" id="auth">
+  <h1>CRM Vault</h1>
+  <p class="sub">Admin token required. CRM endpoints are admin-only until per-show-runner auth ships.</p>
+  <input type="password" id="token" placeholder="Admin token" onkeydown="if(event.key==='Enter')login()">
+  <button onclick="login()">Enter →</button>
+  <div id="auth-err" class="msg err"></div>
+</div>
+
+<div id="main">
+  <h1>CRM Vault</h1>
+  <p class="sub">Consent-aware contact storage · import history · email drafts · suppression list</p>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="audience" onclick="showTab('audience')">Audience / CRM</button>
+    <button class="tab" data-tab="import" onclick="showTab('import')">Import / Migrate</button>
+    <button class="tab" data-tab="payments" onclick="showTab('payments')">Payments / SumUp</button>
+    <button class="tab" data-tab="drafts" onclick="showTab('drafts')">Email drafts</button>
+    <button class="tab" data-tab="suppress" onclick="showTab('suppress')">Suppression</button>
+  </div>
+
+  <!-- AUDIENCE / CRM -->
+  <div class="tab-panel active" id="panel-audience">
+    <div class="field">
+      <label>Show slug</label>
+      <input type="text" id="aud-slug" value="ffcn" onchange="loadSummary()">
+    </div>
+    <div class="metric-grid" id="aud-metrics"></div>
+    <button class="secondary" onclick="loadSummary()">Refresh</button>
+  </div>
+
+  <!-- IMPORT -->
+  <div class="tab-panel" id="panel-import">
+    <div class="field">
+      <label>Source platform</label>
+      <select id="imp-type">
+        <option value="eventbrite_attendees_csv">Eventbrite — Attendees CSV</option>
+        <option value="eventbrite_orders_csv">Eventbrite — Orders CSV</option>
+        <option value="sumup_transactions_csv">SumUp — Transactions CSV</option>
+      </select>
+    </div>
+    <div class="help" id="imp-help">
+      <strong>Eventbrite Attendees:</strong> Eventbrite → Manage events → your event → Reports → Attendee Summary → Export CSV.<br>
+      <strong>Eventbrite Orders:</strong> Reports → Orders → Export CSV.<br>
+      <strong>SumUp:</strong> SumUp dashboard → Transactions → Export CSV.<br>
+      Full OAuth/API connectors coming soon — CSV is supported now.
+    </div>
+    <div class="row">
+      <div class="field"><label>Owner email</label><input id="imp-owner" placeholder="you@example.com"></div>
+      <div class="field"><label>Show slug (optional)</label><input id="imp-slug" placeholder="ffcn"></div>
+    </div>
+    <div class="field"><label>Original filename</label><input id="imp-filename" placeholder="attendees-2026-05.csv"></div>
+    <div class="field"><label>Paste CSV</label><textarea id="imp-csv" placeholder="Email,First Name,Last Name,Event Name,..."></textarea></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="secondary" onclick="previewImport()">Preview →</button>
+      <button class="primary" onclick="commitImport()">Commit import →</button>
+    </div>
+    <div class="msg" id="imp-msg"></div>
+
+    <div class="attestation">
+      <label style="color:#f5c518;display:flex;align-items:flex-start;gap:6px">
+        <input type="checkbox" id="imp-attest">
+        <span>I confirm I have permission to upload and contact this list for this show or organization. Imported contacts default to show-owner scope, NOT ParisComedy global marketing. EU/CNIL rules apply.</span>
+      </label>
+    </div>
+
+    <div id="imp-preview"></div>
+
+    <h2 style="margin-top:24px;font-size:16px;color:#aaa">Import history</h2>
+    <div id="imp-history"></div>
+  </div>
+
+  <!-- PAYMENTS -->
+  <div class="tab-panel" id="panel-payments">
+    <div class="help">SumUp API/OAuth not yet wired. Upload SumUp Transactions CSV via Import tab → source <code>sumup_transactions_csv</code>. Backend status:</div>
+    <div id="sumup-status"></div>
+  </div>
+
+  <!-- DRAFTS -->
+  <div class="tab-panel" id="panel-drafts">
+    <div class="row">
+      <div class="field"><label>Show slug</label><input id="dr-slug" value="ffcn"></div>
+      <div class="field"><label>Owner email</label><input id="dr-owner" placeholder="you@example.com"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Audience scope</label>
+        <select id="dr-scope">
+          <option value="own_show_list">This show's imported list</option>
+          <option value="past_attendees">Past attendees</option>
+          <option value="rsvp_list">RSVP list</option>
+          <option value="global_optins">ParisComedy global opt-ins only</option>
+        </select>
+      </div>
+      <div class="field"><label>Show date</label><input id="dr-date" placeholder="2026-06-04"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Venue</label><input id="dr-venue" placeholder="Velvet Bar"></div>
+      <div class="field"><label>Ticket link</label><input id="dr-ticket" placeholder="https://eventbrite.com/..."></div>
+    </div>
+    <div class="field"><label>Subject</label><input id="dr-subject" placeholder="This Wednesday at the show…"></div>
+    <button class="primary" onclick="generateDraft()">Generate draft →</button>
+    <div class="msg" id="dr-msg"></div>
+    <div id="dr-preview"></div>
+  </div>
+
+  <!-- SUPPRESSION -->
+  <div class="tab-panel" id="panel-suppress">
+    <div class="row">
+      <div class="field"><label>Email to suppress</label><input id="sp-email"></div>
+      <div class="field"><label>Scope</label>
+        <select id="sp-scope"><option>global</option><option>show</option><option>owner</option></select>
+      </div>
+    </div>
+    <div class="field"><label>Show slug (if scope=show)</label><input id="sp-slug"></div>
+    <div class="field"><label>Reason</label>
+      <select id="sp-reason">
+        <option>unsubscribed</option><option>bounced</option><option>complaint</option><option>manual_suppression</option>
+      </select>
+    </div>
+    <button class="primary" onclick="suppress()">Suppress →</button>
+    <div class="msg" id="sp-msg"></div>
+  </div>
+</div>
+
+<script>
+let TOKEN = '';
+let API_BASE = '';
+
+async function login() {
+  TOKEN = document.getElementById('token').value.trim();
+  if (!TOKEN) return;
+  try { const c = await fetch('/api-config.json').then(r=>r.json()); API_BASE = c.api || ''; } catch(_) {}
+  // Probe with /api/imports/history
+  const r = await fetch((API_BASE || 'https://api.pariscomedy.com') + '/api/imports/history?token=' + encodeURIComponent(TOKEN));
+  if (r.status === 401) { document.getElementById('auth-err').textContent = 'Invalid token'; return; }
+  document.getElementById('auth').style.display = 'none';
+  document.getElementById('main').style.display = 'block';
+  loadSummary(); loadImportHistory(); loadSumupStatus();
+}
+
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+}
+
+function api(path, opts) {
+  opts = opts || {};
+  opts.headers = Object.assign({'Content-Type':'application/json'}, opts.headers || {});
+  opts.headers['X-Admin-Token'] = TOKEN;
+  return fetch((API_BASE || 'https://api.pariscomedy.com') + path, opts).then(r => r.json());
+}
+
+async function loadSummary() {
+  const slug = document.getElementById('aud-slug').value.trim();
+  if (!slug) return;
+  const d = await api('/api/crm/show/' + slug + '/summary');
+  const html = [
+    ['Total contacts', d.total_contacts],
+    ['Eventbrite history rows', d.eventbrite_history_rows],
+    ['Payments', d.payments_count],
+    ['Total spend', (d.payments_total||0).toFixed(2)],
+    ['Repeat attendees', d.repeat_attendees],
+    ['Suppressed', d.suppressed_count],
+  ].map(([l,v]) => `<div class="metric"><div class="metric-num">${v||0}</div><div class="metric-label">${l}</div></div>`).join('');
+  document.getElementById('aud-metrics').innerHTML = html;
+}
+
+async function previewImport() {
+  const body = {
+    owner_email: document.getElementById('imp-owner').value.trim(),
+    show_slug: document.getElementById('imp-slug').value.trim(),
+    source_type: document.getElementById('imp-type').value,
+    csv_text: document.getElementById('imp-csv').value,
+    original_filename: document.getElementById('imp-filename').value,
+  };
+  const r = await api('/api/imports/preview', {method:'POST', body: JSON.stringify(body)});
+  document.getElementById('imp-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
+  document.getElementById('imp-msg').textContent = r.ok
+    ? `Parsed: ${r.row_count} rows, ${r.valid_count} valid, ${r.duplicate_count} duplicates, ${r.invalid_count} invalid.`
+    : (r.detail || 'preview failed');
+  if (r.ok) {
+    document.getElementById('imp-preview').innerHTML =
+      '<div class="preview">' + (r.preview_sample||[]).map(x => JSON.stringify(x,null,2)).join('\n---\n') + '</div>';
+  }
+}
+
+async function commitImport() {
+  const attested = document.getElementById('imp-attest').checked;
+  if (!attested) { document.getElementById('imp-msg').className='msg err'; document.getElementById('imp-msg').textContent = 'Tick the attestation checkbox first.'; return; }
+  const owner_email = document.getElementById('imp-owner').value.trim();
+  const attestation_text = `Operator ${owner_email} attests on ${new Date().toISOString()} that they have permission to upload and contact this list.`;
+  const body = {
+    owner_email,
+    show_slug: document.getElementById('imp-slug').value.trim(),
+    source_type: document.getElementById('imp-type').value,
+    csv_text: document.getElementById('imp-csv').value,
+    original_filename: document.getElementById('imp-filename').value,
+    attested: true,
+    attestation_text,
+  };
+  const r = await api('/api/imports/commit', {method:'POST', body: JSON.stringify(body)});
+  document.getElementById('imp-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
+  document.getElementById('imp-msg').textContent = r.ok
+    ? `Imported. Batch #${r.batch_id}. Added: ${r.added_contacts}, merged: ${r.merged_contacts}. Raw archive: ${r.archive_path}.`
+    : (r.detail || 'commit failed');
+  loadImportHistory();
+}
+
+async function loadImportHistory() {
+  const d = await api('/api/imports/history');
+  document.getElementById('imp-history').innerHTML = '<table><tr><th>#</th><th>owner</th><th>show</th><th>type</th><th>rows</th><th>valid</th><th>status</th><th>created</th></tr>' +
+    (d.batches||[]).map(b =>
+      `<tr><td>${b.id}</td><td>${b.owner_email||''}</td><td>${b.show_slug||''}</td><td>${b.source_type}</td><td>${b.row_count}</td><td>${b.valid_count}</td><td>${b.status}</td><td>${b.created_at}</td></tr>`
+    ).join('') + '</table>';
+}
+
+async function loadSumupStatus() {
+  const d = await api('/api/sumup/status');
+  document.getElementById('sumup-status').innerHTML = '<pre class="preview">' + JSON.stringify(d, null, 2) + '</pre>';
+}
+
+async function generateDraft() {
+  const slug = document.getElementById('dr-slug').value.trim();
+  const body = {
+    show_slug: slug,
+    owner_email: document.getElementById('dr-owner').value.trim(),
+    audience_scope: document.getElementById('dr-scope').value,
+    subject: document.getElementById('dr-subject').value.trim() || 'Paris Comedy — upcoming show',
+    show_date: document.getElementById('dr-date').value.trim(),
+    venue: document.getElementById('dr-venue').value.trim(),
+    ticket_link: document.getElementById('dr-ticket').value.trim(),
+  };
+  const r = await api('/api/crm/show/' + slug + '/email-draft', {method:'POST', body: JSON.stringify(body)});
+  document.getElementById('dr-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
+  document.getElementById('dr-msg').textContent = r.ok
+    ? `Draft #${r.draft_id} · audience: ${r.audience_count} · suppressed excluded: ${r.excluded_suppressed}`
+    : (r.detail || 'failed');
+  if (r.ok) {
+    document.getElementById('dr-preview').innerHTML =
+      `<div class="preview">Subject: ${r.subject}\n\n${r.body_text}</div>`;
+  }
+}
+
+async function suppress() {
+  const body = {
+    email: document.getElementById('sp-email').value.trim(),
+    scope: document.getElementById('sp-scope').value,
+    show_slug: document.getElementById('sp-slug').value.trim(),
+    reason: document.getElementById('sp-reason').value,
+  };
+  const r = await api('/api/crm/suppress', {method:'POST', body: JSON.stringify(body)});
+  document.getElementById('sp-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
+  document.getElementById('sp-msg').textContent = r.ok ? `Suppressed ${r.suppressed} (${r.scope})` : (r.detail || 'failed');
+}
+
+// Auto-login if ?token= in URL
+const u = new URLSearchParams(location.search).get('token');
+if (u) { document.getElementById('token').value = u; login(); }
+</script>
+</body>
+</html>

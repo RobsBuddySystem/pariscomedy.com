@@ -122,6 +122,10 @@ footer a:hover{color:var(--text)}
       <h2 id="sr-title">List your comedy show</h2>
       <p class="subhead" id="sr-subhead">Get your show in front of Paris Comedy's audience. Submit your details and we'll get you listed.</p>
       <div id="form-show-runner">
+        <div class="field" id="claimant-name-field" style="display:none">
+          <label>Your name <span class="req">*</span></label>
+          <input type="text" id="sr-claimant-name" placeholder="Your full name (the person claiming this show)">
+        </div>
         <div class="field">
           <label>Show name <span class="req">*</span></label>
           <input type="text" id="sr-showname" placeholder="Your comedy night's name">
@@ -485,6 +489,12 @@ async function submitShowRunner() {
   const claimSlug = params.get('claim');
   try {
     if (claimSlug) {
+      // In claim mode the claimant_name is a SEPARATE field (#sr-claimant-name).
+      // show_name = the show being claimed (locked from URL params).
+      // claimant_name = the human submitting the claim.
+      const claimantNameEl = document.getElementById('sr-claimant-name');
+      const claimantName = claimantNameEl ? claimantNameEl.value.trim() : '';
+      if (!claimantName) { err.textContent = 'Please enter your name (the person claiming this show).'; btn.disabled=false; btn.textContent='List my show →'; return; }
       let api = '';
       try { const c = await fetch('/api-config.json').then(r=>r.json()); api = c.api || ''; } catch(_) {}
       const r = await fetch((api || 'https://api.pariscomedy.com') + '/api/show/claim', {
@@ -494,7 +504,7 @@ async function submitShowRunner() {
           show_name: params.get('show_name') || showname,
           source_url: params.get('source_url') || '',
           venue: params.get('venue') || venue,
-          claimant_name: showname,            // reuse field as claimant display
+          claimant_name: claimantName,          // separate from show_name
           claimant_email: email,
           role: 'show_runner',
           message: `day=${day}, time=${time}, eventbrite=${eventbrite}`,
@@ -533,6 +543,17 @@ async function submitShowRunner() {
   // Prefill venue
   const ven = params.get('venue');
   if (ven) document.getElementById('sr-venue').value = ven;
+  // Prefill show name from URL param and lock the field so the claimant
+  // cannot accidentally overwrite the show being claimed.
+  const lockedShowName = document.getElementById('sr-showname');
+  if (lockedShowName) {
+    lockedShowName.value = nm;
+    lockedShowName.readOnly = true;
+    lockedShowName.style.opacity = '0.7';
+  }
+  // Reveal the claimant-name field
+  const cnf = document.getElementById('claimant-name-field');
+  if (cnf) cnf.style.display = '';
   // Update success message
   document.getElementById('sr-success').textContent = 'Claim received. We will review and contact you within 48 hours.';
 })();

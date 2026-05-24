@@ -288,6 +288,7 @@ def main() -> int:
     check_language_classifier(failures)
     check_language_inventory(failures)
     check_show_profile_pages(failures)
+    check_crm_safety(failures)
     check_mirror_drift(failures)
     check_archive_rows_clean(failures)
     if not args.offline:
@@ -486,6 +487,17 @@ def check_language_classifier(failures: Failures) -> None:
         for line in p.stdout.splitlines():
             if line.strip().startswith("- "):
                 failures.add(f"language-classifier: {line.strip().lstrip('- ')}")
+
+
+def check_crm_safety(failures: Failures) -> None:
+    """No contact dumps or API tokens in public files; archives outside repo."""
+    import subprocess
+    p = subprocess.run(["python3", str(ROOT / "scripts/guardrails/test_crm_safety.py")],
+                       capture_output=True, text=True, timeout=15)
+    if p.returncode != 0:
+        for line in p.stdout.splitlines():
+            if line.strip().startswith("- "):
+                failures.add(f"crm-safety: {line.strip().lstrip('- ')}")
 
 
 def check_show_profile_pages(failures: Failures) -> None:
