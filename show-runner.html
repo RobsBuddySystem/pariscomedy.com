@@ -134,19 +134,55 @@ th{color:#666}
         <div class="field"><label>Website</label><input id="pp-website" placeholder="https://…"></div>
       </div>
       <button class="primary" onclick="saveDraft()">Save draft →</button>
+      <button class="gold" onclick="publishDraft()" style="margin-left:6px">Publish safe changes →</button>
+      <a id="pp-view-public" href="#" target="_blank" style="margin-left:10px;color:#9cf">View public page ↗</a>
+      <button class="secondary" onclick="copyLink()" style="margin-left:6px">Copy link</button>
       <div class="msg" id="pp-msg"></div>
+      <h2>Pending admin review</h2>
+      <div id="pp-pending" style="color:#888">None</div>
+      <h2>Currently published</h2>
+      <div id="pp-published" style="color:#888">None</div>
     </div>
 
-    <!-- DATES (read-only this cycle; data model exists for owner-write next) -->
+    <!-- DATES (full write UI) -->
     <div class="panel" id="panel-dates">
-      <div class="help">Date editing UI ships next. Read view shows what the public page currently displays.</div>
-      <div id="dates-list"></div>
+      <div class="help">Add upcoming dates. Past dates are rejected. Cancelled/sold-out dates update the public page on next load.</div>
+      <div class="row">
+        <div class="field"><label>Date (YYYY-MM-DD)</label><input id="dt-date" placeholder="2026-06-15"></div>
+        <div class="field"><label>Start time</label><input id="dt-time" placeholder="20:30"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Ticket URL (per date, optional)</label><input id="dt-ticket"></div>
+        <div class="field"><label>Source URL (optional)</label><input id="dt-source"></div>
+      </div>
+      <button class="primary" onclick="addDate()">Add date →</button>
+      <div class="msg" id="dt-msg"></div>
+      <h2>Upcoming + past dates</h2>
+      <div id="dates-list">Loading…</div>
     </div>
 
-    <!-- LINEUP -->
+    <!-- LINEUP (full write UI) -->
     <div class="panel" id="panel-lineup">
-      <div class="help">Lineup drafts are private by default. Toggle "Publish lineup" to expose on the public page (admin review may apply).</div>
-      <div id="lineup-list">Lineup editor ships next. Use the booker dashboard for now.</div>
+      <div class="help">Lineup items are private until published. Private notes never appear publicly. Add a comic slug to link to their profile.</div>
+      <div class="row">
+        <div class="field"><label>Comic name</label><input id="ln-name"></div>
+        <div class="field"><label>Comic slug (optional)</label><input id="ln-slug" placeholder="sebastian-marx"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Status</label>
+          <select id="ln-status">
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="declined">Declined</option>
+          </select>
+        </div>
+        <div class="field"><label>Position</label><input id="ln-pos" type="number" value="0" style="width:80px"></div>
+      </div>
+      <div class="field"><label>Public note (shown publicly when published)</label><input id="ln-note"></div>
+      <button class="primary" onclick="addLineup()">Add to lineup →</button>
+      <div class="msg" id="ln-msg"></div>
+      <h2>Current lineup</h2>
+      <div id="lineup-list">Loading…</div>
     </div>
 
     <!-- TICKETING -->
@@ -260,6 +296,7 @@ async function login() {
   document.getElementById('app').style.display = 'block';
   localStorage.setItem('pc_owner_token', TOKEN);
   loadOverview(); loadDraft(); loadAudience(); loadReservations(); loadImports();
+  loadDates(); loadLineup(); loadPending();
 }
 
 function api(path, opts) {
@@ -274,6 +311,117 @@ function showTab(name) {
   if (name === 'audience') loadAudience();
   if (name === 'ticketing') loadReservations();
   if (name === 'import') loadImports();
+  if (name === 'dates') loadDates();
+  if (name === 'lineup') loadLineup();
+  if (name === 'public-page') loadPending();
+}
+
+async function loadPending() {
+  const d = await api('/api/owner/show/' + currentSlug + '/draft');
+  const pend = d.pending_changes || [];
+  document.getElementById('pp-pending').innerHTML = pend.length
+    ? pend.map(p => `<div style="padding:4px 0;color:#fcb">⏳ <b>${p.field}</b>: "${(p.old||'').slice(0,40)}" → "${(p.requested||'').slice(0,40)}" (id ${p.id})</div>`).join('')
+    : '<span style="color:#666">None</span>';
+  const pub = d.published || {};
+  const fields = ['tagline','description','venue','ticket_url','instagram','website','ticket_mode'];
+  const lines = fields.map(f => pub[f] ? `<div style="padding:3px 0;color:#9c9"><b>${f}</b>: ${String(pub[f]).slice(0,140)}</div>` : '').filter(Boolean);
+  document.getElementById('pp-published').innerHTML = lines.length ? lines.join('') : '<span style="color:#666">Nothing published yet</span>';
+  document.getElementById('pp-view-public').href = showUrl;
+}
+
+async function publishDraft() {
+  const ev = (document.getElementById('pp-evidence').value || '').trim();
+  const r = await api('/api/owner/show/' + currentSlug + '/publish',
+    {method:'POST', body: JSON.stringify(ev ? {evidence: ev} : {})});
+  const m = document.getElementById('pp-msg');
+  if (r.ok) {
+    const safe = (r.applied_immediately||[]).join(', ') || 'none';
+    const pend = (r.pending_admin_review||[]).join(', ');
+    m.className = 'msg ok';
+    m.textContent = `Published immediately: ${safe}. Pending admin review: ${pend||'none'}.`;
+    loadPending();
+  } else {
+    m.className = 'msg err'; m.textContent = r.detail || 'failed';
+  }
+}
+
+async function loadDates() {
+  const d = await api('/api/owner/show/' + currentSlug + '/dates');
+  const rows = d.dates || [];
+  if (!rows.length) { document.getElementById('dates-list').innerHTML = '<div style="color:#666">No dates yet.</div>'; return; }
+  document.getElementById('dates-list').innerHTML =
+    '<table><tr><th>Date</th><th>Time</th><th>Status</th><th>Ticket</th><th>Actions</th></tr>' +
+    rows.map(r => `<tr>
+      <td>${r.show_date}</td><td>${r.start_time||''}</td>
+      <td>${r.status}</td>
+      <td>${r.ticket_url ? `<a href="${r.ticket_url}" target="_blank" rel="noopener">link ↗</a>` : ''}</td>
+      <td>
+        ${r.status==='scheduled' ? `<button class="secondary" onclick="dateSoldOut(${r.id})">Sold out</button>` : ''}
+        ${r.status!=='cancelled' ? `<button class="secondary" onclick="dateCancel(${r.id})">Cancel</button>` : ''}
+      </td></tr>`).join('') + '</table>';
+}
+async function addDate() {
+  const body = {
+    show_date: document.getElementById('dt-date').value.trim(),
+    start_time: document.getElementById('dt-time').value.trim() || null,
+    ticket_url: document.getElementById('dt-ticket').value.trim() || null,
+    source_url: document.getElementById('dt-source').value.trim() || null,
+  };
+  const r = await api('/api/owner/show/' + currentSlug + '/dates', {method:'POST', body: JSON.stringify(body)});
+  const m = document.getElementById('dt-msg');
+  m.className = 'msg ' + (r.ok?'ok':'err');
+  m.textContent = r.ok ? `Added date #${r.id} (${r.status})` : (r.detail || 'failed');
+  if (r.ok) { document.getElementById('dt-date').value=''; document.getElementById('dt-time').value=''; document.getElementById('dt-ticket').value=''; document.getElementById('dt-source').value=''; loadDates(); }
+}
+async function dateSoldOut(id) {
+  await api('/api/owner/show/' + currentSlug + '/dates/' + id + '/sold-out', {method:'POST', body:'{}'});
+  loadDates();
+}
+async function dateCancel(id) {
+  if (!confirm('Cancel this date? It will be hidden from the public page.')) return;
+  await api('/api/owner/show/' + currentSlug + '/dates/' + id + '/cancel', {method:'POST', body:'{}'});
+  loadDates();
+}
+
+async function loadLineup() {
+  const d = await api('/api/owner/show/' + currentSlug + '/lineup');
+  const rows = d.lineup || [];
+  if (!rows.length) { document.getElementById('lineup-list').innerHTML = '<div style="color:#666">Empty.</div>'; return; }
+  document.getElementById('lineup-list').innerHTML =
+    '<table><tr><th>#</th><th>Comic</th><th>Status</th><th>Published</th><th>Actions</th></tr>' +
+    rows.map(r => `<tr>
+      <td>${r.position||0}</td>
+      <td>${r.comic_slug ? `<a href="/comics/${r.comic_slug}.html" target="_blank" rel="noopener">${r.comic_name}</a>` : r.comic_name}</td>
+      <td>${r.status}</td>
+      <td>${r.published?'✓ public':'private'}</td>
+      <td>
+        ${r.published
+          ? `<button class="secondary" onclick="lineupUnpub(${r.id})">Unpublish</button>`
+          : `<button class="primary" onclick="lineupPub(${r.id})">Publish</button>`}
+        <button class="secondary" onclick="lineupDel(${r.id})">Delete</button>
+      </td></tr>`).join('') + '</table>';
+}
+async function addLineup() {
+  const body = {
+    comic_name: document.getElementById('ln-name').value.trim(),
+    comic_slug: document.getElementById('ln-slug').value.trim() || null,
+    status: document.getElementById('ln-status').value,
+    note: document.getElementById('ln-note').value.trim() || null,
+    position: parseInt(document.getElementById('ln-pos').value || '0', 10),
+  };
+  if (!body.comic_name) { document.getElementById('ln-msg').className='msg err'; document.getElementById('ln-msg').textContent='Name required'; return; }
+  const r = await api('/api/owner/show/' + currentSlug + '/lineup', {method:'POST', body: JSON.stringify(body)});
+  const m = document.getElementById('ln-msg');
+  m.className = 'msg ' + (r.ok?'ok':'err');
+  m.textContent = r.ok ? `Added #${r.id} (private)` : (r.detail || 'failed');
+  if (r.ok) { document.getElementById('ln-name').value=''; document.getElementById('ln-slug').value=''; document.getElementById('ln-note').value=''; loadLineup(); }
+}
+async function lineupPub(id) { await api('/api/owner/show/' + currentSlug + '/lineup/' + id + '/publish', {method:'POST', body:'{}'}); loadLineup(); }
+async function lineupUnpub(id) { await api('/api/owner/show/' + currentSlug + '/lineup/' + id + '/unpublish', {method:'POST', body:'{}'}); loadLineup(); }
+async function lineupDel(id) {
+  if (!confirm('Delete this lineup item?')) return;
+  await api('/api/owner/show/' + currentSlug + '/lineup/' + id, {method:'DELETE'});
+  loadLineup();
 }
 
 function copyLink() {
