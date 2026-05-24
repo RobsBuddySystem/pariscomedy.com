@@ -192,16 +192,19 @@ def check_scraper_run_state(failures: Failures) -> None:
         failures.add(f"scraper summary: cannot parse {summary_path}: {e!r}")
         return
     state = s.get("run_state")
-    if state not in ("GREEN", "FAILED"):
+    if state not in ("GREEN", "FAILED", "PARTIAL"):
         failures.add(
-            f"scraper summary: run_state must be 'GREEN' or 'FAILED', got {state!r} "
-            f"(in {summary_path})"
+            f"scraper summary: run_state must be 'GREEN'|'FAILED'|'PARTIAL', "
+            f"got {state!r} (in {summary_path})"
         )
-    # If zero new + zero raw_events but state=GREEN, that's a false success
-    if state == "GREEN" and s.get("new_shows", 0) == 0 and s.get("raw_events", 0) == 0:
+    # If state=GREEN, classifier must have been reachable and we must have raw events
+    if state == "GREEN" and s.get("raw_events", 0) == 0:
         failures.add(
-            "scraper summary: run_state=GREEN but new_shows=0 AND raw_events=0 — "
-            "must be FAILED when no sources produced anything"
+            "scraper summary: run_state=GREEN but raw_events=0 — must be FAILED"
+        )
+    if state == "GREEN" and s.get("classifier_unreachable", 0) > 0:
+        failures.add(
+            "scraper summary: run_state=GREEN but classifier was unreachable — must be PARTIAL"
         )
 
 
