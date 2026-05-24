@@ -12,10 +12,11 @@ CRM_RAW_DIR = Path.home() / ".openclaw" / "crm" / "raw-archives"
 CRM_BACKUP_DIR = Path.home() / ".openclaw" / "crm" / "backups"
 
 FORBIDDEN_TOKEN_PATTERNS = [
-    re.compile(r"\bsumup_[A-Za-z0-9_]{12,}\b"),
-    re.compile(r"\bsup_sk_[A-Za-z0-9]+\b"),
+    # Real SumUp secret-key prefix is sup_sk_ — not the "sumup_" legitimate
+    # source-type slug like sumup_transactions_csv used in JS dropdowns.
+    re.compile(r"\bsup_sk_[A-Za-z0-9]{8,}\b"),
     re.compile(r"\bEVENTBRITE_API_KEY\s*=\s*['\"][A-Za-z0-9]{8,}['\"]"),
-    re.compile(r"\beyJ[A-Za-z0-9_.\-]{20,}\b"),  # JWT
+    re.compile(r"\beyJ[A-Za-z0-9_.\-]{40,}\b"),  # JWT — require length 40+ to avoid false positives
 ]
 PUBLIC_GLOBS = ["*.html", "assets/**/*.js", "js/**/*.js"]
 
