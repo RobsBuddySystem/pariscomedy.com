@@ -210,7 +210,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 <div class="hero-wrap">
   <div class="hero-left">
     <h1>The Home of<br><span class="accent">English-Language</span><br>Comedy in Paris</h1>
-    <p>Stand-up every night of the week. English, French, bilingual. Tourists, expats, locals — all welcome.</p>
+    <p>Stand-up throughout the week. English, French, bilingual. Tourists, expats, locals — all welcome.</p>
     <div class="cta-row">
       <a href="#shows-section" class="btn-primary">Find Tonight's Show →</a>
       <a href="/book.html" class="btn-secondary">Book a Private Show</a>
@@ -276,7 +276,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
     <a href="/book.html#booker" class="connect-card">
       <div class="connect-icon">📋</div>
       <div class="connect-title">I want to book talent</div>
-      <div class="connect-sub">Looking for a comedian for your event? We connect bookers with the best English-language acts in Paris.</div>
+      <div class="connect-sub">Looking for a comedian for your event? We help bookers reach verified English-language comics performing in Paris.</div>
       <span class="connect-btn">Get in touch →</span>
     </a>
   </div>
@@ -303,15 +303,15 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   <div class="faq-list">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Are the shows in English?</div>
-      <div class="faq-a">Most shows on Paris Comedy are English-language or bilingual (English + French). Each listing is clearly labelled. If you only speak English, look for shows tagged EN — there's something on every night of the week.</div>
+      <div class="faq-a">Most shows on Paris Comedy are English-language or bilingual (English + French). Each listing is clearly labelled. If you only speak English, look for shows tagged EN — there are regular English and bilingual shows throughout the week.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I buy tickets?</div>
       <div class="faq-a">Most shows list tickets through Eventbrite. Click "Check current listing" on any show card and confirm the date on the source before you go. Some shows are free or pay-what-you-can at the door.</div>
     </div>
 <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">How do I get a Featured listing?</div>
-      <div class="faq-a">Featured placement is reserved for paid Featured Show Promos and editorial picks. See <a href="/pricing.html" style="color:var(--purple-light)">pricing</a> for promo tiers (€5 / 7 days · €15 / 30 days · €40 / 90 days). Listings in the directory are not ranked by source — discovery surface is neutral.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">How do I promote a listing?</div>
+      <div class="faq-a">Promoted placement is available through our paid <strong>Featured Show Promo</strong> product (the SKU name) and via editorial picks. See <a href="/pricing.html" style="color:var(--purple-light)">pricing</a> for promo tiers (€5 / 7 days · €15 / 30 days · €40 / 90 days). Listings in the directory are not ranked by source — discovery surface is neutral.</div>
     </div>
   </div>
 </section>
@@ -769,10 +769,23 @@ async function renderPromotedThisWeek() {
   const grid = document.getElementById('promoted-show-grid');
   const section = document.getElementById('promoted-week-section');
   if (!grid || !section) return;
-  let api = '';
-  try { const c = await fetch('/api-config.json').then(r => r.json()); api = c.api || ''; } catch(_) {}
+  // Resolve API base. Fall back to the canonical production host if the
+  // /api-config.json fetch fails so the promoted section still appears when
+  // the static config is missing or temporarily 404s.
+  const DEFAULT_API = 'https://api.pariscomedy.com';
+  let api = DEFAULT_API;
+  try {
+    const c = await fetch('/api-config.json').then(r => r.json());
+    if (c && c.api) api = c.api;
+  } catch (e) {
+    console.warn('[pc] api-config.json fetch failed, defaulting to', DEFAULT_API, e);
+  }
   let promoted = [];
-  try { promoted = await fetch(api + '/api/listings?featured=1').then(r => r.json()); } catch(_) {}
+  try {
+    promoted = await fetch(api + '/api/listings?featured=1').then(r => r.json());
+  } catch (e) {
+    console.warn('[pc] /api/listings?featured=1 fetch failed', e);
+  }
   promoted = (promoted || []).slice(0, 3);
   if (!promoted.length) {
     section.style.display = 'none';

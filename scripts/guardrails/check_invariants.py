@@ -310,6 +310,10 @@ def check_homepage_truthfulness(failures: Failures) -> None:
         ("every show in Paris",             "overclaim"),
         ("every English stand-up show",     "overclaim"),
         ("Every show in the directory",     "overclaim"),
+        ("Stand-up every night of the week","overclaim — DB not nightly verified"),
+        ("something on every night of the week","overclaim"),
+        ("best English-language acts in Paris","unsupported superlative"),
+        ("best English-language acts",      "unsupported superlative"),
         ("Featured Tonight",                "day-of-week mislabeled as Featured"),
         ("Featured Shows This Week",        "section name forbidden — use Promoted"),
         ("Rotating weekly",                 "obsolete weekly-rotation copy"),
@@ -357,6 +361,9 @@ def check_homepage_truthfulness(failures: Failures) -> None:
             "These shows are Featured",
             "every English stand-up show", "Every show in the directory",
             "claim your free Featured listing",
+            "Stand-up every night of the week",
+            "something on every night of the week",
+            "best English-language acts in Paris",
         ):
             if rendered_forbidden in body:
                 # If the featured API is non-empty, "Promoted"-style headings
