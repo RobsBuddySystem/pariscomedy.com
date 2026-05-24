@@ -22,3 +22,8 @@ $ python3 scripts/guardrails/check_invariants.py        → ✅ GREEN
 $ python3 scripts/guardrails/audit_public_shows.py      → ✅ GREEN (41/41)
 $ python3 scripts/guardrails/audit_archive_rows.py      → ✅ GREEN (14 kept, 164 quarantined, 0 leaks)
 ```
+
+## Homepage featured widget audit — live regression (2026-05-24 17:40 CEST)
+- /api/listings?featured=1 → `[]`
+- /shows.html, /index, /api/* — all clean across 11 forbidden strings
+- Playwright rendered DOM: featured section shows truthful empty state, no stale phrases visible

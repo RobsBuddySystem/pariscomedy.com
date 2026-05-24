@@ -1,23 +1,19 @@
-# WORKSESSION HUD — Audit archive-2026-04-13 rows 2026-05-24
+# WORKSESSION HUD — Homepage featured widget audit 2026-05-24
 
 ## Phase: DONE
 ## GO/HOLD: GREEN ✅
 
-## Result
-- 179 archive/import rows audited
-- 14 proven (live URL + future-date or recurrence text)
-- 164 quarantined (status=stale_hidden, featured=0, public_visible=0)
-- 1 already canceled (velvet-openmic)
-- 0 manual review
+## Root cause
+- renderFeatured() emptied the grid on API `[]` but the surrounding static subtitle/CTA kept claiming featured shows existed
+- 3 other stale-copy artifacts (May 19–25, every show in Paris, internal JS date comment)
 
 ## Fixes
-- Public API was leaking `source: archive-2026-04-13` — now stripped (added to _LISTING_PRIVATE_FIELDS)
-- `is_past` check was overriding future-date proofs on Eventbrite recurring events — reordered priority
-- Featured-venue-diversity check now skips empty list (canon-allowed)
-- DB schema extended: status enum + 8 new audit columns
+- Subtitle + CTA now rewritten by JS based on API result
+- Empty state: "No featured shows right now." + "Featured spots are open — claim one →"
+- Hardcoded date replaced with timeless copy
+- Newsletter overclaim corrected
+- check_homepage_truthfulness() invariant added: 11 forbidden strings + 2 conditional
 
-## Guardrails added
-- scripts/guardrails/audit_archive_rows.py (probes URLs, requires proof, rehabs proven rows)
-- check_invariants.check_archive_rows_clean() (cheap DB-level check)
+## Live + rendered both verified clean
 
-## Live verification: 8 forbidden terms × 4 public endpoints = 0 HITS
+## Commits: d3fdf50 + 0fe9257
