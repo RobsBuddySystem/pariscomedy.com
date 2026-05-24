@@ -3,7 +3,12 @@
 // lineup, links). Static HTML remains the fallback if API fails.
 // Never displays owner_email, RSVP emails, CRM data, or private lineup notes.
 (function(){
-  const slug = (window.SHOW_SLUG || '').trim();
+  function deriveSlug() {
+    if (window.SHOW_SLUG) return String(window.SHOW_SLUG).trim();
+    const m = location.pathname.match(/\/shows\/([a-z0-9-]+)\.html$/i);
+    return m ? m[1] : '';
+  }
+  const slug = deriveSlug();
   if (!slug) return;
   const safeText = s => (s == null) ? '' : String(s).replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'})[c]);
   const safeUrl = s => {
