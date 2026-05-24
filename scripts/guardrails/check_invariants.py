@@ -56,6 +56,11 @@ LIVE_PAGES = [
     "https://pariscomedy.com/admin-events.html",
 ]
 LIVE_API = "https://api.pariscomedy.com/api/listings?featured=1"
+LIVE_PUBLIC_APIS = [
+    "https://api.pariscomedy.com/api/listings",
+    "https://api.pariscomedy.com/api/listings?featured=1",
+    "https://api.pariscomedy.com/api/shows",
+]
 
 
 class Failures:
@@ -142,6 +147,54 @@ def check_live_pages(failures: Failures) -> None:
         failures.add("live comedians.html: no embedded COMICS and no .comic-card markup")
 
 
+def check_no_pii_any_public_api(failures: Failures) -> None:
+    """Every public listings/shows endpoint must be free of PII."""
+    pii_patterns = [
+        re.compile(r"chucklericain", re.I),
+        re.compile(r"\bRobert Hoehn\b"),
+        re.compile(r'"runner_email"\s*:\s*"[^"]+"'),
+    ]
+    for url in LIVE_PUBLIC_APIS:
+        try:
+            body = http_get(url, timeout=10)
+        except Exception as e:
+            failures.add(f"PII check: cannot fetch {url}: {e!r}")
+            continue
+        for rx in pii_patterns:
+            if rx.search(body):
+                failures.add(f"PII leak on {url}: pattern {rx.pattern!r}")
+
+
+def check_shows_list_correctness(failures: Failures) -> None:
+    """SHOWS_DATA on /shows.html must be present, parse, and not be empty."""
+    try:
+        body = http_get("https://pariscomedy.com/shows.html")
+    except Exception as e:
+        failures.add(f"shows.html: cannot fetch: {e!r}")
+        return
+    import re as _re
+    m = _re.search(r'const SHOWS_DATA\s*=\s*(\[.*?\]);', body, _re.S)
+    if not m:
+        failures.add("shows.html: SHOWS_DATA array not found")
+        return
+    try:
+        data = json.loads(m.group(1))
+    except Exception as e:
+        failures.add(f"shows.html: SHOWS_DATA invalid JSON: {e!r}")
+        return
+    if not data:
+        failures.add("shows.html: SHOWS_DATA is empty")
+        return
+    # Duplicate detection: (show_name, venue, date, start_time)
+    seen = {}
+    for r in data:
+        key = (r.get("show_name", ""), r.get("venue", ""),
+               r.get("date", ""), r.get("start_time") or "")
+        if key in seen and key[2] and key[3]:
+            failures.add(f"shows.html: duplicate show row: {key!r}")
+        seen[key] = True
+
+
 def check_live_featured_api(failures: Failures) -> None:
     try:
         raw = http_get(LIVE_API)
@@ -222,6 +275,8 @@ def main() -> int:
     if not args.offline:
         check_live_pages(failures)
         check_live_featured_api(failures)
+        check_no_pii_any_public_api(failures)
+        check_shows_list_correctness(failures)
     return failures.report()
 
 
