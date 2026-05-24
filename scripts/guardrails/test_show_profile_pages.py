@@ -28,6 +28,12 @@ FORBIDDEN = [
     "Rotating weekly",
     "first 100 show runners",
     "First 100 Featured listings",
+    "undefined",
+    ">None<",
+]
+ARTIFACT_PATTERNS = [
+    "href=\"\"",  # empty href is broken
+    "href=\"undefined\"",
 ]
 
 
@@ -61,6 +67,27 @@ def main() -> int:
         for needle in FORBIDDEN:
             if needle in text:
                 failures.append(f"/shows/{slug}.html: forbidden copy {needle!r}")
+        for art in ARTIFACT_PATTERNS:
+            if art in text:
+                failures.append(f"/shows/{slug}.html: broken artifact {art!r}")
+        # 3b. Claim link must carry show_slug
+        if f"/book.html?claim={slug}" not in text:
+            failures.append(f"/shows/{slug}.html: Claim link missing show_slug param")
+        # 3c. JSON-LD EventSeries
+        if '"@type": "EventSeries"' not in text and '"@type":"EventSeries"' not in text:
+            failures.append(f"/shows/{slug}.html: missing JSON-LD EventSeries")
+        # 3d. OG metadata
+        if 'property="og:title"' not in text:
+            failures.append(f"/shows/{slug}.html: missing OG metadata")
+        # 3e. Canonical URL
+        if f'rel="canonical" href="https://pariscomedy.com/shows/{slug}.html"' not in text:
+            failures.append(f"/shows/{slug}.html: missing/wrong canonical URL")
+        # 3f. Ownership UI placeholder present (loaded via JS)
+        if 'ownership-badge' not in text:
+            failures.append(f"/shows/{slug}.html: missing ownership badge placeholder")
+        # 3g. Copy-link button present
+        if 'copyShowLink' not in text:
+            failures.append(f"/shows/{slug}.html: missing copy-link affordance")
 
         # 4. Required structural elements
         if "/shows.html" not in text:

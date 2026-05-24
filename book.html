@@ -114,8 +114,13 @@ footer a:hover{color:var(--text)}
   <!-- Path 1: Show Runner -->
   <div class="path active" id="show-runner">
     <div class="section-card">
-      <h2>List your comedy show</h2>
-      <p class="subhead">Get your show in front of Paris Comedy's audience. Submit your details and we'll get you listed.</p>
+      <div id="claim-banner" style="display:none;background:#1a1500;border:1px solid #f5c518;border-radius:8px;padding:14px 16px;margin-bottom:16px">
+        <div style="font-size:13px;color:#f5c518;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Claim this show</div>
+        <div style="margin-top:6px;font-size:15px;color:#f0f0f0">You are claiming: <strong id="claim-show-name"></strong></div>
+        <div style="margin-top:4px;font-size:12px;color:#888">Slug: <code id="claim-show-slug" style="color:#9d5ff5"></code> · Page: <a id="claim-show-url" href="#" style="color:#9d5ff5"></a></div>
+      </div>
+      <h2 id="sr-title">List your comedy show</h2>
+      <p class="subhead" id="sr-subhead">Get your show in front of Paris Comedy's audience. Submit your details and we'll get you listed.</p>
       <div id="form-show-runner">
         <div class="field">
           <label>Show name <span class="req">*</span></label>
@@ -474,8 +479,32 @@ async function submitShowRunner() {
   if (!showname || !venue || !email) { err.textContent = 'Please fill in Show name, Venue and Email.'; return; }
   const btn = document.querySelector('#show-runner .btn-primary');
   btn.disabled = true; btn.textContent = 'Submitting…';
+  // If this is a claim (?claim=<slug>), route to the dedicated /api/show/claim endpoint
+  // so the slug is stored on the show_claims row, not a generic lead.
+  const params = new URLSearchParams(location.search);
+  const claimSlug = params.get('claim');
   try {
-    await postForm({ _type: 'show_listing', show_name: showname, venue, day, time, eventbrite_url: eventbrite, email });
+    if (claimSlug) {
+      let api = '';
+      try { const c = await fetch('/api-config.json').then(r=>r.json()); api = c.api || ''; } catch(_) {}
+      const r = await fetch((api || 'https://api.pariscomedy.com') + '/api/show/claim', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          show_slug: claimSlug,
+          show_name: params.get('show_name') || showname,
+          source_url: params.get('source_url') || '',
+          venue: params.get('venue') || venue,
+          claimant_name: showname,            // reuse field as claimant display
+          claimant_email: email,
+          role: 'show_runner',
+          message: `day=${day}, time=${time}, eventbrite=${eventbrite}`,
+        }),
+      });
+      const d = await r.json();
+      if (!r.ok || !d.ok) throw new Error(d.detail || 'claim failed');
+    } else {
+      await postForm({ _type: 'show_listing', show_name: showname, venue, day, time, eventbrite_url: eventbrite, email });
+    }
     document.getElementById('form-show-runner').style.display = 'none';
     document.getElementById('sr-success').style.display = 'block';
   } catch(e) {
@@ -483,6 +512,30 @@ async function submitShowRunner() {
     btn.disabled = false; btn.textContent = 'List my show →';
   }
 }
+
+// Preload claim banner from query params (?claim=slug&show_name=...&source_url=...&venue=...)
+(function preloadClaim() {
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('claim');
+  if (!slug) return;
+  const banner = document.getElementById('claim-banner');
+  if (!banner) return;
+  banner.style.display = 'block';
+  const nm = params.get('show_name') || slug;
+  document.getElementById('claim-show-name').textContent = nm;
+  document.getElementById('claim-show-slug').textContent = slug;
+  const a = document.getElementById('claim-show-url');
+  a.href = '/shows/' + slug + '.html';
+  a.textContent = 'pariscomedy.com/shows/' + slug + '.html';
+  // Adjust headings
+  document.getElementById('sr-title').textContent = 'Claim: ' + nm;
+  document.getElementById('sr-subhead').textContent = 'You are claiming a show page. We review every claim within 48 hours before any ownership badge is shown publicly.';
+  // Prefill venue
+  const ven = params.get('venue');
+  if (ven) document.getElementById('sr-venue').value = ven;
+  // Update success message
+  document.getElementById('sr-success').textContent = 'Claim received. We will review and contact you within 48 hours.';
+})();
 
 async function submitComedian() {
   const name = document.getElementById('co-name').value.trim();

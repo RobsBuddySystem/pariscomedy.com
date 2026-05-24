@@ -94,8 +94,29 @@ footer a{color:#666}footer a:hover{color:#f0f0f0}
   <div class="cta-row">
     <a class="cta-btn cta-primary" target="_blank" rel="noopener sponsored" href="/r.html?kind=show&id=the-dissident-comedy-show&url=https://www.eventbrite.fr/e/the-dissident-comedy-show-tickets-1985334998424">Check current listing →</a>
     
-    <a class="cta-btn cta-purple" href="/pricing.html#featured-promo">Promote this show →</a>
-    <a class="cta-btn" href="/book.html?claim=the-dissident-comedy-show">Claim this show →</a>
+    <a class="cta-btn cta-purple" href="/pricing.html#featured-promo" data-track-event="promote_show_click">Promote this show →</a>
+    <a class="cta-btn" href="/book.html?claim=the-dissident-comedy-show&amp;show_name=The Dissident Comedy Show&amp;source_url=https://www.eventbrite.fr/e/the-dissident-comedy-show-tickets-1985334998424&amp;venue=The Dissident Club" data-track-event="claim_show_click">Claim this show →</a>
+  </div>
+
+  <div id="rsvp-section" style="display:none;margin:20px 0;padding:18px;background:#111;border:1px solid #1e1e1e;border-radius:10px">
+    <h2 style="margin-top:0">Reserve a seat</h2>
+    <form id="rsvp-form" onsubmit="return submitRsvp(event,'the-dissident-comedy-show')">
+      <label style="position:absolute;left:-9999px" for="rsvp-name">Your name</label>
+      <input type="text" id="rsvp-name" placeholder="Your name" required style="width:100%;padding:9px 11px;background:#0f0f0f;border:1px solid #333;border-radius:8px;color:#f0f0f0;margin-bottom:8px">
+      <label style="position:absolute;left:-9999px" for="rsvp-email">Email</label>
+      <input type="email" id="rsvp-email" placeholder="you@example.com" required style="width:100%;padding:9px 11px;background:#0f0f0f;border:1px solid #333;border-radius:8px;color:#f0f0f0;margin-bottom:8px">
+      <label style="position:absolute;left:-9999px" for="rsvp-party">Party size</label>
+      <input type="number" id="rsvp-party" placeholder="Party size (1–12)" required min="1" max="12" value="1" style="width:100%;padding:9px 11px;background:#0f0f0f;border:1px solid #333;border-radius:8px;color:#f0f0f0;margin-bottom:8px">
+      <input type="text" id="rsvp-note" placeholder="Optional note" style="width:100%;padding:9px 11px;background:#0f0f0f;border:1px solid #333;border-radius:8px;color:#f0f0f0;margin-bottom:8px">
+      <button type="submit" class="cta-btn cta-primary">Reserve on Paris Comedy</button>
+      <div id="rsvp-msg" style="margin-top:8px;font-size:13px;min-height:18px"></div>
+    </form>
+  </div>
+
+  <div id="ownership-row" style="margin-top:18px;font-size:13px;color:#888">
+    <span id="ownership-badge">⏳ Loading ownership…</span>
+    <span style="margin-left:10px"><button type="button" onclick="copyShowLink()" style="background:none;border:1px solid #333;color:#888;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px">📋 Copy link</button></span>
+    <span id="copy-msg" style="margin-left:10px;color:#4ade80;font-size:12px"></span>
   </div>
 
   <p class="muted">
@@ -103,6 +124,65 @@ footer a{color:#666}footer a:hover{color:#f0f0f0}
     ← Back to <a href="/shows.html">all shows</a>.
   </p>
 </div>
+
+<script>
+const SHOW_SLUG = "the-dissident-comedy-show";
+const SHOW_NAME = "The Dissident Comedy Show";
+const CANONICAL_URL = 'https://pariscomedy.com/shows/the-dissident-comedy-show.html';
+
+async function loadOwnership() {
+  const el = document.getElementById('ownership-badge');
+  if (!el) return;
+  try {
+    let api = '';
+    try { const c = await fetch('/api-config.json').then(r=>r.json()); api = c.api || ''; } catch(_) {}
+    const r = await fetch((api || 'https://api.pariscomedy.com') + '/api/show/' + encodeURIComponent(SHOW_SLUG) + '/ownership');
+    const d = await r.json();
+    el.textContent = d.claimed ? '✓ Managed by show runner' : '◯ Unclaimed show page';
+  } catch(_) { el.textContent = '◯ Unclaimed show page'; }
+}
+loadOwnership();
+
+function copyShowLink() {
+  navigator.clipboard.writeText(CANONICAL_URL).then(() => {
+    const m = document.getElementById('copy-msg');
+    m.textContent = 'Copied!';
+    setTimeout(() => m.textContent = '', 1800);
+  });
+}
+
+async function submitRsvp(e, slug) {
+  e.preventDefault();
+  const msg = document.getElementById('rsvp-msg');
+  msg.textContent = 'Reserving…';
+  try {
+    let api = '';
+    try { const c = await fetch('/api-config.json').then(r=>r.json()); api = c.api || ''; } catch(_) {}
+    const body = {
+      show_slug: slug,
+      show_date: '',
+      guest_name: document.getElementById('rsvp-name').value.trim(),
+      guest_email: document.getElementById('rsvp-email').value.trim(),
+      party_size: parseInt(document.getElementById('rsvp-party').value || '1'),
+      note: document.getElementById('rsvp-note').value.trim(),
+    };
+    const r = await fetch((api || 'https://api.pariscomedy.com') + '/api/show/' + slug + '/rsvp', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body),
+    });
+    const d = await r.json();
+    if (!r.ok || !d.ok) throw new Error(d.detail || 'rsvp failed');
+    msg.style.color = '#4ade80';
+    msg.textContent = 'Reserved! Reservation #' + d.reservation_id;
+  } catch(err) {
+    msg.style.color = '#fca5a5';
+    msg.textContent = err.message || 'Could not reserve — try again.';
+  }
+  return false;
+}
+// RSVP form only renders when the page declares ticket_mode='pariscomedy_rsvp'.
+// For now no show is opted in — form stays hidden. To enable: set
+// window.SHOW_TICKET_MODE = 'pariscomedy_rsvp' from per-show data.
+</script>
 
 <footer>
   <div class="footer-links">
