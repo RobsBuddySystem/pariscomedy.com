@@ -18,7 +18,6 @@ WEEKDAY_MAP = {
 # IMPORTANT: Do NOT include paname-archive (archived:true)
 RECURRING_SHOWS = [
     # SHOWS array
-    {"id":"velvet-openmic","name":"Velvet Bar Comedy — Open Mic","venueName":"Velvet Bar","address":"43 Rue Saint-Honoré, 75001 Paris","neighborhood":"Les Halles (1er)","day":"Wednesday","time":"19:00","bookingUrl":"https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713","featured":False,"type":"openmic"},
     {"id":"velvet-comedy","name":"Velvet Bar Comedy — Le meilleur du stand-up","venueName":"Velvet Bar","address":"43 Rue Saint-Honoré, 75001 Paris","neighborhood":"Les Halles (1er)","day":"Wednesday","time":"20:30","bookingUrl":"https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338","featured":True,"type":"standup"},
     {"id":"ffcn","name":"French Fried Comedy Night","venueName":"Velvet Bar","address":"43 Rue Saint-Honoré, 75001 Paris","neighborhood":"Les Halles (1er)","day":"Wednesday","time":"22:00","bookingUrl":"https://www.eventbrite.com/e/french-fried-comedy-night-tickets-603182383747","featured":True,"type":"standup"},
     # OTHER_SHOWS_RAW

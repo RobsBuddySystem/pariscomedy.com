@@ -1,0 +1,16 @@
+{
+  "_comment": "Canonical list of shows that must NOT appear publicly. Daily scraper, backend API serializer, and SHOWS_DATA invariant checker all consult this file. Add a slug here to permanently hide a show; do not delete DB rows (keep audit trail).",
+  "_updated": "2026-05-24",
+  "canceled": [
+    {
+      "slug": "velvet-openmic",
+      "names": ["Velvet Bar Comedy — Open Mic", "Velvet Bar Comedy Open Mic", "Velvet Open Mic"],
+      "status": "canceled",
+      "public_visible": false,
+      "blocked_from_auto_regeneration": true,
+      "verified_at": "2026-05-24",
+      "verified_by": "Robert (manual admin)",
+      "cancellation_reason": "Robert confirmed Velvet Bar Open Mic canceled on 2026-05-04 (vault: Open-Mic-Suspended-2026-05-04); rolled back 4 invented future rows that were added in commit 645cbab on 2026-05-24"
+    }
+  ]
+}

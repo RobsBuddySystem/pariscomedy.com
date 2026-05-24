@@ -277,7 +277,73 @@ def main() -> int:
         check_live_featured_api(failures)
         check_no_pii_any_public_api(failures)
         check_shows_list_correctness(failures)
+        check_canceled_blocklist(failures)
+        check_show_provenance(failures)
     return failures.report()
+
+
+def check_canceled_blocklist(failures: Failures) -> None:
+    """Every slug/name in data/canceled_shows.json must be absent from public surface."""
+    blocklist_path = ROOT / "data" / "canceled_shows.json"
+    if not blocklist_path.exists():
+        return
+    try:
+        blocklist = json.loads(blocklist_path.read_text())
+    except Exception as e:
+        failures.add(f"canceled_shows.json invalid JSON: {e!r}")
+        return
+    slugs = [e["slug"] for e in blocklist.get("canceled", [])]
+    names = []
+    for e in blocklist.get("canceled", []):
+        names.extend(e.get("names", []))
+    # 1. shows.html SHOWS_DATA
+    sh = ROOT / "shows.html"
+    if sh.exists():
+        text = sh.read_text()
+        for s in slugs:
+            if s in text:
+                failures.add(f"canceled blocklist: '{s}' found in shows.html")
+        for n in names:
+            if n in text:
+                failures.add(f"canceled blocklist: '{n}' found in shows.html")
+    # 2. Live public API
+    try:
+        body = http_get("https://api.pariscomedy.com/api/listings")
+        for s in slugs:
+            if f'"slug":"{s}"' in body:
+                failures.add(f"canceled blocklist: '{s}' present in live /api/listings")
+        body2 = http_get("https://api.pariscomedy.com/api/listings?featured=1")
+        for s in slugs:
+            if f'"slug":"{s}"' in body2:
+                failures.add(f"canceled blocklist: '{s}' present in /api/listings?featured=1")
+    except Exception as e:
+        failures.add(f"canceled blocklist live check failed: {e!r}")
+
+
+def check_show_provenance(failures: Failures) -> None:
+    """Every SHOWS_DATA row must have ticket_url, source_url, last_verified_at."""
+    sh = ROOT / "shows.html"
+    if not sh.exists():
+        return
+    m = re.search(r"const SHOWS_DATA\s*=\s*(\[.*?\]);", sh.read_text(), re.S)
+    if not m:
+        return
+    try:
+        data = json.loads(m.group(1))
+    except Exception:
+        return
+    today = __import__("datetime").datetime.now().date().isoformat()
+    for r in data:
+        rid = r.get("id", "")
+        if not r.get("ticket_url"):
+            failures.add(f"provenance {rid!r}: missing ticket_url")
+        if not r.get("source_url"):
+            failures.add(f"provenance {rid!r}: missing source_url")
+        if not (r.get("last_verified_at") or r.get("verified_at")):
+            failures.add(f"provenance {rid!r}: missing verified_at")
+        lv = r.get("last_verified_at") or ""
+        if lv and lv > today:
+            failures.add(f"provenance {rid!r}: last_verified_at in the future ({lv!r})")
 
 
 if __name__ == "__main__":

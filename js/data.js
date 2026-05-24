@@ -51,11 +51,6 @@ const VENUES = [
 });
 
 const SHOWS = [
-    { id:'velvet-openmic', name:'Velvet Bar Comedy — Open Mic', shortName:'Open Mic', venue:'velvet', type:'openmic', day:'Wednesday', time:'19:00', price:'Free', emoji:'🎙️',
-      description:'Sign up, step up, make them laugh. All levels welcome — the best open mic at Velvet Bar (43 Rue Saint-Honoré, 75001, near Châtelet).',
-      descFr:'Inscrivez-vous, montez sur scène, faites-les rire. Tous niveaux bienvenus.',
-      descEs:'Inscríbete, sube al escenario, hazlos reír. Todos los niveles son bienvenidos.',
-      bookingUrl:'https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713' + UTM, featured:false },
     { id:'velvet-comedy', name:'Velvet Bar Comedy — Le meilleur du stand-up', shortName:'Comedy Night', venue:'velvet', type:'standup', day:'Wednesday', time:'20:30', price:'Free', emoji:'🎭',
       description:'Curated showcase — the best comics in Paris on one stage. Bilingual, unpredictable, unforgettable.',
       descFr:'Showcase soigné — les meilleurs humoristes de Paris sur une même scène. Bilingue, imprévisible, inoubliable.',
