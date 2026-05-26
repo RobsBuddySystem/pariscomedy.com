@@ -65,7 +65,25 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .btn-secondary:hover{border-color:#777}
 
 /* Tonight right panel */
-.hero-right{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;min-height:220px}
+.hero-right{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;min-height:220px;display:flex;flex-direction:column}
+.next3-panel{display:flex;flex-direction:column;gap:12px;flex:1}
+.next3-head{display:flex;align-items:center;justify-content:space-between}
+.next3-eyebrow{font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--muted)}
+.next3-eyebrow strong{color:var(--text)}
+.next3-count{font-size:12px;color:var(--muted)}
+.next3-day{border-top:1px solid var(--border);padding-top:10px}
+.next3-day:first-of-type{border-top:0;padding-top:0}
+.next3-day-label{font-size:10px;font-weight:700;letter-spacing:.10em;color:#c9a84c;text-transform:uppercase;margin-bottom:6px}
+.next3-row{display:flex;align-items:baseline;gap:10px;padding:5px 0}
+.next3-row + .next3-row{border-top:1px dashed rgba(255,255,255,.06)}
+.next3-time{font-size:12px;color:var(--yellow);font-weight:700;flex-shrink:0;min-width:46px}
+.next3-show{flex:1;min-width:0;font-size:13px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.next3-show a{color:inherit}
+.next3-venue{font-size:11px;color:var(--muted);flex-shrink:0;max-width:38%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.next3-quiet{font-size:12px;color:var(--muted);padding:4px 0;font-style:italic}
+.next3-more{font-size:11px;color:var(--muted);padding:4px 0 0 56px}
+.next3-cta{margin-top:auto;display:block;text-align:center;padding:10px;border-radius:8px;background:var(--gold);color:#000;font-size:12px;font-weight:700;text-decoration:none}
+.next3-cta:hover{opacity:.9}
 .tonight-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .tonight-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .tonight-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:6px;box-shadow:0 0 8px #4ade80}
@@ -79,6 +97,17 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .next-night-msg{padding:20px 0;text-align:center;color:var(--muted);font-size:14px;line-height:1.6}
 .next-night-msg strong{color:var(--text)}
 .next-night-msg a{color:var(--purple-light);font-weight:600}
+.tonight-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px 8px;min-height:160px;gap:10px}
+.tonight-empty-icon{font-size:28px;line-height:1;opacity:.85}
+.tonight-empty-title{font-size:15px;font-weight:700;color:var(--text)}
+.tonight-empty-sub{font-size:13px;color:var(--muted);line-height:1.5;max-width:300px}
+.tonight-empty-sub strong{color:var(--text)}
+.tonight-empty-next{display:flex;flex-direction:column;gap:6px;width:100%;max-width:300px;margin-top:4px;padding:12px;border-radius:10px;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.25)}
+.tonight-empty-next-label{font-size:10px;font-weight:700;letter-spacing:.08em;color:#c9a84c;text-transform:uppercase}
+.tonight-empty-next-name{font-size:14px;font-weight:700;color:var(--text)}
+.tonight-empty-next-meta{font-size:12px;color:var(--muted)}
+.tonight-empty-cta{display:inline-block;margin-top:4px;padding:9px 14px;border-radius:8px;background:var(--gold);color:#000;font-size:12px;font-weight:700;text-decoration:none}
+.tonight-empty-cta:hover{opacity:.9}
 
 /* Sections */
 section{max-width:1100px;margin:0 auto;padding:56px 24px}
@@ -212,12 +241,12 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
     <h1>The Home of<br><span class="accent">English-Language</span><br>Comedy in Paris</h1>
     <p>Stand-up throughout the week. English, French, bilingual. Tourists, expats, locals — all welcome.</p>
     <div class="cta-row">
-      <a href="#shows-section" class="btn-primary">Find Tonight's Show →</a>
+      <a href="/shows.html" class="btn-primary">Find Tonight's Show →</a>
       <a href="/book.html" class="btn-secondary">Book a Private Show</a>
     </div>
   </div>
-  <div class="hero-right" id="tonight-panel">
-    <!-- populated by JS -->
+  <div class="hero-right">
+    <div class="next3-panel" id="next3-panel"><!-- populated by JS --></div>
   </div>
 </div>
 
@@ -236,24 +265,6 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
     <div class="weekly-rotation-sub" id="promoted-section-label"></div>
   </div>
   <div class="featured-grid" id="promoted-show-grid"></div>
-</section>
-
-<section id="shows-section">
-  <div class="section-title">Shows This Week</div>
-  <div class="section-sub">English-language comedy nights in Paris — filtered live by tonight</div>
-
-  <!-- Vibe filter chips -->
-  <div class="chip-bar" id="chip-bar">
-    <button class="chip active" data-filter="all" onclick="setFilter('all',this)">All nights</button>
-    <button class="chip" data-filter="tonight" onclick="setFilter('tonight',this)">Tonight</button>
-    <button class="chip" data-filter="weekend" onclick="setFilter('weekend',this)">Weekend</button>
-    <span style="width:1px;background:var(--border);margin:0 4px"></span>
-    <button class="chip chip-lang" data-vibe="English" onclick="toggleVibe('English',this)">English</button>
-    <button class="chip chip-lang" data-vibe="Bilingual" onclick="toggleVibe('Bilingual',this)">Bilingual</button>
-  </div>
-
-  <div class="shows-grid" id="shows-grid"></div>
-  <a href="/shows.html" class="section-cta">See all shows →</a>
 </section>
 
 <!-- Connection Section -->
@@ -316,18 +327,6 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   </div>
 </section>
 
-<!-- This Week Section -->
-<section style="padding:48px 24px;max-width:1100px;margin:0 auto">
-  <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">
-    <div>
-      <h2 style="font-size:22px;font-weight:700">Coming Up This Week</h2>
-      <p style="color:#888;font-size:14px;margin-top:4px">Upcoming comedy shows in Paris this week</p>
-    </div>
-    <a href="/shows.html" style="color:#f5c518;font-size:13px;font-weight:600">See all shows &rarr;</a>
-  </div>
-  <div id="week-shows-row" style="display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch"></div>
-</section>
-
 <section style="max-width:980px;margin:0 auto;padding:0 24px">
   <div data-ad-slot="index-footer-rail"></div>
 </section>
@@ -359,84 +358,11 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 </footer>
 
 <script>
-// ── DATED SHOW INSTANCES — generated by refresh_pariscomedy.py ───────────
-const SHOWS_DATA = [
-  {
-    "id": "comedy-lab-20260521",
-    "show_name": "Comedy Lab",
-    "date": "2026-05-21",
-    "day": "Thursday",
-    "start_time": "20:00",
-    "venue": "Chat Noir",
-    "neighborhood": "Pigalle",
-    "language": [
-      "en"
-    ],
-    "show_type": "showcase",
-    "emoji": "🧪",
-    "description": "English stand-up at Chat Noir — strong tourist fit, central Pigalle location.",
-    "ticket_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679",
-    "source_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679",
-    "price_info": "varies",
-    "verification_status": "admin_seeded",
-    "last_verified_at": "2026-05-19",
-    "claimed": false,
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
-    "source_event_start": "2021-09-15T20:00:00+02:00",
-    "source_event_end": "2027-04-13T20:00:00+02:00"
-  },
-  {
-    "id": "green-mic-showcase-20260522",
-    "show_name": "Green Mic Showcase",
-    "date": "2026-05-22",
-    "day": "Friday",
-    "start_time": "20:30",
-    "venue": "Green Mic",
-    "neighborhood": "Montmartre",
-    "language": [
-      "en"
-    ],
-    "show_type": "showcase",
-    "emoji": "🎙️",
-    "description": "One of the sharpest Friday English showcase rooms in Montmartre.",
-    "ticket_url": "https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-573952757147",
-    "source_url": "https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-573952757147",
-    "price_info": "varies",
-    "verification_status": "admin_seeded",
-    "last_verified_at": "2026-05-19",
-    "claimed": false,
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
-    "source_event_start": "2023-03-12T20:30:00+01:00",
-    "source_event_end": "2026-06-26T21:45:00+02:00"
-  },
-  {
-    "id": "green-mic-comedy-show-20260524",
-    "show_name": "Green Mic Comedy Show",
-    "date": "2026-05-24",
-    "day": "Sunday",
-    "start_time": "19:30",
-    "venue": "Green Mic",
-    "neighborhood": "Montmartre",
-    "language": [
-      "en"
-    ],
-    "show_type": "showcase",
-    "emoji": "🌿",
-    "description": "Sunday English stand-up in Montmartre.",
-    "ticket_url": "https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-214634947907",
-    "source_url": "https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-214634947907",
-    "price_info": "varies",
-    "verification_status": "admin_seeded",
-    "last_verified_at": "2026-05-19",
-    "claimed": false,
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-21T17:41:59+02:00",
-    "source_event_start": "2021-11-28T19:00:00+01:00",
-    "source_event_end": "2026-06-28T20:45:00+02:00"
-  }
-];
+// ── DATED SHOW INSTANCES ─────────────────────────────────────────────────
+// Populated at runtime from /api/listings (see loadShowsData below). No
+// baked snapshot — that path went stale silently when the generator stopped
+// running. Empty array is the correct initial state.
+let SHOWS_DATA = [];
 // ── END SHOWS_DATA ────────────────────────────────────────────────────────
 
 const todayParis = new Date().toLocaleDateString('sv-SE', {timeZone: 'Europe/Paris'});
@@ -472,11 +398,92 @@ function weekEndParis() {
   return d.toISOString().split('T')[0];
 }
 
-const TONIGHT_SHOWS = SHOWS_DATA.filter(s => s.date === todayParis && isFutureShow(s)).sort((a,b) => a.start_time.localeCompare(b.start_time));
-const WEEK_SHOWS = SHOWS_DATA.filter(s => s.date >= todayParis && s.date <= weekEndParis() && isFutureShow(s)).sort((a,b) => {
-  if (a.date !== b.date) return a.date.localeCompare(b.date);
-  return a.start_time.localeCompare(b.start_time);
-});
+let TONIGHT_SHOWS = [];
+let WEEK_SHOWS = [];
+
+function recomputeShowWindows() {
+  TONIGHT_SHOWS = SHOWS_DATA
+    .filter(s => s.date === todayParis && isFutureShow(s))
+    .sort((a,b) => (a.start_time||'').localeCompare(b.start_time||''));
+  WEEK_SHOWS = SHOWS_DATA
+    .filter(s => s.date >= todayParis && s.date <= weekEndParis() && isFutureShow(s))
+    .sort((a,b) => a.date !== b.date
+      ? a.date.localeCompare(b.date)
+      : (a.start_time||'').localeCompare(b.start_time||''));
+}
+
+// Expand /api/listings (recurring weekday shows) into dated instances for the
+// next 7 days, matching the SHOWS_DATA shape the renderers below already use.
+// All date math is done in Europe/Paris explicitly — never via toISOString(),
+// which would shift dates west of midnight for any non-UTC viewer timezone.
+function next7DaysParis() {
+  const fmt = new Intl.DateTimeFormat('en-CA', {timeZone:'Europe/Paris', year:'numeric', month:'2-digit', day:'2-digit', weekday:'long'});
+  const out = [];
+  const now = Date.now();
+  for (let off = 0; off < 7; off++) {
+    const d = new Date(now + off * 86400000);
+    const parts = fmt.formatToParts(d).reduce((a,p)=>(a[p.type]=p.value,a),{});
+    out.push({dateStr: `${parts.year}-${parts.month}-${parts.day}`, dayName: parts.weekday});
+  }
+  return out;
+}
+function expandListingsToInstances(listings) {
+  const out = [];
+  const days7 = next7DaysParis();
+  for (const L of (listings || [])) {
+    if (!L || (L.status && L.status !== 'active')) continue;
+    const days = Array.isArray(L.days) ? L.days : [];
+    for (const {dateStr, dayName} of days7) {
+      if (!days.includes(dayName)) continue;
+      {
+        const venueName = (L.venue && L.venue.name) || L.venue_name_raw || '';
+        out.push({
+          id: (L.slug || 'show') + '-' + dateStr.replace(/-/g,''),
+          show_name: L.name || L.short_name || '',
+          date: dateStr,
+          day: dayName,
+          start_time: L.start_time || '',
+          venue: venueName,
+          neighborhood: (L.venue && (L.venue.city || L.venue.address)) || L.address || '',
+          language: L.language ? [L.language] : ['en'],
+          show_type: L.show_type || 'showcase',
+          description: L.description_en || '',
+          ticket_url: L.booking_url || L.show_url || '',
+          source_url: L.show_url || L.booking_url || '',
+          price_info: L.price || 'varies',
+          verification_status: 'live',
+          // Materialized from a live /api/listings fetch, so the source IS
+          // fresh — the per-listing verified_at (admin manual check) is
+          // separate signal we don't surface in the hero.
+          last_verified_at: todayParis,
+          source_verified_at: L.verified_at || null,
+          claimed: !!L.claimed,
+          ticket_url_status: 'active'
+        });
+      }
+    }
+  }
+  return out;
+}
+
+async function loadShowsData() {
+  const DEFAULT_API = 'https://api.pariscomedy.com';
+  let api = DEFAULT_API;
+  try {
+    const c = await fetch('/api-config.json', {cache:'no-store'}).then(r => r.json());
+    if (c && c.api) api = c.api;
+  } catch (e) {
+    console.warn('[pc] api-config.json fetch failed, defaulting to', DEFAULT_API, e);
+  }
+  try {
+    const listings = await fetch(api + '/api/listings', {cache:'no-store'}).then(r => r.json());
+    SHOWS_DATA = expandListingsToInstances(Array.isArray(listings) ? listings : []);
+  } catch (e) {
+    console.warn('[pc] /api/listings fetch failed', e);
+    SHOWS_DATA = [];
+  }
+  recomputeShowWindows();
+}
 
 // Legacy compat for grid
 const TOP_SHOWS = [];
@@ -556,12 +563,43 @@ function renderTonightPanel() {
   const dayName = DAYS[new Date().getDay()];
 
   if (TONIGHT_SHOWS.length === 0) {
+    // Real no-shows-tonight case (e.g. Mondays in Paris). Render a polished
+    // intentional fallback: surface the next upcoming dated instance from
+    // WEEK_SHOWS so the panel feels alive instead of empty.
+    const upcoming = WEEK_SHOWS.filter(s => s.date > todayParis);
+    const nextShow = upcoming[0] || null;
     const next = nextComedyNight(allShows());
-    const nextText = next
-      ? `Comedy returns <strong>${next.offset === 1 ? 'tomorrow' : next.day}</strong> &middot; ${next.count} show${next.count!==1?'s':''}`
-      : 'No verified upcoming shows found';
-    panel.innerHTML = `<div class="tonight-header"><span><span class="tonight-dot"></span><span class="tonight-label">Tonight &middot; ${dayName}</span></span></div>
-      <div class="next-night-msg">${nextText}<br><br><a href="/shows.html">See this week &rarr;</a></div>`;
+    const dotColor = '#c9a84c';
+    let body;
+    if (nextShow) {
+      const [y,m,d] = nextShow.date.split('-').map(Number);
+      const dt = new Date(y, m - 1, d);
+      const DAY_ABBR = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      const MONTH_ABBR = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const label = (next && next.offset === 1)
+        ? 'Tomorrow'
+        : `${DAY_ABBR[dt.getDay()]} &middot; ${MONTH_ABBR[m-1]} ${d}`;
+      const nextCount = upcoming.filter(s => s.date === nextShow.date).length;
+      const venueLine = [nextShow.venue, nextShow.neighborhood].filter(Boolean).join(' · ');
+      body = `
+        <div class="tonight-empty-icon">🌙</div>
+        <div class="tonight-empty-title">Comedy is quiet on ${dayName}s</div>
+        <div class="tonight-empty-sub">${nextCount} show${nextCount!==1?'s':''} on the schedule next.</div>
+        <div class="tonight-empty-next">
+          <div class="tonight-empty-next-label">Next up &middot; ${label}</div>
+          <div class="tonight-empty-next-name">${(nextShow.show_name||'').replace(/</g,'&lt;')}</div>
+          <div class="tonight-empty-next-meta">${nextShow.start_time||''}${venueLine ? ' &middot; ' + venueLine.replace(/</g,'&lt;') : ''}</div>
+        </div>
+        <a class="tonight-empty-cta" href="/shows.html">See this week's lineup →</a>`;
+    } else {
+      body = `
+        <div class="tonight-empty-icon">🌙</div>
+        <div class="tonight-empty-title">No shows on the schedule this week</div>
+        <div class="tonight-empty-sub">Know a room we're missing? Help us keep the directory current.</div>
+        <a class="tonight-empty-cta" href="/book.html">Submit a show →</a>`;
+    }
+    panel.innerHTML = `<div class="tonight-header"><span><span class="tonight-dot" style="background:${dotColor};box-shadow:0 0 8px ${dotColor}"></span><span class="tonight-label">Tonight &middot; ${dayName}</span></span></div>
+      <div class="tonight-empty">${body}</div>`;
     return;
   }
 
@@ -835,13 +873,70 @@ function launchConfetti() {
   }
 })();
 
+// ── NEXT 3 DAYS PANEL ────────────────────────────────────────────────────
+// Sales-focused hero module: today + next 2 days, grouped by day, with the
+// next sellable times surfaced and a single CTA into the full directory.
+// Replaces the old "Tonight · <day>" panel (which went dead on Mondays) and
+// the standalone "Shows This Week" section (now redundant).
+function renderNext3Panel() {
+  const panel = document.getElementById('next3-panel');
+  if (!panel) return;
+  const days3 = next7DaysParis().slice(0, 3);
+  const labelFor = (d, i) => {
+    if (i === 0) return 'Today · ' + d.dayName;
+    if (i === 1) return 'Tomorrow · ' + d.dayName;
+    return d.dayName;
+  };
+  let totalCount = 0;
+  const blocks = days3.map((d, i) => {
+    let shows = SHOWS_DATA.filter(s => s.date === d.dateStr);
+    if (i === 0) shows = shows.filter(isFutureShow);
+    shows.sort((a,b) => (a.start_time||'').localeCompare(b.start_time||''));
+    totalCount += shows.length;
+    const MAX = 3;
+    const list = shows.slice(0, MAX);
+    let inner;
+    if (list.length === 0) {
+      inner = `<div class="next3-quiet">No shows scheduled · check back</div>`;
+    } else {
+      inner = list.map(s => {
+        const venue = (s.venue || '').replace(/</g,'&lt;');
+        const name = (s.show_name || '').replace(/</g,'&lt;');
+        const href = s.ticket_url
+          ? `/r.html?kind=show&id=${encodeURIComponent(s.id||s.show_name||'')}&url=${encodeURIComponent(s.ticket_url)}`
+          : '#';
+        return `<div class="next3-row">
+          <div class="next3-time">${s.start_time||'—'}</div>
+          <div class="next3-show"><a href="${href}" target="_blank" rel="noopener sponsored">${name}</a></div>
+          <div class="next3-venue">${venue}</div>
+        </div>`;
+      }).join('');
+      if (shows.length > MAX) {
+        inner += `<div class="next3-more">+${shows.length - MAX} more</div>`;
+      }
+    }
+    return `<div class="next3-day">
+      <div class="next3-day-label">${labelFor(d, i)}</div>
+      ${inner}
+    </div>`;
+  }).join('');
+  panel.innerHTML = `
+    <div class="next3-head">
+      <span class="next3-eyebrow"><strong>Next 3 Days</strong> in Paris</span>
+      <span class="next3-count">${totalCount} show${totalCount!==1?'s':''}</span>
+    </div>
+    ${blocks}
+    <a class="next3-cta" href="/shows.html">See all upcoming shows →</a>`;
+}
+
 // ── INIT ──────────────────────────────────────────────────────────────────
-renderTonightPanel();
-renderGrid();
-renderWeekRow();
-renderTonightInParis();
-renderPromotedThisWeek();
-injectEventSchemas();
+(async function initShows() {
+  await loadShowsData();
+  renderNext3Panel();
+  renderTonightInParis();
+  renderPromotedThisWeek();
+  injectEventSchemas();
+})();
 
 async function submitNewsletter(ev) {
   ev.preventDefault();
