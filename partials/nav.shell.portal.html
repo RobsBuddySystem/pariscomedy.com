@@ -5,6 +5,6 @@
     <a href="/booker-portal.html">Booker Portal</a>
     <a href="/booker-dashboard.html">Dashboard</a>
     <a href="/show-runner.html">Show Runner</a>
-    <a href="/login.html">Sign Out</a>
+    <a href="#" onclick="event.preventDefault(); if(window.PCAuth){PCAuth.signOut();}else{location.assign('/login.html');} return false;">Sign Out</a>
   </div>
 </nav>

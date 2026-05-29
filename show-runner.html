@@ -53,6 +53,7 @@ th{color:#666}
 .help code{color:#9d5ff5}
 .copy-btn{font-size:11px;padding:4px 8px;background:#1a1a1a;border:1px solid #333;color:#ccc;border-radius:5px;cursor:pointer}
 </style>
+<script src="/assets/auth-helpers.js" defer></script>
 </head>
 <body>
 <nav class="nav-shell nav-shell-portal">
@@ -62,7 +63,7 @@ th{color:#666}
  <a href="/booker-portal.html">Booker Portal</a>
  <a href="/booker-dashboard.html">Dashboard</a>
  <a href="/show-runner.html" class="nav-active">Show Runner</a>
- <a href="/login.html">Sign Out</a>
+ <a href="#" onclick="event.preventDefault(); if(window.PCAuth){PCAuth.signOut();}else{location.assign('/login.html');} return false;">Sign Out</a>
  </div>
 </nav>
 

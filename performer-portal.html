@@ -25,6 +25,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
 .btn{border:0;border-radius:8px;padding:11px 14px;font-weight:800;cursor:pointer;background:var(--purple);color:#fff}.btn.secondary{background:#1e1e1e;color:var(--text);border:1px solid var(--border)}.btn.gold{background:var(--gold);color:#000}.btn:disabled{opacity:.5;cursor:default}
 .auth{max-width:460px;margin:40px auto}.msg{margin-top:10px;color:var(--muted);line-height:1.45}.err{color:#fca5a5}.ok{color:#86efac}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 </style>
+<script src="/assets/auth-helpers.js" defer></script>
 </head>
 <body>
 <nav class="nav-shell nav-shell-portal">
@@ -34,7 +35,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
     <a href="/booker-portal.html">Booker Portal</a>
     <a href="/booker-dashboard.html">Dashboard</a>
     <a href="/show-runner.html">Show Runner</a>
-    <a href="/login.html">Sign Out</a>
+    <a href="#" onclick="event.preventDefault(); if(window.PCAuth){PCAuth.signOut();}else{location.assign('/login.html');} return false;">Sign Out</a>
   </div>
 </nav>
 <main>

@@ -116,6 +116,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
 .success-toast.show{display:block}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 </style>
+<script src="/assets/auth-helpers.js" defer></script>
 </head>
 <body>
 
@@ -126,7 +127,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
     <a href="/booker-portal.html">Booker Portal</a>
     <a href="/booker-dashboard.html" class="nav-active">Dashboard</a>
     <a href="/show-runner.html">Show Runner</a>
-    <a href="/login.html">Sign Out</a>
+    <a href="#" onclick="event.preventDefault(); if(window.PCAuth){PCAuth.signOut();}else{location.assign('/login.html');} return false;">Sign Out</a>
   </div>
 </nav>
 
