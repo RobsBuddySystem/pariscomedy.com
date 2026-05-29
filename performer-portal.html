@@ -185,12 +185,44 @@ function skipComicTutorial(){localStorage.setItem('comic_tutorial_done','1');doc
 
 // ===== Comic-page claim flow =====
 // Triggered by deep-link `/performer-portal.html?claim=<slug>` from a comic page.
+
+// Pending-claim TTL: stale slugs from old tabs must not silently re-fire
+// claims days/weeks later. Stored as JSON {slug, set_at} with a 24h window.
+const PENDING_CLAIM_TTL_MS = 24 * 60 * 60 * 1000;
+function setPendingClaim(slug) {
+  try {
+    localStorage.setItem('pending_claim_slug', JSON.stringify({ slug, set_at: Date.now() }));
+  } catch (_) { /* storage may be unavailable; ignore */ }
+}
+function getPendingClaim() {
+  let raw;
+  try { raw = localStorage.getItem('pending_claim_slug'); } catch (_) { return null; }
+  if (!raw) return null;
+  // Back-compat: previously stored as a bare slug string.
+  let obj;
+  try { obj = JSON.parse(raw); } catch (_) {
+    // Legacy bare-string value — treat as expired.
+    try { localStorage.removeItem('pending_claim_slug'); } catch (_) {}
+    return null;
+  }
+  if (!obj || typeof obj !== 'object' || !obj.slug || !obj.set_at) {
+    try { localStorage.removeItem('pending_claim_slug'); } catch (_) {}
+    return null;
+  }
+  if (Date.now() - obj.set_at > PENDING_CLAIM_TTL_MS) {
+    try { localStorage.removeItem('pending_claim_slug'); } catch (_) {}
+    return null;
+  }
+  return obj.slug;
+}
+
 (async function handleClaim() {
   const params = new URLSearchParams(window.location.search);
   const slug = (params.get('claim') || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
   if (!slug) return;
   // Persist across the magic-link round-trip — once signed in we redirect back here.
-  localStorage.setItem('pending_claim_slug', slug);
+  // 24h TTL: see setPendingClaim / getPendingClaim above.
+  setPendingClaim(slug);
   // Show banner.
   const banner = document.createElement('div');
   banner.id = 'claim-banner';
@@ -227,8 +259,10 @@ async function submitClaim(slug) {
 }
 
 // After sign-in (magic-link verify hits the API and loads /api/me), retry any pending claim.
+// getPendingClaim() returns null if the stored slug is older than 24h
+// (prevents stale auto-replays from old tabs).
 window.addEventListener('focus', async () => {
-  const pending = localStorage.getItem('pending_claim_slug');
+  const pending = getPendingClaim();
   if (!pending) return;
   try {
     const me = await api('/api/me');

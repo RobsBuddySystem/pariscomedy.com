@@ -131,15 +131,34 @@ const SHOW_NAME = "French Fried Comedy Night";
 const CANONICAL_URL = 'https://pariscomedy.com/shows/ffcn.html';
 
 async function loadOwnership() {
+  // FAIL-CLOSED: until the ownership API explicitly confirms ownership (HTTP
+  // 200 + {claimed:true}), the badge stays in the unverified state. A timeout
+  // or non-2xx response no longer silently looks identical to 'unclaimed' —
+  // claimants keep their claim affordance during API downtime, and unclaimed
+  // pages still surface the claim CTA.
   const el = document.getElementById('ownership-badge');
   if (!el) return;
+  const UNVERIFIED = '⚠ Ownership unverified — claim this page';
+  el.textContent = UNVERIFIED;
   try {
     let api = '';
     try { const c = await fetch('/api-config.json').then(r=>r.json()); api = c.api || ''; } catch(_) {}
-    const r = await fetch((api || 'https://api.pariscomedy.com') + '/api/show/' + encodeURIComponent(SHOW_SLUG) + '/ownership');
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
+    let r;
+    try {
+      r = await fetch((api || 'https://api.pariscomedy.com') + '/api/show/' + encodeURIComponent(SHOW_SLUG) + '/ownership', { signal: ctrl.signal });
+    } finally { clearTimeout(timer); }
+    if (!r.ok) { el.textContent = UNVERIFIED; return; }
     const d = await r.json();
-    el.textContent = d.claimed ? '✓ Managed by show runner' : '◯ Unclaimed show page';
-  } catch(_) { el.textContent = '◯ Unclaimed show page'; }
+    if (d && d.claimed === true) {
+      el.textContent = '✓ Managed by show runner';
+    } else if (d && d.claimed === false) {
+      el.textContent = '◯ Unclaimed show page';
+    } else {
+      el.textContent = UNVERIFIED;
+    }
+  } catch(_) { el.textContent = UNVERIFIED; }
 }
 loadOwnership();
 
