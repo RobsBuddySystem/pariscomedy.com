@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# P5.AGENTS.1 — pre-commit hook
+#
+# Soft enforcement of the agent write lock. Only blocks when env var
+# PC_AGENT_NAME is set AND does not match the current lock holder.
+# Humans and the main agent (no PC_AGENT_NAME) are unaffected.
+#
+# Activation (one-time, per clone):
+#   git config core.hooksPath .githooks
+#
+# stdlib only.
+
+set -e
+
+# Locate repo root (handles `git commit` from subdirs).
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+LOCK_HELPER="${REPO_ROOT}/scripts/agent_write_lock.py"
+
+if [ ! -f "${LOCK_HELPER}" ]; then
+  # Helper missing — fail open (do not block commits).
+  exit 0
+fi
+
+python3 "${LOCK_HELPER}" enforce_for_commit
+rc=$?
+exit ${rc}

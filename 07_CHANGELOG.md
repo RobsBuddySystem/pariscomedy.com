@@ -1,5 +1,14 @@
 # 07_CHANGELOG
 
+## 2026-05-29 | infra | P5.AGENTS.1
+- Added `scripts/agent_write_lock.py` — stdlib-only file lock helper. Atomic create via `os.open(O_CREAT|O_EXCL)` on `.pc-write.lock` at repo root; JSON payload `{agent_name, scope, acquired_at, pid}`. Four commands: `acquire <agent> "<scope>"`, `release`, `read_status`, `enforce_for_commit`. Stale-timeout 15 min — a lock older than that is overridden with a stderr warning, so a crashed agent never locks out the next run.
+- Added `.githooks/pre-commit` — calls `enforce_for_commit`. **Soft enforcement**: only blocks when `PC_AGENT_NAME` is set AND mismatches the lock holder. Humans + the main agent (no `PC_AGENT_NAME`) stay free. Activate per-clone with `git config core.hooksPath .githooks`.
+- `.gitignore` — `.pc-write.lock` ignored (runtime artifact, never committed).
+- `data/source-adapters.json` — added `_write_lock_policy` field documenting that adapter scripts must acquire/release before any write to `data/`.
+- Anti-PROCESS-P1-001: codifies single-writer-at-a-time so batched out-of-order writes can't contaminate `data/*.json`, HTML, or partials mid-session.
+- Verified locally: `acquire test_agent "demo"` → lock written; `read_status` → holder JSON; `release` → removed. No HTML touched. `regression_guard.py` still 10/10 PASS.
+- Vault: `chuck_vault/10-concepts/projects/pariscomedy-canonical/P5_AGENTS_1_WRITE_LOCK.md`.
+
 ## 2026-05-29 | ux | P2.UX.2
 - Playwright audit at mobile 390x844, tablet 820x1180, desktop 1280x900 against production `https://pariscomedy.com` across 7 pages (`/`, `/shows.html`, `/venues.html`, `/comedians.html`, `/show.html?slug=charonne`, `/pricing.html`, `/book.html`) — 21 page-viewport runs total. Per-run probe: horizontal overflow (`scrollWidth > clientWidth`), elements wider than viewport, nav visibility/scroll, primary CTA widths (`.btn-primary/.btn-secondary/.btn-book/.btn-plan`), footer presence, `pageerror` count. Output: `data/ux-mobile-tablet-audit.json`; screenshots at `/tmp/p2-ux-2/{viewport}-{page}.png`.
 - 1 issue found: mobile (390px) homepage horizontal overflow (`sw=558` vs `vw=390`). Root cause: `.hero-left h1` containing the unbreakable hyphenated word "English-Language" forced min-content width ~540px, expanding the single-column grid track past the viewport. Small CSS fix applied inline in `index.html`: `.hero-left{min-width:0}`, `.hero-left h1{...overflow-wrap:anywhere;word-break:break-word}`, plus a `@media(max-width:480px)` h1 size clamp override. Re-verified locally → `sw=390`, `h1.width=354`, no horizontal scroll. No external CSS, no nav/footer/script changes.

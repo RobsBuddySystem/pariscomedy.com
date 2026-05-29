@@ -1,5 +1,6 @@
 {
   "_doc": "Registry of ticketing/listing platform adapters. status: current (in production) | scaffolded (gated stub, no live calls) | none (not started). Live activation of any scaffolded adapter requires operator + ChatGPT authorization per P1.TICKETS.1 doctrine.",
+  "_write_lock_policy": "P5.AGENTS.1 — adapter scripts run as writers; before any write to data/ they MUST call scripts/agent_write_lock.py acquire <adapter_name> '<scope>' and release on completion (or on error). Stale-timeout 15 min. See chuck_vault P5_AGENTS_1_WRITE_LOCK.md.",
   "_updated": "2026-05-29",
   "adapters": {
     "eventbrite":    { "status": "current",    "path": "scripts/discover_shows.py" },

@@ -26,3 +26,6 @@ backend/__pycache__/
 
 # PROCESS.ROOT.1 — regression guard run logs (live-prod evidence)
 logs/regression-guard.*.json
+
+# P5.AGENTS.1 — agent write lock (runtime, never committed)
+.pc-write.lock
