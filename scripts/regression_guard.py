@@ -453,13 +453,22 @@ def _load_canonical_nav_hrefs() -> dict:
 
 
 def _extract_page_nav(body: str) -> tuple[str | None, set]:
-    """Return (shell_class, set_of_hrefs) for the first nav-shell on a page."""
+    """Return (shell_class, set_of_hrefs) for the first nav-shell on a page.
+
+    Sign-Out links may be either href="/login.html" (legacy) or href="#" with
+    onclick handler that invokes PCAuth.signOut() (post-P3.AUTH.2). Both forms
+    are doctrine-compliant; normalize href="#" to /login.html when paired with
+    a signOut handler so the canonical link-set comparison still passes."""
     m = NAV_BLOCK_FULL_RE.search(body)
     if not m:
         return None, set()
     classes = m.group(1).split()
     shell = next((c for c in classes if c in SHELL_CLASS_TO_PARTIAL), None)
-    hrefs = set(HREF_RE.findall(m.group(2)))
+    nav_inner = m.group(2)
+    hrefs = set(HREF_RE.findall(nav_inner))
+    if "#" in hrefs and ("PCAuth.signOut" in nav_inner or "signOut(" in nav_inner):
+        hrefs.discard("#")
+        hrefs.add("/login.html")
     return shell, hrefs
 
 
