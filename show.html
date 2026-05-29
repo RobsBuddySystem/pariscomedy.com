@@ -266,6 +266,43 @@ footer{padding:36px 16px;text-align:center;border-top:1px solid #222;color:#666;
 
 <script>
 function esc(s){ return String(s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+// P1.DATA.5: freshness audit loader (slug -> audit entry)
+let FRESHNESS_AUDIT = {};
+function slugifyName(s){return String(s||'').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');}
+async function loadFreshnessAudit(){
+ try {
+ const r = await fetch('/data/freshness-audit.json', {cache:'no-store'});
+ const j = await r.json();
+ (j.listings || []).forEach(it => {
+ if (it.slug) FRESHNESS_AUDIT[it.slug] = it;
+ FRESHNESS_AUDIT[slugifyName(it.name)] = it;
+ });
+ } catch(_) {}
+}
+function statusLabel(st){
+ if (st === 'verified_24h') return 'verified in last 24h';
+ if (st === 'verified_72h') return 'verified in last 72h';
+ if (st === 'needs_human_review') return 'needs review — confirm directly on source';
+ if (st === 'stale') return 'stale — confirm directly on source';
+ if (st === 'source_unreachable') return 'source unreachable — confirm directly on source';
+ return st || 'unknown';
+}
+function platformLabel(p){
+ const v = String(p || '').toLowerCase();
+ if (v === 'eventbrite') return 'Eventbrite';
+ if (v === 'shotgun') return 'Shotgun';
+ if (v === 'sumup') return 'SumUp';
+ return p || 'Source';
+}
+function freshnessHTML(L){
+ const audit = FRESHNESS_AUDIT[L.slug] || FRESHNESS_AUDIT[slugifyName(L.name)];
+ if (!audit) return '';
+ const date = (audit.last_checked_at || '').slice(0,10);
+ const platform = platformLabel(audit.source_platform);
+ const label = statusLabel(audit.verification_status);
+ const conf = audit.confidence_score != null ? audit.confidence_score : '?';
+ return `<p class="freshness"><small><strong>Source:</strong> ${esc(platform)} · <strong>Last checked:</strong> ${esc(date)} · <strong>Status:</strong> ${esc(label)} · confidence ${esc(String(conf))}/100</small></p>`;
+}
 function mapsLink(addr){
  if (!addr) return '';
  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(addr + ', Paris, France');
@@ -324,6 +361,7 @@ function render(L) {
  <div class="detail-meta">${esc(days)}${time ? ' · ' + esc(time) : ''}${address ? ' · ' + esc(address) : ''}</div>
  <div class="detail-tag-row">${tags}</div>
  ${description ? `<p class="detail-desc">${esc(description)}</p>` : ''}
+ ${freshnessHTML(L)}
  <div class="cta-row">${ctas.join('')}</div>
  <div class="info-grid">
  <div class="info-card">
@@ -375,6 +413,7 @@ function renderError(msg) {
  let api;
  try {
  api = await loadAPI();
+ await loadFreshnessAudit();
  const listings = await fetch(api + '/api/listings', {cache:'no-store'}).then(r => r.json());
  let hit = null;
  if (slug) hit = listings.find(L => L && L.slug === slug);
