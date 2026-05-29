@@ -1017,5 +1017,54 @@ async function submitNewsletter(ev) {
 <script src="/assets/ads.js" defer></script>
 <script src="/assets/track.js" defer></script>
 <script src="/assets/events.js" defer></script>
+<!-- BEGIN pc-consent-v1 banner (self-contained, no deps, no network) -->
+<div id="pc-consent-banner" hidden role="region" aria-label="Storage preference">
+  <style>
+    #pc-consent-banner{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:#0a0a0a;color:#f0f0f0;padding:14px 18px;font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;border-top:1px solid #2a2a2a;box-shadow:0 -4px 16px rgba(0,0,0,.45)}
+    #pc-consent-banner[hidden]{display:none}
+    #pc-consent-banner .pc-c-wrap{max-width:980px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+    #pc-consent-banner .pc-c-text{flex:1 1 480px;min-width:280px}
+    #pc-consent-banner .pc-c-en{font-size:14px;color:#f0f0f0}
+    #pc-consent-banner .pc-c-fr{font-size:12px;color:#bdbdbd;margin-top:4px}
+    #pc-consent-banner a{color:#f0c674;text-decoration:underline}
+    #pc-consent-banner .pc-c-btns{display:flex;gap:8px;flex-shrink:0}
+    #pc-consent-banner button{background:#f0f0f0;color:#0a0a0a;border:0;padding:8px 14px;border-radius:4px;cursor:pointer;font:600 13px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.2}
+    #pc-consent-banner button.pc-c-decline{background:transparent;color:#f0f0f0;border:1px solid #555}
+    #pc-consent-banner button small{display:block;font-weight:400;font-size:11px;opacity:.75;margin-top:2px}
+    #pc-consent-banner button.pc-c-decline small{opacity:.7}
+  </style>
+  <div class="pc-c-wrap">
+    <div class="pc-c-text">
+      <div class="pc-c-en">Paris Comedy uses minimal local storage to remember this preference. We do not use analytics or ad-tracking cookies. We do not sell tickets — see <a href="/privacy.html">Privacy</a> and <a href="/disclosure.html">Disclosure</a>.</div>
+      <div class="pc-c-fr">Paris Comedy utilise un stockage local minimal pour mémoriser cette préférence. Pas de cookies de pub ni de suivi. Pas de vente de billets — voir <a href="/privacy.html">Confidentialité</a> et <a href="/disclosure.html">Divulgation</a>.</div>
+    </div>
+    <div class="pc-c-btns">
+      <button type="button" class="pc-c-accept" data-pc-consent="accepted">OK<small>D'accord</small></button>
+      <button type="button" class="pc-c-decline" data-pc-consent="declined">Decline<small>Refuser</small></button>
+    </div>
+  </div>
+  <script>
+  (function(){
+    try{
+      var KEY='pc-consent-v1';
+      var el=document.getElementById('pc-consent-banner');
+      if(!el) return;
+      var stored=null;
+      try{stored=localStorage.getItem(KEY);}catch(e){}
+      if(stored==='accepted'||stored==='declined'){el.style.display='none';return;}
+      el.hidden=false;
+      el.querySelectorAll('button[data-pc-consent]').forEach(function(b){
+        b.addEventListener('click',function(){
+          var v=b.getAttribute('data-pc-consent');
+          try{localStorage.setItem(KEY,v);}catch(e){}
+          el.style.display='none';
+        });
+      });
+    }catch(e){}
+  })();
+  </script>
+</div>
+<!-- END pc-consent-v1 banner -->
+
 </body>
 </html>
