@@ -23,4 +23,20 @@ TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
   else
     echo "no change in audit JSON"
   fi
+
+  # P5.AUTOMATION.1 — daily proof package (regression guard + sitemap regen + freshness)
+  echo "---- daily_proof_package ----"
+  if python3 scripts/daily_proof_package.py ; then
+    echo "daily-proof: ok"
+  else
+    echo "daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)"
+  fi
+  if ! git diff --quiet sitemap.xml ; then
+    echo "sitemap.xml changed — committing"
+    git add sitemap.xml
+    git commit -m "infra | daily sitemap regen ${TS}" --no-verify
+    git push origin main || echo "sitemap push failed; will retry next run"
+  else
+    echo "no change in sitemap.xml"
+  fi
 } >> "$LOG" 2>&1

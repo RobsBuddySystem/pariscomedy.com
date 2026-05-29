@@ -1,5 +1,10 @@
 # 07_CHANGELOG
 
+## 2026-05-29 | infra | P5.AUTOMATION.1
+- Added `scripts/daily_proof_package.py` — single aggregator that runs `freshness_verify.py` + `regression_guard.py` + `generate_sitemap.py`, captures each into a structured JSON, and writes `logs/daily-proof-{ISO}.json` with sections `freshness`, `regression`, `sitemap-size` plus a top-level `failures` array. Exit 0 if all PASS, 1 if any FAIL. stdlib only.
+- Extended `scripts/freshness_daily_wrapper.sh` — after the existing freshness commit, invokes the aggregator (output appended to `logs/freshness-daily.log`) and commits/pushes `sitemap.xml` if it changed. `logs/daily-proof-*.json` stays local as the evidence trail.
+- Verified: `bash scripts/freshness_daily_wrapper.sh` → exit 0; status sweep 31 pages, 0 bad (≥27 pages 200). No HTML touched.
+
 ## 2026-05-29 | infra | P4.SITEMAP.1
 - Regenerated `sitemap.xml` from real public pages + verified shows. Now includes 15 public pages + 13 `/show.html?slug=...` entries (only `verified_24h`/`verified_72h` from `data/freshness-audit.json`) = 28 URLs. Each `<lastmod>` from `git log -1 --format=%cs`. Six legal pages (terms/privacy/disclosure × EN/FR) carry `xhtml:link rel="alternate" hreflang` pairs + `x-default`.
 - Excluded (noindex or auth-only): `404.html`, `admin-{events,crm,messages,payments,submit}.html`, `booker-{portal,dashboard}.html`, `performer-portal.html`, `show-runner.html`, `login.html`, `checkout-pending.html`, `r.html`.
