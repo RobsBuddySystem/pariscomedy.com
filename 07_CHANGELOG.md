@@ -1,5 +1,12 @@
 # 07_CHANGELOG
 
+## 2026-05-29 | infra | P4.SITEMAP.1
+- Regenerated `sitemap.xml` from real public pages + verified shows. Now includes 15 public pages + 13 `/show.html?slug=...` entries (only `verified_24h`/`verified_72h` from `data/freshness-audit.json`) = 28 URLs. Each `<lastmod>` from `git log -1 --format=%cs`. Six legal pages (terms/privacy/disclosure × EN/FR) carry `xhtml:link rel="alternate" hreflang` pairs + `x-default`.
+- Excluded (noindex or auth-only): `404.html`, `admin-{events,crm,messages,payments,submit}.html`, `booker-{portal,dashboard}.html`, `performer-portal.html`, `show-runner.html`, `login.html`, `checkout-pending.html`, `r.html`.
+- `robots.txt` rewritten: `Disallow` for all admin/portal/login pages + `/api/`; `Sitemap: https://pariscomedy.com/sitemap.xml` retained.
+- Generator: `scripts/generate_sitemap.py` (stdlib only). Reads `data/freshness-audit.json` so daily freshness wrapper can keep sitemap fresh.
+- Vault: `chuck_vault/10-concepts/projects/pariscomedy-canonical/P4_SITEMAP_1_SITEMAP_GENERATOR.md`.
+
 ## 2026-05-29 | infra | PROCESS.ROOT.1
 - Added `scripts/regression_guard.py` — stdlib-only Python 3 guard that runs 9 live-production checks against pariscomedy.com: forbidden-strings (bilingual/mixed-language/marketing-claim leakage), internal-CTAs (/venues.html → /show.html, no external bypass), raw-includes (no unprocessed `<!-- include: -->`), stale-homepage-panel (next3-row populated or explicit empty msg), card-render (/comedians.html + /shows.html non-zero), status-sweep (31 named public URLs return 200), nav-consistency (one `nav-shell-*` per page), freshness-sanity (/data/freshness-audit.json parses, zero stale rows), hreflang (3 alternates per legal page × EN+FR).
 - Single check via `--check <name>`; optional Playwright DOM probes via `--with-dom`. JSON evidence written to `logs/regression-guard.<ISO>.json` (gitignored).
