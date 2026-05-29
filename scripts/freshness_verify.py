@@ -74,12 +74,15 @@ def verify_listing(l):
         code, body = fetch_url(source_url)
         if code == 200 and body:
             # Detect "event ended" / past-event signals on ticket platform pages.
+            # Use ONLY unambiguous "this event ended" phrases. Generic words like
+            # "complet" or "sold out" alone are too noisy (Eventbrite shows them on
+            # past dates of recurring events that still have future occurrences).
             past_signals = [
-                "sales ended", "sale ended", "this event has ended", "event has ended",
-                "event ended", "tickets unavailable", "no longer available",
-                "cet événement est terminé", "événement terminé", "billetterie fermée",
-                "les ventes sont terminées", "vente terminée",
-                "sold out", "complet",
+                "this event has ended", "event has ended",
+                "this event has passed", "event has passed",
+                "tickets are no longer available",
+                "cet événement est terminé", "événement est terminé",
+                "billetterie est fermée", "les ventes sont terminées",
             ]
             if any(sig in body for sig in past_signals):
                 status, conf, risk = "source_unreachable", 0, "high"
