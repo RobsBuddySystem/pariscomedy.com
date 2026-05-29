@@ -1,6 +1,6 @@
 {
   "summary": {
-    "generated_at": "2026-05-29T15:07:38Z",
+    "generated_at": "2026-05-29T15:21:32Z",
     "source": "https://api.pariscomedy.com/api/listings",
     "verification_run": true,
     "total_active": 14,
@@ -18,12 +18,12 @@
       "source_url": "https://www.eventbrite.fr/e/the-comedy-in-english-by-a-french-girl-that-will-make-you-love-paris-tickets-1764207685679",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
       "last_verified_at": null,
       "confidence_score": 35,
       "stale_risk": "high",
       "verification_status": "needs_human_review",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source HTTP 200 but no name/venue/slug match — page may have changed"
     },
     {
@@ -33,12 +33,12 @@
       "source_url": "https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697805324429",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     },
     {
@@ -48,12 +48,12 @@
       "source_url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1982356098454",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     },
     {
@@ -63,12 +63,12 @@
       "source_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     },
     {
@@ -78,12 +78,12 @@
       "source_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     },
     {
@@ -93,12 +93,12 @@
       "source_url": "https://www.eventbrite.fr/e/english-stand-up-comedy-in-paris-friday-night-show-tickets-364336088047",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     },
     {
@@ -108,12 +108,12 @@
       "source_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838522586",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     },
     {
@@ -123,12 +123,12 @@
       "source_url": "https://www.eventbrite.fr/e/standup-comedy-in-english-green-light-in-paris-tickets-927454971787",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     },
     {
@@ -138,12 +138,12 @@
       "source_url": "https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-573952757147",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     },
     {
@@ -153,12 +153,12 @@
       "source_url": "https://www.eventbrite.fr/e/billets-english-comedy-show-millennial-meltdown-paris-stand-up-night-1984665294321",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     },
     {
@@ -168,12 +168,12 @@
       "source_url": "https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     },
     {
@@ -183,12 +183,12 @@
       "source_url": "https://www.eventbrite.com/e/smash-comedy-club-tickets-1902240916789",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     },
     {
@@ -198,12 +198,12 @@
       "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840198599",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     },
     {
@@ -213,12 +213,12 @@
       "source_url": "https://www.eventbrite.fr/e/english-standup-wednesday-night-comedy-tickets-1750646975229",
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-29T15:07:38Z",
-      "last_verified_at": "2026-05-29T15:07:38Z",
+      "last_checked_at": "2026-05-29T15:21:32Z",
+      "last_verified_at": "2026-05-29T15:21:32Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-30T15:07:38Z",
+      "next_check_due_at": "2026-05-30T15:21:32Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match"
     }
   ]
