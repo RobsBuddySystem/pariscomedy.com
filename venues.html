@@ -161,9 +161,11 @@ function render() {
   filtered.forEach(v => {
     const card = document.createElement('div');
     card.className = 'card';
-    const ticketsBtn = v.eventbrite_url
-      ? `<a href="${v.eventbrite_url}" target="_blank" class="btn-tickets">Book tickets →</a>`
-      : `<span class="btn-tickets" style="opacity:.4;cursor:default">Eventbrite TBD</span>`;
+    // BUG-P1-SOURCE-001: route primary CTA to internal /show.html?slug={slug} (external ticket link lives inside the Paris Comedy show page).
+    const showSlug = (v.show_name || '').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    const ticketsBtn = showSlug
+      ? `<a href="/show.html?slug=${encodeURIComponent(showSlug)}" class="btn-tickets">Open show page →</a>`
+      : `<span class="btn-tickets" style="opacity:.4;cursor:default">Show page TBD</span>`;
     card.innerHTML = `
       <div class="card-header">
         <div class="card-name">${v.name}</div>

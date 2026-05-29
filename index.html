@@ -881,8 +881,9 @@ function launchConfetti() {
 // next sellable times surfaced and a single CTA into the full directory.
 // Replaces the old "Tonight · <day>" panel (which went dead on Mondays) and
 // the standalone "Shows This Week" section (now redundant).
-// P1.DATA.1: freshness guardrail — suppress listings stale >72h from Next-3-Days
+// P1.DATA.1 + P1.DATA.3: freshness guardrail with operator overrides
 let FRESHNESS = null;
+let FRESHNESS_OVERRIDES = null;
 async function loadFreshness() {
   if (FRESHNESS !== null) return FRESHNESS;
   try {
@@ -891,10 +892,30 @@ async function loadFreshness() {
     FRESHNESS = {};
     (j.listings || []).forEach(it => { FRESHNESS[it.slug] = it; });
   } catch (_) { FRESHNESS = {}; }
+  // P1.DATA.3: operator overrides — last write wins per slug
+  try {
+    const r2 = await fetch('/data/freshness-overrides.json', {cache:'no-store'});
+    const ov = await r2.json();
+    FRESHNESS_OVERRIDES = {};
+    const now = Date.now();
+    (ov.overrides || []).forEach(o => {
+      if (o.until) {
+        const until = Date.parse(o.until);
+        if (isFinite(until) && until < now) return; // expired
+      }
+      FRESHNESS_OVERRIDES[o.slug] = o;
+    });
+  } catch (_) { FRESHNESS_OVERRIDES = {}; }
   return FRESHNESS;
 }
 function isFreshEnough(slug) {
   if (!FRESHNESS) return true; // fail-open until loaded
+  // P1.DATA.3: operator override takes precedence
+  if (FRESHNESS_OVERRIDES && FRESHNESS_OVERRIDES[slug]) {
+    const fs = FRESHNESS_OVERRIDES[slug].force_status;
+    if (fs === 'verified_24h' || fs === 'verified_72h') return true;
+    if (fs === 'stale' || fs === 'needs_human_review' || fs === 'source_unreachable' || fs === 'suppress') return false;
+  }
   const f = FRESHNESS[slug];
   if (!f) return true; // unknown — let through (do not over-suppress)
   return f.verification_status === 'verified_24h' || f.verification_status === 'verified_72h';
