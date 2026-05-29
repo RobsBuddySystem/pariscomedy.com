@@ -1,0 +1,5 @@
+{
+  "$schema": "https://pariscomedy.com/freshness-overrides.schema",
+  "description": "Operator-pinned overrides on top of freshness-audit.json. Loader in index.html and show.html consumes this AFTER freshness-audit.json — last write wins. Each entry: {slug, force_status, reason, operator, until}.",
+  "overrides": []
+}
