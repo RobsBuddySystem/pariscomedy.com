@@ -35,3 +35,6 @@
 - Scrubbed dead `.badge-bilingual{...}` CSS selector from 227 static comedian pages under `c/`.
 - Also removed residual "bilingual" body/meta text in 8 comedian bios (julie-coulon, julie-haddad-kan, lorene-cadeau, patti-mansbach, rey-mendes, robert-le-ricain, sebastian-marx, tania-dutel).
 - Sitewide grep for `bilingual|mixed-language` under `c/` returns 0. `.badge-en` + `.badge-fr` preserved.
+
+## 2026-05-29 | frontend | P5.HUD.1
+- Added `/status.html` — single-page operator HUD. Robots noindex, admin nav shell, auto-refresh 60s. Renders: (1) freshness summary from `/data/freshness-audit.json` (total + by-status metrics + per-listing color-coded table); (2) source adapter status from `/data/source-adapters.json`; (3) live page-health probe of 27 public URLs with `{cache:'no-store'}` fetch; (4) doctrine forbidden-string scan over `/`, `/shows.html`, `/comedians.html`; (5) phase ledger summary. Zero deps, inline CSS+JS. Added `status.html` to `EXCLUDED_PAGES` in `scripts/generate_sitemap.py` and regenerated `sitemap.xml` (15 URLs, status.html absent). Operator-only — not linked from any public nav; bookmark to access.

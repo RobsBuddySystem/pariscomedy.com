@@ -46,6 +46,7 @@ EXCLUDED_PAGES = {
     "404.html",
     "r.html",
     "show.html",  # listed individually with ?slug=... below
+    "status.html",  # operator HUD, noindex
 }
 
 # Public, indexable URLs. (path_in_repo, loc_path, changefreq, priority)
