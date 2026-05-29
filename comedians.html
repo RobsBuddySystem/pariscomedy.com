@@ -246,14 +246,16 @@ const SHOWS = [{"id": 30, "name": "Blast Off All Stars", "venue": ""}, {"id": 34
 let activeFilter = 'all';
 
 function counts() {
-  let en=0,fr=0,bi=0;
+  let total=0,en=0,fr=0;
   COMICS.forEach(c=>{
-    const hasEn=c.langs.includes('en'), hasFr=c.langs.includes('fr');
-    if(hasEn&&hasFr) bi++; else if(hasEn) en++; else if(hasFr) fr++;
+    if(c.is_archived) return;
+    total++;
+    if(c.langs.includes('en')) en++;
+    if(c.langs.includes('fr')) fr++;
   });
+  const t=document.getElementById('count-total'); if(t) t.textContent=total;
   document.getElementById('count-en').textContent=en;
   document.getElementById('count-fr').textContent=fr;
-  document.getElementById('count-bi').textContent=bi;
 }
 counts();
 
