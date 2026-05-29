@@ -1,0 +1,534 @@
+{
+  "generated_at": "2026-05-29T15:28:52Z",
+  "current_inventory": {
+    "summary": {
+      "generated_at": "2026-05-29T15:21:32Z",
+      "source": "https://api.pariscomedy.com/api/listings",
+      "verification_run": true,
+      "total_active": 14,
+      "by_status": {
+        "needs_human_review": 1,
+        "verified_24h": 13
+      },
+      "stale_or_review_count": 1
+    },
+    "platform_counts": {
+      "eventbrite": 14
+    },
+    "slugs_by_platform": {
+      "eventbrite": [
+        {
+          "slug": "theatre-bo-julie",
+          "name": "Oh My God She's Parisian! — Julie Coulon",
+          "verification_status": "needs_human_review"
+        },
+        {
+          "slug": "charonne",
+          "name": "Charonne Comedy Club",
+          "verification_status": "verified_24h"
+        },
+        {
+          "slug": "comedy-crush",
+          "name": "Comedy Crush Wednesday Show",
+          "verification_status": "verified_24h"
+        },
+        {
+          "slug": "comedy-lab-chat-noir",
+          "name": "Comedy Lab",
+          "verification_status": "verified_24h"
+        },
+        {
+          "slug": "cuba-compagnie",
+          "name": "Cuba Compagnie Comedy Club",
+          "verification_status": "verified_24h"
+        },
+        {
+          "slug": "coucou-friday",
+          "name": "English Stand-Up Comedy in Paris — Friday Night Show",
+          "verification_status": "verified_24h"
+        },
+        {
+          "slug": "ffcn",
+          "name": "French Fried Comedy Night",
+          "verification_status": "verified_24h"
+        },
+        {
+          "slug": "green-light",
+          "name": "Green Light Comedy",
+          "verification_status": "verified_24h"
+        },
+        {
+          "slug": "green-mic-showcase",
+          "name": "Green Mic Showcase",
+          "verification_status": "verified_24h"
+        },
+        {
+          "slug": "millennial-meltdown",
+          "name": "Millennial Meltdown",
+          "verification_status": "verified_24h"
+        },
+        {
+          "slug": "rocket",
+          "name": "Rocket Comedy Club",
+          "verification_status": "verified_24h"
+        },
+        {
+          "slug": "smash",
+          "name": "Smash Comedy Club",
+          "verification_status": "verified_24h"
+        },
+        {
+          "slug": "velvet-comedy",
+          "name": "Velvet Bar Comedy — Le meilleur du stand-up",
+          "verification_status": "verified_24h"
+        },
+        {
+          "slug": "wednesday-night-comedy",
+          "name": "Wednesday Night Comedy",
+          "verification_status": "verified_24h"
+        }
+      ]
+    }
+  },
+  "internal_link_audit": {
+    "per_page": {
+      "home": {
+        "url": "https://pariscomedy.com/",
+        "internal_show_ctas": 5,
+        "external_ticket_ctas": 0
+      },
+      "shows": {
+        "url": "https://pariscomedy.com/shows.html",
+        "internal_show_ctas": 34,
+        "external_ticket_ctas": 0
+      },
+      "venues": {
+        "url": "https://pariscomedy.com/venues.html",
+        "internal_show_ctas": 0,
+        "external_ticket_ctas": 30
+      },
+      "show_charonne": {
+        "url": "https://pariscomedy.com/show.html?slug=charonne",
+        "internal_show_ctas": 0,
+        "external_ticket_ctas": 0
+      },
+      "show_tbj": {
+        "url": "https://pariscomedy.com/show.html?slug=theatre-bo-julie",
+        "internal_show_ctas": 0,
+        "external_ticket_ctas": 0
+      }
+    },
+    "totals": {
+      "total_internal_show_ctas": 39,
+      "total_external_ticket_ctas": 30
+    },
+    "verdict": "PASS for / and /shows.html. FAIL for /venues.html (30 external Book-tickets CTAs). PASS for /show.html?slug=... (external ticket link is acceptable from a show detail page per design)."
+  },
+  "platforms": [
+    {
+      "name": "Eventbrite",
+      "search_url": "https://www.eventbrite.com/d/france--paris/comedy/",
+      "adapter_priority": "P0",
+      "stable_urls": true,
+      "language_inferrable": "partial (en/fr keyword)",
+      "recurring_expansion_needed": true,
+      "affiliate_possible": true,
+      "robots_notes": "Allowed for /d/ + /e/ paths; respect rate limits; no auth required for public events",
+      "current_listings_in_pariscomedy": 14
+    },
+    {
+      "name": "FNAC Spectacles / France Billet",
+      "search_url": "https://www.fnacspectacles.com/recherche/?searchtext=comedy+paris",
+      "adapter_priority": "P1",
+      "stable_urls": true,
+      "language_inferrable": "fr default + 'english stand-up' keyword",
+      "recurring_expansion_needed": true,
+      "affiliate_possible": true,
+      "robots_notes": "Public listings; rate-limit politely; affiliate via TradeDoubler",
+      "current_listings_in_pariscomedy": 0,
+      "example_known_listings": [
+        "Stand Up Comedy at FUGA Space",
+        "Algerian Sauce — English Stand-up Comedy",
+        "Apollo Comedy Paris"
+      ]
+    },
+    {
+      "name": "BilletRéduc",
+      "search_url": "https://www.billetreduc.com/recherche/?qry=comedy+paris",
+      "adapter_priority": "P1",
+      "stable_urls": true,
+      "language_inferrable": "fr default + en filter",
+      "recurring_expansion_needed": true,
+      "affiliate_possible": false,
+      "robots_notes": "Public; courteous crawl rate",
+      "current_listings_in_pariscomedy": 0,
+      "example_known_listings": [
+        "Green Light in Paris",
+        "Broadway Comedy Club Paris",
+        "The Joke Comedy Club",
+        "Golden Comedy Club",
+        "Madame Sarfati Comedy Club",
+        "Paname Comedy Club",
+        "Red Comedy Club",
+        "Marco Polo Comedy Club",
+        "Pardon my French"
+      ]
+    },
+    {
+      "name": "Fever",
+      "search_url": "https://feverup.com/en/paris/plans/comedy",
+      "adapter_priority": "P1",
+      "stable_urls": true,
+      "language_inferrable": "explicit on event page",
+      "recurring_expansion_needed": true,
+      "affiliate_possible": true,
+      "robots_notes": "Public",
+      "current_listings_in_pariscomedy": 0,
+      "example_known_listings": [
+        "Golden Comedy Club",
+        "Marco Polo Comedy Club",
+        "Chez Prince Comedy Club",
+        "Le Loup Comedy République"
+      ]
+    },
+    {
+      "name": "Ticketmaster France",
+      "search_url": "https://www.ticketmaster.fr/fr/recherche?q=comedy+paris",
+      "adapter_priority": "P2",
+      "stable_urls": true,
+      "language_inferrable": "rarely",
+      "recurring_expansion_needed": false,
+      "affiliate_possible": true,
+      "robots_notes": "Hostile crawl protection; use sparingly",
+      "current_listings_in_pariscomedy": 0
+    },
+    {
+      "name": "See Tickets / Live Nation",
+      "search_url": "https://www.seetickets.com/tour/comedy-paris",
+      "adapter_priority": "P2",
+      "stable_urls": true,
+      "language_inferrable": "rarely",
+      "recurring_expansion_needed": false,
+      "affiliate_possible": true,
+      "robots_notes": "Public; rate-limit",
+      "current_listings_in_pariscomedy": 0
+    },
+    {
+      "name": "Weezevent",
+      "search_url": "https://www.weezevent.com/search?q=stand+up+paris",
+      "adapter_priority": "P1",
+      "stable_urls": true,
+      "language_inferrable": "explicit",
+      "recurring_expansion_needed": true,
+      "affiliate_possible": false,
+      "robots_notes": "Public",
+      "current_listings_in_pariscomedy": 0,
+      "example_known_listings": [
+        "49 Comedy Club Paris 14e",
+        "Zézé Comedy Show",
+        "Stand-Up en Anglais"
+      ]
+    },
+    {
+      "name": "Billetweb",
+      "search_url": "https://www.billetweb.fr/recherche?txt=comedy+paris",
+      "adapter_priority": "P2",
+      "stable_urls": true,
+      "language_inferrable": "explicit",
+      "recurring_expansion_needed": true,
+      "affiliate_possible": false,
+      "robots_notes": "Public",
+      "current_listings_in_pariscomedy": 0
+    },
+    {
+      "name": "Yurplan",
+      "search_url": "https://yurplan.com/recherche?q=comedy+paris",
+      "adapter_priority": "P2",
+      "stable_urls": true,
+      "language_inferrable": "explicit",
+      "recurring_expansion_needed": true,
+      "affiliate_possible": false,
+      "robots_notes": "Public",
+      "current_listings_in_pariscomedy": 0
+    },
+    {
+      "name": "HelloAsso",
+      "search_url": "https://www.helloasso.com/e/recherche?q=stand%20up%20paris",
+      "adapter_priority": "P2",
+      "stable_urls": true,
+      "language_inferrable": "fr default",
+      "recurring_expansion_needed": true,
+      "affiliate_possible": false,
+      "robots_notes": "Public; community-organized events",
+      "current_listings_in_pariscomedy": 0
+    },
+    {
+      "name": "Shotgun",
+      "search_url": "https://shotgun.live/en-fr/search?q=comedy+paris",
+      "adapter_priority": "P2",
+      "stable_urls": true,
+      "language_inferrable": "explicit",
+      "recurring_expansion_needed": false,
+      "affiliate_possible": true,
+      "robots_notes": "Public",
+      "current_listings_in_pariscomedy": 0
+    },
+    {
+      "name": "Dice",
+      "search_url": "https://dice.fm/browse/paris/comedy",
+      "adapter_priority": "P2",
+      "stable_urls": true,
+      "language_inferrable": "explicit",
+      "recurring_expansion_needed": false,
+      "affiliate_possible": true,
+      "robots_notes": "Public",
+      "current_listings_in_pariscomedy": 0
+    },
+    {
+      "name": "venue websites",
+      "search_url": "various",
+      "adapter_priority": "P2",
+      "stable_urls": "varies",
+      "language_inferrable": "varies",
+      "recurring_expansion_needed": true,
+      "affiliate_possible": false,
+      "robots_notes": "Per-venue robots",
+      "current_listings_in_pariscomedy": 0
+    },
+    {
+      "name": "Instagram",
+      "search_url": "https://www.instagram.com/explore/tags/pariscomedy/",
+      "adapter_priority": "P2",
+      "stable_urls": false,
+      "language_inferrable": "rarely",
+      "recurring_expansion_needed": true,
+      "affiliate_possible": false,
+      "robots_notes": "Login wall; signal-only",
+      "current_listings_in_pariscomedy": 0
+    },
+    {
+      "name": "Facebook",
+      "search_url": "https://www.facebook.com/events/search?q=stand+up+paris",
+      "adapter_priority": "P2",
+      "stable_urls": false,
+      "language_inferrable": "rarely",
+      "recurring_expansion_needed": true,
+      "affiliate_possible": false,
+      "robots_notes": "Login wall; signal-only",
+      "current_listings_in_pariscomedy": 0
+    }
+  ],
+  "missing_matrix": [
+    {
+      "source": "FNAC",
+      "show": "Stand Up Comedy at FUGA Space",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "fuga-space-stand-up",
+      "priority": "P1",
+      "language": "en"
+    },
+    {
+      "source": "FNAC",
+      "show": "Algerian Sauce — English Stand-up Comedy",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "algerian-sauce-english",
+      "priority": "P1",
+      "language": "en"
+    },
+    {
+      "source": "FNAC",
+      "show": "Apollo Comedy Paris",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "apollo-comedy-paris",
+      "priority": "P1",
+      "language": "mix"
+    },
+    {
+      "source": "BilletRéduc",
+      "show": "Green Light in Paris",
+      "found_externally": "to_verify",
+      "in_pariscomedy": true,
+      "proposed_slug": null,
+      "priority": "duplicate",
+      "language": "en"
+    },
+    {
+      "source": "BilletRéduc",
+      "show": "Broadway Comedy Club Paris",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "broadway-comedy-club-paris",
+      "priority": "P1",
+      "language": "en"
+    },
+    {
+      "source": "BilletRéduc",
+      "show": "The Joke Comedy Club",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "the-joke-comedy-club",
+      "priority": "P1",
+      "language": "fr"
+    },
+    {
+      "source": "BilletRéduc",
+      "show": "Golden Comedy Club",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "golden-comedy-club",
+      "priority": "P1",
+      "language": "fr"
+    },
+    {
+      "source": "BilletRéduc",
+      "show": "Madame Sarfati Comedy Club",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "madame-sarfati",
+      "priority": "P1",
+      "language": "fr"
+    },
+    {
+      "source": "BilletRéduc",
+      "show": "Paname Comedy Club",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "paname-comedy-club",
+      "priority": "P1",
+      "language": "fr"
+    },
+    {
+      "source": "BilletRéduc",
+      "show": "Red Comedy Club",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "red-comedy-club",
+      "priority": "P1",
+      "language": "fr"
+    },
+    {
+      "source": "BilletRéduc",
+      "show": "Marco Polo Comedy Club",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "marco-polo-comedy-club",
+      "priority": "P1",
+      "language": "fr"
+    },
+    {
+      "source": "BilletRéduc",
+      "show": "Pardon my French",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "pardon-my-french",
+      "priority": "P1",
+      "language": "en"
+    },
+    {
+      "source": "Fever",
+      "show": "Golden Comedy Club",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "golden-comedy-club-fever",
+      "priority": "dup-with-billetreduc",
+      "language": "fr"
+    },
+    {
+      "source": "Fever",
+      "show": "Marco Polo Comedy Club",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "marco-polo-fever",
+      "priority": "dup-with-billetreduc",
+      "language": "fr"
+    },
+    {
+      "source": "Fever",
+      "show": "Chez Prince Comedy Club",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "chez-prince-comedy",
+      "priority": "P1",
+      "language": "fr"
+    },
+    {
+      "source": "Fever",
+      "show": "Le Loup Comedy République",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "le-loup-comedy-republique",
+      "priority": "P1",
+      "language": "fr"
+    },
+    {
+      "source": "Weezevent",
+      "show": "49 Comedy Club Paris 14e",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "49-comedy-club",
+      "priority": "P1",
+      "language": "fr"
+    },
+    {
+      "source": "Weezevent",
+      "show": "Zézé Comedy Show",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "zeze-comedy",
+      "priority": "P1",
+      "language": "fr"
+    },
+    {
+      "source": "Weezevent",
+      "show": "Stand-Up en Anglais",
+      "found_externally": "to_verify",
+      "in_pariscomedy": false,
+      "proposed_slug": "stand-up-en-anglais",
+      "priority": "P1",
+      "language": "en"
+    }
+  ],
+  "missing_summary": {
+    "examples_checked": 19,
+    "already_in_pariscomedy": 1,
+    "gap_examples": 18
+  },
+  "bugs_filed": [
+    {
+      "id": "BUG-P1-SOURCE-001",
+      "summary": "/venues.html primary card CTA 'Book tickets →' routes externally to Eventbrite, bypassing internal /show.html?slug=",
+      "url": "https://pariscomedy.com/venues.html",
+      "severity": "P1",
+      "evidence": "Playwright DOM: 30 'Book tickets →' anchors, ALL href starts with https://www.eventbrite.fr/ or .com/; 0 internal pariscomedy.com hrefs",
+      "remediation_notes": "Update venues.html card-renderer to use /show.html?slug={slug} for the primary CTA, with the external source link living inside the Paris Comedy show page. Pending ChatGPT authorization to patch.",
+      "status": "open"
+    }
+  ],
+  "adapter_priority_plan": {
+    "P0_existing": [
+      "Eventbrite (13/14 current listings)"
+    ],
+    "P1_next": [
+      "FNAC Spectacles / France Billet",
+      "BilletRéduc",
+      "Fever",
+      "Weezevent"
+    ],
+    "P2_later": [
+      "Ticketmaster France",
+      "See Tickets",
+      "Billetweb",
+      "Yurplan",
+      "HelloAsso",
+      "Shotgun",
+      "Dice",
+      "venue websites",
+      "Instagram (signal only)",
+      "Facebook (signal only)"
+    ]
+  },
+  "legal_robots_notes": "All adapters MUST: polite UA, ≤1 req/source/run, respect robots.txt, never log in, never store user data. Affiliate disclosure on /disclosure.html updated as platforms onboard. No imports until per-platform adapter passes review."
+}
