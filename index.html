@@ -216,7 +216,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 
 <!-- Launch Banner -->
 <div class="launch-banner">
-  🎉 Paris Comedy is live — a growing directory of English-language and French comedy shows in Paris, plus comics performing mixed-language sets.
+  🎉 Paris Comedy is live — a growing directory of English-language and French comedy shows in Paris.
   <a href="/shows.html">Browse tonight's shows →</a>
 </div>
 
@@ -239,7 +239,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 <div class="hero-wrap">
   <div class="hero-left">
     <h1>The Home of<br><span class="accent">English-Language</span><br>Comedy in Paris</h1>
-    <p>Stand-up throughout the week. English shows, French shows, and comics performing mixed-language sets. Tourists, expats, locals — all welcome.</p>
+    <p>Stand-up throughout the week. English shows and French shows. Tourists, expats, locals — all welcome.</p>
     <div class="cta-row">
       <a href="/shows.html" class="btn-primary">Find Tonight's Show →</a>
       <a href="/book.html" class="btn-secondary">Book a Private Show</a>
@@ -314,7 +314,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   <div class="faq-list">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Are the shows in English?</div>
-      <div class="faq-a">Shows on Paris Comedy are English or French. Many lineups include comics who perform mixed-language sets (switching between English and French). Each listing is clearly labelled. If you only speak English, look for shows tagged EN — there are regular English-language shows throughout the week.</div>
+      <div class="faq-a">Shows on Paris Comedy are English or French. Each listing is clearly labelled. If you only speak English, look for shows tagged EN — there are regular English-language shows throughout the week.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I buy tickets?</div>
@@ -333,7 +333,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 
 <section style="max-width:720px;margin:24px auto 0;padding:24px;background:#111;border:1px solid #1e1e1e;border-radius:12px">
   <div style="font-size:18px;font-weight:700;margin-bottom:6px">Want to know what&rsquo;s on tonight?</div>
-  <div style="font-size:13px;color:#888;margin-bottom:14px;line-height:1.5">One weekly email — verified English and French comedy listings in Paris, plus mixed-language lineups, new venues, new comics. No spam, unsubscribe anytime.</div>
+  <div style="font-size:13px;color:#888;margin-bottom:14px;line-height:1.5">One weekly email — verified English and French comedy listings in Paris, new venues, new comics. No spam, unsubscribe anytime.</div>
   <form id="newsletter-form" onsubmit="return submitNewsletter(event)" style="display:flex;gap:8px;flex-wrap:wrap">
     <label for="newsletter-email" style="position:absolute;left:-9999px">Email</label>
     <input id="newsletter-email" type="email" required placeholder="you@example.com" style="flex:1;min-width:200px;padding:10px 12px;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:8px;color:#f0f0f0;font:inherit">
@@ -503,7 +503,6 @@ function inferVibes(s) {
   const tags = [];
   const langs = s.langs || s.language;
   if (langs) {
-    if ((langs.includes('EN') || langs.includes('en')) && (langs.includes('FR') || langs.includes('fr'))) tags.push('Mixed-language');
     else if (langs.includes('EN') || langs.includes('en')) tags.push('English');
     else tags.push('French');
   }
