@@ -1,0 +1,312 @@
+{
+  "phase": "P3.AUTH.1",
+  "task": "Login / token safety audit — AUDIT ONLY, NO PATCHES",
+  "audit_date": "2026-05-29",
+  "audit_scope": "Frontend HTML + JS in /Users/chuck/pariscomedy-push-20260526-095907. Backend NOT inspected — only request/response surface is observable.",
+  "doctrine_constraint": "Master prompt forbids any auth changes without explicit authorization. Output is findings + proposed fix scaffold only.",
+  "files_inspected": [
+    "login.html",
+    "auth/verify.html",
+    "performer-portal.html",
+    "booker-portal.html",
+    "booker-dashboard.html",
+    "show-runner.html",
+    "admin-crm.html",
+    "admin-events.html",
+    "admin-messages.html",
+    "admin-payments.html",
+    "admin-submit.html",
+    "partials/nav.shell.admin.html",
+    "partials/nav.shell.portal.html"
+  ],
+  "tokens_in_localstorage": [
+    {
+      "key": "booker_token",
+      "set_by": ["login.html:129", "booker-portal.html:87", "booker-dashboard.html:379"],
+      "read_by": ["booker-portal.html:83", "booker-dashboard.html:330"],
+      "transport": "X-Booker-Token request header (booker-portal.html:85, booker-dashboard.html:339)",
+      "issued_via": "POST /api/booker/auth — body {email}; backend returns dev_token in dev / emails token in prod",
+      "exp_check_in_frontend": false,
+      "refresh_path": "none"
+    },
+    {
+      "key": "booker_email",
+      "set_by": ["login.html:127", "booker-portal.html:86", "booker-dashboard.html:380"],
+      "read_by": ["booker-dashboard.html:331"],
+      "transport": "display only / sent in auth POST body",
+      "sensitive": "PII — booker work email"
+    },
+    {
+      "key": "pc_session_token",
+      "set_by": ["auth/verify.html:54", "performer-portal.html:146"],
+      "read_by": ["performer-portal.html:139 -> loadOffers"],
+      "transport": "URL query param ?token=<session_token> on GET /api/performer/offers (performer-portal.html:104)",
+      "issued_via": "GET https://api.pariscomedy.com/auth/verify?token=<magiclinktoken> -> returns {session_token, email}",
+      "exp_check_in_frontend": false,
+      "refresh_path": "none — must restart magic-link flow"
+    },
+    {
+      "key": "pc_auth_email",
+      "set_by": ["auth/verify.html:55"],
+      "read_by": ["(not read anywhere in frontend HTML)"],
+      "notes": "Dead-write — set during magic-link verify but never consumed. Possible orphan from an older flow."
+    },
+    {
+      "key": "pc_owner_token",
+      "set_by": ["show-runner.html:306"],
+      "read_by": ["show-runner.html:572"],
+      "transport": "Authorization: Bearer <token> for /api/owner/* (show-runner.html:313) AND URL query owner_token=<token> on GET /api/owner/shows (show-runner.html:295)",
+      "issued_via": "External — admin-issued show owner token; not minted from any frontend form. Page also accepts ?owner_token=<t> from URL (show-runner.html:569-570).",
+      "exp_check_in_frontend": false,
+      "refresh_path": "none"
+    },
+    {
+      "key": "pc_admin_secret",
+      "set_by": ["admin-payments.html:111"],
+      "read_by": ["admin-payments.html:110, 122"],
+      "transport": "(presumed; admin-payments page itself only manages the secret)",
+      "issued_via": "Manual paste — operator credential"
+    },
+    {
+      "key": "admin_token",
+      "set_by": ["admin-messages.html:90"],
+      "read_by": ["admin-messages.html:137"],
+      "transport": "URL query ?token=<admin_token> (admin-messages.html:94 GET, admin-messages.html:130 POST body)",
+      "issued_via": "Manual paste — operator credential"
+    },
+    {
+      "key": "booker_tutorial_done",
+      "set_by": ["booker-dashboard.html:1051"],
+      "read_by": ["booker-dashboard.html:954"],
+      "notes": "Non-secret UI state."
+    },
+    {
+      "key": "comic_tutorial_done",
+      "set_by": ["performer-portal.html:183"],
+      "read_by": ["performer-portal.html:147"],
+      "notes": "Non-secret UI state."
+    },
+    {
+      "key": "pending_claim_slug",
+      "set_by": ["performer-portal.html:192"],
+      "read_by": ["performer-portal.html:217, 230"],
+      "notes": "Non-secret — slug to claim across magic-link round-trip."
+    }
+  ],
+  "tokens_in_cookie": [],
+  "tokens_in_sessionstorage": [],
+  "note_on_cookies": "performer-portal.html:98 uses fetch(... {credentials:'include'}) for /api/* calls — suggests the backend may set an HttpOnly session cookie alongside the localStorage session_token. Cannot verify from frontend alone. Booker + owner + admin flows do NOT use credentials:'include' — they are pure header/query-string token auth.",
+  "login_flows": [
+    {
+      "id": "FLOW-COMIC-MAGIC-LINK",
+      "actor": "comic / performer",
+      "step1_request": "POST /api/auth/request {email} (login.html:121 or performer-portal.html:99)",
+      "step2_email": "Backend mints magic-link token, emails link of shape /auth/verify.html?token=<magic>",
+      "step3_verify": "GET https://api.pariscomedy.com/auth/verify?token=<magic> (auth/verify.html:45). On success returns {session_token, email}.",
+      "step4_persist": "localStorage.setItem('pc_session_token', ...) + redirect to /performer-portal.html (auth/verify.html:54-63).",
+      "step5_use": "performer-portal.html primarily relies on backend cookie session (fetch with credentials:'include') for /api/me + /api/member/profile. Falls back to URL ?session_token=<t> read on landing (performer-portal.html:146). Sends session_token as query param for /api/performer/offers (line 104).",
+      "double_login_handling": "If user clicks the same magic link twice, frontend has no UI affordance for 'already verified' vs 'consumed' — both surface as the generic error string returned by /auth/verify (auth/verify.html:48-49).",
+      "old_token_reuse": "Frontend never sets an exp / issuedAt, never compares times, never deletes the session_token on receipt of a 401 from any API. A copy-pasted (or browser-extension-leaked) session_token will keep being sent until the backend rejects it AND the user manually clears storage.",
+      "session_persistence": "Persists forever (until user 'Sign Out' nav link is clicked — but that link is just an anchor to /login.html and does not clear any storage; see P3-AUTH-FIND-1)."
+    },
+    {
+      "id": "FLOW-BOOKER-TOKEN",
+      "actor": "booker",
+      "step1_request": "POST /api/booker/auth {email} (login.html:126, booker-portal.html:86, booker-dashboard.html:362)",
+      "step2_email_or_dev": "Backend either emails the token or returns dev_token in the response when SMTP is unavailable.",
+      "step3_persist": "On request, login.html stores dev_token into localStorage immediately (login.html:129). Booker-portal and booker-dashboard only store it once 'useToken' is clicked (booker-portal.html:87, booker-dashboard.html:379).",
+      "step4_use": "All subsequent /api/booker/* + /api/booker/comics calls send X-Booker-Token header.",
+      "double_login_handling": "Submitting POST /api/booker/auth a second time always shows 'Token sent' or 'Token created' regardless of whether the previous token is still valid. UI does NOT warn the user the previous token has been (or may have been) revoked. After mint, three independent surfaces (login.html, booker-portal.html, booker-dashboard.html) each independently rewrite localStorage.booker_token, but each can store a DIFFERENT token if the user retries on a different page — last-writer-wins.",
+      "old_token_reuse": "No token version / fingerprint tracked. If backend rotates token on each /api/booker/auth call, the older one is silently stale in any tab still holding it. Frontend never compares.",
+      "session_persistence": "Persists until logout(). logout() is defined only in booker-dashboard.html:385 and is not wired to any UI element (the 'Sign Out' nav link is a plain anchor to /login.html). booker-portal.html has NO logout function at all."
+    },
+    {
+      "id": "FLOW-SHOW-RUNNER-OWNER-TOKEN",
+      "actor": "show owner",
+      "step1_request": "n/a — owner token is provisioned out-of-band (admin issues it).",
+      "step2_persist": "On successful login, localStorage.setItem('pc_owner_token', TOKEN) (show-runner.html:306). Auto-login on page load if localStorage has it, OR if URL has ?owner_token=<t> (show-runner.html:568-573).",
+      "step3_use": "Authorization: Bearer <token> header on POST/PATCH calls; URL query owner_token=<t> on GET /api/owner/shows.",
+      "double_login_handling": "If owner provides a stale token, /api/owner/shows returns non-200 and UI displays 'Invalid token' (show-runner.html:296). After that, code stops — no cleanup of pc_owner_token, so the stale value will auto-fill again next load and re-fail.",
+      "old_token_reuse": "No exp check, no revocation hook. Token never rotates from the frontend. Page does not redirect to /login.html on 401 in subsequent /api/owner/* calls — `api()` (show-runner.html:311) returns raw JSON without status inspection, so non-200 responses are interpreted as data and downstream code mis-renders.",
+      "session_persistence": "Forever. No logout function defined anywhere in show-runner.html."
+    },
+    {
+      "id": "FLOW-ADMIN-TOKEN",
+      "actor": "operator",
+      "details": "admin-crm.html: TOKEN held in memory, NOT persisted (no localStorage write of admin_token at line 184). Auto-login only via URL ?token=<t> (admin-crm.html:315-316). admin-messages.html: persists token to localStorage.admin_token (line 90) and auto-reloads on next visit (line 137). admin-events.html: similar in-memory only. admin-payments.html: persists pc_admin_secret to localStorage (line 111).",
+      "double_login_handling": "n/a — operator pastes manually.",
+      "old_token_reuse": "admin-messages.html will silently keep using a revoked token until the next loadQueue() returns 401. No clean-on-401."
+    }
+  ],
+  "findings": [
+    {
+      "id": "P3-AUTH-FIND-1",
+      "title": "'Sign Out' nav links do not clear any tokens",
+      "severity": "high",
+      "evidence": [
+        "performer-portal.html:37 — <a href=\"/login.html\">Sign Out</a>",
+        "booker-portal.html:37 — <a href=\"/login.html\">Sign Out</a>",
+        "booker-dashboard.html:129 — <a href=\"/login.html\">Sign Out</a> (NOT wired to logout() at line 385)",
+        "show-runner.html:65 — <a href=\"/login.html\">Sign Out</a>",
+        "admin-*.html — all 'Sign Out' links are plain anchors to /login.html",
+        "partials/nav.shell.portal.html:8 + partials/nav.shell.admin.html:10"
+      ],
+      "explanation": "Clicking 'Sign Out' navigates to /login.html but localStorage.{booker_token, pc_session_token, pc_owner_token, admin_token, pc_admin_secret} all remain intact. Next visit to any portal page silently re-authenticates with the supposedly-signed-out token. On a shared/borrowed device this is a credential leak.",
+      "proposed_fix_description": "Convert every 'Sign Out' nav anchor across portal + admin shells to a small inline button (or an anchor with onclick) that clears all localStorage keys whose names match a known token list ({booker_token, booker_email, pc_session_token, pc_auth_email, pc_owner_token, admin_token, pc_admin_secret, pending_claim_slug}) and THEN navigates to /login.html. Best done as a single shared helper in /assets/auth-helpers.js included by every portal/admin page.",
+      "fix_size": "medium",
+      "files_touched_estimate": ["partials/nav.shell.portal.html", "partials/nav.shell.admin.html", "assets/auth-helpers.js (new)"]
+    },
+    {
+      "id": "P3-AUTH-FIND-2",
+      "title": "No 401 handler — stale tokens are never auto-cleared",
+      "severity": "high",
+      "evidence": [
+        "booker-portal.html:85 — `api()` throws on !r.ok but never inspects status===401 / never removes booker_token",
+        "booker-dashboard.html:337-348 — same pattern, throws but does not clear",
+        "show-runner.html:311-315 — `api()` returns r.json() unconditionally, does not even check r.ok",
+        "performer-portal.html:98 — `api()` throws on !r.ok but never clears pc_session_token",
+        "admin-messages.html:94-95 — surfaces 'Auth failed' but does not localStorage.removeItem('admin_token')"
+      ],
+      "explanation": "When the backend rotates / revokes a token (or when a magic link is consumed and the previous session_token is invalidated), the frontend continues to send the same token, hit 401, and surface a confusing 'Invalid token' or generic detail string. The user has to manually paste a new token or clear browser storage. This is the most likely root cause of ChatGPT's 'old token reuse' complaint.",
+      "proposed_fix_description": "Centralize each portal's `api()` helper into /assets/auth-helpers.js. On any 401/403 response: (a) localStorage.removeItem the role-specific token, (b) redirect to /login.html with ?reason=expired so login.html can surface a friendly banner. Wire this into 4 fetch sites: performer-portal, booker-portal, booker-dashboard, show-runner.",
+      "fix_size": "medium",
+      "files_touched_estimate": ["assets/auth-helpers.js (new)", "performer-portal.html", "booker-portal.html", "booker-dashboard.html", "show-runner.html", "login.html (expired banner)"]
+    },
+    {
+      "id": "P3-AUTH-FIND-3",
+      "title": "Tokens transmitted in URL query strings — leak via Referer, server logs, browser history",
+      "severity": "high",
+      "evidence": [
+        "show-runner.html:295 — GET /api/owner/shows?owner_token=<t>",
+        "show-runner.html:569-570 — accepts ?owner_token=<t> as auto-login source",
+        "admin-crm.html:192 — GET /api/imports/history?token=<t>",
+        "admin-crm.html:315-316 — accepts ?token=<t> auto-login",
+        "admin-messages.html:94 — GET /api/admin/messages?token=<t>",
+        "admin-events.html:108 — GET /api/admin/events/summary?token=<t>",
+        "performer-portal.html:104 — GET /api/performer/offers?token=<session_token>",
+        "auth/verify.html:45 — GET https://api.pariscomedy.com/auth/verify?token=<magic>"
+      ],
+      "explanation": "Tokens in URLs end up in: browser history, the Referer header to any external resource loaded by the page (analytics, fonts, embeds), reverse-proxy access logs, browser extension reads, and screenshots. The magic-link case (auth/verify.html) is the canonical pattern and is acceptable because it's a one-shot consumed token. The persistent owner/admin/session tokens being sent as query params is unsafe.",
+      "proposed_fix_description": "Move all persistent-token reads to headers (Authorization: Bearer or X-Token). Backend will need to accept the header in addition to the query param during a transition window. For magic-link verify, keep the query param but recommend backend send {Referrer-Policy: no-referrer} on the verify response.",
+      "fix_size": "medium",
+      "files_touched_estimate": ["show-runner.html", "admin-crm.html", "admin-messages.html", "admin-events.html", "performer-portal.html", "+ backend coordination (out of scope here)"]
+    },
+    {
+      "id": "P3-AUTH-FIND-4",
+      "title": "Magic link 'double-login' surfaces only a generic backend error",
+      "severity": "medium",
+      "evidence": [
+        "auth/verify.html:44-50 — only differentiates {resp.ok, !resp.ok}, dumps data.detail as-is",
+        "auth/verify.html:69 — falls back to 'Request a new link' regardless of cause"
+      ],
+      "explanation": "ChatGPT specifically called out 'magic link double-login'. Frontend has no special handling for the case where the same magic-link token is clicked twice (e.g., user clicks in email client, then again from history). Backend almost certainly returns 4xx with detail='already_used' or similar — but the frontend just shows the raw detail string. Worse: if the user IS already signed in (pc_session_token already set in this browser) and clicks an old link, we should detect that and redirect to /performer-portal.html with a 'You're already signed in' notice instead of showing an error.",
+      "proposed_fix_description": "In auth/verify.html, before calling /auth/verify, check `localStorage.getItem('pc_session_token')`. If present, attempt a HEAD/GET to /api/me with credentials:'include' first. If already signed in, redirect to /performer-portal.html with a banner. Otherwise hit /auth/verify. On a 4xx with detail matching /already.used|consumed|expired/, render a specific friendly state with a 'Send me a new link' button that POSTs /api/auth/request inline.",
+      "fix_size": "small",
+      "files_touched_estimate": ["auth/verify.html"]
+    },
+    {
+      "id": "P3-AUTH-FIND-5",
+      "title": "login.html stores booker dev_token before user opts in",
+      "severity": "medium",
+      "evidence": [
+        "login.html:128-131 — `if(r.dev_token){ localStorage.setItem('booker_token',r.dev_token); ... }` runs on form submit, no user confirmation"
+      ],
+      "explanation": "When the booker requests a token, login.html immediately writes the returned dev_token to localStorage. If the user is on a shared computer and walks away before clicking 'Open Booker Portal', the next user inherits the token. By contrast, booker-portal.html:87 only persists on explicit 'Load account' click — which is the correct UX.",
+      "proposed_fix_description": "In login.html submitLogin booker branch, DO NOT auto-persist booker_token. Instead, display it for copy, and only persist it when the user clicks 'Open Booker Portal' or 'Open Lineup Dashboard'.",
+      "fix_size": "small",
+      "files_touched_estimate": ["login.html"]
+    },
+    {
+      "id": "P3-AUTH-FIND-6",
+      "title": "Show Runner auto-logins from URL query param without scrubbing it",
+      "severity": "medium",
+      "evidence": [
+        "show-runner.html:569-573 — reads ?owner_token from location.search, calls login(), never history.replaceState the token out of the URL"
+      ],
+      "explanation": "Owner clicks a 'Manage your show' link containing ?owner_token=<t>. show-runner.html auto-logs in. The token remains in the URL bar, in browser history, and in the Referer of any external script load on the page. show-runner.html includes /assets/events.js (analytics) which will Referer-leak the token.",
+      "proposed_fix_description": "Right after auto-login parses the URL token, call `history.replaceState(null, '', location.pathname)` to strip the query string. Same pattern for admin-crm.html:315-316 and admin-events.html:171.",
+      "fix_size": "small",
+      "files_touched_estimate": ["show-runner.html", "admin-crm.html", "admin-events.html"]
+    },
+    {
+      "id": "P3-AUTH-FIND-7",
+      "title": "No frontend exp / issuedAt — cannot pre-empt expired sessions",
+      "severity": "medium",
+      "evidence": [
+        "Every token-stash in localStorage is a bare opaque string — no JWT decode, no parallel '*_exp' key.",
+        "No code anywhere in the frontend parses token.split('.')[1] / atob() / compares Date.now()."
+      ],
+      "explanation": "Frontend learns a token is dead only when a request fails. Pre-emptive refresh / proactive sign-out impossible. Combined with finding 2 (no 401 handler), this yields the 'old token reuse' user experience: token sits in storage, every API call fails opaquely.",
+      "proposed_fix_description": "When backend issues a token, also return `expires_at` (ISO timestamp). Frontend stores `{token, expires_at}` as JSON in a single key per role. Helper `getToken(role)` returns null if expires_at < now AND clears the entry. Requires backend coordination — note dependency.",
+      "fix_size": "large",
+      "files_touched_estimate": ["assets/auth-helpers.js (new)", "all token-stash call sites", "+ backend"]
+    },
+    {
+      "id": "P3-AUTH-FIND-8",
+      "title": "Dead localStorage write: pc_auth_email",
+      "severity": "low",
+      "evidence": [
+        "auth/verify.html:55 — localStorage.setItem('pc_auth_email', data.email || '')",
+        "No corresponding getItem('pc_auth_email') in any frontend file."
+      ],
+      "explanation": "Orphan write that adds a PII (email) to localStorage without serving any feature. Harmless individually but accumulates session metadata over time and confuses 'clear all auth' helpers.",
+      "proposed_fix_description": "Either consume pc_auth_email in the portal display (replacing the /api/me round-trip for the email field), or delete the setItem.",
+      "fix_size": "small",
+      "files_touched_estimate": ["auth/verify.html", "performer-portal.html"]
+    },
+    {
+      "id": "P3-AUTH-FIND-9",
+      "title": "Comic claim flow never validates that pending_claim_slug came from the same session",
+      "severity": "low",
+      "evidence": [
+        "performer-portal.html:191-205 — handleClaim() reads ?claim=<slug>, persists to localStorage, fires submitClaim immediately if signed in",
+        "performer-portal.html:228-236 — focus listener also auto-fires submitClaim from localStorage with no UI confirmation"
+      ],
+      "explanation": "If user A starts a claim for slug-A, then user B signs in on the same browser without clearing storage, user B will silently auto-claim slug-A on window focus. Backend presumably has its own validation (only the rightful owner email can claim), but the UX is surprising.",
+      "proposed_fix_description": "Before auto-firing submitClaim, render an explicit confirmation banner with a 'Confirm claim of {slug}' button. Only fire on user click.",
+      "fix_size": "small",
+      "files_touched_estimate": ["performer-portal.html"]
+    },
+    {
+      "id": "P3-AUTH-FIND-10",
+      "title": "Three independent token-storage surfaces — last-writer-wins, no canonical source",
+      "severity": "medium",
+      "evidence": [
+        "login.html, booker-portal.html, booker-dashboard.html each independently localStorage.setItem('booker_token', ...) with no coordination."
+      ],
+      "explanation": "A booker who has two tabs open can clobber a fresh token in tab A with a stale token in tab B if they retry /api/booker/auth in tab B. There is no token version field, no `storage` event listener, no single source of truth.",
+      "proposed_fix_description": "Centralize through /assets/auth-helpers.js with a single setBookerToken(t) that broadcasts via window.dispatchEvent('pc-auth-change') so other tabs reload. Add a 'storage' event listener that detects cross-tab logout and triggers re-render. Pairs with finding 1+2 fix.",
+      "fix_size": "medium",
+      "files_touched_estimate": ["assets/auth-helpers.js (new)", "login.html", "booker-portal.html", "booker-dashboard.html"]
+    }
+  ],
+  "summary": {
+    "total_findings": 10,
+    "by_severity": {
+      "high": 3,
+      "medium": 5,
+      "low": 2
+    },
+    "recommended_next_phase": "P3.AUTH.2 — implement findings 1 + 2 + 3 + 5 + 6 (the no-backend-coordination subset). Findings 4 + 7 + 10 require backend coordination on token shape / verify error codes / token rotation and should be scoped as P3.AUTH.3. Finding 8 + 9 are quick polish — fold into P3.AUTH.2.",
+    "scaffold_proposal": {
+      "new_file": "assets/auth-helpers.js",
+      "exports": [
+        "AUTH_KEYS = ['booker_token','booker_email','pc_session_token','pc_auth_email','pc_owner_token','admin_token','pc_admin_secret','pending_claim_slug']",
+        "function clearAllAuth() — removeItem for every AUTH_KEYS entry",
+        "function signOut(redirect='/login.html') — clearAllAuth then location.assign(redirect)",
+        "function getToken(role) — role-keyed getter",
+        "function setToken(role, token) — role-keyed setter; broadcasts pc-auth-change",
+        "function authFetch(path, opts, role) — wraps fetch; injects header; on 401 calls clearAllAuth + redirect to /login.html?reason=expired",
+        "function stripTokenFromURL() — history.replaceState w/o token query params"
+      ],
+      "wiring_targets": [
+        "partials/nav.shell.portal.html — replace anchor Sign Out with button onclick=signOut()",
+        "partials/nav.shell.admin.html — same",
+        "show-runner.html, admin-crm.html, admin-events.html — add stripTokenFromURL() after auto-login",
+        "auth/verify.html — pre-flight /api/me, friendly already_used messaging",
+        "login.html — defer booker_token persistence to explicit user action"
+      ]
+    },
+    "constraint_compliance": "AUDIT ONLY. No HTML modified. No auth flow modified. No backend calls. Findings persisted to data/p3-auth-audit.json + vault doc + 07_CHANGELOG.md."
+  }
+}
