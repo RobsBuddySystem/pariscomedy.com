@@ -1,0 +1,21 @@
+{
+  "_doc": "Registry of ticketing/listing platform adapters. status: current (in production) | scaffolded (gated stub, no live calls) | none (not started). Live activation of any scaffolded adapter requires operator + ChatGPT authorization per P1.TICKETS.1 doctrine.",
+  "_updated": "2026-05-29",
+  "adapters": {
+    "eventbrite":    { "status": "current",    "path": "scripts/discover_shows.py" },
+    "billetreduc":   { "status": "scaffolded", "path": "scripts/adapter_billetreduc.py", "enabled": false },
+    "fnac_spectacles": { "status": "none", "path": null },
+    "ticketmaster_fr": { "status": "none", "path": null },
+    "shotgun":       { "status": "none", "path": null },
+    "weezevent":     { "status": "none", "path": null },
+    "yurplan":       { "status": "none", "path": null },
+    "helloasso":     { "status": "none", "path": null },
+    "seetickets_fr": { "status": "none", "path": null },
+    "digitick":      { "status": "none", "path": null },
+    "francebillet":  { "status": "none", "path": null },
+    "placeminute":   { "status": "none", "path": null },
+    "mapado":        { "status": "none", "path": null },
+    "timeout_paris": { "status": "none", "path": null },
+    "venue_direct":  { "status": "none", "path": null }
+  }
+}
