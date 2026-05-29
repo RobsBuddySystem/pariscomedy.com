@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Show — Paris Comedy</title>
+<meta name="description" content="Show details — name, venue, day and time, language, description, tickets, and how to get there. From the Paris Comedy directory.">
+<link rel="canonical" href="https://pariscomedy.com/show.html">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Paris Comedy">
+<meta property="og:title" content="Show — Paris Comedy">
+<meta property="og:description" content="Show details — name, venue, day and time, language, description, tickets, and how to get there.">
+<meta property="og:url" content="https://pariscomedy.com/show.html">
+<meta property="og:image" content="https://pariscomedy.com/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Show — Paris Comedy">
+<meta name="twitter:description" content="Show details from the Paris Comedy directory.">
+<meta name="twitter:image" content="https://pariscomedy.com/assets/og-default.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#f0f0f0;min-height:100vh}
+a{color:inherit;text-decoration:none}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #222;position:sticky;top:0;background:#0a0a0a;z-index:100;flex-wrap:wrap;gap:8px}
+.nav-logo{font-size:18px;font-weight:700;letter-spacing:-0.5px}
+.nav-logo span{color:#f5c518}
+.nav-links{display:flex;gap:20px;font-size:14px;color:#888;flex-wrap:wrap}
+.nav-links a:hover{color:#f0f0f0}
+.nav-active{color:#f0f0f0!important}
+.wrap{max-width:880px;margin:0 auto;padding:36px 24px 60px}
+.crumb{font-size:13px;color:#666;margin-bottom:18px}
+.crumb a{color:#888}
+.crumb a:hover{color:#f5c518}
+.detail-emoji{font-size:44px;margin-bottom:8px}
+.detail-name{font-size:clamp(24px,4vw,40px);font-weight:800;letter-spacing:-0.5px;line-height:1.15;margin-bottom:10px}
+.detail-venue{font-size:16px;color:#c9a84c;font-weight:600;margin-bottom:6px}
+.detail-meta{font-size:14px;color:#888;margin-bottom:20px}
+.detail-tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px}
+.tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;background:#7c3aed;color:#fff;letter-spacing:.04em}
+.tag.fr{background:#c41e3a}
+.tag.show-type{background:#1e2a3a;color:#9d5ff5}
+.detail-desc{font-size:15px;line-height:1.7;color:#ccc;margin-bottom:28px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.btn-primary{display:inline-block;padding:13px 22px;border-radius:10px;background:#c9a84c;color:#000;font-size:14px;font-weight:700}
+.btn-primary:hover{opacity:.92}
+.btn-secondary{display:inline-block;padding:13px 22px;border-radius:10px;background:transparent;color:#f0f0f0;border:1px solid #333;font-size:14px;font-weight:700}
+.btn-secondary:hover{border-color:#888}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-bottom:32px}
+.info-card{background:#111;border:1px solid #1e1e1e;border-radius:10px;padding:16px}
+.info-card h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:8px}
+.info-card p{font-size:14px;color:#ddd;line-height:1.5}
+.info-card a{color:#9d5ff5;font-weight:600}
+.info-card a:hover{text-decoration:underline}
+.related{border-top:1px solid #222;padding-top:24px}
+.related h2{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:12px}
+.related ul{list-style:none;display:flex;gap:16px;flex-wrap:wrap}
+.related a{color:#9d5ff5;font-weight:600;font-size:14px}
+.related a:hover{text-decoration:underline}
+.error{padding:48px 0;text-align:center;color:#888;font-size:15px}
+.error h1{font-size:20px;color:#f0f0f0;margin-bottom:10px}
+.error a{color:#9d5ff5}
+.loading{padding:48px 0;text-align:center;color:#666;font-size:14px}
+footer{padding:36px 16px;text-align:center;border-top:1px solid #222;color:#666;font-size:13px;margin-top:auto}
+.footer-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/shows.html" class="nav-active">Shows</a>
+    <a href="/venues.html">Venues</a>
+    <a href="/comedians.html">Comedians</a>
+    <a href="/bookers.html">Bookers</a>
+    <a href="/pricing.html">Pricing</a>
+    <a href="/login.html">Sign In</a>
+    <a href="/book.html">Book / Connect</a>
+    <a href="/about.html">About</a>
+  </div>
+</nav>
+
+<div class="wrap" id="wrap">
+  <div class="loading" id="loading">Loading show…</div>
+  <div id="detail" style="display:none"></div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/shows.html">Tonight's Comedy Shows in Paris</a>
+    <a href="/venues.html">Comedy Clubs in Paris</a>
+    <a href="/comedians.html">English-Speaking Comedians in Paris</a>
+    <a href="/book.html">Book a Show or Comedian</a>
+    <a href="/bookers.html">For Bookers &amp; Show Runners</a>
+    <a href="/pricing.html">Pricing</a>
+    <a href="/about.html">About Paris Comedy</a>
+    <a href="/login.html">Sign In</a>
+  </div>
+  <div>payments@pariscomedy.com</div>
+</footer>
+
+<script>
+function esc(s){ return String(s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function mapsLink(addr){
+  if (!addr) return '';
+  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(addr + ', Paris, France');
+}
+
+async function loadAPI() {
+  let api = 'https://api.pariscomedy.com';
+  try {
+    const c = await fetch('/api-config.json', {cache:'no-store'}).then(r=>r.json());
+    if (c && c.api) api = c.api;
+  } catch(e) {}
+  return api;
+}
+
+function langTags(L) {
+  const v = (L.language || '').toString().toLowerCase();
+  const out = [];
+  if (v.includes('en')) out.push('<span class="tag">EN</span>');
+  if (v.includes('fr')) out.push('<span class="tag fr">FR</span>');
+  return out.join(' ');
+}
+
+function render(L) {
+  const venue = (L.venue && L.venue.name) || L.venue_name_raw || 'Venue TBC';
+  const address = (L.venue && (L.venue.address || '')) || L.address || '';
+  const city = (L.venue && L.venue.city) || 'Paris';
+  const days = Array.isArray(L.days) ? L.days.join(' · ') : '';
+  const time = L.start_time || '';
+  const showType = (L.show_type || 'showcase').replace(/_/g,' ');
+  const description = L.description_en || L.description_fr || '';
+  const ticket = L.booking_url || L.show_url || '';
+  const verifiedAt = L.verified_at || '';
+  const slug = L.slug || '';
+
+  document.title = (L.name || L.short_name || 'Show') + ' — Paris Comedy';
+
+  const ctas = [];
+  if (ticket) {
+    ctas.push(`<a class="btn-primary" href="${esc(ticket)}" target="_blank" rel="noopener sponsored">Get tickets / source listing →</a>`);
+  }
+  if (address) {
+    ctas.push(`<a class="btn-secondary" href="${esc(mapsLink((address || '') + (city ? ', ' + city : '')))}" target="_blank" rel="noopener">Map / directions →</a>`);
+  }
+  ctas.push(`<a class="btn-secondary" href="/book.html#show-runner">Claim or manage this show →</a>`);
+
+  const tags = `${langTags(L)} <span class="tag show-type">${esc(showType)}</span>`;
+
+  document.getElementById('loading').style.display='none';
+  const d=document.getElementById('detail');
+  d.style.display='block';
+  d.innerHTML = `
+    <div class="crumb"><a href="/">Paris Comedy</a> / <a href="/shows.html">Shows</a> / ${esc(L.name || '')}</div>
+    <div class="detail-emoji">${esc(L.emoji || '🎤')}</div>
+    <h1 class="detail-name">${esc(L.name || L.short_name || 'Show')}</h1>
+    <div class="detail-venue">${esc(venue)}</div>
+    <div class="detail-meta">${esc(days)}${time ? ' · ' + esc(time) : ''}${address ? ' · ' + esc(address) : ''}</div>
+    <div class="detail-tag-row">${tags}</div>
+    ${description ? `<p class="detail-desc">${esc(description)}</p>` : ''}
+    <div class="cta-row">${ctas.join('')}</div>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>Venue</h3>
+        <p>${esc(venue)}${address ? '<br>' + esc(address) : ''}${city ? '<br>' + esc(city) : ''}</p>
+      </div>
+      <div class="info-card">
+        <h3>When</h3>
+        <p>${esc(days || 'Schedule TBC')}${time ? '<br>Doors / start ' + esc(time) : ''}</p>
+      </div>
+      <div class="info-card">
+        <h3>Language</h3>
+        <p>${L.language ? esc(String(L.language).toUpperCase()) : 'English'}</p>
+      </div>
+      <div class="info-card">
+        <h3>Source</h3>
+        <p>${ticket ? `<a href="${esc(ticket)}" target="_blank" rel="noopener sponsored">External listing</a>` : 'No external source on file'}${verifiedAt ? '<br><span style="color:#666;font-size:12px">Verified ' + esc(verifiedAt) + '</span>' : ''}</p>
+      </div>
+    </div>
+    <div class="related">
+      <h2>Explore the directory</h2>
+      <ul>
+        <li><a href="/shows.html">All Paris comedy shows →</a></li>
+        <li><a href="/venues.html">All Paris comedy venues →</a></li>
+        <li><a href="/comedians.html">Paris comedians directory →</a></li>
+      </ul>
+    </div>
+  `;
+}
+
+function renderError(msg) {
+  document.getElementById('loading').style.display='none';
+  const d=document.getElementById('detail');
+  d.style.display='block';
+  d.innerHTML = `
+    <div class="error">
+      <h1>Show not found</h1>
+      <p>${esc(msg)}</p>
+      <p style="margin-top:16px"><a href="/shows.html">← Back to all shows</a></p>
+    </div>
+  `;
+}
+
+(async function init() {
+  const q = new URLSearchParams(window.location.search);
+  const slug = (q.get('slug') || '').trim();
+  const idQ = (q.get('id') || '').trim();
+  if (!slug && !idQ) { renderError('No show specified.'); return; }
+  let api;
+  try {
+    api = await loadAPI();
+    const listings = await fetch(api + '/api/listings', {cache:'no-store'}).then(r => r.json());
+    let hit = null;
+    if (slug) hit = listings.find(L => L && L.slug === slug);
+    if (!hit && idQ) {
+      const idNum = parseInt(idQ, 10);
+      if (!isNaN(idNum)) hit = listings.find(L => L && L.id === idNum);
+    }
+    if (!hit) { renderError('That show is not in the live directory.'); return; }
+    render(hit);
+  } catch (e) {
+    console.warn('[show] load failed', e);
+    renderError('Could not load show data right now. Please try again.');
+  }
+})();
+</script>
+</body>
+</html>

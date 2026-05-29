@@ -118,7 +118,7 @@ function render() {
       <div class="card-days">${s.days.join(' / ')} &middot; ${s.time}</div>
       <span class="tag tag-en">EN</span>
       <div class="card-desc">${s.desc}</div>
-      <a href="${s.url}" target="_blank" class="btn-book">Book / Info →</a>`;
+      <a href="/show.html?id=${encodeURIComponent(s.id)}" class="btn-book">Show details →</a>`;
     grid.appendChild(card);
   });
 }
