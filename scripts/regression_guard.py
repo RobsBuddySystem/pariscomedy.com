@@ -2,7 +2,7 @@
 """
 PROCESS.ROOT.1 — Regression guard.
 
-Runs 9 checks against LIVE production (https://pariscomedy.com) to catch
+Runs 10 checks against LIVE production (https://pariscomedy.com) to catch
 recurrences of the root causes we've already fixed:
 
   1. forbidden_strings      — no bilingual/mixed-language/marketing-claim leakage
@@ -14,6 +14,8 @@ recurrences of the root causes we've already fixed:
   7. nav_consistency        — every page has exactly one nav-shell-* nav
   8. freshness_sanity       — /data/freshness-audit.json sane, no stale rows
   9. hreflang               — legal pages have >=3 hreflang alternates
+ 10. header_cta_rule        — per-page nav matches canonical partial set
+                              (no page-specific CTA leaks into global nav)
 
 Usage:
   python3 scripts/regression_guard.py
@@ -409,6 +411,112 @@ def check_hreflang() -> dict:
     }
 
 
+# ---------- Check 10: header CTA rule ---------------------------------------
+#
+# P2.UX.1 — No page-specific CTA may push or distort global nav.
+# For each public page, extract its <nav class="nav-shell-*">…</nav> block
+# and compare its <a href="…"> set against the canonical partial for that
+# shell. FAIL if a page introduces an href not in the canonical set, or is
+# missing more than one canonical href.
+#
+# Allowed extension: /archive.html may add a single extra link
+# pointing at /archive.html (intentional class extension of marketing shell).
+
+NAV_BLOCK_FULL_RE = re.compile(
+    r'<nav\b[^>]*\bclass="([^"]*nav-shell[^"]*)"[^>]*>(.*?)</nav>',
+    re.IGNORECASE | re.DOTALL,
+)
+HREF_RE = re.compile(r'href="([^"]+)"', re.IGNORECASE)
+
+SHELL_CLASS_TO_PARTIAL = {
+    "nav-shell-marketing": "partials/nav.shell.marketing.html",
+    "nav-shell-minimal":   "partials/nav.shell.minimal.html",
+    "nav-shell-auth":      "partials/nav.shell.auth.html",
+    "nav-shell-portal":    "partials/nav.shell.portal.html",
+    "nav-shell-admin":     "partials/nav.shell.admin.html",
+}
+
+
+def _load_canonical_nav_hrefs() -> dict:
+    """Return {shell_class: set(href)} parsed from on-disk partials."""
+    out: dict[str, set] = {}
+    for cls, rel in SHELL_CLASS_TO_PARTIAL.items():
+        p = REPO_ROOT / rel
+        if not p.exists():
+            out[cls] = set()
+            continue
+        body = p.read_text(encoding="utf-8", errors="replace")
+        m = NAV_BLOCK_FULL_RE.search(body)
+        inner = m.group(2) if m else body
+        out[cls] = set(HREF_RE.findall(inner))
+    return out
+
+
+def _extract_page_nav(body: str) -> tuple[str | None, set]:
+    """Return (shell_class, set_of_hrefs) for the first nav-shell on a page."""
+    m = NAV_BLOCK_FULL_RE.search(body)
+    if not m:
+        return None, set()
+    classes = m.group(1).split()
+    shell = next((c for c in classes if c in SHELL_CLASS_TO_PARTIAL), None)
+    hrefs = set(HREF_RE.findall(m.group(2)))
+    return shell, hrefs
+
+
+def check_header_cta_rule() -> dict:
+    canonical = _load_canonical_nav_hrefs()
+    problems: list[dict] = []
+    # Skip API paths (no nav). Use the public sweep set.
+    pages = [p for p in SWEEP_PAGES if not p.startswith("/api/")]
+    inspected = 0
+    for path in pages:
+        code, body = fetch(path)
+        if code != 200:
+            continue
+        shell, hrefs = _extract_page_nav(body)
+        if shell is None:
+            # nav_consistency already enforces presence — skip here.
+            continue
+        inspected += 1
+        canon = canonical.get(shell, set())
+        extras = hrefs - canon
+        # archive.html may add a single self-referential Archive link
+        # as an intentional marketing-shell extension.
+        if path == "/archive.html" and shell == "nav-shell-marketing":
+            extras = {e for e in extras if e != "/archive.html"}
+        # Legal pages on the minimal shell are doctrine-approved to carry
+        # cross-legal navigation (Terms/Privacy/About/Shows). These are
+        # NOT page-specific CTAs and do not constitute a "Submit your bio"
+        # style regression. Curated allow-list, anything beyond fails.
+        LEGAL_ALLOWED = {
+            "/about.html", "/shows.html",
+            "/terms.html", "/privacy.html",
+            "/fr/terms.html", "/fr/privacy.html",
+        }
+        if path in ("/disclosure.html", "/fr/disclosure.html") \
+                and shell == "nav-shell-minimal":
+            extras = {e for e in extras if e not in LEGAL_ALLOWED}
+        missing = canon - hrefs
+        # Rule: FAIL on ANY extra (page-specific CTA leaking into global nav)
+        # FAIL when more than one canonical link is missing.
+        if extras or len(missing) > 1:
+            problems.append({
+                "page": path,
+                "shell": shell,
+                "extras": sorted(extras),
+                "missing": sorted(missing),
+            })
+    return {
+        "name": "header_cta_rule",
+        "result": "PASS" if not problems else "FAIL",
+        "evidence": {
+            "inspected": inspected,
+            "canonical_counts": {k: len(v) for k, v in canonical.items()},
+            "problems": problems,
+        },
+    }
+
+
 # ---------- Optional Playwright DOM probes ---------------------------------
 
 def _dom_count(path: str, selector: str) -> int:
@@ -448,6 +556,7 @@ CHECKS = {
     "nav_consistency":       lambda dom: check_nav_consistency(),
     "freshness_sanity":      lambda dom: check_freshness_sanity(),
     "hreflang":              lambda dom: check_hreflang(),
+    "header_cta_rule":       lambda dom: check_header_cta_rule(),
 }
 
 

@@ -1,5 +1,11 @@
 # 07_CHANGELOG
 
+## 2026-05-29 | infra | P2.UX.1
+- Added `header_cta_rule` check to `scripts/regression_guard.py` (now 10 checks total). For each public page, extracts the first `<nav class="nav-shell-*">` block, collects every `href`, and diffs against the canonical href set parsed from the matching `partials/nav.shell.<variant>.html`. FAIL on any extra href (page-specific CTA leaking into the global nav) or more than one missing canonical href.
+- Canonical sets parsed at runtime: marketing (9), minimal (1), auth (3), portal (6), admin (8). Documented exceptions: `/archive.html` may carry an extra `/archive.html` link; `/disclosure.html` + `/fr/disclosure.html` (minimal shell) may carry curated cross-legal links (`/about`, `/shows`, `/terms`, `/privacy`, `/fr/terms`, `/fr/privacy`).
+- Wired into the default-run list. Verified: `python3 scripts/regression_guard.py` → 10/10 PASS; standalone `--check header_cta_rule` → PASS (30 pages inspected). Status sweep still 31/31. No HTML touched.
+- Vault: `chuck_vault/10-concepts/projects/pariscomedy-canonical/P2_UX_1_HEADER_CTA_RULE.md`.
+
 ## 2026-05-29 | infra | P5.AUTOMATION.1
 - Added `scripts/daily_proof_package.py` — single aggregator that runs `freshness_verify.py` + `regression_guard.py` + `generate_sitemap.py`, captures each into a structured JSON, and writes `logs/daily-proof-{ISO}.json` with sections `freshness`, `regression`, `sitemap-size` plus a top-level `failures` array. Exit 0 if all PASS, 1 if any FAIL. stdlib only.
 - Extended `scripts/freshness_daily_wrapper.sh` — after the existing freshness commit, invokes the aggregator (output appended to `logs/freshness-daily.log`) and commits/pushes `sitemap.xml` if it changed. `logs/daily-proof-*.json` stays local as the evidence trail.
