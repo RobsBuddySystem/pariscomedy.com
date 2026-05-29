@@ -73,17 +73,30 @@ def verify_listing(l):
     else:
         code, body = fetch_url(source_url)
         if code == 200 and body:
-            # Match if show name OR venue OR slug appears in body
-            tokens = [t for t in [name, venue, slug.replace("-", " ")] if t]
-            matched = any(t in body for t in tokens if len(t) >= 4)
-            if matched:
-                status, conf, risk = "verified_24h", 98, "low"
-                last_verified_at = last_checked_at
-                note = f"source verified: HTTP 200 + name/venue/slug match"
-            else:
-                status, conf, risk = "needs_human_review", 35, "high"
+            # Detect "event ended" / past-event signals on ticket platform pages.
+            past_signals = [
+                "sales ended", "sale ended", "this event has ended", "event has ended",
+                "event ended", "tickets unavailable", "no longer available",
+                "cet événement est terminé", "événement terminé", "billetterie fermée",
+                "les ventes sont terminées", "vente terminée",
+                "sold out", "complet",
+            ]
+            if any(sig in body for sig in past_signals):
+                status, conf, risk = "source_unreachable", 0, "high"
                 last_verified_at = None
-                note = f"source HTTP 200 but no name/venue/slug match — page may have changed"
+                note = "source page indicates event has ended / tickets unavailable — past-event"
+            else:
+                # Match if show name OR venue OR slug appears in body
+                tokens = [t for t in [name, venue, slug.replace("-", " ")] if t]
+                matched = any(t in body for t in tokens if len(t) >= 4)
+                if matched:
+                    status, conf, risk = "verified_24h", 98, "low"
+                    last_verified_at = last_checked_at
+                    note = f"source verified: HTTP 200 + name/venue/slug match + future-event"
+                else:
+                    status, conf, risk = "needs_human_review", 35, "high"
+                    last_verified_at = None
+                    note = f"source HTTP 200 but no name/venue/slug match — page may have changed"
         elif code in (404, 410):
             status, conf, risk = "source_unreachable", 0, "high"
             last_verified_at = None
