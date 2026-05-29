@@ -1,0 +1,103 @@
+{
+  "generated": "2026-05-29",
+  "task": "P4.SEO.1",
+  "target_keywords": [
+    "English stand-up comedy in Paris",
+    "English comedy Paris",
+    "comedy clubs Paris",
+    "stand-up comedians Paris",
+    "tonight's comedy Paris",
+    "Paris comedy directory"
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "current_title": "English Stand-Up Comedy in Paris Tonight — Paris Comedy",
+      "current_meta_desc": "Find English-language stand-up comedy shows in Paris tonight. A growing directory of comedy clubs, lineups, and nights — Paris Comedy.",
+      "current_h1": "The Home of English-Language Comedy in Paris",
+      "target_keywords_present": ["English stand-up comedy in Paris", "English comedy Paris", "tonight's comedy Paris", "Paris comedy directory", "comedy clubs Paris"],
+      "missing_keywords": [],
+      "recommended_changes": "none — well aligned",
+      "applied": false
+    },
+    {
+      "path": "/shows.html",
+      "before_title": "Shows — Paris Comedy",
+      "current_title": "English Stand-Up Comedy Shows in Paris Tonight — Paris Comedy",
+      "current_meta_desc": "Every English-language stand-up comedy show in Paris. Browse by night, find your show, book tickets.",
+      "current_h1": "Paris Comedy Shows",
+      "target_keywords_present": ["English stand-up comedy in Paris", "tonight's comedy Paris"],
+      "missing_keywords": [],
+      "recommended_changes": "title rewritten to lead with primary keyword + tonight",
+      "applied": true
+    },
+    {
+      "path": "/venues.html",
+      "before_title": "Comedy Venues in Paris — Paris Comedy",
+      "current_title": "Comedy Clubs & Venues in Paris — Paris Comedy",
+      "current_meta_desc": "English-language comedy clubs and venues in Paris. Browse by neighbourhood, arrondissement, or day of the week.",
+      "current_h1": "Comedy Venues in Paris",
+      "target_keywords_present": ["comedy clubs Paris", "English comedy Paris"],
+      "missing_keywords": [],
+      "recommended_changes": "added 'Comedy Clubs' to title + description to match primary venue query",
+      "applied": true
+    },
+    {
+      "path": "/comedians.html",
+      "current_title": "Stand-Up Comedians in Paris — Paris Comedy",
+      "current_meta_desc": "The directory of stand-up comedians performing in Paris — Bios, upcoming shows, and booking contacts.",
+      "current_h1": "Paris Comedy Comedians Directory",
+      "target_keywords_present": ["stand-up comedians Paris", "Paris comedy directory"],
+      "missing_keywords": [],
+      "recommended_changes": "none — well aligned",
+      "applied": false
+    },
+    {
+      "path": "/pricing.html",
+      "current_title": "Pricing — Paris Comedy",
+      "current_meta_desc": "First 100 comedians get lifetime Comic Plus for €1. Booker Plus: €1/month for 6 months, then €5/month. Free forever for everyone else.",
+      "current_h1": "Founding Member offer.",
+      "target_keywords_present": [],
+      "missing_keywords": [],
+      "recommended_changes": "none — pricing page intentionally transactional, not an SEO target",
+      "applied": false
+    },
+    {
+      "path": "/bookers.html",
+      "current_title": "For Bookers & Producers — Paris Comedy",
+      "current_meta_desc": "Claim your comedy show in Paris. Add dates, lineups, and ticket links. Connect with English-language stand-up comedians and grow your audience.",
+      "current_h1": "Run a Comedy Show in Paris?",
+      "target_keywords_present": ["English comedy Paris", "stand-up comedians Paris"],
+      "missing_keywords": [],
+      "recommended_changes": "none — well aligned to booker intent",
+      "applied": false
+    },
+    {
+      "path": "/book.html",
+      "current_title": "Book Comedy Talent in Paris — Paris Comedy",
+      "current_meta_desc": "List your comedy show, submit your comedian bio, or book stand-up talent through Paris Comedy — the home of English-language comedy in Paris.",
+      "current_h1": "Connect with Paris Comedy",
+      "target_keywords_present": ["English comedy Paris", "stand-up comedians Paris"],
+      "missing_keywords": [],
+      "recommended_changes": "none — well aligned",
+      "applied": false
+    },
+    {
+      "path": "/about.html",
+      "current_title": "About — Paris Comedy",
+      "current_meta_desc": "Paris Comedy is the home of English-language stand-up comedy in Paris — a free public directory of every show, venue, and comedian in the city.",
+      "current_h1": "About Paris Comedy",
+      "target_keywords_present": ["English stand-up comedy in Paris", "Paris comedy directory"],
+      "missing_keywords": [],
+      "recommended_changes": "none — well aligned",
+      "applied": false
+    }
+  ],
+  "summary": {
+    "pages_audited": 8,
+    "pages_well_aligned_no_fix": 6,
+    "pages_fixed": 2,
+    "overclaim_flags_introduced": 0,
+    "bilingual_terms_introduced": 0
+  }
+}
