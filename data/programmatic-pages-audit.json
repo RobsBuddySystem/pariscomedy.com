@@ -1,0 +1,87 @@
+{
+  "_doc": "P4.PAGES.1 — Audit of candidate programmatic SEO pages. Doctrine: NO thin pages. Each candidate evaluated against existing coverage + underlying data density. Only ship if real content can stand on its own.",
+  "generated_at": "2026-05-29",
+  "scope_quote": "Create only when data density supports: tonight, this week, venue pages, show pages, comedian pages. Exit: No thin SEO pages.",
+  "candidates": [
+    {
+      "candidate": "/tonight",
+      "already_covered_by": "/shows.html (SHOWS.DEFAULT.1 default-today range)",
+      "data_density": "DUPLICATE",
+      "recommended_action": "DEFER — propose a 301 alias at the host level (Cloudflare rule) once GTM tagging confirms tonight-specific organic interest. Do not create a duplicate HTML page.",
+      "blockers": [
+        "would shadow /shows.html canonical without adding new content",
+        "no host-level redirect mechanism wired yet"
+      ],
+      "implemented": false
+    },
+    {
+      "candidate": "/this-week",
+      "data_density": "THIN — same listings as /shows.html with a 7-day range filter",
+      "recommended_action": "DEFER — implement as /shows.html?range=7 query parameter on the existing page (no new file). If/when standalone landing-page demand surfaces, scaffold a small HTML that JS-redirects to /shows.html?range=7. Not built now: zero new content over directory page.",
+      "blockers": [
+        "would be a thin SEO clone of /shows.html",
+        "no unique copy or curation justifies separate page"
+      ],
+      "implemented": false
+    },
+    {
+      "candidate": "/venues/{slug}",
+      "data_density": "MIXED — 32 venues total, 14 have address='TBD' (per data/venues.json). Only ~18 venues have full address + neighborhood + metro and could support a non-thin per-venue page.",
+      "recommended_action": "DEFER — wait for P1.DATA fill of TBD venue addresses + lineup history before scaffolding. Per-venue pages without address/metro/lineup are textbook thin SEO and would degrade the directory.",
+      "blockers": [
+        "14/32 venues missing canonical address",
+        "no per-venue lineup history yet (cannot anchor recurrence text)",
+        "neighborhood/metro fields uneven across venues"
+      ],
+      "implemented": false
+    },
+    {
+      "candidate": "/shows/{slug}.html",
+      "data_density": "ENOUGH for 13 verified_24h slugs in data/freshness-audit.json. Each has: name, venue, address, recurring day/time, language, 1–2 sentence editorial description, live ticket URL, freshness/confidence signal. Far above thin-page threshold.",
+      "recommended_action": "BUILD — generate static page per verified_24h slug. Skip theatre-bo-julie (needs_human_review). Skip slugs whose target file already exists (preserve existing HTML).",
+      "implemented": true,
+      "files_generated": [
+        "/shows/charonne.html",
+        "/shows/comedy-crush.html",
+        "/shows/comedy-lab-chat-noir.html",
+        "/shows/cuba-compagnie.html",
+        "/shows/coucou-friday.html",
+        "/shows/green-light.html",
+        "/shows/millennial-meltdown.html",
+        "/shows/rocket.html",
+        "/shows/smash.html",
+        "/shows/velvet-comedy.html",
+        "/shows/wednesday-night-comedy.html"
+      ],
+      "files_skipped_existing": [
+        "/shows/ffcn.html",
+        "/shows/green-mic-showcase.html"
+      ],
+      "files_skipped_needs_human_review": [
+        "/shows/theatre-bo-julie.html"
+      ],
+      "sitemap_action": "Added /shows/{slug}.html entries to sitemap.xml; kept /show.html?slug={slug} entries (legacy variant remains valid). New pages each declare <link rel=\"alternate\" href=\"/show.html?slug={slug}\"> to disambiguate.",
+      "blockers": []
+    },
+    {
+      "candidate": "/c/{slug}.html (per-comedian)",
+      "already_covered_by": "227 existing static comedian profile pages under /c/",
+      "data_density": "ENOUGH (already shipped)",
+      "recommended_action": "NO-OP — already exists, no new pages needed under this audit.",
+      "implemented": true,
+      "blockers": []
+    }
+  ],
+  "summary": {
+    "candidates_evaluated": 5,
+    "candidates_built_this_pass": 1,
+    "files_added": 11,
+    "files_skipped_existing": 2,
+    "files_skipped_needs_human_review": 1,
+    "thin_pages_avoided": [
+      "/tonight",
+      "/this-week",
+      "/venues/{slug}"
+    ]
+  }
+}

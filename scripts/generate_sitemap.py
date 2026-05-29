@@ -164,13 +164,29 @@ def main() -> None:
             }
         entries.append(url_entry(loc, lastmod, freq, pri, alts))
 
-    # Verified shows
+    # Verified shows — query-string variant on /show.html
     show_lastmod_default = git_lastmod("show.html")
     for slug, lastmod in verified_slugs():
         lm = lastmod or show_lastmod_default
         entries.append(url_entry(
             f"/show.html?slug={slug}", lm, "daily", "0.8",
         ))
+
+    # Verified shows — static /shows/{slug}.html pages, when present on disk.
+    # We index only files that actually exist (no thin / phantom URLs).
+    shows_dir = REPO / "shows"
+    if shows_dir.is_dir():
+        for slug, lastmod in verified_slugs():
+            page = shows_dir / f"{slug}.html"
+            if not page.exists():
+                continue
+            file_lastmod = git_lastmod(f"shows/{slug}.html") or lastmod
+            entries.append(url_entry(
+                f"/shows/{slug}.html",
+                file_lastmod or show_lastmod_default,
+                "daily",
+                "0.8",
+            ))
 
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
