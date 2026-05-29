@@ -4,10 +4,11 @@
   "adapters": {
     "eventbrite":    { "status": "current",    "path": "scripts/discover_shows.py" },
     "billetreduc":   { "status": "scaffolded", "path": "scripts/adapter_billetreduc.py", "enabled": false },
-    "fnac_spectacles": { "status": "none", "path": null },
+    "fnac_spectacles": { "status": "scaffolded", "path": "scripts/adapter_fnac.py", "enabled": false },
     "ticketmaster_fr": { "status": "none", "path": null },
     "shotgun":       { "status": "none", "path": null },
-    "weezevent":     { "status": "none", "path": null },
+    "fever":         { "status": "scaffolded", "path": "scripts/adapter_fever.py", "enabled": false },
+    "weezevent":     { "status": "scaffolded", "path": "scripts/adapter_weezevent.py", "enabled": false },
     "yurplan":       { "status": "none", "path": null },
     "helloasso":     { "status": "none", "path": null },
     "seetickets_fr": { "status": "none", "path": null },
