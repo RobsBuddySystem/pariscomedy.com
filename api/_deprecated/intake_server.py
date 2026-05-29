@@ -1,4 +1,27 @@
 #!/usr/bin/env python3
+"""
+DEPRECATED — 2026-05-29 (P3.SUBMIT.4)
+======================================
+
+This localhost-only HTTP intake server is no longer wired to any frontend form.
+It was never reachable from production (bound to 127.0.0.1 only, no public route).
+
+The canonical submit flow is now:
+    /book.html  ->  POST https://api.pariscomedy.com/api/submissions
+
+Submissions are inspected via the operator HUD at /status.html (NOT via the
+static /api/review-queue.html placeholder, which is also deprecated).
+
+This file is preserved (not deleted) so operators can reference the historical
+schema and validation rules if/when a backend review-queue producer is built.
+
+Do not re-enable without re-auditing — depends on:
+  - /Users/chuck/.openclaw/workspace/send_email.py (machine-local)
+  - sqlite db under <repo>/data/intake/ (not synced)
+  - subprocess shell-out to chucklericain@icloud.com forwarder
+
+See: chuck_vault/.../P3_SUBMIT_4_DEPRECATE_INTAKE.md
+"""
 import json, re, sqlite3, subprocess, sys
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer

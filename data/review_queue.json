@@ -1,1 +1,8 @@
-[]
+{
+  "_status": "deprecated",
+  "_replaced_by": "api.pariscomedy.com/api/submissions",
+  "_deprecated_on": "2026-05-29",
+  "_deprecated_by": "P3.SUBMIT.4",
+  "_note": "Schema preserved for future backend producer. Live submissions land at the canonical API; inspect via /status.html operator HUD. Do not write to this file from new code.",
+  "items": []
+}
