@@ -119,11 +119,14 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
 </head>
 <body>
 
-<nav>
+<nav class="nav-shell nav-shell-portal">
   <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
-  <div class="nav-right">
-    <span id="booker-email-display"></span>
-    <button class="btn btn-ghost" onclick="logout()">Sign out</button>
+  <div class="nav-links">
+    <a href="/performer-portal.html">Performer Portal</a>
+    <a href="/booker-portal.html">Booker Portal</a>
+    <a href="/booker-dashboard.html" class="nav-active">Dashboard</a>
+    <a href="/show-runner.html">Show Runner</a>
+    <a href="/login.html">Sign Out</a>
   </div>
 </nav>
 
