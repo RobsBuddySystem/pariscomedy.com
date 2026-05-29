@@ -1,0 +1,976 @@
+[
+  {
+    "viewport": "mobile",
+    "page": "home",
+    "url": "https://pariscomedy.com/",
+    "probe": {
+      "vw": 390,
+      "sw": 558,
+      "overflowX": true,
+      "wide": [
+        {
+          "tag": "div",
+          "id": null,
+          "cls": "hero-left",
+          "w": 540,
+          "text": "The Home of\nEnglish-Language\nComedy in P"
+        },
+        {
+          "tag": "h1",
+          "id": null,
+          "cls": "",
+          "w": 540,
+          "text": "The Home of\nEnglish-Language\nComedy in P"
+        },
+        {
+          "tag": "p",
+          "id": null,
+          "cls": "",
+          "w": 460,
+          "text": "Stand-up throughout the week. English sh"
+        },
+        {
+          "tag": "div",
+          "id": null,
+          "cls": "cta-row",
+          "w": 540,
+          "text": "Find Tonight's Show \u2192\nBook a Private Sho"
+        },
+        {
+          "tag": "div",
+          "id": null,
+          "cls": "hero-right",
+          "w": 540,
+          "text": "NEXT 3 DAYS IN PARIS\n5 shows\nTODAY \u00b7 FRI"
+        },
+        {
+          "tag": "div",
+          "id": "next3-panel",
+          "cls": "next3-panel",
+          "w": 502,
+          "text": "NEXT 3 DAYS IN PARIS\n5 shows\nTODAY \u00b7 FRI"
+        },
+        {
+          "tag": "div",
+          "id": null,
+          "cls": "next3-head",
+          "w": 502,
+          "text": "NEXT 3 DAYS IN PARIS\n5 shows"
+        },
+        {
+          "tag": "div",
+          "id": null,
+          "cls": "next3-day",
+          "w": 502,
+          "text": "TODAY \u00b7 FRIDAY\n20:30\nEnglish Stand-Up Co"
+        },
+        {
+          "tag": "div",
+          "id": null,
+          "cls": "next3-day-label",
+          "w": 502,
+          "text": "TODAY \u00b7 FRIDAY"
+        },
+        {
+          "tag": "div",
+          "id": null,
+          "cls": "next3-row",
+          "w": 502,
+          "text": "20:30\nEnglish Stand-Up Comedy in Paris \u2014"
+        }
+      ],
+      "btns": [
+        {
+          "sel": "btn-primary",
+          "text": "Find Tonight's Show \u2192",
+          "w": 221,
+          "h": 46,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-secondary",
+          "text": "Book a Private Show",
+          "w": 204,
+          "h": 46,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 390,
+        "h": 116,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 335
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/mobile-home.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "mobile",
+    "page": "shows",
+    "url": "https://pariscomedy.com/shows.html",
+    "probe": {
+      "vw": 390,
+      "sw": 390,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 300,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 300,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 300,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 300,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 300,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 300,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 390,
+        "h": 116,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 289
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/mobile-shows.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "mobile",
+    "page": "venues",
+    "url": "https://pariscomedy.com/venues.html",
+    "probe": {
+      "vw": 390,
+      "sw": 390,
+      "overflowX": false,
+      "wide": [],
+      "btns": [],
+      "nav": {
+        "w": 390,
+        "h": 116,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 289
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/mobile-venues.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "mobile",
+    "page": "comedians",
+    "url": "https://pariscomedy.com/comedians.html",
+    "probe": {
+      "vw": 390,
+      "sw": 390,
+      "overflowX": false,
+      "wide": [],
+      "btns": [],
+      "nav": {
+        "w": 390,
+        "h": 108,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 90
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/mobile-comedians.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "mobile",
+    "page": "show",
+    "url": "https://pariscomedy.com/show.html?slug=charonne",
+    "probe": {
+      "vw": 390,
+      "sw": 390,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-primary",
+          "text": "Get tickets / source listing \u2192",
+          "w": 240,
+          "h": 43,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-secondary",
+          "text": "Map / directions \u2192",
+          "w": 173,
+          "h": 45,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-secondary",
+          "text": "Claim or manage this show \u2192",
+          "w": 247,
+          "h": 45,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 390,
+        "h": 116,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 225
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/mobile-show.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "mobile",
+    "page": "pricing",
+    "url": "https://pariscomedy.com/pricing.html",
+    "probe": {
+      "vw": 390,
+      "sw": 390,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-plan btn-free",
+          "text": "You're already on this",
+          "w": 284,
+          "h": 40,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-plan btn-start",
+          "text": "Claim my \u20ac1 lifetime spot \u2192",
+          "w": 284,
+          "h": 40,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-plan btn-start",
+          "text": "Start Booker Plus \u2192",
+          "w": 284,
+          "h": 40,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-plan btn-start",
+          "text": "Promote my show \u2192",
+          "w": 284,
+          "h": 40,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 390,
+        "h": 116,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 289
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/mobile-pricing.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "mobile",
+    "page": "book",
+    "url": "https://pariscomedy.com/book.html",
+    "probe": {
+      "vw": 390,
+      "sw": 390,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-primary",
+          "text": "List my show \u2192",
+          "w": 276,
+          "h": 43,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 390,
+        "h": 116,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 289
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/mobile-book.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "tablet",
+    "page": "home",
+    "url": "https://pariscomedy.com/",
+    "probe": {
+      "vw": 820,
+      "sw": 820,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-primary",
+          "text": "Find Tonight's Show \u2192",
+          "w": 192,
+          "h": 62,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-secondary",
+          "text": "Book a Private Show",
+          "w": 192,
+          "h": 64,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 820,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 171
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/tablet-home.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "tablet",
+    "page": "shows",
+    "url": "https://pariscomedy.com/shows.html",
+    "probe": {
+      "vw": 820,
+      "sw": 820,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 336,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 336,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 336,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 336,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 336,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 336,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 820,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 145
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/tablet-shows.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "tablet",
+    "page": "venues",
+    "url": "https://pariscomedy.com/venues.html",
+    "probe": {
+      "vw": 820,
+      "sw": 820,
+      "overflowX": false,
+      "wide": [],
+      "btns": [],
+      "nav": {
+        "w": 820,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 145
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/tablet-venues.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "tablet",
+    "page": "comedians",
+    "url": "https://pariscomedy.com/comedians.html",
+    "probe": {
+      "vw": 820,
+      "sw": 820,
+      "overflowX": false,
+      "wide": [],
+      "btns": [],
+      "nav": {
+        "w": 820,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 54
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/tablet-comedians.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "tablet",
+    "page": "show",
+    "url": "https://pariscomedy.com/show.html?slug=charonne",
+    "probe": {
+      "vw": 820,
+      "sw": 820,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-primary",
+          "text": "Get tickets / source listing \u2192",
+          "w": 240,
+          "h": 45,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-secondary",
+          "text": "Map / directions \u2192",
+          "w": 173,
+          "h": 45,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-secondary",
+          "text": "Claim or manage this show \u2192",
+          "w": 247,
+          "h": 45,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 820,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 153
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/tablet-show.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "tablet",
+    "page": "pricing",
+    "url": "https://pariscomedy.com/pricing.html",
+    "probe": {
+      "vw": 820,
+      "sw": 820,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-plan btn-free",
+          "text": "You're already on this",
+          "w": 318,
+          "h": 40,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-plan btn-start",
+          "text": "Claim my \u20ac1 lifetime spot \u2192",
+          "w": 318,
+          "h": 40,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-plan btn-start",
+          "text": "Start Booker Plus \u2192",
+          "w": 318,
+          "h": 40,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-plan btn-start",
+          "text": "Promote my show \u2192",
+          "w": 318,
+          "h": 40,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 820,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 145
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/tablet-pricing.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "tablet",
+    "page": "book",
+    "url": "https://pariscomedy.com/book.html",
+    "probe": {
+      "vw": 820,
+      "sw": 820,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-primary",
+          "text": "List my show \u2192",
+          "w": 586,
+          "h": 43,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 820,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 145
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/tablet-book.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "desktop",
+    "page": "home",
+    "url": "https://pariscomedy.com/",
+    "probe": {
+      "vw": 1280,
+      "sw": 1280,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-primary",
+          "text": "Find Tonight's Show \u2192",
+          "w": 221,
+          "h": 46,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-secondary",
+          "text": "Book a Private Show",
+          "w": 204,
+          "h": 46,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 1280,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 171
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/desktop-home.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "desktop",
+    "page": "shows",
+    "url": "https://pariscomedy.com/shows.html",
+    "probe": {
+      "vw": 1280,
+      "sw": 1280,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 298,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 298,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 298,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 298,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 298,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-book",
+          "text": "Show details \u2192",
+          "w": 298,
+          "h": 33,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 1280,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 145
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/desktop-shows.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "desktop",
+    "page": "venues",
+    "url": "https://pariscomedy.com/venues.html",
+    "probe": {
+      "vw": 1280,
+      "sw": 1280,
+      "overflowX": false,
+      "wide": [],
+      "btns": [],
+      "nav": {
+        "w": 1280,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 145
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/desktop-venues.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "desktop",
+    "page": "comedians",
+    "url": "https://pariscomedy.com/comedians.html",
+    "probe": {
+      "vw": 1280,
+      "sw": 1280,
+      "overflowX": false,
+      "wide": [],
+      "btns": [],
+      "nav": {
+        "w": 1280,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 54
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/desktop-comedians.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "desktop",
+    "page": "show",
+    "url": "https://pariscomedy.com/show.html?slug=charonne",
+    "probe": {
+      "vw": 1280,
+      "sw": 1280,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-primary",
+          "text": "Get tickets / source listing \u2192",
+          "w": 240,
+          "h": 45,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-secondary",
+          "text": "Map / directions \u2192",
+          "w": 173,
+          "h": 45,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-secondary",
+          "text": "Claim or manage this show \u2192",
+          "w": 247,
+          "h": 45,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 1280,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 117
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/desktop-show.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "desktop",
+    "page": "pricing",
+    "url": "https://pariscomedy.com/pricing.html",
+    "probe": {
+      "vw": 1280,
+      "sw": 1280,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-plan btn-free",
+          "text": "You're already on this",
+          "w": 239,
+          "h": 40,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-plan btn-start",
+          "text": "Claim my \u20ac1 lifetime spot \u2192",
+          "w": 239,
+          "h": 40,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-plan btn-start",
+          "text": "Start Booker Plus \u2192",
+          "w": 239,
+          "h": 40,
+          "tooNarrow": false,
+          "tooWide": false
+        },
+        {
+          "sel": "btn-plan btn-start",
+          "text": "Promote my show \u2192",
+          "w": 239,
+          "h": 40,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 1280,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 145
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/desktop-pricing.png",
+    "pageerrors": []
+  },
+  {
+    "viewport": "desktop",
+    "page": "book",
+    "url": "https://pariscomedy.com/book.html",
+    "probe": {
+      "vw": 1280,
+      "sw": 1280,
+      "overflowX": false,
+      "wide": [],
+      "btns": [
+        {
+          "sel": "btn-primary",
+          "text": "List my show \u2192",
+          "w": 586,
+          "h": 43,
+          "tooNarrow": false,
+          "tooWide": false
+        }
+      ],
+      "nav": {
+        "w": 1280,
+        "h": 54,
+        "visible": true,
+        "overflows": false
+      },
+      "footer": {
+        "present": true,
+        "h": 145
+      }
+    },
+    "screenshot": "/tmp/p2-ux-2/desktop-book.png",
+    "pageerrors": []
+  }
+]

@@ -1,5 +1,11 @@
 # 07_CHANGELOG
 
+## 2026-05-29 | ux | P2.UX.2
+- Playwright audit at mobile 390x844, tablet 820x1180, desktop 1280x900 against production `https://pariscomedy.com` across 7 pages (`/`, `/shows.html`, `/venues.html`, `/comedians.html`, `/show.html?slug=charonne`, `/pricing.html`, `/book.html`) — 21 page-viewport runs total. Per-run probe: horizontal overflow (`scrollWidth > clientWidth`), elements wider than viewport, nav visibility/scroll, primary CTA widths (`.btn-primary/.btn-secondary/.btn-book/.btn-plan`), footer presence, `pageerror` count. Output: `data/ux-mobile-tablet-audit.json`; screenshots at `/tmp/p2-ux-2/{viewport}-{page}.png`.
+- 1 issue found: mobile (390px) homepage horizontal overflow (`sw=558` vs `vw=390`). Root cause: `.hero-left h1` containing the unbreakable hyphenated word "English-Language" forced min-content width ~540px, expanding the single-column grid track past the viewport. Small CSS fix applied inline in `index.html`: `.hero-left{min-width:0}`, `.hero-left h1{...overflow-wrap:anywhere;word-break:break-word}`, plus a `@media(max-width:480px)` h1 size clamp override. Re-verified locally → `sw=390`, `h1.width=354`, no horizontal scroll. No external CSS, no nav/footer/script changes.
+- 20 other runs GREEN: no nav overflow, no footer missing, no too-narrow / too-wide CTAs, no `pageerror`s. Zero deferred BUGs.
+- Vault: `chuck_vault/10-concepts/projects/pariscomedy-canonical/P2_UX_2_MOBILE_TABLET_AUDIT.md`.
+
 ## 2026-05-29 | infra | P2.UX.1
 - Added `header_cta_rule` check to `scripts/regression_guard.py` (now 10 checks total). For each public page, extracts the first `<nav class="nav-shell-*">` block, collects every `href`, and diffs against the canonical href set parsed from the matching `partials/nav.shell.<variant>.html`. FAIL on any extra href (page-specific CTA leaking into the global nav) or more than one missing canonical href.
 - Canonical sets parsed at runtime: marketing (9), minimal (1), auth (3), portal (6), admin (8). Documented exceptions: `/archive.html` may carry an extra `/archive.html` link; `/disclosure.html` + `/fr/disclosure.html` (minimal shell) may carry curated cross-legal links (`/about`, `/shows`, `/terms`, `/privacy`, `/fr/terms`, `/fr/privacy`).
