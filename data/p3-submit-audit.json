@@ -1,0 +1,193 @@
+{
+  "_audit": "P3.SUBMIT.1",
+  "_scope": "Show submission + review workflow",
+  "_date": "2026-05-29",
+  "_mode": "audit-only (no code modified, no fetch calls)",
+  "_files_inspected": [
+    "book.html",
+    "admin-submit.html",
+    "show-runner.html",
+    "api/intake_server.py",
+    "api/validate_intake.py",
+    "api/review-queue.html",
+    "js/leadcapture.js",
+    "data/review_queue.json",
+    "data/show_approvals.json",
+    "data/intake/",
+    "shows/*.html (claim_show_click CTA)"
+  ],
+  "submission_paths": [
+    {
+      "form": "book.html#show-runner (List my show)",
+      "endpoint_block_1_LeadCapture": "/api/show-submission",
+      "endpoint_block_2_postForm": "/api/book",
+      "claim_mode_endpoint": "/api/show/claim",
+      "destination_unknown_in_repo": true,
+      "fallback": "localStorage 'pending_leads' + mailto payments@pariscomedy.com"
+    },
+    {
+      "form": "book.html#comedian (Submit my bio)",
+      "endpoint_block_1": "/api/comic-profile",
+      "endpoint_block_2": "/api/book (postForm with _type=comedian_bio)"
+    },
+    {
+      "form": "book.html#booker (Send request)",
+      "endpoint_block_1": "/api/private-booking",
+      "endpoint_block_2": "/api/book (postForm with _type=booking_request)"
+    },
+    {
+      "form": "book.html#message (Send message)",
+      "endpoint_block_1": "/api/leads",
+      "endpoint_block_2": "/api/message (direct fetch, no LeadCapture)"
+    },
+    {
+      "form": "admin-submit.html",
+      "endpoint": "/api/book (with _type=admin_show_submit)",
+      "preview_target_doc": "Copy → paste into data/shows_upcoming.json"
+    },
+    {
+      "form": "api/intake_server.py (local Python)",
+      "endpoint": "/api/intake",
+      "storage": "data/intake/submissions.sqlite3 + submissions.jsonl",
+      "forward": "subprocess send_email.py → chucklericain@icloud.com",
+      "bound_to": "127.0.0.1:8787 only — NOT exposed by production api-config.json"
+    }
+  ],
+  "review_queue_state": {
+    "data/review_queue.json": {
+      "exists": true,
+      "size_bytes": 2,
+      "content": "[]",
+      "schema": "unknown — no producer/consumer in repo references this path"
+    },
+    "data/show_approvals.json": {
+      "exists": true,
+      "purpose": "Manual approval ledger signed by Robert (21-day expiry)",
+      "current_approvals": 0
+    },
+    "api/review-queue.html": {
+      "static": true,
+      "renders": "empty <tbody> hard-coded; badge '0'; meta says 'Last updated 2026-05-19 14:26'",
+      "interactivity": "none — no JS, no fetch, comment says 'Future: POST to /api/review endpoint for one-click publishing'",
+      "accept_reject_action": "stub mailto only (also not wired)"
+    },
+    "data/intake/": {
+      "empty": true,
+      "submissions.sqlite3": "absent in repo",
+      "submissions.jsonl": "absent in repo"
+    }
+  },
+  "rate_limit_or_spam_protection": {
+    "honeypot_field_msg_website": "book.html#message ONLY (input[name=website] hidden, short-circuit if filled). Show-runner / comedian / booker tabs have NO honeypot.",
+    "captcha": "none anywhere",
+    "client_rate_limit": "none",
+    "server_rate_limit_intake_server": "none in api/intake_server.py",
+    "min_message_length": "10 chars on #message tab only",
+    "max_message_length": "5000 chars on #message body, 200 on subject",
+    "duplicate_submit_guard": "btn.disabled=true on submit — re-enabled on error (no idempotency token)"
+  },
+  "success_failure_ux": {
+    "book_html_block_1_LeadCapture": {
+      "success_when_api_2xx": "Shows green success-msg; LeadCapture.renderResult(...)",
+      "success_when_api_unavailable": "Stores in localStorage 'pending_leads' + renders 'Send by email →' yellow CTA (mailto) + Retry button. Auto-flush on page load.",
+      "honest_failure": true
+    },
+    "book_html_block_2_postForm": {
+      "success": "form hidden, success-msg shown",
+      "failure": "error text + re-enable button (no fallback) — silent loss if user closes tab",
+      "issue": "no mailto fallback for show-runner/comedian/booker via postForm path"
+    },
+    "show_runner_html_claim_via_book_html": "success message reset to 'Claim received. We will review and contact you within 48 hours.'"
+  },
+  "broken_or_missing_handlers": [
+    {
+      "severity": "critical",
+      "id": "DUPLICATE_HANDLERS_BOOK_HTML",
+      "where": "book.html lines 341-430 vs 431-645",
+      "detail": "Two <script> blocks define submitShowRunner / submitComedian / submitBooker / submitMessage / showPath. Second declaration wins (function hoisting). Block 1 (LeadCapture flow, with localStorage + mailto fallback) is DEAD CODE. Production runs Block 2 (postForm) which has no offline fallback and uses a different endpoint (/api/book vs /api/show-submission etc.)."
+    },
+    {
+      "severity": "high",
+      "id": "INTAKE_SERVER_NOT_REACHABLE",
+      "where": "api/intake_server.py",
+      "detail": "Listens on 127.0.0.1:8787 only. No public form actually POSTs to /api/intake — all book.html forms target api-config.json's `api` host. Code path is orphaned."
+    },
+    {
+      "severity": "high",
+      "id": "REVIEW_QUEUE_NOT_WIRED",
+      "where": "api/review-queue.html + data/review_queue.json",
+      "detail": "Review queue page is fully static (no JS, no fetch). data/review_queue.json is `[]` with no producer. Submission flow does not deposit anything here. Schema for review_queue.json is undefined."
+    },
+    {
+      "severity": "medium",
+      "id": "NO_HONEYPOT_ON_3_OF_4_TABS",
+      "where": "book.html",
+      "detail": "Only #message has the website honeypot. show-runner, comedian, booker tabs are unprotected against bots."
+    },
+    {
+      "severity": "medium",
+      "id": "JSONL_RACE_CONDITION",
+      "where": "api/intake_server.py line 151",
+      "detail": "JSONL_PATH.write_text(JSONL_PATH.read_text() + ...) — read-modify-write with no lock. Concurrent submissions can drop rows. ThreadingHTTPServer makes this very real."
+    },
+    {
+      "severity": "medium",
+      "id": "DUPLICATE_SHOWPATH_AND_DOMCONTENTLOADED",
+      "where": "book.html lines 343-358 vs 433-448",
+      "detail": "showPath() and DOMContentLoaded handler are defined twice in the same file. Same hash-routing handler attached twice."
+    },
+    {
+      "severity": "medium",
+      "id": "ADMIN_SUBMIT_NO_AUTH",
+      "where": "admin-submit.html line 2",
+      "detail": "TODO comment: 'add password gate before sharing URL'. Page is reachable directly. Anyone who knows the URL can POST to /api/book with _type=admin_show_submit."
+    },
+    {
+      "severity": "low",
+      "id": "SR_TIME_DEFAULT_HARDCODED",
+      "where": "admin-submit.html line 215",
+      "detail": "time defaults to '20:00' if empty — quietly fabricates a start time that the user didn't enter."
+    },
+    {
+      "severity": "low",
+      "id": "BUILDID_60CHAR_TRUNCATE",
+      "where": "admin-submit.html line 209",
+      "detail": "slice(0,60) silently truncates id — long show names collide."
+    },
+    {
+      "severity": "low",
+      "id": "SHOWUPCOMING_GUIDANCE_STALE",
+      "where": "admin-submit.html line 141",
+      "detail": "'Copy → paste into data/shows_upcoming.json' — that file is part of the static intake, but pipeline since P4.PAGES.1 reads data/freshness-audit.json + adapters. Manual paste workflow is undocumented after recent refactors."
+    },
+    {
+      "severity": "low",
+      "id": "REVIEW_QUEUE_BADGE_FROZEN",
+      "where": "api/review-queue.html line 42-44",
+      "detail": "Badge count '0' and 'Last updated 2026-05-19' are hard-coded HTML — never updated."
+    },
+    {
+      "severity": "info",
+      "id": "INTAKE_KIND_LIMITED",
+      "where": "api/intake_server.py validate()",
+      "detail": "Validates kind in {newsletter, contact, listing}. book.html does not send `kind` matching this set — incompatible with intake_server even if it were exposed."
+    }
+  ],
+  "summary": {
+    "primary_finding": "book.html ships two competing submission code paths. The second (postForm → /api/book) wins. The first (LeadCapture, with offline fallback) is dead code. Review queue is a static stub; no submission ever lands in data/review_queue.json.",
+    "submission_destinations_in_practice": [
+      "/api/book on api-config.json host (live but backend not in this repo)",
+      "/api/show/claim on api-config.json host (live but backend not in this repo)",
+      "/api/message on api-config.json host (direct fetch)",
+      "localStorage 'pending_leads' (dead because LeadCapture is dead)"
+    ],
+    "findings_by_severity": {"critical": 1, "high": 2, "medium": 4, "low": 4, "info": 1, "total": 12}
+  },
+  "recommended_next_subphases": [
+    "P3.SUBMIT.2 — DELETE the dead Block 1 in book.html (LeadCapture handlers + first showPath). Keep one canonical handler set.",
+    "P3.SUBMIT.3 — Add honeypot input to show-runner / comedian / booker tabs (parity with #message).",
+    "P3.SUBMIT.4 — Decide: deprecate api/intake_server.py + api/review-queue.html OR wire them in. If kept, lock the JSONL write, gate /api/intake behind a token, document data/review_queue.json schema.",
+    "P3.SUBMIT.5 — Restore offline fallback (mailto) for all 3 non-message tabs (regression vs the dead LeadCapture block).",
+    "P3.SUBMIT.6 — Password-gate admin-submit.html or move it behind a login session."
+  ]
+}

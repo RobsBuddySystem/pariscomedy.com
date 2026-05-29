@@ -1,0 +1,158 @@
+{
+  "_audit": "P3.CLAIM.1",
+  "_scope": "Comic + booker + show claim flows",
+  "_date": "2026-05-29",
+  "_mode": "audit-only (no code modified, no fetch calls)",
+  "_files_inspected": [
+    "book.html",
+    "performer-portal.html",
+    "booker-portal.html",
+    "booker-dashboard.html",
+    "show-runner.html",
+    "c/*.html (227 static comedian pages)",
+    "shows/*.html (per-show static pages)",
+    "data/schema.json"
+  ],
+  "claim_flows": {
+    "comic_claims_c_slug_page": {
+      "trigger": "/c/<slug>.html → 'Claim this page →' anchor → /performer-portal.html?claim=<slug>",
+      "evidence_in_repo": "c/abi-roberts.html line 86",
+      "handler": "performer-portal.html lines 187-206 handleClaim() IIFE",
+      "auth_required": "yes — magic-link email sign-in (calls /api/auth/request)",
+      "submission": "POST /api/performer/claim {slug}",
+      "post_signin_resume": "localStorage 'pending_claim_slug' + window focus listener retries claim",
+      "verification_step": "implicit — backend trusts signed-in user owns the claimed slug. NO evidence (no Instagram URL, photo, ID) collected on frontend.",
+      "ux_outcome_success": "banner turns green + links to /c/<slug>.html; data refreshes on next daily build",
+      "ux_outcome_failure": "red banner with error text"
+    },
+    "show_runner_claims_show_page": {
+      "trigger": "/shows/<slug>.html → 'Claim this show →' anchor → /book.html?claim=<slug>&show_name=...&source_url=...&venue=...",
+      "evidence_in_repo": "shows/south-comedy-club.html line 98 (+ all other generated show pages)",
+      "handler": "book.html submitShowRunner() BLOCK 2 lines 487-524 — claim branch checks URLSearchParams.get('claim')",
+      "auth_required": "no — email + claimant name only",
+      "submission": "POST /api/show/claim {show_slug, show_name, source_url, venue, claimant_name, claimant_email, role:'show_runner', message:'day=...,time=...,eventbrite=...'}",
+      "verification_step": "out-of-band — frontend success msg promises 'we review every claim within 48 hours before any ownership badge is shown publicly'",
+      "evidence_collection": "Eventbrite URL field is optional and goes into the `message` field as a freeform string. No Instagram, photo, venue confirmation, or domain-bound email check.",
+      "ownership_badge": "shows/<slug>.html calls /api/show/<slug>/ownership → '✓ Managed by show runner' | '◯ Unclaimed show page'",
+      "post_claim_portal": "show-runner.html (separate token-based portal — owner_token via magic link, NOT linked to the book.html claim form)"
+    },
+    "booker_account_activation": {
+      "trigger": "/booker-portal.html → 'Send token' button",
+      "auth_required": "email magic link (booker_token; dev mode reveals dev_token inline)",
+      "submission": "POST /api/booker/auth {email}",
+      "verification_step": "payment reconciliation — booker_portal.html step 2: 'The operator reconciles payment. The admin endpoint marks the payment paid and activates the Booker Plus account.' — purely manual",
+      "evidence_collection": "none on frontend",
+      "booker_claims_a_show": "NOT a separate flow — bookers use /booker-dashboard.html to CREATE shows (POST /api/booker/shows). There is no 'claim an existing show as a booker' UI distinct from the show-runner claim. A booker who wants to take an existing pariscomedy.com show goes through the same book.html?claim=<slug> path with role='show_runner'."
+    },
+    "venue_claim": {
+      "status": "absent",
+      "detail": "data/schema.json mentions venues.claimed + venues.claimed_by_user_id, but no UI in /venues.html, /v/*.html or anywhere else exposes a claim CTA for venues."
+    }
+  },
+  "verification_step_summary": {
+    "comic": "magic-link email → backend trusts user-controls-email-of-record. No second factor.",
+    "show_runner": "manual 48h admin review (advertised in success msg) — actual review queue not present in repo (see P3.SUBMIT.1).",
+    "booker": "manual payment reconciliation by admin (no automated link between paid invoice and claim)."
+  },
+  "evidence_collection": {
+    "instagram_url": "NOT collected on any claim form",
+    "photo_or_id": "NOT collected on any claim form",
+    "venue_confirmation": "NOT collected for show-runner claim",
+    "domain_bound_email": "NOT enforced (e.g., booker can claim with @gmail.com even if show is at venue.fr)",
+    "freeform_proof_text": "book.html claim payload's `message` field is the only place a claimant can leave context; not surfaced in any admin UI in the repo"
+  },
+  "broken_or_missing_handlers": [
+    {
+      "severity": "critical",
+      "id": "ZERO_EVIDENCE_COLLECTION_ON_SHOW_CLAIM",
+      "where": "book.html?claim flow",
+      "detail": "Claim submission has no evidence step (no Instagram, no photo, no domain-bound email). 48h admin review is unsourced — admin has only claimant name + email + day/time/eventbrite freeform message to verify ownership."
+    },
+    {
+      "severity": "critical",
+      "id": "COMIC_CLAIM_NO_OWNERSHIP_PROOF",
+      "where": "performer-portal.html handleClaim() / submitClaim()",
+      "detail": "POST /api/performer/claim only sends {slug}. Backend (not in this repo) has no signal that the signed-in user IS that comic beyond claimant assertion. A bad actor with a verified email can claim any comic slug."
+    },
+    {
+      "severity": "high",
+      "id": "CLAIM_RACE_FIRST_COME_FIRST_SERVED",
+      "where": "all 3 claim flows",
+      "detail": "No 'pending claim' visibility on the public page or to other potential owners. If two people claim the same slug, neither sees the conflict on the frontend."
+    },
+    {
+      "severity": "high",
+      "id": "NO_REPORT_DISPUTE_UI",
+      "where": "site-wide",
+      "detail": "/shows/<slug>.html line 123 links 'Report it' → /book.html?report=<slug> but book.html does NOT handle ?report= (no preloadReport function, only preloadClaim). The Report link is decorative and lands users on the show-runner submit form with no context."
+    },
+    {
+      "severity": "medium",
+      "id": "VENUE_CLAIM_SCHEMA_BUT_NO_UI",
+      "where": "data/schema.json vs site",
+      "detail": "Schema defines venues.claimed / claimed_by_user_id, but no UI exists for a venue to claim its page. Dead schema field."
+    },
+    {
+      "severity": "medium",
+      "id": "CLAIMANT_NAME_FIELD_HIDDEN_BY_DEFAULT",
+      "where": "book.html line 125-128 (#claimant-name-field) + line 553-556",
+      "detail": "claimant-name-field is display:none and only revealed when ?claim=<slug> is present. If preloadClaim IIFE fails (e.g. claim slug param empty after URL rewrite), the user submits an unclaimed show listing with no claimant_name and the JS error path leaves the form in a confusing state."
+    },
+    {
+      "severity": "medium",
+      "id": "DEV_TOKEN_EXPOSED_INLINE_BOOKER_PORTAL",
+      "where": "booker-portal.html line 86",
+      "detail": "Response field `dev_token` is echoed into the input + UI message. If the production API ever returns it (debug flag stuck on), it's leaked into the DOM."
+    },
+    {
+      "severity": "medium",
+      "id": "CLAIM_OWNERSHIP_BADGE_FAIL_OPEN",
+      "where": "shows/<slug>.html lines 140-142",
+      "detail": "On /api/show/<slug>/ownership fetch failure, badge silently renders '◯ Unclaimed show page'. A backend outage looks identical to 'never claimed' to the public — claimants lose their verified badge during downtime."
+    },
+    {
+      "severity": "medium",
+      "id": "PERFORMER_PORTAL_CLAIM_SLUG_SANITIZER_LOSSY",
+      "where": "performer-portal.html line 190",
+      "detail": "slug.toLowerCase().replace(/[^a-z0-9-]/g, '') silently strips characters. Slugs with uppercase or unicode (none currently, but possible from URL share) are mutated without warning, leading to claims for the wrong/non-existent slug."
+    },
+    {
+      "severity": "low",
+      "id": "PENDING_CLAIM_SLUG_NEVER_EXPIRED",
+      "where": "performer-portal.html line 192 + line 229-236",
+      "detail": "localStorage 'pending_claim_slug' persists indefinitely. window focus triggers re-submit; stale slugs from old tabs can re-fire claims days/weeks later."
+    },
+    {
+      "severity": "low",
+      "id": "SHOW_NAME_LOCKED_BUT_VENUE_PREFILL_OVERWRITES",
+      "where": "book.html lines 543-545",
+      "detail": "Venue field is prefilled from URL param but NOT readonly. Claimant can edit the venue, contradicting the show being claimed. show_name is locked; venue is not — inconsistent."
+    },
+    {
+      "severity": "low",
+      "id": "CLAIM_BANNER_XSS_VECTOR",
+      "where": "performer-portal.html line 197",
+      "detail": "Banner innerHTML interpolates slug directly: `Claiming \"${slug}\"`. Sanitizer at line 190 strips most chars, but slug still flows into innerHTML rather than textContent. Safe today (filter removes <>), but fragile against future filter relaxation."
+    },
+    {
+      "severity": "info",
+      "id": "SHOWRUNNER_VS_PERFORMER_PORTAL_DIVERGENT_AUTH",
+      "where": "show-runner.html vs performer-portal.html",
+      "detail": "Show-runner uses 'Bearer <owner_token>' header + GET ?owner_token=. Performer-portal uses cookie session (credentials:'include'). Booker-portal uses 'X-Booker-Token' header. Three different auth schemes for three portals — high cognitive cost + harder to audit."
+    }
+  ],
+  "summary": {
+    "primary_finding": "All 3 claim flows (comic / show-runner / booker) lack evidence collection. Authority is delegated to backend admin review with effectively no proof on the frontend. /shows/*.html ?report= links are dead. Venue-claim schema exists but has no UI.",
+    "findings_by_severity": {"critical": 2, "high": 2, "medium": 5, "low": 3, "info": 1, "total": 13}
+  },
+  "recommended_next_subphases": [
+    "P3.CLAIM.2 — Add evidence-collection fields to performer claim (Instagram handle + recent post URL + optional headshot URL).",
+    "P3.CLAIM.3 — Add evidence-collection fields to show-runner claim (Instagram of show, last poster URL, domain-bound email if venue has a domain).",
+    "P3.CLAIM.4 — Wire book.html?report=<slug> handler (currently dead).",
+    "P3.CLAIM.5 — Unify auth across 3 portals (one session model, one helper).",
+    "P3.CLAIM.6 — Add venue-claim UI on /venues.html and /v/<slug>.html OR remove the schema field.",
+    "P3.CLAIM.7 — Expire localStorage 'pending_claim_slug' after N hours; require explicit re-click after refresh.",
+    "P3.CLAIM.8 — Fix ownership badge fail-open: distinguish 'unclaimed' from 'ownership API offline'.",
+    "P3.CLAIM.9 — Lock the venue field in claim mode (parity with show_name)."
+  ]
+}
