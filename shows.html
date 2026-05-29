@@ -215,7 +215,43 @@ if (_seeAll) _seeAll.addEventListener('click', (e) => {
  active = 'all';
  render();
 });
-loadFreshnessAudit().then(render);
+// P4.SCHEMA.1: ItemList JSON-LD for verified_24h listings only (>=5 threshold).
+// Doctrine: only verified, current data. Built from freshness-audit.json.
+function injectVerifiedItemList(){
+ try {
+   const verified = [];
+   Object.values(FRESHNESS_BY_NAME).forEach(it => {
+     if (!it || it.verification_status !== 'verified_24h') return;
+     if (!it.slug) return;
+     // De-dupe by slug (FRESHNESS_BY_NAME indexes both slug + slugified-name keys)
+     if (verified.find(x => x.slug === it.slug)) return;
+     verified.push(it);
+   });
+   if (verified.length < 5) return;
+   const itemList = {
+     "@context": "https://schema.org",
+     "@type": "ItemList",
+     "@id": "https://pariscomedy.com/shows.html#verified-this-week",
+     "name": "Verified Paris Comedy Shows This Week",
+     "description": "Paris stand-up comedy shows with sources re-verified in the last 24 hours.",
+     "numberOfItems": verified.length,
+     "itemListOrder": "https://schema.org/ItemListOrderAscending",
+     "itemListElement": verified.map((it, i) => ({
+       "@type": "ListItem",
+       "position": i + 1,
+       "url": "https://pariscomedy.com/show.html?slug=" + encodeURIComponent(it.slug),
+       "name": it.name || it.slug
+     }))
+   };
+   document.querySelectorAll('script[type="application/ld+json"][data-itemlist-schema="1"]').forEach(n => n.remove());
+   const el = document.createElement('script');
+   el.type = 'application/ld+json';
+   el.setAttribute('data-itemlist-schema', '1');
+   el.textContent = JSON.stringify(itemList);
+   document.head.appendChild(el);
+ } catch(e) { console.warn('[shows] itemlist inject failed', e); }
+}
+loadFreshnessAudit().then(() => { render(); injectVerifiedItemList(); });
 </script>
 <!-- BEGIN pc-consent-v1 banner (self-contained, no deps, no network) -->
 <div id="pc-consent-banner" hidden role="region" aria-label="Storage preference">

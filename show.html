@@ -308,6 +308,173 @@ function mapsLink(addr){
  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(addr + ', Paris, France');
 }
 
+// P4.SCHEMA.1: dynamic Event JSON-LD for verified_24h listings only.
+// Doctrine: a show is EN or FR — never both. No stale/false schema.
+const DAY_NAME_TO_IDX = {
+ 'Sunday':0,'Monday':1,'Tuesday':2,'Wednesday':3,'Thursday':4,'Friday':5,'Saturday':6
+};
+function parisTodayParts(){
+ const fmt = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit',weekday:'long'});
+ const parts = fmt.formatToParts(new Date());
+ const o = {};
+ parts.forEach(p => { o[p.type] = p.value; });
+ return {
+   year: parseInt(o.year,10),
+   month: parseInt(o.month,10),
+   day: parseInt(o.day,10),
+   weekday: o.weekday,
+   weekdayIdx: DAY_NAME_TO_IDX[o.weekday]
+ };
+}
+function pad2(n){ return String(n).padStart(2,'0'); }
+function addDaysISO(y,m,d, addDays){
+ // m is 1-based here; we use UTC math to avoid TZ skew when computing dates
+ const dt = new Date(Date.UTC(y, m-1, d));
+ dt.setUTCDate(dt.getUTCDate() + addDays);
+ return {
+   y: dt.getUTCFullYear(),
+   m: dt.getUTCMonth()+1,
+   d: dt.getUTCDate(),
+   iso: dt.getUTCFullYear() + '-' + pad2(dt.getUTCMonth()+1) + '-' + pad2(dt.getUTCDate())
+ };
+}
+function nextOccurrenceISO(days, today){
+ // days = array of weekday names; today = parisTodayParts()
+ if (!Array.isArray(days) || !days.length) return null;
+ const idxs = days.map(d => DAY_NAME_TO_IDX[d]).filter(i => typeof i === 'number');
+ if (!idxs.length) return null;
+ let minDiff = 99;
+ for (const idx of idxs){
+   const diff = (idx - today.weekdayIdx + 7) % 7;
+   // diff 0 means today (still future-ish today before showtime) — keep
+   if (diff < minDiff) minDiff = diff;
+ }
+ return addDaysISO(today.year, today.month, today.day, minDiff).iso;
+}
+function endTimePlus2h(startTime){
+ // startTime "HH:MM"; return HH:MM 2 hours later (clamped to 23:59)
+ if (!startTime || !/^\d{1,2}:\d{2}$/.test(startTime)) return '22:00';
+ const [h,m] = startTime.split(':').map(Number);
+ const total = h*60 + m + 120;
+ const eh = Math.min(23, Math.floor(total/60));
+ const em = total >= 24*60 ? 59 : (total % 60);
+ return pad2(eh) + ':' + pad2(em);
+}
+function pickSingleLanguage(L){
+ // Doctrine: never combine. Prefer explicit single value; else infer from description language fields.
+ const raw = L.language;
+ let lang = '';
+ if (Array.isArray(raw)){
+   // Pick the FIRST single language only. Never combine.
+   if (raw.length === 1) lang = String(raw[0]||'').toLowerCase();
+   else if (raw.length > 1) {
+     // Multiple in source — prefer description signal; fallback to first.
+     if (L.description_en && !L.description_fr) lang = 'en';
+     else if (L.description_fr && !L.description_en) lang = 'fr';
+     else lang = String(raw[0]||'').toLowerCase();
+   }
+ } else if (typeof raw === 'string') {
+   const v = raw.toLowerCase();
+   // If string is "en,fr" or "en/fr" — pick one via description signal.
+   if (v.includes('en') && v.includes('fr')){
+     if (L.description_en && !L.description_fr) lang = 'en';
+     else if (L.description_fr && !L.description_en) lang = 'fr';
+     else lang = 'en'; // safe default for an EN-targeted site
+   } else if (v.includes('en')) lang = 'en';
+   else if (v.includes('fr')) lang = 'fr';
+ }
+ if (lang !== 'en' && lang !== 'fr') lang = 'en';
+ return lang;
+}
+function pickSingleDescription(L, lang){
+ // Doctrine: never combine. Pick the description matching chosen language; fall back to the other if missing.
+ if (lang === 'fr') return L.description_fr || L.description_en || '';
+ return L.description_en || L.description_fr || '';
+}
+function buildEventSchema(L, audit){
+ if (!audit || audit.verification_status !== 'verified_24h') return null;
+ const days = Array.isArray(L.days) ? L.days : [];
+ if (!days.length) return null;
+ const today = parisTodayParts();
+ const startDateOnly = nextOccurrenceISO(days, today);
+ if (!startDateOnly) return null;
+ // Past-date guard: parsed date must be >= today (Paris)
+ const todayISO = today.year + '-' + pad2(today.month) + '-' + pad2(today.day);
+ if (startDateOnly < todayISO) return null;
+ const startTime = (L.start_time && /^\d{1,2}:\d{2}$/.test(L.start_time)) ? L.start_time : '20:00';
+ const endTime = endTimePlus2h(startTime);
+ const startDate = startDateOnly + 'T' + startTime + ':00+02:00';
+ const endDate   = startDateOnly + 'T' + endTime   + ':00+02:00';
+ const slug = L.slug || audit.slug || '';
+ const venueName = (L.venue && L.venue.name) || L.venue_name_raw || '';
+ const address = (L.venue && L.venue.address) || L.address || '';
+ const sourceUrl = L.booking_url || L.show_url || audit.source_url || '';
+ const lang = pickSingleLanguage(L);
+ const description = pickSingleDescription(L, lang);
+ const validFrom = todayISO;
+ // Location: if address is missing or "TBD", fall back to addressLocality only.
+ let location;
+ const cleanAddr = String(address || '').trim();
+ if (!cleanAddr || /^tbd$/i.test(cleanAddr) || /^tbc$/i.test(cleanAddr)){
+   location = {
+     "@type": "Place",
+     "name": venueName || "Paris",
+     "address": {
+       "@type": "PostalAddress",
+       "addressLocality": "Paris",
+       "addressCountry": "FR"
+     }
+   };
+ } else {
+   location = {
+     "@type": "Place",
+     "name": venueName || "Paris",
+     "address": {
+       "@type": "PostalAddress",
+       "streetAddress": cleanAddr,
+       "addressLocality": "Paris",
+       "addressCountry": "FR"
+     }
+   };
+ }
+ const schema = {
+   "@context": "https://schema.org",
+   "@type": "Event",
+   "@id": "https://pariscomedy.com/show.html?slug=" + encodeURIComponent(slug) + "#event",
+   "name": L.name || L.short_name || 'Paris Comedy Show',
+   "startDate": startDate,
+   "endDate": endDate,
+   "eventStatus": "https://schema.org/EventScheduled",
+   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+   "location": location,
+   "organizer": { "@id": "https://pariscomedy.com/#organization" },
+   "inLanguage": lang
+ };
+ if (sourceUrl){
+   schema.offers = {
+     "@type": "Offer",
+     "url": sourceUrl,
+     "availability": "https://schema.org/InStock",
+     "validFrom": validFrom
+   };
+ }
+ if (description) schema.description = description;
+ return schema;
+}
+function injectEventSchema(L){
+ // Only emit Event schema for verified_24h listings (audit-driven).
+ const audit = FRESHNESS_AUDIT[L.slug] || FRESHNESS_AUDIT[slugifyName(L.name)];
+ const schema = buildEventSchema(L, audit);
+ // Remove any previously-injected Event block from a prior render call.
+ document.querySelectorAll('script[type="application/ld+json"][data-event-schema="1"]').forEach(n => n.remove());
+ if (!schema) return;
+ const el = document.createElement('script');
+ el.type = 'application/ld+json';
+ el.setAttribute('data-event-schema', '1');
+ el.textContent = JSON.stringify(schema);
+ document.head.appendChild(el);
+}
+
 async function loadAPI() {
  let api = 'https://api.pariscomedy.com';
  try {
@@ -390,6 +557,8 @@ function render(L) {
  </ul>
  </div>
  `;
+ // P4.SCHEMA.1: dynamic Event JSON-LD (verified_24h only)
+ try { injectEventSchema(L); } catch(e) { console.warn('[show] event schema inject failed', e); }
 }
 
 function renderError(msg) {
