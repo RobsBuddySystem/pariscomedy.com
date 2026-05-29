@@ -881,6 +881,25 @@ function launchConfetti() {
 // next sellable times surfaced and a single CTA into the full directory.
 // Replaces the old "Tonight · <day>" panel (which went dead on Mondays) and
 // the standalone "Shows This Week" section (now redundant).
+// P1.DATA.1: freshness guardrail — suppress listings stale >72h from Next-3-Days
+let FRESHNESS = null;
+async function loadFreshness() {
+  if (FRESHNESS !== null) return FRESHNESS;
+  try {
+    const r = await fetch('/data/freshness-audit.json', {cache:'no-store'});
+    const j = await r.json();
+    FRESHNESS = {};
+    (j.listings || []).forEach(it => { FRESHNESS[it.slug] = it; });
+  } catch (_) { FRESHNESS = {}; }
+  return FRESHNESS;
+}
+function isFreshEnough(slug) {
+  if (!FRESHNESS) return true; // fail-open until loaded
+  const f = FRESHNESS[slug];
+  if (!f) return true; // unknown — let through (do not over-suppress)
+  return f.verification_status === 'verified_24h' || f.verification_status === 'verified_72h';
+}
+
 function renderNext3Panel() {
   const panel = document.getElementById('next3-panel');
   if (!panel) return;
@@ -894,6 +913,8 @@ function renderNext3Panel() {
   const blocks = days3.map((d, i) => {
     let shows = SHOWS_DATA.filter(s => s.date === d.dateStr);
     if (i === 0) shows = shows.filter(isFutureShow);
+    // P1.DATA.1: drop listings stale >72h from Next-3-Days (fail-open if freshness data missing)
+    shows = shows.filter(s => isFreshEnough(s.slug));
     shows.sort((a,b) => (a.start_time||'').localeCompare(b.start_time||''));
     totalCount += shows.length;
     const MAX = 3;
@@ -932,7 +953,7 @@ function renderNext3Panel() {
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 (async function initShows() {
-  await loadShowsData();
+  await Promise.all([loadShowsData(), loadFreshness()]);
   renderNext3Panel();
   renderTonightInParis();
   renderPromotedThisWeek();
