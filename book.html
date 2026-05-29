@@ -163,6 +163,24 @@ footer a:hover{color:var(--text)}
           <label>Contact email <span class="req">*</span></label>
           <input type="email" id="sr-email" placeholder="you@example.com">
         </div>
+        <!-- P3.CLAIM.3 evidence-collection fields (closes FIND-3). Shown only in claim mode. -->
+        <div id="sr-claim-evidence" style="display:none;margin-top:6px;padding:14px 16px;background:#0f0f1a;border:1px solid #2a1a4a;border-radius:10px">
+          <div style="font-size:12px;color:#9d5ff5;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px">Verification (optional)</div>
+          <div style="font-size:12px;color:#888;line-height:1.5;margin-bottom:12px">These help us verify you run this show. We review every claim within 48 hours.</div>
+          <div class="field">
+            <label>Show Instagram handle</label>
+            <input type="text" id="sr-show-instagram" placeholder="@yourshow">
+          </div>
+          <div class="field">
+            <label>Recent show poster URL <span style="color:#888;font-weight:400">(Eventbrite / IG / website)</span></label>
+            <input type="url" id="sr-recent-poster-url" placeholder="https://eventbrite.com/e/... or https://instagram.com/p/...">
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label>Domain-bound contact email <span style="color:#888;font-weight:400">(e.g. booker@venue.com)</span></label>
+            <input type="email" id="sr-contact-email" placeholder="booker@venue.com">
+            <p id="sr-contact-email-hint" style="display:none;font-size:11px;color:#f59e0b;margin-top:4px">Heads up: a domain-bound address (booker@yourvenue.com) verifies faster than a free email.</p>
+          </div>
+        </div>
         <div class="error-msg" id="sr-err"></div>
         <button class="btn-primary" onclick="submitShowRunner()">List my show →</button>
       </div>
@@ -435,20 +453,29 @@ async function submitShowRunner() {
       const claimantNameEl = document.getElementById('sr-claimant-name');
       const claimantName = claimantNameEl ? claimantNameEl.value.trim() : '';
       if (!claimantName) { err.textContent = 'Please enter your name (the person claiming this show).'; btn.disabled=false; btn.textContent='List my show →'; return; }
+      // P3.CLAIM.3: optional evidence-collection fields appended to claim body.
+      let showInsta = (document.getElementById('sr-show-instagram')?.value || '').trim();
+      if (showInsta.startsWith('@')) showInsta = showInsta.slice(1);
+      const recentPosterUrl = (document.getElementById('sr-recent-poster-url')?.value || '').trim();
+      const contactEmail = (document.getElementById('sr-contact-email')?.value || '').trim();
       let api = '';
       try { const c = await fetch('/api-config.json').then(r=>r.json()); api = c.api || ''; } catch(_) {}
+      const claimBody = {
+        show_slug: claimSlug,
+        show_name: params.get('show_name') || showname,
+        source_url: params.get('source_url') || '',
+        venue: params.get('venue') || venue,
+        claimant_name: claimantName,          // separate from show_name
+        claimant_email: email,
+        role: 'show_runner',
+        message: `day=${day}, time=${time}, eventbrite=${eventbrite}`,
+      };
+      if (showInsta) claimBody.show_instagram = showInsta;
+      if (recentPosterUrl) claimBody.recent_poster_url = recentPosterUrl;
+      if (contactEmail) claimBody.contact_email = contactEmail;
       const r = await fetch((api || 'https://api.pariscomedy.com') + '/api/show/claim', {
         method: 'POST', headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
-          show_slug: claimSlug,
-          show_name: params.get('show_name') || showname,
-          source_url: params.get('source_url') || '',
-          venue: params.get('venue') || venue,
-          claimant_name: claimantName,          // separate from show_name
-          claimant_email: email,
-          role: 'show_runner',
-          message: `day=${day}, time=${time}, eventbrite=${eventbrite}`,
-        }),
+        body: JSON.stringify(claimBody),
       });
       const d = await r.json();
       if (!r.ok || !d.ok) throw new Error(d.detail || 'claim failed');
@@ -515,6 +542,24 @@ async function submitShowRunner() {
   // Reveal the claimant-name field
   const cnf = document.getElementById('claimant-name-field');
   if (cnf) cnf.style.display = '';
+  // P3.CLAIM.3: reveal evidence-collection panel (Instagram, recent poster URL, domain email).
+  const evidencePanel = document.getElementById('sr-claim-evidence');
+  if (evidencePanel) evidencePanel.style.display = '';
+  // Inline hint: warn if domain-bound contact email is on a generic free-email provider.
+  const contactEl = document.getElementById('sr-contact-email');
+  const contactHint = document.getElementById('sr-contact-email-hint');
+  if (contactEl && contactHint) {
+    const FREE_DOMAINS = ['gmail.com','yahoo.com','yahoo.fr','outlook.com','hotmail.com','hotmail.fr','live.com','icloud.com','me.com','aol.com','proton.me','protonmail.com'];
+    const check = () => {
+      const v = (contactEl.value || '').trim().toLowerCase();
+      const at = v.lastIndexOf('@');
+      if (at < 0) { contactHint.style.display = 'none'; return; }
+      const domain = v.slice(at + 1);
+      contactHint.style.display = (domain && FREE_DOMAINS.includes(domain)) ? '' : 'none';
+    };
+    contactEl.addEventListener('input', check);
+    contactEl.addEventListener('blur', check);
+  }
   // Update success message
   document.getElementById('sr-success').textContent = 'Claim received. We will review and contact you within 48 hours.';
 })();

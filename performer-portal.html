@@ -223,24 +223,77 @@ function getPendingClaim() {
   // Persist across the magic-link round-trip — once signed in we redirect back here.
   // 24h TTL: see setPendingClaim / getPendingClaim above.
   setPendingClaim(slug);
-  // Show banner.
+  // Show banner with evidence-collection fields (P3.CLAIM.2 — closes FIND-2).
+  // Optional fields; backend validates. Helps the operator review claims before granting ownership.
   const banner = document.createElement('div');
   banner.id = 'claim-banner';
   banner.style.cssText = 'background:linear-gradient(135deg,#33270a,#1a1a0a);border:1px solid #f59e0b;color:#f5c518;padding:14px 18px;margin:12px auto;max-width:780px;border-radius:10px;font-size:14px;line-height:1.5';
-  banner.innerHTML = `<strong>Claiming "${slug}"</strong><br><span style="color:#d4a04a">Sign in with your email below to confirm you are this comic. Once verified, you control the public page at <a href="/c/${encodeURIComponent(slug)}.html" style="color:#f5c518;text-decoration:underline">/c/${slug}.html</a>.</span>`;
+  banner.innerHTML = `
+    <strong>Claiming "${slug}"</strong><br>
+    <span style="color:#d4a04a">Sign in with your email below to confirm you are this comic. Once verified, you control the public page at <a href="/c/${encodeURIComponent(slug)}.html" style="color:#f5c518;text-decoration:underline">/c/${slug}.html</a>.</span>
+    <div id="claim-evidence" style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(245,158,11,.25)">
+      <div style="font-size:12px;color:#d4a04a;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:8px">Verification (optional)</div>
+      <div style="font-size:12px;color:#a89060;margin-bottom:10px;line-height:1.5">These help us verify it's really you. We'll never publish your private email.</div>
+      <div style="display:grid;grid-template-columns:1fr;gap:8px">
+        <label style="font-size:12px;color:#d4a04a;display:block">
+          Instagram handle
+          <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+            <span style="color:#d4a04a;font-weight:700">@</span>
+            <input id="claim-instagram" type="text" placeholder="yourhandle" style="flex:1;background:#0f0f0f;border:1px solid #2a1a0a;color:#f0f0f0;border-radius:6px;padding:8px 10px;font:inherit">
+          </div>
+        </label>
+        <label style="font-size:12px;color:#d4a04a;display:block">
+          Recent IG / socials post URL where you appear
+          <input id="claim-recent-post-url" type="url" placeholder="https://instagram.com/p/..." style="width:100%;background:#0f0f0f;border:1px solid #2a1a0a;color:#f0f0f0;border-radius:6px;padding:8px 10px;font:inherit;margin-top:4px">
+        </label>
+        <label style="font-size:12px;color:#d4a04a;display:block">
+          Headshot URL
+          <input id="claim-headshot-url" type="url" placeholder="https://..." style="width:100%;background:#0f0f0f;border:1px solid #2a1a0a;color:#f0f0f0;border-radius:6px;padding:8px 10px;font:inherit;margin-top:4px">
+        </label>
+        <label style="font-size:12px;color:#d4a04a;display:flex;align-items:center;gap:8px;cursor:pointer">
+          <input id="claim-headshot-via-email" type="checkbox" style="width:auto;margin:0">
+          <span>I'll send my headshot by reply email instead</span>
+        </label>
+      </div>
+      <button id="claim-submit-btn" type="button" style="margin-top:12px;background:#f59e0b;color:#1a1500;border:0;border-radius:8px;padding:10px 16px;font-weight:800;cursor:pointer;font:inherit;display:none">Submit claim</button>
+    </div>`;
   document.querySelector('main').prepend(banner);
-  // If already signed in, fire the claim immediately.
+  // Wire submit button; only shown once user is signed in (so we don't auto-fire without evidence).
+  const submitBtn = document.getElementById('claim-submit-btn');
+  if (submitBtn) submitBtn.addEventListener('click', () => submitClaim(slug));
+  // If already signed in, reveal the submit button so the user can attach evidence before firing.
   try {
     const me = await api('/api/me');
-    if (me.signed_in) {
-      await submitClaim(slug);
+    if (me.signed_in && submitBtn) {
+      submitBtn.style.display = 'inline-block';
     }
   } catch (_) {}
 })();
 
+function _claimEvidencePayload() {
+  // Read optional evidence inputs from the claim banner. All fields optional;
+  // backend validates and operator reviews before granting ownership.
+  const get = id => {
+    const el = document.getElementById(id);
+    return el ? (el.value || '').trim() : '';
+  };
+  let instagram = get('claim-instagram');
+  if (instagram.startsWith('@')) instagram = instagram.slice(1);
+  const headshotEl = document.getElementById('claim-headshot-via-email');
+  const headshot_via_email = !!(headshotEl && headshotEl.checked);
+  const out = {};
+  if (instagram) out.instagram = instagram;
+  const recent = get('claim-recent-post-url'); if (recent) out.recent_post_url = recent;
+  const head = get('claim-headshot-url'); if (head) out.headshot_url = head;
+  if (headshot_via_email) out.headshot_via_email = true;
+  return out;
+}
+
 async function submitClaim(slug) {
   try {
-    const r = await api('/api/performer/claim', {method:'POST', body:JSON.stringify({slug})});
+    const evidence = _claimEvidencePayload();
+    const body = Object.assign({slug}, evidence);
+    const r = await api('/api/performer/claim', {method:'POST', body:JSON.stringify(body)});
     const banner = document.getElementById('claim-banner');
     if (banner) {
       banner.style.borderColor = '#10b981';
@@ -258,15 +311,20 @@ async function submitClaim(slug) {
   }
 }
 
-// After sign-in (magic-link verify hits the API and loads /api/me), retry any pending claim.
+// After sign-in (magic-link verify hits the API and loads /api/me), reveal the
+// "Submit claim" button so the user can attach evidence before the claim fires.
 // getPendingClaim() returns null if the stored slug is older than 24h
-// (prevents stale auto-replays from old tabs).
+// (prevents stale auto-replays from old tabs). P3.CLAIM.2: never auto-fire
+// without evidence inputs being visible.
 window.addEventListener('focus', async () => {
   const pending = getPendingClaim();
   if (!pending) return;
   try {
     const me = await api('/api/me');
-    if (me.signed_in) await submitClaim(pending);
+    if (me.signed_in) {
+      const btn = document.getElementById('claim-submit-btn');
+      if (btn) btn.style.display = 'inline-block';
+    }
   } catch (_) {}
 });
 </script>

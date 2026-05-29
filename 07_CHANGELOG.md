@@ -1,5 +1,13 @@
 # 07_CHANGELOG
 
+## 2026-05-29 | frontend | P3.CLAIM.2 + P3.CLAIM.3
+- Closed P3.CLAIM.1 critical findings FIND-2 (comic claim sent `{slug}` only — any verified-email user could claim any comic) and FIND-3 (show claim collected no evidence beyond freeform `message`).
+- **P3.CLAIM.2 (`performer-portal.html`):** Added optional evidence-collection fields to the comic-claim banner — Instagram handle (with "@" prefix), recent IG/socials post URL, headshot URL, and a "I'll send my headshot by reply email" checkbox. Fields appended to `POST /api/performer/claim` body as `{instagram, recent_post_url, headshot_url, headshot_via_email}`. Also replaced the previous auto-fire behavior: instead of submitting the claim the moment a signed-in user lands on `?claim=<slug>`, the page now reveals a "Submit claim" button so the user can attach evidence before the claim is filed. `focus` rehydration changed in lockstep — pending-claim slug now reveals the button instead of auto-replaying. Helper note: "These help us verify it's really you. We'll never publish your private email."
+- **P3.CLAIM.3 (`book.html`):** Added optional evidence panel to the show-runner form (`#sr-claim-evidence`), shown only when `?claim=<slug>` is present. Three new inputs: Show Instagram handle, Recent show poster URL (Eventbrite/IG/website), and Domain-bound contact email with inline amber hint that fires when the address resolves to a free provider (gmail/yahoo/outlook/hotmail/live/icloud/me/aol/proton). Fields appended to `POST /api/show/claim` body as `{show_instagram, recent_poster_url, contact_email}`.
+- Backend out of scope (operator-review path); none of the new fields are required (backend validates). Doctrine intact (0 bilingual / mixed-language).
+- Files touched: `performer-portal.html`, `book.html`. Verified: Playwright snapshot confirms all 3 evidence inputs visible on each page in claim mode; regression_guard 10/10 PASS; 31 pages 200.
+- Vault: `chuck_vault/10-concepts/projects/pariscomedy-canonical/P3_CLAIM_3_EVIDENCE_COLLECTION.md`.
+
 ## 2026-05-29 | frontend | P3.SUBMIT.4
 - Closed P3.SUBMIT.1 high-severity audit finding: orphaned localhost-only intake server + static review-queue UI advertising a non-existent workflow. Decision: **deprecate** (clean path; backend wiring out of scope).
 - Moved `api/intake_server.py` → `api/_deprecated/intake_server.py` (preserved, not deleted). Added module-level docstring documenting deprecation date (2026-05-29), the canonical submit flow (`/book.html` → `POST https://api.pariscomedy.com/api/submissions`), the operator inspection path (`/status.html`), the machine-local dependencies (`send_email.py`, sqlite under `data/intake/`), and the explicit "do not re-enable without re-audit" warning.
