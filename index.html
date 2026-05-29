@@ -19,18 +19,18 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://pariscomedy.com/#organization","@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com/","email":"payments@pariscomedy.com","description":"The home of English-language stand-up comedy in Paris."}</script>
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@id": "https://pariscomedy.com/#website",
-  "@type": "WebSite",
-  "name": "Paris Comedy",
-  "url": "https://pariscomedy.com",
-  "description": "The home of English-language stand-up comedy in Paris",
-  "publisher": {"@id": "https://pariscomedy.com/#organization"},
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://pariscomedy.com/shows.html?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
+ "@context": "https://schema.org",
+ "@id": "https://pariscomedy.com/#website",
+ "@type": "WebSite",
+ "name": "Paris Comedy",
+ "url": "https://pariscomedy.com",
+ "description": "The home of English-language stand-up comedy in Paris",
+ "publisher": {"@id": "https://pariscomedy.com/#organization"},
+ "potentialAction": {
+ "@type": "SearchAction",
+ "target": "https://pariscomedy.com/shows.html?q={search_term_string}",
+ "query-input": "required name=search_term_string"
+ }
 }
 </script>
 <style>
@@ -216,147 +216,147 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 
 <!-- Launch Banner -->
 <div class="launch-banner">
-  🎉 Paris Comedy is live — a growing directory of English-language and French comedy shows in Paris.
-  <a href="/shows.html">Browse tonight's shows →</a>
+ 🎉 Paris Comedy is live — a growing directory of English-language and French comedy shows in Paris.
+ <a href="/shows.html">Browse tonight's shows →</a>
 </div>
 
 <nav class="nav-shell nav-shell-marketing">
-  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
-  <div class="nav-links">
-    <a href="/" class="nav-active">Home</a>
-    <a href="/shows.html">Shows</a>
-    <a href="/venues.html">Venues</a>
-    <a href="/comedians.html">Comedians</a>
-    <a href="/bookers.html">Bookers</a>
-    <a href="/pricing.html">Pricing</a>
-    <a href="/login.html">Sign In</a>
-    <a href="/book.html">Book / Connect</a>
-    <a href="/about.html">About</a>
-  </div>
+ <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+ <div class="nav-links">
+ <a href="/" class="nav-active">Home</a>
+ <a href="/shows.html">Shows</a>
+ <a href="/venues.html">Venues</a>
+ <a href="/comedians.html">Comedians</a>
+ <a href="/bookers.html">Bookers</a>
+ <a href="/pricing.html">Pricing</a>
+ <a href="/login.html">Sign In</a>
+ <a href="/book.html">Book / Connect</a>
+ <a href="/about.html">About</a>
+ </div>
 </nav>
 
 <!-- Hero — 2-column: text left, tonight panel right -->
 <div class="hero-wrap">
-  <div class="hero-left">
-    <h1>The Home of<br><span class="accent">English-Language</span><br>Comedy in Paris</h1>
-    <p>Stand-up throughout the week. English shows and French shows. Tourists, expats, locals — all welcome.</p>
-    <div class="cta-row">
-      <a href="/shows.html" class="btn-primary">Find Tonight's Show →</a>
-      <a href="/book.html" class="btn-secondary">Book a Private Show</a>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="next3-panel" id="next3-panel"><!-- populated by JS --></div>
-  </div>
+ <div class="hero-left">
+ <h1>The Home of<br><span class="accent">English-Language</span><br>Comedy in Paris</h1>
+ <p>Stand-up throughout the week. English shows and French shows. Tourists, expats, locals — all welcome.</p>
+ <div class="cta-row">
+ <a href="/shows.html" class="btn-primary">Find Tonight's Show →</a>
+ <a href="/book.html" class="btn-secondary">Book a Private Show</a>
+ </div>
+ </div>
+ <div class="hero-right">
+ <div class="next3-panel" id="next3-panel"><!-- populated by JS --></div>
+ </div>
 </div>
 
 <!-- Featured Shows Section -->
 <section id="tonight-in-paris-section" style="display:none">
-  <div class="weekly-rotation-header">
-    <div class="weekly-rotation-title" id="tonight-section-title"></div>
-    <div class="weekly-rotation-sub" id="tonight-section-label"></div>
-  </div>
-  <div class="featured-grid" id="tonight-show-grid"></div>
+ <div class="weekly-rotation-header">
+ <div class="weekly-rotation-title" id="tonight-section-title"></div>
+ <div class="weekly-rotation-sub" id="tonight-section-label"></div>
+ </div>
+ <div class="featured-grid" id="tonight-show-grid"></div>
 </section>
 
 <section id="promoted-week-section" style="display:none">
-  <div class="weekly-rotation-header">
-    <div class="weekly-rotation-title" id="promoted-section-title"></div>
-    <div class="weekly-rotation-sub" id="promoted-section-label"></div>
-  </div>
-  <div class="featured-grid" id="promoted-show-grid"></div>
+ <div class="weekly-rotation-header">
+ <div class="weekly-rotation-title" id="promoted-section-title"></div>
+ <div class="weekly-rotation-sub" id="promoted-section-label"></div>
+ </div>
+ <div class="featured-grid" id="promoted-show-grid"></div>
 </section>
 
 <!-- Connection Section -->
 <section style="background:linear-gradient(180deg,transparent,rgba(124,58,237,.04),transparent)">
-  <div class="section-title">Connect with the Paris comedy community</div>
-  <div class="section-sub">Whether you run a show, perform, or want to book talent — start here</div>
-  <div class="connect-grid">
-    <a href="/book.html#show-runner" class="connect-card">
-      <div class="connect-icon">🎤</div>
-      <div class="connect-title">I run a comedy show</div>
-      <div class="connect-sub">List your show and get in front of Paris audiences. Paid promotion is optional — see pricing.</div>
-      <span class="connect-btn">Get listed →</span>
-    </a>
-    <a href="/book.html#comedian" class="connect-card">
-      <div class="connect-icon">🎭</div>
-      <div class="connect-title">I'm a comedian</div>
-      <div class="connect-sub">Submit your bio and get connected with Paris show runners and bookers looking for new talent.</div>
-      <span class="connect-btn">Submit bio →</span>
-    </a>
-    <a href="/book.html#booker" class="connect-card">
-      <div class="connect-icon">📋</div>
-      <div class="connect-title">I want to book talent</div>
-      <div class="connect-sub">Looking for a comedian for your event? We help bookers reach verified English-language comics performing in Paris.</div>
-      <span class="connect-btn">Get in touch →</span>
-    </a>
-  </div>
+ <div class="section-title">Connect with the Paris comedy community</div>
+ <div class="section-sub">Whether you run a show, perform, or want to book talent — start here</div>
+ <div class="connect-grid">
+ <a href="/book.html#show-runner" class="connect-card">
+ <div class="connect-icon">🎤</div>
+ <div class="connect-title">I run a comedy show</div>
+ <div class="connect-sub">List your show and get in front of Paris audiences. Paid promotion is optional — see pricing.</div>
+ <span class="connect-btn">Get listed →</span>
+ </a>
+ <a href="/book.html#comedian" class="connect-card">
+ <div class="connect-icon">🎭</div>
+ <div class="connect-title">I'm a comedian</div>
+ <div class="connect-sub">Submit your bio and get connected with Paris show runners and bookers looking for new talent.</div>
+ <span class="connect-btn">Submit bio →</span>
+ </a>
+ <a href="/book.html#booker" class="connect-card">
+ <div class="connect-icon">📋</div>
+ <div class="connect-title">I want to book talent</div>
+ <div class="connect-sub">Looking for a comedian for your event? We help bookers reach verified English-language comics performing in Paris.</div>
+ <span class="connect-btn">Get in touch →</span>
+ </a>
+ </div>
 </section>
 
 <section>
-  <div class="section-title">What People Say</div>
-  <div class="section-sub">From audiences at our shows</div>
-  <div class="reviews-grid">
-    <div class="review-card">
-      <div class="review-text">"Best English comedy show we've seen in Paris — a perfect night out for our expat meetup group."</div>
-      <div class="review-author">— Sarah M., Paris expat</div>
-    </div>
-    <div class="review-card">
-      <div class="review-text">"French Fried Comedy Night books comics who perform in both English and French — audiences from both sides leave equally happy. Don't miss it."</div>
-      <div class="review-author">— Marie-Claire D., Paris local</div>
-    </div>
-  </div>
+ <div class="section-title">What People Say</div>
+ <div class="section-sub">From audiences at our shows</div>
+ <div class="reviews-grid">
+ <div class="review-card">
+ <div class="review-text">"Best English comedy show we've seen in Paris — a perfect night out for our expat meetup group."</div>
+ <div class="review-author">— Sarah M., Paris expat</div>
+ </div>
+ <div class="review-card">
+ <div class="review-text">"French Fried Comedy Night is a great late-night spot. Don't miss it."</div>
+ <div class="review-author">— Marie-Claire D., Paris local</div>
+ </div>
+ </div>
 </section>
 
 <section>
-  <div class="section-title">Frequently Asked Questions</div>
-  <div class="section-sub">Everything you need to know</div>
-  <div class="faq-list">
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Are the shows in English?</div>
-      <div class="faq-a">Shows on Paris Comedy are English or French. Each listing is clearly labelled. If you only speak English, look for shows tagged EN — there are regular English-language shows throughout the week.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">How do I buy tickets?</div>
-      <div class="faq-a">Open the show's page on Paris Comedy first to check the latest venue, day, time, language, and source link. If the show uses Eventbrite or another ticket platform, the ticket button appears inside the Paris Comedy show page. Some shows are free or pay-what-you-can at the door.</div>
-    </div>
+ <div class="section-title">Frequently Asked Questions</div>
+ <div class="section-sub">Everything you need to know</div>
+ <div class="faq-list">
+ <div class="faq-item">
+ <div class="faq-q" onclick="toggleFaq(this)">Are the shows in English?</div>
+ <div class="faq-a">Shows on Paris Comedy are English or French. Each listing is clearly labelled. If you only speak English, look for shows tagged EN — there are regular English-language shows throughout the week.</div>
+ </div>
+ <div class="faq-item">
+ <div class="faq-q" onclick="toggleFaq(this)">How do I buy tickets?</div>
+ <div class="faq-a">Open the show's page on Paris Comedy first to check the latest venue, day, time, language, and source link. If the show uses Eventbrite or another ticket platform, the ticket button appears inside the Paris Comedy show page. Some shows are free or pay-what-you-can at the door.</div>
+ </div>
 <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">How do I promote a listing?</div>
-      <div class="faq-a">Promoted placement is available through our paid <strong>Featured Show Promo</strong> product (the SKU name) and via editorial picks. See <a href="/pricing.html" style="color:var(--purple-light)">pricing</a> for promo tiers (€5 / 7 days · €15 / 30 days · €40 / 90 days). Listings in the directory are not ranked by source — discovery surface is neutral.</div>
-    </div>
-  </div>
+ <div class="faq-q" onclick="toggleFaq(this)">How do I promote a listing?</div>
+ <div class="faq-a">Promoted placement is available through our paid <strong>Featured Show Promo</strong> product (the SKU name) and via editorial picks. See <a href="/pricing.html" style="color:var(--purple-light)">pricing</a> for promo tiers (€5 / 7 days · €15 / 30 days · €40 / 90 days). Listings in the directory are not ranked by source — discovery surface is neutral.</div>
+ </div>
+ </div>
 </section>
 
 <section style="max-width:980px;margin:0 auto;padding:0 24px">
-  <div data-ad-slot="index-footer-rail"></div>
+ <div data-ad-slot="index-footer-rail"></div>
 </section>
 
 <section style="max-width:720px;margin:24px auto 0;padding:24px;background:#111;border:1px solid #1e1e1e;border-radius:12px">
-  <div style="font-size:18px;font-weight:700;margin-bottom:6px">Want to know what&rsquo;s on tonight?</div>
-  <div style="font-size:13px;color:#888;margin-bottom:14px;line-height:1.5">One weekly email — verified English and French comedy listings in Paris, new venues, new comics. No spam, unsubscribe anytime.</div>
-  <form id="newsletter-form" onsubmit="return submitNewsletter(event)" style="display:flex;gap:8px;flex-wrap:wrap">
-    <label for="newsletter-email" style="position:absolute;left:-9999px">Email</label>
-    <input id="newsletter-email" type="email" required placeholder="you@example.com" style="flex:1;min-width:200px;padding:10px 12px;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:8px;color:#f0f0f0;font:inherit">
-    <button type="submit" style="background:var(--gold,#c9a84c);color:#000;border:0;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer">Subscribe →</button>
-  </form>
-  <label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:#777;cursor:pointer">
-    <input type="checkbox" id="newsletter-consent" checked> I agree to receive the Paris Comedy weekly digest. I can unsubscribe at any time.
-  </label>
-  <div id="newsletter-msg" style="margin-top:10px;font-size:13px;min-height:18px"></div>
+ <div style="font-size:18px;font-weight:700;margin-bottom:6px">Want to know what&rsquo;s on tonight?</div>
+ <div style="font-size:13px;color:#888;margin-bottom:14px;line-height:1.5">One weekly email — verified Paris comedy listings, new venues, new comics. No spam, unsubscribe anytime.</div>
+ <form id="newsletter-form" onsubmit="return submitNewsletter(event)" style="display:flex;gap:8px;flex-wrap:wrap">
+ <label for="newsletter-email" style="position:absolute;left:-9999px">Email</label>
+ <input id="newsletter-email" type="email" required placeholder="you@example.com" style="flex:1;min-width:200px;padding:10px 12px;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:8px;color:#f0f0f0;font:inherit">
+ <button type="submit" style="background:var(--gold,#c9a84c);color:#000;border:0;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer">Subscribe →</button>
+ </form>
+ <label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:#777;cursor:pointer">
+ <input type="checkbox" id="newsletter-consent" checked> I agree to receive the Paris Comedy weekly digest. I can unsubscribe at any time.
+ </label>
+ <div id="newsletter-msg" style="margin-top:10px;font-size:13px;min-height:18px"></div>
 </section>
 
 <footer>
-  <div class="footer-links">
-    <a href="/shows.html">Tonight's Comedy Shows in Paris</a>
-    <a href="/venues.html">Comedy Clubs in Paris</a>
-    <a href="/comedians.html">English-Speaking Comedians in Paris</a>
-    <a href="/book.html">Book a Show or Comedian</a>
-    <a href="/bookers.html">For Bookers &amp; Show Runners</a>
-    <a href="/pricing.html">Pricing</a>
-    <a href="/about.html">About Paris Comedy</a>
-    <a href="/login.html">Sign In</a>
-  </div>
-  <div>payments@pariscomedy.com</div>
+ <div class="footer-links">
+ <a href="/shows.html">Tonight's Comedy Shows in Paris</a>
+ <a href="/venues.html">Comedy Clubs in Paris</a>
+ <a href="/comedians.html">English-Speaking Comedians in Paris</a>
+ <a href="/book.html">Book a Show or Comedian</a>
+ <a href="/bookers.html">For Bookers &amp; Show Runners</a>
+ <a href="/pricing.html">Pricing</a>
+ <a href="/about.html">About Paris Comedy</a>
+ <a href="/login.html">Sign In</a>
+ </div>
+ <div>payments@pariscomedy.com</div>
 </footer>
 
 
@@ -372,47 +372,47 @@ const todayParis = new Date().toLocaleDateString('sv-SE', {timeZone: 'Europe/Par
 const nowParis = () => new Date(new Date().toLocaleString('en-US', {timeZone:'Europe/Paris'}));
 
 function showStart(s) {
-  if (!s.date || !s.start_time) return null;
-  const [y,m,d] = s.date.split('-').map(Number);
-  const [hh,mm] = s.start_time.split(':').map(Number);
-  return new Date(y, m - 1, d, hh, mm || 0, 0);
+ if (!s.date || !s.start_time) return null;
+ const [y,m,d] = s.date.split('-').map(Number);
+ const [hh,mm] = s.start_time.split(':').map(Number);
+ return new Date(y, m - 1, d, hh, mm || 0, 0);
 }
 
 function isFutureShow(s) {
-  const start = showStart(s);
-  return start ? start > nowParis() : true;
+ const start = showStart(s);
+ return start ? start > nowParis() : true;
 }
 
 function isFreshSource(s) {
-  return s.last_verified_at === todayParis;
+ return s.last_verified_at === todayParis;
 }
 
 function ticketCta(s, className) {
-  const label = 'Check current listing →';
-  const raw = s.ticket_url || s.url || '';
-  if (!raw) return `<a href="#" class="${className}">${label}</a>`;
-  const href = `/r.html?kind=show&id=${encodeURIComponent(s.id || s.show_name || '')}&url=${encodeURIComponent(raw)}`;
-  return `<a href="${href}" target="_blank" rel="noopener sponsored" class="${className}">${label}</a>`;
+ const label = 'Check current listing →';
+ const raw = s.ticket_url || s.url || '';
+ if (!raw) return `<a href="#" class="${className}">${label}</a>`;
+ const href = `/r.html?kind=show&id=${encodeURIComponent(s.id || s.show_name || '')}&url=${encodeURIComponent(raw)}`;
+ return `<a href="${href}" target="_blank" rel="noopener sponsored" class="${className}">${label}</a>`;
 }
 
 function weekEndParis() {
-  const d = new Date(todayParis);
-  d.setDate(d.getDate() + 7);
-  return d.toISOString().split('T')[0];
+ const d = new Date(todayParis);
+ d.setDate(d.getDate() + 7);
+ return d.toISOString().split('T')[0];
 }
 
 let TONIGHT_SHOWS = [];
 let WEEK_SHOWS = [];
 
 function recomputeShowWindows() {
-  TONIGHT_SHOWS = SHOWS_DATA
-    .filter(s => s.date === todayParis && isFutureShow(s))
-    .sort((a,b) => (a.start_time||'').localeCompare(b.start_time||''));
-  WEEK_SHOWS = SHOWS_DATA
-    .filter(s => s.date >= todayParis && s.date <= weekEndParis() && isFutureShow(s))
-    .sort((a,b) => a.date !== b.date
-      ? a.date.localeCompare(b.date)
-      : (a.start_time||'').localeCompare(b.start_time||''));
+ TONIGHT_SHOWS = SHOWS_DATA
+ .filter(s => s.date === todayParis && isFutureShow(s))
+ .sort((a,b) => (a.start_time||'').localeCompare(b.start_time||''));
+ WEEK_SHOWS = SHOWS_DATA
+ .filter(s => s.date >= todayParis && s.date <= weekEndParis() && isFutureShow(s))
+ .sort((a,b) => a.date !== b.date
+ ? a.date.localeCompare(b.date)
+ : (a.start_time||'').localeCompare(b.start_time||''));
 }
 
 // Expand /api/listings (recurring weekday shows) into dated instances for the
@@ -420,73 +420,73 @@ function recomputeShowWindows() {
 // All date math is done in Europe/Paris explicitly — never via toISOString(),
 // which would shift dates west of midnight for any non-UTC viewer timezone.
 function next7DaysParis() {
-  const fmt = new Intl.DateTimeFormat('en-CA', {timeZone:'Europe/Paris', year:'numeric', month:'2-digit', day:'2-digit', weekday:'long'});
-  const out = [];
-  const now = Date.now();
-  for (let off = 0; off < 7; off++) {
-    const d = new Date(now + off * 86400000);
-    const parts = fmt.formatToParts(d).reduce((a,p)=>(a[p.type]=p.value,a),{});
-    out.push({dateStr: `${parts.year}-${parts.month}-${parts.day}`, dayName: parts.weekday});
-  }
-  return out;
+ const fmt = new Intl.DateTimeFormat('en-CA', {timeZone:'Europe/Paris', year:'numeric', month:'2-digit', day:'2-digit', weekday:'long'});
+ const out = [];
+ const now = Date.now();
+ for (let off = 0; off < 7; off++) {
+ const d = new Date(now + off * 86400000);
+ const parts = fmt.formatToParts(d).reduce((a,p)=>(a[p.type]=p.value,a),{});
+ out.push({dateStr: `${parts.year}-${parts.month}-${parts.day}`, dayName: parts.weekday});
+ }
+ return out;
 }
 function expandListingsToInstances(listings) {
-  const out = [];
-  const days7 = next7DaysParis();
-  for (const L of (listings || [])) {
-    if (!L || (L.status && L.status !== 'active')) continue;
-    const days = Array.isArray(L.days) ? L.days : [];
-    for (const {dateStr, dayName} of days7) {
-      if (!days.includes(dayName)) continue;
-      {
-        const venueName = (L.venue && L.venue.name) || L.venue_name_raw || '';
-        out.push({
-          id: (L.slug || 'show') + '-' + dateStr.replace(/-/g,''),
-          slug: L.slug || '',
-          show_name: L.name || L.short_name || '',
-          date: dateStr,
-          day: dayName,
-          start_time: L.start_time || '',
-          venue: venueName,
-          neighborhood: (L.venue && (L.venue.city || L.venue.address)) || L.address || '',
-          language: L.language ? [L.language] : ['en'],
-          show_type: L.show_type || 'showcase',
-          description: L.description_en || '',
-          ticket_url: L.booking_url || L.show_url || '',
-          source_url: L.show_url || L.booking_url || '',
-          price_info: L.price || 'varies',
-          verification_status: 'live',
-          // Materialized from a live /api/listings fetch, so the source IS
-          // fresh — the per-listing verified_at (admin manual check) is
-          // separate signal we don't surface in the hero.
-          last_verified_at: todayParis,
-          source_verified_at: L.verified_at || null,
-          claimed: !!L.claimed,
-          ticket_url_status: 'active'
-        });
-      }
-    }
-  }
-  return out;
+ const out = [];
+ const days7 = next7DaysParis();
+ for (const L of (listings || [])) {
+ if (!L || (L.status && L.status !== 'active')) continue;
+ const days = Array.isArray(L.days) ? L.days : [];
+ for (const {dateStr, dayName} of days7) {
+ if (!days.includes(dayName)) continue;
+ {
+ const venueName = (L.venue && L.venue.name) || L.venue_name_raw || '';
+ out.push({
+ id: (L.slug || 'show') + '-' + dateStr.replace(/-/g,''),
+ slug: L.slug || '',
+ show_name: L.name || L.short_name || '',
+ date: dateStr,
+ day: dayName,
+ start_time: L.start_time || '',
+ venue: venueName,
+ neighborhood: (L.venue && (L.venue.city || L.venue.address)) || L.address || '',
+ language: L.language ? [L.language] : ['en'],
+ show_type: L.show_type || 'showcase',
+ description: L.description_en || '',
+ ticket_url: L.booking_url || L.show_url || '',
+ source_url: L.show_url || L.booking_url || '',
+ price_info: L.price || 'varies',
+ verification_status: 'live',
+ // Materialized from a live /api/listings fetch, so the source IS
+ // fresh — the per-listing verified_at (admin manual check) is
+ // separate signal we don't surface in the hero.
+ last_verified_at: todayParis,
+ source_verified_at: L.verified_at || null,
+ claimed: !!L.claimed,
+ ticket_url_status: 'active'
+ });
+ }
+ }
+ }
+ return out;
 }
 
 async function loadShowsData() {
-  const DEFAULT_API = 'https://api.pariscomedy.com';
-  let api = DEFAULT_API;
-  try {
-    const c = await fetch('/api-config.json', {cache:'no-store'}).then(r => r.json());
-    if (c && c.api) api = c.api;
-  } catch (e) {
-    console.warn('[pc] api-config.json fetch failed, defaulting to', DEFAULT_API, e);
-  }
-  try {
-    const listings = await fetch(api + '/api/listings', {cache:'no-store'}).then(r => r.json());
-    SHOWS_DATA = expandListingsToInstances(Array.isArray(listings) ? listings : []);
-  } catch (e) {
-    console.warn('[pc] /api/listings fetch failed', e);
-    SHOWS_DATA = [];
-  }
-  recomputeShowWindows();
+ const DEFAULT_API = 'https://api.pariscomedy.com';
+ let api = DEFAULT_API;
+ try {
+ const c = await fetch('/api-config.json', {cache:'no-store'}).then(r => r.json());
+ if (c && c.api) api = c.api;
+ } catch (e) {
+ console.warn('[pc] api-config.json fetch failed, defaulting to', DEFAULT_API, e);
+ }
+ try {
+ const listings = await fetch(api + '/api/listings', {cache:'no-store'}).then(r => r.json());
+ SHOWS_DATA = expandListingsToInstances(Array.isArray(listings) ? listings : []);
+ } catch (e) {
+ console.warn('[pc] /api/listings fetch failed', e);
+ SHOWS_DATA = [];
+ }
+ recomputeShowWindows();
 }
 
 // Legacy compat for grid
@@ -500,129 +500,129 @@ const WEEKEND = new Set(['Friday','Saturday','Sunday']);
 function todayName() { return DAYS[new Date().getDay()]; }
 
 function inferVibes(s) {
-  const txt = ((s.name||s.show_name||'') + ' ' + (s.desc||s.description||'') + ' ' + (s.show_type||'')).toLowerCase();
-  const tags = [];
-  const langs = s.langs || s.language;
-  if (langs) {
-    if (langs.includes('EN') || langs.includes('en')) tags.push('English');
-    if (langs.includes('FR') || langs.includes('fr')) tags.push('French');
-  }
-  if (/open.?mic|open mic/.test(txt)) tags.push('Open Mic');
-  else if (/showcase|show/.test(txt)) tags.push('Showcase');
-  if (/improv/.test(txt)) tags.push('Improv');
-  if (/storytelling|story/.test(txt)) tags.push('Storytelling');
-  if (/alt comedy|alternative/.test(txt)) tags.push('Alt');
-  if (/dark/.test(txt)) tags.push('Dark');
-  if (/crowd.?work/.test(txt)) tags.push('Crowd Work');
-  if (/roast/.test(txt)) tags.push('Roast');
-  return [...new Set(tags)];
+ const txt = ((s.name||s.show_name||'') + ' ' + (s.desc||s.description||'') + ' ' + (s.show_type||'')).toLowerCase();
+ const tags = [];
+ const langs = s.langs || s.language;
+ if (langs) {
+ if (langs.includes('EN') || langs.includes('en')) tags.push('English');
+ if (langs.includes('FR') || langs.includes('fr')) tags.push('French');
+ }
+ if (/open.?mic|open mic/.test(txt)) tags.push('Open Mic');
+ else if (/showcase|show/.test(txt)) tags.push('Showcase');
+ if (/improv/.test(txt)) tags.push('Improv');
+ if (/storytelling|story/.test(txt)) tags.push('Storytelling');
+ if (/alt comedy|alternative/.test(txt)) tags.push('Alt');
+ if (/dark/.test(txt)) tags.push('Dark');
+ if (/crowd.?work/.test(txt)) tags.push('Crowd Work');
+ if (/roast/.test(txt)) tags.push('Roast');
+ return [...new Set(tags)];
 }
 
 // Merge TOP_SHOWS + SHOWS, dedupe by url, filter archived
 function allShows() {
-  const seen = new Set();
-  const out = [];
-  const source = SHOWS_DATA && SHOWS_DATA.length ? SHOWS_DATA.filter(s => s.date >= todayParis && isFutureShow(s)) : [...TOP_SHOWS, ...SHOWS];
-  for (const s of source) {
-    if (s.is_archived || s._stale) continue;
-    const key = s.ticket_url || s.url || s.id || s.name || s.show_name;
-    if (seen.has(key)) continue;
-    seen.add(key);
-    out.push({
-      name: s.name || s.show_name,
-      venue: s.venue,
-      day: s.day,
-      time: s.time || s.start_time,
-      url: s.url || s.ticket_url,
-      date: s.date,
-      last_verified_at: s.last_verified_at,
-      comics_on_bill: s.comics_on_bill || 0,
-      _vibes: inferVibes(s)
-    });
-  }
-  return out;
+ const seen = new Set();
+ const out = [];
+ const source = SHOWS_DATA && SHOWS_DATA.length ? SHOWS_DATA.filter(s => s.date >= todayParis && isFutureShow(s)) : [...TOP_SHOWS, ...SHOWS];
+ for (const s of source) {
+ if (s.is_archived || s._stale) continue;
+ const key = s.ticket_url || s.url || s.id || s.name || s.show_name;
+ if (seen.has(key)) continue;
+ seen.add(key);
+ out.push({
+ name: s.name || s.show_name,
+ venue: s.venue,
+ day: s.day,
+ time: s.time || s.start_time,
+ url: s.url || s.ticket_url,
+ date: s.date,
+ last_verified_at: s.last_verified_at,
+ comics_on_bill: s.comics_on_bill || 0,
+ _vibes: inferVibes(s)
+ });
+ }
+ return out;
 }
 
 // Find next night that has shows (starting from today, up to 7 days ahead)
 function nextComedyNight(shows) {
-  const today = new Date().getDay();
-  const showsByDay = {};
-  for (const s of shows) {
-    const d = s.day;
-    if (!showsByDay[d]) showsByDay[d] = [];
-    showsByDay[d].push(s);
-  }
-  for (let offset = 0; offset < 7; offset++) {
-    const name = DAYS[(today + offset) % 7];
-    if (showsByDay[name] && showsByDay[name].length > 0)
-      return { day: name, count: showsByDay[name].length, offset };
-  }
-  return null;
+ const today = new Date().getDay();
+ const showsByDay = {};
+ for (const s of shows) {
+ const d = s.day;
+ if (!showsByDay[d]) showsByDay[d] = [];
+ showsByDay[d].push(s);
+ }
+ for (let offset = 0; offset < 7; offset++) {
+ const name = DAYS[(today + offset) % 7];
+ if (showsByDay[name] && showsByDay[name].length > 0)
+ return { day: name, count: showsByDay[name].length, offset };
+ }
+ return null;
 }
 
 // ── TONIGHT PANEL ─────────────────────────────────────────────────────────
 function renderTonightPanel() {
-  const panel = document.getElementById('tonight-panel');
-  const dayName = DAYS[new Date().getDay()];
+ const panel = document.getElementById('tonight-panel');
+ const dayName = DAYS[new Date().getDay()];
 
-  if (TONIGHT_SHOWS.length === 0) {
-    // Real no-shows-tonight case (e.g. Mondays in Paris). Render a polished
-    // intentional fallback: surface the next upcoming dated instance from
-    // WEEK_SHOWS so the panel feels alive instead of empty.
-    const upcoming = WEEK_SHOWS.filter(s => s.date > todayParis);
-    const nextShow = upcoming[0] || null;
-    const next = nextComedyNight(allShows());
-    const dotColor = '#c9a84c';
-    let body;
-    if (nextShow) {
-      const [y,m,d] = nextShow.date.split('-').map(Number);
-      const dt = new Date(y, m - 1, d);
-      const DAY_ABBR = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-      const MONTH_ABBR = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      const label = (next && next.offset === 1)
-        ? 'Tomorrow'
-        : `${DAY_ABBR[dt.getDay()]} &middot; ${MONTH_ABBR[m-1]} ${d}`;
-      const nextCount = upcoming.filter(s => s.date === nextShow.date).length;
-      const venueLine = [nextShow.venue, nextShow.neighborhood].filter(Boolean).join(' · ');
-      body = `
-        <div class="tonight-empty-icon">🌙</div>
-        <div class="tonight-empty-title">Comedy is quiet on ${dayName}s</div>
-        <div class="tonight-empty-sub">${nextCount} show${nextCount!==1?'s':''} on the schedule next.</div>
-        <div class="tonight-empty-next">
-          <div class="tonight-empty-next-label">Next up &middot; ${label}</div>
-          <div class="tonight-empty-next-name">${(nextShow.show_name||'').replace(/</g,'&lt;')}</div>
-          <div class="tonight-empty-next-meta">${nextShow.start_time||''}${venueLine ? ' &middot; ' + venueLine.replace(/</g,'&lt;') : ''}</div>
-        </div>
-        <a class="tonight-empty-cta" href="/shows.html">See this week's lineup →</a>`;
-    } else {
-      body = `
-        <div class="tonight-empty-icon">🌙</div>
-        <div class="tonight-empty-title">No shows on the schedule this week</div>
-        <div class="tonight-empty-sub">Know a room we're missing? Help us keep the directory current.</div>
-        <a class="tonight-empty-cta" href="/book.html">Submit a show →</a>`;
-    }
-    panel.innerHTML = `<div class="tonight-header"><span><span class="tonight-dot" style="background:${dotColor};box-shadow:0 0 8px ${dotColor}"></span><span class="tonight-label">Tonight &middot; ${dayName}</span></span></div>
-      <div class="tonight-empty">${body}</div>`;
-    return;
-  }
+ if (TONIGHT_SHOWS.length === 0) {
+ // Real no-shows-tonight case (e.g. Mondays in Paris). Render a polished
+ // intentional fallback: surface the next upcoming dated instance from
+ // WEEK_SHOWS so the panel feels alive instead of empty.
+ const upcoming = WEEK_SHOWS.filter(s => s.date > todayParis);
+ const nextShow = upcoming[0] || null;
+ const next = nextComedyNight(allShows());
+ const dotColor = '#c9a84c';
+ let body;
+ if (nextShow) {
+ const [y,m,d] = nextShow.date.split('-').map(Number);
+ const dt = new Date(y, m - 1, d);
+ const DAY_ABBR = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+ const MONTH_ABBR = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ const label = (next && next.offset === 1)
+ ? 'Tomorrow'
+ : `${DAY_ABBR[dt.getDay()]} &middot; ${MONTH_ABBR[m-1]} ${d}`;
+ const nextCount = upcoming.filter(s => s.date === nextShow.date).length;
+ const venueLine = [nextShow.venue, nextShow.neighborhood].filter(Boolean).join(' · ');
+ body = `
+ <div class="tonight-empty-icon">🌙</div>
+ <div class="tonight-empty-title">Comedy is quiet on ${dayName}s</div>
+ <div class="tonight-empty-sub">${nextCount} show${nextCount!==1?'s':''} on the schedule next.</div>
+ <div class="tonight-empty-next">
+ <div class="tonight-empty-next-label">Next up &middot; ${label}</div>
+ <div class="tonight-empty-next-name">${(nextShow.show_name||'').replace(/</g,'&lt;')}</div>
+ <div class="tonight-empty-next-meta">${nextShow.start_time||''}${venueLine ? ' &middot; ' + venueLine.replace(/</g,'&lt;') : ''}</div>
+ </div>
+ <a class="tonight-empty-cta" href="/shows.html">See this week's lineup →</a>`;
+ } else {
+ body = `
+ <div class="tonight-empty-icon">🌙</div>
+ <div class="tonight-empty-title">No shows on the schedule this week</div>
+ <div class="tonight-empty-sub">Know a room we're missing? Help us keep the directory current.</div>
+ <a class="tonight-empty-cta" href="/book.html">Submit a show →</a>`;
+ }
+ panel.innerHTML = `<div class="tonight-header"><span><span class="tonight-dot" style="background:${dotColor};box-shadow:0 0 8px ${dotColor}"></span><span class="tonight-label">Tonight &middot; ${dayName}</span></span></div>
+ <div class="tonight-empty">${body}</div>`;
+ return;
+ }
 
-  const rows = TONIGHT_SHOWS.slice(0,6).map(s => {
-    return `<div class="tonight-row">
-      <div class="tonight-time">${s.start_time||'—'}</div>
-      <div class="tonight-info">
-        <div class="tonight-name"><a href="${s.ticket_url ? '/r.html?kind=show&id='+encodeURIComponent(s.id||s.show_name||'')+'&url='+encodeURIComponent(s.ticket_url) : '#'}" target="_blank" rel="noopener sponsored">${s.show_name}</a></div>
-        <div class="tonight-venue">${s.venue} &middot; ${s.neighborhood}</div>
-        <div class="tonight-proof">${isFreshSource(s) ? 'Source checked today' : 'Listing may be stale · check source'}</div>
-      </div>
-    </div>`;
-  }).join('');
+ const rows = TONIGHT_SHOWS.slice(0,6).map(s => {
+ return `<div class="tonight-row">
+ <div class="tonight-time">${s.start_time||'—'}</div>
+ <div class="tonight-info">
+ <div class="tonight-name"><a href="${s.ticket_url ? '/r.html?kind=show&id='+encodeURIComponent(s.id||s.show_name||'')+'&url='+encodeURIComponent(s.ticket_url) : '#'}" target="_blank" rel="noopener sponsored">${s.show_name}</a></div>
+ <div class="tonight-venue">${s.venue} &middot; ${s.neighborhood}</div>
+ <div class="tonight-proof">${isFreshSource(s) ? 'Source checked today' : 'Listing may be stale · check source'}</div>
+ </div>
+ </div>`;
+ }).join('');
 
-  panel.innerHTML = `
-    <div class="tonight-header">
-      <span><span class="tonight-dot"></span><span class="tonight-label">Tonight &middot; ${dayName}</span></span>
-      <span style="font-size:12px;color:var(--muted)">${TONIGHT_SHOWS.length} show${TONIGHT_SHOWS.length!==1?'s':''}</span>
-    </div>
-    ${rows}`;
+ panel.innerHTML = `
+ <div class="tonight-header">
+ <span><span class="tonight-dot"></span><span class="tonight-label">Tonight &middot; ${dayName}</span></span>
+ <span style="font-size:12px;color:var(--muted)">${TONIGHT_SHOWS.length} show${TONIGHT_SHOWS.length!==1?'s':''}</span>
+ </div>
+ ${rows}`;
 }
 
 // ── SHOWS GRID ────────────────────────────────────────────────────────────
@@ -630,146 +630,146 @@ let activeFilter = 'all';
 let activeVibes = new Set();
 
 function setFilter(f, el) {
-  activeFilter = f;
-  document.querySelectorAll('.chip[data-filter]').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  renderGrid();
+ activeFilter = f;
+ document.querySelectorAll('.chip[data-filter]').forEach(c => c.classList.remove('active'));
+ el.classList.add('active');
+ renderGrid();
 }
 
 function toggleVibe(v, el) {
-  if (activeVibes.has(v)) { activeVibes.delete(v); el.classList.remove('active'); }
-  else { activeVibes.add(v); el.classList.add('active'); }
-  renderGrid();
+ if (activeVibes.has(v)) { activeVibes.delete(v); el.classList.remove('active'); }
+ else { activeVibes.add(v); el.classList.add('active'); }
+ renderGrid();
 }
 
 function renderGrid() {
-  const grid = document.getElementById('shows-grid');
-  const shows = allShows();
-  const today = todayName();
+ const grid = document.getElementById('shows-grid');
+ const shows = allShows();
+ const today = todayName();
 
-  let filtered = shows;
-  if (activeFilter === 'tonight') filtered = shows.filter(s => s.day === today);
-  else if (activeFilter === 'weekend') filtered = shows.filter(s => WEEKEND.has(s.day));
+ let filtered = shows;
+ if (activeFilter === 'tonight') filtered = shows.filter(s => s.day === today);
+ else if (activeFilter === 'weekend') filtered = shows.filter(s => WEEKEND.has(s.day));
 
-  if (activeVibes.size > 0)
-    filtered = filtered.filter(s => s._vibes && [...activeVibes].some(v => s._vibes.includes(v)));
+ if (activeVibes.size > 0)
+ filtered = filtered.filter(s => s._vibes && [...activeVibes].some(v => s._vibes.includes(v)));
 
-  // Sort: tonight first, then by day order from today
-  const todayIdx = new Date().getDay();
-  filtered.sort((a,b) => {
-    const ai = (DAYS.indexOf(a.day) - todayIdx + 7) % 7;
-    const bi = (DAYS.indexOf(b.day) - todayIdx + 7) % 7;
-    if (ai !== bi) return ai - bi;
-    return (a.time||'').localeCompare(b.time||'');
-  });
+ // Sort: tonight first, then by day order from today
+ const todayIdx = new Date().getDay();
+ filtered.sort((a,b) => {
+ const ai = (DAYS.indexOf(a.day) - todayIdx + 7) % 7;
+ const bi = (DAYS.indexOf(b.day) - todayIdx + 7) % 7;
+ if (ai !== bi) return ai - bi;
+ return (a.time||'').localeCompare(b.time||'');
+ });
 
-  if (filtered.length === 0) {
-    const next = nextComedyNight(shows);
-    const msg = next && activeFilter === 'tonight'
-      ? `Comedy is quiet on ${today}s. <strong>Comedy returns ${next.day === DAYS[(todayIdx+1)%7] ? 'tomorrow' : next.day}</strong> — <a href="#shows-section" onclick="setFilter('all',document.querySelector('[data-filter=all]'))">${next.count} show${next.count!==1?'s':''}</a>`
-      : 'No shows match that filter.';
-    grid.innerHTML = `<div class="no-shows-msg">${msg}</div>`;
-    return;
-  }
+ if (filtered.length === 0) {
+ const next = nextComedyNight(shows);
+ const msg = next && activeFilter === 'tonight'
+ ? `Comedy is quiet on ${today}s. <strong>Comedy returns ${next.day === DAYS[(todayIdx+1)%7] ? 'tomorrow' : next.day}</strong> — <a href="#shows-section" onclick="setFilter('all',document.querySelector('[data-filter=all]'))">${next.count} show${next.count!==1?'s':''}</a>`
+ : 'No shows match that filter.';
+ grid.innerHTML = `<div class="no-shows-msg">${msg}</div>`;
+ return;
+ }
 
-  grid.innerHTML = filtered.map(s => {
-    const proof = s.comics_on_bill > 0
-      ? `<div class="show-proof"><span>🎤 ${s.comics_on_bill} comics on the bill</span></div>` : '';
-    const vibeHtml = s._vibes && s._vibes.length
-      ? `<div class="show-vibe-tags">${s._vibes.slice(0,3).map(v=>`<span class="vibe-tag">${v}</span>`).join('')}</div>` : '';
-    return `<div class="show-card">
-      <div class="show-card-name">${s.name}</div>
-      <div class="show-card-venue">${s.venue||''}</div>
-      <div class="show-card-meta">${s.day} &middot; ${s.time||'—'}</div>
-      ${proof}
-      ${vibeHtml}
-      ${ticketCta(s, 'show-card-btn')}
-    </div>`;
-  }).join('');
+ grid.innerHTML = filtered.map(s => {
+ const proof = s.comics_on_bill > 0
+ ? `<div class="show-proof"><span>🎤 ${s.comics_on_bill} comics on the bill</span></div>` : '';
+ const vibeHtml = s._vibes && s._vibes.length
+ ? `<div class="show-vibe-tags">${s._vibes.slice(0,3).map(v=>`<span class="vibe-tag">${v}</span>`).join('')}</div>` : '';
+ return `<div class="show-card">
+ <div class="show-card-name">${s.name}</div>
+ <div class="show-card-venue">${s.venue||''}</div>
+ <div class="show-card-meta">${s.day} &middot; ${s.time||'—'}</div>
+ ${proof}
+ ${vibeHtml}
+ ${ticketCta(s, 'show-card-btn')}
+ </div>`;
+ }).join('');
 
-  // Update stat counter
-  const statEl = document.getElementById('stat-shows');
-  if (statEl) statEl.textContent = shows.length + '+';
+ // Update stat counter
+ const statEl = document.getElementById('stat-shows');
+ if (statEl) statEl.textContent = shows.length + '+';
 }
 
 // ── INJECT JSON-LD EVENT SCHEMAS ──────────────────────────────────────────
 function injectEventSchemas() {
-  const today = new Date();
-  const schemas = TOP_SHOWS.map(s => {
-    // Find next occurrence of this show's day-of-week
-    const dayIdx = DAYS.indexOf(s.day);
-    const diff = (dayIdx - today.getDay() + 7) % 7;
-    const d = new Date(today); d.setDate(d.getDate() + diff);
-    const dateStr = d.toISOString().split('T')[0];
-    return {
-      "@context": "https://schema.org",
-      "@type": "Event",
-      "name": s.name,
-      "startDate": `${dateStr}T${s.time||'20:00'}:00`,
-      "location": {
-        "@type": "Place",
-        "name": s.venue ? s.venue.split(',')[0] : "Paris",
-        "address": { "@type": "PostalAddress", "addressLocality": "Paris", "addressCountry": "FR" }
-      },
-      "url": s.url,
-      "eventStatus": "https://schema.org/EventScheduled",
-      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "organizer": { "@type": "Organization", "name": "Paris Comedy" }
-    };
-  });
-  const el = document.createElement('script');
-  el.type = 'application/ld+json';
-  el.textContent = JSON.stringify(schemas);
-  document.head.appendChild(el);
+ const today = new Date();
+ const schemas = TOP_SHOWS.map(s => {
+ // Find next occurrence of this show's day-of-week
+ const dayIdx = DAYS.indexOf(s.day);
+ const diff = (dayIdx - today.getDay() + 7) % 7;
+ const d = new Date(today); d.setDate(d.getDate() + diff);
+ const dateStr = d.toISOString().split('T')[0];
+ return {
+ "@context": "https://schema.org",
+ "@type": "Event",
+ "name": s.name,
+ "startDate": `${dateStr}T${s.time||'20:00'}:00`,
+ "location": {
+ "@type": "Place",
+ "name": s.venue ? s.venue.split(',')[0] : "Paris",
+ "address": { "@type": "PostalAddress", "addressLocality": "Paris", "addressCountry": "FR" }
+ },
+ "url": s.url,
+ "eventStatus": "https://schema.org/EventScheduled",
+ "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+ "organizer": { "@type": "Organization", "name": "Paris Comedy" }
+ };
+ });
+ const el = document.createElement('script');
+ el.type = 'application/ld+json';
+ el.textContent = JSON.stringify(schemas);
+ document.head.appendChild(el);
 }
 
 function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
 
 // ── WEEK SHOWS ROW ────────────────────────────────────────────────────────
 function renderWeekRow() {
-  const row = document.getElementById('week-shows-row');
-  if (!row) return;
-  const MONTH_ABBR = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-  const DAY_ABBR = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+ const row = document.getElementById('week-shows-row');
+ if (!row) return;
+ const MONTH_ABBR = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+ const DAY_ABBR = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 
-  // Tonight first, then chronological, max 8 cards
-  const tonight = TONIGHT_SHOWS.slice(0,3);
-  const rest = WEEK_SHOWS.filter(s => s.date !== todayParis).slice(0, 8 - tonight.length);
-  const cards = [...tonight, ...rest].slice(0,8);
+ // Tonight first, then chronological, max 8 cards
+ const tonight = TONIGHT_SHOWS.slice(0,3);
+ const rest = WEEK_SHOWS.filter(s => s.date !== todayParis).slice(0, 8 - tonight.length);
+ const cards = [...tonight, ...rest].slice(0,8);
 
-  if (cards.length === 0) {
-    row.innerHTML = '<div style="color:#555;font-size:14px;padding:16px 0">No upcoming shows found this week.</div>';
-    return;
-  }
+ if (cards.length === 0) {
+ row.innerHTML = '<div style="color:#555;font-size:14px;padding:16px 0">No upcoming shows found this week.</div>';
+ return;
+ }
 
-  row.innerHTML = cards.map(s => {
-    const [y,m,d] = s.date.split('-').map(Number);
-    const dt = new Date(y,m-1,d);
-    const badge = `${DAY_ABBR[dt.getDay()]} &middot; ${MONTH_ABBR[m-1]} ${d}`;
-    return `<div style="background:#111827;border:1px solid #1e2a3a;border-radius:10px;padding:16px;min-width:200px;flex-shrink:0">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;color:#c9a84c;margin-bottom:4px">${badge}</div>
-      <div style="font-size:14px;font-weight:700;margin-bottom:4px">${s.show_name}</div>
-      <div style="font-size:12px;color:#8899aa;margin-bottom:12px">${s.start_time} &middot; ${s.neighborhood}</div>
-      <a href="/r.html?kind=show&id=${encodeURIComponent(s.id||s.show_name||'')}&url=${encodeURIComponent(s.ticket_url||'')}" target="_blank" rel="noopener sponsored" style="display:block;text-align:center;padding:7px;border-radius:6px;background:#c9a84c;color:#000;font-size:11px;font-weight:700">Check listing &rarr;</a>
-    </div>`;
-  }).join('');
+ row.innerHTML = cards.map(s => {
+ const [y,m,d] = s.date.split('-').map(Number);
+ const dt = new Date(y,m-1,d);
+ const badge = `${DAY_ABBR[dt.getDay()]} &middot; ${MONTH_ABBR[m-1]} ${d}`;
+ return `<div style="background:#111827;border:1px solid #1e2a3a;border-radius:10px;padding:16px;min-width:200px;flex-shrink:0">
+ <div style="font-size:10px;font-weight:700;letter-spacing:.08em;color:#c9a84c;margin-bottom:4px">${badge}</div>
+ <div style="font-size:14px;font-weight:700;margin-bottom:4px">${s.show_name}</div>
+ <div style="font-size:12px;color:#8899aa;margin-bottom:12px">${s.start_time} &middot; ${s.neighborhood}</div>
+ <a href="/r.html?kind=show&id=${encodeURIComponent(s.id||s.show_name||'')}&url=${encodeURIComponent(s.ticket_url||'')}" target="_blank" rel="noopener sponsored" style="display:block;text-align:center;padding:7px;border-radius:6px;background:#c9a84c;color:#000;font-size:11px;font-weight:700">Check listing &rarr;</a>
+ </div>`;
+ }).join('');
 }
 
 // ── WEEKLY FEATURED ROTATION ─────────────────────────────────────────────
 function seededShuffle(arr, seed) {
-  const a = [...arr];
-  let s = seed;
-  for (let i = a.length - 1; i > 0; i--) {
-    s = (s * 1664525 + 1013904223) & 0xffffffff;
-    const j = Math.abs(s) % (i + 1);
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+ const a = [...arr];
+ let s = seed;
+ for (let i = a.length - 1; i > 0; i--) {
+ s = (s * 1664525 + 1013904223) & 0xffffffff;
+ const j = Math.abs(s) % (i + 1);
+ [a[i], a[j]] = [a[j], a[i]];
+ }
+ return a;
 }
 
 function todayParisStr() {
-  // YYYY-MM-DD in Europe/Paris.
-  return new Intl.DateTimeFormat('sv-SE', {timeZone:'Europe/Paris', year:'numeric', month:'2-digit', day:'2-digit'}).format(new Date());
+ // YYYY-MM-DD in Europe/Paris.
+ return new Intl.DateTimeFormat('sv-SE', {timeZone:'Europe/Paris', year:'numeric', month:'2-digit', day:'2-digit'}).format(new Date());
 }
 
 // Honest naming: this section lists day-of-week matches ("shows happening
@@ -777,103 +777,103 @@ function todayParisStr() {
 // heading deliberately avoids the word "Featured". Section is hidden when
 // there are no tonight shows.
 function renderTonightInParis() {
-  const today = todayParisStr();
-  const tonight = (SHOWS_DATA || []).filter(s => s.date === today);
-  const section = document.getElementById('tonight-in-paris-section');
-  const grid = document.getElementById('tonight-show-grid');
-  if (!grid || !section) return;
-  if (!tonight.length) {
-    section.style.display = 'none';
-    return;
-  }
-  section.style.display = '';
-  const title = document.getElementById('tonight-section-title');
-  if (title) title.textContent = 'Tonight in Paris';
-  const lbl = document.getElementById('tonight-section-label');
-  if (lbl) lbl.textContent = `${tonight.length} show${tonight.length===1?'':'s'} happening tonight`;
-  const picks = tonight.slice().sort((a,b) => (a.start_time||'').localeCompare(b.start_time||'')).slice(0,3);
-  grid.innerHTML = picks.map(s => `
-    <div class="featured-card">
-      <div><span class="featured-badge" style="background:#7c3aed;color:#fff">TONIGHT</span></div>
-      <div class="featured-card-name">${(s.show_name||'').replace(/</g,'&lt;')}</div>
-      <div class="featured-card-show">${(s.neighborhood||'').replace(/</g,'&lt;')}</div>
-      <div class="featured-card-meta">${s.start_time||''} &middot; ${(s.venue||'').replace(/</g,'&lt;')}</div>
-      <a href="/r.html?kind=show&id=${encodeURIComponent(s.id||s.show_name||'')}&url=${encodeURIComponent(s.ticket_url||'')}" target="_blank" rel="noopener sponsored" class="featured-card-btn">Get tickets →</a>
-    </div>
-  `).join('');
+ const today = todayParisStr();
+ const tonight = (SHOWS_DATA || []).filter(s => s.date === today);
+ const section = document.getElementById('tonight-in-paris-section');
+ const grid = document.getElementById('tonight-show-grid');
+ if (!grid || !section) return;
+ if (!tonight.length) {
+ section.style.display = 'none';
+ return;
+ }
+ section.style.display = '';
+ const title = document.getElementById('tonight-section-title');
+ if (title) title.textContent = 'Tonight in Paris';
+ const lbl = document.getElementById('tonight-section-label');
+ if (lbl) lbl.textContent = `${tonight.length} show${tonight.length===1?'':'s'} happening tonight`;
+ const picks = tonight.slice().sort((a,b) => (a.start_time||'').localeCompare(b.start_time||'')).slice(0,3);
+ grid.innerHTML = picks.map(s => `
+ <div class="featured-card">
+ <div><span class="featured-badge" style="background:#7c3aed;color:#fff">TONIGHT</span></div>
+ <div class="featured-card-name">${(s.show_name||'').replace(/</g,'&lt;')}</div>
+ <div class="featured-card-show">${(s.neighborhood||'').replace(/</g,'&lt;')}</div>
+ <div class="featured-card-meta">${s.start_time||''} &middot; ${(s.venue||'').replace(/</g,'&lt;')}</div>
+ <a href="/r.html?kind=show&id=${encodeURIComponent(s.id||s.show_name||'')}&url=${encodeURIComponent(s.ticket_url||'')}" target="_blank" rel="noopener sponsored" class="featured-card-btn">Get tickets →</a>
+ </div>
+ `).join('');
 }
 
 // Promoted Shows — strictly paid/editorial. Gates on /api/listings?featured=1.
 // If the API returns [], the entire section stays display:none and no
 // "featured/promoted" copy is rendered anywhere.
 async function renderPromotedThisWeek() {
-  const grid = document.getElementById('promoted-show-grid');
-  const section = document.getElementById('promoted-week-section');
-  if (!grid || !section) return;
-  // Resolve API base. Fall back to the canonical production host if the
-  // /api-config.json fetch fails so the promoted section still appears when
-  // the static config is missing or temporarily 404s.
-  const DEFAULT_API = 'https://api.pariscomedy.com';
-  let api = DEFAULT_API;
-  try {
-    const c = await fetch('/api-config.json').then(r => r.json());
-    if (c && c.api) api = c.api;
-  } catch (e) {
-    console.warn('[pc] api-config.json fetch failed, defaulting to', DEFAULT_API, e);
-  }
-  let promoted = [];
-  try {
-    promoted = await fetch(api + '/api/listings?featured=1').then(r => r.json());
-  } catch (e) {
-    console.warn('[pc] /api/listings?featured=1 fetch failed', e);
-  }
-  promoted = (promoted || []).slice(0, 3);
-  if (!promoted.length) {
-    section.style.display = 'none';
-    return;
-  }
-  section.style.display = '';
-  const title = document.getElementById('promoted-section-title');
-  if (title) title.textContent = 'Promoted this week';
-  const lbl = document.getElementById('promoted-section-label');
-  if (lbl) lbl.textContent = `${promoted.length} paid or editorial pick${promoted.length===1?'':'s'}`;
-  grid.innerHTML = promoted.map(s => {
-    const days = (s.days && s.days[0]) || '';
-    const venue = (s.venue && s.venue.name) || s.venue_name_raw || '';
-    const url = s.booking_url || s.show_url || '#';
-    return `
-      <div class="featured-card">
-        <div><span class="featured-badge">PROMOTED</span></div>
-        <div class="featured-card-name">${(s.short_name || s.name || '').replace(/</g,'&lt;')}</div>
-        <div class="featured-card-show">${(s.name || '').replace(/</g,'&lt;')}</div>
-        <div class="featured-card-meta">${days} &middot; ${s.start_time || ''} &middot; ${venue.replace(/</g,'&lt;')}</div>
-        <a href="${url}" target="_blank" rel="noopener sponsored" class="featured-card-btn">Get tickets →</a>
-      </div>`;
-  }).join('');
+ const grid = document.getElementById('promoted-show-grid');
+ const section = document.getElementById('promoted-week-section');
+ if (!grid || !section) return;
+ // Resolve API base. Fall back to the canonical production host if the
+ // /api-config.json fetch fails so the promoted section still appears when
+ // the static config is missing or temporarily 404s.
+ const DEFAULT_API = 'https://api.pariscomedy.com';
+ let api = DEFAULT_API;
+ try {
+ const c = await fetch('/api-config.json').then(r => r.json());
+ if (c && c.api) api = c.api;
+ } catch (e) {
+ console.warn('[pc] api-config.json fetch failed, defaulting to', DEFAULT_API, e);
+ }
+ let promoted = [];
+ try {
+ promoted = await fetch(api + '/api/listings?featured=1').then(r => r.json());
+ } catch (e) {
+ console.warn('[pc] /api/listings?featured=1 fetch failed', e);
+ }
+ promoted = (promoted || []).slice(0, 3);
+ if (!promoted.length) {
+ section.style.display = 'none';
+ return;
+ }
+ section.style.display = '';
+ const title = document.getElementById('promoted-section-title');
+ if (title) title.textContent = 'Promoted this week';
+ const lbl = document.getElementById('promoted-section-label');
+ if (lbl) lbl.textContent = `${promoted.length} paid or editorial pick${promoted.length===1?'':'s'}`;
+ grid.innerHTML = promoted.map(s => {
+ const days = (s.days && s.days[0]) || '';
+ const venue = (s.venue && s.venue.name) || s.venue_name_raw || '';
+ const url = s.booking_url || s.show_url || '#';
+ return `
+ <div class="featured-card">
+ <div><span class="featured-badge">PROMOTED</span></div>
+ <div class="featured-card-name">${(s.short_name || s.name || '').replace(/</g,'&lt;')}</div>
+ <div class="featured-card-show">${(s.name || '').replace(/</g,'&lt;')}</div>
+ <div class="featured-card-meta">${days} &middot; ${s.start_time || ''} &middot; ${venue.replace(/</g,'&lt;')}</div>
+ <a href="${url}" target="_blank" rel="noopener sponsored" class="featured-card-btn">Get tickets →</a>
+ </div>`;
+ }).join('');
 }
 
 // ── CONFETTI ──────────────────────────────────────────────────────────────
 function launchConfetti() {
-  const colors = ['#c9a84c','#c41e3a','#ffffff','#e8c96a','#7ab3e0','#7ae0a0','#f0c040','#40c0f0'];
-  for (let i = 0; i < 30; i++) {
-    const el = document.createElement('div');
-    el.className = 'confetti-piece';
-    el.style.left = Math.random() * 100 + 'vw';
-    el.style.background = colors[Math.floor(Math.random() * colors.length)];
-    el.style.width = (8 + Math.random() * 8) + 'px';
-    el.style.height = (8 + Math.random() * 8) + 'px';
-    el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-    el.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
-    el.style.animationDelay = (Math.random() * 0.8) + 's';
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 4000);
-  }
+ const colors = ['#c9a84c','#c41e3a','#ffffff','#e8c96a','#7ab3e0','#7ae0a0','#f0c040','#40c0f0'];
+ for (let i = 0; i < 30; i++) {
+ const el = document.createElement('div');
+ el.className = 'confetti-piece';
+ el.style.left = Math.random() * 100 + 'vw';
+ el.style.background = colors[Math.floor(Math.random() * colors.length)];
+ el.style.width = (8 + Math.random() * 8) + 'px';
+ el.style.height = (8 + Math.random() * 8) + 'px';
+ el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+ el.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+ el.style.animationDelay = (Math.random() * 0.8) + 's';
+ document.body.appendChild(el);
+ setTimeout(() => el.remove(), 4000);
+ }
 }
 (function checkConfettiTrigger() {
-  const p = new URLSearchParams(window.location.search);
-  if (p.get('paid') === '1' || p.get('activated') === '1' || p.get('success') === '1') {
-    setTimeout(launchConfetti, 300);
-  }
+ const p = new URLSearchParams(window.location.search);
+ if (p.get('paid') === '1' || p.get('activated') === '1' || p.get('success') === '1') {
+ setTimeout(launchConfetti, 300);
+ }
 })();
 
 // ── NEXT 3 DAYS PANEL ────────────────────────────────────────────────────
@@ -885,133 +885,133 @@ function launchConfetti() {
 let FRESHNESS = null;
 let FRESHNESS_OVERRIDES = null;
 async function loadFreshness() {
-  if (FRESHNESS !== null) return FRESHNESS;
-  try {
-    const r = await fetch('/data/freshness-audit.json', {cache:'no-store'});
-    const j = await r.json();
-    FRESHNESS = {};
-    (j.listings || []).forEach(it => { FRESHNESS[it.slug] = it; });
-  } catch (_) { FRESHNESS = {}; }
-  // P1.DATA.3: operator overrides — last write wins per slug
-  try {
-    const r2 = await fetch('/data/freshness-overrides.json', {cache:'no-store'});
-    const ov = await r2.json();
-    FRESHNESS_OVERRIDES = {};
-    const now = Date.now();
-    (ov.overrides || []).forEach(o => {
-      if (o.until) {
-        const until = Date.parse(o.until);
-        if (isFinite(until) && until < now) return; // expired
-      }
-      FRESHNESS_OVERRIDES[o.slug] = o;
-    });
-  } catch (_) { FRESHNESS_OVERRIDES = {}; }
-  return FRESHNESS;
+ if (FRESHNESS !== null) return FRESHNESS;
+ try {
+ const r = await fetch('/data/freshness-audit.json', {cache:'no-store'});
+ const j = await r.json();
+ FRESHNESS = {};
+ (j.listings || []).forEach(it => { FRESHNESS[it.slug] = it; });
+ } catch (_) { FRESHNESS = {}; }
+ // P1.DATA.3: operator overrides — last write wins per slug
+ try {
+ const r2 = await fetch('/data/freshness-overrides.json', {cache:'no-store'});
+ const ov = await r2.json();
+ FRESHNESS_OVERRIDES = {};
+ const now = Date.now();
+ (ov.overrides || []).forEach(o => {
+ if (o.until) {
+ const until = Date.parse(o.until);
+ if (isFinite(until) && until < now) return; // expired
+ }
+ FRESHNESS_OVERRIDES[o.slug] = o;
+ });
+ } catch (_) { FRESHNESS_OVERRIDES = {}; }
+ return FRESHNESS;
 }
 function isFreshEnough(slug) {
-  if (!FRESHNESS) return true; // fail-open until loaded
-  // P1.DATA.3: operator override takes precedence
-  if (FRESHNESS_OVERRIDES && FRESHNESS_OVERRIDES[slug]) {
-    const fs = FRESHNESS_OVERRIDES[slug].force_status;
-    if (fs === 'verified_24h' || fs === 'verified_72h') return true;
-    if (fs === 'stale' || fs === 'needs_human_review' || fs === 'source_unreachable' || fs === 'suppress') return false;
-  }
-  const f = FRESHNESS[slug];
-  if (!f) return true; // unknown — let through (do not over-suppress)
-  return f.verification_status === 'verified_24h' || f.verification_status === 'verified_72h';
+ if (!FRESHNESS) return true; // fail-open until loaded
+ // P1.DATA.3: operator override takes precedence
+ if (FRESHNESS_OVERRIDES && FRESHNESS_OVERRIDES[slug]) {
+ const fs = FRESHNESS_OVERRIDES[slug].force_status;
+ if (fs === 'verified_24h' || fs === 'verified_72h') return true;
+ if (fs === 'stale' || fs === 'needs_human_review' || fs === 'source_unreachable' || fs === 'suppress') return false;
+ }
+ const f = FRESHNESS[slug];
+ if (!f) return true; // unknown — let through (do not over-suppress)
+ return f.verification_status === 'verified_24h' || f.verification_status === 'verified_72h';
 }
 
 function renderNext3Panel() {
-  const panel = document.getElementById('next3-panel');
-  if (!panel) return;
-  const days3 = next7DaysParis().slice(0, 3);
-  const labelFor = (d, i) => {
-    if (i === 0) return 'Today · ' + d.dayName;
-    if (i === 1) return 'Tomorrow · ' + d.dayName;
-    return d.dayName;
-  };
-  let totalCount = 0;
-  const blocks = days3.map((d, i) => {
-    let shows = SHOWS_DATA.filter(s => s.date === d.dateStr);
-    if (i === 0) shows = shows.filter(isFutureShow);
-    // P1.DATA.1: drop listings stale >72h from Next-3-Days (fail-open if freshness data missing)
-    shows = shows.filter(s => isFreshEnough(s.slug));
-    shows.sort((a,b) => (a.start_time||'').localeCompare(b.start_time||''));
-    totalCount += shows.length;
-    const MAX = 3;
-    const list = shows.slice(0, MAX);
-    let inner;
-    if (list.length === 0) {
-      inner = `<div class="next3-quiet">No shows scheduled · check back</div>`;
-    } else {
-      inner = list.map(s => {
-        const venue = (s.venue || '').replace(/</g,'&lt;');
-        const name = (s.show_name || '').replace(/</g,'&lt;');
-        const href = s.slug ? `/show.html?slug=${encodeURIComponent(s.slug)}` : '/shows.html';
-        return `<div class="next3-row">
-          <div class="next3-time">${s.start_time||'—'}</div>
-          <div class="next3-show"><a href="${href}">${name}</a></div>
-          <div class="next3-venue">${venue}</div>
-        </div>`;
-      }).join('');
-      if (shows.length > MAX) {
-        inner += `<div class="next3-more">+${shows.length - MAX} more</div>`;
-      }
-    }
-    return `<div class="next3-day">
-      <div class="next3-day-label">${labelFor(d, i)}</div>
-      ${inner}
-    </div>`;
-  }).join('');
-  panel.innerHTML = `
-    <div class="next3-head">
-      <span class="next3-eyebrow"><strong>Next 3 Days</strong> in Paris</span>
-      <span class="next3-count">${totalCount} show${totalCount!==1?'s':''}</span>
-    </div>
-    ${blocks}
-    <a class="next3-cta" href="/shows.html">See all upcoming shows →</a>`;
+ const panel = document.getElementById('next3-panel');
+ if (!panel) return;
+ const days3 = next7DaysParis().slice(0, 3);
+ const labelFor = (d, i) => {
+ if (i === 0) return 'Today · ' + d.dayName;
+ if (i === 1) return 'Tomorrow · ' + d.dayName;
+ return d.dayName;
+ };
+ let totalCount = 0;
+ const blocks = days3.map((d, i) => {
+ let shows = SHOWS_DATA.filter(s => s.date === d.dateStr);
+ if (i === 0) shows = shows.filter(isFutureShow);
+ // P1.DATA.1: drop listings stale >72h from Next-3-Days (fail-open if freshness data missing)
+ shows = shows.filter(s => isFreshEnough(s.slug));
+ shows.sort((a,b) => (a.start_time||'').localeCompare(b.start_time||''));
+ totalCount += shows.length;
+ const MAX = 3;
+ const list = shows.slice(0, MAX);
+ let inner;
+ if (list.length === 0) {
+ inner = `<div class="next3-quiet">No shows scheduled · check back</div>`;
+ } else {
+ inner = list.map(s => {
+ const venue = (s.venue || '').replace(/</g,'&lt;');
+ const name = (s.show_name || '').replace(/</g,'&lt;');
+ const href = s.slug ? `/show.html?slug=${encodeURIComponent(s.slug)}` : '/shows.html';
+ return `<div class="next3-row">
+ <div class="next3-time">${s.start_time||'—'}</div>
+ <div class="next3-show"><a href="${href}">${name}</a></div>
+ <div class="next3-venue">${venue}</div>
+ </div>`;
+ }).join('');
+ if (shows.length > MAX) {
+ inner += `<div class="next3-more">+${shows.length - MAX} more</div>`;
+ }
+ }
+ return `<div class="next3-day">
+ <div class="next3-day-label">${labelFor(d, i)}</div>
+ ${inner}
+ </div>`;
+ }).join('');
+ panel.innerHTML = `
+ <div class="next3-head">
+ <span class="next3-eyebrow"><strong>Next 3 Days</strong> in Paris</span>
+ <span class="next3-count">${totalCount} show${totalCount!==1?'s':''}</span>
+ </div>
+ ${blocks}
+ <a class="next3-cta" href="/shows.html">See all upcoming shows →</a>`;
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 (async function initShows() {
-  await Promise.all([loadShowsData(), loadFreshness()]);
-  renderNext3Panel();
-  renderTonightInParis();
-  renderPromotedThisWeek();
-  injectEventSchemas();
+ await Promise.all([loadShowsData(), loadFreshness()]);
+ renderNext3Panel();
+ renderTonightInParis();
+ renderPromotedThisWeek();
+ injectEventSchemas();
 })();
 
 async function submitNewsletter(ev) {
-  ev.preventDefault();
-  const email = document.getElementById('newsletter-email').value.trim();
-  const consent = document.getElementById('newsletter-consent').checked;
-  const msg = document.getElementById('newsletter-msg');
-  msg.style.color = '#888';
-  if (!email) { msg.textContent = 'Email required.'; return false; }
-  if (!consent) { msg.textContent = 'Please tick the consent box.'; return false; }
-  msg.textContent = 'Subscribing…';
-  if (window.pcTrack) pcTrack('form_submit_attempt', {form: 'newsletter', source: 'index-footer'});
-  try {
-    let api = '';
-    try { const c = await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json()); api = c.api || ''; } catch(_) {}
-    const r = await fetch(api + '/api/newsletter/subscribe', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({email, source: 'index-footer', consent: true}),
-    });
-    const j = await r.json().catch(() => ({}));
-    if (!r.ok) throw new Error(j.detail || ('HTTP ' + r.status));
-    msg.style.color = '#4ade80';
-    msg.textContent = 'Subscribed. Check your inbox for the first weekly digest.';
-    document.getElementById('newsletter-email').value = '';
-    if (window.pcTrack) pcTrack('newsletter_signup', {source: 'index-footer'});
-    if (window.pcTrack) pcTrack('form_submit_success', {form: 'newsletter'});
-  } catch (e) {
-    msg.style.color = '#fca5a5';
-    msg.textContent = e.message || 'Could not subscribe — try again later.';
-    if (window.pcTrack) pcTrack('form_submit_error', {form: 'newsletter', error: e.message});
-  }
-  return false;
+ ev.preventDefault();
+ const email = document.getElementById('newsletter-email').value.trim();
+ const consent = document.getElementById('newsletter-consent').checked;
+ const msg = document.getElementById('newsletter-msg');
+ msg.style.color = '#888';
+ if (!email) { msg.textContent = 'Email required.'; return false; }
+ if (!consent) { msg.textContent = 'Please tick the consent box.'; return false; }
+ msg.textContent = 'Subscribing…';
+ if (window.pcTrack) pcTrack('form_submit_attempt', {form: 'newsletter', source: 'index-footer'});
+ try {
+ let api = '';
+ try { const c = await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json()); api = c.api || ''; } catch(_) {}
+ const r = await fetch(api + '/api/newsletter/subscribe', {
+ method: 'POST',
+ headers: {'Content-Type':'application/json'},
+ body: JSON.stringify({email, source: 'index-footer', consent: true}),
+ });
+ const j = await r.json().catch(() => ({}));
+ if (!r.ok) throw new Error(j.detail || ('HTTP ' + r.status));
+ msg.style.color = '#4ade80';
+ msg.textContent = 'Subscribed. Check your inbox for the first weekly digest.';
+ document.getElementById('newsletter-email').value = '';
+ if (window.pcTrack) pcTrack('newsletter_signup', {source: 'index-footer'});
+ if (window.pcTrack) pcTrack('form_submit_success', {form: 'newsletter'});
+ } catch (e) {
+ msg.style.color = '#fca5a5';
+ msg.textContent = e.message || 'Could not subscribe — try again later.';
+ if (window.pcTrack) pcTrack('form_submit_error', {form: 'newsletter', error: e.message});
+ }
+ return false;
 }
 </script>
 <script src="/assets/ads.js" defer></script>
@@ -1019,50 +1019,50 @@ async function submitNewsletter(ev) {
 <script src="/assets/events.js" defer></script>
 <!-- BEGIN pc-consent-v1 banner (self-contained, no deps, no network) -->
 <div id="pc-consent-banner" hidden role="region" aria-label="Storage preference">
-  <style>
-    #pc-consent-banner{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:#0a0a0a;color:#f0f0f0;padding:14px 18px;font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;border-top:1px solid #2a2a2a;box-shadow:0 -4px 16px rgba(0,0,0,.45)}
-    #pc-consent-banner[hidden]{display:none}
-    #pc-consent-banner .pc-c-wrap{max-width:980px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
-    #pc-consent-banner .pc-c-text{flex:1 1 480px;min-width:280px}
-    #pc-consent-banner .pc-c-en{font-size:14px;color:#f0f0f0}
-    #pc-consent-banner .pc-c-fr{font-size:12px;color:#bdbdbd;margin-top:4px}
-    #pc-consent-banner a{color:#f0c674;text-decoration:underline}
-    #pc-consent-banner .pc-c-btns{display:flex;gap:8px;flex-shrink:0}
-    #pc-consent-banner button{background:#f0f0f0;color:#0a0a0a;border:0;padding:8px 14px;border-radius:4px;cursor:pointer;font:600 13px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.2}
-    #pc-consent-banner button.pc-c-decline{background:transparent;color:#f0f0f0;border:1px solid #555}
-    #pc-consent-banner button small{display:block;font-weight:400;font-size:11px;opacity:.75;margin-top:2px}
-    #pc-consent-banner button.pc-c-decline small{opacity:.7}
-  </style>
-  <div class="pc-c-wrap">
-    <div class="pc-c-text">
-      <div class="pc-c-en">Paris Comedy uses minimal local storage to remember this preference. We do not use analytics or ad-tracking cookies. We do not sell tickets — see <a href="/privacy.html">Privacy</a> and <a href="/disclosure.html">Disclosure</a>.</div>
-      <div class="pc-c-fr">Paris Comedy utilise un stockage local minimal pour mémoriser cette préférence. Pas de cookies de pub ni de suivi. Pas de vente de billets — voir <a href="/privacy.html">Confidentialité</a> et <a href="/disclosure.html">Divulgation</a>.</div>
-    </div>
-    <div class="pc-c-btns">
-      <button type="button" class="pc-c-accept" data-pc-consent="accepted">OK<small>D'accord</small></button>
-      <button type="button" class="pc-c-decline" data-pc-consent="declined">Decline<small>Refuser</small></button>
-    </div>
-  </div>
-  <script>
-  (function(){
-    try{
-      var KEY='pc-consent-v1';
-      var el=document.getElementById('pc-consent-banner');
-      if(!el) return;
-      var stored=null;
-      try{stored=localStorage.getItem(KEY);}catch(e){}
-      if(stored==='accepted'||stored==='declined'){el.style.display='none';return;}
-      el.hidden=false;
-      el.querySelectorAll('button[data-pc-consent]').forEach(function(b){
-        b.addEventListener('click',function(){
-          var v=b.getAttribute('data-pc-consent');
-          try{localStorage.setItem(KEY,v);}catch(e){}
-          el.style.display='none';
-        });
-      });
-    }catch(e){}
-  })();
-  </script>
+ <style>
+ #pc-consent-banner{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:#0a0a0a;color:#f0f0f0;padding:14px 18px;font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;border-top:1px solid #2a2a2a;box-shadow:0 -4px 16px rgba(0,0,0,.45)}
+ #pc-consent-banner[hidden]{display:none}
+ #pc-consent-banner .pc-c-wrap{max-width:980px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+ #pc-consent-banner .pc-c-text{flex:1 1 480px;min-width:280px}
+ #pc-consent-banner .pc-c-en{font-size:14px;color:#f0f0f0}
+ #pc-consent-banner .pc-c-fr{font-size:12px;color:#bdbdbd;margin-top:4px}
+ #pc-consent-banner a{color:#f0c674;text-decoration:underline}
+ #pc-consent-banner .pc-c-btns{display:flex;gap:8px;flex-shrink:0}
+ #pc-consent-banner button{background:#f0f0f0;color:#0a0a0a;border:0;padding:8px 14px;border-radius:4px;cursor:pointer;font:600 13px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.2}
+ #pc-consent-banner button.pc-c-decline{background:transparent;color:#f0f0f0;border:1px solid #555}
+ #pc-consent-banner button small{display:block;font-weight:400;font-size:11px;opacity:.75;margin-top:2px}
+ #pc-consent-banner button.pc-c-decline small{opacity:.7}
+ </style>
+ <div class="pc-c-wrap">
+ <div class="pc-c-text">
+ <div class="pc-c-en">Paris Comedy uses minimal local storage to remember this preference. We do not use analytics or ad-tracking cookies. We do not sell tickets — see <a href="/privacy.html">Privacy</a> and <a href="/disclosure.html">Disclosure</a>.</div>
+ <div class="pc-c-fr">Paris Comedy utilise un stockage local minimal pour mémoriser cette préférence. Pas de cookies de pub ni de suivi. Pas de vente de billets — voir <a href="/privacy.html">Confidentialité</a> et <a href="/disclosure.html">Divulgation</a>.</div>
+ </div>
+ <div class="pc-c-btns">
+ <button type="button" class="pc-c-accept" data-pc-consent="accepted">OK<small>D'accord</small></button>
+ <button type="button" class="pc-c-decline" data-pc-consent="declined">Decline<small>Refuser</small></button>
+ </div>
+ </div>
+ <script>
+ (function(){
+ try{
+ var KEY='pc-consent-v1';
+ var el=document.getElementById('pc-consent-banner');
+ if(!el) return;
+ var stored=null;
+ try{stored=localStorage.getItem(KEY);}catch(e){}
+ if(stored==='accepted'||stored==='declined'){el.style.display='none';return;}
+ el.hidden=false;
+ el.querySelectorAll('button[data-pc-consent]').forEach(function(b){
+ b.addEventListener('click',function(){
+ var v=b.getAttribute('data-pc-consent');
+ try{localStorage.setItem(KEY,v);}catch(e){}
+ el.style.display='none';
+ });
+ });
+ }catch(e){}
+ })();
+ </script>
 </div>
 <!-- END pc-consent-v1 banner -->
 

@@ -82,162 +82,162 @@ footer a:hover{color:var(--text)}
 <body>
 
 <nav class="nav-shell nav-shell-marketing">
-  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
-  <div class="nav-links">
-    <a href="/">Home</a>
-    <a href="/shows.html">Shows</a>
-    <a href="/venues.html">Venues</a>
-    <a href="/comedians.html">Comedians</a>
-    <a href="/bookers.html">Bookers</a>
-    <a href="/pricing.html" class="nav-active">Pricing</a>
-    <a href="/login.html">Sign In</a>
-    <a href="/book.html">Book / Connect</a>
-    <a href="/about.html">About</a>
-  </div>
+ <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+ <div class="nav-links">
+ <a href="/">Home</a>
+ <a href="/shows.html">Shows</a>
+ <a href="/venues.html">Venues</a>
+ <a href="/comedians.html">Comedians</a>
+ <a href="/bookers.html">Bookers</a>
+ <a href="/pricing.html" class="nav-active">Pricing</a>
+ <a href="/login.html">Sign In</a>
+ <a href="/book.html">Book / Connect</a>
+ <a href="/about.html">About</a>
+ </div>
 </nav>
 
 <div class="hero">
-  <h1>Founding Member offer.</h1>
-  <p>Everyone browses and lists for free. The first 100 comedians lock in lifetime Comic Plus.</p>
-  <div class="founding-banner">
-    ⭐ <strong>First 100 comedians only:</strong> one payment of <strong>€1</strong> = <strong>lifetime</strong>
-    Comic Plus. No subscription, never billed again. After 100 it closes for good.
-    (Booker Plus is a separate monthly plan — see below.)
-    <span class="founding-count" id="founding-count">Checking live count...</span>
-  </div>
+ <h1>Founding Member offer.</h1>
+ <p>Everyone browses and lists for free. The first 100 comedians lock in lifetime Comic Plus.</p>
+ <div class="founding-banner">
+ ⭐ <strong>First 100 comedians only:</strong> one payment of <strong>€1</strong> = <strong>lifetime</strong>
+ Comic Plus. No subscription, never billed again. After 100 it closes for good.
+ (Booker Plus is a separate monthly plan — see below.)
+ <span class="founding-count" id="founding-count">Checking live count...</span>
+ </div>
 </div>
 
 <div class="plans-grid">
 
-  <!-- Free -->
-  <div class="plan-card">
-    <div class="plan-name">Free</div>
-    <div class="plan-price">€0 <small>forever</small></div>
-    <div class="plan-desc">For comics, bookers and fans alike.</div>
-    <ul class="plan-features">
-      <li>Browse the growing Paris Comedy directory of English and French shows</li>
-      <li>Create a public comic or booker profile</li>
-      <li>Submit or claim a show</li>
-      <li>Receive platform notifications</li>
-    </ul>
-    <button class="btn-plan btn-free" disabled>You're already on this</button>
-  </div>
+ <!-- Free -->
+ <div class="plan-card">
+ <div class="plan-name">Free</div>
+ <div class="plan-price">€0 <small>forever</small></div>
+ <div class="plan-desc">For comics, bookers and fans alike.</div>
+ <ul class="plan-features">
+ <li>Browse the growing Paris Comedy directory of Paris comedy shows</li>
+ <li>Create a public comic or booker profile</li>
+ <li>Submit or claim a show</li>
+ <li>Receive platform notifications</li>
+ </ul>
+ <button class="btn-plan btn-free" disabled>You're already on this</button>
+ </div>
 
-  <!-- Comic Plus -->
-  <div class="plan-card featured" id="comic-plus">
-    <span class="plan-tag">Founding · lifetime</span>
-    <div class="plan-name">Comic Plus</div>
-    <div class="plan-price">€1 <small>once — lifetime</small></div>
-    <div class="plan-desc">For comedians who want to reach bookers directly.</div>
-    <ul class="plan-features">
-      <li>Everything in Free</li>
-      <li>Message bookers directly</li>
-      <li>Highlighted profile &amp; search placement</li>
-      <li>Priority placement on show pages</li>
-      <li>Founding Member badge on your profile</li>
-    </ul>
-    <button class="btn-plan btn-start" onclick="openIntent('comic')">Claim my €1 lifetime spot →</button>
-    <form class="intent-form" id="intent-comic" onsubmit="return submitIntent(event,'comic','Comic Plus')">
-      <label for="comic-name" style="position:absolute;left:-9999px">Your name</label>
-      <input type="text"  id="comic-name"  placeholder="Your name" required aria-label="Your name">
-      <label for="comic-email" style="position:absolute;left:-9999px">Your email</label>
-      <input type="email" id="comic-email" placeholder="your@email.com" required aria-label="Your email">
-      <div class="intent-error" id="comic-err"></div>
-      <button type="submit">Continue to €1 payment →</button>
-    </form>
-    <div class="celebrate" id="comic-celebrate"></div>
-  </div>
+ <!-- Comic Plus -->
+ <div class="plan-card featured" id="comic-plus">
+ <span class="plan-tag">Founding · lifetime</span>
+ <div class="plan-name">Comic Plus</div>
+ <div class="plan-price">€1 <small>once — lifetime</small></div>
+ <div class="plan-desc">For comedians who want to reach bookers directly.</div>
+ <ul class="plan-features">
+ <li>Everything in Free</li>
+ <li>Message bookers directly</li>
+ <li>Highlighted profile &amp; search placement</li>
+ <li>Priority placement on show pages</li>
+ <li>Founding Member badge on your profile</li>
+ </ul>
+ <button class="btn-plan btn-start" onclick="openIntent('comic')">Claim my €1 lifetime spot →</button>
+ <form class="intent-form" id="intent-comic" onsubmit="return submitIntent(event,'comic','Comic Plus')">
+ <label for="comic-name" style="position:absolute;left:-9999px">Your name</label>
+ <input type="text" id="comic-name" placeholder="Your name" required aria-label="Your name">
+ <label for="comic-email" style="position:absolute;left:-9999px">Your email</label>
+ <input type="email" id="comic-email" placeholder="your@email.com" required aria-label="Your email">
+ <div class="intent-error" id="comic-err"></div>
+ <button type="submit">Continue to €1 payment →</button>
+ </form>
+ <div class="celebrate" id="comic-celebrate"></div>
+ </div>
 
-  <!-- Booker Plus -->
-  <div class="plan-card featured" id="booker-plus">
-    <div class="plan-name">Booker Plus</div>
-    <div class="plan-price">€5 <small>/ month · unlimited shows</small> <span class="strike">€5</span></div>
-    <div class="plan-desc">For show runners who want lineups, visibility, and direct comic access — without exposing private emails. List as many shows as you want.</div>
-    <ul class="plan-features">
-      <li>Lineup dashboard with drag-and-drop comic cards</li>
-      <li>Notify booked comics through our moderated channel</li>
-      <li><strong>Unlimited shows</strong> — list every weekly residency, one-off, or tour</li>
-      <li>Promote shows to the top of listings</li>
-      <li>Featured slot rotation on the homepage</li>
-      <li>Direct messaging to comics (no exposed emails)</li>
-      <li>Lineup analytics — who&rsquo;s confirmed, who&rsquo;s pending</li>
-    </ul>
-    <div style="background:#33270a;border:1px solid #f59e0b;border-radius:8px;padding:10px 12px;margin:10px 0;font-size:12px;color:#f5c518">
-      ⭐ <strong>Launch offer:</strong> €1/month for your first 6 months. Auto-renews at €5/mo after. Cancel anytime.
-    </div>
-    <button class="btn-plan btn-start" onclick="openIntent('booker')">Start Booker Plus →</button>
-    <form class="intent-form" id="intent-booker" onsubmit="return submitIntent(event,'booker','Booker Plus')">
-      <label for="booker-name" style="position:absolute;left:-9999px">Your name</label>
-      <input type="text"  id="booker-name"  placeholder="Your name" required aria-label="Your name">
-      <label for="booker-email" style="position:absolute;left:-9999px">Your email</label>
-      <input type="email" id="booker-email" placeholder="your@email.com" required aria-label="Your email">
-      <div class="intent-error" id="booker-err"></div>
-      <button type="submit">Continue →</button>
-    </form>
-    <div class="celebrate" id="booker-celebrate"></div>
-    <div style="margin-top:14px;font-size:11px;color:var(--muted);line-height:1.4">
-      Heavy promoter network or multi-city tour? Reach out — we&rsquo;ll add team-tier features when there&rsquo;s demand.
-    </div>
-  </div>
+ <!-- Booker Plus -->
+ <div class="plan-card featured" id="booker-plus">
+ <div class="plan-name">Booker Plus</div>
+ <div class="plan-price">€5 <small>/ month · unlimited shows</small> <span class="strike">€5</span></div>
+ <div class="plan-desc">For show runners who want lineups, visibility, and direct comic access — without exposing private emails. List as many shows as you want.</div>
+ <ul class="plan-features">
+ <li>Lineup dashboard with drag-and-drop comic cards</li>
+ <li>Notify booked comics through our moderated channel</li>
+ <li><strong>Unlimited shows</strong> — list every weekly residency, one-off, or tour</li>
+ <li>Promote shows to the top of listings</li>
+ <li>Featured slot rotation on the homepage</li>
+ <li>Direct messaging to comics (no exposed emails)</li>
+ <li>Lineup analytics — who&rsquo;s confirmed, who&rsquo;s pending</li>
+ </ul>
+ <div style="background:#33270a;border:1px solid #f59e0b;border-radius:8px;padding:10px 12px;margin:10px 0;font-size:12px;color:#f5c518">
+ ⭐ <strong>Launch offer:</strong> €1/month for your first 6 months. Auto-renews at €5/mo after. Cancel anytime.
+ </div>
+ <button class="btn-plan btn-start" onclick="openIntent('booker')">Start Booker Plus →</button>
+ <form class="intent-form" id="intent-booker" onsubmit="return submitIntent(event,'booker','Booker Plus')">
+ <label for="booker-name" style="position:absolute;left:-9999px">Your name</label>
+ <input type="text" id="booker-name" placeholder="Your name" required aria-label="Your name">
+ <label for="booker-email" style="position:absolute;left:-9999px">Your email</label>
+ <input type="email" id="booker-email" placeholder="your@email.com" required aria-label="Your email">
+ <div class="intent-error" id="booker-err"></div>
+ <button type="submit">Continue →</button>
+ </form>
+ <div class="celebrate" id="booker-celebrate"></div>
+ <div style="margin-top:14px;font-size:11px;color:var(--muted);line-height:1.4">
+ Heavy promoter network or multi-city tour? Reach out — we&rsquo;ll add team-tier features when there&rsquo;s demand.
+ </div>
+ </div>
 
-  <!-- Featured Show Promo -->
-  <div class="plan-card" id="featured-promo">
-    <div class="plan-name">Featured Show Promo</div>
-    <div class="plan-price">€5 <small>/ week · per show</small></div>
-    <div class="plan-desc">Pin your show to the top of the venues page (and the homepage spotlight) for a set number of days. Auto-expires — no recurring charge.</div>
-    <ul class="plan-features">
-      <li>⭐ FEATURED badge + gold border on your show card</li>
-      <li>Top-of-list placement on /venues.html every day of the promo</li>
-      <li>Homepage spotlight rotation when no today-show is running</li>
-      <li><strong>Rates:</strong> €5 / 7 days · €15 / 30 days · €40 / 90 days</li>
-      <li>Stacks with the natural day-of-week feature — you get both</li>
-    </ul>
-    <div style="background:#33270a;border:1px solid #f59e0b;border-radius:8px;padding:10px 12px;margin:10px 0;font-size:12px;color:#f5c518">
-      📍 Best for: residencies, festivals, run-ups to a big date. One payment via SumUp; promo auto-ends at the expiry.
-    </div>
-    <button class="btn-plan btn-start" onclick="openIntent('promo')">Promote my show →</button>
-    <form class="intent-form" id="intent-promo" onsubmit="return submitPromo(event)">
-      <label for="promo-name" style="position:absolute;left:-9999px">Your name</label>
-      <input type="text"  id="promo-name"  placeholder="Your name" required aria-label="Your name">
-      <label for="promo-email" style="position:absolute;left:-9999px">Your email</label>
-      <input type="email" id="promo-email" placeholder="your@email.com" required aria-label="Your email">
-      <label for="promo-show" style="position:absolute;left:-9999px">Show name or slug</label>
-      <input type="text"  id="promo-show"  placeholder="Show name or slug" required aria-label="Show name">
-      <div style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap">
-        <label style="cursor:pointer;padding:8px 14px;border:1px solid #333;border-radius:8px;background:#0f0f0f;font-size:13px">
-          <input type="radio" name="promo-tier" value="featured_show_7d" checked> €5 / 7d
-        </label>
-        <label style="cursor:pointer;padding:8px 14px;border:1px solid #333;border-radius:8px;background:#0f0f0f;font-size:13px">
-          <input type="radio" name="promo-tier" value="featured_show_30d"> €15 / 30d
-        </label>
-        <label style="cursor:pointer;padding:8px 14px;border:1px solid #333;border-radius:8px;background:#0f0f0f;font-size:13px">
-          <input type="radio" name="promo-tier" value="featured_show_90d"> €40 / 90d
-        </label>
-      </div>
-      <div class="intent-error" id="promo-err"></div>
-      <button type="submit">Continue to payment →</button>
-    </form>
-    <div class="celebrate" id="promo-celebrate"></div>
-  </div>
+ <!-- Featured Show Promo -->
+ <div class="plan-card" id="featured-promo">
+ <div class="plan-name">Featured Show Promo</div>
+ <div class="plan-price">€5 <small>/ week · per show</small></div>
+ <div class="plan-desc">Pin your show to the top of the venues page (and the homepage spotlight) for a set number of days. Auto-expires — no recurring charge.</div>
+ <ul class="plan-features">
+ <li>⭐ FEATURED badge + gold border on your show card</li>
+ <li>Top-of-list placement on /venues.html every day of the promo</li>
+ <li>Homepage spotlight rotation when no today-show is running</li>
+ <li><strong>Rates:</strong> €5 / 7 days · €15 / 30 days · €40 / 90 days</li>
+ <li>Stacks with the natural day-of-week feature — you get both</li>
+ </ul>
+ <div style="background:#33270a;border:1px solid #f59e0b;border-radius:8px;padding:10px 12px;margin:10px 0;font-size:12px;color:#f5c518">
+ 📍 Best for: residencies, festivals, run-ups to a big date. One payment via SumUp; promo auto-ends at the expiry.
+ </div>
+ <button class="btn-plan btn-start" onclick="openIntent('promo')">Promote my show →</button>
+ <form class="intent-form" id="intent-promo" onsubmit="return submitPromo(event)">
+ <label for="promo-name" style="position:absolute;left:-9999px">Your name</label>
+ <input type="text" id="promo-name" placeholder="Your name" required aria-label="Your name">
+ <label for="promo-email" style="position:absolute;left:-9999px">Your email</label>
+ <input type="email" id="promo-email" placeholder="your@email.com" required aria-label="Your email">
+ <label for="promo-show" style="position:absolute;left:-9999px">Show name or slug</label>
+ <input type="text" id="promo-show" placeholder="Show name or slug" required aria-label="Show name">
+ <div style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap">
+ <label style="cursor:pointer;padding:8px 14px;border:1px solid #333;border-radius:8px;background:#0f0f0f;font-size:13px">
+ <input type="radio" name="promo-tier" value="featured_show_7d" checked> €5 / 7d
+ </label>
+ <label style="cursor:pointer;padding:8px 14px;border:1px solid #333;border-radius:8px;background:#0f0f0f;font-size:13px">
+ <input type="radio" name="promo-tier" value="featured_show_30d"> €15 / 30d
+ </label>
+ <label style="cursor:pointer;padding:8px 14px;border:1px solid #333;border-radius:8px;background:#0f0f0f;font-size:13px">
+ <input type="radio" name="promo-tier" value="featured_show_90d"> €40 / 90d
+ </label>
+ </div>
+ <div class="intent-error" id="promo-err"></div>
+ <button type="submit">Continue to payment →</button>
+ </form>
+ <div class="celebrate" id="promo-celebrate"></div>
+ </div>
 
 </div>
 
 <div class="footer-note">
-  Comic Plus: a one-time €1 via SumUp buys lifetime access for the first 100 comedians — never billed again. Booker Plus: €5/month (unlimited shows), with a launch offer of €1/month for your first 6 months — auto-renews at €5 after, cancel anytime via email. Paid through SumUp. Questions? payments@pariscomedy.com
+ Comic Plus: a one-time €1 via SumUp buys lifetime access for the first 100 comedians — never billed again. Booker Plus: €5/month (unlimited shows), with a launch offer of €1/month for your first 6 months — auto-renews at €5 after, cancel anytime via email. Paid through SumUp. Questions? payments@pariscomedy.com
 </div>
 
 <footer>
-  <div class="footer-links">
-    <a href="/shows.html">Tonight's Comedy Shows in Paris</a>
-    <a href="/venues.html">Comedy Clubs in Paris</a>
-    <a href="/comedians.html">English-Speaking Comedians in Paris</a>
-    <a href="/book.html">Book a Show or Comedian</a>
-    <a href="/bookers.html">For Bookers &amp; Show Runners</a>
-    <a href="/pricing.html">Pricing</a>
-    <a href="/about.html">About Paris Comedy</a>
-    <a href="/login.html">Sign In</a>
-  </div>
-  <div>payments@pariscomedy.com</div>
+ <div class="footer-links">
+ <a href="/shows.html">Tonight's Comedy Shows in Paris</a>
+ <a href="/venues.html">Comedy Clubs in Paris</a>
+ <a href="/comedians.html">English-Speaking Comedians in Paris</a>
+ <a href="/book.html">Book a Show or Comedian</a>
+ <a href="/bookers.html">For Bookers &amp; Show Runners</a>
+ <a href="/pricing.html">Pricing</a>
+ <a href="/about.html">About Paris Comedy</a>
+ <a href="/login.html">Sign In</a>
+ </div>
+ <div>payments@pariscomedy.com</div>
 </footer>
 
 
@@ -246,141 +246,141 @@ footer a:hover{color:var(--text)}
 var SUMUP_1EURO = 'https://pay.sumup.com/b2c/Q9TM3HKU?utm_source=qr&utm_medium=digital&utm_campaign=image';
 
 async function loadFoundingCount() {
-  var el = document.getElementById('founding-count');
-  if (!el) return;
-  try {
-    var cfg = await fetch('/api-config.json', {cache:'no-store'}).then(function(r){return r.json();});
-    var api = cfg.api || '';
-    var data = await fetch(api + '/api/member/founding-count', {cache:'no-store'}).then(function(r){return r.json();});
-    if (!data.ok) throw new Error('count unavailable');
-    el.innerHTML = data.active_count + ' active Comic Plus founders · ' +
-      data.pending_count + ' pending payment · ' +
-      '<small>' + data.remaining_active_slots + ' active slots left</small>';
-  } catch (e) {
-    el.textContent = 'Live count unavailable. Payment records are still saved server-side.';
-  }
+ var el = document.getElementById('founding-count');
+ if (!el) return;
+ try {
+ var cfg = await fetch('/api-config.json', {cache:'no-store'}).then(function(r){return r.json();});
+ var api = cfg.api || '';
+ var data = await fetch(api + '/api/member/founding-count', {cache:'no-store'}).then(function(r){return r.json();});
+ if (!data.ok) throw new Error('count unavailable');
+ el.innerHTML = data.active_count + ' active Comic Plus founders · ' +
+ data.pending_count + ' pending payment · ' +
+ '<small>' + data.remaining_active_slots + ' active slots left</small>';
+ } catch (e) {
+ el.textContent = 'Live count unavailable. Payment records are still saved server-side.';
+ }
 }
 loadFoundingCount();
 
 function openIntent(type) {
-  var f = document.getElementById('intent-' + type);
-  f.classList.add('open');
-  f.querySelector('input').focus();
+ var f = document.getElementById('intent-' + type);
+ f.classList.add('open');
+ f.querySelector('input').focus();
 }
 
 async function submitPromo(ev) {
-  ev.preventDefault();
-  var name = document.getElementById('promo-name').value.trim();
-  var email = document.getElementById('promo-email').value.trim();
-  var show = document.getElementById('promo-show').value.trim();
-  var tier = document.querySelector('input[name="promo-tier"]:checked').value;
-  var err = document.getElementById('promo-err');
-  err.textContent = '';
-  if (!name || !email || !show || email.indexOf('@') < 0) {
-    err.textContent = 'Name, email, and show name are required.'; return false;
-  }
-  if (window.pcTrack) pcTrack('featured_promo_click', {tier: tier, show: show});
-  if (window.pcTrack) pcTrack('form_submit_attempt', {form: 'featured_promo', tier: tier});
-  try {
-    var api = '';
-    try { var c = await fetch('/api-config.json',{cache:'no-store'}).then(function(r){return r.json();}); api = c.api || ''; } catch(_) {}
-    var r = await fetch(api + '/api/checkout/intent', {
-      method: 'POST', headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        plan_code: tier, contact_email: email, contact_name: name,
-        target_slug: show.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,''),
-        target_kind: 'show',
-        metadata: {show_input: show}
-      })
-    });
-    var j = await r.json();
-    if (!r.ok || !j.ok) throw new Error(j.detail || 'Server error');
-    if (window.pcTrack) pcTrack('form_submit_success', {form: 'featured_promo', intent_id: j.intent_id, configured: j.configured});
-    document.getElementById('intent-promo').style.display = 'none';
-    var box = document.getElementById('promo-celebrate');
-    box.classList.add('show');
-    box.innerHTML =
-      '<h3>Featured Show reserved ⭐</h3>' +
-      '<p>' + esc(name) + ', your <strong>' + esc(j.plan) + '</strong> spot for <strong>' + esc(show) + '</strong> is reserved.</p>' +
-      '<p>Complete payment via SumUp below. Your show pins to the top of /venues.html for ' + j.period_days + ' days the moment we confirm payment.</p>' +
-      '<a class="pay-btn" href="' + j.checkout_url + '" target="_blank" rel="noopener">Pay €' + j.amount_eur + ' via SumUp →</a>' +
-      '<div class="pay-note" style="margin-top:10px">Intent #' + j.intent_id + ' · Payment confirmed within 24 hours via admin reconciliation.</div>';
-  } catch (e) {
-    err.textContent = e.message || 'Could not reserve — try again.';
-    if (window.pcTrack) pcTrack('form_submit_error', {form: 'featured_promo', error: e.message});
-  }
-  return false;
+ ev.preventDefault();
+ var name = document.getElementById('promo-name').value.trim();
+ var email = document.getElementById('promo-email').value.trim();
+ var show = document.getElementById('promo-show').value.trim();
+ var tier = document.querySelector('input[name="promo-tier"]:checked').value;
+ var err = document.getElementById('promo-err');
+ err.textContent = '';
+ if (!name || !email || !show || email.indexOf('@') < 0) {
+ err.textContent = 'Name, email, and show name are required.'; return false;
+ }
+ if (window.pcTrack) pcTrack('featured_promo_click', {tier: tier, show: show});
+ if (window.pcTrack) pcTrack('form_submit_attempt', {form: 'featured_promo', tier: tier});
+ try {
+ var api = '';
+ try { var c = await fetch('/api-config.json',{cache:'no-store'}).then(function(r){return r.json();}); api = c.api || ''; } catch(_) {}
+ var r = await fetch(api + '/api/checkout/intent', {
+ method: 'POST', headers: {'Content-Type': 'application/json'},
+ body: JSON.stringify({
+ plan_code: tier, contact_email: email, contact_name: name,
+ target_slug: show.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,''),
+ target_kind: 'show',
+ metadata: {show_input: show}
+ })
+ });
+ var j = await r.json();
+ if (!r.ok || !j.ok) throw new Error(j.detail || 'Server error');
+ if (window.pcTrack) pcTrack('form_submit_success', {form: 'featured_promo', intent_id: j.intent_id, configured: j.configured});
+ document.getElementById('intent-promo').style.display = 'none';
+ var box = document.getElementById('promo-celebrate');
+ box.classList.add('show');
+ box.innerHTML =
+ '<h3>Featured Show reserved ⭐</h3>' +
+ '<p>' + esc(name) + ', your <strong>' + esc(j.plan) + '</strong> spot for <strong>' + esc(show) + '</strong> is reserved.</p>' +
+ '<p>Complete payment via SumUp below. Your show pins to the top of /venues.html for ' + j.period_days + ' days the moment we confirm payment.</p>' +
+ '<a class="pay-btn" href="' + j.checkout_url + '" target="_blank" rel="noopener">Pay €' + j.amount_eur + ' via SumUp →</a>' +
+ '<div class="pay-note" style="margin-top:10px">Intent #' + j.intent_id + ' · Payment confirmed within 24 hours via admin reconciliation.</div>';
+ } catch (e) {
+ err.textContent = e.message || 'Could not reserve — try again.';
+ if (window.pcTrack) pcTrack('form_submit_error', {form: 'featured_promo', error: e.message});
+ }
+ return false;
 }
 
 async function submitIntent(ev, type, planName) {
-  ev.preventDefault();
-  var name  = document.getElementById(type + '-name').value.trim();
-  var email = document.getElementById(type + '-email').value.trim();
-  var err   = document.getElementById(type + '-err');
-  err.textContent = '';
-  if (!name || !email || email.indexOf('@') < 0) {
-    err.textContent = 'Name and a valid email are required.'; return false;
-  }
-  var isComic = (type === 'comic');
-  var planDesc = isComic ? 'Founding Member — €1 lifetime'
-                         : '€1/month for 6 months, then €5/month — auto-renews via SumUp';
-  var body = 'Plan: ' + planName + ' (' + planDesc + ')\n' +
-             'Name: ' + name + '\nEmail: ' + email + '\nRole: ' + type;
+ ev.preventDefault();
+ var name = document.getElementById(type + '-name').value.trim();
+ var email = document.getElementById(type + '-email').value.trim();
+ var err = document.getElementById(type + '-err');
+ err.textContent = '';
+ if (!name || !email || email.indexOf('@') < 0) {
+ err.textContent = 'Name and a valid email are required.'; return false;
+ }
+ var isComic = (type === 'comic');
+ var planDesc = isComic ? 'Founding Member — €1 lifetime'
+ : '€1/month for 6 months, then €5/month — auto-renews via SumUp';
+ var body = 'Plan: ' + planName + ' (' + planDesc + ')\n' +
+ 'Name: ' + name + '\nEmail: ' + email + '\nRole: ' + type;
 
-  // Capture the member BEFORE sending them to the payment page.
-  var res = await LeadCapture.submit({
-    route: '/api/pricing-intent',
-    formType: 'pricing-intent',
-    payload: {name: name, email: email, role: type,
-              plan: planName + ' — ' + planDesc, message: body},
-    mailtoSubject: planName + ' signup',
-    mailtoBody: body
-  });
+ // Capture the member BEFORE sending them to the payment page.
+ var res = await LeadCapture.submit({
+ route: '/api/pricing-intent',
+ formType: 'pricing-intent',
+ payload: {name: name, email: email, role: type,
+ plan: planName + ' — ' + planDesc, message: body},
+ mailtoSubject: planName + ' signup',
+ mailtoBody: body
+ });
 
-  document.getElementById('intent-' + type).style.display = 'none';
-  var box = document.getElementById(type + '-celebrate');
-  box.classList.add('show');
-  var apiData = res.data || {};
-  var payment = apiData.payment || {};
-  var payUrl = payment.checkout_url || SUMUP_1EURO;
-  var reference = payment.reference ? '<br><strong>Payment reference:</strong> ' + esc(payment.reference) : '';
-  var portalUrl = apiData.portal_url || (isComic ? '/performer-portal.html' : '/booker-portal.html');
-  var portalLabel = isComic ? 'Open Performer Portal' : 'Open Booker Portal';
+ document.getElementById('intent-' + type).style.display = 'none';
+ var box = document.getElementById(type + '-celebrate');
+ box.classList.add('show');
+ var apiData = res.data || {};
+ var payment = apiData.payment || {};
+ var payUrl = payment.checkout_url || SUMUP_1EURO;
+ var reference = payment.reference ? '<br><strong>Payment reference:</strong> ' + esc(payment.reference) : '';
+ var portalUrl = apiData.portal_url || (isComic ? '/performer-portal.html' : '/booker-portal.html');
+ var portalLabel = isComic ? 'Open Performer Portal' : 'Open Booker Portal';
 
-  if (isComic) {
-    box.innerHTML =
-      '<img class="badge" src="/assets/founding-member-badge.svg" alt="Paris Comedy Founding Member badge">' +
-      '<h3>You&rsquo;re a Founding Member 🎉</h3>' +
-      '<p>' + name + ', your Comic Plus spot is reserved. ' +
-      (res.status === 'sent'
-        ? 'Pay €1 once below to activate lifetime access — you&rsquo;ll never be billed again.' + reference
-        : 'We saved your details locally (server busy). Pay €1 below, then ' +
-          '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
-      '</p>' +
-      '<a class="pay-btn" href="' + payUrl + '" target="_blank" rel="noopener">Pay €1 — lifetime →</a>' +
-      '<br><a class="pay-btn" style="background:#1e1e1e;color:var(--text);margin-top:10px" href="' + portalUrl + '">' + portalLabel + ' →</a>' +
-      '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
-      '<div class="pay-note">Secure card payment via SumUp · one-time €1 · scan or tap</div>';
-  } else {
-    box.innerHTML =
-      '<h3>Booker Plus — you&rsquo;re in 🎭</h3>' +
-      '<p>' + name + ', your Booker Plus is reserved. ' +
-      (res.status === 'sent'
-        ? 'Pay your first month (€1) below — auto-renews at €1/month for 6 months, then €5/month. Cancel anytime.' + reference
-        : 'We saved your details locally (server busy). Pay the first €1 below, then ' +
-          '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
-      '</p>' +
-      '<a class="pay-btn" href="' + payUrl + '" target="_blank" rel="noopener">Pay €1 — first month →</a>' +
-      '<br><a class="pay-btn" style="background:#1e1e1e;color:var(--text);margin-top:10px" href="' + portalUrl + '">' + portalLabel + ' →</a>' +
-      '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
-      '<div class="pay-note">Secure card payment via SumUp · €1/month for 6 months, then €5/month · cancel anytime</div>';
-  }
-  return false;
+ if (isComic) {
+ box.innerHTML =
+ '<img class="badge" src="/assets/founding-member-badge.svg" alt="Paris Comedy Founding Member badge">' +
+ '<h3>You&rsquo;re a Founding Member 🎉</h3>' +
+ '<p>' + name + ', your Comic Plus spot is reserved. ' +
+ (res.status === 'sent'
+ ? 'Pay €1 once below to activate lifetime access — you&rsquo;ll never be billed again.' + reference
+ : 'We saved your details locally (server busy). Pay €1 below, then ' +
+ '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
+ '</p>' +
+ '<a class="pay-btn" href="' + payUrl + '" target="_blank" rel="noopener">Pay €1 — lifetime →</a>' +
+ '<br><a class="pay-btn" style="background:#1e1e1e;color:var(--text);margin-top:10px" href="' + portalUrl + '">' + portalLabel + ' →</a>' +
+ '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
+ '<div class="pay-note">Secure card payment via SumUp · one-time €1 · scan or tap</div>';
+ } else {
+ box.innerHTML =
+ '<h3>Booker Plus — you&rsquo;re in 🎭</h3>' +
+ '<p>' + name + ', your Booker Plus is reserved. ' +
+ (res.status === 'sent'
+ ? 'Pay your first month (€1) below — auto-renews at €1/month for 6 months, then €5/month. Cancel anytime.' + reference
+ : 'We saved your details locally (server busy). Pay the first €1 below, then ' +
+ '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
+ '</p>' +
+ '<a class="pay-btn" href="' + payUrl + '" target="_blank" rel="noopener">Pay €1 — first month →</a>' +
+ '<br><a class="pay-btn" style="background:#1e1e1e;color:var(--text);margin-top:10px" href="' + portalUrl + '">' + portalLabel + ' →</a>' +
+ '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
+ '<div class="pay-note">Secure card payment via SumUp · €1/month for 6 months, then €5/month · cancel anytime</div>';
+ }
+ return false;
 }
 function esc(s) {
-  return String(s || '').replace(/[&<>"']/g, function (c) {
-    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
-  });
+ return String(s || '').replace(/[&<>"']/g, function (c) {
+ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+ });
 }
 </script>
 <script src="/assets/track.js" defer></script>

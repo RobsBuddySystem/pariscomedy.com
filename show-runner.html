@@ -56,231 +56,230 @@ th{color:#666}
 </head>
 <body>
 <nav class="nav-shell nav-shell-portal">
-  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
-  <div class="nav-links">
-    <a href="/performer-portal.html">Performer Portal</a>
-    <a href="/booker-portal.html">Booker Portal</a>
-    <a href="/booker-dashboard.html">Dashboard</a>
-    <a href="/show-runner.html" class="nav-active">Show Runner</a>
-    <a href="/login.html">Sign Out</a>
-  </div>
+ <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+ <div class="nav-links">
+ <a href="/performer-portal.html">Performer Portal</a>
+ <a href="/booker-portal.html">Booker Portal</a>
+ <a href="/booker-dashboard.html">Dashboard</a>
+ <a href="/show-runner.html" class="nav-active">Show Runner</a>
+ <a href="/login.html">Sign Out</a>
+ </div>
 </nav>
 
 <div class="auth" id="auth">
-  <h1>Show Runner Portal</h1>
-  <p class="sub">Sign in with the magic link your admin sent you, or paste your owner token below.</p>
-  <input type="password" id="owner-token" placeholder="Owner token">
-  <button onclick="login()">Sign in →</button>
-  <div id="auth-err" class="msg err"></div>
-  <div class="sub" style="margin-top:14px">Don't have a token? <a href="/book.html" style="color:#9d5ff5">Submit a claim</a>.</div>
+ <h1>Show Runner Portal</h1>
+ <p class="sub">Sign in with the magic link your admin sent you, or paste your owner token below.</p>
+ <input type="password" id="owner-token" placeholder="Owner token">
+ <button onclick="login()">Sign in →</button>
+ <div id="auth-err" class="msg err"></div>
+ <div class="sub" style="margin-top:14px">Don't have a token? <a href="/book.html" style="color:#9d5ff5">Submit a claim</a>.</div>
 </div>
 
 <div id="app">
-  <div class="wrap">
-    <div class="show-header">
-      <div class="show-title" id="show-title">Loading…</div>
-      <div class="show-url"><a id="show-url-link" href="#" target="_blank">view public page →</a> <button class="copy-btn" onclick="copyLink()">📋 Copy</button> <span id="copy-msg" style="color:#4ade80"></span></div>
-    </div>
+ <div class="wrap">
+ <div class="show-header">
+ <div class="show-title" id="show-title">Loading…</div>
+ <div class="show-url"><a id="show-url-link" href="#" target="_blank">view public page →</a> <button class="copy-btn" onclick="copyLink()">📋 Copy</button> <span id="copy-msg" style="color:#4ade80"></span></div>
+ </div>
 
-    <div class="tabs" id="tabs">
-      <button class="tab active" data-tab="overview" onclick="showTab('overview')">Overview</button>
-      <button class="tab" data-tab="public-page" onclick="showTab('public-page')">Public page</button>
-      <button class="tab" data-tab="dates" onclick="showTab('dates')">Dates</button>
-      <button class="tab" data-tab="lineup" onclick="showTab('lineup')">Lineup</button>
-      <button class="tab" data-tab="ticketing" onclick="showTab('ticketing')">Ticketing</button>
-      <button class="tab" data-tab="audience" onclick="showTab('audience')">Audience</button>
-      <button class="tab" data-tab="import" onclick="showTab('import')">Import</button>
-      <button class="tab" data-tab="drafts" onclick="showTab('drafts')">Email</button>
-      <button class="tab" data-tab="promote" onclick="showTab('promote')">Promote</button>
-    </div>
+ <div class="tabs" id="tabs">
+ <button class="tab active" data-tab="overview" onclick="showTab('overview')">Overview</button>
+ <button class="tab" data-tab="public-page" onclick="showTab('public-page')">Public page</button>
+ <button class="tab" data-tab="dates" onclick="showTab('dates')">Dates</button>
+ <button class="tab" data-tab="lineup" onclick="showTab('lineup')">Lineup</button>
+ <button class="tab" data-tab="ticketing" onclick="showTab('ticketing')">Ticketing</button>
+ <button class="tab" data-tab="audience" onclick="showTab('audience')">Audience</button>
+ <button class="tab" data-tab="import" onclick="showTab('import')">Import</button>
+ <button class="tab" data-tab="drafts" onclick="showTab('drafts')">Email</button>
+ <button class="tab" data-tab="promote" onclick="showTab('promote')">Promote</button>
+ </div>
 
-    <!-- OVERVIEW -->
-    <div class="panel active" id="panel-overview">
-      <div class="metric-grid" id="ov-metrics"></div>
-      <button class="primary" onclick="window.open(showUrl,'_blank')">View public page →</button>
-      <button class="secondary" onclick="copyLink()" style="margin-left:6px">📋 Copy link</button>
-      <button class="gold" onclick="location.hash='promote';showTab('promote')" style="margin-left:6px">Promote this show →</button>
-    </div>
+ <!-- OVERVIEW -->
+ <div class="panel active" id="panel-overview">
+ <div class="metric-grid" id="ov-metrics"></div>
+ <button class="primary" onclick="window.open(showUrl,'_blank')">View public page →</button>
+ <button class="secondary" onclick="copyLink()" style="margin-left:6px">📋 Copy link</button>
+ <button class="gold" onclick="location.hash='promote';showTab('promote')" style="margin-left:6px">Promote this show →</button>
+ </div>
 
-    <!-- PUBLIC PAGE DRAFT -->
-    <div class="panel" id="panel-public-page">
-      <div class="help">Edits save as a draft. Public page reflects approved data only. Venue/language changes may need admin review.</div>
-      <div class="field"><label>Tagline</label><input id="pp-tagline" placeholder="A short line about your show"></div>
-      <div class="field"><label>Description</label><textarea id="pp-description" placeholder="Neutral 1–3 sentence description"></textarea></div>
-      <div class="row">
-        <div class="field"><label>Language</label>
-          <select id="pp-language">
-            <option value="">(unchanged)</option>
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="bi">English &amp; French (needs evidence)</option>
-            <option value="">Unknown</option>
-          </select>
-        </div>
-        <div class="field"><label>Show type</label>
-          <select id="pp-show-type">
-            <option value="">(unchanged)</option>
-            <option value="showcase">Showcase</option>
-            <option value="open_mic">Open Mic</option>
-            <option value="solo_show">Solo Show</option>
-            <option value="headliner">Headliner</option>
-          </select>
-        </div>
-      </div>
-      <div class="field" id="pp-evidence-field" style="display:none">
-        <label>English &amp; French evidence (≥8 chars; source quote)</label>
-        <input id="pp-evidence" placeholder='e.g. "Comedy in English and French — anglais et français"'>
-      </div>
-      <div class="row">
-        <div class="field"><label>Venue</label><input id="pp-venue"></div>
-        <div class="field"><label>Neighborhood</label><input id="pp-neighborhood"></div>
-      </div>
-      <div class="row">
-        <div class="field"><label>Ticket URL</label><input id="pp-ticket-url"></div>
-        <div class="field"><label>Source URL</label><input id="pp-source-url"></div>
-      </div>
-      <div class="row">
-        <div class="field"><label>Instagram</label><input id="pp-instagram" placeholder="https://instagram.com/…"></div>
-        <div class="field"><label>Website</label><input id="pp-website" placeholder="https://…"></div>
-      </div>
-      <button class="primary" onclick="saveDraft()">Save draft →</button>
-      <button class="gold" onclick="publishDraft()" style="margin-left:6px">Publish safe changes →</button>
-      <a id="pp-view-public" href="#" target="_blank" style="margin-left:10px;color:#9cf">View public page ↗</a>
-      <button class="secondary" onclick="copyLink()" style="margin-left:6px">Copy link</button>
-      <div class="msg" id="pp-msg"></div>
-      <h2>Pending admin review</h2>
-      <div id="pp-pending" style="color:#888">None</div>
-      <h2>Currently published</h2>
-      <div id="pp-published" style="color:#888">None</div>
-    </div>
+ <!-- PUBLIC PAGE DRAFT -->
+ <div class="panel" id="panel-public-page">
+ <div class="help">Edits save as a draft. Public page reflects approved data only. Venue/language changes may need admin review.</div>
+ <div class="field"><label>Tagline</label><input id="pp-tagline" placeholder="A short line about your show"></div>
+ <div class="field"><label>Description</label><textarea id="pp-description" placeholder="Neutral 1–3 sentence description"></textarea></div>
+ <div class="row">
+ <div class="field"><label>Language</label>
+ <select id="pp-language">
+ <option value="">(unchanged)</option>
+ <option value="en">English</option>
+ <option value="fr">French</option>
+ <option value="">Unknown</option>
+ </select>
+ </div>
+ <div class="field"><label>Show type</label>
+ <select id="pp-show-type">
+ <option value="">(unchanged)</option>
+ <option value="showcase">Showcase</option>
+ <option value="open_mic">Open Mic</option>
+ <option value="solo_show">Solo Show</option>
+ <option value="headliner">Headliner</option>
+ </select>
+ </div>
+ </div>
+ <div class="field" id="pp-evidence-field" style="display:none">
+ <label>Language evidence (≥8 chars; source quote)</label>
+ <input id="pp-evidence" placeholder='e.g. "Comedy in venue website quote (anglais ou français)"'>
+ </div>
+ <div class="row">
+ <div class="field"><label>Venue</label><input id="pp-venue"></div>
+ <div class="field"><label>Neighborhood</label><input id="pp-neighborhood"></div>
+ </div>
+ <div class="row">
+ <div class="field"><label>Ticket URL</label><input id="pp-ticket-url"></div>
+ <div class="field"><label>Source URL</label><input id="pp-source-url"></div>
+ </div>
+ <div class="row">
+ <div class="field"><label>Instagram</label><input id="pp-instagram" placeholder="https://instagram.com/…"></div>
+ <div class="field"><label>Website</label><input id="pp-website" placeholder="https://…"></div>
+ </div>
+ <button class="primary" onclick="saveDraft()">Save draft →</button>
+ <button class="gold" onclick="publishDraft()" style="margin-left:6px">Publish safe changes →</button>
+ <a id="pp-view-public" href="#" target="_blank" style="margin-left:10px;color:#9cf">View public page ↗</a>
+ <button class="secondary" onclick="copyLink()" style="margin-left:6px">Copy link</button>
+ <div class="msg" id="pp-msg"></div>
+ <h2>Pending admin review</h2>
+ <div id="pp-pending" style="color:#888">None</div>
+ <h2>Currently published</h2>
+ <div id="pp-published" style="color:#888">None</div>
+ </div>
 
-    <!-- DATES (full write UI) -->
-    <div class="panel" id="panel-dates">
-      <div class="help">Add upcoming dates. Past dates are rejected. Cancelled/sold-out dates update the public page on next load.</div>
-      <div class="row">
-        <div class="field"><label>Date (YYYY-MM-DD)</label><input id="dt-date" placeholder="2026-06-15"></div>
-        <div class="field"><label>Start time</label><input id="dt-time" placeholder="20:30"></div>
-      </div>
-      <div class="row">
-        <div class="field"><label>Ticket URL (per date, optional)</label><input id="dt-ticket"></div>
-        <div class="field"><label>Source URL (optional)</label><input id="dt-source"></div>
-      </div>
-      <button class="primary" onclick="addDate()">Add date →</button>
-      <div class="msg" id="dt-msg"></div>
-      <h2>Upcoming + past dates</h2>
-      <div id="dates-list">Loading…</div>
-    </div>
+ <!-- DATES (full write UI) -->
+ <div class="panel" id="panel-dates">
+ <div class="help">Add upcoming dates. Past dates are rejected. Cancelled/sold-out dates update the public page on next load.</div>
+ <div class="row">
+ <div class="field"><label>Date (YYYY-MM-DD)</label><input id="dt-date" placeholder="2026-06-15"></div>
+ <div class="field"><label>Start time</label><input id="dt-time" placeholder="20:30"></div>
+ </div>
+ <div class="row">
+ <div class="field"><label>Ticket URL (per date, optional)</label><input id="dt-ticket"></div>
+ <div class="field"><label>Source URL (optional)</label><input id="dt-source"></div>
+ </div>
+ <button class="primary" onclick="addDate()">Add date →</button>
+ <div class="msg" id="dt-msg"></div>
+ <h2>Upcoming + past dates</h2>
+ <div id="dates-list">Loading…</div>
+ </div>
 
-    <!-- LINEUP (full write UI) -->
-    <div class="panel" id="panel-lineup">
-      <div class="help">Lineup items are private until published. Private notes never appear publicly. Add a comic slug to link to their profile.</div>
-      <div class="row">
-        <div class="field"><label>Comic name</label><input id="ln-name"></div>
-        <div class="field"><label>Comic slug (optional)</label><input id="ln-slug" placeholder="sebastian-marx"></div>
-      </div>
-      <div class="row">
-        <div class="field"><label>Status</label>
-          <select id="ln-status">
-            <option value="pending">Pending</option>
-            <option value="confirmed">Confirmed</option>
-            <option value="declined">Declined</option>
-          </select>
-        </div>
-        <div class="field"><label>Position</label><input id="ln-pos" type="number" value="0" style="width:80px"></div>
-      </div>
-      <div class="field"><label>Public note (shown publicly when published)</label><input id="ln-note"></div>
-      <button class="primary" onclick="addLineup()">Add to lineup →</button>
-      <div class="msg" id="ln-msg"></div>
-      <h2>Current lineup</h2>
-      <div id="lineup-list">Loading…</div>
-    </div>
+ <!-- LINEUP (full write UI) -->
+ <div class="panel" id="panel-lineup">
+ <div class="help">Lineup items are private until published. Private notes never appear publicly. Add a comic slug to link to their profile.</div>
+ <div class="row">
+ <div class="field"><label>Comic name</label><input id="ln-name"></div>
+ <div class="field"><label>Comic slug (optional)</label><input id="ln-slug" placeholder="sebastian-marx"></div>
+ </div>
+ <div class="row">
+ <div class="field"><label>Status</label>
+ <select id="ln-status">
+ <option value="pending">Pending</option>
+ <option value="confirmed">Confirmed</option>
+ <option value="declined">Declined</option>
+ </select>
+ </div>
+ <div class="field"><label>Position</label><input id="ln-pos" type="number" value="0" style="width:80px"></div>
+ </div>
+ <div class="field"><label>Public note (shown publicly when published)</label><input id="ln-note"></div>
+ <button class="primary" onclick="addLineup()">Add to lineup →</button>
+ <div class="msg" id="ln-msg"></div>
+ <h2>Current lineup</h2>
+ <div id="lineup-list">Loading…</div>
+ </div>
 
-    <!-- TICKETING -->
-    <div class="panel" id="panel-ticketing">
-      <div class="field"><label>Ticket mode</label>
-        <select id="tm-mode">
-          <option value="external_url">External URL (existing ticket page)</option>
-          <option value="eventbrite_connected">Eventbrite connected (paste URL — full OAuth coming)</option>
-          <option value="pariscomedy_rsvp">ParisComedy native RSVP (collect reservations here)</option>
-        </select>
-      </div>
-      <button class="primary" onclick="saveDraftMode()">Save ticket mode →</button>
-      <div class="msg" id="tm-msg"></div>
-      <h2>Reservations (private)</h2>
-      <div id="rsvp-list">Loading…</div>
-    </div>
+ <!-- TICKETING -->
+ <div class="panel" id="panel-ticketing">
+ <div class="field"><label>Ticket mode</label>
+ <select id="tm-mode">
+ <option value="external_url">External URL (existing ticket page)</option>
+ <option value="eventbrite_connected">Eventbrite connected (paste URL — full OAuth coming)</option>
+ <option value="pariscomedy_rsvp">ParisComedy native RSVP (collect reservations here)</option>
+ </select>
+ </div>
+ <button class="primary" onclick="saveDraftMode()">Save ticket mode →</button>
+ <div class="msg" id="tm-msg"></div>
+ <h2>Reservations (private)</h2>
+ <div id="rsvp-list">Loading…</div>
+ </div>
 
-    <!-- AUDIENCE -->
-    <div class="panel" id="panel-audience">
-      <div class="metric-grid" id="aud-metrics"></div>
-      <h2>Sources</h2>
-      <div id="aud-sources"></div>
-      <button class="primary" onclick="showTab('import')">Import contacts →</button>
-      <button class="secondary" onclick="showTab('drafts')" style="margin-left:6px">Prepare promo email →</button>
-    </div>
+ <!-- AUDIENCE -->
+ <div class="panel" id="panel-audience">
+ <div class="metric-grid" id="aud-metrics"></div>
+ <h2>Sources</h2>
+ <div id="aud-sources"></div>
+ <button class="primary" onclick="showTab('import')">Import contacts →</button>
+ <button class="secondary" onclick="showTab('drafts')" style="margin-left:6px">Prepare promo email →</button>
+ </div>
 
-    <!-- IMPORT -->
-    <div class="panel" id="panel-import">
-      <div class="help">
-        Eventbrite Attendees: Manage events → Reports → Attendee Summary → Export CSV.<br>
-        Eventbrite Orders: Reports → Orders → Export CSV.<br>
-        SumUp: Transactions → Export CSV.
-      </div>
-      <div class="field"><label>Source</label>
-        <select id="imp-type">
-          <option value="eventbrite_attendees_csv">Eventbrite Attendees CSV</option>
-          <option value="eventbrite_orders_csv">Eventbrite Orders CSV</option>
-          <option value="sumup_transactions_csv">SumUp Transactions CSV</option>
-        </select>
-      </div>
-      <div class="field"><label>Original filename</label><input id="imp-filename"></div>
-      <div class="field"><label>Paste CSV</label><textarea id="imp-csv" placeholder="Email,First Name,Last Name,…"></textarea></div>
-      <div class="attestation">
-        <label><input type="checkbox" id="imp-attest"> I confirm I have permission to upload and contact this list for this show. Imported contacts default to owner-only scope.</label>
-      </div>
-      <button class="secondary" onclick="previewImport()">Preview →</button>
-      <button class="primary" onclick="commitImport()">Commit →</button>
-      <div class="msg" id="imp-msg"></div>
-      <div id="imp-preview"></div>
-      <h2>Recent imports</h2>
-      <div id="imp-history"></div>
-    </div>
+ <!-- IMPORT -->
+ <div class="panel" id="panel-import">
+ <div class="help">
+ Eventbrite Attendees: Manage events → Reports → Attendee Summary → Export CSV.<br>
+ Eventbrite Orders: Reports → Orders → Export CSV.<br>
+ SumUp: Transactions → Export CSV.
+ </div>
+ <div class="field"><label>Source</label>
+ <select id="imp-type">
+ <option value="eventbrite_attendees_csv">Eventbrite Attendees CSV</option>
+ <option value="eventbrite_orders_csv">Eventbrite Orders CSV</option>
+ <option value="sumup_transactions_csv">SumUp Transactions CSV</option>
+ </select>
+ </div>
+ <div class="field"><label>Original filename</label><input id="imp-filename"></div>
+ <div class="field"><label>Paste CSV</label><textarea id="imp-csv" placeholder="Email,First Name,Last Name,…"></textarea></div>
+ <div class="attestation">
+ <label><input type="checkbox" id="imp-attest"> I confirm I have permission to upload and contact this list for this show. Imported contacts default to owner-only scope.</label>
+ </div>
+ <button class="secondary" onclick="previewImport()">Preview →</button>
+ <button class="primary" onclick="commitImport()">Commit →</button>
+ <div class="msg" id="imp-msg"></div>
+ <div id="imp-preview"></div>
+ <h2>Recent imports</h2>
+ <div id="imp-history"></div>
+ </div>
 
-    <!-- EMAIL DRAFTS -->
-    <div class="panel" id="panel-drafts">
-      <div class="row">
-        <div class="field"><label>Audience</label>
-          <select id="dr-scope">
-            <option value="own_show_list">This show's imported list</option>
-            <option value="past_attendees">Past attendees</option>
-            <option value="rsvp_list">RSVP list</option>
-            <option value="global_optins">Paris Comedy global opt-ins only</option>
-          </select>
-        </div>
-        <div class="field"><label>Show date</label><input id="dr-date" placeholder="2026-06-04"></div>
-      </div>
-      <div class="row">
-        <div class="field"><label>Venue</label><input id="dr-venue"></div>
-        <div class="field"><label>Ticket link</label><input id="dr-ticket"></div>
-      </div>
-      <div class="field"><label>Subject</label><input id="dr-subject" placeholder="This Wed at the show…"></div>
-      <button class="primary" onclick="generateDraft()">Generate draft →</button>
-      <div class="msg" id="dr-msg"></div>
-      <div id="dr-preview"></div>
-    </div>
+ <!-- EMAIL DRAFTS -->
+ <div class="panel" id="panel-drafts">
+ <div class="row">
+ <div class="field"><label>Audience</label>
+ <select id="dr-scope">
+ <option value="own_show_list">This show's imported list</option>
+ <option value="past_attendees">Past attendees</option>
+ <option value="rsvp_list">RSVP list</option>
+ <option value="global_optins">Paris Comedy global opt-ins only</option>
+ </select>
+ </div>
+ <div class="field"><label>Show date</label><input id="dr-date" placeholder="2026-06-04"></div>
+ </div>
+ <div class="row">
+ <div class="field"><label>Venue</label><input id="dr-venue"></div>
+ <div class="field"><label>Ticket link</label><input id="dr-ticket"></div>
+ </div>
+ <div class="field"><label>Subject</label><input id="dr-subject" placeholder="This Wed at the show…"></div>
+ <button class="primary" onclick="generateDraft()">Generate draft →</button>
+ <div class="msg" id="dr-msg"></div>
+ <div id="dr-preview"></div>
+ </div>
 
-    <!-- PROMOTE -->
-    <div class="panel" id="panel-promote">
-      <div class="help">Promoted placement is paid. Honest pricing — no fake "free Featured" copy.</div>
-      <p style="margin-bottom:12px;color:#ccc">Buy a promoted spot for this show:</p>
-      <ul style="color:#aaa;line-height:1.9;font-size:14px;margin-left:18px">
-        <li>€5 / 7 days</li>
-        <li>€15 / 30 days</li>
-        <li>€40 / 90 days</li>
-      </ul>
-      <button class="gold" onclick="window.open('/pricing.html#featured-promo','_blank')">See pricing & buy →</button>
-    </div>
-  </div>
+ <!-- PROMOTE -->
+ <div class="panel" id="panel-promote">
+ <div class="help">Promoted placement is paid. Honest pricing — no fake "free Featured" copy.</div>
+ <p style="margin-bottom:12px;color:#ccc">Buy a promoted spot for this show:</p>
+ <ul style="color:#aaa;line-height:1.9;font-size:14px;margin-left:18px">
+ <li>€5 / 7 days</li>
+ <li>€15 / 30 days</li>
+ <li>€40 / 90 days</li>
+ </ul>
+ <button class="gold" onclick="window.open('/pricing.html#featured-promo','_blank')">See pricing & buy →</button>
+ </div>
+ </div>
 </div>
 
 <script>
@@ -290,307 +289,307 @@ let currentSlug = '';
 let showUrl = '';
 
 async function login() {
-  TOKEN = (document.getElementById('owner-token').value || '').trim();
-  if (!TOKEN) return;
-  try { const c = await fetch('/api-config.json').then(r=>r.json()); API = c.api || ''; } catch(_) {}
-  const r = await fetch((API || 'https://api.pariscomedy.com') + '/api/owner/shows?owner_token=' + encodeURIComponent(TOKEN));
-  if (r.status !== 200) { document.getElementById('auth-err').textContent = 'Invalid token'; return; }
-  const d = await r.json();
-  if (!d.shows || !d.shows.length) { document.getElementById('auth-err').textContent = 'No shows linked to this token'; return; }
-  currentSlug = d.shows[0];
-  showUrl = 'https://pariscomedy.com/shows/' + currentSlug + '.html';
-  document.getElementById('show-title').textContent = currentSlug;
-  document.getElementById('show-url-link').href = showUrl;
-  document.getElementById('show-url-link').textContent = showUrl;
-  document.getElementById('auth').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  localStorage.setItem('pc_owner_token', TOKEN);
-  loadOverview(); loadDraft(); loadAudience(); loadReservations(); loadImports();
-  loadDates(); loadLineup(); loadPending();
+ TOKEN = (document.getElementById('owner-token').value || '').trim();
+ if (!TOKEN) return;
+ try { const c = await fetch('/api-config.json').then(r=>r.json()); API = c.api || ''; } catch(_) {}
+ const r = await fetch((API || 'https://api.pariscomedy.com') + '/api/owner/shows?owner_token=' + encodeURIComponent(TOKEN));
+ if (r.status !== 200) { document.getElementById('auth-err').textContent = 'Invalid token'; return; }
+ const d = await r.json();
+ if (!d.shows || !d.shows.length) { document.getElementById('auth-err').textContent = 'No shows linked to this token'; return; }
+ currentSlug = d.shows[0];
+ showUrl = 'https://pariscomedy.com/shows/' + currentSlug + '.html';
+ document.getElementById('show-title').textContent = currentSlug;
+ document.getElementById('show-url-link').href = showUrl;
+ document.getElementById('show-url-link').textContent = showUrl;
+ document.getElementById('auth').style.display = 'none';
+ document.getElementById('app').style.display = 'block';
+ localStorage.setItem('pc_owner_token', TOKEN);
+ loadOverview(); loadDraft(); loadAudience(); loadReservations(); loadImports();
+ loadDates(); loadLineup(); loadPending();
 }
 
 function api(path, opts) {
-  opts = opts || {};
-  opts.headers = Object.assign({'Content-Type':'application/json','Authorization':'Bearer '+TOKEN}, opts.headers || {});
-  return fetch((API || 'https://api.pariscomedy.com') + path, opts).then(r => r.json());
+ opts = opts || {};
+ opts.headers = Object.assign({'Content-Type':'application/json','Authorization':'Bearer '+TOKEN}, opts.headers || {});
+ return fetch((API || 'https://api.pariscomedy.com') + path, opts).then(r => r.json());
 }
 
 function showTab(name) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
-  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
-  if (name === 'audience') loadAudience();
-  if (name === 'ticketing') loadReservations();
-  if (name === 'import') loadImports();
-  if (name === 'dates') loadDates();
-  if (name === 'lineup') loadLineup();
-  if (name === 'public-page') loadPending();
+ document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+ document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+ if (name === 'audience') loadAudience();
+ if (name === 'ticketing') loadReservations();
+ if (name === 'import') loadImports();
+ if (name === 'dates') loadDates();
+ if (name === 'lineup') loadLineup();
+ if (name === 'public-page') loadPending();
 }
 
 async function loadPending() {
-  const d = await api('/api/owner/show/' + currentSlug + '/draft');
-  const pend = d.pending_changes || [];
-  document.getElementById('pp-pending').innerHTML = pend.length
-    ? pend.map(p => `<div style="padding:4px 0;color:#fcb">⏳ <b>${p.field}</b>: "${(p.old||'').slice(0,40)}" → "${(p.requested||'').slice(0,40)}" (id ${p.id})</div>`).join('')
-    : '<span style="color:#666">None</span>';
-  const pub = d.published || {};
-  const fields = ['tagline','description','venue','ticket_url','instagram','website','ticket_mode'];
-  const lines = fields.map(f => pub[f] ? `<div style="padding:3px 0;color:#9c9"><b>${f}</b>: ${String(pub[f]).slice(0,140)}</div>` : '').filter(Boolean);
-  document.getElementById('pp-published').innerHTML = lines.length ? lines.join('') : '<span style="color:#666">Nothing published yet</span>';
-  document.getElementById('pp-view-public').href = showUrl;
+ const d = await api('/api/owner/show/' + currentSlug + '/draft');
+ const pend = d.pending_changes || [];
+ document.getElementById('pp-pending').innerHTML = pend.length
+ ? pend.map(p => `<div style="padding:4px 0;color:#fcb">⏳ <b>${p.field}</b>: "${(p.old||'').slice(0,40)}" → "${(p.requested||'').slice(0,40)}" (id ${p.id})</div>`).join('')
+ : '<span style="color:#666">None</span>';
+ const pub = d.published || {};
+ const fields = ['tagline','description','venue','ticket_url','instagram','website','ticket_mode'];
+ const lines = fields.map(f => pub[f] ? `<div style="padding:3px 0;color:#9c9"><b>${f}</b>: ${String(pub[f]).slice(0,140)}</div>` : '').filter(Boolean);
+ document.getElementById('pp-published').innerHTML = lines.length ? lines.join('') : '<span style="color:#666">Nothing published yet</span>';
+ document.getElementById('pp-view-public').href = showUrl;
 }
 
 async function publishDraft() {
-  const ev = (document.getElementById('pp-evidence').value || '').trim();
-  const r = await api('/api/owner/show/' + currentSlug + '/publish',
-    {method:'POST', body: JSON.stringify(ev ? {evidence: ev} : {})});
-  const m = document.getElementById('pp-msg');
-  if (r.ok) {
-    const safe = (r.applied_immediately||[]).join(', ') || 'none';
-    const pend = (r.pending_admin_review||[]).join(', ');
-    m.className = 'msg ok';
-    m.textContent = `Published immediately: ${safe}. Pending admin review: ${pend||'none'}.`;
-    loadPending();
-  } else {
-    m.className = 'msg err'; m.textContent = r.detail || 'failed';
-  }
+ const ev = (document.getElementById('pp-evidence').value || '').trim();
+ const r = await api('/api/owner/show/' + currentSlug + '/publish',
+ {method:'POST', body: JSON.stringify(ev ? {evidence: ev} : {})});
+ const m = document.getElementById('pp-msg');
+ if (r.ok) {
+ const safe = (r.applied_immediately||[]).join(', ') || 'none';
+ const pend = (r.pending_admin_review||[]).join(', ');
+ m.className = 'msg ok';
+ m.textContent = `Published immediately: ${safe}. Pending admin review: ${pend||'none'}.`;
+ loadPending();
+ } else {
+ m.className = 'msg err'; m.textContent = r.detail || 'failed';
+ }
 }
 
 async function loadDates() {
-  const d = await api('/api/owner/show/' + currentSlug + '/dates');
-  const rows = d.dates || [];
-  if (!rows.length) { document.getElementById('dates-list').innerHTML = '<div style="color:#666">No dates yet.</div>'; return; }
-  document.getElementById('dates-list').innerHTML =
-    '<table><tr><th>Date</th><th>Time</th><th>Status</th><th>Ticket</th><th>Actions</th></tr>' +
-    rows.map(r => `<tr>
-      <td>${r.show_date}</td><td>${r.start_time||''}</td>
-      <td>${r.status}</td>
-      <td>${r.ticket_url ? `<a href="${r.ticket_url}" target="_blank" rel="noopener">link ↗</a>` : ''}</td>
-      <td>
-        ${r.status==='scheduled' ? `<button class="secondary" onclick="dateSoldOut(${r.id})">Sold out</button>` : ''}
-        ${r.status!=='cancelled' ? `<button class="secondary" onclick="dateCancel(${r.id})">Cancel</button>` : ''}
-      </td></tr>`).join('') + '</table>';
+ const d = await api('/api/owner/show/' + currentSlug + '/dates');
+ const rows = d.dates || [];
+ if (!rows.length) { document.getElementById('dates-list').innerHTML = '<div style="color:#666">No dates yet.</div>'; return; }
+ document.getElementById('dates-list').innerHTML =
+ '<table><tr><th>Date</th><th>Time</th><th>Status</th><th>Ticket</th><th>Actions</th></tr>' +
+ rows.map(r => `<tr>
+ <td>${r.show_date}</td><td>${r.start_time||''}</td>
+ <td>${r.status}</td>
+ <td>${r.ticket_url ? `<a href="${r.ticket_url}" target="_blank" rel="noopener">link ↗</a>` : ''}</td>
+ <td>
+ ${r.status==='scheduled' ? `<button class="secondary" onclick="dateSoldOut(${r.id})">Sold out</button>` : ''}
+ ${r.status!=='cancelled' ? `<button class="secondary" onclick="dateCancel(${r.id})">Cancel</button>` : ''}
+ </td></tr>`).join('') + '</table>';
 }
 async function addDate() {
-  const body = {
-    show_date: document.getElementById('dt-date').value.trim(),
-    start_time: document.getElementById('dt-time').value.trim() || null,
-    ticket_url: document.getElementById('dt-ticket').value.trim() || null,
-    source_url: document.getElementById('dt-source').value.trim() || null,
-  };
-  const r = await api('/api/owner/show/' + currentSlug + '/dates', {method:'POST', body: JSON.stringify(body)});
-  const m = document.getElementById('dt-msg');
-  m.className = 'msg ' + (r.ok?'ok':'err');
-  m.textContent = r.ok ? `Added date #${r.id} (${r.status})` : (r.detail || 'failed');
-  if (r.ok) { document.getElementById('dt-date').value=''; document.getElementById('dt-time').value=''; document.getElementById('dt-ticket').value=''; document.getElementById('dt-source').value=''; loadDates(); }
+ const body = {
+ show_date: document.getElementById('dt-date').value.trim(),
+ start_time: document.getElementById('dt-time').value.trim() || null,
+ ticket_url: document.getElementById('dt-ticket').value.trim() || null,
+ source_url: document.getElementById('dt-source').value.trim() || null,
+ };
+ const r = await api('/api/owner/show/' + currentSlug + '/dates', {method:'POST', body: JSON.stringify(body)});
+ const m = document.getElementById('dt-msg');
+ m.className = 'msg ' + (r.ok?'ok':'err');
+ m.textContent = r.ok ? `Added date #${r.id} (${r.status})` : (r.detail || 'failed');
+ if (r.ok) { document.getElementById('dt-date').value=''; document.getElementById('dt-time').value=''; document.getElementById('dt-ticket').value=''; document.getElementById('dt-source').value=''; loadDates(); }
 }
 async function dateSoldOut(id) {
-  await api('/api/owner/show/' + currentSlug + '/dates/' + id + '/sold-out', {method:'POST', body:'{}'});
-  loadDates();
+ await api('/api/owner/show/' + currentSlug + '/dates/' + id + '/sold-out', {method:'POST', body:'{}'});
+ loadDates();
 }
 async function dateCancel(id) {
-  if (!confirm('Cancel this date? It will be hidden from the public page.')) return;
-  await api('/api/owner/show/' + currentSlug + '/dates/' + id + '/cancel', {method:'POST', body:'{}'});
-  loadDates();
+ if (!confirm('Cancel this date? It will be hidden from the public page.')) return;
+ await api('/api/owner/show/' + currentSlug + '/dates/' + id + '/cancel', {method:'POST', body:'{}'});
+ loadDates();
 }
 
 async function loadLineup() {
-  const d = await api('/api/owner/show/' + currentSlug + '/lineup');
-  const rows = d.lineup || [];
-  if (!rows.length) { document.getElementById('lineup-list').innerHTML = '<div style="color:#666">Empty.</div>'; return; }
-  document.getElementById('lineup-list').innerHTML =
-    '<table><tr><th>#</th><th>Comic</th><th>Status</th><th>Published</th><th>Actions</th></tr>' +
-    rows.map(r => `<tr>
-      <td>${r.position||0}</td>
-      <td>${r.comic_slug ? `<a href="/comics/${r.comic_slug}.html" target="_blank" rel="noopener">${r.comic_name}</a>` : r.comic_name}</td>
-      <td>${r.status}</td>
-      <td>${r.published?'✓ public':'private'}</td>
-      <td>
-        ${r.published
-          ? `<button class="secondary" onclick="lineupUnpub(${r.id})">Unpublish</button>`
-          : `<button class="primary" onclick="lineupPub(${r.id})">Publish</button>`}
-        <button class="secondary" onclick="lineupDel(${r.id})">Delete</button>
-      </td></tr>`).join('') + '</table>';
+ const d = await api('/api/owner/show/' + currentSlug + '/lineup');
+ const rows = d.lineup || [];
+ if (!rows.length) { document.getElementById('lineup-list').innerHTML = '<div style="color:#666">Empty.</div>'; return; }
+ document.getElementById('lineup-list').innerHTML =
+ '<table><tr><th>#</th><th>Comic</th><th>Status</th><th>Published</th><th>Actions</th></tr>' +
+ rows.map(r => `<tr>
+ <td>${r.position||0}</td>
+ <td>${r.comic_slug ? `<a href="/comics/${r.comic_slug}.html" target="_blank" rel="noopener">${r.comic_name}</a>` : r.comic_name}</td>
+ <td>${r.status}</td>
+ <td>${r.published?'✓ public':'private'}</td>
+ <td>
+ ${r.published
+ ? `<button class="secondary" onclick="lineupUnpub(${r.id})">Unpublish</button>`
+ : `<button class="primary" onclick="lineupPub(${r.id})">Publish</button>`}
+ <button class="secondary" onclick="lineupDel(${r.id})">Delete</button>
+ </td></tr>`).join('') + '</table>';
 }
 async function addLineup() {
-  const body = {
-    comic_name: document.getElementById('ln-name').value.trim(),
-    comic_slug: document.getElementById('ln-slug').value.trim() || null,
-    status: document.getElementById('ln-status').value,
-    note: document.getElementById('ln-note').value.trim() || null,
-    position: parseInt(document.getElementById('ln-pos').value || '0', 10),
-  };
-  if (!body.comic_name) { document.getElementById('ln-msg').className='msg err'; document.getElementById('ln-msg').textContent='Name required'; return; }
-  const r = await api('/api/owner/show/' + currentSlug + '/lineup', {method:'POST', body: JSON.stringify(body)});
-  const m = document.getElementById('ln-msg');
-  m.className = 'msg ' + (r.ok?'ok':'err');
-  m.textContent = r.ok ? `Added #${r.id} (private)` : (r.detail || 'failed');
-  if (r.ok) { document.getElementById('ln-name').value=''; document.getElementById('ln-slug').value=''; document.getElementById('ln-note').value=''; loadLineup(); }
+ const body = {
+ comic_name: document.getElementById('ln-name').value.trim(),
+ comic_slug: document.getElementById('ln-slug').value.trim() || null,
+ status: document.getElementById('ln-status').value,
+ note: document.getElementById('ln-note').value.trim() || null,
+ position: parseInt(document.getElementById('ln-pos').value || '0', 10),
+ };
+ if (!body.comic_name) { document.getElementById('ln-msg').className='msg err'; document.getElementById('ln-msg').textContent='Name required'; return; }
+ const r = await api('/api/owner/show/' + currentSlug + '/lineup', {method:'POST', body: JSON.stringify(body)});
+ const m = document.getElementById('ln-msg');
+ m.className = 'msg ' + (r.ok?'ok':'err');
+ m.textContent = r.ok ? `Added #${r.id} (private)` : (r.detail || 'failed');
+ if (r.ok) { document.getElementById('ln-name').value=''; document.getElementById('ln-slug').value=''; document.getElementById('ln-note').value=''; loadLineup(); }
 }
 async function lineupPub(id) { await api('/api/owner/show/' + currentSlug + '/lineup/' + id + '/publish', {method:'POST', body:'{}'}); loadLineup(); }
 async function lineupUnpub(id) { await api('/api/owner/show/' + currentSlug + '/lineup/' + id + '/unpublish', {method:'POST', body:'{}'}); loadLineup(); }
 async function lineupDel(id) {
-  if (!confirm('Delete this lineup item?')) return;
-  await api('/api/owner/show/' + currentSlug + '/lineup/' + id, {method:'DELETE'});
-  loadLineup();
+ if (!confirm('Delete this lineup item?')) return;
+ await api('/api/owner/show/' + currentSlug + '/lineup/' + id, {method:'DELETE'});
+ loadLineup();
 }
 
 function copyLink() {
-  navigator.clipboard.writeText(showUrl).then(() => {
-    const m = document.getElementById('copy-msg');
-    m.textContent = 'Copied'; setTimeout(() => m.textContent='', 1500);
-  });
+ navigator.clipboard.writeText(showUrl).then(() => {
+ const m = document.getElementById('copy-msg');
+ m.textContent = 'Copied'; setTimeout(() => m.textContent='', 1500);
+ });
 }
 
 async function loadOverview() {
-  const d = await api('/api/owner/show/' + currentSlug + '/audience-summary');
-  document.getElementById('ov-metrics').innerHTML = [
-    ['Contacts', d.total_contacts||0],
-    ['Repeat attendees', d.repeat_attendees||0],
-    ['Payments', d.payments_count||0],
-    ['Spend €', (d.payments_total||0).toFixed(0)],
-    ['Suppressed', d.suppressed_count||0],
-  ].map(([l,v]) => `<div class="metric"><div class="metric-num">${v}</div><div class="metric-label">${l}</div></div>`).join('');
+ const d = await api('/api/owner/show/' + currentSlug + '/audience-summary');
+ document.getElementById('ov-metrics').innerHTML = [
+ ['Contacts', d.total_contacts||0],
+ ['Repeat attendees', d.repeat_attendees||0],
+ ['Payments', d.payments_count||0],
+ ['Spend €', (d.payments_total||0).toFixed(0)],
+ ['Suppressed', d.suppressed_count||0],
+ ].map(([l,v]) => `<div class="metric"><div class="metric-num">${v}</div><div class="metric-label">${l}</div></div>`).join('');
 }
 
 async function loadDraft() {
-  const d = await api('/api/owner/show/' + currentSlug);
-  const draft = d.draft || {};
-  const set = (id,v) => { const e = document.getElementById(id); if (e) e.value = v || ''; };
-  set('pp-tagline', draft.tagline); set('pp-description', draft.description);
-  set('pp-venue', draft.venue); set('pp-neighborhood', draft.neighborhood);
-  set('pp-ticket-url', draft.ticket_url); set('pp-source-url', draft.source_url);
-  set('pp-instagram', draft.instagram); set('pp-website', draft.website);
-  document.getElementById('tm-mode').value = draft.ticket_mode || 'external_url';
-  // Show evidence field if language is bi
-  document.getElementById('pp-language').addEventListener('change', e => {
-    document.getElementById('pp-evidence-field').style.display = e.target.value === 'bi' ? '' : 'none';
-  });
+ const d = await api('/api/owner/show/' + currentSlug);
+ const draft = d.draft || {};
+ const set = (id,v) => { const e = document.getElementById(id); if (e) e.value = v || ''; };
+ set('pp-tagline', draft.tagline); set('pp-description', draft.description);
+ set('pp-venue', draft.venue); set('pp-neighborhood', draft.neighborhood);
+ set('pp-ticket-url', draft.ticket_url); set('pp-source-url', draft.source_url);
+ set('pp-instagram', draft.instagram); set('pp-website', draft.website);
+ document.getElementById('tm-mode').value = draft.ticket_mode || 'external_url';
+ // Show evidence field if language is bi
+ document.getElementById('pp-language').addEventListener('change', e => {
+ document.getElementById('pp-evidence-field').style.display = e.target.value === 'bi' ? '' : 'none';
+ });
 }
 
 async function saveDraft() {
-  const body = {
-    tagline: document.getElementById('pp-tagline').value.trim(),
-    description: document.getElementById('pp-description').value.trim(),
-    language: document.getElementById('pp-language').value || null,
-    language_evidence: document.getElementById('pp-evidence').value.trim() || null,
-    show_type: document.getElementById('pp-show-type').value || null,
-    venue: document.getElementById('pp-venue').value.trim(),
-    neighborhood: document.getElementById('pp-neighborhood').value.trim(),
-    ticket_url: document.getElementById('pp-ticket-url').value.trim(),
-    source_url: document.getElementById('pp-source-url').value.trim(),
-    instagram: document.getElementById('pp-instagram').value.trim(),
-    website: document.getElementById('pp-website').value.trim(),
-  };
-  Object.keys(body).forEach(k => { if (!body[k]) delete body[k]; });
-  const r = await api('/api/owner/show/' + currentSlug, {method:'PATCH', body: JSON.stringify(body)});
-  document.getElementById('pp-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
-  document.getElementById('pp-msg').textContent = r.ok ? 'Saved draft.' : (r.detail || 'failed');
+ const body = {
+ tagline: document.getElementById('pp-tagline').value.trim(),
+ description: document.getElementById('pp-description').value.trim(),
+ language: document.getElementById('pp-language').value || null,
+ language_evidence: document.getElementById('pp-evidence').value.trim() || null,
+ show_type: document.getElementById('pp-show-type').value || null,
+ venue: document.getElementById('pp-venue').value.trim(),
+ neighborhood: document.getElementById('pp-neighborhood').value.trim(),
+ ticket_url: document.getElementById('pp-ticket-url').value.trim(),
+ source_url: document.getElementById('pp-source-url').value.trim(),
+ instagram: document.getElementById('pp-instagram').value.trim(),
+ website: document.getElementById('pp-website').value.trim(),
+ };
+ Object.keys(body).forEach(k => { if (!body[k]) delete body[k]; });
+ const r = await api('/api/owner/show/' + currentSlug, {method:'PATCH', body: JSON.stringify(body)});
+ document.getElementById('pp-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
+ document.getElementById('pp-msg').textContent = r.ok ? 'Saved draft.' : (r.detail || 'failed');
 }
 
 async function saveDraftMode() {
-  const r = await api('/api/owner/show/' + currentSlug, {method:'PATCH', body: JSON.stringify({ticket_mode: document.getElementById('tm-mode').value})});
-  document.getElementById('tm-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
-  document.getElementById('tm-msg').textContent = r.ok ? 'Saved.' : (r.detail || 'failed');
+ const r = await api('/api/owner/show/' + currentSlug, {method:'PATCH', body: JSON.stringify({ticket_mode: document.getElementById('tm-mode').value})});
+ document.getElementById('tm-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
+ document.getElementById('tm-msg').textContent = r.ok ? 'Saved.' : (r.detail || 'failed');
 }
 
 async function loadAudience() {
-  const d = await api('/api/owner/show/' + currentSlug + '/audience-summary');
-  document.getElementById('aud-metrics').innerHTML = [
-    ['Contacts', d.total_contacts||0],
-    ['Repeat attendees', d.repeat_attendees||0],
-    ['Payments', d.payments_count||0],
-    ['Suppressed', d.suppressed_count||0],
-  ].map(([l,v]) => `<div class="metric"><div class="metric-num">${v}</div><div class="metric-label">${l}</div></div>`).join('');
-  document.getElementById('aud-sources').innerHTML = (d.source_breakdown||[]).map(s => `<div style="padding:5px 0;color:#ccc">${s.source}: ${s.count}</div>`).join('') || '<div style="color:#666">No imports yet</div>';
+ const d = await api('/api/owner/show/' + currentSlug + '/audience-summary');
+ document.getElementById('aud-metrics').innerHTML = [
+ ['Contacts', d.total_contacts||0],
+ ['Repeat attendees', d.repeat_attendees||0],
+ ['Payments', d.payments_count||0],
+ ['Suppressed', d.suppressed_count||0],
+ ].map(([l,v]) => `<div class="metric"><div class="metric-num">${v}</div><div class="metric-label">${l}</div></div>`).join('');
+ document.getElementById('aud-sources').innerHTML = (d.source_breakdown||[]).map(s => `<div style="padding:5px 0;color:#ccc">${s.source}: ${s.count}</div>`).join('') || '<div style="color:#666">No imports yet</div>';
 }
 
 async function loadReservations() {
-  const d = await api('/api/owner/show/' + currentSlug + '/reservations');
-  const rows = d.reservations || [];
-  if (!rows.length) { document.getElementById('rsvp-list').innerHTML = '<div style="color:#666">No reservations</div>'; return; }
-  document.getElementById('rsvp-list').innerHTML = '<table><tr><th>#</th><th>Date</th><th>Name</th><th>Party</th><th>Checked-in</th></tr>' +
-    rows.map(r => `<tr><td>${r.id}</td><td>${r.show_date||''}</td><td>${r.guest_name}</td><td>${r.party_size}</td><td>${r.checked_in?'✓':''}</td></tr>`).join('') + '</table>';
+ const d = await api('/api/owner/show/' + currentSlug + '/reservations');
+ const rows = d.reservations || [];
+ if (!rows.length) { document.getElementById('rsvp-list').innerHTML = '<div style="color:#666">No reservations</div>'; return; }
+ document.getElementById('rsvp-list').innerHTML = '<table><tr><th>#</th><th>Date</th><th>Name</th><th>Party</th><th>Checked-in</th></tr>' +
+ rows.map(r => `<tr><td>${r.id}</td><td>${r.show_date||''}</td><td>${r.guest_name}</td><td>${r.party_size}</td><td>${r.checked_in?'✓':''}</td></tr>`).join('') + '</table>';
 }
 
 async function loadImports() {
-  const d = await api('/api/owner/show/' + currentSlug + '/imports');
-  const rows = d.batches || [];
-  document.getElementById('imp-history').innerHTML = '<table><tr><th>#</th><th>type</th><th>rows</th><th>valid</th><th>created</th></tr>' +
-    rows.map(b => `<tr><td>${b.id}</td><td>${b.source_type}</td><td>${b.row_count}</td><td>${b.valid_count}</td><td>${(b.created_at||'').slice(0,16)}</td></tr>`).join('') + '</table>';
+ const d = await api('/api/owner/show/' + currentSlug + '/imports');
+ const rows = d.batches || [];
+ document.getElementById('imp-history').innerHTML = '<table><tr><th>#</th><th>type</th><th>rows</th><th>valid</th><th>created</th></tr>' +
+ rows.map(b => `<tr><td>${b.id}</td><td>${b.source_type}</td><td>${b.row_count}</td><td>${b.valid_count}</td><td>${(b.created_at||'').slice(0,16)}</td></tr>`).join('') + '</table>';
 }
 
 async function previewImport() {
-  const body = {
-    source_type: document.getElementById('imp-type').value,
-    csv_text: document.getElementById('imp-csv').value,
-    original_filename: document.getElementById('imp-filename').value,
-    attested: false, attestation_text: '',
-  };
-  const r = await api('/api/owner/show/' + currentSlug + '/imports/preview', {method:'POST', body: JSON.stringify(body)});
-  document.getElementById('imp-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
-  document.getElementById('imp-msg').textContent = r.ok ? `Parsed: ${r.row_count} rows, ${r.valid_count} valid, ${r.duplicate_count} duplicates` : (r.detail || 'failed');
-  if (r.ok) document.getElementById('imp-preview').innerHTML = '<div class="preview">' + (r.preview_sample||[]).map(x => JSON.stringify(x)).join('\n') + '</div>';
+ const body = {
+ source_type: document.getElementById('imp-type').value,
+ csv_text: document.getElementById('imp-csv').value,
+ original_filename: document.getElementById('imp-filename').value,
+ attested: false, attestation_text: '',
+ };
+ const r = await api('/api/owner/show/' + currentSlug + '/imports/preview', {method:'POST', body: JSON.stringify(body)});
+ document.getElementById('imp-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
+ document.getElementById('imp-msg').textContent = r.ok ? `Parsed: ${r.row_count} rows, ${r.valid_count} valid, ${r.duplicate_count} duplicates` : (r.detail || 'failed');
+ if (r.ok) document.getElementById('imp-preview').innerHTML = '<div class="preview">' + (r.preview_sample||[]).map(x => JSON.stringify(x)).join('\n') + '</div>';
 }
 
 async function commitImport() {
-  if (!document.getElementById('imp-attest').checked) {
-    document.getElementById('imp-msg').className='msg err';
-    document.getElementById('imp-msg').textContent='Tick the attestation checkbox first.'; return;
-  }
-  const body = {
-    source_type: document.getElementById('imp-type').value,
-    csv_text: document.getElementById('imp-csv').value,
-    original_filename: document.getElementById('imp-filename').value,
-    attested: true,
-    attestation_text: `Owner attests on ${new Date().toISOString()} that they have permission to upload and contact this list for ${currentSlug}.`,
-  };
-  const r = await api('/api/owner/show/' + currentSlug + '/imports/commit', {method:'POST', body: JSON.stringify(body)});
-  document.getElementById('imp-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
-  document.getElementById('imp-msg').textContent = r.ok ? `Imported batch #${r.batch_id} (added: ${r.added_contacts}, merged: ${r.merged_contacts})` : (r.detail || 'failed');
-  loadImports(); loadAudience();
+ if (!document.getElementById('imp-attest').checked) {
+ document.getElementById('imp-msg').className='msg err';
+ document.getElementById('imp-msg').textContent='Tick the attestation checkbox first.'; return;
+ }
+ const body = {
+ source_type: document.getElementById('imp-type').value,
+ csv_text: document.getElementById('imp-csv').value,
+ original_filename: document.getElementById('imp-filename').value,
+ attested: true,
+ attestation_text: `Owner attests on ${new Date().toISOString()} that they have permission to upload and contact this list for ${currentSlug}.`,
+ };
+ const r = await api('/api/owner/show/' + currentSlug + '/imports/commit', {method:'POST', body: JSON.stringify(body)});
+ document.getElementById('imp-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
+ document.getElementById('imp-msg').textContent = r.ok ? `Imported batch #${r.batch_id} (added: ${r.added_contacts}, merged: ${r.merged_contacts})` : (r.detail || 'failed');
+ loadImports(); loadAudience();
 }
 
 async function generateDraft() {
-  const body = {
-    show_slug: currentSlug,
-    owner_email: '',  // backend fills from token
-    audience_scope: document.getElementById('dr-scope').value,
-    subject: document.getElementById('dr-subject').value.trim() || 'Paris Comedy — upcoming show',
-    show_date: document.getElementById('dr-date').value.trim(),
-    venue: document.getElementById('dr-venue').value.trim(),
-    ticket_link: document.getElementById('dr-ticket').value.trim(),
-  };
-  const r = await api('/api/owner/show/' + currentSlug + '/email-draft', {method:'POST', body: JSON.stringify(body)});
-  document.getElementById('dr-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
-  document.getElementById('dr-msg').textContent = r.ok ? `Draft #${r.draft_id} · audience: ${r.audience_count} · excluded: ${r.excluded_suppressed}` : (r.detail || 'failed');
-  if (r.ok) document.getElementById('dr-preview').innerHTML = `<div class="preview">Subject: ${r.subject}\n\n${r.body_text}</div>`;
+ const body = {
+ show_slug: currentSlug,
+ owner_email: '', // backend fills from token
+ audience_scope: document.getElementById('dr-scope').value,
+ subject: document.getElementById('dr-subject').value.trim() || 'Paris Comedy — upcoming show',
+ show_date: document.getElementById('dr-date').value.trim(),
+ venue: document.getElementById('dr-venue').value.trim(),
+ ticket_link: document.getElementById('dr-ticket').value.trim(),
+ };
+ const r = await api('/api/owner/show/' + currentSlug + '/email-draft', {method:'POST', body: JSON.stringify(body)});
+ document.getElementById('dr-msg').className = 'msg ' + (r.ok ? 'ok' : 'err');
+ document.getElementById('dr-msg').textContent = r.ok ? `Draft #${r.draft_id} · audience: ${r.audience_count} · excluded: ${r.excluded_suppressed}` : (r.detail || 'failed');
+ if (r.ok) document.getElementById('dr-preview').innerHTML = `<div class="preview">Subject: ${r.subject}\n\n${r.body_text}</div>`;
 }
 
 // Auto-login from URL or localStorage
 const u = new URLSearchParams(location.search).get('owner_token');
 if (u) { document.getElementById('owner-token').value = u; login(); }
 else {
-  const stored = localStorage.getItem('pc_owner_token');
-  if (stored) { document.getElementById('owner-token').value = stored; login(); }
+ const stored = localStorage.getItem('pc_owner_token');
+ if (stored) { document.getElementById('owner-token').value = stored; login(); }
 }
 </script>
 
 <footer class="footer footer-portal">
-  <div class="footer-portal-inner">
-    <a href="/" class="footer-portal-brand">Paris Comedy</a>
-    <span class="footer-portal-sep">·</span>
-    <a href="mailto:payments@pariscomedy.com">Support</a>
-    <span class="footer-portal-sep">·</span>
-    <a href="/terms.html">Terms</a>
-    <span class="footer-portal-sep">·</span>
-    <a href="/privacy.html">Privacy</a>
-  </div>
+ <div class="footer-portal-inner">
+ <a href="/" class="footer-portal-brand">Paris Comedy</a>
+ <span class="footer-portal-sep">·</span>
+ <a href="mailto:payments@pariscomedy.com">Support</a>
+ <span class="footer-portal-sep">·</span>
+ <a href="/terms.html">Terms</a>
+ <span class="footer-portal-sep">·</span>
+ <a href="/privacy.html">Privacy</a>
+ </div>
 </footer>
 <style>
-  .footer-portal { padding: 16px 20px; text-align: center; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 32px; }
-  .footer-portal a { color: inherit; text-decoration: none; }
-  .footer-portal a:hover { color: #c4b5fd; }
-  .footer-portal-sep { margin: 0 6px; opacity: 0.5; }
+ .footer-portal { padding: 16px 20px; text-align: center; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 32px; }
+ .footer-portal a { color: inherit; text-decoration: none; }
+ .footer-portal a:hover { color: #c4b5fd; }
+ .footer-portal-sep { margin: 0 6px; opacity: 0.5; }
 </style>
 </body>
 </html>
