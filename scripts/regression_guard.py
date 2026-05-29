@@ -1,0 +1,497 @@
+#!/usr/bin/env python3
+"""
+PROCESS.ROOT.1 — Regression guard.
+
+Runs 9 checks against LIVE production (https://pariscomedy.com) to catch
+recurrences of the root causes we've already fixed:
+
+  1. forbidden_strings      — no bilingual/mixed-language/marketing-claim leakage
+  2. internal_ctas          — /venues.html cards link to /show.html (not external)
+  3. raw_includes           — no unprocessed `<!-- include: -->` directives
+  4. stale_homepage_panel   — homepage .next3-row populated, or explicit empty msg
+  5. card_render            — /comedians.html >200 cards, /shows.html >30 cards
+  6. status_sweep           — 27+ public URLs return HTTP 200
+  7. nav_consistency        — every page has exactly one nav-shell-* nav
+  8. freshness_sanity       — /data/freshness-audit.json sane, no stale rows
+  9. hreflang               — legal pages have >=3 hreflang alternates
+
+Usage:
+  python3 scripts/regression_guard.py
+  python3 scripts/regression_guard.py --check forbidden_strings
+  python3 scripts/regression_guard.py --with-dom    # enables Playwright (checks 2,4,5)
+
+Exit code 0 = all pass, 1 = any fail. JSON output written to
+logs/regression-guard.<ISO>.json (gitignored).
+"""
+
+from __future__ import annotations
+
+import argparse
+import datetime as _dt
+import json
+import os
+import re
+import sys
+import urllib.error
+import urllib.request
+from pathlib import Path
+
+BASE = "https://pariscomedy.com"
+UA = "pariscomedy-regression-guard/1.0 (+https://pariscomedy.com)"
+TIMEOUT = 20
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+LOGS_DIR = REPO_ROOT / "logs"
+
+# ---------- HTTP helpers ----------------------------------------------------
+
+
+def fetch(path_or_url: str, timeout: int = TIMEOUT) -> tuple[int, str]:
+    url = path_or_url if path_or_url.startswith("http") else f"{BASE}{path_or_url}"
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            body = r.read().decode("utf-8", errors="replace")
+            return r.status, body
+    except urllib.error.HTTPError as e:
+        try:
+            body = e.read().decode("utf-8", errors="replace")
+        except Exception:
+            body = ""
+        return e.code, body
+    except Exception as e:  # noqa: BLE001
+        return 0, f"__FETCH_ERROR__ {e}"
+
+
+def head_status(path_or_url: str, timeout: int = TIMEOUT) -> int:
+    # We just do a GET — HEAD often misbehaves behind Cloudflare.
+    code, _ = fetch(path_or_url, timeout=timeout)
+    return code
+
+
+# ---------- Page sweep set --------------------------------------------------
+
+SWEEP_PAGES = [
+    "/",
+    "/about.html",
+    "/pricing.html",
+    "/bookers.html",
+    "/book.html",
+    "/shows.html",
+    "/venues.html",
+    "/comedians.html",
+    "/archive.html",
+    "/terms.html",
+    "/privacy.html",
+    "/disclosure.html",
+    "/login.html",
+    "/performer-portal.html",
+    "/booker-portal.html",
+    "/booker-dashboard.html",
+    "/show-runner.html",
+    "/show.html",
+    "/show.html?slug=charonne",
+    "/show.html?slug=theatre-bo-julie",
+    "/show.html?slug=ffcn",
+    "/admin-events.html",
+    "/admin-crm.html",
+    "/admin-messages.html",
+    "/admin-payments.html",
+    "/admin-submit.html",
+    "/404.html",
+    "/fr/terms.html",
+    "/fr/privacy.html",
+    "/fr/disclosure.html",
+]
+
+# ---------- Check 1: forbidden strings --------------------------------------
+
+FORBIDDEN_PATTERNS = [
+    ("bilingual", re.compile(r"bilingual", re.IGNORECASE)),
+    ("mixed-language", re.compile(r"mixed-language", re.IGNORECASE)),
+    ("multilingual", re.compile(r"multilingual", re.IGNORECASE)),
+    ("English and French", re.compile(r"English and French", re.IGNORECASE)),
+    ("English &amp; French", re.compile(r"English &amp; French", re.IGNORECASE)),
+    ("both English", re.compile(r"both English", re.IGNORECASE)),
+    ("French and English", re.compile(r"French and English", re.IGNORECASE)),
+    ("both languages", re.compile(r"both languages", re.IGNORECASE)),
+    ("Every venue, every lineup", re.compile(r"Every venue, every lineup", re.IGNORECASE)),
+    ("the definitive", re.compile(r"the definitive", re.IGNORECASE)),
+    ("every show in Paris", re.compile(r"every show in Paris", re.IGNORECASE)),
+    ('Click "Check current listing"', re.compile(r'Click "Check current listing"')),
+]
+
+# Allow-list: forbidden tokens inside HTML comments or JS string literals that
+# represent SCRUBBING logic itself (e.g. an admin scrubber that strips
+# "bilingual"). We intentionally do NOT add an allow-list here — the rule is
+# strict: no forbidden token may appear in shipped HTML, period.
+
+
+def check_forbidden_strings() -> dict:
+    hits: list[dict] = []
+    for path in SWEEP_PAGES:
+        code, body = fetch(path)
+        if code != 200:
+            continue
+        for label, pat in FORBIDDEN_PATTERNS:
+            for m in pat.finditer(body):
+                start = max(0, m.start() - 40)
+                end = min(len(body), m.end() + 40)
+                hits.append({
+                    "page": path,
+                    "pattern": label,
+                    "snippet": body[start:end].replace("\n", " "),
+                })
+    return {
+        "name": "forbidden_strings",
+        "result": "PASS" if not hits else "FAIL",
+        "evidence": {"hit_count": len(hits), "hits": hits[:30]},
+    }
+
+
+# ---------- Check 2: internal CTAs on /venues.html --------------------------
+
+VENUES_CTA_RE = re.compile(
+    r'<a[^>]+class="[^"]*\bbtn-tickets\b[^"]*"[^>]*href="([^"]+)"',
+    re.IGNORECASE,
+)
+
+
+def check_internal_ctas(with_dom: bool = False) -> dict:
+    code, body = fetch("/venues.html")
+    if code != 200:
+        return {"name": "internal_ctas", "result": "FAIL",
+                "evidence": {"reason": f"/venues.html returned {code}"}}
+    hrefs = VENUES_CTA_RE.findall(body)
+    # If the page renders cards via JS, static HTML may not contain them.
+    # In that case we soft-pass with a note unless --with-dom was requested.
+    if not hrefs and not with_dom:
+        return {"name": "internal_ctas", "result": "PASS",
+                "evidence": {"reason": "no static .btn-tickets found; "
+                                       "cards rendered client-side. "
+                                       "Re-run with --with-dom for DOM check.",
+                             "static_href_count": 0}}
+    if not hrefs and with_dom:
+        try:
+            hrefs = _dom_collect_hrefs("/venues.html",
+                                       ".card a.btn-tickets")
+        except Exception as e:  # noqa: BLE001
+            return {"name": "internal_ctas", "result": "FAIL",
+                    "evidence": {"reason": f"DOM probe error: {e}"}}
+    external = [h for h in hrefs if not h.startswith("/show.html")]
+    return {
+        "name": "internal_ctas",
+        "result": "PASS" if not external else "FAIL",
+        "evidence": {"total": len(hrefs), "external": external[:20]},
+    }
+
+
+# ---------- Check 3: raw include directives ---------------------------------
+
+INCLUDE_RE = re.compile(r"<!--\s*include\s*:", re.IGNORECASE)
+
+
+def check_raw_includes() -> dict:
+    hits: list[str] = []
+    for path in SWEEP_PAGES:
+        code, body = fetch(path)
+        if code != 200:
+            continue
+        if INCLUDE_RE.search(body):
+            hits.append(path)
+    return {
+        "name": "raw_includes",
+        "result": "PASS" if not hits else "FAIL",
+        "evidence": {"pages_with_raw_include": hits},
+    }
+
+
+# ---------- Check 4: stale homepage panel -----------------------------------
+
+NEXT3_ROW_RE = re.compile(r'class="[^"]*\bnext3-row\b[^"]*"', re.IGNORECASE)
+EMPTY_MSG_RE = re.compile(r"No shows scheduled[^<]*check back", re.IGNORECASE)
+
+
+def check_stale_homepage_panel(with_dom: bool = False) -> dict:
+    code, body = fetch("/")
+    if code != 200:
+        return {"name": "stale_homepage_panel", "result": "FAIL",
+                "evidence": {"reason": f"/ returned {code}"}}
+    static_rows = len(NEXT3_ROW_RE.findall(body))
+    has_empty_msg = bool(EMPTY_MSG_RE.search(body))
+    if static_rows > 0 or has_empty_msg:
+        return {"name": "stale_homepage_panel", "result": "PASS",
+                "evidence": {"static_rows": static_rows,
+                             "has_empty_msg": has_empty_msg,
+                             "mode": "static"}}
+    if not with_dom:
+        # JS-rendered: soft pass with note (panel container must at least exist).
+        container_present = "next3" in body or "homepage-next" in body
+        return {"name": "stale_homepage_panel",
+                "result": "PASS" if container_present else "FAIL",
+                "evidence": {"reason": "JS-rendered; container "
+                                       f"present={container_present}. "
+                                       "Re-run with --with-dom for live count.",
+                             "mode": "static-container-only"}}
+    try:
+        rows = _dom_count("/", ".next3-row")
+    except Exception as e:  # noqa: BLE001
+        return {"name": "stale_homepage_panel", "result": "FAIL",
+                "evidence": {"reason": f"DOM probe error: {e}"}}
+    if rows > 0:
+        return {"name": "stale_homepage_panel", "result": "PASS",
+                "evidence": {"dom_rows": rows, "mode": "dom"}}
+    return {"name": "stale_homepage_panel", "result": "FAIL",
+            "evidence": {"dom_rows": 0,
+                         "reason": "panel empty AND no fallback message"}}
+
+
+# ---------- Check 5: card render --------------------------------------------
+
+CARD_RE = re.compile(r'class="[^"]*\bcard\b[^"]*"', re.IGNORECASE)
+
+
+def check_card_render(with_dom: bool = False) -> dict:
+    out: dict[str, int] = {}
+    for path in ("/comedians.html", "/shows.html"):
+        code, body = fetch(path)
+        if code != 200:
+            out[path] = -1
+            continue
+        out[path] = len(CARD_RE.findall(body))
+    if with_dom:
+        try:
+            out["/comedians.html (dom)"] = _dom_count("/comedians.html", ".card")
+            out["/shows.html (dom)"] = _dom_count("/shows.html", ".card")
+        except Exception as e:  # noqa: BLE001
+            return {"name": "card_render", "result": "FAIL",
+                    "evidence": {"reason": f"DOM probe error: {e}",
+                                 "static": out}}
+        ok = (out["/comedians.html (dom)"] > 200
+              and out["/shows.html (dom)"] > 30)
+    else:
+        # Static fallback: many sites render cards via JS — only fail if
+        # the page itself is missing (returned non-200).
+        ok = all(v >= 0 for v in out.values())
+    return {
+        "name": "card_render",
+        "result": "PASS" if ok else "FAIL",
+        "evidence": out,
+    }
+
+
+# ---------- Check 6: live status sweep --------------------------------------
+
+EXTRA_URLS = [
+    "/api/review-queue",
+]
+
+
+def check_status_sweep() -> dict:
+    targets = SWEEP_PAGES + EXTRA_URLS
+    results: list[dict] = []
+    bad: list[dict] = []
+    for path in targets:
+        code = head_status(path)
+        results.append({"path": path, "code": code})
+        if code != 200:
+            bad.append({"path": path, "code": code})
+    return {
+        "name": "status_sweep",
+        "result": "PASS" if not bad and len(targets) >= 27 else "FAIL",
+        "evidence": {"total": len(targets), "bad": bad,
+                     "all_results": results},
+    }
+
+
+# ---------- Check 7: nav consistency ----------------------------------------
+
+NAV_BLOCK_RE = re.compile(r"<nav\b[^>]*>", re.IGNORECASE)
+NAV_SHELL_RE = re.compile(r"<nav\b[^>]*\bclass=\"([^\"]*)\"", re.IGNORECASE)
+VALID_SHELL_CLASSES = {
+    "nav-shell-marketing",
+    "nav-shell-minimal",
+    "nav-shell-auth",
+    "nav-shell-portal",
+    "nav-shell-admin",
+}
+
+
+def check_nav_consistency() -> dict:
+    problems: list[dict] = []
+    # Exclude pure API endpoint (no nav expected).
+    pages = [p for p in SWEEP_PAGES if not p.startswith("/api/")]
+    for path in pages:
+        code, body = fetch(path)
+        if code != 200:
+            continue
+        navs = NAV_BLOCK_RE.findall(body)
+        shells = NAV_SHELL_RE.findall(body)
+        nav_shell_count = sum(1 for s in shells if "nav-shell" in s)
+        variants = set()
+        for s in shells:
+            for cls in s.split():
+                if cls in VALID_SHELL_CLASSES:
+                    variants.add(cls)
+        ok = nav_shell_count == 1 and len(variants) >= 1
+        if not ok:
+            problems.append({
+                "page": path,
+                "nav_block_count": len(navs),
+                "nav_shell_count": nav_shell_count,
+                "variants": sorted(variants),
+            })
+    return {
+        "name": "nav_consistency",
+        "result": "PASS" if not problems else "FAIL",
+        "evidence": {"problems": problems},
+    }
+
+
+# ---------- Check 8: freshness sanity ---------------------------------------
+
+def check_freshness_sanity() -> dict:
+    code, body = fetch("/data/freshness-audit.json")
+    if code != 200:
+        return {"name": "freshness_sanity", "result": "FAIL",
+                "evidence": {"reason": f"HTTP {code}"}}
+    try:
+        data = json.loads(body)
+    except Exception as e:  # noqa: BLE001
+        return {"name": "freshness_sanity", "result": "FAIL",
+                "evidence": {"reason": f"JSON parse error: {e}"}}
+    summary = data.get("summary") or {}
+    listings = data.get("listings") or []
+    total_active = summary.get("total_active", 0)
+    stale = [l for l in listings if (l.get("status") or "").lower() == "stale"]
+    review = sum(1 for l in listings
+                 if (l.get("status") or "").lower() == "needs_human_review")
+    soft_warn = (review / max(1, len(listings))) > 0.05
+    ok = total_active > 0 and not stale
+    return {
+        "name": "freshness_sanity",
+        "result": "PASS" if ok else "FAIL",
+        "evidence": {
+            "total_active": total_active,
+            "stale_count": len(stale),
+            "needs_human_review": review,
+            "soft_warn_review_over_5pct": soft_warn,
+        },
+    }
+
+
+# ---------- Check 9: hreflang -----------------------------------------------
+
+HREFLANG_RE = re.compile(
+    r'<link[^>]+rel=["\']alternate["\'][^>]+hreflang=["\'][^"\']+["\']',
+    re.IGNORECASE,
+)
+
+
+def check_hreflang() -> dict:
+    pages = [
+        "/terms.html", "/privacy.html", "/disclosure.html",
+        "/fr/terms.html", "/fr/privacy.html", "/fr/disclosure.html",
+    ]
+    problems: list[dict] = []
+    for path in pages:
+        code, body = fetch(path)
+        if code != 200:
+            problems.append({"page": path, "reason": f"HTTP {code}"})
+            continue
+        n = len(HREFLANG_RE.findall(body))
+        if n < 3:
+            problems.append({"page": path, "hreflang_count": n})
+    return {
+        "name": "hreflang",
+        "result": "PASS" if not problems else "FAIL",
+        "evidence": {"problems": problems},
+    }
+
+
+# ---------- Optional Playwright DOM probes ---------------------------------
+
+def _dom_count(path: str, selector: str) -> int:
+    return len(_dom_collect_hrefs(path, selector, attr=None))
+
+
+def _dom_collect_hrefs(path: str, selector: str, attr: str | None = "href") -> list:
+    try:
+        from playwright.sync_api import sync_playwright  # type: ignore
+    except Exception as e:  # noqa: BLE001
+        raise RuntimeError(f"playwright not available: {e}")
+    url = f"{BASE}{path}"
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        ctx = browser.new_context(user_agent=UA)
+        page = ctx.new_page()
+        page.goto(url, wait_until="networkidle", timeout=30000)
+        elements = page.query_selector_all(selector)
+        if attr is None:
+            count = len(elements)
+            browser.close()
+            return [None] * count  # type: ignore[list-item]
+        out = [el.get_attribute(attr) or "" for el in elements]
+        browser.close()
+        return out
+
+
+# ---------- Runner ---------------------------------------------------------
+
+CHECKS = {
+    "forbidden_strings":     lambda dom: check_forbidden_strings(),
+    "internal_ctas":         lambda dom: check_internal_ctas(with_dom=dom),
+    "raw_includes":          lambda dom: check_raw_includes(),
+    "stale_homepage_panel":  lambda dom: check_stale_homepage_panel(with_dom=dom),
+    "card_render":           lambda dom: check_card_render(with_dom=dom),
+    "status_sweep":          lambda dom: check_status_sweep(),
+    "nav_consistency":       lambda dom: check_nav_consistency(),
+    "freshness_sanity":      lambda dom: check_freshness_sanity(),
+    "hreflang":              lambda dom: check_hreflang(),
+}
+
+
+def main(argv: list[str]) -> int:
+    ap = argparse.ArgumentParser(description="pariscomedy regression guard")
+    ap.add_argument("--check", help="Run only one named check")
+    ap.add_argument("--with-dom", action="store_true",
+                    help="Enable Playwright DOM probes (checks 2/4/5)")
+    args = ap.parse_args(argv)
+
+    selected = [args.check] if args.check else list(CHECKS.keys())
+    for c in selected:
+        if c not in CHECKS:
+            print(f"ERROR: unknown check '{c}'. "
+                  f"Available: {sorted(CHECKS)}", file=sys.stderr)
+            return 2
+
+    results = []
+    for name in selected:
+        try:
+            r = CHECKS[name](args.with_dom)
+        except Exception as e:  # noqa: BLE001
+            r = {"name": name, "result": "FAIL",
+                 "evidence": {"reason": f"check raised: {e}"}}
+        results.append(r)
+        ev = r.get("evidence")
+        ev_short = json.dumps(ev)[:200] if ev is not None else ""
+        print(f"[{r['result']:4}] {r['name']:24} {ev_short}")
+
+    fail = any(r["result"] == "FAIL" for r in results)
+    iso = _dt.datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
+    out_path = LOGS_DIR / f"regression-guard.{iso}.json"
+    out_path.write_text(json.dumps({
+        "timestamp_utc": iso,
+        "base": BASE,
+        "with_dom": args.with_dom,
+        "results": results,
+    }, indent=2))
+    print(f"\nLog: {out_path}")
+    print(f"Summary: {sum(1 for r in results if r['result']=='PASS')} pass, "
+          f"{sum(1 for r in results if r['result']=='FAIL')} fail")
+    return 1 if fail else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

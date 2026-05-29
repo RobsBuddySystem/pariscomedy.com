@@ -1,0 +1,32 @@
+name: regression-guard
+
+# PROCESS.ROOT.1 — runs scripts/regression_guard.py on push and PR.
+# Hits live production (https://pariscomedy.com), so this only runs if
+# GitHub Actions is enabled for the repo. If Actions is disabled, this
+# file is harmless documentation of the intended automation.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run regression guard (stdlib-only, live prod)
+        run: python3 scripts/regression_guard.py
+      - name: Upload guard log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: regression-guard-log
+          path: logs/regression-guard.*.json
+          if-no-files-found: ignore

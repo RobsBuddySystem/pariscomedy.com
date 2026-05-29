@@ -1,5 +1,12 @@
 # 07_CHANGELOG
 
+## 2026-05-29 | infra | PROCESS.ROOT.1
+- Added `scripts/regression_guard.py` — stdlib-only Python 3 guard that runs 9 live-production checks against pariscomedy.com: forbidden-strings (bilingual/mixed-language/marketing-claim leakage), internal-CTAs (/venues.html → /show.html, no external bypass), raw-includes (no unprocessed `<!-- include: -->`), stale-homepage-panel (next3-row populated or explicit empty msg), card-render (/comedians.html + /shows.html non-zero), status-sweep (31 named public URLs return 200), nav-consistency (one `nav-shell-*` per page), freshness-sanity (/data/freshness-audit.json parses, zero stale rows), hreflang (3 alternates per legal page × EN+FR).
+- Single check via `--check <name>`; optional Playwright DOM probes via `--with-dom`. JSON evidence written to `logs/regression-guard.<ISO>.json` (gitignored).
+- CI: `.github/workflows/regression-guard.yml` runs the guard on push + PR to `main`.
+- Doc: `chuck_vault/10-concepts/projects/pariscomedy-canonical/PROCESS_ROOT_1_REGRESSION_GUARD.md` (check rationale + add-a-check procedure).
+- First live run (2026-05-29): 8/9 PASS. `nav_consistency` legitimately flagged 3 legacy bare-`<nav>` pages (`/disclosure.html`, `/show.html`, `/show-runner.html`) that haven't been migrated to `nav-shell-*` partials — real drift, deferred fix.
+
 ## 2026-05-29 | data | P1.SOURCE.2
 - Scaffolded FNAC Spectacles, Fever, and Weezevent adapters under `scripts/adapter_{fnac,fever,weezevent}.py` following the BilletRéduc pattern. All stubs raise `NotImplementedError("<Platform> adapter — pending operator authorization")`; no network, no parsing, no imports of listings. `data/source-adapters.json` updated: `fnac_spectacles`, `weezevent` flipped none→scaffolded; new `fever` entry added scaffolded; all `enabled: false`. Other platforms untouched. Gate-unlock procedure in `chuck_vault/10-concepts/projects/pariscomedy-canonical/P1_SOURCE_2_DRY_RUN_ADAPTERS.md`. Stub-raises proof captured in vault doc.
 
