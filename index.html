@@ -442,6 +442,7 @@ function expandListingsToInstances(listings) {
         const venueName = (L.venue && L.venue.name) || L.venue_name_raw || '';
         out.push({
           id: (L.slug || 'show') + '-' + dateStr.replace(/-/g,''),
+          slug: L.slug || '',
           show_name: L.name || L.short_name || '',
           date: dateStr,
           day: dayName,
@@ -503,8 +504,8 @@ function inferVibes(s) {
   const tags = [];
   const langs = s.langs || s.language;
   if (langs) {
-    else if (langs.includes('EN') || langs.includes('en')) tags.push('English');
-    else tags.push('French');
+    if (langs.includes('EN') || langs.includes('en')) tags.push('English');
+    if (langs.includes('FR') || langs.includes('fr')) tags.push('French');
   }
   if (/open.?mic|open mic/.test(txt)) tags.push('Open Mic');
   else if (/showcase|show/.test(txt)) tags.push('Showcase');
@@ -904,12 +905,10 @@ function renderNext3Panel() {
       inner = list.map(s => {
         const venue = (s.venue || '').replace(/</g,'&lt;');
         const name = (s.show_name || '').replace(/</g,'&lt;');
-        const href = s.ticket_url
-          ? `/r.html?kind=show&id=${encodeURIComponent(s.id||s.show_name||'')}&url=${encodeURIComponent(s.ticket_url)}`
-          : '#';
+        const href = s.slug ? `/show.html?slug=${encodeURIComponent(s.slug)}` : '/shows.html';
         return `<div class="next3-row">
           <div class="next3-time">${s.start_time||'—'}</div>
-          <div class="next3-show"><a href="${href}" target="_blank" rel="noopener sponsored">${name}</a></div>
+          <div class="next3-show"><a href="${href}">${name}</a></div>
           <div class="next3-venue">${venue}</div>
         </div>`;
       }).join('');
