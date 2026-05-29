@@ -119,9 +119,15 @@ footer a:hover{color:var(--text)}
         <div style="margin-top:6px;font-size:15px;color:#f0f0f0">You are claiming: <strong id="claim-show-name"></strong></div>
         <div style="margin-top:4px;font-size:12px;color:#888">Slug: <code id="claim-show-slug" style="color:#9d5ff5"></code> · Page: <a id="claim-show-url" href="#" style="color:#9d5ff5"></a></div>
       </div>
+      <div id="report-banner" style="display:none;background:#1a0a00;border:1px solid #f59e0b;border-radius:8px;padding:14px 16px;margin-bottom:16px">
+        <div style="font-size:13px;color:#f59e0b;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Report an issue</div>
+        <div style="margin-top:6px;font-size:15px;color:#f0f0f0">Reporting issue with: <strong id="report-show-slug"></strong> &mdash; please describe below</div>
+        <div style="margin-top:4px;font-size:12px;color:#888">Use the show name / day / time / contact email fields below to describe the issue. We review reports within 48 hours.</div>
+      </div>
       <h2 id="sr-title">List your comedy show</h2>
       <p class="subhead" id="sr-subhead">Get your show in front of Paris Comedy's audience. Submit your details and we'll get you listed.</p>
       <div id="form-show-runner">
+        <input type="text" name="hp_url" id="sr-hp_url" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
         <div class="field" id="claimant-name-field" style="display:none">
           <label>Your name <span class="req">*</span></label>
           <input type="text" id="sr-claimant-name" placeholder="Your full name (the person claiming this show)">
@@ -131,8 +137,9 @@ footer a:hover{color:var(--text)}
           <input type="text" id="sr-showname" placeholder="Your comedy night's name">
         </div>
         <div class="field">
-          <label>Venue <span class="req">*</span></label>
+          <label>Venue <span class="req">*</span> <span id="sr-venue-lock" style="display:none">&#128274;</span></label>
           <input type="text" id="sr-venue" placeholder="Venue name, Paris">
+          <p id="sr-venue-lock-note" style="display:none;font-size:11px;color:#888;margin-top:4px">Locked while claiming an existing entry</p>
         </div>
         <div class="form-row">
           <div class="field">
@@ -171,6 +178,7 @@ footer a:hover{color:var(--text)}
       <h2>I'm a comedian looking for stages</h2>
       <p class="subhead">Submit your bio and we'll connect you with Paris show runners and bookers within 48 hours.</p>
       <div id="form-comedian">
+        <input type="text" name="hp_url" id="co-hp_url" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
         <div class="form-row">
           <div class="field">
             <label>Name <span class="req">*</span></label>
@@ -220,6 +228,7 @@ footer a:hover{color:var(--text)}
       <h2>I want to book a comedian</h2>
       <p class="subhead">Looking for talent for your event? We'll be in touch within 24 hours.</p>
       <div id="form-booker">
+        <input type="text" name="hp_url" id="bk-hp_url" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
         <div class="form-row">
           <div class="field">
             <label>Name <span class="req">*</span></label>
@@ -269,6 +278,7 @@ footer a:hover{color:var(--text)}
       <p class="subhead">Reach out to a booker, comic, or venue. Messages are reviewed before delivery — usually within 24 hours.</p>
       <div id="form-message">
         <input type="text" id="msg-website" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
+        <input type="text" name="hp_url" id="msg-hp_url" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
         <div class="form-row">
           <div class="field">
             <label>Your name <span class="req">*</span></label>
@@ -337,97 +347,6 @@ footer a:hover{color:var(--text)}
 </footer>
 
 
-<script src="/js/leadcapture.js"></script>
-<script>
-// ── Tab navigation ────────────────────────────────────────────────────────
-function showPath(id, btn) {
-  document.querySelectorAll('.path').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-}
-
-// Handle anchor links on load
-window.addEventListener('DOMContentLoaded', () => {
-  const hash = window.location.hash.replace('#', '');
-  const validPaths = ['show-runner', 'comedian', 'booker'];
-  if (validPaths.includes(hash)) {
-    const btn = document.querySelector(`.tab-btn[onclick*="${hash}"]`);
-    if (btn) showPath(hash, btn);
-  }
-});
-
-// \u2500\u2500 Form handlers (revenue-safe via LeadCapture) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
-async function runForm(opts) {
-  const btn = opts.btn;
-  btn.disabled = true; const label = btn.textContent; btn.textContent = 'Submitting\u2026';
-  const res = await LeadCapture.submit(opts.lead);
-  opts.form.style.display = 'none';
-  opts.success.style.display = 'block';
-  LeadCapture.renderResult(opts.success, res, opts.label);
-}
-
-async function submitShowRunner() {
-  const g = id => document.getElementById(id).value.trim();
-  const showname=g('sr-showname'), venue=g('sr-venue'), email=g('sr-email');
-  const err=document.getElementById('sr-err'); err.textContent='';
-  if(!showname||!venue||!email){err.textContent='Please fill in Show name, Venue and Email.';return;}
-  const body='Show: '+showname+'\nVenue: '+venue+'\nDay: '+g('sr-day')+'\nTime: '+g('sr-time')+
-             '\nEventbrite: '+g('sr-eventbrite')+'\nEmail: '+email;
-  await runForm({btn:document.querySelector('#show-runner .btn-primary'),
-    form:document.getElementById('form-show-runner'), success:document.getElementById('sr-success'),
-    label:'Show listing submitted',
-    lead:{route:'/api/show-submission',formType:'show-submission',
-      payload:{name:showname,email:email,target:venue,message:body},
-      mailtoSubject:'List my show: '+showname, mailtoBody:body}});
-}
-
-async function submitComedian() {
-  const g = id => document.getElementById(id).value.trim();
-  const name=g('co-name'), email=g('co-email'), bio=g('co-bio');
-  const err=document.getElementById('co-err'); err.textContent='';
-  if(!name||!email||!bio){err.textContent='Please fill in Name, Email and Bio.';return;}
-  const body='Name: '+name+'\nEmail: '+email+'\nLevel: '+g('co-level')+'\nStyle: '+g('co-style')+
-             '\nVideo: '+g('co-video')+'\nBio: '+bio;
-  await runForm({btn:document.querySelector('#comedian .btn-primary'),
-    form:document.getElementById('form-comedian'), success:document.getElementById('co-success'),
-    label:'Comedian bio submitted',
-    lead:{route:'/api/comic-profile',formType:'comic-profile',
-      payload:{name:name,email:email,role:'comic',message:body},
-      mailtoSubject:'Comedian bio: '+name, mailtoBody:body}});
-}
-
-async function submitBooker() {
-  const g = id => document.getElementById(id).value.trim();
-  const name=g('bk-name'), email=g('bk-email'), eventtype=g('bk-eventtype');
-  const err=document.getElementById('bk-err'); err.textContent='';
-  if(!name||!email||!eventtype){err.textContent='Please fill in Name, Email and Event type.';return;}
-  const body='Name: '+name+'\nEmail: '+email+'\nEvent type: '+eventtype+'\nDate: '+g('bk-date')+
-             '\nBudget: '+g('bk-budget')+'\nLocation: '+g('bk-location');
-  await runForm({btn:document.querySelector('#booker .btn-primary'),
-    form:document.getElementById('form-booker'), success:document.getElementById('bk-success'),
-    label:'Private booking request sent',
-    lead:{route:'/api/private-booking',formType:'private-booking',
-      payload:{name:name,email:email,role:'booker',message:body},
-      mailtoSubject:'Private booking: '+eventtype, mailtoBody:body}});
-}
-
-async function submitMessage() {
-  const g = id => document.getElementById(id).value.trim();
-  if(document.getElementById('msg-website').value){return;}  // honeypot
-  const name=g('msg-name'), email=g('msg-email'), subject=g('msg-subject'), msg=g('msg-body');
-  const err=document.getElementById('msg-err'); err.textContent='';
-  if(!name||!email||!subject||!msg){err.textContent='Please fill in name, email, subject and message.';return;}
-  if(msg.length<10){err.textContent='Message must be at least 10 characters.';return;}
-  const body='From: '+name+' <'+email+'>\nSubject: '+subject+'\n\n'+msg;
-  await runForm({btn:document.querySelector('#message .btn-primary'),
-    form:document.getElementById('form-message'), success:document.getElementById('msg-success'),
-    label:'Message sent',
-    lead:{route:'/api/leads',formType:'message',
-      payload:{name:name,email:email,role:g('msg-sender-type'),target:g('msg-recipient-type'),message:body},
-      mailtoSubject:'Message: '+subject, mailtoBody:body}});
-}
-</script>
 <script>
 // ── Tab navigation ────────────────────────────────────────────────────────
 function showPath(id, btn) {
@@ -470,8 +389,29 @@ async function postForm(payload) {
   return r.json();
 }
 
+// ── Offline fallback: backup to localStorage + open mailto ───────────────
+function saveBackupAndMailto(formType, payload, subject) {
+  try {
+    const arr = JSON.parse(localStorage.getItem('pc_intake_backup') || '[]');
+    arr.push({ formType, payload, ts: new Date().toISOString() });
+    localStorage.setItem('pc_intake_backup', JSON.stringify(arr));
+  } catch(_) { /* storage may be unavailable; ignore */ }
+  try {
+    const body = encodeURIComponent(JSON.stringify(payload, null, 2));
+    const subj = encodeURIComponent('[' + formType + '] ' + (subject || 'submission'));
+    window.location.href = 'mailto:payments@pariscomedy.com?subject=' + subj + '&body=' + body;
+  } catch(_) { /* mailto open failed; ignore */ }
+}
+
+// Honeypot check — returns true if the bot field is filled (silent reject).
+function hpTripped(id) {
+  const el = document.getElementById(id);
+  return !!(el && el.value);
+}
+
 // ── Form handlers ─────────────────────────────────────────────────────────
 async function submitShowRunner() {
+  if (hpTripped('sr-hp_url')) { return; } // honeypot silent reject
   const showname = document.getElementById('sr-showname').value.trim();
   const venue = document.getElementById('sr-venue').value.trim();
   const day = document.getElementById('sr-day').value;
@@ -513,12 +453,23 @@ async function submitShowRunner() {
       const d = await r.json();
       if (!r.ok || !d.ok) throw new Error(d.detail || 'claim failed');
     } else {
-      await postForm({ _type: 'show_listing', show_name: showname, venue, day, time, eventbrite_url: eventbrite, email });
+      const reportSlug = (params.get('report') || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
+      const payload = { _type: 'show_listing', show_name: showname, venue, day, time, eventbrite_url: eventbrite, email };
+      if (reportSlug) {
+        payload.is_report = true;
+        payload.report_slug = reportSlug;
+      }
+      await postForm(payload);
     }
     document.getElementById('form-show-runner').style.display = 'none';
     document.getElementById('sr-success').style.display = 'block';
   } catch(e) {
-    err.textContent = e.message;
+    // Offline fallback: backup to localStorage + open mailto
+    const fallbackPayload = claimSlug
+      ? { _type: 'show_claim', show_slug: claimSlug, show_name: showname, venue, claimant_email: email, day, time, eventbrite }
+      : { _type: 'show_listing', show_name: showname, venue, day, time, eventbrite_url: eventbrite, email };
+    saveBackupAndMailto('show_listing', fallbackPayload, showname);
+    err.textContent = e.message + ' — we saved your details locally and opened your email app as a backup.';
     btn.disabled = false; btn.textContent = 'List my show →';
   }
 }
@@ -540,9 +491,19 @@ async function submitShowRunner() {
   // Adjust headings
   document.getElementById('sr-title').textContent = 'Claim: ' + nm;
   document.getElementById('sr-subhead').textContent = 'You are claiming a show page. We review every claim within 48 hours before any ownership badge is shown publicly.';
-  // Prefill venue
+  // Prefill venue and lock it so the claimant cannot rewrite the venue
+  // associated with the show being claimed (parity with show_name lock).
   const ven = params.get('venue');
-  if (ven) document.getElementById('sr-venue').value = ven;
+  const venueEl = document.getElementById('sr-venue');
+  if (venueEl) {
+    if (ven) venueEl.value = ven;
+    venueEl.readOnly = true;
+    venueEl.style.opacity = '0.7';
+    const lockIcon = document.getElementById('sr-venue-lock');
+    const lockNote = document.getElementById('sr-venue-lock-note');
+    if (lockIcon) lockIcon.style.display = '';
+    if (lockNote) lockNote.style.display = '';
+  }
   // Prefill show name from URL param and lock the field so the claimant
   // cannot accidentally overwrite the show being claimed.
   const lockedShowName = document.getElementById('sr-showname');
@@ -558,7 +519,46 @@ async function submitShowRunner() {
   document.getElementById('sr-success').textContent = 'Claim received. We will review and contact you within 48 hours.';
 })();
 
+// Preload report banner from query params (?report=<slug>)
+// Wires the dead "Report it" link from /shows/<slug>.html into the show-runner
+// form: scrolls into view, prefills the show name (from existing /shows page
+// title if findable, otherwise the slug), and adds a notice. submitShowRunner()
+// detects ?report= and adds is_report=true + report_slug=<slug> to its payload.
+(function preloadReport() {
+  const params = new URLSearchParams(location.search);
+  const slug = (params.get('report') || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
+  if (!slug) return;
+  // If a claim is also present, claim wins (more specific intent).
+  if (params.get('claim')) return;
+  const banner = document.getElementById('report-banner');
+  if (!banner) return;
+  banner.style.display = 'block';
+  const slugEl = document.getElementById('report-show-slug');
+  if (slugEl) slugEl.textContent = slug;
+  // Adjust headings
+  const t = document.getElementById('sr-title');
+  const sh = document.getElementById('sr-subhead');
+  if (t) t.textContent = 'Report an issue: ' + slug;
+  if (sh) sh.textContent = 'Use the form below to describe the issue. We review reports within 48 hours.';
+  // Prefill show name with slug (placeholder for the actual show title;
+  // /shows/<slug>.html is a static page so we cannot reliably look up the
+  // title client-side without an extra fetch — slug is the contract).
+  const showNameEl = document.getElementById('sr-showname');
+  if (showNameEl && !showNameEl.value) showNameEl.value = slug;
+  // Update success message
+  const success = document.getElementById('sr-success');
+  if (success) success.textContent = 'Report received. We will review and contact you within 48 hours.';
+  // Scroll the form-section into view so the user sees the banner immediately.
+  try {
+    const sec = document.querySelector('#show-runner .section-card');
+    if (sec && typeof sec.scrollIntoView === 'function') {
+      sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  } catch (_) { /* ignore scroll errors */ }
+})();
+
 async function submitComedian() {
+  if (hpTripped('co-hp_url')) { return; } // honeypot silent reject
   const name = document.getElementById('co-name').value.trim();
   const email = document.getElementById('co-email').value.trim();
   const level = document.getElementById('co-level').value;
@@ -570,17 +570,20 @@ async function submitComedian() {
   if (!name || !email || !bio) { err.textContent = 'Please fill in Name, Email and Bio.'; return; }
   const btn = document.querySelector('#comedian .btn-primary');
   btn.disabled = true; btn.textContent = 'Submitting…';
+  const payload = { _type: 'comedian_bio', name, email, experience_level: level, style, video_url: video, bio };
   try {
-    await postForm({ _type: 'comedian_bio', name, email, experience_level: level, style, video_url: video, bio });
+    await postForm(payload);
     document.getElementById('form-comedian').style.display = 'none';
     document.getElementById('co-success').style.display = 'block';
   } catch(e) {
-    err.textContent = e.message;
+    saveBackupAndMailto('comedian_bio', payload, name);
+    err.textContent = e.message + ' — we saved your bio locally and opened your email app as a backup.';
     btn.disabled = false; btn.textContent = 'Submit my bio →';
   }
 }
 
 async function submitBooker() {
+  if (hpTripped('bk-hp_url')) { return; } // honeypot silent reject
   const name = document.getElementById('bk-name').value.trim();
   const email = document.getElementById('bk-email').value.trim();
   const eventtype = document.getElementById('bk-eventtype').value.trim();
@@ -592,17 +595,21 @@ async function submitBooker() {
   if (!name || !email || !eventtype) { err.textContent = 'Please fill in Name, Email and Event type.'; return; }
   const btn = document.querySelector('#booker .btn-primary');
   btn.disabled = true; btn.textContent = 'Sending…';
+  const payload = { _type: 'booking_request', name, email, event_type: eventtype, date, budget, location };
   try {
-    await postForm({ _type: 'booking_request', name, email, event_type: eventtype, date, budget, location });
+    await postForm(payload);
     document.getElementById('form-booker').style.display = 'none';
     document.getElementById('bk-success').style.display = 'block';
   } catch(e) {
-    err.textContent = e.message;
+    saveBackupAndMailto('booking_request', payload, eventtype);
+    err.textContent = e.message + ' — we saved your request locally and opened your email app as a backup.';
     btn.disabled = false; btn.textContent = 'Send request →';
   }
 }
 
 async function submitMessage() {
+  if (hpTripped('msg-hp_url')) { return; } // honeypot silent reject (hp_url parity)
+  if (document.getElementById('msg-website').value) { return; } // legacy honeypot
   const v = id => document.getElementById(id).value.trim();
   const payload = {
     sender_name: v('msg-name'),
@@ -613,7 +620,7 @@ async function submitMessage() {
     subject: v('msg-subject'),
     message: v('msg-body'),
     source_page: location.pathname,
-    website: document.getElementById('msg-website').value,  // honeypot
+    website: document.getElementById('msg-website').value,  // honeypot (legacy)
     timestamp: new Date().toISOString(),
   };
   const err = document.getElementById('msg-err');
@@ -639,7 +646,8 @@ async function submitMessage() {
     document.getElementById('form-message').style.display = 'none';
     document.getElementById('msg-success').style.display = 'block';
   } catch(e) {
-    err.textContent = e.message || 'Send failed. Please try again.';
+    saveBackupAndMailto('message', payload, payload.subject);
+    err.textContent = (e.message || 'Send failed.') + ' We saved your message locally and opened your email app as a backup.';
     btn.disabled = false; btn.textContent = 'Send message →';
   }
 }

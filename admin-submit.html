@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- TODO: add password gate before sharing URL -->
+<!-- P3.SUBMIT.6: password gate (client-side; rotate hash + cache-bust to revoke) -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -48,7 +48,51 @@ td{padding:8px 12px;border-bottom:1px solid #161616;vertical-align:top}
 .src-scraper{background:#1a2a0a;color:#7ae0a0}
 .src-claim{background:#1a1a2e;color:#7ab3e0}
 .src-manual{background:#2a0a1a;color:#e07ab3}
+
+/* P3.SUBMIT.6 password gate — keep body hidden until unlocked */
+body{visibility:hidden}
+body.pc-admin-unlocked{visibility:visible}
 </style>
+<script>
+// P3.SUBMIT.6 — client-side password gate for admin-submit.html.
+// SHA-256 of "pariscomedy-admin-2026" precomputed below. Robert can rotate
+// by replacing PC_ADMIN_HASH with a new SHA-256 hex digest.
+(function adminGate(){
+  var PC_ADMIN_HASH = '0bbd43dd0584df2205834c249d999963280b7b3518215b89c7f5501c7cf5f04e';
+  async function sha256Hex(s){
+    var enc = new TextEncoder().encode(s);
+    var buf = await crypto.subtle.digest('SHA-256', enc);
+    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+  }
+  function unlock(){
+    document.body.classList.add('pc-admin-unlocked');
+  }
+  async function gate(){
+    try {
+      if (localStorage.getItem('pc_admin_unlock') === '1') { unlock(); return; }
+    } catch(_) { /* storage unavailable, fall through to prompt */ }
+    for (var i = 0; i < 3; i++) {
+      var pw = window.prompt('Admin password required:');
+      if (pw === null) { document.body.innerHTML = '<p style="padding:32px;color:#888">Access denied.</p>'; unlock(); return; }
+      try {
+        var h = await sha256Hex(pw);
+        if (h === PC_ADMIN_HASH) {
+          try { localStorage.setItem('pc_admin_unlock', '1'); } catch(_) {}
+          unlock();
+          return;
+        }
+      } catch(_) { /* crypto.subtle unavailable — fail closed */ }
+    }
+    document.body.innerHTML = '<p style="padding:32px;color:#888">Access denied.</p>';
+    unlock();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', gate);
+  } else {
+    gate();
+  }
+})();
+</script>
 </head>
 <body>
 <nav class="nav-shell nav-shell-admin">
@@ -60,7 +104,7 @@ td{padding:8px 12px;border-bottom:1px solid #161616;vertical-align:top}
     <a href="/admin-payments.html">Payments</a>
     <a href="/admin-submit.html" class="nav-active">Submit</a>
     <a href="/api/review-queue.html">Review Queue</a>
-    <a href="/login.html">Sign Out</a>
+    <a href="#" onclick="event.preventDefault(); if(window.PCAuth){PCAuth.signOut();}else{location.assign('/login.html');} return false;">Sign Out</a>
   </div>
 </nav>
 
