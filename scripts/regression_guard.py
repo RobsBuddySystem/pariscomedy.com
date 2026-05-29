@@ -438,7 +438,11 @@ SHELL_CLASS_TO_PARTIAL = {
 
 
 def _load_canonical_nav_hrefs() -> dict:
-    """Return {shell_class: set(href)} parsed from on-disk partials."""
+    """Return {shell_class: set(href)} parsed from on-disk partials.
+
+    Normalizes href="#" + PCAuth.signOut to /login.html (semantic Sign-Out)
+    so the canonical set stays comparable across both legacy and post-P3.AUTH.2
+    forms of the Sign-Out link."""
     out: dict[str, set] = {}
     for cls, rel in SHELL_CLASS_TO_PARTIAL.items():
         p = REPO_ROOT / rel
@@ -448,7 +452,11 @@ def _load_canonical_nav_hrefs() -> dict:
         body = p.read_text(encoding="utf-8", errors="replace")
         m = NAV_BLOCK_FULL_RE.search(body)
         inner = m.group(2) if m else body
-        out[cls] = set(HREF_RE.findall(inner))
+        hrefs = set(HREF_RE.findall(inner))
+        if "#" in hrefs and ("PCAuth.signOut" in inner or "signOut(" in inner):
+            hrefs.discard("#")
+            hrefs.add("/login.html")
+        out[cls] = hrefs
     return out
 
 
