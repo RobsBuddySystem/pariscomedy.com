@@ -1,0 +1,78 @@
+{
+  "_doc": "P3.MESSAGING.1 — proposed schema for direct messaging. SCAFFOLD ONLY. No backend code, no live tables. Schema lives here as the canonical reference for the future BE implementation. Doctrine: no bilingual/mixed-language. Free join, free 1 DM/day, paid DM Plus (€1/mo) = unlimited + read receipts.",
+  "_status": "scaffolded",
+  "_enabled": false,
+  "_updated": "2026-05-29",
+  "_authority": "P3.MESSAGING.1 — see chuck_vault/10-concepts/projects/pariscomedy-canonical/P3_MESSAGING_1_SCAFFOLD.md",
+  "tables": {
+    "messages": {
+      "_doc": "One row per individual message in a DM thread. Body is NOT indexed for search (privacy doctrine).",
+      "columns": {
+        "id":         { "type": "uuid",      "pk": true, "notnull": true },
+        "thread_id":  { "type": "uuid",      "fk": "dm_threads.id", "notnull": true, "index": true },
+        "from_user":  { "type": "uuid",      "fk": "users.id",      "notnull": true, "index": true },
+        "to_user":    { "type": "uuid",      "fk": "users.id",      "notnull": true, "index": true },
+        "body":       { "type": "text",      "notnull": true, "max_len": 4000, "search_indexed": false },
+        "created_at": { "type": "timestamp", "notnull": true, "default": "now()", "index": true },
+        "read_at":    { "type": "timestamp", "notnull": false, "comment": "set only if recipient has DM Plus OR if sender has DM Plus (read receipt visibility tied to either side's plan)" },
+        "paid_at":    { "type": "timestamp", "notnull": false, "comment": "if message was sent under a paid plan window, stamp the plan activation time; null for free-tier messages" },
+        "flag_count": { "type": "int",       "notnull": true, "default": 0, "comment": "spam flag counter; >=3 routes to review queue" }
+      },
+      "indexes": [
+        { "name": "idx_messages_thread_created", "cols": ["thread_id", "created_at"] },
+        { "name": "idx_messages_to_user_unread", "cols": ["to_user", "read_at"] }
+      ]
+    },
+    "dm_threads": {
+      "_doc": "Two-party thread; participants[] is a 2-element array. Group DMs are out of scope for P3.",
+      "columns": {
+        "id":             { "type": "uuid",        "pk": true, "notnull": true },
+        "participants":   { "type": "uuid[]",      "notnull": true, "length": 2, "comment": "sorted lexicographically for uniqueness" },
+        "created_at":     { "type": "timestamp",   "notnull": true, "default": "now()" },
+        "last_message_at":{ "type": "timestamp",   "notnull": false, "index": true },
+        "is_closed":      { "type": "boolean",     "notnull": true, "default": false, "comment": "closed = either party blocked or reported" }
+      },
+      "indexes": [
+        { "name": "uniq_dm_threads_participants", "cols": ["participants"], "unique": true }
+      ]
+    },
+    "dm_quota": {
+      "_doc": "Per-user-per-day rolling DM send count. Free tier capped at 1 outbound/day. Paid (dm_plus_monthly) bypasses the cap.",
+      "columns": {
+        "user_id":     { "type": "uuid",      "fk": "users.id", "notnull": true, "pk_part": 1 },
+        "date_utc":    { "type": "date",      "notnull": true,  "pk_part": 2 },
+        "sent_count":  { "type": "int",       "notnull": true,  "default": 0 },
+        "plan":        { "type": "text",      "notnull": true,  "default": "free", "enum": ["free", "dm_plus_monthly"] },
+        "plan_expires_at": { "type": "timestamp", "notnull": false }
+      },
+      "constraints": {
+        "free_daily_cap": 1,
+        "paid_daily_cap": null
+      }
+    }
+  },
+  "rules": {
+    "join": "free — anyone can sign up",
+    "free_dm_eligibility": "free outbound limited to recipients who are flagged as verified comic or verified booker (not random users)",
+    "free_dm_daily_cap": 1,
+    "paid_plan_id": "dm_plus_monthly",
+    "paid_dm_daily_cap": null,
+    "read_receipts": "only when at least one side has dm_plus_monthly active",
+    "spam_prevention": [
+      "per-day quota (free=1)",
+      "per-thread cooldown 60s between messages from same sender",
+      "flag_count >= 3 routes thread to review_queue",
+      "blocked recipient sets is_closed=true and prevents new threads from same sender for 30d"
+    ],
+    "privacy": [
+      "body column NOT indexed for full-text search",
+      "no message body content exposed via any /api/search endpoint",
+      "operator review only on flagged threads"
+    ]
+  },
+  "transport_decision": {
+    "_doc": "Defer transport choice to BE implementation phase.",
+    "candidates": ["polling /api/dm/inbox?since=…", "WebSocket /ws/dm/<user_id>", "Server-Sent Events /sse/dm/<user_id>"],
+    "recommendation_pending_be_phase": "start with polling (15s) for v1; upgrade to SSE if concurrent DM users > 200"
+  }
+}
