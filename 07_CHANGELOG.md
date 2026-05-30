@@ -7,6 +7,13 @@ updated. Regression guard blocks any future /book.html reference. connect.html b
 BACKEND.AUTH.3 production readiness checklist accepted as readiness-only (no production cutover).
 122/122 tests pass. 13/13 regression checks pass.
 
+## 2026-05-30 | backend | BACKEND.EMAIL.3-DNS-VERIFICATION-PREFLIGHT: DNS audit for Postmark
+
+DNS audit of pariscomedy.com (2026-05-30). SPF: Postmark include MISSING. DKIM: MISSING.
+DMARC: MISSING. Return-path CNAME: MISSING. MX: Porkbun forwarding (no action needed).
+Postmark account status: BLOCKED (Robert must verify). EMAIL_SEND_REAL=false. 122/122 tests pass.
+Operator checklist in BACKEND_EMAIL_3_DNS_VERIFICATION_PREFLIGHT.md.
+
 ## 2026-05-30 | backend | BACKEND.AUTH.4-RATE-LIMITING: HTTP-level rate limiting for Auth V2
 
 HTTP-layer rate check (fail-closed) added to auth_v2_router.py. Limits: 10/email/hour,
