@@ -1,0 +1,113 @@
+{
+  "phase": "CONTENT.FRESHNESS.2-REPOINT-STALE-SOURCES",
+  "generated_at": "2026-05-30T14:30:00Z",
+  "audit_only": true,
+  "no_db_write": true,
+  "no_public_listing_change": true,
+  "no_feature_flags": true,
+  "needs_review_listings": [
+    {
+      "id": 11,
+      "slug": "millennial-meltdown",
+      "show_name": "Millennial Meltdown",
+      "current_source_url": "https://www.eventbrite.fr/e/billets-english-comedy-show-millennial-meltdown-paris-stand-up-night-1984665294321",
+      "freshness_status": "needs_human_review",
+      "stale_reason": "past-event signal: 'ventes terminées' on Eventbrite page",
+      "stale_risk": "high",
+      "confidence_score": 10,
+      "repoint_candidates": [
+        {
+          "candidate_url": "https://www.eventbrite.fr/e/billets-english-comedy-show-millennial-meltdown-paris-stand-up-night-1984665294321",
+          "source_platform": "Eventbrite",
+          "show_name": "English Comedy Show — Millennial Meltdown | Paris Stand-up Night",
+          "venue": "Le Bikini Bottom, Bastille, Paris",
+          "recurrence": "Weekly Wednesdays at 8pm",
+          "matches_existing": true,
+          "confidence_score": 70,
+          "note": "Same URL as current source. Eventbrite shows 'ventes terminées' on the March 11 date but this is a recurring series — the organizer (Kuhl Productions) likely publishes new event IDs per date. Recommend checking for newer event ID under same organizer."
+        }
+      ],
+      "organizer_check_url": "https://www.eventbrite.fr/o/kuhl-comedy-<organizer-id>",
+      "recommendation": "keep_needs_human_review",
+      "recommendation_reason": "Show is confirmed still running (Kuhl Productions, weekly Wednesdays, Le Bikini Bottom Bastille). But the current Eventbrite URL links to a past-event page. Robert or admin should find the current recurring event ID and repoint.",
+      "operator_action": "Find current Eventbrite event ID for Millennial Meltdown under Kuhl Productions organizer page and update booking_url."
+    },
+    {
+      "id": 18,
+      "slug": "theatre-bo-julie",
+      "show_name": "Oh My God She's Parisian! — Julie Coulon",
+      "current_source_url": "https://www.eventbrite.fr/e/the-comedy-in-english-by-a-french-girl-that-will-make-you-love-paris-tickets-1764207685679",
+      "freshness_status": "needs_human_review",
+      "stale_reason": "past-event signal: 'event ended' on Eventbrite page",
+      "stale_risk": "high",
+      "confidence_score": 10,
+      "repoint_candidates": [
+        {
+          "candidate_url": "https://www.viator.com/tours/Paris/Oh-my-god-shes-Parisian-The-brand-new-comedy-show-in-English-language-in-Paris/d479-67244P1",
+          "source_platform": "Viator",
+          "show_name": "Oh My God She's Parisian! Comedy Show Admission Ticket 2026",
+          "venue": "Paris (venue TBC — Théâtre Bo Saint-Martin per theatreinparis.com)",
+          "recurrence": "Recurring",
+          "matches_existing": true,
+          "confidence_score": 75,
+          "note": "Viator lists active 2026 booking. Also available on GetYourGuide. Show has >45,000 spectators historically. Creator is Julie Collas (not 'Coulon' — slug name may need correction). Primary source may be julie-collas.com."
+        },
+        {
+          "candidate_url": "https://www.julie-collas.com/",
+          "source_platform": "venue_direct",
+          "show_name": "Oh My God She's Parisian! by Julie Collas",
+          "venue": "Théâtre Bo Saint-Martin (per theatreinparis.com reference)",
+          "recurrence": "Recurring",
+          "matches_existing": true,
+          "confidence_score": 80,
+          "note": "Official performer website. Most authoritative source. Check julie-collas.com for current booking link.",
+          "name_correction": "Performer name is Julie Collas, not Coulon — DB may need correction"
+        },
+        {
+          "candidate_url": "https://www.theatreinparis.com/en/show/oh-my-god-shes-parisian",
+          "source_platform": "guide",
+          "show_name": "Oh My God She's Parisian! — Théâtre Bo Saint-Martin",
+          "venue": "Théâtre Bo Saint-Martin",
+          "recurrence": "Recurring",
+          "matches_existing": true,
+          "confidence_score": 70,
+          "note": "Guide page, not primary ticket source. Use only as secondary reference."
+        }
+      ],
+      "recommendation": "repoint_source_url",
+      "recommendation_reason": "Show is confirmed still running in 2026 on Viator and GetYourGuide. Performer name may be slightly wrong in DB (Coulon vs Collas). Recommend repointing to julie-collas.com or Viator/GetYourGuide link. Verify current venue before repointing.",
+      "operator_action": "Repoint booking_url to julie-collas.com or Viator 2026 link. Verify if performer name should be corrected to 'Julie Collas'."
+    },
+    {
+      "id": 15,
+      "slug": "wednesday-night-comedy",
+      "show_name": "Wednesday Night Comedy",
+      "current_source_url": "https://www.eventbrite.fr/e/english-standup-wednesday-night-comedy-tickets-1750646975229",
+      "freshness_status": "needs_human_review",
+      "stale_reason": "past-event signal: 'event ended' on Eventbrite page",
+      "stale_risk": "high",
+      "confidence_score": 10,
+      "repoint_candidates": [
+        {
+          "candidate_url": "https://www.eventbrite.com/d/france--paris/english-comedy/",
+          "source_platform": "Eventbrite search",
+          "show_name": "Wednesday Night Comedy (search result)",
+          "venue": "Unknown — current URL is a past event",
+          "recurrence": "Unknown — search found no direct replacement",
+          "matches_existing": false,
+          "confidence_score": 30,
+          "note": "No specific replacement URL found in search. The current Eventbrite listing ID 1750646975229 shows 'event ended'. Organizer page not identified in search results. Show may have ended or moved to a new event series."
+        }
+      ],
+      "recommendation": "hide_until_current_source_found",
+      "recommendation_reason": "No current replacement URL found. Show may have ended or organizer may have published a new event series. Source URL shows 'event ended' with no obvious successor. Recommend hiding from promoted panels until Robert or admin finds a current source.",
+      "operator_action": "Search Eventbrite for 'Wednesday Night Comedy Paris' to find current event series, or confirm show has ended."
+    }
+  ],
+  "operator_decision_required": true,
+  "regression_guard": "22/22 PASS",
+  "secrets_check": "no secrets, no imports, no flags",
+  "safe_to_close": true,
+  "safe_to_repoint_any_source_urls": false,
+  "safe_to_import_any_new_listings": false
+}
