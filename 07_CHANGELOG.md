@@ -1,5 +1,38 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | backend | BACKEND.AUTH.1-CUTOVER-PLAN: wire v2 endpoints behind disabled flag
+
+ChatGPT-authorized 2026-05-30. Plan + inert wiring only, no production enablement.
+
+backend/auth_v2_router.py (NEW): FastAPI APIRouter at /api/auth_v2/*.
+  - /status, /magic-link/request, /magic-link/consume, /logout, /me, /session/expiry
+  - All gated by AUTH_V2_ENABLED. When false (default) every endpoint returns
+    503 {error:{code:"auth/disabled"}} and creates no token/session/audit row.
+  - When enabled (test env only) endpoints delegate to auth_v2.py service module.
+  - Cookie design: pc_session_v2 HttpOnly+Secure+SameSite=Lax, pc_csrf_v2 readable
+    by frontend JS for X-CSRF-Token echo on writes.
+
+backend/tests/test_auth_v2_router.py (NEW): 12 tests
+  Disabled-mode (5): /status reports false; request/consume/logout/me/expiry all 503;
+    no DB state created when disabled.
+  Enabled-mode (7): /status reports true; request 204 + DB row; full round-trip
+    request->consume->/me->logout->/me-after-logout 401; reused token rejected;
+    /me without session 401.
+
+docs/BACKEND_AUTH_1_CUTOVER_PLAN.md: design + cookie plan + frontend cutover plan
+  + email cutover dependency + migration apply instructions + rollback.
+
+NOT YET in main.py - the line app.include_router(auth_v2_router.router) lands in
+the cutover phase only. Until then the router is importable + tested but
+unreachable in production.
+
+Tests: 27/27 PASS (15 service + 12 router).
+Live site regression: 12/12 PASS unchanged. Public site untouched.
+No secrets. No real email. No DB migration auto-apply. No login.html change.
+
+Rollback: git revert <this-sha>
+
+
 ## 2026-05-30 | backend | BACKEND.AUTH.1-SCAFFOLD: inert v2 auth scaffold
 
 ChatGPT-authorized 2026-05-30. Scaffold + safety boundary, no production cutover.
