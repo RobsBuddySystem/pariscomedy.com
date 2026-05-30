@@ -33,6 +33,15 @@
       var stored=null;
       try{stored=localStorage.getItem(KEY);}catch(e){}
       if(stored==='accepted'||stored==='declined'){el.style.display='none';return;}
+      // Show only EN or FR based on browser language (not both)
+      var lang=(navigator.language||navigator.userLanguage||'en').toLowerCase();
+      var isFr=lang.indexOf('fr')===0;
+      var enEl=el.querySelector('.pc-c-en'),frEl=el.querySelector('.pc-c-fr');
+      if(isFr){if(enEl)enEl.style.display='none';if(frEl){frEl.style.fontSize='14px';frEl.style.color='#f0f0f0';frEl.style.marginTop='0';}}
+      else{if(frEl)frEl.style.display='none';}
+      var accept=el.querySelector('.pc-c-accept'),decline=el.querySelector('.pc-c-decline');
+      if(accept)accept.innerHTML=isFr?"D'accord":'OK';
+      if(decline)decline.innerHTML=isFr?'Refuser':'Decline';
       el.hidden=false;
       el.querySelectorAll('button[data-pc-consent]').forEach(function(b){
         b.addEventListener('click',function(){
