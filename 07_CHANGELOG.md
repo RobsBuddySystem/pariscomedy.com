@@ -1,5 +1,28 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | backend | BACKEND.AUTH.1-ROUTER-INTEGRATION-DISABLED
+
+ChatGPT-authorized. backend/main.py now imports auth_v2_router inside a
+try/except guard - if the import fails the app falls back to legacy
+behavior with a stderr log line. AUTH_V2_ENABLED stays false in production
+so action endpoints return 503 disabled.
+
+backend/tests/test_main_integration.py (NEW): 5 integration tests proving
+the router is mounted; /status returns enabled=false; every action endpoint
+returns 503 auth/disabled; no DB rows created in v2 tables when disabled
+endpoints are hit; legacy /api/health still responds.
+
+docs/BACKEND_AUTH_1_ROUTER_INTEGRATION_DISABLED.md (NEW): full design +
+production behavior table + rollback.
+
+Tests: 32/32 PASS (15 service + 12 router + 5 integration).
+Live frontend regression: 12/12 PASS unchanged.
+
+No real email. No DB auto-apply. No login.html change. No secrets.
+
+Rollback: git revert <this-sha>
+
+
 ## 2026-05-30 | backend | BACKEND.AUTH.1-CUTOVER-PLAN: wire v2 endpoints behind disabled flag
 
 ChatGPT-authorized 2026-05-30. Plan + inert wiring only, no production enablement.

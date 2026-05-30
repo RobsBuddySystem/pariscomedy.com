@@ -57,6 +57,19 @@ app.add_middleware(
     allow_methods=["*"], allow_headers=["*"], allow_credentials=False,
 )
 
+# BACKEND.AUTH.1-ROUTER-INTEGRATION-DISABLED — mount the v2 auth router.
+# All endpoints are gated by AUTH_V2_ENABLED (default false) and return 503
+# {error:{code:"auth/disabled"}} until the flag is enabled. /api/auth_v2/status
+# is the one always-on endpoint and reports the current flag state.
+try:
+    from auth_v2_router import router as auth_v2_router  # noqa: E402
+    app.include_router(auth_v2_router)
+except Exception as _e:  # noqa: BLE001
+    # Safety: never crash main.py if the router fails to import — fall back
+    # to legacy behavior. Log the error so it's visible in ops.
+    import sys as _sys
+    _sys.stderr.write(f"[main] auth_v2_router import failed: {_e}\n")
+
 # ── DB helper ────────────────────────────────────────────────────────────────
 @contextmanager
 def db():
