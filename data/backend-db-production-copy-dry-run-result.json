@@ -1,0 +1,86 @@
+{
+  "phase": "BACKEND.DB.2B-PRODUCTION-COPY-DRY-RUN",
+  "generated_at": "2026-05-30T10:43:00Z",
+  "actual_source_db": {
+    "path": "/Users/chuck/.openclaw/workspace/apps/paris-comedy/data/paris.db",
+    "size_bytes": 1011712,
+    "checksum_md5": "8ffcfe02d9ed073f2b181cc55a010658",
+    "modified_at": "2026-05-30T10:12Z",
+    "original_modified": false
+  },
+  "dry_run_db_copy": {
+    "path": "/tmp/paris_production_copy_dryrun_20260530T104300Z.db",
+    "checksum_md5": "8ffcfe02d9ed073f2b181cc55a010658",
+    "matches_source": true
+  },
+  "rollback_db_copy": {
+    "path": "/tmp/paris_production_copy_rollback_20260530T104321Z.db"
+  },
+  "production_db_touched": false,
+  "pre_migration_baseline": {
+    "shows": 119,
+    "venues": 45,
+    "comics": 275,
+    "show_listings": 179,
+    "booker_shows": 11,
+    "booker_lineup": 8,
+    "booker_sessions": 21,
+    "messages_review_queue": 10
+  },
+  "apply_result": {
+    "002_auth_v2.sql": "OK",
+    "003_submissions_v2.sql": "OK",
+    "004_claims_v2.sql": "OK",
+    "005_payments_v2.sql": "OK",
+    "006_messaging_v2.sql": "OK",
+    "007_tickets_v2.sql": "OK"
+  },
+  "v2_tables_created": [
+    "adapter_discoveries_v2", "audit_events_v2", "claims_v2", "magic_links_v2",
+    "message_blocks_v2", "message_reports_v2", "message_threads_v2", "messages_v2",
+    "payment_checkout_sessions_v2", "payment_customers_v2", "payment_invoices_v2",
+    "payment_subscriptions_v2", "payment_webhook_idempotency_v2",
+    "rate_limits_v2", "sessions_v2", "show_submissions_v2", "users_v2"
+  ],
+  "all_17_v2_tables_present": true,
+  "existing_data_preserved_after_apply": {
+    "shows": 119,
+    "venues": 45,
+    "comics": 275,
+    "show_listings": 179,
+    "booker_shows": 11,
+    "booker_lineup": 8,
+    "booker_sessions": 21,
+    "messages_review_queue": 10
+  },
+  "idempotency_result": {
+    "002_auth_v2.sql": "OK",
+    "003_submissions_v2.sql": "OK",
+    "004_claims_v2.sql": "OK",
+    "005_payments_v2.sql": "OK",
+    "006_messaging_v2.sql": "OK",
+    "007_tickets_v2.sql": "OK"
+  },
+  "post_idempotency_data_preserved": {
+    "shows": 119, "venues": 45, "comics": 275, "show_listings": 179
+  },
+  "rollback_result": {
+    "007_tickets_v2.rollback.sql": "OK",
+    "006_messaging_v2.rollback.sql": "OK",
+    "005_payments_v2.rollback.sql": "OK",
+    "004_claims_v2.rollback.sql": "OK",
+    "003_submissions_v2.rollback.sql": "OK",
+    "002_auth_v2.rollback.sql": "OK"
+  },
+  "post_rollback_v2_tables_remaining": 0,
+  "post_rollback_data_preserved": {
+    "shows": 119, "venues": 45, "comics": 275, "show_listings": 179,
+    "booker_shows": 11, "booker_lineup": 8, "booker_sessions": 21, "messages_review_queue": 10
+  },
+  "backend_tests": "232/232 PASS",
+  "regression_guard": "22/22 PASS",
+  "production_db_migration_status": "NOT APPLIED — dry-run only against a copy. Production migration requires explicit operator approval.",
+  "safe_to_run_production_migration": false,
+  "feature_flags_changed": false,
+  "secrets_committed": false
+}
