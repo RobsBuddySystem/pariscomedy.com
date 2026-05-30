@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-05-30T01:50:00Z",
+  "phase_id": "BACKEND.EMAIL.1-PLAN-SCAFFOLD",
+  "status": "plan_and_scaffold_only",
+  "send_real_default": false,
+  "provider_default": "dryrun",
+  "from_address": "no-reply@pariscomedy.com",
+  "reply_to_address": "support@pariscomedy.com",
+  "inbound": {
+    "chuck@pariscomedy.com":    {"provider": "cloudflare_email_routing", "target": "robert_inbox", "status": "live"},
+    "payments@pariscomedy.com": {"provider": "cloudflare_email_routing", "target": "robert_inbox", "status": "live"},
+    "support@pariscomedy.com":  {"provider": "cloudflare_email_routing", "target": "shared_mailbox", "status": "planned"},
+    "no-reply@pariscomedy.com": {"provider": "cloudflare_email_routing", "target": "drop", "status": "planned"}
+  },
+  "outbound": {
+    "recommended_provider": "postmark",
+    "alternatives": ["resend", "ses"],
+    "rejected": ["smtp_gmail_app_password"],
+    "templates": [
+      {"name": "magic_link", "implemented": true, "uses": ["auth_v2"]},
+      {"name": "submission_decision", "implemented": false, "uses": ["BACKEND.SUBMIT.1"]},
+      {"name": "claim_decision", "implemented": false, "uses": ["BACKEND.CLAIM.1"]},
+      {"name": "messaging_notification", "implemented": false, "uses": ["BACKEND.MESSAGING.1"]}
+    ]
+  },
+  "dns": {
+    "spf":   "v=spf1 include:_spf.mx.cloudflare.net include:spf.mtasv.net -all",
+    "dkim":  "pm._domainkey.pariscomedy.com (Postmark 2048-bit selector)",
+    "dmarc": {"start": "p=none (7 days monitor)", "ramp": "p=quarantine (30 days)", "target": "p=reject"}
+  },
+  "security": {
+    "no_keys_committed": true,
+    "magic_link_token_never_logged_in_production": true,
+    "rate_limit_reuses_auth_v2": true,
+    "audit_log_table": "audit_events_v2",
+    "audit_action_pattern": "email.send.<template>"
+  },
+  "still_not_live": [
+    "real outbound email from any address",
+    "provider API keys",
+    "DNS changes",
+    "Auth V2 enabled",
+    "login.html switch",
+    "Postmark inbound webhook"
+  ],
+  "next_phase_to_enable": "BACKEND.EMAIL.1-PROVIDER (Postmark integration + DNS + token storage)"
+}

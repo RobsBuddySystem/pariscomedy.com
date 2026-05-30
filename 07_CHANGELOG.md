@@ -1,5 +1,37 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | backend | BACKEND.EMAIL.1-PLAN-SCAFFOLD: email plan + dry-run mailer
+
+ChatGPT-authorized. Plan + dry-run mailer scaffold. No real send. No provider key.
+
+backend/mailer.py (NEW): dry-run-first abstraction.
+  - send(OutgoingEmail) entry point; validates from/to/reply-to, captures
+    payload in-process for tests, stderr log line in dry-run.
+  - EMAIL_SEND_REAL defaults false; EMAIL_PROVIDER defaults "dryrun".
+  - magic_link_email(to, token, base_url) template - text + HTML pair,
+    link only, subject does NOT contain token.
+  - Real-send path raises NotImplementedError - provider wiring deferred.
+
+backend/tests/test_mailer.py (NEW): 7 tests.
+  dry-run captures payload; template includes link; invalid to/from fail closed;
+  status reports state; real-send with provider=dryrun stays dry-run;
+  real-send with unconfigured provider raises NotImplementedError.
+
+docs/BACKEND_EMAIL_1_PLAN.md (NEW): full email plan.
+  Inbound: Cloudflare Email Routing (chuck/payments/support/no-reply).
+  Outbound: Postmark recommended. SPF + DKIM + DMARC ramp p=none -> quarantine
+  -> reject. Security: tokens never logged in production mode; rate limit
+  reuses auth_v2 gate; audit events to audit_events_v2 (action email.send.*).
+
+data/email-plan.json (NEW): machine-readable companion.
+
+Tests: 39/39 PASS (15 service + 12 router + 5 main integration + 7 mailer).
+Live frontend regression: 12/12 PASS unchanged. Auth V2 remains disabled.
+No real email. No DNS change. No provider API key. No env.example change yet.
+
+Rollback: git revert <this-sha>
+
+
 ## 2026-05-30 | backend | BACKEND.AUTH.1-ROUTER-INTEGRATION-DISABLED
 
 ChatGPT-authorized. backend/main.py now imports auth_v2_router inside a
