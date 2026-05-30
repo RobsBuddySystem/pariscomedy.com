@@ -91,6 +91,14 @@ except Exception as _e:  # noqa: BLE001
     import sys as _sys
     _sys.stderr.write(f"[main] payments_v2_router import failed: {_e}\n")
 
+# BACKEND.MESSAGING.2-ROUTER-DISABLED — mount the v2 messaging router.
+try:
+    from messaging_v2_router import router as messaging_v2_router  # noqa: E402
+    app.include_router(messaging_v2_router)
+except Exception as _e:  # noqa: BLE001
+    import sys as _sys
+    _sys.stderr.write(f"[main] messaging_v2_router import failed: {_e}\n")
+
 # ── DB helper ────────────────────────────────────────────────────────────────
 @contextmanager
 def db():
