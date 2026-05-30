@@ -679,6 +679,51 @@ def check_public_copy_overclaims() -> dict:
     }
 
 
+def check_feature_copy_safety() -> dict:
+    """FINAL.FEATURE-COPY.SAFETY.2 — planned features must not read as live.
+
+    Any use of the trigger phrases below must include a safe-negation qualifier
+    on the SAME line (planned, not live yet, manual review, coming soon, checkout not live).
+    """
+    html_files = [
+        "pricing.html", "connect.html", "index.html", "show.html",
+        "shows.html", "venues.html", "comedians.html", "disclosure.html",
+    ]
+    trigger_phrases = [
+        "direct messaging to comics",
+        "message bookers",
+        "notify booked comics",
+        "create a public comic or booker profile",
+        "receive platform notifications",
+        "promote shows to the top",
+        "featured slot rotation",
+        "submit or claim a show",
+        "claim this show",
+    ]
+    safe_qualifiers = [
+        "planned", "not live yet", "manual review", "coming soon",
+        "checkout is not live", "checkout not live", "not yet live",
+        "not yet active", "automated claim backend is not yet live",
+    ]
+    hits: list[dict] = []
+    for fname in html_files:
+        p = REPO_ROOT / fname
+        if not p.exists():
+            continue
+        for lineno, line in enumerate(p.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
+            ll = line.lower()
+            if not any(t in ll for t in trigger_phrases):
+                continue
+            if any(q in ll for q in safe_qualifiers):
+                continue
+            hits.append({"file": fname, "line": lineno, "text": line.strip()[:120]})
+    return {
+        "name": "feature_copy_safety",
+        "result": "PASS" if not hits else "FAIL",
+        "evidence": {"hits": hits},
+    }
+
+
 def check_book_html_decommissioned() -> dict:
     """P0.BOOK.NUCLEAR-BYPASS — /book.html is permanently contaminated.
 
@@ -823,6 +868,7 @@ CHECKS = {
     "show_fallback_sync":    lambda dom: check_show_fallback_sync(),
     "pricing_copy_safety":   lambda dom: check_pricing_copy_safety(),
     "public_copy_overclaims": lambda dom: check_public_copy_overclaims(),
+    "feature_copy_safety":   lambda dom: check_feature_copy_safety(),
     "book_html_decommissioned": lambda dom: check_book_html_decommissioned(),
     "hreflang":              lambda dom: check_hreflang(),
     "header_cta_rule":       lambda dom: check_header_cta_rule(),
