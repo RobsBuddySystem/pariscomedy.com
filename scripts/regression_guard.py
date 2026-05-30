@@ -596,12 +596,82 @@ def check_pricing_copy_safety() -> dict:
         "€1 lifetime",
         "sumup_1euro",
         "via sumup →",
+        "checkout is live",
+        "messaging is live",
+        "direct messages available now",
+        "affiliate links active",
     ]
     hits = [s for s in forbidden if s in src]
     return {
         "name": "pricing_copy_safety",
         "result": "PASS" if not hits else "FAIL",
         "evidence": {"forbidden_hits": hits},
+    }
+
+
+def check_public_copy_overclaims() -> dict:
+    """FINAL.FRONTEND.COPY.GUARD.1 — scan all public HTML for overclaims.
+
+    Forbidden: coverage overclaims, payment overclaims, feature overclaims.
+    Allowed safe negations like "checkout is not live yet" are excluded.
+    """
+    html_files = [
+        "index.html", "show.html", "shows.html", "pricing.html",
+        "disclosure.html", "book.html", "venues.html", "comedians.html",
+    ]
+    forbidden_phrases = [
+        # coverage overclaims
+        "every show in paris",
+        "all shows in paris",
+        "all comedy shows in paris",
+        "all comedy venues in paris",
+        "definitive guide",
+        "complete list",
+        # payment overclaims
+        "claim my",
+        "lifetime spot",
+        "continue to payment",
+        "paid through sumup",
+        "pay now",
+        "subscribe now",
+        "checkout is live",
+        # feature overclaims
+        "messaging is live",
+        "direct messages available now",
+        "claim verified",
+        "payment active",
+        "affiliate links active",
+        "tickets sold by paris comedy",
+        "auth v2 live",
+        "accounts fully live",
+    ]
+    # Phrases that are safe negations — skip lines containing these
+    safe_negations = [
+        "checkout is not live",
+        "not yet active",
+        "planned",
+        "not active",
+        "coming soon",
+        "every shows_data",  # JS comment in index.html
+        "// p1.data",        # inline JS comment
+    ]
+    hits: list[dict] = []
+    for fname in html_files:
+        p = REPO_ROOT / fname
+        if not p.exists():
+            continue
+        for lineno, line in enumerate(p.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
+            ll = line.lower()
+            # Skip lines that are clearly safe negations
+            if any(neg in ll for neg in safe_negations):
+                continue
+            for phrase in forbidden_phrases:
+                if phrase in ll:
+                    hits.append({"file": fname, "line": lineno, "phrase": phrase, "text": line.strip()[:120]})
+    return {
+        "name": "public_copy_overclaims",
+        "result": "PASS" if not hits else "FAIL",
+        "evidence": {"hits": hits},
     }
 
 
@@ -707,6 +777,7 @@ CHECKS = {
     "homepage_freshness_filter": lambda dom: check_homepage_freshness_filter(),
     "show_fallback_sync":    lambda dom: check_show_fallback_sync(),
     "pricing_copy_safety":   lambda dom: check_pricing_copy_safety(),
+    "public_copy_overclaims": lambda dom: check_public_copy_overclaims(),
     "hreflang":              lambda dom: check_hreflang(),
     "header_cta_rule":       lambda dom: check_header_cta_rule(),
 }
