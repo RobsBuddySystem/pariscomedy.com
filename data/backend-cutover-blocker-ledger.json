@@ -1,0 +1,157 @@
+{
+  "generated_at": "2026-05-30T00:00:00Z",
+  "phase": "BACKEND.PRODUCTION-CUTOVER.BLOCKER-LEDGER",
+  "summary": "Authoritative blockers before any production backend enablement. No flags enabled. No migration applied.",
+  "systems": [
+    {
+      "system": "Auth V2",
+      "phase": "BACKEND.AUTH.4-RATE-LIMITING",
+      "feature_flag": "AUTH_V2_ENABLED=false",
+      "router_status": "wired-disabled (commit 28dcf77)",
+      "tests_passed": "122/122 (BACKEND.AUTH.4) + integration tests",
+      "production_db_migration": "002_auth_v2.sql — NOT APPLIED to production",
+      "production_blockers": [
+        "production DB migration 002 not applied",
+        "login.html not switched to Auth V2 endpoints",
+        "no production smoke test (magic link → real email → token consume)",
+        "AUTH_V2_ENABLED=false — production auth on legacy endpoints only"
+      ],
+      "external_operator_blockers": [
+        "Postmark account not verified (email DNS preflight: all 4 records missing)",
+        "SPF missing Postmark include",
+        "DKIM missing (pm._domainkey)",
+        "DMARC missing",
+        "return-path CNAME missing (pm-bounces → pm.mtasv.net)"
+      ],
+      "next_safe_phase": "BACKEND.EMAIL.4-OPERATOR-DNS-RUNBOOK or BACKEND.AUTH.5-LOGIN-V2-DRAFT",
+      "rollback_command": "set AUTH_V2_ENABLED=false (already default)",
+      "safe_to_enable_production": false
+    },
+    {
+      "system": "Email / Postmark",
+      "phase": "BACKEND.EMAIL.3-DNS-VERIFICATION-PREFLIGHT",
+      "feature_flag": "EMAIL_SEND_REAL=false",
+      "router_status": "mailer scaffold only (dry-run)",
+      "tests_passed": "8/8 (BACKEND.EMAIL.2)",
+      "production_db_migration": "none required for email",
+      "production_blockers": [
+        "Postmark account not created by Robert",
+        "SPF record not added at Porkbun",
+        "DKIM (pm._domainkey) not added",
+        "DMARC not added",
+        "return-path CNAME (pm-bounces) not added",
+        "no real email sending tested end-to-end",
+        "EMAIL_SEND_REAL=false"
+      ],
+      "external_operator_blockers": [
+        "Robert must: create Postmark account, add domain pariscomedy.com, copy DKIM key, add SPF/DKIM/DMARC/CNAME at Porkbun, verify in Postmark"
+      ],
+      "next_safe_phase": "BACKEND.EMAIL.4-OPERATOR-DNS-RUNBOOK",
+      "rollback_command": "set EMAIL_SEND_REAL=false (already default)",
+      "safe_to_enable_production": false
+    },
+    {
+      "system": "Submissions V2",
+      "phase": "BACKEND.SUBMIT.2-ROUTER-DISABLED",
+      "feature_flag": "SUBMISSIONS_V2_ENABLED=false",
+      "router_status": "wired-disabled (commit 51c8084)",
+      "tests_passed": "19/19",
+      "production_db_migration": "004_submissions_v2.sql — NOT APPLIED",
+      "production_blockers": [
+        "production DB migration 004 not applied",
+        "public submission form not cut over to V2 endpoints",
+        "admin review UI not live",
+        "SUBMISSIONS_V2_ENABLED=false"
+      ],
+      "external_operator_blockers": [],
+      "next_safe_phase": "BACKEND.ADMIN.1-REVIEW-QUEUE-SHELL",
+      "rollback_command": "set SUBMISSIONS_V2_ENABLED=false (already default)",
+      "safe_to_enable_production": false
+    },
+    {
+      "system": "Claims V2",
+      "phase": "BACKEND.CLAIM.2-ROUTER-DISABLED",
+      "feature_flag": "CLAIMS_V2_ENABLED=false",
+      "router_status": "wired-disabled (commit e9bb7e7)",
+      "tests_passed": "25/25",
+      "production_db_migration": "003_claims_v2.sql — NOT APPLIED",
+      "production_blockers": [
+        "production DB migration 003 not applied",
+        "show.html 'Claim or manage' goes to connect.html manual form — V2 not wired",
+        "admin claim review UI not live",
+        "CLAIMS_V2_ENABLED=false"
+      ],
+      "external_operator_blockers": [],
+      "next_safe_phase": "BACKEND.ADMIN.1-REVIEW-QUEUE-SHELL",
+      "rollback_command": "set CLAIMS_V2_ENABLED=false (already default)",
+      "safe_to_enable_production": false
+    },
+    {
+      "system": "Payments V2",
+      "phase": "BACKEND.PAYMENTS.2-ROUTER-DISABLED",
+      "feature_flag": "PAYMENTS_ENABLED=false, PAYMENTS_PROVIDER=dryrun, PAYMENT_WEBHOOKS_ENABLED=false",
+      "router_status": "wired-disabled (commit cbdc692)",
+      "tests_passed": "17/17",
+      "production_db_migration": "005_payments_v2.sql — NOT APPLIED",
+      "production_blockers": [
+        "PARTIALLY_ACCEPTED: P0.PRICING.COPY.SAFETY resolved (commit 77139f7)",
+        "production DB migration 005 not applied",
+        "no payment provider configured (no Stripe/SumUp key)",
+        "no VAT/payment compliance review done",
+        "PAYMENTS_ENABLED=false",
+        "checkout not live"
+      ],
+      "external_operator_blockers": [
+        "Robert must: choose payment provider (Stripe or SumUp), create account, add API keys as env vars, review VAT compliance for EU digital services"
+      ],
+      "next_safe_phase": "BACKEND.DB.1-MIGRATION-RUNBOOK (prep migration runbook before enabling)",
+      "rollback_command": "set PAYMENTS_ENABLED=false (already default)",
+      "safe_to_enable_production": false
+    },
+    {
+      "system": "Messaging V2",
+      "phase": "BACKEND.MESSAGING.2-ROUTER-DISABLED",
+      "feature_flag": "MESSAGING_V2_ENABLED=false",
+      "router_status": "wired-disabled (commit fa94003)",
+      "tests_passed": "23/23",
+      "production_db_migration": "006_messaging_v2.sql — NOT APPLIED",
+      "production_blockers": [
+        "production DB migration 006 not applied",
+        "no public messaging UI",
+        "no paid messaging gate (requires Payments V2 live first)",
+        "MESSAGING_V2_ENABLED=false"
+      ],
+      "external_operator_blockers": [
+        "Payments V2 must be live before paid messaging can be gated"
+      ],
+      "next_safe_phase": "Payments V2 must be live first",
+      "rollback_command": "set MESSAGING_V2_ENABLED=false (already default)",
+      "safe_to_enable_production": false
+    },
+    {
+      "system": "Tickets / Adapters V2",
+      "phase": "BACKEND.TICKETS.2-ROUTER-DISABLED",
+      "feature_flag": "TICKETS_ADAPTERS_ENABLED=false, TICKET_IMPORTS_ENABLED=false, AFFILIATE_LINKS_ENABLED=false",
+      "router_status": "wired-disabled (commit 9ffac5c)",
+      "tests_passed": "26/26",
+      "production_db_migration": "007_tickets_v2.sql — NOT APPLIED",
+      "production_blockers": [
+        "production DB migration 007 not applied",
+        "no admin review UI for ticket discoveries",
+        "no robots.txt/ToS compliance review per platform",
+        "no affiliate network approval",
+        "TICKETS_ADAPTERS_ENABLED=false, TICKET_IMPORTS_ENABLED=false, AFFILIATE_LINKS_ENABLED=false"
+      ],
+      "external_operator_blockers": [
+        "Robert must review and accept terms for each ticket platform before imports",
+        "Affiliate network (if any) must confirm approval before AFFILIATE_LINKS_ENABLED=true"
+      ],
+      "next_safe_phase": "BACKEND.ADMIN.1-REVIEW-QUEUE-SHELL",
+      "rollback_command": "set TICKETS_ADAPTERS_ENABLED=false (already default)",
+      "safe_to_enable_production": false
+    }
+  ],
+  "recommended_next_phase": "BACKEND.EMAIL.4-OPERATOR-DNS-RUNBOOK",
+  "recommendation_reason": "Email/DNS is a pure operator-action dependency with no code risk. A clear runbook unblocks Auth V2, which is the first production-live backend. DB migration runbook and admin review UI can follow in parallel.",
+  "safe_to_enable_any_production_feature": false
+}
