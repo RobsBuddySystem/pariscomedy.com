@@ -10,18 +10,18 @@
       "evidence": "Source title 'Charonne Comedy Club' — exact match. Distinctive token 'charonne' shared. Pulled from MoreOrganizerEvents of the old URL on 2026-05-30."
     },
     "ffcn": {
-      "old_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838522586",
-      "new_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838453379",
+      "old_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838453379",
+      "new_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838522586",
       "new_title": "FRENCH FRIED COMEDY NIGHT",
       "next_date_seen": "Wed, June 3 • 10:00 PM",
-      "evidence": "Source title 'FRENCH FRIED COMEDY NIGHT' — exact match. Distinctive tokens 'french','fried' shared. Pulled from MoreOrganizerEvents of the old URL on 2026-05-30. JSON-LD startDate 2026-05-20, endDate 2026-07-08 (series)."
+      "evidence": "[corrected 2026-05-30] ...453379 ended May 27; ...522586 is live next instance per deep-audit. Pulled from MoreOrganizerEvents."
     },
     "velvet-comedy": {
       "old_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840198599",
       "new_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
       "new_title": "Velvet Bar Comedy - Le meilleur du stand-up à Paris !!",
       "next_date_seen": "Wed, June 3 • 8:30 PM",
-      "evidence": "Source title near-identical. Distinctive tokens 'velvet','meilleur' shared. Pulled from MoreOrganizerEvents of the old URL on 2026-05-30."
+      "evidence": "[corrected 2026-05-30] ...198599 ended May 27; ...111338 is live per deep-audit. Pulled from MoreOrganizerEvents."
     }
   },
   "not_repointed": {
