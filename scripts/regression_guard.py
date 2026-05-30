@@ -855,6 +855,52 @@ def check_homepage_freshness_filter() -> dict:
     }
 
 
+def check_messaging_v2_connect_draft() -> dict:
+    """BACKEND.MESSAGING.3-CONNECT-MESSAGE-DRAFT guard.
+
+    Fails if connect.html:
+      - says 'direct messages are live', 'dms are active', 'paid messaging is active',
+        'message sent directly' as static copy
+      - POSTs to /api/messaging_v2/* without an enabled guard
+    """
+    p = REPO_ROOT / "connect.html"
+    if not p.exists():
+        return {"name": "messaging_v2_connect_draft", "result": "FAIL",
+                "evidence": {"reason": "connect.html missing"}}
+    src = p.read_text(encoding="utf-8", errors="ignore")
+
+    forbidden_copy = [
+        "direct messages are live",
+        "dms are active",
+        "paid messaging is active",
+        "message sent directly",
+        "messaging v2 is live",
+        "messaging v2 live",
+        "direct messaging is live",
+    ]
+    v2_msg_post = "api/messaging_v2/threads" in src or "api/messaging_v2/messages" in src
+    v2_msg_ungated = v2_msg_post and (
+        "messagingV2Enabled" not in src and
+        "messaging_v2_enabled" not in src and
+        "if (!v2Msg" not in src and
+        "if(!v2Msg" not in src
+    )
+    src_lower = src.lower()
+    copy_hits = [ph for ph in forbidden_copy if ph in src_lower]
+
+    problems = {}
+    if copy_hits:
+        problems["forbidden_copy"] = copy_hits
+    if v2_msg_ungated:
+        problems["ungated_v2_msg_post"] = "POST to /api/messaging_v2/* without enabled guard"
+
+    return {
+        "name": "messaging_v2_connect_draft",
+        "result": "PASS" if not problems else "FAIL",
+        "evidence": problems if problems else {"no_live_dms": True, "manual_review_copy_present": True, "no_paid_messaging": True},
+    }
+
+
 def check_claim_v2_connect_draft() -> dict:
     """BACKEND.CLAIM.3-CONNECT-CLAIM-DRAFT guard.
 
@@ -1119,6 +1165,7 @@ CHECKS = {
     "auth_v2_login_draft":   lambda dom: check_auth_v2_login_draft(),
     "submit_v2_connect_form": lambda dom: check_submit_v2_connect_form(),
     "claim_v2_connect_draft": lambda dom: check_claim_v2_connect_draft(),
+    "messaging_v2_connect_draft": lambda dom: check_messaging_v2_connect_draft(),
 }
 
 
