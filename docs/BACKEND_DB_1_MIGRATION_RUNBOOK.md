@@ -3,6 +3,9 @@
 **Status: IN_GIT_UNVERIFIED**
 **Scope: Operator runbook only. NO production migration executed. No feature flags enabled.**
 
+> ⚠️ GUARD NOTE: Never apply a migration based on phase memory.
+> Verify actual `backend/migrations/` filenames and `CREATE TABLE` statements first.
+
 ---
 
 ## ⚠️ OPERATOR APPROVAL GATE
@@ -17,24 +20,43 @@ ChatGPT must verify this runbook before any execution phase.
 
 Default path (from `backend/main.py`):
 ```
-backend/../data/paris.db
-→ absolute: /path/to/pariscomedy/data/paris.db
+data/paris.db  (relative to repo root)
 ```
 
-The `DB_PATH` env var overrides this. If running on a server (Render, Railway, Fly.io, VPS):
-- Check the deployment environment for `DB_PATH`
-- If unknown: **BLOCKED_NEEDS_OPERATOR_CONFIRMATION** — Robert must confirm exact DB path before proceeding
+`DB_PATH` env var overrides this. If running on a server (Render, Railway, Fly.io, VPS):
+- Check deployment environment for `DB_PATH`
+- If unknown: **BLOCKED_NEEDS_OPERATOR_CONFIRMATION** — Robert must confirm exact DB path
 
 ---
 
-## Migrations to apply
+## Actual migration files (from `backend/migrations/`)
+
+```
+001_init.sql                    — original schema (legacy tables)
+002_auth_v2.sql                 — Auth V2
+002_auth_v2.rollback.sql
+003_submissions_v2.sql          — Submissions V2
+003_submissions_v2.rollback.sql
+004_claims_v2.sql               — Claims V2
+004_claims_v2.rollback.sql
+005_payments_v2.sql             — Payments V2
+005_payments_v2.rollback.sql
+006_messaging_v2.sql            — Messaging V2
+006_messaging_v2.rollback.sql
+007_tickets_v2.sql              — Tickets V2
+007_tickets_v2.rollback.sql
+```
+
+---
+
+## Migrations to apply (in order)
 
 | Order | File | System | Tables created |
 |---|---|---|---|
-| 1 | `002_auth_v2.sql` | Auth V2 | `auth_tokens_v2`, `rate_limits_v2`, `audit_events_v2` |
-| 2 | `003_claims_v2.sql` | Claims V2 | `claim_requests_v2` |
-| 3 | `004_submissions_v2.sql` | Submissions V2 | `submissions_v2` |
-| 4 | `005_payments_v2.sql` | Payments V2 | `payment_checkout_sessions_v2`, `payment_subscriptions_v2`, `payment_webhook_events_v2`, `payment_feature_unlocks_v2`, `payment_products_v2` |
+| 1 | `002_auth_v2.sql` | Auth V2 | `users_v2`, `sessions_v2`, `magic_links_v2`, `audit_events_v2`, `rate_limits_v2` |
+| 2 | `003_submissions_v2.sql` | Submissions V2 | `show_submissions_v2` |
+| 3 | `004_claims_v2.sql` | Claims V2 | `claims_v2` |
+| 4 | `005_payments_v2.sql` | Payments V2 | `payment_customers_v2`, `payment_subscriptions_v2`, `payment_invoices_v2`, `payment_checkout_sessions_v2`, `payment_webhook_idempotency_v2` |
 | 5 | `006_messaging_v2.sql` | Messaging V2 | `message_threads_v2`, `messages_v2`, `message_blocks_v2`, `message_reports_v2` |
 | 6 | `007_tickets_v2.sql` | Tickets V2 | `adapter_discoveries_v2` |
 
@@ -44,20 +66,21 @@ The `DB_PATH` env var overrides this. If running on a server (Render, Railway, F
 
 ```bash
 # 1. Confirm DB path
-echo $DB_PATH    # or use default: data/paris.db
+echo "${DB_PATH:-data/paris.db}"
 
 # 2. Disk space check
-df -h $(dirname $DB_PATH)
+df -h "$(dirname "${DB_PATH:-data/paris.db}")"
 
-# 3. Current table count
-sqlite3 $DB_PATH ".tables"
+# 3. Current table list
+sqlite3 "${DB_PATH:-data/paris.db}" ".tables"
 
-# 4. Row counts for critical existing tables (do not lose these)
-sqlite3 $DB_PATH "SELECT 'shows' as t, COUNT(*) FROM shows UNION
-                  SELECT 'venues', COUNT(*) FROM venues UNION
-                  SELECT 'comedians', COUNT(*) FROM comedians;"
+# 4. Row counts for critical existing tables (must not change after migration)
+sqlite3 "${DB_PATH:-data/paris.db}" "
+SELECT 'shows' as t, COUNT(*) FROM shows
+UNION SELECT 'venues', COUNT(*) FROM venues
+UNION SELECT 'comedians', COUNT(*) FROM comedians;"
 
-# 5. App health check before migration
+# 5. App health check
 curl -s http://localhost:8000/api/health | python3 -m json.tool
 ```
 
@@ -66,73 +89,57 @@ curl -s http://localhost:8000/api/health | python3 -m json.tool
 ## Step 2 — Backup plan
 
 ```bash
-# Backup filename convention: paris.db.backup-YYYYMMDDTHHMMSSZ
-BACKUP_PATH="${DB_PATH}.backup-$(date -u +%Y%m%dT%H%M%SZ)"
+DB="${DB_PATH:-data/paris.db}"
+BACKUP_PATH="${DB}.backup-$(date -u +%Y%m%dT%H%M%SZ)"
 
-# Create backup
-cp "$DB_PATH" "$BACKUP_PATH"
-
-# Verify backup exists and can be opened
+cp "$DB" "$BACKUP_PATH"
 ls -lh "$BACKUP_PATH"
 sqlite3 "$BACKUP_PATH" "SELECT COUNT(*) FROM shows;"
-
-# Checksum
 sha256sum "$BACKUP_PATH"
 ```
 
 ---
 
-## Step 3 — Apply migrations (in order)
+## Step 3 — Apply migrations (in order, stop on error)
 
 ```bash
-set -e   # stop on any error
+DB="${DB_PATH:-data/paris.db}"
+set -e
 
-sqlite3 "$DB_PATH" < backend/migrations/002_auth_v2.sql
-echo "002 applied"
-
-sqlite3 "$DB_PATH" < backend/migrations/003_claims_v2.sql
-echo "003 applied"
-
-sqlite3 "$DB_PATH" < backend/migrations/004_submissions_v2.sql
-echo "004 applied"
-
-sqlite3 "$DB_PATH" < backend/migrations/005_payments_v2.sql
-echo "005 applied"
-
-sqlite3 "$DB_PATH" < backend/migrations/006_messaging_v2.sql
-echo "006 applied"
-
-sqlite3 "$DB_PATH" < backend/migrations/007_tickets_v2.sql
-echo "007 applied"
+sqlite3 "$DB" < backend/migrations/002_auth_v2.sql && echo "002 applied"
+sqlite3 "$DB" < backend/migrations/003_submissions_v2.sql && echo "003 applied"
+sqlite3 "$DB" < backend/migrations/004_claims_v2.sql && echo "004 applied"
+sqlite3 "$DB" < backend/migrations/005_payments_v2.sql && echo "005 applied"
+sqlite3 "$DB" < backend/migrations/006_messaging_v2.sql && echo "006 applied"
+sqlite3 "$DB" < backend/migrations/007_tickets_v2.sql && echo "007 applied"
 ```
 
-All migration files use `CREATE TABLE IF NOT EXISTS` — safe to re-run if partially applied.
+All files use `CREATE TABLE IF NOT EXISTS` — safe to re-run if partially applied.
 
 ---
 
-## Step 4 — Verification after migration
+## Step 4 — Post-migration verification
 
 ```bash
-# Tables that must now exist
-sqlite3 "$DB_PATH" ".tables" | tr ' ' '\n' | sort
+DB="${DB_PATH:-data/paris.db}"
 
-# Required new tables (one per line)
-for t in auth_tokens_v2 rate_limits_v2 audit_events_v2 \
-          claim_requests_v2 submissions_v2 \
-          payment_checkout_sessions_v2 payment_subscriptions_v2 \
-          payment_webhook_events_v2 payment_feature_unlocks_v2 payment_products_v2 \
+# Check each new table exists
+for t in users_v2 sessions_v2 magic_links_v2 audit_events_v2 rate_limits_v2 \
+          show_submissions_v2 claims_v2 \
+          payment_customers_v2 payment_subscriptions_v2 payment_invoices_v2 \
+          payment_checkout_sessions_v2 payment_webhook_idempotency_v2 \
           message_threads_v2 messages_v2 message_blocks_v2 message_reports_v2 \
           adapter_discoveries_v2; do
-  COUNT=$(sqlite3 "$DB_PATH" "SELECT COUNT(*) FROM $t;")
+  COUNT=$(sqlite3 "$DB" "SELECT COUNT(*) FROM $t;")
   echo "$t: $COUNT rows"
 done
 
-# Existing tables must still have same row counts as pre-flight
-sqlite3 "$DB_PATH" "SELECT 'shows' as t, COUNT(*) FROM shows UNION
-                    SELECT 'venues', COUNT(*) FROM venues UNION
-                    SELECT 'comedians', COUNT(*) FROM comedians;"
+# Existing tables unchanged
+sqlite3 "$DB" "
+SELECT 'shows' as t, COUNT(*) FROM shows
+UNION SELECT 'venues', COUNT(*) FROM venues
+UNION SELECT 'comedians', COUNT(*) FROM comedians;"
 
-# App health check after migration
 curl -s http://localhost:8000/api/health | python3 -m json.tool
 ```
 
@@ -147,27 +154,27 @@ for endpoint in auth_v2 submissions_v2 claims_v2 payments_v2 messaging_v2 ticket
 done
 ```
 
-Expected: each returns `{"enabled": false, ...}` — feature flags unchanged.
+Expected: each returns `{"enabled": false, ...}`.
 
 ---
 
 ## Rollback plan
 
-⚠️ **Rollback drops all v2 tables and their data. Do not rollback after production data has been written.**
+⚠️ Rollback drops all v2 tables and their data. Do not rollback after production data has been written.
 
+Safest: restore from backup:
 ```bash
-# Rollback order: reverse of apply order
-sqlite3 "$DB_PATH" < backend/migrations/007_tickets_v2.rollback.sql
-sqlite3 "$DB_PATH" < backend/migrations/006_messaging_v2.rollback.sql  # if exists
-sqlite3 "$DB_PATH" < backend/migrations/005_payments_v2.rollback.sql   # if exists
-sqlite3 "$DB_PATH" < backend/migrations/004_submissions_v2.rollback.sql # if exists
-sqlite3 "$DB_PATH" < backend/migrations/003_claims_v2.rollback.sql      # if exists
-sqlite3 "$DB_PATH" < backend/migrations/002_auth_v2.rollback.sql        # if exists
+cp "$BACKUP_PATH" "$DB"
 ```
 
-Or restore from backup (safer):
+Or reverse-order rollback files (007 → 006 → 005 → 004 → 003 → 002):
 ```bash
-cp "$BACKUP_PATH" "$DB_PATH"
+sqlite3 "$DB" < backend/migrations/007_tickets_v2.rollback.sql
+sqlite3 "$DB" < backend/migrations/006_messaging_v2.rollback.sql
+sqlite3 "$DB" < backend/migrations/005_payments_v2.rollback.sql
+sqlite3 "$DB" < backend/migrations/004_claims_v2.rollback.sql
+sqlite3 "$DB" < backend/migrations/003_submissions_v2.rollback.sql
+sqlite3 "$DB" < backend/migrations/002_auth_v2.rollback.sql
 ```
 
 ---

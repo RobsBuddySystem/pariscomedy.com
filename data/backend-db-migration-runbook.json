@@ -4,29 +4,79 @@
   "scope": "operator-docs-only",
   "production_migration_executed": false,
   "feature_flags_changed": false,
+  "guard_note": "Never apply a migration based on phase memory. Verify actual backend/migrations filenames and CREATE TABLE statements first.",
   "db_path": {
     "default": "data/paris.db",
     "env_override": "DB_PATH",
     "status": "BLOCKED_NEEDS_OPERATOR_CONFIRMATION if deployed to server"
   },
   "migrations": [
-    {"order": 1, "file": "002_auth_v2.sql", "system": "Auth V2", "safe_to_rerun": true},
-    {"order": 2, "file": "003_claims_v2.sql", "system": "Claims V2", "safe_to_rerun": true},
-    {"order": 3, "file": "004_submissions_v2.sql", "system": "Submissions V2", "safe_to_rerun": true},
-    {"order": 4, "file": "005_payments_v2.sql", "system": "Payments V2", "safe_to_rerun": true},
-    {"order": 5, "file": "006_messaging_v2.sql", "system": "Messaging V2", "safe_to_rerun": true},
-    {"order": 6, "file": "007_tickets_v2.sql", "system": "Tickets V2", "safe_to_rerun": true}
+    {
+      "order": 1,
+      "file": "002_auth_v2.sql",
+      "rollback_file": "002_auth_v2.rollback.sql",
+      "system": "Auth V2",
+      "tables": ["users_v2", "sessions_v2", "magic_links_v2", "audit_events_v2", "rate_limits_v2"],
+      "safe_to_rerun": true
+    },
+    {
+      "order": 2,
+      "file": "003_submissions_v2.sql",
+      "rollback_file": "003_submissions_v2.rollback.sql",
+      "system": "Submissions V2",
+      "tables": ["show_submissions_v2"],
+      "safe_to_rerun": true
+    },
+    {
+      "order": 3,
+      "file": "004_claims_v2.sql",
+      "rollback_file": "004_claims_v2.rollback.sql",
+      "system": "Claims V2",
+      "tables": ["claims_v2"],
+      "safe_to_rerun": true
+    },
+    {
+      "order": 4,
+      "file": "005_payments_v2.sql",
+      "rollback_file": "005_payments_v2.rollback.sql",
+      "system": "Payments V2",
+      "tables": ["payment_customers_v2", "payment_subscriptions_v2", "payment_invoices_v2", "payment_checkout_sessions_v2", "payment_webhook_idempotency_v2"],
+      "safe_to_rerun": true
+    },
+    {
+      "order": 5,
+      "file": "006_messaging_v2.sql",
+      "rollback_file": "006_messaging_v2.rollback.sql",
+      "system": "Messaging V2",
+      "tables": ["message_threads_v2", "messages_v2", "message_blocks_v2", "message_reports_v2"],
+      "safe_to_rerun": true
+    },
+    {
+      "order": 6,
+      "file": "007_tickets_v2.sql",
+      "rollback_file": "007_tickets_v2.rollback.sql",
+      "system": "Tickets V2",
+      "tables": ["adapter_discoveries_v2"],
+      "safe_to_rerun": true
+    }
   ],
-  "backup_command": "cp \"$DB_PATH\" \"${DB_PATH}.backup-$(date -u +%Y%m%dT%H%M%SZ)\"",
+  "backup_command": "cp \"${DB_PATH:-data/paris.db}\" \"${DB_PATH:-data/paris.db}.backup-$(date -u +%Y%m%dT%H%M%SZ)\"",
   "apply_commands": [
-    "sqlite3 \"$DB_PATH\" < backend/migrations/002_auth_v2.sql",
-    "sqlite3 \"$DB_PATH\" < backend/migrations/003_claims_v2.sql",
-    "sqlite3 \"$DB_PATH\" < backend/migrations/004_submissions_v2.sql",
-    "sqlite3 \"$DB_PATH\" < backend/migrations/005_payments_v2.sql",
-    "sqlite3 \"$DB_PATH\" < backend/migrations/006_messaging_v2.sql",
-    "sqlite3 \"$DB_PATH\" < backend/migrations/007_tickets_v2.sql"
+    "sqlite3 \"${DB_PATH:-data/paris.db}\" < backend/migrations/002_auth_v2.sql",
+    "sqlite3 \"${DB_PATH:-data/paris.db}\" < backend/migrations/003_submissions_v2.sql",
+    "sqlite3 \"${DB_PATH:-data/paris.db}\" < backend/migrations/004_claims_v2.sql",
+    "sqlite3 \"${DB_PATH:-data/paris.db}\" < backend/migrations/005_payments_v2.sql",
+    "sqlite3 \"${DB_PATH:-data/paris.db}\" < backend/migrations/006_messaging_v2.sql",
+    "sqlite3 \"${DB_PATH:-data/paris.db}\" < backend/migrations/007_tickets_v2.sql"
   ],
-  "rollback_command": "cp \"$BACKUP_PATH\" \"$DB_PATH\"",
+  "rollback_commands": [
+    "sqlite3 \"${DB_PATH:-data/paris.db}\" < backend/migrations/007_tickets_v2.rollback.sql",
+    "sqlite3 \"${DB_PATH:-data/paris.db}\" < backend/migrations/006_messaging_v2.rollback.sql",
+    "sqlite3 \"${DB_PATH:-data/paris.db}\" < backend/migrations/005_payments_v2.rollback.sql",
+    "sqlite3 \"${DB_PATH:-data/paris.db}\" < backend/migrations/004_claims_v2.rollback.sql",
+    "sqlite3 \"${DB_PATH:-data/paris.db}\" < backend/migrations/003_submissions_v2.rollback.sql",
+    "sqlite3 \"${DB_PATH:-data/paris.db}\" < backend/migrations/002_auth_v2.rollback.sql"
+  ],
   "feature_flags_after_migration": {
     "AUTH_V2_ENABLED": "false",
     "SUBMISSIONS_V2_ENABLED": "false",

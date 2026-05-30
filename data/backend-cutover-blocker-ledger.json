@@ -56,7 +56,7 @@
       "feature_flag": "SUBMISSIONS_V2_ENABLED=false",
       "router_status": "wired-disabled (commit 51c8084)",
       "tests_passed": "19/19",
-      "production_db_migration": "004_submissions_v2.sql — NOT APPLIED",
+      "production_db_migration": "003_submissions_v2.sql — NOT APPLIED",
       "production_blockers": [
         "production DB migration 004 not applied",
         "public submission form not cut over to V2 endpoints",
@@ -74,7 +74,7 @@
       "feature_flag": "CLAIMS_V2_ENABLED=false",
       "router_status": "wired-disabled (commit e9bb7e7)",
       "tests_passed": "25/25",
-      "production_db_migration": "003_claims_v2.sql — NOT APPLIED",
+      "production_db_migration": "004_claims_v2.sql — NOT APPLIED",
       "production_blockers": [
         "production DB migration 003 not applied",
         "show.html 'Claim or manage' goes to connect.html manual form — V2 not wired",

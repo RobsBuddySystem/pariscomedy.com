@@ -9,8 +9,8 @@
 |---|---|---|---|---|---|
 | Auth V2 | BACKEND.AUTH.4 | AUTH_V2_ENABLED=false | 122/122 | 002 — NOT applied | NO |
 | Email/Postmark | BACKEND.EMAIL.3 | EMAIL_SEND_REAL=false | 8/8 | N/A | NO |
-| Submissions V2 | BACKEND.SUBMIT.2 | SUBMISSIONS_V2_ENABLED=false | 19/19 | 004 — NOT applied | NO |
-| Claims V2 | BACKEND.CLAIM.2 | CLAIMS_V2_ENABLED=false | 25/25 | 003 — NOT applied | NO |
+| Submissions V2 | BACKEND.SUBMIT.2 | SUBMISSIONS_V2_ENABLED=false | 19/19 | 003 — NOT applied | NO |
+| Claims V2 | BACKEND.CLAIM.2 | CLAIMS_V2_ENABLED=false | 25/25 | 004 — NOT applied | NO |
 | Payments V2 | BACKEND.PAYMENTS.2 | PAYMENTS_ENABLED=false | 17/17 | 005 — NOT applied | NO |
 | Messaging V2 | BACKEND.MESSAGING.2 | MESSAGING_V2_ENABLED=false | 23/23 | 006 — NOT applied | NO |
 | Tickets V2 | BACKEND.TICKETS.2 | TICKETS_ADAPTERS_ENABLED=false | 26/26 | 007 — NOT applied | NO |
@@ -32,12 +32,12 @@
 - return-path CNAME missing: `pm-bounces.pariscomedy.com → pm.mtasv.net`
 
 ### Submissions V2
-- production DB migration 004 not applied
+- production DB migration 003 not applied
 - public submission form not cut over to V2 endpoints
 - admin review UI not live
 
 ### Claims V2
-- production DB migration 003 not applied
+- production DB migration 004 not applied
 - admin claim review UI not live
 
 ### Payments V2
