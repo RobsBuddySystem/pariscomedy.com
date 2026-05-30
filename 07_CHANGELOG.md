@@ -1,5 +1,19 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | frontend + backend | P0.BOOK.NUCLEAR-BYPASS + FINAL.FRONTEND.COPY.GUARD.1 + BACKEND.AUTH.3: closed
+
+/book.html permanently contaminated — /connect.html sole canonical route. All nav/CTA/sitemap
+updated. Regression guard blocks any future /book.html reference. connect.html banner added.
+BACKEND.AUTH.3 production readiness checklist accepted as readiness-only (no production cutover).
+122/122 tests pass. 13/13 regression checks pass.
+
+## 2026-05-30 | backend | BACKEND.AUTH.4-RATE-LIMITING: HTTP-level rate limiting for Auth V2
+
+HTTP-layer rate check (fail-closed) added to auth_v2_router.py. Limits: 10/email/hour,
+30/IP/hour for magic-link requests; 20 invalid consume attempts/IP/hour. Storage failure
+returns 429 (not 500). Disabled mode creates no rate-limit rows. Separate buckets from
+service layer (no double-counting). 6 new tests; 122/122 total pass. AUTH_V2_ENABLED=false.
+
 ## 2026-05-30 | backend | BACKEND.AUTH.2-STAGING-ENABLE: 18-scenario staging round-trip proof
 
 Staging-only. In-memory DB, dry-run mailer. 18/18 PASS. Production AUTH_V2_ENABLED=false.

@@ -170,5 +170,107 @@ class TestEnabledMode(unittest.TestCase):
         self.assertEqual(r.status_code, 401)
 
 
+class TestRateLimiting(unittest.TestCase):
+    """BACKEND.AUTH.4-RATE-LIMITING — HTTP-level rate limit tests."""
+
+    def setUp(self):
+        self.enter = reload_router(enabled=True)
+        self.enter.__enter__()
+        self.client, self.router_mod = _make_app()
+        self.conn = _fresh_db()
+
+        class _CtxConn:
+            def __init__(self, c): self.c = c
+            def __enter__(self): return self.c
+            def __exit__(self, *a): self.c.commit()
+
+        self.router_mod._conn_factory = lambda: _CtxConn(self.conn)
+
+    def tearDown(self):
+        self.conn.close()
+        self.enter.__exit__(None, None, None)
+
+    def _override_limits(self, email=10, ip=30, consume_ip=20):
+        """Patch the router's HTTP-level limit constants for testing."""
+        self.router_mod._HTTP_RATE_MAGIC_EMAIL = email
+        self.router_mod._HTTP_RATE_MAGIC_IP = ip
+        self.router_mod._HTTP_RATE_CONSUME_IP = consume_ip
+
+    def test_per_email_limit_blocks_11th_request(self):
+        self._override_limits(email=3)
+        for i in range(3):
+            r = self.client.post("/api/auth_v2/magic-link/request",
+                                 json={"email": "limited@x.test", "role": "user"})
+            self.assertEqual(r.status_code, 204, f"request {i+1} should succeed")
+        r = self.client.post("/api/auth_v2/magic-link/request",
+                             json={"email": "limited@x.test", "role": "user"})
+        self.assertEqual(r.status_code, 429, "4th request should be rate-limited")
+
+    def test_per_ip_limit_blocks_excess(self):
+        self._override_limits(ip=3)
+        for i in range(3):
+            r = self.client.post("/api/auth_v2/magic-link/request",
+                                 json={"email": f"user{i}@x.test", "role": "user"})
+            self.assertEqual(r.status_code, 204, f"request {i+1} should succeed")
+        r = self.client.post("/api/auth_v2/magic-link/request",
+                             json={"email": "user99@x.test", "role": "user"})
+        self.assertEqual(r.status_code, 429, "4th request from same IP should be rate-limited")
+
+    def test_different_email_not_blocked_by_per_email_limit(self):
+        self._override_limits(email=2, ip=100)
+        for i in range(2):
+            self.client.post("/api/auth_v2/magic-link/request",
+                             json={"email": "first@x.test", "role": "user"})
+        # first@x.test is now rate-limited
+        r1 = self.client.post("/api/auth_v2/magic-link/request",
+                              json={"email": "first@x.test", "role": "user"})
+        self.assertEqual(r1.status_code, 429)
+        # second@x.test is on a different email bucket — must still succeed
+        r2 = self.client.post("/api/auth_v2/magic-link/request",
+                              json={"email": "second@x.test", "role": "user"})
+        self.assertEqual(r2.status_code, 204, "different email must not be blocked")
+
+    def test_consume_invalid_token_rate_limited_per_ip(self):
+        self._override_limits(consume_ip=3)
+        for i in range(3):
+            r = self.client.get(f"/api/auth_v2/magic-link/consume?token=badtoken{i}")
+            self.assertEqual(r.status_code, 401, f"attempt {i+1} should return 401 (invalid token)")
+        r = self.client.get("/api/auth_v2/magic-link/consume?token=badtoken_final")
+        self.assertEqual(r.status_code, 429, "4th failed consume attempt from same IP should be rate-limited")
+
+    def test_disabled_mode_creates_no_rate_limit_rows(self):
+        # Reload as disabled
+        with reload_router(enabled=False):
+            client, router_mod = _make_app()
+            router_mod._conn_factory = lambda: type("_C", (), {
+                "__enter__": lambda s: self.conn,
+                "__exit__": lambda s, *a: self.conn.commit(),
+            })()
+            client.post("/api/auth_v2/magic-link/request",
+                        json={"email": "ghost@x.test", "role": "user"})
+        count = self.conn.execute("SELECT COUNT(*) FROM rate_limits_v2").fetchone()[0]
+        self.assertEqual(count, 0, "disabled mode must not write rate-limit rows")
+
+    def test_fail_closed_when_storage_unavailable(self):
+        """Rate limiter raises 429 (not 500) when DB is unavailable."""
+        import auth_v2
+
+        def _broken_factory():
+            class _BrokenConn:
+                def __enter__(self): return self
+                def __exit__(self, *a): pass
+                def execute(self, *a, **kw):
+                    raise sqlite3.OperationalError("disk I/O error")
+                def commit(self): pass
+
+            return _BrokenConn()
+
+        self.router_mod._conn_factory = _broken_factory
+        r = self.client.post("/api/auth_v2/magic-link/request",
+                             json={"email": "a@x.test", "role": "user"})
+        self.assertEqual(r.status_code, 429, "storage failure must fail closed with 429")
+        self.assertEqual(r.json()["detail"]["error"]["code"], "auth/rate_limit_unavailable")
+
+
 if __name__ == "__main__":
     unittest.main()

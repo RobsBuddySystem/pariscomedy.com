@@ -1,12 +1,24 @@
 """BACKEND.AUTH.1-CUTOVER-PLAN — Auth V2 FastAPI router.
+BACKEND.AUTH.4-RATE-LIMITING — HTTP-level rate limiting added.
 
 Registers `/api/auth_v2/*` endpoints. When AUTH_V2_ENABLED=false (default),
 every endpoint returns 503 with a clear disabled response and creates no
-token, session, or audit row. When AUTH_V2_ENABLED=true (test env only),
-endpoints delegate to backend/auth_v2.py.
+token, session, audit, or rate-limit row. When AUTH_V2_ENABLED=true (test env
+only), endpoints delegate to backend/auth_v2.py.
 
-NOT YET wired into main.py — that lands in a follow-up cutover phase. This
-module is importable + testable in isolation.
+Rate limiting (BACKEND.AUTH.4):
+  POST /magic-link/request: 10/email/hour, 30/IP/hour (service layer + HTTP wrapper)
+  GET  /magic-link/consume:  20 invalid consume attempts/IP/hour
+  POST /logout:             not rate-limited (abuse surface negligible)
+  GET  /me, /status, /session/expiry: not rate-limited
+
+Fail-closed: if the rate-limit DB is unavailable, the endpoint raises 429
+rather than allowing unlimited requests.
+
+Disabled mode: AUTH_V2_ENABLED=false endpoints return 503 immediately, before
+any rate-limit check or DB write.
+
+NOT YET wired into main.py — that lands in a follow-up cutover phase.
 """
 from __future__ import annotations
 
@@ -22,6 +34,11 @@ router = APIRouter(prefix="/api/auth_v2", tags=["auth_v2"])
 SESSION_COOKIE = "pc_session_v2"
 CSRF_COOKIE = "pc_csrf_v2"
 
+# HTTP-level rate limits (enforced in the router before service-layer calls)
+_HTTP_RATE_MAGIC_EMAIL = 10   # per email per hour
+_HTTP_RATE_MAGIC_IP   = 30   # per IP per hour
+_HTTP_RATE_CONSUME_IP = 20   # invalid/unknown consume attempts per IP per hour
+
 
 def _disabled() -> HTTPException:
     return HTTPException(
@@ -31,14 +48,34 @@ def _disabled() -> HTTPException:
 
 
 def _conn_factory():
-    """Open a SQLite connection at module-import time. Patched in tests."""
-    # Default uses same DB_PATH as main.py; production should provide its own factory.
+    """Open a SQLite connection. Patched in tests."""
     import os
     db_path = os.environ.get(
         "DB_PATH",
         os.path.join(os.path.dirname(__file__), "..", "data", "paris.db"),
     )
     return sqlite3.connect(db_path)
+
+
+def _http_rate_check(conn: sqlite3.Connection, bucket: str, key: str, limit: int) -> None:
+    """HTTP-layer rate check: wraps auth_v2._check_rate with fail-closed error handling.
+
+    If the rate-limit storage is unavailable (DB error), raises 429 rather
+    than allowing the request through.
+    """
+    try:
+        auth_v2._check_rate(conn, bucket, key, limit)
+    except auth_v2.RateLimitedError:
+        raise HTTPException(
+            status_code=429,
+            detail={"error": {"code": "auth/rate_limited", "message": f"Rate limit exceeded ({limit}/hour)."}},
+        )
+    except Exception:
+        # Storage unavailable — fail closed.
+        raise HTTPException(
+            status_code=429,
+            detail={"error": {"code": "auth/rate_limit_unavailable", "message": "Rate limiting storage unavailable. Request rejected."}},
+        )
 
 
 @router.get("/status")
@@ -48,6 +85,7 @@ def status_endpoint():
 
 @router.post("/magic-link/request")
 async def magic_link_request(request: Request):
+    # BACKEND.AUTH.4: disabled check BEFORE any rate-limit row is written.
     if not auth_v2.AUTH_V2_ENABLED:
         raise _disabled()
     body = await request.json() if request.headers.get("content-type", "").startswith("application/json") else {}
@@ -56,10 +94,18 @@ async def magic_link_request(request: Request):
     ip = request.client.host if request.client else None
     try:
         with _conn_factory() as conn:
+            # HTTP-layer rate check (fail-closed) uses separate buckets from
+            # the service-layer check to avoid double-counting.
+            if email:
+                _, email_lower = auth_v2._normalize_email(email)
+                _http_rate_check(conn, "http.magic_link.email", email_lower, _HTTP_RATE_MAGIC_EMAIL)
+            if ip:
+                _http_rate_check(conn, "http.magic_link.ip", ip, _HTTP_RATE_MAGIC_IP)
             auth_v2.request_magic_link(conn, email=email, role=role, ip=ip)
+    except HTTPException:
+        raise
     except auth_v2.AuthV2Error as e:
-        # Per R-01 mitigation: always return 204 to avoid email enumeration.
-        # We still propagate hard errors (rate limit) so the client sees 429.
+        # Per R-01 mitigation: return 204 on most errors to avoid email enumeration.
         if isinstance(e, auth_v2.RateLimitedError):
             raise HTTPException(status_code=e.http_status,
                                 detail={"error": {"code": e.code, "message": str(e)}})
@@ -68,13 +114,23 @@ async def magic_link_request(request: Request):
 
 @router.get("/magic-link/consume")
 def magic_link_consume(token: str, request: Request, response: Response):
+    # BACKEND.AUTH.4: disabled check BEFORE any rate-limit row is written.
     if not auth_v2.AUTH_V2_ENABLED:
         raise _disabled()
     ip = request.client.host if request.client else None
     ua = request.headers.get("user-agent")
     try:
         with _conn_factory() as conn:
-            result = auth_v2.consume_magic_link(conn, token=token, ip=ip, user_agent=ua)
+            try:
+                result = auth_v2.consume_magic_link(conn, token=token, ip=ip, user_agent=ua)
+            except (auth_v2.InvalidTokenError, auth_v2.ExpiredTokenError, auth_v2.ConsumedTokenError) as e:
+                # Count failed consume attempts per IP to limit token-guessing attacks.
+                if ip:
+                    _http_rate_check(conn, "http.consume.ip", ip, _HTTP_RATE_CONSUME_IP)
+                raise HTTPException(status_code=e.http_status,
+                                    detail={"error": {"code": e.code, "message": str(e)}})
+    except HTTPException:
+        raise
     except auth_v2.AuthV2Error as e:
         raise HTTPException(status_code=e.http_status,
                             detail={"error": {"code": e.code, "message": str(e)}})
