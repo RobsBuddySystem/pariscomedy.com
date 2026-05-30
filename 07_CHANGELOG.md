@@ -1,5 +1,25 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | data | P1.DATA.2.FIX-DEPLOY-RECONCILE — close root cause + tonight panel guard
+
+Closes the two latent issues disclosed in the previous P1.DATA.2.FIX proof:
+
+1. index.html — every SHOWS_DATA filter chain on the homepage now applies
+   `isFreshEnough(s.slug)`: `renderTonightInParis()`, `recomputeShowWindows()`
+   (both `TONIGHT_SHOWS` and `WEEK_SHOWS`), and `allShows()`. Ended Eventbrite
+   listings can no longer promote on the Tonight panel or any downstream feed.
+2. scripts/regression_guard.py — `freshness_sanity` now reads `verification_status`
+   (the actual field name); previously it read non-existent `status` and was a
+   no-op that silently PASSed. Plus new check `homepage_freshness_filter` scans
+   index.html for every `SHOWS_DATA.filter(` invocation and FAILs if any nearby
+   callback omits `isFreshEnough`. Closes the root cause that made the
+   Tonight-panel bypass possible.
+
+Regression: 11/11 PASS (was 10/10).
+
+Rollback: `git revert <sha>`
+
+
 ## 2026-05-30 | data | P1.DATA.2.FIX — Eventbrite past-event detection (BUG-P0-008)
 
 scripts/freshness_verify.py — three changes, all confined to the past-event branch of `verify_listing()`:
