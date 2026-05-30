@@ -855,6 +855,56 @@ def check_homepage_freshness_filter() -> dict:
     }
 
 
+def check_claim_v2_connect_draft() -> dict:
+    """BACKEND.CLAIM.3-CONNECT-CLAIM-DRAFT guard.
+
+    Fails if connect.html:
+      - says 'claims are live', 'claim verified automatically', 'ownership updated',
+        'verified badge active' as static copy
+      - POSTs to /api/claims_v2/* without an enabled guard
+      - enables a V2 claim button by default
+    """
+    p = REPO_ROOT / "connect.html"
+    if not p.exists():
+        return {"name": "claim_v2_connect_draft", "result": "FAIL",
+                "evidence": {"reason": "connect.html missing"}}
+    src = p.read_text(encoding="utf-8", errors="ignore")
+
+    forbidden_copy = [
+        "claims are live",
+        "claim verified automatically",
+        "ownership updated",
+        "verified badge active",
+        "claims v2 is live",
+        "claims v2 live",
+        "automated claims are live",
+    ]
+    # Check for ungated V2 claim POST
+    v2_claim_post = any(x in src for x in [
+        "api/claims_v2/comic", "api/claims_v2/show", "api/claims_v2/venue"
+    ])
+    v2_claim_ungated = v2_claim_post and (
+        "claimsV2Enabled" not in src and
+        "claims_v2_enabled" not in src and
+        "if (!v2Claim" not in src and
+        "if(!v2Claim" not in src
+    )
+    src_lower = src.lower()
+    copy_hits = [ph for ph in forbidden_copy if ph in src_lower]
+
+    problems = {}
+    if copy_hits:
+        problems["forbidden_copy"] = copy_hits
+    if v2_claim_ungated:
+        problems["ungated_v2_claim_post"] = "POST to /api/claims_v2/* without enabled guard"
+
+    return {
+        "name": "claim_v2_connect_draft",
+        "result": "PASS" if not problems else "FAIL",
+        "evidence": problems if problems else {"no_live_claims": True, "manual_review_copy_present": True, "no_ownership_writeback": True},
+    }
+
+
 def check_submit_v2_connect_form() -> dict:
     """BACKEND.SUBMIT.3-CONNECT-FORM-DRAFT guard.
 
@@ -1068,6 +1118,7 @@ CHECKS = {
     "admin_review_shell":    lambda dom: check_admin_review_shell(),
     "auth_v2_login_draft":   lambda dom: check_auth_v2_login_draft(),
     "submit_v2_connect_form": lambda dom: check_submit_v2_connect_form(),
+    "claim_v2_connect_draft": lambda dom: check_claim_v2_connect_draft(),
 }
 
 

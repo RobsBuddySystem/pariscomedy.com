@@ -125,6 +125,8 @@ footer a:hover{color:var(--text)}
         <div style="margin-top:6px;font-size:15px;color:#f0f0f0">You are claiming: <strong id="claim-show-name"></strong></div>
         <div style="margin-top:4px;font-size:12px;color:#888">Slug: <code id="claim-show-slug" style="color:#9d5ff5"></code> · Page: <a id="claim-show-url" href="#" style="color:#9d5ff5"></a></div>
         <div style="margin-top:6px;font-size:12px;color:#888">Claims are reviewed manually — automated claim backend is not yet live.</div>
+        <!-- Claims V2 status — backend not yet live -->
+        <div id="claim-v2-status" style="margin-top:6px;font-size:12px;color:#888;font-style:italic">Automated claims backend is not live yet. Claims are reviewed manually.</div>
       </div>
       <div id="report-banner" style="display:none;background:#1a0a00;border:1px solid #f59e0b;border-radius:8px;padding:14px 16px;margin-bottom:16px">
         <div style="font-size:13px;color:#f59e0b;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Report an issue</div>
@@ -709,6 +711,25 @@ async function submitMessage() {
   }
 }
 
+
+// --- Claims V2 status check (backend not yet live) ---
+(async function checkClaimsV2Status() {
+  var el = document.getElementById('claim-v2-status');
+  if (!el) return;
+  try {
+    var res = await fetch('/api/claims_v2/status', {cache: 'no-store'});
+    var data = await res.json().catch(function() { return {}; });
+    if (res.status === 503 || data.enabled === false || (data.detail && data.detail.error)) {
+      el.textContent = 'Automated claims backend is not live yet. Claims are reviewed manually.';
+    } else if (data.enabled === true) {
+      el.textContent = 'Claims V2 backend reachable. Ownership changes require admin review.';
+    } else {
+      el.textContent = 'Automated claims are not live yet. Claims are reviewed manually.';
+    }
+  } catch(e) {
+    el.textContent = 'Automated claims backend is not live yet. Claims are reviewed manually.';
+  }
+})();
 
 // --- Submissions V2 status check (backend not yet live) ---
 (async function checkSubmissionsV2Status() {
