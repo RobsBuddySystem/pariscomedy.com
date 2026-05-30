@@ -1,0 +1,706 @@
+<!-- v20260530c-connect: canonical safe book/connect page. No lifetime/claim/payment. Messaging planned. Waitlist only. -->
+<!-- This is the current Paris Comedy contact and booking page. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Connect — Book, List, or Submit to Paris Comedy</title>
+<meta name="description" content="List your comedy show, submit your comedian bio, or book stand-up talent through Paris Comedy — the home of English-language comedy in Paris.">
+<link rel="canonical" href="https://pariscomedy.com/connect.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Paris Comedy">
+<meta property="og:title" content="Book Comedy Talent in Paris — Paris Comedy">
+<meta property="og:description" content="List your comedy show, submit your comedian bio, or book stand-up talent through Paris Comedy — the home of English-language comedy in Paris.">
+<meta property="og:url" content="https://pariscomedy.com/connect.html">
+<meta property="og:image" content="https://pariscomedy.com/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Book Comedy Talent in Paris — Paris Comedy">
+<meta name="twitter:description" content="List your comedy show, submit your comedian bio, or book stand-up talent through Paris Comedy — the home of English-language comedy in Paris.">
+<meta name="twitter:image" content="https://pariscomedy.com/assets/og-default.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@id":"https://pariscomedy.com/#organization","@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com/","email":"payments@pariscomedy.com","description":"The home of English-language stand-up comedy in Paris."}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#7c3aed;--purple-light:#9d5ff5;--bg:#0a0a0a;--card:#111;--border:#1e1e1e;--text:#f0f0f0;--muted:#888;--yellow:#f5c518;--gold:#f59e0b}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:100;flex-wrap:wrap;gap:8px}
+.nav-logo{font-size:18px;font-weight:700;letter-spacing:-0.5px}
+.nav-logo span{color:var(--yellow)}
+.nav-links{display:flex;gap:20px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+.nav-links a:hover{color:var(--text)}
+.nav-active{color:var(--text)!important}
+
+.hero{text-align:center;padding:48px 24px 20px}
+.hero h1{font-size:clamp(24px,4vw,44px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:12px}
+.hero h1 span{color:var(--purple-light)}
+.hero p{color:var(--muted);font-size:15px;max-width:560px;margin:0 auto}
+
+/* Tab nav */
+.tab-nav{display:flex;gap:0;justify-content:center;padding:24px 24px 0;max-width:700px;margin:0 auto;flex-wrap:wrap;gap:8px}
+.tab-btn{padding:10px 22px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.tab-btn:hover{border-color:#555;color:var(--text)}
+.tab-btn.active{background:var(--purple);border-color:var(--purple);color:#fff}
+
+.sections{max-width:700px;margin:0 auto;padding:24px 24px 64px}
+
+.path{display:none}
+.path.active{display:block}
+
+.section-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px}
+.section-card h2{font-size:22px;font-weight:700;margin-bottom:6px}
+.section-card .subhead{color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.form-row{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.field label{font-size:12px;color:var(--muted);font-weight:500}
+.field input,.field textarea,.field select{
+  padding:10px 12px;border-radius:8px;border:1px solid var(--border);
+  background:#0a0a0a;color:var(--text);font-size:14px;outline:none;
+  transition:border-color .2s;font-family:inherit
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--purple)}
+.field textarea{resize:vertical;min-height:90px}
+.req{color:var(--purple-light)}
+
+.btn-primary{
+  width:100%;padding:13px;border-radius:10px;border:none;
+  background:var(--purple);color:#fff;font-size:15px;font-weight:700;
+  cursor:pointer;transition:opacity .2s;margin-top:8px
+}
+.btn-primary:hover{opacity:.9}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+
+.success-msg{display:none;text-align:center;padding:24px;color:#7ae07a;font-size:15px;font-weight:600;line-height:1.6}
+.error-msg{color:#e07a7a;font-size:13px;margin-top:8px;min-height:20px}
+
+footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;color:var(--muted);font-size:13px}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--text)}
+.footer-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<nav class="nav-shell nav-shell-marketing">
+  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/shows.html">Shows</a>
+    <a href="/venues.html">Venues</a>
+    <a href="/comedians.html">Comedians</a>
+    <a href="/bookers.html">Bookers</a>
+    <a href="/pricing.html">Pricing</a>
+    <a href="/login.html">Sign In</a>
+    <a href="/connect.html" class="nav-active">Book / Connect</a>
+    <a href="/about.html">About</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Connect with <span>Paris Comedy</span></h1>
+  <p>List your show, find stages, or book a comedian for your event.</p>
+</div>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showPath('show-runner', this)">Run a show</button>
+  <button class="tab-btn" onclick="showPath('comedian', this)">I'm a comedian</button>
+  <button class="tab-btn" onclick="showPath('booker', this)">Book talent</button>
+  <button class="tab-btn" onclick="showPath('message', this)">Send a message</button>
+</div>
+
+<div class="sections">
+
+  <!-- Path 1: Show Runner -->
+  <div class="path active" id="show-runner">
+    <div class="section-card">
+      <div id="claim-banner" style="display:none;background:#1a1500;border:1px solid #f5c518;border-radius:8px;padding:14px 16px;margin-bottom:16px">
+        <div style="font-size:13px;color:#f5c518;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Claim this show</div>
+        <div style="margin-top:6px;font-size:15px;color:#f0f0f0">You are claiming: <strong id="claim-show-name"></strong></div>
+        <div style="margin-top:4px;font-size:12px;color:#888">Slug: <code id="claim-show-slug" style="color:#9d5ff5"></code> · Page: <a id="claim-show-url" href="#" style="color:#9d5ff5"></a></div>
+      </div>
+      <div id="report-banner" style="display:none;background:#1a0a00;border:1px solid #f59e0b;border-radius:8px;padding:14px 16px;margin-bottom:16px">
+        <div style="font-size:13px;color:#f59e0b;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Report an issue</div>
+        <div style="margin-top:6px;font-size:15px;color:#f0f0f0">Reporting issue with: <strong id="report-show-slug"></strong> &mdash; please describe below</div>
+        <div style="margin-top:4px;font-size:12px;color:#888">Use the show name / day / time / contact email fields below to describe the issue. We review reports within 48 hours.</div>
+      </div>
+      <h2 id="sr-title">List your comedy show</h2>
+      <p class="subhead" id="sr-subhead">Get your show in front of Paris Comedy's audience. Submit your details and we'll get you listed.</p>
+      <div id="form-show-runner">
+        <input type="text" name="hp_url" id="sr-hp_url" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+        <div class="field" id="claimant-name-field" style="display:none">
+          <label>Your name <span class="req">*</span></label>
+          <input type="text" id="sr-claimant-name" placeholder="Your full name (the person claiming this show)">
+        </div>
+        <div class="field">
+          <label>Show name <span class="req">*</span></label>
+          <input type="text" id="sr-showname" placeholder="Your comedy night's name">
+        </div>
+        <div class="field">
+          <label>Venue <span class="req">*</span> <span id="sr-venue-lock" style="display:none">&#128274;</span></label>
+          <input type="text" id="sr-venue" placeholder="Venue name, Paris">
+          <p id="sr-venue-lock-note" style="display:none;font-size:11px;color:#888;margin-top:4px">Locked while claiming an existing entry</p>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Day</label>
+            <select id="sr-day">
+              <option value="">Select day…</option>
+              <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+              <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Show time</label>
+            <input type="time" id="sr-time">
+          </div>
+        </div>
+        <div class="field">
+          <label>Eventbrite URL</label>
+          <input type="url" id="sr-eventbrite" placeholder="https://www.eventbrite.com/e/…">
+        </div>
+        <div class="field">
+          <label>Contact email <span class="req">*</span></label>
+          <input type="email" id="sr-email" placeholder="you@example.com">
+        </div>
+        <!-- P3.CLAIM.3 evidence-collection fields (closes FIND-3). Shown only in claim mode. -->
+        <div id="sr-claim-evidence" style="display:none;margin-top:6px;padding:14px 16px;background:#0f0f1a;border:1px solid #2a1a4a;border-radius:10px">
+          <div style="font-size:12px;color:#9d5ff5;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px">Verification (optional)</div>
+          <div style="font-size:12px;color:#888;line-height:1.5;margin-bottom:12px">These help us verify you run this show. We review every claim within 48 hours.</div>
+          <div class="field">
+            <label>Show Instagram handle</label>
+            <input type="text" id="sr-show-instagram" placeholder="@yourshow">
+          </div>
+          <div class="field">
+            <label>Recent show poster URL <span style="color:#888;font-weight:400">(Eventbrite / IG / website)</span></label>
+            <input type="url" id="sr-recent-poster-url" placeholder="https://eventbrite.com/e/... or https://instagram.com/p/...">
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label>Domain-bound contact email <span style="color:#888;font-weight:400">(e.g. booker@venue.com)</span></label>
+            <input type="email" id="sr-contact-email" placeholder="booker@venue.com">
+            <p id="sr-contact-email-hint" style="display:none;font-size:11px;color:#f59e0b;margin-top:4px">Heads up: a domain-bound address (booker@yourvenue.com) verifies faster than a free email.</p>
+          </div>
+        </div>
+        <div class="error-msg" id="sr-err"></div>
+        <button class="btn-primary" onclick="submitShowRunner()">List my show →</button>
+      </div>
+      <div class="success-msg" id="sr-success">
+        Listed! Want a promoted placement? Check your email for next steps and pricing.
+      </div>
+    </div>
+  </div>
+
+  <!-- Path 2: Comedian -->
+  <div class="path" id="comedian">
+    <div class="section-card">
+      <h2>I'm a comedian looking for stages</h2>
+      <p class="subhead">Submit your bio and we'll connect you with Paris show runners and bookers within 48 hours.</p>
+      <div id="form-comedian">
+        <input type="text" name="hp_url" id="co-hp_url" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+        <div class="form-row">
+          <div class="field">
+            <label>Name <span class="req">*</span></label>
+            <input type="text" id="co-name" placeholder="Your stage name">
+          </div>
+          <div class="field">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" id="co-email" placeholder="you@example.com">
+          </div>
+        </div>
+        <div class="field">
+          <label>Experience level</label>
+          <select id="co-level">
+            <option value="">Select…</option>
+            <option value="beginner">Beginner (0–1 years)</option>
+            <option value="intermediate">Intermediate (1–3 years)</option>
+            <option value="pro">Pro (3+ years)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Style / what you do</label>
+          <input type="text" id="co-style" placeholder="e.g. Observational, political, absurdist…">
+        </div>
+        <div class="field">
+          <label>Video link</label>
+          <input type="url" id="co-video" placeholder="YouTube, Instagram, or any clip">
+        </div>
+        <div class="field">
+          <label>Bio <span class="req">*</span></label>
+          <textarea id="co-bio" placeholder="Who you are, what your act is about, where you've performed…"></textarea>
+        </div>
+        <div class="error-msg" id="co-err"></div>
+        <button class="btn-primary" onclick="submitComedian()">Submit my bio →</button>
+      </div>
+      <div class="success-msg" id="co-success">
+        Got it! We'll review and connect you with bookers within 48 hours.
+      </div>
+      <div style="margin-top:20px;padding:14px 16px;background:#0f0f1a;border:1px solid #2a1a4a;border-radius:10px;font-size:13px;color:#888;line-height:1.6">
+        💬 Comic Plus messaging is planned — not live yet. <a href="/pricing.html#comic-plus" style="color:#9d5ff5;font-weight:600">Join the Comic Plus waitlist →</a>
+        <div style="margin-top:8px;color:#666;font-size:12px">Messaging waitlist only — checkout not live.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Path 3: Booker -->
+  <div class="path" id="booker">
+    <div class="section-card">
+      <h2>I want to book a comedian</h2>
+      <p class="subhead">Looking for talent for your event? We'll be in touch within 24 hours.</p>
+      <div id="form-booker">
+        <input type="text" name="hp_url" id="bk-hp_url" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+        <div class="form-row">
+          <div class="field">
+            <label>Name <span class="req">*</span></label>
+            <input type="text" id="bk-name" placeholder="Your name">
+          </div>
+          <div class="field">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" id="bk-email" placeholder="you@example.com">
+          </div>
+        </div>
+        <div class="field">
+          <label>Event type <span class="req">*</span></label>
+          <input type="text" id="bk-eventtype" placeholder="e.g. Corporate dinner, Birthday, Festival, Private party">
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Event date</label>
+            <input type="date" id="bk-date">
+          </div>
+          <div class="field">
+            <label>Budget range</label>
+            <select id="bk-budget">
+              <option value="">Select…</option>
+              <option value="under_500">Under €500</option>
+              <option value="500_2000">€500–2000</option>
+              <option value="2000_plus">€2000+</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Location</label>
+          <input type="text" id="bk-location" placeholder="Paris, or city name">
+        </div>
+        <div class="error-msg" id="bk-err"></div>
+        <button class="btn-primary" onclick="submitBooker()">Send request →</button>
+      </div>
+      <div class="success-msg" id="bk-success">
+        We'll be in touch within 24 hours.
+      </div>
+    </div>
+  </div>
+
+  <!-- Path 4: Send a message -->
+  <div class="path" id="message">
+    <div class="section-card">
+      <h2>Send a message</h2>
+      <p class="subhead">Reach out to a booker, comic, or venue. Messages are reviewed before delivery — usually within 24 hours.</p>
+      <div id="form-message">
+        <input type="text" id="msg-website" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
+        <input type="text" name="hp_url" id="msg-hp_url" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+        <div class="form-row">
+          <div class="field">
+            <label>Your name <span class="req">*</span></label>
+            <input type="text" id="msg-name" placeholder="Your name">
+          </div>
+          <div class="field">
+            <label>Your email <span class="req">*</span></label>
+            <input type="email" id="msg-email" placeholder="you@example.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>You are a… <span class="req">*</span></label>
+            <select id="msg-sender-type">
+              <option value="comic">Comic</option>
+              <option value="booker">Booker</option>
+              <option value="venue">Venue</option>
+              <option value="fan">Fan</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Reaching out to… <span class="req">*</span></label>
+            <select id="msg-recipient-type">
+              <option value="booker">A booker</option>
+              <option value="comic">A comic</option>
+              <option value="venue">A venue</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Recipient name or show ID (if known)</label>
+          <input type="text" id="msg-recipient-id" placeholder="e.g. French Fried Comedy Night, or leave blank for general">
+        </div>
+        <div class="field">
+          <label>Subject <span class="req">*</span></label>
+          <input type="text" id="msg-subject" maxlength="200" placeholder="What's this about?">
+        </div>
+        <div class="field">
+          <label>Message <span class="req">*</span></label>
+          <textarea id="msg-body" rows="6" maxlength="5000" placeholder="Your message (10–5000 characters)…"></textarea>
+        </div>
+        <div class="error-msg" id="msg-err"></div>
+        <button class="btn-primary" onclick="submitMessage()">Send message →</button>
+        <p style="font-size:12px;color:#666;margin-top:10px">Messages are reviewed before delivery to protect inboxes. We don't share private email addresses publicly.</p>
+      </div>
+      <div class="success-msg" id="msg-success">
+        Message received. We'll review and forward it within 24 hours. You'll get a copy by email if delivery succeeds.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/shows.html">Tonight's Comedy Shows in Paris</a>
+    <a href="/venues.html">Comedy Clubs in Paris</a>
+    <a href="/comedians.html">English-Speaking Comedians in Paris</a>
+    <a href="/book.html">Book a Show or Comedian</a>
+    <a href="/bookers.html">For Bookers &amp; Show Runners</a>
+    <a href="/pricing.html">Pricing</a>
+    <a href="/about.html">About Paris Comedy</a>
+    <a href="/login.html">Sign In</a>
+  </div>
+  <div>payments@pariscomedy.com</div>
+</footer>
+
+
+<script>
+// ── Tab navigation ────────────────────────────────────────────────────────
+function showPath(id, btn) {
+  document.querySelectorAll('.path').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Handle anchor links on load
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.replace('#', '');
+  const validPaths = ['show-runner', 'comedian', 'booker'];
+  if (validPaths.includes(hash)) {
+    const btn = document.querySelector(`.tab-btn[onclick*="${hash}"]`);
+    if (btn) showPath(hash, btn);
+  }
+});
+
+// ── API helper ────────────────────────────────────────────────────────────
+let _apiBase = '';
+async function getApi() {
+  if (_apiBase) return _apiBase;
+  try {
+    const cfg = await fetch('/api-config.json').then(r => r.json());
+    _apiBase = cfg.api || '';
+  } catch(e) { _apiBase = ''; }
+  return _apiBase;
+}
+
+async function postForm(payload) {
+  const api = await getApi();
+  if (!api) throw new Error('Server unavailable — email us at payments@pariscomedy.com directly.');
+  const r = await fetch(api + '/api/book', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload)
+  });
+  if (!r.ok) throw new Error('Server error ' + r.status);
+  return r.json();
+}
+
+// ── Offline fallback: backup to localStorage + open mailto ───────────────
+function saveBackupAndMailto(formType, payload, subject) {
+  try {
+    const arr = JSON.parse(localStorage.getItem('pc_intake_backup') || '[]');
+    arr.push({ formType, payload, ts: new Date().toISOString() });
+    localStorage.setItem('pc_intake_backup', JSON.stringify(arr));
+  } catch(_) { /* storage may be unavailable; ignore */ }
+  try {
+    const body = encodeURIComponent(JSON.stringify(payload, null, 2));
+    const subj = encodeURIComponent('[' + formType + '] ' + (subject || 'submission'));
+    window.location.href = 'mailto:payments@pariscomedy.com?subject=' + subj + '&body=' + body;
+  } catch(_) { /* mailto open failed; ignore */ }
+}
+
+// Honeypot check — returns true if the bot field is filled (silent reject).
+function hpTripped(id) {
+  const el = document.getElementById(id);
+  return !!(el && el.value);
+}
+
+// ── Form handlers ─────────────────────────────────────────────────────────
+async function submitShowRunner() {
+  if (hpTripped('sr-hp_url')) { return; } // honeypot silent reject
+  const showname = document.getElementById('sr-showname').value.trim();
+  const venue = document.getElementById('sr-venue').value.trim();
+  const day = document.getElementById('sr-day').value;
+  const time = document.getElementById('sr-time').value;
+  const eventbrite = document.getElementById('sr-eventbrite').value.trim();
+  const email = document.getElementById('sr-email').value.trim();
+  const err = document.getElementById('sr-err');
+  err.textContent = '';
+  if (!showname || !venue || !email) { err.textContent = 'Please fill in Show name, Venue and Email.'; return; }
+  const btn = document.querySelector('#show-runner .btn-primary');
+  btn.disabled = true; btn.textContent = 'Submitting…';
+  // If this is a claim (?claim=<slug>), route to the dedicated /api/show/claim endpoint
+  // so the slug is stored on the show_claims row, not a generic lead.
+  const params = new URLSearchParams(location.search);
+  const claimSlug = params.get('claim');
+  try {
+    if (claimSlug) {
+      // In claim mode the claimant_name is a SEPARATE field (#sr-claimant-name).
+      // show_name = the show being claimed (locked from URL params).
+      // claimant_name = the human submitting the claim.
+      const claimantNameEl = document.getElementById('sr-claimant-name');
+      const claimantName = claimantNameEl ? claimantNameEl.value.trim() : '';
+      if (!claimantName) { err.textContent = 'Please enter your name (the person claiming this show).'; btn.disabled=false; btn.textContent='List my show →'; return; }
+      // P3.CLAIM.3: optional evidence-collection fields appended to claim body.
+      let showInsta = (document.getElementById('sr-show-instagram')?.value || '').trim();
+      if (showInsta.startsWith('@')) showInsta = showInsta.slice(1);
+      const recentPosterUrl = (document.getElementById('sr-recent-poster-url')?.value || '').trim();
+      const contactEmail = (document.getElementById('sr-contact-email')?.value || '').trim();
+      let api = '';
+      try { const c = await fetch('/api-config.json').then(r=>r.json()); api = c.api || ''; } catch(_) {}
+      const claimBody = {
+        show_slug: claimSlug,
+        show_name: params.get('show_name') || showname,
+        source_url: params.get('source_url') || '',
+        venue: params.get('venue') || venue,
+        claimant_name: claimantName,          // separate from show_name
+        claimant_email: email,
+        role: 'show_runner',
+        message: `day=${day}, time=${time}, eventbrite=${eventbrite}`,
+      };
+      if (showInsta) claimBody.show_instagram = showInsta;
+      if (recentPosterUrl) claimBody.recent_poster_url = recentPosterUrl;
+      if (contactEmail) claimBody.contact_email = contactEmail;
+      const r = await fetch((api || 'https://api.pariscomedy.com') + '/api/show/claim', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(claimBody),
+      });
+      const d = await r.json();
+      if (!r.ok || !d.ok) throw new Error(d.detail || 'claim failed');
+    } else {
+      const reportSlug = (params.get('report') || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
+      const payload = { _type: 'show_listing', show_name: showname, venue, day, time, eventbrite_url: eventbrite, email };
+      if (reportSlug) {
+        payload.is_report = true;
+        payload.report_slug = reportSlug;
+      }
+      await postForm(payload);
+    }
+    document.getElementById('form-show-runner').style.display = 'none';
+    document.getElementById('sr-success').style.display = 'block';
+  } catch(e) {
+    // Offline fallback: backup to localStorage + open mailto
+    const fallbackPayload = claimSlug
+      ? { _type: 'show_claim', show_slug: claimSlug, show_name: showname, venue, claimant_email: email, day, time, eventbrite }
+      : { _type: 'show_listing', show_name: showname, venue, day, time, eventbrite_url: eventbrite, email };
+    saveBackupAndMailto('show_listing', fallbackPayload, showname);
+    err.textContent = e.message + ' — we saved your details locally and opened your email app as a backup.';
+    btn.disabled = false; btn.textContent = 'List my show →';
+  }
+}
+
+// Preload claim banner from query params (?claim=slug&show_name=...&source_url=...&venue=...)
+(function preloadClaim() {
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('claim');
+  if (!slug) return;
+  const banner = document.getElementById('claim-banner');
+  if (!banner) return;
+  banner.style.display = 'block';
+  const nm = params.get('show_name') || slug;
+  document.getElementById('claim-show-name').textContent = nm;
+  document.getElementById('claim-show-slug').textContent = slug;
+  const a = document.getElementById('claim-show-url');
+  a.href = '/shows/' + slug + '.html';
+  a.textContent = 'pariscomedy.com/shows/' + slug + '.html';
+  // Adjust headings
+  document.getElementById('sr-title').textContent = 'Claim: ' + nm;
+  document.getElementById('sr-subhead').textContent = 'You are claiming a show page. We review every claim within 48 hours before any ownership badge is shown publicly.';
+  // Prefill venue and lock it so the claimant cannot rewrite the venue
+  // associated with the show being claimed (parity with show_name lock).
+  const ven = params.get('venue');
+  const venueEl = document.getElementById('sr-venue');
+  if (venueEl) {
+    if (ven) venueEl.value = ven;
+    venueEl.readOnly = true;
+    venueEl.style.opacity = '0.7';
+    const lockIcon = document.getElementById('sr-venue-lock');
+    const lockNote = document.getElementById('sr-venue-lock-note');
+    if (lockIcon) lockIcon.style.display = '';
+    if (lockNote) lockNote.style.display = '';
+  }
+  // Prefill show name from URL param and lock the field so the claimant
+  // cannot accidentally overwrite the show being claimed.
+  const lockedShowName = document.getElementById('sr-showname');
+  if (lockedShowName) {
+    lockedShowName.value = nm;
+    lockedShowName.readOnly = true;
+    lockedShowName.style.opacity = '0.7';
+  }
+  // Reveal the claimant-name field
+  const cnf = document.getElementById('claimant-name-field');
+  if (cnf) cnf.style.display = '';
+  // P3.CLAIM.3: reveal evidence-collection panel (Instagram, recent poster URL, domain email).
+  const evidencePanel = document.getElementById('sr-claim-evidence');
+  if (evidencePanel) evidencePanel.style.display = '';
+  // Inline hint: warn if domain-bound contact email is on a generic free-email provider.
+  const contactEl = document.getElementById('sr-contact-email');
+  const contactHint = document.getElementById('sr-contact-email-hint');
+  if (contactEl && contactHint) {
+    const FREE_DOMAINS = ['gmail.com','yahoo.com','yahoo.fr','outlook.com','hotmail.com','hotmail.fr','live.com','icloud.com','me.com','aol.com','proton.me','protonmail.com'];
+    const check = () => {
+      const v = (contactEl.value || '').trim().toLowerCase();
+      const at = v.lastIndexOf('@');
+      if (at < 0) { contactHint.style.display = 'none'; return; }
+      const domain = v.slice(at + 1);
+      contactHint.style.display = (domain && FREE_DOMAINS.includes(domain)) ? '' : 'none';
+    };
+    contactEl.addEventListener('input', check);
+    contactEl.addEventListener('blur', check);
+  }
+  // Update success message
+  document.getElementById('sr-success').textContent = 'Claim received. We will review and contact you within 48 hours.';
+})();
+
+// Preload report banner from query params (?report=<slug>)
+// Wires the dead "Report it" link from /shows/<slug>.html into the show-runner
+// form: scrolls into view, prefills the show name (from existing /shows page
+// title if findable, otherwise the slug), and adds a notice. submitShowRunner()
+// detects ?report= and adds is_report=true + report_slug=<slug> to its payload.
+(function preloadReport() {
+  const params = new URLSearchParams(location.search);
+  const slug = (params.get('report') || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
+  if (!slug) return;
+  // If a claim is also present, claim wins (more specific intent).
+  if (params.get('claim')) return;
+  const banner = document.getElementById('report-banner');
+  if (!banner) return;
+  banner.style.display = 'block';
+  const slugEl = document.getElementById('report-show-slug');
+  if (slugEl) slugEl.textContent = slug;
+  // Adjust headings
+  const t = document.getElementById('sr-title');
+  const sh = document.getElementById('sr-subhead');
+  if (t) t.textContent = 'Report an issue: ' + slug;
+  if (sh) sh.textContent = 'Use the form below to describe the issue. We review reports within 48 hours.';
+  // Prefill show name with slug (placeholder for the actual show title;
+  // /shows/<slug>.html is a static page so we cannot reliably look up the
+  // title client-side without an extra fetch — slug is the contract).
+  const showNameEl = document.getElementById('sr-showname');
+  if (showNameEl && !showNameEl.value) showNameEl.value = slug;
+  // Update success message
+  const success = document.getElementById('sr-success');
+  if (success) success.textContent = 'Report received. We will review and contact you within 48 hours.';
+  // Scroll the form-section into view so the user sees the banner immediately.
+  try {
+    const sec = document.querySelector('#show-runner .section-card');
+    if (sec && typeof sec.scrollIntoView === 'function') {
+      sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  } catch (_) { /* ignore scroll errors */ }
+})();
+
+async function submitComedian() {
+  if (hpTripped('co-hp_url')) { return; } // honeypot silent reject
+  const name = document.getElementById('co-name').value.trim();
+  const email = document.getElementById('co-email').value.trim();
+  const level = document.getElementById('co-level').value;
+  const style = document.getElementById('co-style').value.trim();
+  const video = document.getElementById('co-video').value.trim();
+  const bio = document.getElementById('co-bio').value.trim();
+  const err = document.getElementById('co-err');
+  err.textContent = '';
+  if (!name || !email || !bio) { err.textContent = 'Please fill in Name, Email and Bio.'; return; }
+  const btn = document.querySelector('#comedian .btn-primary');
+  btn.disabled = true; btn.textContent = 'Submitting…';
+  const payload = { _type: 'comedian_bio', name, email, experience_level: level, style, video_url: video, bio };
+  try {
+    await postForm(payload);
+    document.getElementById('form-comedian').style.display = 'none';
+    document.getElementById('co-success').style.display = 'block';
+  } catch(e) {
+    saveBackupAndMailto('comedian_bio', payload, name);
+    err.textContent = e.message + ' — we saved your bio locally and opened your email app as a backup.';
+    btn.disabled = false; btn.textContent = 'Submit my bio →';
+  }
+}
+
+async function submitBooker() {
+  if (hpTripped('bk-hp_url')) { return; } // honeypot silent reject
+  const name = document.getElementById('bk-name').value.trim();
+  const email = document.getElementById('bk-email').value.trim();
+  const eventtype = document.getElementById('bk-eventtype').value.trim();
+  const date = document.getElementById('bk-date').value;
+  const budget = document.getElementById('bk-budget').value;
+  const location = document.getElementById('bk-location').value.trim();
+  const err = document.getElementById('bk-err');
+  err.textContent = '';
+  if (!name || !email || !eventtype) { err.textContent = 'Please fill in Name, Email and Event type.'; return; }
+  const btn = document.querySelector('#booker .btn-primary');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  const payload = { _type: 'booking_request', name, email, event_type: eventtype, date, budget, location };
+  try {
+    await postForm(payload);
+    document.getElementById('form-booker').style.display = 'none';
+    document.getElementById('bk-success').style.display = 'block';
+  } catch(e) {
+    saveBackupAndMailto('booking_request', payload, eventtype);
+    err.textContent = e.message + ' — we saved your request locally and opened your email app as a backup.';
+    btn.disabled = false; btn.textContent = 'Send request →';
+  }
+}
+
+async function submitMessage() {
+  if (hpTripped('msg-hp_url')) { return; } // honeypot silent reject (hp_url parity)
+  if (document.getElementById('msg-website').value) { return; } // legacy honeypot
+  const v = id => document.getElementById(id).value.trim();
+  const payload = {
+    sender_name: v('msg-name'),
+    sender_email: v('msg-email'),
+    sender_type: v('msg-sender-type'),
+    recipient_type: v('msg-recipient-type'),
+    recipient_id: v('msg-recipient-id'),
+    subject: v('msg-subject'),
+    message: v('msg-body'),
+    source_page: location.pathname,
+    website: document.getElementById('msg-website').value,  // honeypot (legacy)
+    timestamp: new Date().toISOString(),
+  };
+  const err = document.getElementById('msg-err');
+  err.textContent = '';
+  if (!payload.sender_name || !payload.sender_email || !payload.subject || !payload.message) {
+    err.textContent = 'Please fill in name, email, subject and message.';
+    return;
+  }
+  if (payload.message.length < 10) { err.textContent = 'Message must be at least 10 characters.'; return; }
+  const btn = document.querySelector('#message .btn-primary');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  try {
+    const cfg = await fetch('/api-config.json').then(r => r.json());
+    const r = await fetch(cfg.api + '/api/message', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+    if (!r.ok) {
+      const data = await r.json().catch(() => ({}));
+      throw new Error(data.detail || ('Error ' + r.status));
+    }
+    document.getElementById('form-message').style.display = 'none';
+    document.getElementById('msg-success').style.display = 'block';
+  } catch(e) {
+    saveBackupAndMailto('message', payload, payload.subject);
+    err.textContent = (e.message || 'Send failed.') + ' We saved your message locally and opened your email app as a backup.';
+    btn.disabled = false; btn.textContent = 'Send message →';
+  }
+}
+</script>
+<script src="/assets/track.js" defer></script>
+<script src="/assets/events.js" defer></script>
+</body>
+</html>

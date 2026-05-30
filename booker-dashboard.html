@@ -338,7 +338,8 @@ let FILTER = 'all';
 async function api(path, opts={}) {
   const base = await API_BASE_PROMISE;
   const headers = Object.assign({'Content-Type':'application/json'}, opts.headers||{}, TOKEN ? {'X-Booker-Token': TOKEN} : {});
-  const r = await fetch(base + path, Object.assign({}, opts, {headers}));
+  const _f = (window.PCAuth&&window.PCAuth.authFetch)||fetch;
+  const r = await _f(base + path, Object.assign({}, opts, {headers}));
   if (!r.ok) {
     const j = await r.json().catch(()=>({detail:r.statusText}));
     const detail = j.detail && j.detail.error === 'paid_membership_required'
@@ -486,7 +487,7 @@ async function loadShowTimeline(showId) {
   if (!wrap || !list) return;
   try {
     const token = TOKEN || '';
-    const r = await fetch(`/api/admin/events/timeline/${showId}?days=90&token=${encodeURIComponent(token)}`);
+    const r = await ((window.PCAuth&&window.PCAuth.authFetch)||fetch)(`/api/admin/events/timeline/${showId}?days=90&token=${encodeURIComponent(token)}`);
     if (!r.ok) { wrap.style.display = 'none'; return; }
     const data = await r.json();
     if (!data.timeline || !data.timeline.length) { wrap.style.display = 'none'; return; }
@@ -977,7 +978,7 @@ async function quickAddComic() {
       based_in: 'Paris',
       notes: 'Added by booker ' + EMAIL
     };
-    const r = await fetch((await API_BASE_PROMISE) + '/api/admin/comics', {
+    const r = await ((window.PCAuth&&window.PCAuth.authFetch)||fetch)((await API_BASE_PROMISE) + '/api/admin/comics', {
       method: 'POST',
       headers: {'Content-Type':'application/json','X-Admin-Secret':'pc-admin-2026'},
       body: JSON.stringify(payload)

@@ -73,7 +73,7 @@ th{color:#666}
  <input type="password" id="owner-token" placeholder="Owner token">
  <button onclick="login()">Sign in →</button>
  <div id="auth-err" class="msg err"></div>
- <div class="sub" style="margin-top:14px">Don't have a token? <a href="/book.html" style="color:#9d5ff5">Submit a claim</a>.</div>
+ <div class="sub" style="margin-top:14px">Don't have a token? <a href="/connect.html" style="color:#9d5ff5">Submit a claim</a>.</div>
 </div>
 
 <div id="app">
@@ -293,7 +293,7 @@ async function login() {
  TOKEN = (document.getElementById('owner-token').value || '').trim();
  if (!TOKEN) return;
  try { const c = await fetch('/api-config.json').then(r=>r.json()); API = c.api || ''; } catch(_) {}
- const r = await fetch((API || 'https://api.pariscomedy.com') + '/api/owner/shows?owner_token=' + encodeURIComponent(TOKEN));
+ const r = await ((window.PCAuth&&window.PCAuth.authFetch)||fetch)((API || 'https://api.pariscomedy.com') + '/api/owner/shows?owner_token=' + encodeURIComponent(TOKEN));
  if (r.status !== 200) { document.getElementById('auth-err').textContent = 'Invalid token'; return; }
  const d = await r.json();
  if (!d.shows || !d.shows.length) { document.getElementById('auth-err').textContent = 'No shows linked to this token'; return; }
@@ -312,7 +312,7 @@ async function login() {
 function api(path, opts) {
  opts = opts || {};
  opts.headers = Object.assign({'Content-Type':'application/json','Authorization':'Bearer '+TOKEN}, opts.headers || {});
- return fetch((API || 'https://api.pariscomedy.com') + path, opts).then(r => r.json());
+ return ((window.PCAuth&&window.PCAuth.authFetch)||fetch)((API || 'https://api.pariscomedy.com') + path, opts).then(r => r.json());
 }
 
 function showTab(name) {
