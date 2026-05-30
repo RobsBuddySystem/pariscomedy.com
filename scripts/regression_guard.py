@@ -1472,6 +1472,11 @@ def check_no_normal_cta_for_unverified() -> dict:
     article_re = re.compile(
         r'<article id="show-(?P<slug>[a-z0-9-]+)" data-verification-status="(?P<status>[^"]+)">(?P<body>.*?)</article>',
         re.DOTALL)
+    # P0.LIVE-DATA-INTEGRITY.1B: hard-fail on ANY external http anchor that
+    # looks like a ticket CTA inside an unverified static fallback article.
+    ticket_anchor_re = re.compile(
+        r'<a\b[^>]*href="https?://[^"]+"[^>]*>([^<]*)</a>',
+        re.IGNORECASE)
     for m in article_re.finditer(show):
         slug = m.group("slug")
         status = m.group("status")
@@ -1482,6 +1487,13 @@ def check_no_normal_cta_for_unverified() -> dict:
             problems.append({"file": "show.html", "slug": slug,
                              "status": status,
                              "reason": "static normal CTA on unverified row"})
+        for am in ticket_anchor_re.finditer(body):
+            label = (am.group(1) or "").lower()
+            if "ticket" in label or "source listing" in label or "billet" in label:
+                problems.append({"file": "show.html", "slug": slug,
+                                 "status": status,
+                                 "anchor_text": am.group(1).strip()[:80],
+                                 "reason": "external ticket anchor on unverified article"})
     # index.html: Tonight + Promoted must gate on isFreshEnough
     idx = (REPO_ROOT / "index.html").read_text(encoding="utf-8", errors="ignore")
     if "renderTonightInParis" in idx or "tonight-show-grid" in idx:
