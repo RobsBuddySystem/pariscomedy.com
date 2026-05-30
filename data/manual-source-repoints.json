@@ -1,0 +1,40 @@
+{
+  "generated_at": "2026-05-30T00:30:00Z",
+  "doc": "P1.DATA.3.LITE — manual source_url repoints for listings whose API-stored source_url points to an ended Eventbrite event instance. Each entry must have been hand-verified to (a) be HTTP 200, (b) carry no HTML 'event ended'/'sales ended' badge, (c) have a title that shares the listing's distinctive tokens (venue or brand). Loose matches (e.g. same organizer but different show) are NOT included; those listings stay needs_human_review until a verified URL exists.",
+  "repoints": {
+    "charonne": {
+      "old_url": "https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697805324429",
+      "new_url": "https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697801202099",
+      "new_title": "Charonne Comedy Club",
+      "next_date_seen": "Sat, May 30 • 7:30 PM",
+      "evidence": "Source title 'Charonne Comedy Club' — exact match. Distinctive token 'charonne' shared. Pulled from MoreOrganizerEvents of the old URL on 2026-05-30."
+    },
+    "ffcn": {
+      "old_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838522586",
+      "new_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838453379",
+      "new_title": "FRENCH FRIED COMEDY NIGHT",
+      "next_date_seen": "Wed, June 3 • 10:00 PM",
+      "evidence": "Source title 'FRENCH FRIED COMEDY NIGHT' — exact match. Distinctive tokens 'french','fried' shared. Pulled from MoreOrganizerEvents of the old URL on 2026-05-30. JSON-LD startDate 2026-05-20, endDate 2026-07-08 (series)."
+    },
+    "velvet-comedy": {
+      "old_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840198599",
+      "new_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
+      "new_title": "Velvet Bar Comedy - Le meilleur du stand-up à Paris !!",
+      "next_date_seen": "Wed, June 3 • 8:30 PM",
+      "evidence": "Source title near-identical. Distinctive tokens 'velvet','meilleur' shared. Pulled from MoreOrganizerEvents of the old URL on 2026-05-30."
+    }
+  },
+  "not_repointed": {
+    "comedy-crush": "MoreOrganizerEvents on ended URL had 0 future candidates; organizer may have rotated to a different brand.",
+    "comedy-lab-chat-noir": "MoreOrganizerEvents on ended URL had 0 candidates.",
+    "cuba-compagnie": "Sole future candidate 'LES CAVES COMEDY CLUB' is a different venue/show; not safe to alias.",
+    "coucou-friday": "Future candidate 'Queer Comedy' is a different theme/series; not safe to alias.",
+    "green-light": "Future candidate 'Green Mic Comedy Show' shares organizer + 'green' token only; brand 'Green Light' not present in new title — different show.",
+    "green-mic-showcase": "MoreOrganizerEvents on ended URL had 0 candidates.",
+    "millennial-meltdown": "MoreOrganizerEvents on ended URL had 0 candidates.",
+    "theatre-bo-julie": "Sole future candidate had its own EVENT ENDED badge; nothing current to alias to.",
+    "rocket": "MoreOrganizerEvents on ended URL had 0 candidates.",
+    "smash": "MoreOrganizerEvents on ended URL had 0 candidates.",
+    "wednesday-night-comedy": "MoreOrganizerEvents on ended URL had 0 candidates."
+  }
+}

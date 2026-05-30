@@ -58,12 +58,37 @@ def fetch_url(url):
     except Exception:
         return None, None
 
+REPOINTS_PATH = Path(__file__).parent.parent / "data" / "manual-source-repoints.json"
+_REPOINTS = None
+
+
+def load_repoints():
+    """P1.DATA.3.LITE: per-slug source_url override map. Loaded once per run."""
+    global _REPOINTS
+    if _REPOINTS is not None:
+        return _REPOINTS
+    try:
+        d = json.loads(REPOINTS_PATH.read_text(encoding="utf-8"))
+        _REPOINTS = (d or {}).get("repoints", {}) or {}
+    except Exception:
+        _REPOINTS = {}
+    return _REPOINTS
+
+
 def verify_listing(l):
-    source_url = l.get("booking_url") or l.get("show_url") or ""
+    api_source_url = l.get("booking_url") or l.get("show_url") or ""
+    slug = l["slug"]
+    # P1.DATA.3.LITE: prefer manual repoint if present
+    rep = load_repoints().get(slug)
+    if rep and rep.get("new_url"):
+        source_url = rep["new_url"]
+        repointed = True
+    else:
+        source_url = api_source_url
+        repointed = False
     plat = platform_of(source_url)
     name = (l.get("name") or "").lower()
     venue = ((l.get("venue") or {}).get("name") or "").lower()
-    slug = l["slug"]
 
     last_checked_at = NOW.strftime("%Y-%m-%dT%H:%M:%SZ")
     note = "source verification job"
@@ -82,7 +107,7 @@ def verify_listing(l):
                 "this event has passed", "event has passed",
                 "this event has already taken place",
                 "tickets are no longer available",
-                "event ended", "sales ended", "sales end",
+                "event ended", "sales ended",
                 "cet événement est terminé", "événement est terminé",
                 "cet événement est passé", "événement terminé",
                 "billetterie est fermée", "les ventes sont terminées",
@@ -137,11 +162,15 @@ def verify_listing(l):
             note = f"source HTTP {code}"
 
     next_due = NOW.timestamp() + 86400
+    if repointed:
+        note = f"[repointed via manual-source-repoints.json] {note}"
     return {
         "id": l["id"],
         "slug": slug,
         "name": l["name"],
         "source_url": source_url,
+        "api_source_url": api_source_url if repointed else None,
+        "source_repointed": repointed,
         "source_platform": plat,
         "source_type": "ticket" if plat in (
             "eventbrite", "fnac_france_billet", "billetreduc", "fever",

@@ -1,5 +1,45 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | data | P1.DATA.3.LITE: source repoints + remove "sales end" overmatch
+
+ChatGPT-authorized 2026-05-30 (P1.DATA.3.LITE — manual source URL repoint
+for ended recurring listings).
+
+data/manual-source-repoints.json (new):
+  Hand-verified per-slug source_url overrides. Each entry must satisfy:
+  (a) HTTP 200, (b) no HTML `event ended`/`sales ended` badge, (c) title
+  shares the listing's distinctive tokens. Loose matches (same organizer
+  but different show, e.g. Cuba Compagnie -> LES CAVES) are NOT included
+  and stay needs_human_review. Three confirmed repoints:
+    - ffcn:          1989838522586 -> 1989838453379 (FRENCH FRIED June 3)
+    - charonne:      1697805324429 -> 1697801202099 (Charonne May 30)
+    - velvet-comedy: 1989840198599 -> 1989840111338 (Velvet Bar June 3)
+  Eleven other listings documented in "not_repointed" with the reason.
+
+scripts/freshness_verify.py:
+  - load_repoints() reads data/manual-source-repoints.json once per run.
+  - verify_listing() prefers the repoint new_url over the API-stored URL
+    when present. Output records both source_url (the URL actually fetched)
+    and api_source_url (the original) plus source_repointed: true.
+  - REMOVED "sales end" from past_signals — it was a greedy over-match that
+    flipped LIVE bookable events to needs_human_review whenever Eventbrite
+    rendered text like "Sales end June 10" or "Sales end Tomorrow". The
+    proper match remains "sales ended" (past tense) which is the actual
+    ended-event badge.
+
+Live audit delta:
+  Before (with "sales end" + no repoints):  needs_human_review 14 / verified_24h 0
+  After  (sans "sales end" + 3 repoints):   needs_human_review 3  / verified_24h 11
+
+Genuinely ended (verified ended badge): millennial-meltdown, theatre-bo-julie,
+wednesday-night-comedy. Their organizers have not yet posted future
+instances Eventbrite exposes via MoreOrganizerEvents.
+
+Regression: 11/11 PASS. Status sweep 31/31 HTTP 200.
+
+Rollback: git revert <sha>
+
+
 ## 2026-05-30 | data | P1.DATA.2.FIX-DEPLOY-RECONCILE — close root cause + tonight panel guard
 
 Closes the two latent issues disclosed in the previous P1.DATA.2.FIX proof:
