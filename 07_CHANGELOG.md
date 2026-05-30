@@ -1,5 +1,33 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | docs | BACKEND.PLAN.1: backend implementation plan (plan-only)
+
+ChatGPT-authorized 2026-05-30 (BACKEND.PLAN.1 - plan only, do not implement).
+
+Seven new plan files:
+- docs/BACKEND_PLAN_1.md           - master plan, per-area classification
+- data/backend-plan.json           - machine-readable companion
+- docs/API_CONTRACT_DRAFT.md       - REST endpoints + CSRF + error catalog
+- docs/DB_SCHEMA_DRAFT.md          - engine-portable schema (Postgres/SQLite)
+- docs/BACKEND_RISK_REGISTER.md    - 20 risks + 10 open decisions
+- docs/BACKEND_IMPLEMENTATION_SEQUENCE.md - ordered execution: AUTH > SUBMIT > CLAIM > EMAIL > PAYMENTS > MESSAGING > TICKETS
+- chuck_vault/.../BACKEND_PLAN_1.md - vault mirror
+
+Coverage: Auth, Show Submissions, Claim flows, Messaging, Payments, Ticket
+adapters, Email/domain. Each item classified
+(frontend-only / backend-required / database-required / email-required /
+payment-provider-required / admin-review-required / legal-compliance-required /
+blocked / ready-to-build).
+
+No backend code changed. No production behavior change. No DB migration.
+Public site unchanged.
+
+Also filed: BUG-P1-COPY-002 - residual "All comedy shows/venues" browse-link
+overclaim on show.html (non-blocking, deferred to a copy/guard pass).
+
+Rollback: git revert <sha>
+
+
 ## 2026-05-30 | data | P1.DATA.3B: sync show.html noscript fallback with audit JSON
 
 ChatGPT-authorized 2026-05-30 (P1.DATA.3B - synchronize show.html raw

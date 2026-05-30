@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-05-30T00:55:00Z",
+  "phase_id": "BACKEND.PLAN.1",
+  "status": "plan_only",
+  "doc": "Machine-readable companion to docs/BACKEND_PLAN_1.md. Classification keys: frontend-only, backend-required, database-required, email-required, payment-provider-required, admin-review-required, legal/compliance-required, blocked, ready-to-build.",
+  "areas": [
+    {
+      "area": "auth",
+      "implementing_phase": "BACKEND.AUTH.1",
+      "items": [
+        {"name": "magic_link_login",          "classes": ["backend-required","email-required","ready-to-build"]},
+        {"name": "password_login_admin_only", "classes": ["backend-required","database-required"]},
+        {"name": "session_persistence",       "classes": ["backend-required"]},
+        {"name": "token_invalidation",        "classes": ["backend-required","database-required"]},
+        {"name": "logout_clear_cookies",      "classes": ["backend-required"]},
+        {"name": "comic_account",             "classes": ["database-required","backend-required"]},
+        {"name": "booker_account",            "classes": ["database-required","backend-required"]},
+        {"name": "admin_account",             "classes": ["database-required","backend-required"]},
+        {"name": "token_expiry_display",      "classes": ["backend-required","frontend-only"]},
+        {"name": "rate_limits",               "classes": ["backend-required"]},
+        {"name": "audit_log",                 "classes": ["database-required","backend-required"]}
+      ]
+    },
+    {
+      "area": "submissions",
+      "implementing_phase": "BACKEND.SUBMIT.1",
+      "items": [
+        {"name": "public_submit_form",        "classes": ["frontend-only"]},
+        {"name": "anti_spam_honeypot",        "classes": ["backend-required"]},
+        {"name": "moderation_queue",          "classes": ["database-required","backend-required","admin-review-required"]},
+        {"name": "status_states",             "classes": ["database-required"]},
+        {"name": "source_url_validation",     "classes": ["backend-required"]},
+        {"name": "freshness_verification_hook","classes": ["backend-required"]},
+        {"name": "admin_approve_reject",      "classes": ["backend-required","admin-review-required","email-required"]}
+      ]
+    },
+    {
+      "area": "claims",
+      "implementing_phase": "BACKEND.CLAIM.1",
+      "items": [
+        {"name": "comic_claim",               "classes": ["database-required","backend-required","admin-review-required"]},
+        {"name": "show_runner_claim",         "classes": ["database-required","backend-required","admin-review-required"]},
+        {"name": "venue_booker_claim",        "classes": ["database-required","backend-required","admin-review-required"]},
+        {"name": "evidence_upload_url_proof", "classes": ["backend-required","frontend-only"]},
+        {"name": "pending_review",            "classes": ["database-required"]},
+        {"name": "approved_rejected_states",  "classes": ["database-required"]},
+        {"name": "fail_closed_badges",        "classes": ["frontend-only","backend-required"]}
+      ]
+    },
+    {
+      "area": "messaging",
+      "implementing_phase": "BACKEND.MESSAGING.1",
+      "items": [
+        {"name": "comic_to_booker",           "classes": ["database-required","backend-required"]},
+        {"name": "booker_to_comic",           "classes": ["database-required","backend-required"]},
+        {"name": "abuse_prevention",          "classes": ["backend-required"]},
+        {"name": "subscription_gate",         "classes": ["payment-provider-required","backend-required","blocked"]},
+        {"name": "email_notification_rules",  "classes": ["email-required","backend-required"]},
+        {"name": "data_retention",            "classes": ["legal/compliance-required","database-required"]}
+      ]
+    },
+    {
+      "area": "payments",
+      "implementing_phase": "BACKEND.PAYMENTS.1",
+      "items": [
+        {"name": "comic_plan_eur1_per_month",  "classes": ["payment-provider-required","backend-required","legal/compliance-required"]},
+        {"name": "booker_plan_eur1_per_month", "classes": ["payment-provider-required","backend-required","legal/compliance-required"]},
+        {"name": "show_highlight_promo",       "classes": ["payment-provider-required","backend-required","admin-review-required"]},
+        {"name": "private_booking_products",   "classes": ["payment-provider-required","backend-required"]},
+        {"name": "refund_cancel_path",         "classes": ["payment-provider-required","backend-required"]},
+        {"name": "invoice_receipt",            "classes": ["legal/compliance-required","email-required"]},
+        {"name": "disclosure_legal",           "classes": ["legal/compliance-required"]},
+        {"name": "webhook_signature_idempotency","classes": ["backend-required"]}
+      ],
+      "provider_recommendation": "Stripe (over SumUp) — Checkout + Customer Portal for subscriptions; SumUp Online lacks robust subscription tooling. Both can coexist for in-person at venues."
+    },
+    {
+      "area": "ticket_adapters",
+      "implementing_phase": "BACKEND.TICKETS.1",
+      "items": [
+        {"name": "eventbrite_read_freshness", "classes": ["ready-to-build"], "status": "live"},
+        {"name": "eventbrite_import",         "classes": ["backend-required","admin-review-required"]},
+        {"name": "billetreduc",               "classes": ["backend-required","admin-review-required"]},
+        {"name": "fnac_france_billet",        "classes": ["backend-required","admin-review-required"]},
+        {"name": "fever",                     "classes": ["backend-required","admin-review-required"]},
+        {"name": "weezevent",                 "classes": ["backend-required","admin-review-required"]},
+        {"name": "ticketmaster_fr",           "classes": ["backend-required","admin-review-required","blocked"]},
+        {"name": "see_tickets",               "classes": ["backend-required","admin-review-required","blocked"]},
+        {"name": "billetweb",                 "classes": ["backend-required","admin-review-required","blocked"]},
+        {"name": "yurplan",                   "classes": ["backend-required","admin-review-required","blocked"]},
+        {"name": "helloasso",                 "classes": ["backend-required","admin-review-required","blocked"]},
+        {"name": "shotgun",                   "classes": ["backend-required","admin-review-required","blocked"]},
+        {"name": "dice",                      "classes": ["backend-required","admin-review-required","blocked"]},
+        {"name": "affiliate_referral_disabled","classes": ["legal/compliance-required"]}
+      ]
+    },
+    {
+      "area": "email_domain",
+      "implementing_phase": "BACKEND.EMAIL.1",
+      "items": [
+        {"name": "chuck_at_pariscomedy_com",     "classes": ["email-required"], "status": "live_forwarding"},
+        {"name": "payments_at_pariscomedy_com",  "classes": ["email-required"]},
+        {"name": "support_at_pariscomedy_com",   "classes": ["email-required"]},
+        {"name": "inbound_routing_cloudflare",   "classes": ["email-required"]},
+        {"name": "outbound_transactional_postmark","classes": ["email-required","legal/compliance-required"]},
+        {"name": "spf",                          "classes": ["email-required"]},
+        {"name": "dkim",                         "classes": ["email-required"]},
+        {"name": "dmarc",                        "classes": ["email-required","legal/compliance-required"]}
+      ]
+    }
+  ],
+  "implementation_sequence": [
+    "BACKEND.AUTH.1",
+    "BACKEND.SUBMIT.1",
+    "BACKEND.CLAIM.1",
+    "BACKEND.EMAIL.1",
+    "BACKEND.PAYMENTS.1",
+    "BACKEND.MESSAGING.1",
+    "BACKEND.TICKETS.1"
+  ],
+  "open_decisions": [
+    "Hosting target for the backend (Cloudflare Workers vs Hetzner VM vs Render) — decide in BACKEND.AUTH.1 first sub-RFC.",
+    "Database engine (Postgres vs Turso/SQLite) — schema is engine-portable.",
+    "Postmark vs SES pricing — captured in BACKEND_RISK_REGISTER.md.",
+    "Whether to ship password recovery flow for admin (current plan: magic link only).",
+    "Whether to retain message bodies vs metadata after 24 months for RGPD compliance."
+  ]
+}
