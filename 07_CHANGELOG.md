@@ -7,6 +7,12 @@ updated. Regression guard blocks any future /book.html reference. connect.html b
 BACKEND.AUTH.3 production readiness checklist accepted as readiness-only (no production cutover).
 122/122 tests pass. 13/13 regression checks pass.
 
+## 2026-05-30 | backend | BACKEND.SUBMIT.2-ROUTER-DISABLED: submissions v2 router wired, disabled
+
+submissions_v2_router.py + 19 tests. SUBMISSIONS_V2_ENABLED=false. All routes 503 by default.
+No public form cutover. No listing created. No email. main.py includes router (fail-safe try/except).
+141/141 tests pass. 13/13 regression checks pass.
+
 ## 2026-05-30 | backend | BACKEND.EMAIL.3-DNS-VERIFICATION-PREFLIGHT: DNS audit for Postmark
 
 DNS audit of pariscomedy.com (2026-05-30). SPF: Postmark include MISSING. DKIM: MISSING.
