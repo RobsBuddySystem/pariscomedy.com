@@ -78,7 +78,7 @@ SWEEP_PAGES = [
     "/about.html",
     "/pricing.html",
     "/bookers.html",
-    "/book.html",
+    "/connect.html",
     "/shows.html",
     "/venues.html",
     "/comedians.html",
@@ -617,7 +617,7 @@ def check_public_copy_overclaims() -> dict:
     """
     html_files = [
         "index.html", "show.html", "shows.html", "pricing.html",
-        "disclosure.html", "book.html", "venues.html", "comedians.html",
+        "disclosure.html", "connect.html", "venues.html", "comedians.html",
     ]
     forbidden_phrases = [
         # coverage overclaims
@@ -680,32 +680,42 @@ def check_public_copy_overclaims() -> dict:
 
 
 def check_book_html_decommissioned() -> dict:
-    """P0.BOOK.LEGACY.ROUTE.DECOMMISSION — /book.html must not be linked from canonical public pages.
+    """P0.BOOK.NUCLEAR-BYPASS — /book.html is permanently contaminated.
 
-    /connect.html is the canonical booking route. Any href to /book.html in public HTML
-    (except in book.html itself) is a guard violation.
+    /connect.html is the only canonical booking route.
+    Fails on: any href, canonical, sitemap, or CTA pointing to /book.html
+    in any public HTML/script/sitemap file (except book.html itself).
     """
-    canonical_pages = [
-        "index.html", "show.html", "shows.html", "pricing.html",
-        "disclosure.html", "connect.html", "venues.html", "comedians.html",
-        "about.html", "bookers.html", "archive.html", "shows.html",
-    ]
+    scan_files = list(REPO_ROOT.glob("*.html")) + list((REPO_ROOT / "scripts").glob("*.py"))
     hits: list[dict] = []
-    for fname in canonical_pages:
-        p = REPO_ROOT / fname
-        if not p.exists():
+    patterns = [
+        'href="/book.html"', 'href="book.html"',
+        'href="/book.html#', 'href="book.html#',
+        'canonical" href="https://pariscomedy.com/book.html"',
+        '/book.html"', "book.html",  # broad catch for sitemap/script refs
+    ]
+    skip_files = {"book.html", "regression_guard.py"}  # book.html self-references allowed; guard excluded (it contains the pattern as a string literal)
+    for p in scan_files:
+        if p.name in skip_files:
             continue
-        for lineno, line in enumerate(p.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
+        try:
+            text = p.read_text(encoding="utf-8", errors="ignore")
+        except Exception:
+            continue
+        for lineno, line in enumerate(text.splitlines(), 1):
             ll = line.lower()
-            if 'href="/book.html"' in ll or 'href="book.html"' in ll:
-                hits.append({"file": fname, "line": lineno, "text": line.strip()[:120]})
+            # skip inline comments explaining the decommission
+            if "contaminated" in ll or "decommission" in ll or "nuclear" in ll:
+                continue
+            if "book.html" in ll:
+                hits.append({"file": p.name, "line": lineno, "text": line.strip()[:120]})
     return {
         "name": "book_html_decommissioned",
         "result": "PASS" if not hits else "FAIL",
         "evidence": {
             "hits": hits,
             "canonical_route": "/connect.html",
-            "legacy_route": "/book.html (noindex, redirect only)",
+            "legacy_route": "/book.html — CONTAMINATED. Do not link, advertise, or treat as canonical.",
         },
     }
 

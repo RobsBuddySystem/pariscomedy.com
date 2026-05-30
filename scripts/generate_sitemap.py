@@ -60,7 +60,7 @@ PUBLIC_PAGES = [
     ("comedians.html",   "/comedians.html",   "daily",   "0.8"),
     ("pricing.html",     "/pricing.html",     "weekly",  "0.7"),
     ("bookers.html",     "/bookers.html",     "weekly",  "0.7"),
-    ("book.html",        "/book.html",        "weekly",  "0.7"),
+    ("connect.html",     "/connect.html",     "weekly",  "0.7"),
     ("about.html",       "/about.html",       "monthly", "0.6"),
     ("archive.html",     "/archive.html",     "monthly", "0.5"),
     ("terms.html",       "/terms.html",       "yearly",  "0.3"),
