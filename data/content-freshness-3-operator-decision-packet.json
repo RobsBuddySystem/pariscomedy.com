@@ -1,0 +1,72 @@
+{
+  "phase": "CONTENT.FRESHNESS.3-OPERATOR-DECISION-PACKET",
+  "generated_at": "2026-05-30T14:45:00Z",
+  "decision_packet_only": true,
+  "no_db_write": true,
+  "no_source_url_change": true,
+  "no_public_listing_change": true,
+  "no_feature_flags": true,
+  "warning": "Decisions here do NOT auto-apply. A separate authorized phase is required for any DB change.",
+  "allowed_decisions": ["approve_repoint", "keep_needs_human_review", "hide_until_current_source_found", "needs_more_research"],
+  "listings": [
+    {
+      "slug": "millennial-meltdown",
+      "show_name": "Millennial Meltdown",
+      "current_source_url": "https://www.eventbrite.fr/e/billets-english-comedy-show-millennial-meltdown-paris-stand-up-night-1984665294321",
+      "stale_signal": "ventes terminées — past event page",
+      "confirmed_still_running": true,
+      "confirmed_running_evidence": "Kuhl Productions, weekly Wednesdays 8pm, Le Bikini Bottom Bastille",
+      "replacement_candidates": [
+        {"url": null, "note": "Current Kuhl Productions Eventbrite organizer page must be found — no direct replacement URL confirmed yet", "confidence": 70}
+      ],
+      "recommendation": "keep_needs_human_review",
+      "risk_note": "Do not repoint until current Kuhl Productions Eventbrite organizer URL is confirmed",
+      "proof_needed": "Current Eventbrite event URL with at least one future date visible",
+      "name_correction_needed": false,
+      "robert_decision": null,
+      "robert_notes": null
+    },
+    {
+      "slug": "theatre-bo-julie",
+      "show_name": "Oh My God She's Parisian! — Julie Coulon",
+      "current_source_url": "https://www.eventbrite.fr/e/the-comedy-in-english-by-a-french-girl-that-will-make-you-love-paris-tickets-1764207685679",
+      "stale_signal": "event ended — past event page",
+      "confirmed_still_running": true,
+      "confirmed_running_evidence": "Active on Viator 2026 and GetYourGuide. Official site: julie-collas.com",
+      "replacement_candidates": [
+        {"url": "https://www.julie-collas.com/", "platform": "venue_direct", "confidence": 80, "note": "Official performer website"},
+        {"url": "https://www.viator.com/tours/Paris/Oh-my-god-shes-Parisian-The-brand-new-comedy-show-in-English-language-in-Paris/d479-67244P1", "platform": "Viator", "confidence": 75, "note": "Active 2026 booking"}
+      ],
+      "recommendation": "repoint_source_url",
+      "risk_note": "No risk — show clearly active. Performer name may be Collas not Coulon — verify before correcting.",
+      "proof_needed": "Confirm venue address + verify performer name (Collas vs Coulon)",
+      "name_correction_needed": true,
+      "name_correction_note": "All sources and official site use 'Julie Collas'. DB entry says 'Coulon'. Verify before changing.",
+      "robert_decision": null,
+      "robert_replacement_url_choice": null,
+      "robert_name_correction": null,
+      "robert_notes": null
+    },
+    {
+      "slug": "wednesday-night-comedy",
+      "show_name": "Wednesday Night Comedy",
+      "current_source_url": "https://www.eventbrite.fr/e/english-standup-wednesday-night-comedy-tickets-1750646975229",
+      "stale_signal": "event ended — past event page",
+      "confirmed_still_running": false,
+      "confirmed_running_evidence": null,
+      "replacement_candidates": [],
+      "recommendation": "hide_until_current_source_found",
+      "risk_note": "Show may have ended. Showing broken source link undermines site credibility.",
+      "proof_needed": "Current Eventbrite or primary ticket URL with at least one future date",
+      "name_correction_needed": false,
+      "robert_decision": null,
+      "robert_notes": null
+    }
+  ],
+  "awaiting_robert_decisions": true,
+  "regression_guard": "22/22 PASS",
+  "secrets_check": "no secrets, no imports, no flags",
+  "safe_to_close": true,
+  "safe_to_repoint_any_source_urls": false,
+  "safe_to_hide_any_listings": false
+}
