@@ -627,14 +627,18 @@ def check_public_copy_overclaims() -> dict:
         "all comedy venues in paris",
         "definitive guide",
         "complete list",
-        # payment overclaims
+        # payment / messaging overclaims
         "claim my",
         "lifetime spot",
+        "€1 lifetime",
+        "first 100",
         "continue to payment",
         "paid through sumup",
         "pay now",
         "subscribe now",
         "checkout is live",
+        "message bookers directly",
+        "direct messaging available",
         # feature overclaims
         "messaging is live",
         "direct messages available now",
