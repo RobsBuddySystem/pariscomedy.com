@@ -1,0 +1,55 @@
+{
+  "phase": "BACKEND.EMAIL.5-DNS-LIVE-VERIFY",
+  "generated_at": "2026-05-30T10:45:00Z",
+  "domain": "pariscomedy.com",
+  "email_send_real": false,
+  "auth_v2_enabled": false,
+  "postmark_server_token_in_repo": false,
+  "spf": {
+    "status": "PRESENT_BUT_MISSING_POSTMARK",
+    "current_record": "v=spf1 include:_spf.porkbun.com ~all",
+    "postmark_include_present": false,
+    "required_change": "Add include:spf.protection.postmark.com before ~all",
+    "example_correct": "v=spf1 include:_spf.porkbun.com include:spf.protection.postmark.com ~all"
+  },
+  "dkim": {
+    "hostname": "pm._domainkey.pariscomedy.com",
+    "status": "MISSING",
+    "record_exists": false,
+    "operator_action": "Get DKIM TXT value from Postmark dashboard (Sender Signatures > pariscomedy.com > DKIM) and add to Porkbun DNS"
+  },
+  "dmarc": {
+    "hostname": "_dmarc.pariscomedy.com",
+    "status": "MISSING",
+    "record_exists": false,
+    "operator_action": "Add TXT record: _dmarc.pariscomedy.com → v=DMARC1; p=none; rua=mailto:dmarc@pariscomedy.com (p=none acceptable for monitoring phase)"
+  },
+  "return_path_cname": {
+    "hostname": "pm-bounces.pariscomedy.com",
+    "status": "MISSING",
+    "record_exists": false,
+    "expected_target": "pm.mtasv.net",
+    "operator_action": "Add CNAME: pm-bounces.pariscomedy.com → pm.mtasv.net"
+  },
+  "mx": {
+    "status": "PRESENT (Porkbun forwarding)",
+    "records": ["10 fwd1.porkbun.com.", "20 fwd2.porkbun.com."],
+    "inbound_mail": "forwarded via Porkbun — not broken by Postmark DNS changes"
+  },
+  "postmark_dashboard_status": "UNKNOWN — Robert has not confirmed whether Postmark account exists",
+  "summary": "BLOCKED_NEEDS_OPERATOR_DNS",
+  "operator_actions_required": [
+    "1. Create Postmark account if not done",
+    "2. Add sender signature for pariscomedy.com in Postmark dashboard",
+    "3. Update SPF at Porkbun: add include:spf.protection.postmark.com",
+    "4. Copy DKIM TXT value from Postmark dashboard and add pm._domainkey.pariscomedy.com TXT record at Porkbun",
+    "5. Add DMARC: _dmarc.pariscomedy.com TXT → v=DMARC1; p=none; rua=mailto:dmarc@pariscomedy.com",
+    "6. Add CNAME: pm-bounces.pariscomedy.com → pm.mtasv.net",
+    "7. Wait for DNS propagation (up to 24h)",
+    "8. Click 'Verify' in Postmark dashboard for each record"
+  ],
+  "safe_to_enable_real_email": false,
+  "safe_to_enable_auth_v2": false,
+  "next_phase_if_dns_complete": "BACKEND.EMAIL.6-DRY-RUN-TO-REAL-SEND-PREFLIGHT",
+  "next_phase_current": "BLOCKED — re-run BACKEND.EMAIL.5-DNS-LIVE-VERIFY after Robert completes DNS setup"
+}
