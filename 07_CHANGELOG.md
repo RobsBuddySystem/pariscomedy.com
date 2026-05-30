@@ -1,5 +1,33 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | backend | BACKEND.CLAIM.1-SCAFFOLD: comic/show_runner/venue claims
+
+ChatGPT-authorized. Scaffold only. No route. No public ownership change. No email.
+
+backend/migrations/004_claims_v2.sql (+ rollback): claims_v2 table with
+  CHECK constraint on claim_type enum + status enum + 3 indexes.
+
+backend/claims_v2.py: service module.
+  create_claim_request, validate_claim, mark_claim_status,
+  detect_duplicate_claim, list_pending_claims, claim_status_for_target, status.
+  CLAIMS_V2_ENABLED default false.
+  Transition matrix: received -> needs_review -> approved|rejected|duplicate|spam
+  Evidence required: at least one of instagram_url, recent_post_url,
+  domain_email, website_url, notes. URL fields reject javascript: and
+  invalid schemes via regex.
+  claim_status_for_target() is fail-closed: only approved -> verified;
+  pending claim -> pending; rejected-only or none -> none.
+
+backend/tests/test_claims_v2.py: 18 unit tests.
+
+Tests: 74/74 PASS (whole backend suite).
+Live frontend regression: 12/12 PASS unchanged.
+No nav/schema/auth/payment/messaging/source-adapter changes. No secrets.
+
+Rollback: git revert <this-sha>
+  (+ optional sqlite3 data/paris.db < backend/migrations/004_claims_v2.rollback.sql)
+
+
 ## 2026-05-30 | backend | BACKEND.SUBMIT.1-SCAFFOLD: show submissions service + queue
 
 ChatGPT-authorized. Scaffold only. No route. No email. No public listing created.
