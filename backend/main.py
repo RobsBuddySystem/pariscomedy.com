@@ -142,6 +142,18 @@ def send_email(to_addr: str, subject: str, body: str, reply_to: str = "") -> boo
         return False
 
 
+# ── Client-side event tracking ───────────────────────────────────────────────
+@app.post("/api/events", status_code=204)
+async def track_event(request: Request):
+    """Accept and discard client-side tracking events (privacy-preserving)."""
+    return
+
+@app.get("/api/events", status_code=204)
+async def track_event_get():
+    """Return 204 on GET probe (silences browser 405 console errors)."""
+    return
+
+
 # ── Health ───────────────────────────────────────────────────────────────────
 @app.get("/api/health")
 def health():
