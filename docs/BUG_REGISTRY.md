@@ -1,5 +1,37 @@
 # Bug Registry
 
+## BUG-P0-LIVE-DATA-002 — 6-listing data drift awaiting Robert decisions
+
+**Status:** decision sheet opened 2026-05-30 (P0.LIVE-DATA-INTEGRITY.2).
+NO DB write, NO URL change, NO status change in this phase.
+
+**Affected listings:** charonne (31), millennial-meltdown (11),
+theatre-bo-julie (18), wednesday-night-comedy (15), ffcn (3), velvet-comedy (2).
+
+**Symptoms:**
+
+- 4 listings flagged `needs_human_review` with ended / canceled EB sources and
+  no confirmed replacement (charonne, millennial-meltdown, theatre-bo-julie,
+  wednesday-night-comedy). CTAs already shielded by 1B+1C.
+- 2 listings still classified `verified_24h` despite reported drift
+  (ffcn, velvet-comedy). CTAs NOT shielded — public visitors still click
+  through. ffcn additionally has a venue/address discrepancy (vault canonical
+  Velvet Bar Paris 43 Rue Saint-Honoré 75001 vs DB 39 Rue de Douai 75009).
+- theatre-bo-julie has unresolved performer-name disambiguation
+  (Coulon vs Collas) on top of a dead source URL.
+
+**Next step:** Robert fills in `robert_decision` for each row in
+`data/p0-live-data-integrity-2-robert-decision-sheet.json`. A successor phase
+(`P0.LIVE-DATA-INTEGRITY.3-APPLY-ROBERT-DECISIONS`) will read those decisions
+and apply them under per-row proof guards.
+
+**Defaults if Robert does not respond:**
+
+- charonne, millennial-meltdown, theatre-bo-julie, ffcn, velvet-comedy →
+  `needs_more_research` (do nothing)
+- wednesday-night-comedy → `approve_hide_until_current_source_found`
+
+
 ## BUG-P0-LIVE-DATA-001 — Source-of-Truth drift between live API, freshness audit, and rendered CTAs
 
 **Status:** code/guard fix shipped (P0.LIVE-DATA-INTEGRITY.1-SOT-FIX). DB

@@ -1,5 +1,16 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | data-integrity | P0.LIVE-DATA-INTEGRITY.2-ROBERT-DECISION-SHEET: opened
+
+Decision sheet for 6 listings with known live-data drift (charonne, millennial-meltdown,
+theatre-bo-julie, wednesday-night-comedy, ffcn, velvet-comedy). NO DB write, NO URL change,
+NO status change, NO hide/unhide, NO imports, NO feature flag. Sheet awaits robert_decision
+per row. 4/6 CTAs already shielded by 1B+1C (disabled span); ffcn + velvet-comedy still
+render normal anchors because DB row is verified_24h — flagged as highest-risk pending
+Robert confirmation of live URL + physical venue. Outputs: docs/P0_LIVE_DATA_INTEGRITY_2_ROBERT_DECISION_SHEET.md,
+data/p0-live-data-integrity-2-robert-decision-sheet.json, PHASE_LEDGER.md, vault note.
+Regression guard: 28 pass / 0 fail / 1 advisory (baseline maintained).
+
 ## 2026-05-30 | frontend + backend | P0.BOOK.NUCLEAR-BYPASS + FINAL.FRONTEND.COPY.GUARD.1 + BACKEND.AUTH.3: closed
 
 /book.html permanently contaminated — /connect.html sole canonical route. All nav/CTA/sitemap
