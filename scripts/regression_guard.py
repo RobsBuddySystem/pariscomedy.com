@@ -855,6 +855,70 @@ def check_homepage_freshness_filter() -> dict:
     }
 
 
+def check_admin_review_shell() -> dict:
+    """BACKEND.ADMIN.1-REVIEW-QUEUE-SHELL guard.
+
+    Fails if:
+      - admin-review.html is missing
+      - any approve/reject/import button in admin-review.html is enabled
+        (i.e., lacks the `disabled` attribute)
+      - page copy implies actions are live (forbidden live-action phrases)
+      - any public nav partial links to /admin-review.html
+    """
+    p = REPO_ROOT / "admin-review.html"
+    if not p.exists():
+        return {"name": "admin_review_shell", "result": "FAIL",
+                "evidence": {"reason": "admin-review.html missing"}}
+    src = p.read_text(encoding="utf-8", errors="ignore")
+
+    # Check: no enabled approve/reject/import/dry-run buttons
+    enabled_button_re = re.compile(
+        r'<button(?![^>]*\bdisabled\b)[^>]*>\s*(?:Approve|Reject|Mark spam|Mark duplicate|Dry-run import|Approve for import|Approve claim|Reject claim)',
+        re.IGNORECASE,
+    )
+    enabled_hits = enabled_button_re.findall(src)
+
+    # Check: no live-action copy
+    live_phrases = [
+        "approvals are live",
+        "actions are live",
+        "ownership changes are live",
+        "imports are active",
+        "backend writes",
+        "claim approved",
+        "import started",
+    ]
+    src_lower = src.lower()
+    live_hits = [ph for ph in live_phrases if ph in src_lower]
+
+    # Check: public nav partials do not link to /admin-review.html
+    nav_partials = [
+        "partials/nav.shell.marketing.html",
+        "partials/nav.shell.minimal.html",
+        "partials/nav.shell.auth.html",
+        "partials/nav.shell.portal.html",
+    ]
+    nav_hits = []
+    for rel in nav_partials:
+        np = REPO_ROOT / rel
+        if np.exists() and "admin-review.html" in np.read_text(encoding="utf-8", errors="ignore"):
+            nav_hits.append(rel)
+
+    problems = {}
+    if enabled_hits:
+        problems["enabled_buttons"] = enabled_hits
+    if live_hits:
+        problems["live_action_copy"] = live_hits
+    if nav_hits:
+        problems["public_nav_links"] = nav_hits
+
+    return {
+        "name": "admin_review_shell",
+        "result": "PASS" if not problems else "FAIL",
+        "evidence": problems if problems else {"buttons_all_disabled": True, "no_live_copy": True, "not_in_public_nav": True},
+    }
+
+
 CHECKS = {
     "forbidden_strings":     lambda dom: check_forbidden_strings(),
     "internal_ctas":         lambda dom: check_internal_ctas(with_dom=dom),
@@ -872,6 +936,7 @@ CHECKS = {
     "book_html_decommissioned": lambda dom: check_book_html_decommissioned(),
     "hreflang":              lambda dom: check_hreflang(),
     "header_cta_rule":       lambda dom: check_header_cta_rule(),
+    "admin_review_shell":    lambda dom: check_admin_review_shell(),
 }
 
 

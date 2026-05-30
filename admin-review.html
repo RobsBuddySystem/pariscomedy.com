@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin — Review Queues — Paris Comedy</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0a;--card:#111;--border:#1e1e1e;--text:#f0f0f0;--muted:#888;--yellow:#f5c518;--purple:#7c3aed;--green:#4ade80;--red:#e07a7a;--orange:#f59e0b}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:32px 24px}
+h1{font-size:22px;font-weight:800;margin-bottom:4px}
+.subtitle{font-size:13px;color:var(--muted);margin-bottom:4px}
+.safety-banner{background:#1a0a0a;border:1px solid var(--red);border-radius:8px;padding:12px 16px;margin:16px 0 28px;font-size:13px;color:#f5a0a0;line-height:1.6}
+.safety-banner strong{color:var(--red)}
+.tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.tab{padding:8px 16px;border:1px solid var(--border);border-radius:6px;background:#0d0d0d;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:border-color .15s,color .15s}
+.tab.active{border-color:var(--purple);color:var(--text)}
+.queue-panel{display:none}.queue-panel.active{display:block}
+.panel-header{font-size:16px;font-weight:700;margin-bottom:8px}
+.status-row{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.status-chip{display:inline-block;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:700}
+.chip-disabled{background:#1a1a1a;border:1px solid #333;color:var(--muted)}
+.chip-blocked{background:#1a0808;border:1px solid var(--red);color:var(--red)}
+.status-msg{font-size:13px;color:var(--muted)}
+.queue-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:16px}
+.queue-card h3{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.queue-card p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px}
+.action-row{display:flex;gap:8px;flex-wrap:wrap}
+.btn-disabled{padding:8px 16px;border:1px solid #333;border-radius:6px;background:#111;font-size:13px;color:#555;cursor:not-allowed}
+.endpoint-row{font-size:12px;color:#555;font-family:monospace;margin-top:10px}
+.loading{font-size:13px;color:var(--muted);font-style:italic}
+.api-result{margin-top:8px;padding:8px 12px;background:#0d0d0d;border:1px solid var(--border);border-radius:4px;font-size:12px;font-family:monospace;color:var(--muted);white-space:pre-wrap;max-height:120px;overflow:auto}
+</style>
+</head>
+<body>
+
+<h1>Paris Comedy — Admin Review Queues</h1>
+<div class="subtitle">Internal only · <code>noindex,nofollow</code> · not linked from public nav</div>
+<div class="subtitle" style="margin-top:4px;color:#555">BACKEND.ADMIN.1-REVIEW-QUEUE-SHELL — read-only shell, no approval writes</div>
+
+<div class="safety-banner">
+  <strong>⚠ This admin shell is read-only.</strong><br>
+  Approvals, ownership changes, and imports are not active.<br>
+  Production feature flags remain disabled.<br>
+  No public changes are made from this page.
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('submissions')">Show Submissions</div>
+  <div class="tab" onclick="showTab('claims')">Claims</div>
+  <div class="tab" onclick="showTab('tickets')">Ticket Discoveries</div>
+</div>
+
+<!-- Submissions panel -->
+<div class="queue-panel active" id="panel-submissions">
+  <div class="panel-header">Show Submissions V2</div>
+  <div class="status-row">
+    <span class="status-chip chip-disabled" id="chip-submissions">checking…</span>
+    <span class="status-msg" id="msg-submissions">Fetching backend status…</span>
+  </div>
+  <div class="queue-card">
+    <h3>Submission Review Queue</h3>
+    <p>When SUBMISSIONS_V2_ENABLED is true, new show submissions will appear here for review before any listing is created. Backend is currently disabled.</p>
+    <p>Review actions are not live yet. No public changes are made from this page.</p>
+    <div class="action-row">
+      <button class="btn-disabled" disabled title="Disabled until backend enabled">Approve (disabled)</button>
+      <button class="btn-disabled" disabled title="Disabled until backend enabled">Reject (disabled)</button>
+      <button class="btn-disabled" disabled title="Disabled until backend enabled">Mark spam (disabled)</button>
+    </div>
+    <div class="endpoint-row" id="submissions-raw">GET /api/submissions_v2/status → <span class="loading">loading…</span></div>
+  </div>
+</div>
+
+<!-- Claims panel -->
+<div class="queue-panel" id="panel-claims">
+  <div class="panel-header">Claims V2</div>
+  <div class="status-row">
+    <span class="status-chip chip-disabled" id="chip-claims">checking…</span>
+    <span class="status-msg" id="msg-claims">Fetching backend status…</span>
+  </div>
+  <div class="queue-card">
+    <h3>Show &amp; Profile Claim Review Queue</h3>
+    <p>When CLAIMS_V2_ENABLED is true, show and profile claim requests will appear here for manual review. No automated ownership writeback occurs until a claim is approved by an admin.</p>
+    <p>Review actions are not live yet. No ownership changes are made from this page.</p>
+    <div class="action-row">
+      <button class="btn-disabled" disabled title="Disabled until backend enabled">Approve claim (disabled)</button>
+      <button class="btn-disabled" disabled title="Disabled until backend enabled">Reject claim (disabled)</button>
+    </div>
+    <div class="endpoint-row" id="claims-raw">GET /api/claims_v2/status → <span class="loading">loading…</span></div>
+  </div>
+</div>
+
+<!-- Tickets panel -->
+<div class="queue-panel" id="panel-tickets">
+  <div class="panel-header">Ticket / Adapter Discoveries V2</div>
+  <div class="status-row">
+    <span class="status-chip chip-disabled" id="chip-tickets">checking…</span>
+    <span class="status-msg" id="msg-tickets">Fetching backend status…</span>
+  </div>
+  <div class="queue-card">
+    <h3>Ticket Adapter Discovery Review Queue</h3>
+    <p>When TICKETS_ADAPTERS_ENABLED is true, candidate listings from adapter sources will appear here for human review before any import. No public listing is created until a candidate is approved and imported via a separate step.</p>
+    <p>Import actions are not live yet. No public listings are created from this page.</p>
+    <div class="action-row">
+      <button class="btn-disabled" disabled title="Disabled until backend enabled">Approve for import (disabled)</button>
+      <button class="btn-disabled" disabled title="Disabled until backend enabled">Reject (disabled)</button>
+      <button class="btn-disabled" disabled title="Disabled until backend enabled">Mark duplicate (disabled)</button>
+      <button class="btn-disabled" disabled title="Disabled until backend enabled">Dry-run import (disabled)</button>
+    </div>
+    <div class="endpoint-row" id="tickets-raw">GET /api/tickets_v2/status → <span class="loading">loading…</span></div>
+  </div>
+</div>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(function(t,i) {
+    var names = ['submissions','claims','tickets'];
+    t.classList.toggle('active', names[i] === name);
+  });
+  document.querySelectorAll('.queue-panel').forEach(function(p) {
+    p.classList.toggle('active', p.id === 'panel-' + name);
+  });
+}
+
+function fetchStatus(endpoint, chipId, msgId, rawId) {
+  fetch('/api/' + endpoint + '/status')
+    .then(function(r) { return r.json().then(function(d){ return {ok: r.ok, status: r.status, data: d}; }); })
+    .then(function(res) {
+      var chip = document.getElementById(chipId);
+      var msg = document.getElementById(msgId);
+      var raw = document.getElementById(rawId);
+      if (res.status === 503 || (res.data && res.data.detail && res.data.detail.error && res.data.detail.error.code && res.data.detail.error.code.includes('disabled'))) {
+        chip.textContent = 'Backend disabled';
+        chip.className = 'status-chip chip-blocked';
+        msg.textContent = 'Backend route unavailable or disabled.';
+      } else if (res.data && res.data.enabled === false) {
+        chip.textContent = 'Flag OFF';
+        chip.className = 'status-chip chip-disabled';
+        msg.textContent = 'Feature flag is false. Review actions not live.';
+      } else if (res.data && res.data.enabled === true) {
+        chip.textContent = 'Flag ON (verify!)';
+        chip.className = 'status-chip';
+        chip.style.background = '#1a1a00';
+        chip.style.border = '1px solid #f5c518';
+        chip.style.color = '#f5c518';
+        msg.textContent = 'Backend route reachable. Actions still disabled in this shell.';
+      } else {
+        chip.textContent = 'Unknown';
+        chip.className = 'status-chip chip-disabled';
+        msg.textContent = 'Unexpected response.';
+      }
+      raw.innerHTML = 'GET /api/' + endpoint + '/status → HTTP ' + res.status + '<div class="api-result">' + JSON.stringify(res.data, null, 2) + '</div>';
+    })
+    .catch(function(e) {
+      document.getElementById(chipId).textContent = 'Backend route unavailable';
+      document.getElementById(chipId).className = 'status-chip chip-blocked';
+      document.getElementById(msgId).textContent = 'Backend route unavailable. (' + e.message + ')';
+      document.getElementById(rawId).innerHTML = 'GET /api/' + endpoint + '/status → error: ' + e.message;
+    });
+}
+
+fetchStatus('submissions_v2', 'chip-submissions', 'msg-submissions', 'submissions-raw');
+fetchStatus('claims_v2', 'chip-claims', 'msg-claims', 'claims-raw');
+fetchStatus('tickets_v2', 'chip-tickets', 'msg-tickets', 'tickets-raw');
+</script>
+</body>
+</html>
