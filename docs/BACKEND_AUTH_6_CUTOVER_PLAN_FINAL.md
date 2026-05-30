@@ -34,7 +34,7 @@ export EMAIL_SEND_REAL=true
 export POSTMARK_SERVER_TOKEN=<token-from-server-env>
 
 # Send one test email to operator address
-curl -X POST https://api.pariscomedy.com/api/auth_v2/request-link \
+curl -X POST https://api.pariscomedy.com/api/auth_v2/magic-link/request \
   -H "Content-Type: application/json" \
   -d '{"email":"robert@pariscomedy.com","role":"admin"}'
 
@@ -171,10 +171,10 @@ curl https://api.pariscomedy.com/health
 | # | Test | Expected |
 |---|---|---|
 | 1 | `GET /api/auth_v2/status` | `{"enabled": true, "email_configured": true}` |
-| 2 | `POST /api/auth_v2/request-link` with valid email | HTTP 200, email delivered in inbox |
-| 3 | `GET /api/auth_v2/verify?token=<valid>` | HTTP 200, session cookie set |
-| 4 | `GET /api/auth_v2/verify?token=<expired>` | HTTP 401, `{"error": "token_expired"}` |
-| 5 | `GET /api/auth_v2/verify?token=<invalid>` | HTTP 401, `{"error": "invalid_token"}` |
+| 2 | `POST /api/auth_v2/magic-link/request` with valid email | HTTP 200, email delivered in inbox |
+| 3 | `GET /api/auth_v2/magic-link/consume?token=<valid>` | HTTP 200, session cookie set |
+| 4 | `GET /api/auth_v2/magic-link/consume?token=<expired>` | HTTP 401, `{"error": "token_expired"}` |
+| 5 | `GET /api/auth_v2/magic-link/consume?token=<invalid>` | HTTP 401, `{"error": "invalid_token"}` |
 | 6 | `POST /api/auth/request` (legacy comic) | HTTP 200 — legacy still works |
 | 7 | `POST /api/booker/auth` (legacy booker) | HTTP 200 — legacy still works |
 

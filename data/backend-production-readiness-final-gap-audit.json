@@ -1,0 +1,71 @@
+{
+  "phase": "BACKEND.PRODUCTION-READINESS.FINAL-GAP-AUDIT",
+  "generated_at": "2026-05-30T12:30:00Z",
+  "audit_only": true,
+  "no_execution": true,
+  "all_feature_flags_false": true,
+  "endpoint_mismatches": [
+    {
+      "id": "M1",
+      "system": "auth_v2",
+      "doc": "docs/BACKEND_AUTH_6_CUTOVER_PLAN_FINAL.md",
+      "doc_says": ["/api/auth_v2/request-link (POST)", "/api/auth_v2/verify (GET)"],
+      "actual": ["/api/auth_v2/magic-link/request (POST)", "/api/auth_v2/magic-link/consume (GET)"],
+      "impact": "Operator would get 404 following smoke test commands literally",
+      "resolution": "Correct route names in cutover plan before execution"
+    }
+  ],
+  "feature_flags": [
+    {"flag": "AUTH_V2_ENABLED", "module": "backend/auth_v2.py", "default": false, "safe": true},
+    {"flag": "EMAIL_SEND_REAL", "module": "backend/mailer.py", "default": false, "safe": true},
+    {"flag": "SUBMISSIONS_V2_ENABLED", "module": "backend/submissions_v2.py", "default": false, "safe": true},
+    {"flag": "CLAIMS_V2_ENABLED", "module": "backend/claims_v2.py", "default": false, "safe": true},
+    {"flag": "PAYMENTS_ENABLED", "module": "backend/payments_v2.py", "default": false, "safe": true},
+    {"flag": "PAYMENT_WEBHOOKS_ENABLED", "module": "backend/payments_v2.py", "default": false, "safe": true},
+    {"flag": "MESSAGING_V2_ENABLED", "module": "backend/messaging_v2.py", "default": false, "safe": true},
+    {"flag": "TICKETS_ADAPTERS_ENABLED", "module": "backend/tickets_v2.py", "default": false, "safe": true},
+    {"flag": "TICKET_IMPORTS_ENABLED", "module": "backend/tickets_v2.py", "default": false, "safe": true},
+    {"flag": "AFFILIATE_LINKS_ENABLED", "module": "backend/tickets_v2.py", "default": false, "safe": true}
+  ],
+  "migrations": [
+    {"file": "002_auth_v2.sql", "tables": ["users_v2","sessions_v2","magic_links_v2","audit_events_v2","rate_limits_v2"], "rollback": "002_auth_v2.rollback.sql"},
+    {"file": "003_submissions_v2.sql", "tables": ["show_submissions_v2"], "rollback": "003_submissions_v2.rollback.sql"},
+    {"file": "004_claims_v2.sql", "tables": ["claims_v2"], "rollback": "004_claims_v2.rollback.sql"},
+    {"file": "005_payments_v2.sql", "tables": ["payment_customers_v2","payment_subscriptions_v2","payment_invoices_v2","payment_checkout_sessions_v2","payment_webhook_idempotency_v2"], "rollback": "005_payments_v2.rollback.sql"},
+    {"file": "006_messaging_v2.sql", "tables": ["message_threads_v2","messages_v2","message_blocks_v2","message_reports_v2"], "rollback": "006_messaging_v2.rollback.sql"},
+    {"file": "007_tickets_v2.sql", "tables": ["adapter_discoveries_v2"], "rollback": "007_tickets_v2.rollback.sql"}
+  ],
+  "total_v2_tables": 17,
+  "migration_docs_match": true,
+  "public_surface_reconciliation": {
+    "connect_html": "SAFE — canonical contact/booking route, no write endpoints callable",
+    "login_html": "SAFE — Auth V2 draft present with not-live label and JS guard",
+    "admin_review_html": "SAFE — noindex, all buttons disabled, mock data labelled",
+    "pricing_html": "SAFE — all planned features explicitly marked not-live",
+    "book_html": "NOT LINKED from public nav"
+  },
+  "blocking_operator_actions": [
+    {"action": "run_db_migrations", "blocker": "Robert must type authorization text + confirm exact DB path on server"},
+    {"action": "enable_email_send_real", "blocker": "Postmark DNS: SPF, DKIM, DMARC, return-path CNAME all missing"},
+    {"action": "enable_auth_v2", "blocker": "Requires DB migrations + Postmark DNS first"},
+    {"action": "enable_payments", "blocker": "Payment provider account + VAT configuration + legal review required"},
+    {"action": "enable_submissions_v2", "blocker": "DB migrations + AUTH_V2_ENABLED required first"},
+    {"action": "enable_claims_v2", "blocker": "DB migrations + AUTH_V2_ENABLED required first"},
+    {"action": "enable_messaging_v2", "blocker": "AUTH_V2_ENABLED required first"},
+    {"action": "enable_tickets_adapters", "blocker": "DB migrations required first"}
+  ],
+  "final_go_nogo": {
+    "auth_v2": {"safe_to_enable": false, "blockers": ["db_migrations_not_applied", "postmark_dns_missing", "staging_smoke_test_not_run"]},
+    "email": {"safe_to_enable": false, "blockers": ["spf_missing", "dkim_missing", "dmarc_missing", "return_path_cname_missing"]},
+    "submissions_v2": {"safe_to_enable": false, "blockers": ["db_migrations_not_applied", "auth_v2_not_enabled"]},
+    "claims_v2": {"safe_to_enable": false, "blockers": ["db_migrations_not_applied", "auth_v2_not_enabled"]},
+    "payments": {"safe_to_enable": false, "blockers": ["payment_provider_not_created", "vat_not_configured", "no_legal_review"]},
+    "messaging_v2": {"safe_to_enable": false, "blockers": ["auth_v2_not_enabled"]},
+    "tickets": {"safe_to_enable": false, "blockers": ["db_migrations_not_applied"]}
+  },
+  "regression_guard": "22/22 PASS",
+  "secrets_check": "no secrets committed, no flags enabled, no cutover executed",
+  "safe_to_close": true,
+  "safe_to_execute_any_operator_step": false,
+  "safe_to_enable_any_backend_feature": false
+}
