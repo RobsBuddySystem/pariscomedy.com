@@ -591,6 +591,9 @@ def check_pricing_copy_safety() -> dict:
         "pay now",
         "subscribe now",
         "browse every show in paris",
+        "claim my €1 lifetime spot",
+        "sumup_1euro",
+        "via sumup →",
     ]
     hits = [s for s in forbidden if s in src]
     return {
