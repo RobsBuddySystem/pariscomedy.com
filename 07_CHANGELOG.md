@@ -1,5 +1,10 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | backend | BACKEND.TICKETS.1-SCAFFOLD: adapter registry + candidate model + 14 tests
+
+ChatGPT-authorized. 15 platforms, review-gated import, signal-only protection, affiliate disabled.
+No live scraping. No public import. 115/115 tests pass.
+
 ## 2026-05-30 | backend | BACKEND.MESSAGING.1-SCAFFOLD: messaging scaffold + abuse controls + 15 tests
 
 ChatGPT-authorized. 4 tables (threads, messages, blocks, reports) + service module + 15 unit tests.
