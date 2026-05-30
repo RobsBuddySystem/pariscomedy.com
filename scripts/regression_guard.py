@@ -592,6 +592,8 @@ def check_pricing_copy_safety() -> dict:
         "subscribe now",
         "browse every show in paris",
         "claim my €1 lifetime spot",
+        "lifetime spot",
+        "€1 lifetime",
         "sumup_1euro",
         "via sumup →",
     ]
