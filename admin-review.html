@@ -110,6 +110,11 @@ h1{font-size:22px;font-weight:800;margin-bottom:4px}
     </div>
     <div class="endpoint-row" id="tickets-raw">GET /api/tickets_v2/status → <span class="loading">loading…</span></div>
   </div>
+  <div class="queue-card">
+    <h3>Adapter Registry (read-only)</h3>
+    <p>Known ticket adapters. Imports disabled=true and affiliate_links disabled=true on all adapters until flags are enabled in a future phase.</p>
+    <div id="adapters-raw" class="endpoint-row">GET /api/tickets_v2/adapters → <span class="loading">loading…</span></div>
+  </div>
 </div>
 
 <script>
@@ -163,6 +168,20 @@ function fetchStatus(endpoint, chipId, msgId, rawId) {
 fetchStatus('submissions_v2', 'chip-submissions', 'msg-submissions', 'submissions-raw');
 fetchStatus('claims_v2', 'chip-claims', 'msg-claims', 'claims-raw');
 fetchStatus('tickets_v2', 'chip-tickets', 'msg-tickets', 'tickets-raw');
+
+// Adapter registry — read-only, imports_enabled=false, affiliate_links_enabled=false
+fetch('/api/tickets_v2/adapters')
+  .then(function(r) { return r.json().then(function(d){ return {status: r.status, data: d}; }); })
+  .then(function(res) {
+    var el = document.getElementById('adapters-raw');
+    el.innerHTML = 'GET /api/tickets_v2/adapters → HTTP ' + res.status +
+      '<div class="api-result">' + JSON.stringify(res.data, null, 2) + '</div>' +
+      '<div style="margin-top:6px;font-size:11px;color:#555">imports_enabled: false · affiliate_links_enabled: false · Ticket adapters are not live yet. Discoveries require manual review.</div>';
+  })
+  .catch(function(e) {
+    document.getElementById('adapters-raw').innerHTML = 'GET /api/tickets_v2/adapters → error: ' + e.message +
+      '<div style="margin-top:6px;font-size:11px;color:#555">Ticket adapters are not live yet. Discoveries require manual review.</div>';
+  });
 </script>
 </body>
 </html>

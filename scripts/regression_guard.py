@@ -855,6 +855,59 @@ def check_homepage_freshness_filter() -> dict:
     }
 
 
+def check_tickets_admin_discovery_draft() -> dict:
+    """BACKEND.TICKETS.3-ADMIN-DISCOVERY-DRAFT guard.
+
+    Fails if admin-review.html:
+      - says 'imports are live', 'automatic import active', 'affiliate links active',
+        'all shows in paris' as static copy
+      - has enabled approve/import buttons by default (lacks disabled attribute)
+      - POSTs to /api/admin/tickets_v2/* without enabled guard
+    """
+    p = REPO_ROOT / "admin-review.html"
+    if not p.exists():
+        return {"name": "tickets_admin_discovery_draft", "result": "FAIL",
+                "evidence": {"reason": "admin-review.html missing"}}
+    src = p.read_text(encoding="utf-8", errors="ignore")
+
+    forbidden_copy = [
+        "imports are live",
+        "automatic import active",
+        "affiliate links active",
+        "all shows in paris",
+        "tickets adapters enabled=true",
+        "ticket imports are live",
+    ]
+    # Check: no enabled approve/import buttons (same as admin_review_shell)
+    enabled_button_re = re.compile(
+        r'<button(?![^>]*\bdisabled\b)[^>]*>\s*(?:Approve for import|Dry-run import|Approve|Reject|Mark duplicate)',
+        re.IGNORECASE,
+    )
+    enabled_hits = enabled_button_re.findall(src)
+    # Check: no ungated POST to admin tickets v2
+    v2_ticket_post = "api/admin/tickets_v2" in src
+    v2_ticket_ungated = v2_ticket_post and (
+        "ticketsV2Enabled" not in src and
+        "tickets_v2_enabled" not in src
+    )
+    src_lower = src.lower()
+    copy_hits = [ph for ph in forbidden_copy if ph in src_lower]
+
+    problems = {}
+    if copy_hits:
+        problems["forbidden_copy"] = copy_hits
+    if enabled_hits:
+        problems["enabled_buttons"] = enabled_hits
+    if v2_ticket_ungated:
+        problems["ungated_v2_ticket_post"] = "POST to /api/admin/tickets_v2/* without enabled guard"
+
+    return {
+        "name": "tickets_admin_discovery_draft",
+        "result": "PASS" if not problems else "FAIL",
+        "evidence": problems if problems else {"no_live_imports": True, "all_buttons_disabled": True, "imports_disabled_flag": True},
+    }
+
+
 def check_messaging_v2_connect_draft() -> dict:
     """BACKEND.MESSAGING.3-CONNECT-MESSAGE-DRAFT guard.
 
@@ -1166,6 +1219,7 @@ CHECKS = {
     "submit_v2_connect_form": lambda dom: check_submit_v2_connect_form(),
     "claim_v2_connect_draft": lambda dom: check_claim_v2_connect_draft(),
     "messaging_v2_connect_draft": lambda dom: check_messaging_v2_connect_draft(),
+    "tickets_admin_discovery_draft": lambda dom: check_tickets_admin_discovery_draft(),
 }
 
 
