@@ -1169,6 +1169,19 @@ def check_admin_review_shell() -> dict:
     src_lower = src.lower()
     live_hits = [ph for ph in live_phrases if ph in src_lower]
 
+    # Check: no POST to admin write endpoints
+    write_endpoints = [
+        "api/admin/submissions_v2",
+        "api/admin/claims_v2",
+        "api/admin/tickets_v2",
+    ]
+    write_hits = [ep for ep in write_endpoints if ep in src]
+
+    # Check: any mock rows present must be labelled "mock data"
+    has_mock_rows = "mock-tag" in src or "mock data" in src_lower
+    # If mock rows exist without "mock data" label, flag it
+    mock_unlabelled = ("mock-table" in src or "<tr>" in src) and not has_mock_rows
+
     # Check: public nav partials do not link to /admin-review.html
     nav_partials = [
         "partials/nav.shell.marketing.html",
@@ -1187,13 +1200,17 @@ def check_admin_review_shell() -> dict:
         problems["enabled_buttons"] = enabled_hits
     if live_hits:
         problems["live_action_copy"] = live_hits
+    if write_hits:
+        problems["write_endpoint_calls"] = write_hits
+    if mock_unlabelled:
+        problems["mock_rows_unlabelled"] = "table rows present without mock data label"
     if nav_hits:
         problems["public_nav_links"] = nav_hits
 
     return {
         "name": "admin_review_shell",
         "result": "PASS" if not problems else "FAIL",
-        "evidence": problems if problems else {"buttons_all_disabled": True, "no_live_copy": True, "not_in_public_nav": True},
+        "evidence": problems if problems else {"buttons_all_disabled": True, "no_live_copy": True, "mock_rows_labelled": True, "not_in_public_nav": True},
     }
 
 

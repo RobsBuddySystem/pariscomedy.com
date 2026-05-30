@@ -31,13 +31,18 @@ h1{font-size:22px;font-weight:800;margin-bottom:4px}
 .endpoint-row{font-size:12px;color:#555;font-family:monospace;margin-top:10px}
 .loading{font-size:13px;color:var(--muted);font-style:italic}
 .api-result{margin-top:8px;padding:8px 12px;background:#0d0d0d;border:1px solid var(--border);border-radius:4px;font-size:12px;font-family:monospace;color:var(--muted);white-space:pre-wrap;max-height:120px;overflow:auto}
+.mock-banner{font-size:12px;color:#f59e0b;background:#1a1000;border:1px solid #f59e0b44;border-radius:4px;padding:6px 10px;margin-bottom:12px;font-weight:600}
+.mock-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}
+.mock-table th{text-align:left;padding:5px 8px;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600}
+.mock-table td{padding:5px 8px;color:var(--muted);border-bottom:1px solid #1a1a1a}
+.mock-tag{display:inline-block;padding:2px 7px;border-radius:3px;font-size:11px;font-weight:700;background:#1a1000;color:#f59e0b;border:1px solid #f59e0b44}
 </style>
 </head>
 <body>
 
 <h1>Paris Comedy — Admin Review Queues</h1>
 <div class="subtitle">Internal only · <code>noindex,nofollow</code> · not linked from public nav</div>
-<div class="subtitle" style="margin-top:4px;color:#555">BACKEND.ADMIN.1-REVIEW-QUEUE-SHELL — read-only shell, no approval writes</div>
+<div class="subtitle" style="margin-top:4px;color:#555">BACKEND.ADMIN.2-QUEUE-MOCK-DATA — read-only shell with mock data, no approval writes</div>
 
 <div class="safety-banner">
   <strong>⚠ This admin shell is read-only.</strong><br>
@@ -70,6 +75,17 @@ h1{font-size:22px;font-weight:800;margin-bottom:4px}
     </div>
     <div class="endpoint-row" id="submissions-raw">GET /api/submissions_v2/status → <span class="loading">loading…</span></div>
   </div>
+  <div class="queue-card">
+    <h3>Sample Queue Rows</h3>
+    <div class="mock-banner">⚠ Mock data only — backend review queue is not live.</div>
+    <table class="mock-table">
+      <tr><th>Show name</th><th>Venue</th><th>Submitter</th><th>Status</th></tr>
+      <tr><td>Mock Comedy Night <span class="mock-tag">mock data</span></td><td>Venue placeholder, Paris</td><td>submitter@example.com</td><td>pending_review</td></tr>
+      <tr><td>Mock Open Mic <span class="mock-tag">mock data</span></td><td>Bar placeholder, Paris</td><td>contact@example.com</td><td>pending_review</td></tr>
+      <tr><td>Mock Stand-Up Club <span class="mock-tag">mock data</span></td><td>Club placeholder, Paris</td><td>booker@example.com</td><td>pending_review</td></tr>
+    </table>
+    <p style="margin-top:10px">No public changes are made from this page. Actions not live.</p>
+  </div>
 </div>
 
 <!-- Claims panel -->
@@ -88,6 +104,17 @@ h1{font-size:22px;font-weight:800;margin-bottom:4px}
       <button class="btn-disabled" disabled title="Disabled until backend enabled">Reject claim (disabled)</button>
     </div>
     <div class="endpoint-row" id="claims-raw">GET /api/claims_v2/status → <span class="loading">loading…</span></div>
+  </div>
+  <div class="queue-card">
+    <h3>Sample Queue Rows</h3>
+    <div class="mock-banner">⚠ Mock data only — ownership changes are not live.</div>
+    <table class="mock-table">
+      <tr><th>Claim type</th><th>Target</th><th>Claimant email</th><th>Evidence</th><th>Status</th></tr>
+      <tr><td>show_runner <span class="mock-tag">mock data</span></td><td>mock-show-slug</td><td>claimant@example.com</td><td>instagram.com/mockshow</td><td>pending_review</td></tr>
+      <tr><td>comic <span class="mock-tag">mock data</span></td><td>mock-comic-slug</td><td>comic@example.com</td><td>Website placeholder</td><td>pending_review</td></tr>
+      <tr><td>venue <span class="mock-tag">mock data</span></td><td>mock-venue-slug</td><td>venue@example.com</td><td>Booking email domain match</td><td>pending_review</td></tr>
+    </table>
+    <p style="margin-top:10px">No public changes are made from this page. Ownership not changed.</p>
   </div>
 </div>
 
@@ -114,6 +141,17 @@ h1{font-size:22px;font-weight:800;margin-bottom:4px}
     <h3>Adapter Registry (read-only)</h3>
     <p>Known ticket adapters. Imports disabled=true and affiliate_links disabled=true on all adapters until flags are enabled in a future phase.</p>
     <div id="adapters-raw" class="endpoint-row">GET /api/tickets_v2/adapters → <span class="loading">loading…</span></div>
+  </div>
+  <div class="queue-card">
+    <h3>Sample Discovery Rows</h3>
+    <div class="mock-banner">⚠ Mock data only — imports and affiliate links are disabled.</div>
+    <table class="mock-table">
+      <tr><th>Platform</th><th>Title</th><th>Venue</th><th>Confidence</th><th>Status</th></tr>
+      <tr><td>eventbrite <span class="mock-tag">mock data</span></td><td>Mock Comedy Night</td><td>Venue placeholder, Paris</td><td>0.92</td><td>pending_review</td></tr>
+      <tr><td>shotgun <span class="mock-tag">mock data</span></td><td>Mock Open Mic</td><td>Bar placeholder, Paris</td><td>0.85</td><td>pending_review</td></tr>
+      <tr><td>dice <span class="mock-tag">mock data</span></td><td>Mock Stand-Up Show</td><td>Club placeholder, Paris</td><td>0.78</td><td>pending_review</td></tr>
+    </table>
+    <p style="margin-top:10px">No public listings created from this page. Imports disabled.</p>
   </div>
 </div>
 
