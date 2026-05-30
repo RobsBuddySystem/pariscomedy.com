@@ -1,5 +1,10 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | backend | BACKEND.MESSAGING.1-SCAFFOLD: messaging scaffold + abuse controls + 15 tests
+
+ChatGPT-authorized. 4 tables (threads, messages, blocks, reports) + service module + 15 unit tests.
+No routes, no email, no public UI. MESSAGING_V2_ENABLED=false. 101/101 tests pass.
+
 ## 2026-05-30 | copy | P0.PRICING.COPY.SAFETY: honest pricing copy while payments are scaffold-only
 
 ChatGPT-authorized. Removes live-checkout copy that contradicted the
