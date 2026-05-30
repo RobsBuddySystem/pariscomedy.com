@@ -1,5 +1,32 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | backend | BACKEND.SUBMIT.1-SCAFFOLD: show submissions service + queue
+
+ChatGPT-authorized. Scaffold only. No route. No email. No public listing created.
+
+backend/migrations/003_submissions_v2.sql (+ rollback): show_submissions_v2
+  table with required + optional fields + status CHECK constraint + 3 indexes.
+
+backend/submissions_v2.py: service module.
+  create_show_submission(conn, data, ip, user_agent) -> {id, status, created_at}
+  validate_submission(data) -> list[str] problems
+  mark_submission_status(conn, id, new_status, reviewer, notes) -> bool
+  detect_duplicate_submission(conn, data) -> id or None
+  list_pending_submissions(conn) -> list[dict]
+  SUBMISSIONS_V2_ENABLED env var default false (no routes wired yet).
+
+backend/tests/test_submissions_v2.py: 17 tests covering valid/missing/invalid
+  inputs, honeypot=spam, duplicate detection, transition matrix, audit events.
+
+Tests: 56/56 PASS across whole suite (15 service + 12 router + 5 main + 7
+  mailer + 17 submissions).
+Live frontend regression: 12/12 PASS unchanged. book.html UNCHANGED.
+
+No nav/schema/auth/payment/messaging/source-adapter changes. No secrets.
+
+Rollback: git revert <this-sha> (+ optional sqlite rollback migration).
+
+
 ## 2026-05-30 | backend | BACKEND.EMAIL.1-PLAN-SCAFFOLD: email plan + dry-run mailer
 
 ChatGPT-authorized. Plan + dry-run mailer scaffold. No real send. No provider key.
