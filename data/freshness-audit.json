@@ -1,16 +1,50 @@
 {
   "summary": {
-    "generated_at": "2026-05-30T04:30:04Z",
+    "generated_at": "2026-05-30T10:48:35Z",
     "source": "https://api.pariscomedy.com/api/listings",
     "verification_run": true,
     "total_active": 14,
     "by_status": {
-      "needs_human_review": 3,
-      "verified_24h": 11
+      "needs_human_review": 6,
+      "verified_24h": 8
     },
-    "stale_or_review_count": 3
+    "stale_or_review_count": 6
   },
   "listings": [
+    {
+      "id": 31,
+      "slug": "charonne",
+      "name": "Charonne Comedy Club",
+      "source_url": "https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697801202099",
+      "api_source_url": "https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697805324429",
+      "source_repointed": true,
+      "source_platform": "eventbrite",
+      "source_type": "ticket",
+      "last_checked_at": "2026-05-30T10:48:35Z",
+      "last_verified_at": null,
+      "confidence_score": 10,
+      "stale_risk": "high",
+      "verification_status": "needs_human_review",
+      "next_check_due_at": "2026-05-31T10:48:35Z",
+      "source_notes": "[repointed via manual-source-repoints.json] past-event signal 'event ended' found on api_source_url"
+    },
+    {
+      "id": 3,
+      "slug": "ffcn",
+      "name": "French Fried Comedy Night",
+      "source_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838453379",
+      "api_source_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838522586",
+      "source_repointed": true,
+      "source_platform": "eventbrite",
+      "source_type": "ticket",
+      "last_checked_at": "2026-05-30T10:48:35Z",
+      "last_verified_at": null,
+      "confidence_score": 10,
+      "stale_risk": "high",
+      "verification_status": "needs_human_review",
+      "next_check_due_at": "2026-05-31T10:48:35Z",
+      "source_notes": "[repointed via manual-source-repoints.json] past-event signal 'event ended' found on api_source_url"
+    },
     {
       "id": 11,
       "slug": "millennial-meltdown",
@@ -20,13 +54,13 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
+      "last_checked_at": "2026-05-30T10:48:35Z",
       "last_verified_at": null,
       "confidence_score": 10,
       "stale_risk": "high",
       "verification_status": "needs_human_review",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
-      "source_notes": "past-event signal matched in source page: 'ventes terminées'"
+      "next_check_due_at": "2026-05-31T10:48:35Z",
+      "source_notes": "past-event signal 'ventes terminées' found on source_url"
     },
     {
       "id": 18,
@@ -37,13 +71,30 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
+      "last_checked_at": "2026-05-30T10:48:35Z",
       "last_verified_at": null,
       "confidence_score": 10,
       "stale_risk": "high",
       "verification_status": "needs_human_review",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
-      "source_notes": "past-event signal matched in source page: 'event ended'"
+      "next_check_due_at": "2026-05-31T10:48:35Z",
+      "source_notes": "past-event signal 'event ended' found on source_url"
+    },
+    {
+      "id": 2,
+      "slug": "velvet-comedy",
+      "name": "Velvet Bar Comedy — Le meilleur du stand-up",
+      "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
+      "api_source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840198599",
+      "source_repointed": true,
+      "source_platform": "eventbrite",
+      "source_type": "ticket",
+      "last_checked_at": "2026-05-30T10:48:35Z",
+      "last_verified_at": null,
+      "confidence_score": 10,
+      "stale_risk": "high",
+      "verification_status": "needs_human_review",
+      "next_check_due_at": "2026-05-31T10:48:35Z",
+      "source_notes": "[repointed via manual-source-repoints.json] past-event signal 'event ended' found on api_source_url"
     },
     {
       "id": 15,
@@ -54,30 +105,13 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
+      "last_checked_at": "2026-05-30T10:48:35Z",
       "last_verified_at": null,
       "confidence_score": 10,
       "stale_risk": "high",
       "verification_status": "needs_human_review",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
-      "source_notes": "past-event signal matched in source page: 'event ended'"
-    },
-    {
-      "id": 31,
-      "slug": "charonne",
-      "name": "Charonne Comedy Club",
-      "source_url": "https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697801202099",
-      "api_source_url": "https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697805324429",
-      "source_repointed": true,
-      "source_platform": "eventbrite",
-      "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
-      "last_verified_at": "2026-05-30T04:30:04Z",
-      "confidence_score": 98,
-      "stale_risk": "low",
-      "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
-      "source_notes": "[repointed via manual-source-repoints.json] source verified: HTTP 200 + name/venue/slug match + future-event"
+      "next_check_due_at": "2026-05-31T10:48:35Z",
+      "source_notes": "past-event signal 'event ended' found on source_url"
     },
     {
       "id": 10,
@@ -88,12 +122,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
-      "last_verified_at": "2026-05-30T04:30:04Z",
+      "last_checked_at": "2026-05-30T10:48:35Z",
+      "last_verified_at": "2026-05-30T10:48:35Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
+      "next_check_due_at": "2026-05-31T10:48:35Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -105,12 +139,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
-      "last_verified_at": "2026-05-30T04:30:04Z",
+      "last_checked_at": "2026-05-30T10:48:35Z",
+      "last_verified_at": "2026-05-30T10:48:35Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
+      "next_check_due_at": "2026-05-31T10:48:35Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -122,12 +156,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
-      "last_verified_at": "2026-05-30T04:30:04Z",
+      "last_checked_at": "2026-05-30T10:48:35Z",
+      "last_verified_at": "2026-05-30T10:48:35Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
+      "next_check_due_at": "2026-05-31T10:48:35Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -139,30 +173,13 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
-      "last_verified_at": "2026-05-30T04:30:04Z",
+      "last_checked_at": "2026-05-30T10:48:35Z",
+      "last_verified_at": "2026-05-30T10:48:35Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
+      "next_check_due_at": "2026-05-31T10:48:35Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
-    },
-    {
-      "id": 3,
-      "slug": "ffcn",
-      "name": "French Fried Comedy Night",
-      "source_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838453379",
-      "api_source_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838522586",
-      "source_repointed": true,
-      "source_platform": "eventbrite",
-      "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
-      "last_verified_at": "2026-05-30T04:30:04Z",
-      "confidence_score": 98,
-      "stale_risk": "low",
-      "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
-      "source_notes": "[repointed via manual-source-repoints.json] source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
       "id": 5,
@@ -173,12 +190,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
-      "last_verified_at": "2026-05-30T04:30:04Z",
+      "last_checked_at": "2026-05-30T10:48:35Z",
+      "last_verified_at": "2026-05-30T10:48:35Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
+      "next_check_due_at": "2026-05-31T10:48:35Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -190,12 +207,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
-      "last_verified_at": "2026-05-30T04:30:04Z",
+      "last_checked_at": "2026-05-30T10:48:35Z",
+      "last_verified_at": "2026-05-30T10:48:35Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
+      "next_check_due_at": "2026-05-31T10:48:35Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -207,12 +224,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
-      "last_verified_at": "2026-05-30T04:30:04Z",
+      "last_checked_at": "2026-05-30T10:48:35Z",
+      "last_verified_at": "2026-05-30T10:48:35Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
+      "next_check_due_at": "2026-05-31T10:48:35Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -224,30 +241,13 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
-      "last_verified_at": "2026-05-30T04:30:04Z",
+      "last_checked_at": "2026-05-30T10:48:35Z",
+      "last_verified_at": "2026-05-30T10:48:35Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
+      "next_check_due_at": "2026-05-31T10:48:35Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
-    },
-    {
-      "id": 2,
-      "slug": "velvet-comedy",
-      "name": "Velvet Bar Comedy — Le meilleur du stand-up",
-      "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-      "api_source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840198599",
-      "source_repointed": true,
-      "source_platform": "eventbrite",
-      "source_type": "ticket",
-      "last_checked_at": "2026-05-30T04:30:04Z",
-      "last_verified_at": "2026-05-30T04:30:04Z",
-      "confidence_score": 98,
-      "stale_risk": "low",
-      "verification_status": "verified_24h",
-      "next_check_due_at": "2026-05-31T04:30:04Z",
-      "source_notes": "[repointed via manual-source-repoints.json] source verified: HTTP 200 + name/venue/slug match + future-event"
     }
   ]
 }

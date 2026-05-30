@@ -96,6 +96,12 @@ def verify_listing(l):
         status, conf, risk = "source_unreachable", 0, "high"
         last_verified_at = None
     else:
+        # Check BOTH source_url and api_source_url when they differ — the public
+        # "Get tickets" button uses api_source_url, so a stale signal there must
+        # downgrade the listing even if the repointed source_url is fresh.
+        urls_to_check = [("source_url", source_url)]
+        if repointed and api_source_url and api_source_url != source_url:
+            urls_to_check.append(("api_source_url", api_source_url))
         code, body = fetch_url(source_url)
         if code == 200 and body:
             # Detect "event ended" / past-event signals on ticket platform pages.
@@ -117,25 +123,34 @@ def verify_listing(l):
             # dictionary key. Eventbrite ships {"event ended":"..."} in every
             # page; the phrase is HTML status text only when it is NOT
             # immediately followed by a JSON value separator '"'.
-            matched_sig = None
-            for sig in past_signals:
-                start = 0
-                while True:
-                    idx = body.find(sig, start)
-                    if idx < 0:
-                        break
-                    after = body[idx + len(sig):idx + len(sig) + 1]
-                    if after == '"':
-                        start = idx + len(sig)
-                        continue
-                    matched_sig = sig
-                    break
-                if matched_sig:
-                    break
+            def _scan(b):
+                for sig in past_signals:
+                    start = 0
+                    while True:
+                        idx = b.find(sig, start)
+                        if idx < 0:
+                            break
+                        after = b[idx + len(sig):idx + len(sig) + 1]
+                        if after == '"':
+                            start = idx + len(sig)
+                            continue
+                        return sig
+                return None
+            matched_sig = _scan(body)
+            matched_where = "source_url" if matched_sig else None
+            # Also scan api_source_url body when distinct from source_url
+            if not matched_sig and len(urls_to_check) > 1:
+                _, alt_url = urls_to_check[1]
+                alt_code, alt_body = fetch_url(alt_url)
+                if alt_code == 200 and alt_body:
+                    alt_sig = _scan(alt_body)
+                    if alt_sig:
+                        matched_sig = alt_sig
+                        matched_where = "api_source_url"
             if matched_sig:
                 status, conf, risk = "needs_human_review", 10, "high"
                 last_verified_at = None
-                note = f"past-event signal matched in source page: '{matched_sig}'"
+                note = f"past-event signal '{matched_sig}' found on {matched_where}"
             else:
                 # Match if show name OR venue OR slug appears in body
                 tokens = [t for t in [name, venue, slug.replace("-", " ")] if t]
