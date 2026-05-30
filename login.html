@@ -33,6 +33,13 @@ input{width:100%;padding:12px;background:var(--input);border:1px solid var(--bor
 .token-line{display:flex;gap:8px;align-items:center}.token-line input{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 .route-card{display:grid;gap:10px}.route-card h2{font-size:16px}.route-card p{color:var(--muted);line-height:1.5}
 .status-row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--border);padding-top:10px;color:var(--muted);font-size:13px}.status-row strong{color:var(--text);text-align:right}
+.v2-draft{background:#0d0a1a;border:1px solid #2d1a5e;border-radius:10px;padding:20px;margin-top:4px}
+.v2-draft-header{font-size:14px;font-weight:700;color:#9d5ff5;margin-bottom:4px}
+.v2-draft-notice{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5}
+.v2-status-line{font-size:12px;color:var(--muted);margin-top:10px;font-style:italic}
+.v2-role{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.v2-role button{border:1px solid var(--border);background:var(--input);color:var(--muted);border-radius:6px;padding:9px;font-weight:700;cursor:pointer;font-size:13px}
+.v2-role button.active{background:#2d1a5e;border-color:#7c3aed;color:var(--text)}
 </style>
 <script src="/assets/auth-helpers.js" defer></script>
 </head>
@@ -86,6 +93,28 @@ input{width:100%;padding:12px;background:var(--input);border:1px solid var(--bor
       <div class="status-row"><span>Booker destination</span><strong><a href="/booker-portal.html">Booker Portal</a></strong></div>
       <div class="status-row"><span>Lineups</span><strong><a href="/booker-dashboard.html">Dashboard</a></strong></div>
     </aside>
+  </section>
+
+  <!-- Auth V2 draft — backend not yet live, not in production -->
+  <section class="v2-draft" id="auth-v2-draft" aria-label="Auth V2 magic-link login — not yet live">
+    <div class="v2-draft-header">Magic-Link Login (Auth V2 — planned, not live yet)</div>
+    <div class="v2-draft-notice">
+      This section previews the upcoming magic-link login flow. The backend is not yet live.
+      The button below is disabled until the Auth V2 backend is enabled in production.
+    </div>
+    <div class="v2-role" role="group" aria-label="Account role">
+      <button type="button" id="v2-role-comic" class="active" onclick="v2SetRole('comic')">Comic</button>
+      <button type="button" id="v2-role-booker" onclick="v2SetRole('booker')">Booker</button>
+    </div>
+    <div class="field">
+      <label for="v2-email">Email</label>
+      <input id="v2-email" type="email" autocomplete="email" placeholder="you@email.com">
+    </div>
+    <button class="btn" id="v2-submit" type="button" disabled onclick="v2RequestLink()">
+      Request magic link — not live yet
+    </button>
+    <div class="v2-status-line" id="v2-status-line">Magic-link login is not live yet. Backend status: checking…</div>
+    <div class="msg" id="v2-msg"></div>
   </section>
 </main>
 <script>
@@ -149,6 +178,60 @@ function copyToken(){
   navigator.clipboard.writeText(el.value).catch(function(){document.execCommand('copy');});
 }
 function escapeAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+
+// --- Auth V2 draft (backend not live) ---
+var v2Enabled = false;
+var v2Role = 'comic';
+function v2SetRole(r) {
+  v2Role = r;
+  document.getElementById('v2-role-comic').classList.toggle('active', r === 'comic');
+  document.getElementById('v2-role-booker').classList.toggle('active', r === 'booker');
+}
+async function v2CheckStatus() {
+  var statusLine = document.getElementById('v2-status-line');
+  var btn = document.getElementById('v2-submit');
+  try {
+    var res = await fetch('/api/auth_v2/status', {cache: 'no-store'});
+    var data = await res.json().catch(function() { return {}; });
+    if (res.status === 503 || data.enabled === false || (data.detail && data.detail.error)) {
+      statusLine.textContent = 'Magic-link login is not live yet. Auth V2 backend is disabled.';
+      btn.disabled = true;
+    } else if (data.enabled === true) {
+      v2Enabled = true;
+      statusLine.textContent = 'Auth V2 backend reachable. Magic-link login available.';
+      btn.disabled = false;
+      btn.textContent = 'Request magic link';
+    } else {
+      statusLine.textContent = 'Magic-link login is not live yet. Unexpected backend response.';
+      btn.disabled = true;
+    }
+  } catch(e) {
+    statusLine.textContent = 'Magic-link login is not live yet. Auth V2 backend unavailable.';
+    btn.disabled = true;
+  }
+}
+async function v2RequestLink() {
+  if (!v2Enabled) return; // guard: never send while disabled
+  var email = document.getElementById('v2-email').value.trim().toLowerCase();
+  var msg = document.getElementById('v2-msg');
+  if (!email) { msg.textContent = 'Email required.'; msg.className = 'msg err'; return; }
+  msg.textContent = 'Requesting…'; msg.className = 'msg';
+  try {
+    var base = await apiBase();
+    var res = await fetch(base + '/api/auth_v2/magic-link/request', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: email, role: v2Role}),
+    });
+    var data = await res.json().catch(function() { return {}; });
+    if (!res.ok) { msg.textContent = (data.detail && data.detail.message) || ('HTTP ' + res.status); msg.className = 'msg err'; return; }
+    msg.textContent = 'Request accepted. Check your email for a magic link.';
+    msg.className = 'msg ok';
+  } catch(e) {
+    msg.textContent = e.message; msg.className = 'msg err';
+  }
+}
+v2CheckStatus();
 </script>
 </body>
 </html>

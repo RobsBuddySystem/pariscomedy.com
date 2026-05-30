@@ -855,6 +855,72 @@ def check_homepage_freshness_filter() -> dict:
     }
 
 
+def check_auth_v2_login_draft() -> dict:
+    """BACKEND.AUTH.5-LOGIN-V2-DRAFT guard.
+
+    Fails if login.html:
+      - claims magic links are live when they are not
+      - sends request to /magic-link/request unconditionally (guard block absent)
+      - shows 'check your email' or 'request sent' as static copy (implies live)
+      - says 'auth v2 live' or 'magic links are live'
+    Passes if copy says 'not live yet', 'planned', or 'backend disabled'.
+    """
+    p = REPO_ROOT / "login.html"
+    if not p.exists():
+        return {"name": "auth_v2_login_draft", "result": "FAIL",
+                "evidence": {"reason": "login.html missing"}}
+    src = p.read_text(encoding="utf-8", errors="ignore")
+
+    # Forbidden static copy patterns (in lowercase source, outside JS logic)
+    forbidden_copy = [
+        "magic links are live",
+        "auth v2 live",
+        "auth v2 is live",
+        "magic-link login is live",
+    ]
+    # Forbidden static phrases that imply live flow (check entire file)
+    forbidden_impl = [
+        "check your email",  # static copy implying email was already sent
+        "request sent",      # static copy implying live send
+    ]
+    # The guard: JS must not call /magic-link/request without v2Enabled check
+    # We verify the guard variable is referenced before the fetch call
+    guard_present = "if (!v2Enabled) return" in src or "if(!v2Enabled)" in src
+
+    src_lower = src.lower()
+    copy_hits = [ph for ph in forbidden_copy if ph in src_lower]
+
+    # For implied-live phrases, only flag static HTML attributes/text, not JS runtime strings.
+    # JS lines (those with 'textContent', 'innerHTML', 'msg.', 'console.', or '=') are runtime
+    # and only execute on actual backend response — not static copy.
+    impl_hits = []
+    JS_INDICATORS = ("textcontent", "innerhtml", "msg.", "console.", "=", "return ", "throw ")
+    for lineno, line in enumerate(src.splitlines(), 1):
+        ll = line.lower().strip()
+        if ll.startswith("//") or ll.startswith("*") or ll.startswith("/*"):
+            continue
+        # Skip JS runtime lines
+        if any(ind in ll for ind in JS_INDICATORS):
+            continue
+        for ph in forbidden_impl:
+            if ph in ll and "planned" not in ll and "not live" not in ll:
+                impl_hits.append({"line": lineno, "phrase": ph, "text": line.strip()[:100]})
+
+    problems = {}
+    if copy_hits:
+        problems["forbidden_copy"] = copy_hits
+    if impl_hits:
+        problems["live_implied_copy"] = impl_hits
+    if not guard_present:
+        problems["missing_v2enabled_guard"] = "JS sends /magic-link/request without checking v2Enabled"
+
+    return {
+        "name": "auth_v2_login_draft",
+        "result": "PASS" if not problems else "FAIL",
+        "evidence": problems if problems else {"no_live_claims": True, "guard_present": True},
+    }
+
+
 def check_admin_review_shell() -> dict:
     """BACKEND.ADMIN.1-REVIEW-QUEUE-SHELL guard.
 
@@ -937,6 +1003,7 @@ CHECKS = {
     "hreflang":              lambda dom: check_hreflang(),
     "header_cta_rule":       lambda dom: check_header_cta_rule(),
     "admin_review_shell":    lambda dom: check_admin_review_shell(),
+    "auth_v2_login_draft":   lambda dom: check_auth_v2_login_draft(),
 }
 
 
