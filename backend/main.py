@@ -68,13 +68,20 @@ except Exception as _e:  # noqa: BLE001
     _sys.stderr.write(f"[main] auth_v2_router import failed: {_e}\n")
 
 # BACKEND.SUBMIT.2-ROUTER-DISABLED — mount the v2 submissions router.
-# All endpoints are gated by SUBMISSIONS_V2_ENABLED (default false) and return 503.
 try:
     from submissions_v2_router import router as submissions_v2_router  # noqa: E402
     app.include_router(submissions_v2_router)
 except Exception as _e:  # noqa: BLE001
     import sys as _sys
     _sys.stderr.write(f"[main] submissions_v2_router import failed: {_e}\n")
+
+# BACKEND.CLAIM.2-ROUTER-DISABLED — mount the v2 claims router.
+try:
+    from claims_v2_router import router as claims_v2_router  # noqa: E402
+    app.include_router(claims_v2_router)
+except Exception as _e:  # noqa: BLE001
+    import sys as _sys
+    _sys.stderr.write(f"[main] claims_v2_router import failed: {_e}\n")
 
 # ── DB helper ────────────────────────────────────────────────────────────────
 @contextmanager

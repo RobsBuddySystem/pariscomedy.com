@@ -7,6 +7,12 @@ updated. Regression guard blocks any future /book.html reference. connect.html b
 BACKEND.AUTH.3 production readiness checklist accepted as readiness-only (no production cutover).
 122/122 tests pass. 13/13 regression checks pass.
 
+## 2026-05-30 | backend | BACKEND.CLAIM.2-ROUTER-DISABLED: claims v2 router wired, disabled
+
+claims_v2_router.py + 25 tests. CLAIMS_V2_ENABLED=false. All 10 routes disabled by default.
+Comic/show_runner/venue claim endpoints, claim-status (fail-closed), admin list/approve/reject.
+No public claim UI cutover. No ownership writeback. 166/166 tests pass.
+
 ## 2026-05-30 | backend | BACKEND.SUBMIT.2-ROUTER-DISABLED: submissions v2 router wired, disabled
 
 submissions_v2_router.py + 19 tests. SUBMISSIONS_V2_ENABLED=false. All routes 503 by default.
