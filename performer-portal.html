@@ -96,13 +96,14 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
 <script>
 let API='';
 async function apiBase(){if(API)return API;try{const c=await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json());API=c.api||'';}catch(e){API='';}return API;}
-async function api(path,opts={}){const base=await apiBase();const r=await fetch(base+path,Object.assign({credentials:'include'},opts,{headers:Object.assign({'Content-Type':'application/json'},opts.headers||{})}));const j=await r.json().catch(()=>({detail:r.statusText}));if(!r.ok)throw new Error(j.detail||('HTTP '+r.status));return j;}
+async function api(path,opts={}){const base=await apiBase();const _f=(window.PCAuth&&window.PCAuth.authFetch)||fetch;const r=await _f(base+path,Object.assign({credentials:'include'},opts,{headers:Object.assign({'Content-Type':'application/json'},opts.headers||{})}));const j=await r.json().catch(()=>({detail:r.statusText}));if(!r.ok)throw new Error(j.detail||('HTTP '+r.status));return j;}
 async function requestLink(){const email=document.getElementById('auth-email').value.trim();const msg=document.getElementById('auth-msg');msg.className='msg';if(!email){msg.textContent='Email required.';msg.classList.add('err');return;}try{const r=await api('/api/auth/request',{method:'POST',body:JSON.stringify({email})});msg.textContent=r.dev_verify_url?'Magic link created. Open it, then return here and refresh: '+r.dev_verify_url:r.message;msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}}
 async function loadOffers(sessionToken) {
   if (!sessionToken) return;
   try {
     const base = await apiBase();
-    const r = await fetch(base + '/api/performer/offers?token=' + encodeURIComponent(sessionToken)).then(res => res.json()).catch(() => ({offers:[]}));
+    const _f = (window.PCAuth&&window.PCAuth.authFetch)||fetch;
+    const r = await _f(base + '/api/performer/offers?token=' + encodeURIComponent(sessionToken)).then(res => res.json()).catch(() => ({offers:[]}));
     const offers = r.offers || [];
     const panel = document.getElementById('offers-panel');
     const list = document.getElementById('offers-list');
@@ -124,7 +125,7 @@ async function loadOffers(sessionToken) {
 async function respondOffer(offerId, response, token) {
   const base = await apiBase();
   try {
-    await fetch(base + '/api/performer/offers/' + offerId + '/respond', {
+    await ((window.PCAuth&&window.PCAuth.authFetch)||fetch)(base + '/api/performer/offers/' + offerId + '/respond', {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({token, response})
     });
@@ -152,7 +153,7 @@ const COMIC_TUTORIAL=[
   {title:'1. Complete your profile',body:'Fill in your stage name, bio, languages, Instagram, and YouTube. This is what bookers see in the directory.'},
   {title:'2. Add a photo',body:'Paste a direct image URL in the Photo URL field. Use a clear headshot — it appears on your public comedian card.'},
   {title:'3. Booking offers',body:'When a booker wants to book you for a show, you\'ll see it here as an offer. You can accept or decline each one.'},
-  {title:'4. Upgrade to Comic Plus',body:'Unlock a fully published profile page with your own URL (pariscomedy.com/comedians/your-name). One-time lifetime fee.'},
+  {title:'4. Upgrade to Comic Plus',body:'Unlock a fully published profile page with your own URL (pariscomedy.com/comedians/your-name). Founding early access — checkout coming soon.'},
 ];
 let comicStep=0;
 function showComicTutorial(){comicStep=0;renderComicStep();}

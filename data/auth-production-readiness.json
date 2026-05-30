@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-05-30T07:15:00Z",
+  "phase": "BACKEND.AUTH.3-PRODUCTION-READINESS",
+  "production_backend": {
+    "health_url": "https://api.pariscomedy.com/api/health",
+    "health_result": {"ok": true, "version": "0.1.0"},
+    "auth_v2_status_url": "https://api.pariscomedy.com/api/auth_v2/status",
+    "auth_v2_status_result": "Not Found (router not mounted — AUTH_V2_ENABLED=false, expected)",
+    "auth_v2_enabled": false
+  },
+  "db_migration": {
+    "migration_file": "backend/migrations/002_auth_v2.sql",
+    "rollback_file": "backend/migrations/002_auth_v2.rollback.sql",
+    "staging_evidence": "18/18 staging scenarios passed (in-memory SQLite)",
+    "production_applied": false,
+    "requires_backup_before_apply": true,
+    "requires_operator_approval": true
+  },
+  "email": {
+    "provider": "postmark",
+    "email_send_real": false,
+    "postmark_token": "PLACEHOLDER_DO_NOT_COMMIT",
+    "dns_applied": false,
+    "mailer_tests_pass": "8/8",
+    "fail_closed_guard": true
+  },
+  "security": {
+    "token_ttl_minutes": 15,
+    "token_hashing": "SHA-256",
+    "single_use": true,
+    "session_ttl_days": 30,
+    "rate_limiting": "NOT_IMPLEMENTED — blocker for production enable",
+    "audit_logging": "audit_events_v2",
+    "secrets_committed": false
+  },
+  "frontend": {
+    "login_html": "legacy",
+    "auth_v2_ui_built": false,
+    "rollback_command": "AUTH_V2_ENABLED=false + restart backend"
+  },
+  "blockers_before_production_enable": [
+    "Rate limiting on /auth_v2/request-link",
+    "Postmark DNS verified + real token in env",
+    "login.html magic-link UI built + tested",
+    "Production DB backup + migration applied",
+    "ChatGPT authorization of BACKEND.AUTH.4-PRODUCTION-ENABLE"
+  ],
+  "safe_to_enable_now": false
+}
