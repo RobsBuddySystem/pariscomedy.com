@@ -1,5 +1,59 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | backend | BACKEND.AUTH.1-SCAFFOLD: inert v2 auth scaffold
+
+ChatGPT-authorized 2026-05-30. Scaffold + safety boundary, no production cutover.
+
+Files (all under backend/):
+- migrations/002_auth_v2.sql              5 new tables (users_v2, sessions_v2,
+                                          magic_links_v2, audit_events_v2, rate_limits_v2)
+- migrations/002_auth_v2.rollback.sql     drops the 5 v2 tables
+- auth_v2.py                              service module: request_magic_link,
+                                          consume_magic_link, invalidate_old_tokens_for_email,
+                                          create_session, logout, get_current_user, audit
+- tests/test_auth_v2.py + tests/__init__.py  15 unit tests, all PASS
+
+docs/BACKEND_AUTH_1_SCAFFOLD.md - engineering note + cutover plan.
+
+Safety boundary:
+- AUTH_V2_ENABLED env var defaults false; nothing in main.py reads auth_v2
+- AUTH_V2_DRY_RUN_MAILER defaults true; magic-link tokens written to stderr only
+- Migration NOT auto-applied; run sqlite3 < migrations/002_auth_v2.sql to apply
+- Coexists with existing booker_sessions; no v1 table touched
+- Magic-link tokens hashed (SHA-256) before storage; single-use enforced;
+  TTL 15 min; rate limit 10/email/hour
+- Session TTL 14 days rolling; logout sets revoked_at and is idempotent
+- Roles enum-checked: user/comic/booker/admin only
+
+ChatGPT-mandated test coverage (15/15 OK):
+- magic-link round-trip
+- consumed token rejected on re-use
+- invalidated token (via invalidate_old_tokens) rejected
+- expired token rejected
+- unknown token rejected
+- rate limit blocks after threshold
+- rate limit isolated per email
+- get_current_user for valid session
+- logout invalidates session (idempotent)
+- empty / unknown session returns None
+- expired session returns None
+- role separation: comic/booker get distinct user_ids + sessions
+- invalid role rejected
+- audit events recorded on request + consume
+- status() reports enabled=false by default
+
+Live site impact: NONE. Cloudflare Pages serves static files only; backend/
+directory is part of the repo for deployment elsewhere. Public site
+regression unchanged (12/12 PASS).
+
+No payments / messaging / claims / submissions / ticket adapter / frontend
+redesign / nav / schema / secrets changed.
+
+Rollback:
+  git revert <this-sha>
+  sqlite3 data/paris.db < backend/migrations/002_auth_v2.rollback.sql  # if applied
+
+
 ## 2026-05-30 | docs | BACKEND.PLAN.1: backend implementation plan (plan-only)
 
 ChatGPT-authorized 2026-05-30 (BACKEND.PLAN.1 - plan only, do not implement).
