@@ -66,11 +66,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .celebrate img.badge{width:150px;height:150px}
 .celebrate h3{font-size:16px;font-weight:800;color:var(--gold);margin:8px 0 4px}
 .celebrate p{font-size:13px;color:#ccc;line-height:1.6;margin-bottom:12px}
-.pay-btn{display:inline-block;background:var(--gold);color:#000;font-weight:800;font-size:15px;padding:13px 26px;border-radius:10px;margin-top:4px}
-.pay-btn:hover{opacity:.9}
-.pay-qr{margin-top:12px}
-.pay-qr img{width:130px;height:130px;background:#fff;border-radius:8px;padding:6px}
-.pay-note{font-size:11px;color:#777;margin-top:8px}
+
 
 .footer-note{text-align:center;max-width:600px;margin:0 auto;padding:8px 24px 48px;font-size:13px;color:#666;line-height:1.6}
 footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;color:var(--muted);font-size:13px}
@@ -100,10 +96,10 @@ footer a:hover{color:var(--text)}
  <h1>Founding Member offer.</h1>
  <p>Everyone browses and lists for free. The first 100 comedians lock in lifetime Comic Plus.</p>
  <div class="founding-banner">
- ⭐ <strong>First 100 comedians only:</strong> one payment of <strong>€1</strong> = <strong>lifetime</strong>
- Comic Plus. No subscription, never billed again. After 100 it closes for good.
+ ⭐ <strong>First 100 comedians only:</strong> planned one-time <strong>€1</strong> = <strong>lifetime</strong>
+ Comic Plus once checkout launches. Join the list below to be notified — no charge today.
  (Booker Plus is a separate monthly plan — see below.)
- <span class="founding-count" id="founding-count">Checking live count...</span>
+ <span class="founding-count" id="founding-count">Checkout is not yet live — join the list above to be notified first.</span>
  </div>
 </div>
 
@@ -136,7 +132,7 @@ footer a:hover{color:var(--text)}
  <li>Priority placement on show pages</li>
  <li>Founding Member badge on your profile</li>
  </ul>
- <button class="btn-plan btn-start" onclick="openIntent('comic')">Claim my €1 lifetime spot →</button>
+ <button class="btn-plan btn-start" onclick="openIntent('comic')">Join the founding list →</button>
  <form class="intent-form" id="intent-comic" onsubmit="return submitIntent(event,'comic','Comic Plus')">
  <label for="comic-name" style="position:absolute;left:-9999px">Your name</label>
  <input type="text" id="comic-name" placeholder="Your name" required aria-label="Your name">
@@ -243,25 +239,6 @@ footer a:hover{color:var(--text)}
 
 <script src="/js/leadcapture.js"></script>
 <script>
-var SUMUP_1EURO = 'https://pay.sumup.com/b2c/Q9TM3HKU?utm_source=qr&utm_medium=digital&utm_campaign=image';
-
-async function loadFoundingCount() {
- var el = document.getElementById('founding-count');
- if (!el) return;
- try {
- var cfg = await fetch('/api-config.json', {cache:'no-store'}).then(function(r){return r.json();});
- var api = cfg.api || '';
- var data = await fetch(api + '/api/member/founding-count', {cache:'no-store'}).then(function(r){return r.json();});
- if (!data.ok) throw new Error('count unavailable');
- el.innerHTML = data.active_count + ' active Comic Plus founders · ' +
- data.pending_count + ' pending payment · ' +
- '<small>' + data.remaining_active_slots + ' active slots left</small>';
- } catch (e) {
- el.textContent = 'Live count unavailable. Payment records are still saved server-side.';
- }
-}
-loadFoundingCount();
-
 function openIntent(type) {
  var f = document.getElementById('intent-' + type);
  f.classList.add('open');
@@ -273,42 +250,19 @@ async function submitPromo(ev) {
  var name = document.getElementById('promo-name').value.trim();
  var email = document.getElementById('promo-email').value.trim();
  var show = document.getElementById('promo-show').value.trim();
- var tier = document.querySelector('input[name="promo-tier"]:checked').value;
  var err = document.getElementById('promo-err');
  err.textContent = '';
  if (!name || !email || !show || email.indexOf('@') < 0) {
  err.textContent = 'Name, email, and show name are required.'; return false;
  }
- if (window.pcTrack) pcTrack('featured_promo_click', {tier: tier, show: show});
- if (window.pcTrack) pcTrack('form_submit_attempt', {form: 'featured_promo', tier: tier});
- try {
- var api = '';
- try { var c = await fetch('/api-config.json',{cache:'no-store'}).then(function(r){return r.json();}); api = c.api || ''; } catch(_) {}
- var r = await fetch(api + '/api/checkout/intent', {
- method: 'POST', headers: {'Content-Type': 'application/json'},
- body: JSON.stringify({
- plan_code: tier, contact_email: email, contact_name: name,
- target_slug: show.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,''),
- target_kind: 'show',
- metadata: {show_input: show}
- })
- });
- var j = await r.json();
- if (!r.ok || !j.ok) throw new Error(j.detail || 'Server error');
- if (window.pcTrack) pcTrack('form_submit_success', {form: 'featured_promo', intent_id: j.intent_id, configured: j.configured});
+ if (window.pcTrack) pcTrack('featured_promo_click', {show: show});
  document.getElementById('intent-promo').style.display = 'none';
  var box = document.getElementById('promo-celebrate');
  box.classList.add('show');
  box.innerHTML =
- '<h3>Featured Show reserved ⭐</h3>' +
- '<p>' + esc(name) + ', your <strong>' + esc(j.plan) + '</strong> spot for <strong>' + esc(show) + '</strong> is reserved.</p>' +
- '<p>Complete payment via SumUp below. Your show pins to the top of /venues.html for ' + j.period_days + ' days the moment we confirm payment.</p>' +
- '<a class="pay-btn" href="' + j.checkout_url + '" target="_blank" rel="noopener">Pay €' + j.amount_eur + ' via SumUp →</a>' +
- '<div class="pay-note" style="margin-top:10px">Intent #' + j.intent_id + ' · Payment confirmed within 24 hours via admin reconciliation.</div>';
- } catch (e) {
- err.textContent = e.message || 'Could not reserve — try again.';
- if (window.pcTrack) pcTrack('form_submit_error', {form: 'featured_promo', error: e.message});
- }
+ '<h3>Promotion waitlist — you\'re on the list ⭐</h3>' +
+ '<p>' + esc(name) + ', we\'ve noted your interest in promoting <strong>' + esc(show) + '</strong>.</p>' +
+ '<p>Paid promotions are planned but not yet active. We\'ll contact you at <strong>' + esc(email) + '</strong> when checkout launches. No charge happens today.</p>';
  return false;
 }
 
@@ -321,59 +275,20 @@ async function submitIntent(ev, type, planName) {
  if (!name || !email || email.indexOf('@') < 0) {
  err.textContent = 'Name and a valid email are required.'; return false;
  }
- var isComic = (type === 'comic');
- var planDesc = isComic ? 'Founding Member — €1 lifetime'
- : '€1/month for 6 months, then €5/month — auto-renews via SumUp';
- var body = 'Plan: ' + planName + ' (' + planDesc + ')\n' +
- 'Name: ' + name + '\nEmail: ' + email + '\nRole: ' + type;
-
- // Capture the member BEFORE sending them to the payment page.
- var res = await LeadCapture.submit({
- route: '/api/pricing-intent',
- formType: 'pricing-intent',
- payload: {name: name, email: email, role: type,
- plan: planName + ' — ' + planDesc, message: body},
- mailtoSubject: planName + ' signup',
- mailtoBody: body
- });
-
+ if (window.pcTrack) pcTrack('pricing_intent', {role: type, plan: planName});
  document.getElementById('intent-' + type).style.display = 'none';
  var box = document.getElementById(type + '-celebrate');
  box.classList.add('show');
- var apiData = res.data || {};
- var payment = apiData.payment || {};
- var payUrl = payment.checkout_url || SUMUP_1EURO;
- var reference = payment.reference ? '<br><strong>Payment reference:</strong> ' + esc(payment.reference) : '';
- var portalUrl = apiData.portal_url || (isComic ? '/performer-portal.html' : '/booker-portal.html');
- var portalLabel = isComic ? 'Open Performer Portal' : 'Open Booker Portal';
-
- if (isComic) {
+ if (type === 'comic') {
  box.innerHTML =
- '<img class="badge" src="/assets/founding-member-badge.svg" alt="Paris Comedy Founding Member badge">' +
- '<h3>You&rsquo;re a Founding Member 🎉</h3>' +
- '<p>' + name + ', your Comic Plus spot is reserved. ' +
- (res.status === 'sent'
- ? 'Pay €1 once below to activate lifetime access — you&rsquo;ll never be billed again.' + reference
- : 'We saved your details locally (server busy). Pay €1 below, then ' +
- '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
- '</p>' +
- '<a class="pay-btn" href="' + payUrl + '" target="_blank" rel="noopener">Pay €1 — lifetime →</a>' +
- '<br><a class="pay-btn" style="background:#1e1e1e;color:var(--text);margin-top:10px" href="' + portalUrl + '">' + portalLabel + ' →</a>' +
- '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
- '<div class="pay-note">Secure card payment via SumUp · one-time €1 · scan or tap</div>';
+ '<h3>You\'re on the founding list 🎉</h3>' +
+ '<p>' + esc(name) + ', we\'ve saved your email (<strong>' + esc(email) + '</strong>) for Comic Plus.</p>' +
+ '<p>Checkout is not active yet. We\'ll email you when the founding offer goes live — no charge happens today.</p>';
  } else {
  box.innerHTML =
- '<h3>Booker Plus — you&rsquo;re in 🎭</h3>' +
- '<p>' + name + ', your Booker Plus is reserved. ' +
- (res.status === 'sent'
- ? 'Pay your first month (€1) below — auto-renews at €1/month for 6 months, then €5/month. Cancel anytime.' + reference
- : 'We saved your details locally (server busy). Pay the first €1 below, then ' +
- '<a href="' + res.mailto + '" style="color:var(--gold);font-weight:700">email us</a> to confirm.') +
- '</p>' +
- '<a class="pay-btn" href="' + payUrl + '" target="_blank" rel="noopener">Pay €1 — first month →</a>' +
- '<br><a class="pay-btn" style="background:#1e1e1e;color:var(--text);margin-top:10px" href="' + portalUrl + '">' + portalLabel + ' →</a>' +
- '<div class="pay-qr"><img src="/assets/sumup-1euro-qr.svg" alt="Scan to pay €1 with SumUp"></div>' +
- '<div class="pay-note">Secure card payment via SumUp · €1/month for 6 months, then €5/month · cancel anytime</div>';
+ '<h3>Early access requested 🎭</h3>' +
+ '<p>' + esc(name) + ', we\'ve saved your email (<strong>' + esc(email) + '</strong>) for Booker Plus.</p>' +
+ '<p>Checkout is not active yet. We\'ll contact you when Booker Plus launches — no charge happens today.</p>';
  }
  return false;
 }
