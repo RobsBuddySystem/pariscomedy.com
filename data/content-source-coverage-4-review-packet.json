@@ -1,0 +1,28 @@
+{
+  "phase": "CONTENT.SOURCE-COVERAGE.4-MANUAL-REVIEW-PACKET",
+  "generated_at": "2026-05-30T14:15:00Z",
+  "review_packet_only": true,
+  "no_db_write": true,
+  "no_import": true,
+  "no_feature_flags": true,
+  "warning": "Approval here does NOT auto-publish. A separate manual import phase + ChatGPT verification required before any listing goes public.",
+  "allowed_decisions": ["approve_for_manual_import", "reject", "needs_more_research", "future_watch"],
+  "minimum_import_data_required": ["show name", "venue name + full address", "next date or recurrence", "start time", "language", "primary ticket or source URL", "date source was verified", "no duplicate confirmation"],
+  "do_not_import_if": ["date or recurrence unclear", "source page is stale / no upcoming events", "source is blog/guide only without primary ticket source", "possible duplicate of existing listing", "venue or address unclear", "language unclear", "ticket URL returns 404"],
+  "seeds": [
+    {"seed_id": "S001", "source_candidate_id": "C001", "show_name": "Coucou Comedy — Tuesday English Stand-Up", "venue_name": "Le Noddi, 16 Rue Bernardins 75005", "exact_source_url": "https://www.eventbrite.com/o/coucou-comedy-43230488853", "language_guess": "en", "confidence_score": 90, "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S002", "source_candidate_id": "C002", "show_name": "Coucou Comedy — Friday English Stand-Up", "venue_name": "Broadway Comedy Club, 25 Bd de Bonne Nouvelle 75002", "exact_source_url": "https://www.eventbrite.com/o/coucou-comedy-43230488853", "language_guess": "en", "confidence_score": 85, "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S003", "source_candidate_id": "C003", "show_name": "Sebastian Marx — New York Comedy Night", "venue_name": "La Scène Barbès, 18 Bd Barbès 75018", "exact_source_url": "https://www.sebmarx.com/en/", "language_guess": "en", "confidence_score": 80, "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S004", "source_candidate_id": "C004", "show_name": "Paname Comedy Club", "venue_name": "Paname Art Cafe", "exact_source_url": "https://www.fnacspectacles.com/artist/paname-comedy-club/paname-comedy-club-paris-3410304/", "language_guess": "fr", "confidence_score": 88, "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S005", "source_candidate_id": "C005", "show_name": "Golden Comedy Club", "venue_name": "Golden Comedy Spot, 36 rue Dalayrac 75002", "exact_source_url": "https://feverup.com/m/111045/en", "language_guess": "fr", "confidence_score": 92, "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S006", "source_candidate_id": "C006", "show_name": "Oscar Comedy Club", "venue_name": "Café Oscar, 155 Rue Montmartre 75002", "exact_source_url": "https://www.eventbrite.fr/e/oscar-comedy-club-tickets-1672589683769", "language_guess": "fr", "confidence_score": 88, "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S007", "source_candidate_id": "C008", "show_name": "The Joke Comedy Club", "venue_name": "The Joke, 37 rue Quincampoix 75004", "exact_source_url": "https://feverup.com/en/paris/venue/the-joke", "language_guess": "fr", "confidence_score": 82, "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S008", "source_candidate_id": "C009", "show_name": "Le Plateau Comedy Club", "venue_name": "Monsieur le Zinc, 16 Rue de Mazagran 75010", "exact_source_url": "https://feverup.com/m/474472/en", "language_guess": "fr", "confidence_score": 78, "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S009", "source_candidate_id": "C010", "show_name": "Le Fridge Comedy Night", "venue_name": "Le Fridge Comedy Paris 2nd arr", "exact_source_url": "https://www.billetreduc.com/263384/evt.htm", "language_guess": "fr", "confidence_score": 75, "robert_decision": null, "robert_notes": null}
+  ],
+  "awaiting_robert_decisions": true,
+  "regression_guard": "22/22 PASS",
+  "secrets_check": "no secrets, no imports, no flags",
+  "safe_to_close": true,
+  "safe_to_import_any_listings": false
+}
