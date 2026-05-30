@@ -1,0 +1,44 @@
+{
+  "phase": "CONTENT.OPERATOR-DECISION-HANDOFF",
+  "generated_at": "2026-05-30T15:00:00Z",
+  "decision_handoff_only": true,
+  "no_db_write": true,
+  "no_public_listing_change": true,
+  "no_source_url_change": true,
+  "no_imports": true,
+  "no_feature_flags": true,
+  "warning": "Robert decisions do not auto-publish. Claude must create a separate implementation phase and ChatGPT must verify proof before any listing, URL, or public change happens.",
+  "active_inventory_summary": {
+    "total_active": 14,
+    "verified_freshness_ok": 11,
+    "needs_human_review_stale_source": 3,
+    "seeded_candidates_awaiting_decision": 9
+  },
+  "seeded_candidate_decisions": [
+    {"seed_id": "S001", "show_name": "Coucou Comedy — Tuesday", "language": "en", "confidence": 90, "recommended": "approve_for_manual_import", "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S002", "show_name": "Coucou Comedy — Friday", "language": "en", "confidence": 85, "recommended": "approve_for_manual_import", "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S003", "show_name": "Sebastian Marx NY Comedy Night", "language": "en", "confidence": 80, "recommended": "approve_for_manual_import", "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S004", "show_name": "Paname Comedy Club", "language": "fr", "confidence": 88, "recommended": "approve_for_manual_import", "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S005", "show_name": "Golden Comedy Club", "language": "fr", "confidence": 92, "recommended": "approve_for_manual_import", "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S006", "show_name": "Oscar Comedy Club", "language": "fr", "confidence": 88, "recommended": "approve_for_manual_import", "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S007", "show_name": "The Joke Comedy Club", "language": "fr", "confidence": 82, "recommended": "approve_for_manual_import", "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S008", "show_name": "Le Plateau Comedy Club", "language": "fr", "confidence": 78, "recommended": "approve_for_manual_import", "robert_decision": null, "robert_notes": null},
+    {"seed_id": "S009", "show_name": "Le Fridge Comedy Night", "language": "fr", "confidence": 75, "recommended": "approve_for_manual_import", "robert_decision": null, "robert_notes": null}
+  ],
+  "stale_source_decisions": [
+    {"slug": "millennial-meltdown", "recommended": "keep_needs_human_review", "replacement_url": null, "risk_note": "Do not repoint until current Kuhl Productions Eventbrite organizer URL found", "robert_decision": null, "robert_notes": null},
+    {"slug": "theatre-bo-julie", "recommended": "approve_repoint", "replacement_candidates": ["https://www.julie-collas.com/", "https://www.viator.com/tours/Paris/Oh-my-god-shes-Parisian-The-brand-new-comedy-show-in-English-language-in-Paris/d479-67244P1"], "risk_note": "Performer name: DB says Coulon, official site says Collas — verify before changing", "robert_decision": null, "robert_replacement_url": null, "robert_name_correction": null, "robert_notes": null},
+    {"slug": "wednesday-night-comedy", "recommended": "hide_until_current_source_found", "replacement_url": null, "risk_note": "Show may have ended; showing broken link harms credibility", "robert_decision": null, "robert_notes": null}
+  ],
+  "next_implementation_phases": {
+    "if_any_candidate_approved": "CONTENT.SOURCE-COVERAGE.5-MANUAL-IMPORT-APPROVED",
+    "if_theatre_bo_julie_repoint_approved": "CONTENT.FRESHNESS.4-REPOINT-APPROVED-SOURCES",
+    "if_wednesday_hide_approved": "CONTENT.FRESHNESS.4B-HIDE-APPROVED-STALE-LISTINGS",
+    "if_needs_more_research": "CONTENT.SOURCE-COVERAGE.5B-MORE-RESEARCH"
+  },
+  "awaiting_robert_decisions": true,
+  "regression_guard": "22/22 PASS",
+  "secrets_check": "no secrets, no imports, no flags",
+  "safe_to_close": true,
+  "safe_to_import_or_repoint_anything": false
+}
