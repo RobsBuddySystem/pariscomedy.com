@@ -1,5 +1,34 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | data | P1.DATA.2.FIX — Eventbrite past-event detection (BUG-P0-008)
+
+scripts/freshness_verify.py — three changes, all confined to the past-event branch of `verify_listing()`:
+
+1. Extended `past_signals` list with phrases Eventbrite actually renders:
+   `event ended`, `sales ended`, `sales end`, `this event has already taken place`,
+   `cet événement est passé`, `événement terminé`, `ventes terminées`, `vente terminée`.
+2. Raised body read window from 80 000 → 250 000 bytes (Eventbrite event UI badge
+   sits at ~82 KB on the failing case, just past the old cap).
+3. Filter out i18n-dictionary false-positives: Eventbrite ships
+   `{"event ended":"l'événement s'est terminé",…}` in every page; a phrase only
+   counts as a real status marker when the next character is not `"` (the JSON
+   value separator).
+4. Past-event branch now sets `verification_status: needs_human_review`
+   (conf 10, high risk) instead of `source_unreachable` (conf 0) — semantically
+   the URL IS reachable; the listing simply needs a human to repoint
+   `source_url` at a current Eventbrite instance.
+
+Live impact (one local run): 14/14 active listings flipped from `verified_24h` to
+`needs_human_review` because every stored `source_url` currently points to an
+ended Eventbrite event instance (recurring series have rolled to new URLs).
+This is the correct, trust-honest behavior per ChatGPT P1.DATA.2.FIX spec.
+
+Regression: 10/10 regression_guard checks PASS. 31/31 public pages return 200.
+No nav / schema / auth / payment / messaging changes.
+
+Rollback: `git revert <sha>`
+
+
 ## 2026-05-29 | frontend | P3.CLAIM.2 + P3.CLAIM.3
 - Closed P3.CLAIM.1 critical findings FIND-2 (comic claim sent `{slug}` only — any verified-email user could claim any comic) and FIND-3 (show claim collected no evidence beyond freeform `message`).
 - **P3.CLAIM.2 (`performer-portal.html`):** Added optional evidence-collection fields to the comic-claim banner — Instagram handle (with "@" prefix), recent IG/socials post URL, headshot URL, and a "I'll send my headshot by reply email" checkbox. Fields appended to `POST /api/performer/claim` body as `{instagram, recent_post_url, headshot_url, headshot_via_email}`. Also replaced the previous auto-fire behavior: instead of submitting the claim the moment a signed-in user lands on `?claim=<slug>`, the page now reveals a "Submit claim" button so the user can attach evidence before the claim is filed. `focus` rehydration changed in lockstep — pending-claim slug now reveals the button instead of auto-replaying. Helper note: "These help us verify it's really you. We'll never publish your private email."

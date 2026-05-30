@@ -51,7 +51,7 @@ def fetch_url(url):
     try:
         req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "text/html,*/*"})
         with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
-            body = r.read(80000).decode("utf-8", errors="ignore").lower()
+            body = r.read(250000).decode("utf-8", errors="ignore").lower()
             return r.status, body
     except urllib.error.HTTPError as e:
         return e.code, None
@@ -80,14 +80,37 @@ def verify_listing(l):
             past_signals = [
                 "this event has ended", "event has ended",
                 "this event has passed", "event has passed",
+                "this event has already taken place",
                 "tickets are no longer available",
+                "event ended", "sales ended", "sales end",
                 "cet événement est terminé", "événement est terminé",
+                "cet événement est passé", "événement terminé",
                 "billetterie est fermée", "les ventes sont terminées",
+                "ventes terminées", "vente terminée",
             ]
-            if any(sig in body for sig in past_signals):
-                status, conf, risk = "source_unreachable", 0, "high"
+            # Match a phrase only when it is rendered HTML text, not an i18n
+            # dictionary key. Eventbrite ships {"event ended":"..."} in every
+            # page; the phrase is HTML status text only when it is NOT
+            # immediately followed by a JSON value separator '"'.
+            matched_sig = None
+            for sig in past_signals:
+                start = 0
+                while True:
+                    idx = body.find(sig, start)
+                    if idx < 0:
+                        break
+                    after = body[idx + len(sig):idx + len(sig) + 1]
+                    if after == '"':
+                        start = idx + len(sig)
+                        continue
+                    matched_sig = sig
+                    break
+                if matched_sig:
+                    break
+            if matched_sig:
+                status, conf, risk = "needs_human_review", 10, "high"
                 last_verified_at = None
-                note = "source page indicates event has ended / tickets unavailable — past-event"
+                note = f"past-event signal matched in source page: '{matched_sig}'"
             else:
                 # Match if show name OR venue OR slug appears in body
                 tokens = [t for t in [name, venue, slug.replace("-", " ")] if t]
