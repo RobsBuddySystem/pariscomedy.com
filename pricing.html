@@ -115,7 +115,7 @@ footer a:hover{color:var(--text)}
  <div class="plan-price">€0 <small>forever</small></div>
  <div class="plan-desc">For comics, bookers and fans alike.</div>
  <ul class="plan-features">
- <li>Browse the growing Paris Comedy directory of Paris comedy shows</li>
+ <li>Browse the Paris Comedy directory of verified and recently checked listings</li>
  <li>Create a public comic or booker profile</li>
  <li>Submit or claim a show</li>
  <li>Receive platform notifications</li>
@@ -143,7 +143,7 @@ footer a:hover{color:var(--text)}
  <label for="comic-email" style="position:absolute;left:-9999px">Your email</label>
  <input type="email" id="comic-email" placeholder="your@email.com" required aria-label="Your email">
  <div class="intent-error" id="comic-err"></div>
- <button type="submit">Continue to €1 payment →</button>
+ <button type="submit">Join the founding list →</button>
  </form>
  <div class="celebrate" id="comic-celebrate"></div>
  </div>
@@ -165,14 +165,14 @@ footer a:hover{color:var(--text)}
  <div style="background:#33270a;border:1px solid #f59e0b;border-radius:8px;padding:10px 12px;margin:10px 0;font-size:12px;color:#f5c518">
  ⭐ <strong>Launch offer:</strong> €1/month for your first 6 months. Auto-renews at €5/mo after. Cancel anytime.
  </div>
- <button class="btn-plan btn-start" onclick="openIntent('booker')">Start Booker Plus →</button>
+ <button class="btn-plan btn-start" onclick="openIntent('booker')">Request early access →</button>
  <form class="intent-form" id="intent-booker" onsubmit="return submitIntent(event,'booker','Booker Plus')">
  <label for="booker-name" style="position:absolute;left:-9999px">Your name</label>
  <input type="text" id="booker-name" placeholder="Your name" required aria-label="Your name">
  <label for="booker-email" style="position:absolute;left:-9999px">Your email</label>
  <input type="email" id="booker-email" placeholder="your@email.com" required aria-label="Your email">
  <div class="intent-error" id="booker-err"></div>
- <button type="submit">Continue →</button>
+ <button type="submit">Join the early-access list →</button>
  </form>
  <div class="celebrate" id="booker-celebrate"></div>
  <div style="margin-top:14px;font-size:11px;color:var(--muted);line-height:1.4">
@@ -193,9 +193,9 @@ footer a:hover{color:var(--text)}
  <li>Stacks with the natural day-of-week feature — you get both</li>
  </ul>
  <div style="background:#33270a;border:1px solid #f59e0b;border-radius:8px;padding:10px 12px;margin:10px 0;font-size:12px;color:#f5c518">
- 📍 Best for: residencies, festivals, run-ups to a big date. One payment via SumUp; promo auto-ends at the expiry.
+ 📍 Best for: residencies, festivals, run-ups to a big date. Pricing is planned — checkout is not live yet. Promo auto-ends at the expiry.
  </div>
- <button class="btn-plan btn-start" onclick="openIntent('promo')">Promote my show →</button>
+ <button class="btn-plan btn-start" onclick="openIntent('promo')">Ask about promotion →</button>
  <form class="intent-form" id="intent-promo" onsubmit="return submitPromo(event)">
  <label for="promo-name" style="position:absolute;left:-9999px">Your name</label>
  <input type="text" id="promo-name" placeholder="Your name" required aria-label="Your name">
@@ -215,7 +215,7 @@ footer a:hover{color:var(--text)}
  </label>
  </div>
  <div class="intent-error" id="promo-err"></div>
- <button type="submit">Continue to payment →</button>
+ <button type="submit">Join the promotion waitlist →</button>
  </form>
  <div class="celebrate" id="promo-celebrate"></div>
  </div>
@@ -223,7 +223,7 @@ footer a:hover{color:var(--text)}
 </div>
 
 <div class="footer-note">
- Comic Plus: a one-time €1 via SumUp buys lifetime access for the first 100 comedians — never billed again. Booker Plus: €5/month (unlimited shows), with a launch offer of €1/month for your first 6 months — auto-renews at €5 after, cancel anytime via email. Paid through SumUp. Questions? payments@pariscomedy.com
+ <strong>Paid features are planned but not yet active.</strong> Free browsing and listing remain available while we prepare compliant checkout. Comic Plus is being offered as a one-time €1 lifetime spot for the first 100 comedians once payments go live. Booker Plus will be €5/month (unlimited shows) with a launch offer of €1/month for the first 6 months. No automatic billing happens through the site today — these tiers are planned and you can join the early-access list above. Questions? payments@pariscomedy.com
 </div>
 
 <footer>

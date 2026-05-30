@@ -1,5 +1,35 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | copy | P0.PRICING.COPY.SAFETY: honest pricing copy while payments are scaffold-only
+
+ChatGPT-authorized. Removes live-checkout copy that contradicted the
+PAYMENTS_ENABLED=false scaffold.
+
+pricing.html: 6 CTA replacements + footer-note rewrite:
+  "Continue to €1 payment"  -> "Join the founding list"
+  "Start Booker Plus"       -> "Request early access"
+  "Continue ->" (booker)    -> "Join the early-access list"
+  "Promote my show"         -> "Ask about promotion"
+  "Continue to payment"     -> "Join the promotion waitlist"
+  "One payment via SumUp"   -> "Pricing is planned - checkout is not live yet"
+  Footer-note: "Paid through SumUp..." rewritten to start with
+    "Paid features are planned but not yet active. No automatic billing
+     happens through the site today" + early-access framing.
+  Free plan: "directory of Paris comedy shows" -> "directory of verified
+    and recently checked listings".
+
+scripts/regression_guard.py: new check pricing_copy_safety fails if
+  pricing.html contains "continue to (€1) payment", "paid through sumup",
+  "pay now", "subscribe now", or "browse every show in paris".
+
+Regression: 13/13 PASS (was 12/12). status_sweep 31/31. No backend payment
+code touched. No SumUp/Stripe SDK imported.
+
+Files: pricing.html, scripts/regression_guard.py.
+
+Rollback: git revert <this-sha>
+
+
 ## 2026-05-30 | backend | BACKEND.PAYMENTS.1-SCAFFOLD: products + dry-run checkout + webhook idempotency
 
 ChatGPT-authorized. Scaffold only. No Stripe/SumUp call. No live checkout.

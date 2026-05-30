@@ -576,6 +576,30 @@ def _dom_collect_hrefs(path: str, selector: str, attr: str | None = "href") -> l
 
 # ---------- Runner ---------------------------------------------------------
 
+def check_pricing_copy_safety() -> dict:
+    """P0.PRICING.COPY.SAFETY — pricing page must not imply live checkout
+    while payments are scaffold-only. Static check on pricing.html."""
+    p = (REPO_ROOT / "pricing.html")
+    if not p.exists():
+        return {"name": "pricing_copy_safety", "result": "FAIL",
+                "evidence": {"reason": "pricing.html missing"}}
+    src = p.read_text(encoding="utf-8", errors="ignore").lower()
+    forbidden = [
+        "continue to €1 payment",
+        "continue to payment",
+        "paid through sumup",
+        "pay now",
+        "subscribe now",
+        "browse every show in paris",
+    ]
+    hits = [s for s in forbidden if s in src]
+    return {
+        "name": "pricing_copy_safety",
+        "result": "PASS" if not hits else "FAIL",
+        "evidence": {"forbidden_hits": hits},
+    }
+
+
 def check_show_fallback_sync() -> dict:
     """P1.DATA.3B — show.html noscript fallback must match data/freshness-audit.json.
 
@@ -677,6 +701,7 @@ CHECKS = {
     "freshness_sanity":      lambda dom: check_freshness_sanity(),
     "homepage_freshness_filter": lambda dom: check_homepage_freshness_filter(),
     "show_fallback_sync":    lambda dom: check_show_fallback_sync(),
+    "pricing_copy_safety":   lambda dom: check_pricing_copy_safety(),
     "hreflang":              lambda dom: check_hreflang(),
     "header_cta_rule":       lambda dom: check_header_cta_rule(),
 }
