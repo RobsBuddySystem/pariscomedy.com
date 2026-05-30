@@ -26,7 +26,7 @@
       "stale_risk": "high",
       "verification_status": "needs_human_review",
       "next_check_due_at": "2026-05-31T10:48:35Z",
-      "source_notes": "[repointed via manual-source-repoints.json] past-event signal 'event ended' found on api_source_url"
+      "source_notes": "[stale-detected 2026-05-30] api_source_url returns 'EVENT ENDED' / past Mar 21 — manual review pending"
     },
     {
       "id": 3,

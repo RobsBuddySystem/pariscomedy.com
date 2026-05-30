@@ -208,7 +208,8 @@ const OTHER_SHOWS_RAW = [
       description:'Consistent English comedy night in East Paris with a real recurring run.',
       descFr:'Soirée comédie en anglais régulière dans l’est parisien.',
       bookingUrl:'https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697805324429', paid:false,
-      runner:'Charonne Comedy Club', verificationSource:'Eventbrite', verifiedAt:'2026-04-05', showUrl:'https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697805324429' },
+      runner:'Charonne Comedy Club', verificationSource:'Eventbrite', verifiedAt:'2026-04-05', showUrl:'https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697805324429',
+      staleSource:true /* [stale-detected 2026-05-30] EB source returns EVENT ENDED — manual review */ },
     { id:'oscar', name:'Oscar Comedy Club', venue:'cafe-oscar', venueName:'Café Oscar', address:'Paris', day:'Sunday', time:'17:00', type:'standup', emoji:'🏆',
       description:'Sunday afternoon English and bilingual comedy at Café Oscar.',
       descFr:'Comédie anglaise et bilingue le dimanche après-midi au Café Oscar.',
@@ -232,6 +233,7 @@ const OTHER_SHOWS_RAW = [
 
 const OTHER_SHOWS = OTHER_SHOWS_RAW.filter(show => {
     if (!show.verifiedAt) return false;
+    if (show.staleSource) return false; /* drop shows whose source listing is dead until manually re-verified */
     return new Date(show.verifiedAt) >= CURRENT_SHOWS_CUTOFF && !show.archived;
 });
 
