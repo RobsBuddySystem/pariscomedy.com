@@ -1,0 +1,41 @@
+{
+  "phase": "BACKEND.DB.3-PRODUCTION-MIGRATION-AUTHORIZATION-PACK",
+  "generated_at": "2026-05-30T11:00:00Z",
+  "production_migration_executed": false,
+  "feature_flags_changed": false,
+  "secrets_committed": false,
+  "awaiting_robert_authorization": true,
+  "robert_authorization_text": "I authorize production DB migration 002-007 only, with backup first, no feature flags enabled.",
+  "production_db_path": {
+    "default": "data/paris.db",
+    "env_override": "DB_PATH",
+    "status": "BLOCKED_NEEDS_OPERATOR_CONFIRMATION — confirm exact path on server before executing"
+  },
+  "migrations": [
+    {"file": "002_auth_v2.sql", "tables": ["users_v2", "sessions_v2", "magic_links_v2", "audit_events_v2", "rate_limits_v2"]},
+    {"file": "003_submissions_v2.sql", "tables": ["show_submissions_v2"]},
+    {"file": "004_claims_v2.sql", "tables": ["claims_v2"]},
+    {"file": "005_payments_v2.sql", "tables": ["payment_customers_v2", "payment_subscriptions_v2", "payment_invoices_v2", "payment_checkout_sessions_v2", "payment_webhook_idempotency_v2"]},
+    {"file": "006_messaging_v2.sql", "tables": ["message_threads_v2", "messages_v2", "message_blocks_v2", "message_reports_v2"]},
+    {"file": "007_tickets_v2.sql", "tables": ["adapter_discoveries_v2"]}
+  ],
+  "expected_v2_tables_total": 17,
+  "dry_run_result_reference": "data/backend-db-production-copy-dry-run-result.json",
+  "existing_data_preservation_verified": true,
+  "existing_row_counts_from_dry_run": {
+    "shows": 119, "venues": 45, "comics": 275, "show_listings": 179
+  },
+  "go_nogo": {
+    "run_migrations_002_to_007": "YES — after Robert types authorization text",
+    "enable_any_feature_flag": "NO",
+    "send_real_email": "NO",
+    "switch_login_to_auth_v2": "NO",
+    "enable_public_submissions": "NO",
+    "enable_public_claims": "NO",
+    "enable_payments": "NO",
+    "enable_messaging": "NO",
+    "enable_ticket_imports": "NO"
+  },
+  "safe_to_run_production_migration_now": false,
+  "safe_to_enable_any_feature": false
+}
