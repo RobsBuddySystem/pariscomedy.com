@@ -679,6 +679,37 @@ def check_public_copy_overclaims() -> dict:
     }
 
 
+def check_book_html_decommissioned() -> dict:
+    """P0.BOOK.LEGACY.ROUTE.DECOMMISSION — /book.html must not be linked from canonical public pages.
+
+    /connect.html is the canonical booking route. Any href to /book.html in public HTML
+    (except in book.html itself) is a guard violation.
+    """
+    canonical_pages = [
+        "index.html", "show.html", "shows.html", "pricing.html",
+        "disclosure.html", "connect.html", "venues.html", "comedians.html",
+        "about.html", "bookers.html", "archive.html", "shows.html",
+    ]
+    hits: list[dict] = []
+    for fname in canonical_pages:
+        p = REPO_ROOT / fname
+        if not p.exists():
+            continue
+        for lineno, line in enumerate(p.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
+            ll = line.lower()
+            if 'href="/book.html"' in ll or 'href="book.html"' in ll:
+                hits.append({"file": fname, "line": lineno, "text": line.strip()[:120]})
+    return {
+        "name": "book_html_decommissioned",
+        "result": "PASS" if not hits else "FAIL",
+        "evidence": {
+            "hits": hits,
+            "canonical_route": "/connect.html",
+            "legacy_route": "/book.html (noindex, redirect only)",
+        },
+    }
+
+
 def check_show_fallback_sync() -> dict:
     """P1.DATA.3B — show.html noscript fallback must match data/freshness-audit.json.
 
@@ -782,6 +813,7 @@ CHECKS = {
     "show_fallback_sync":    lambda dom: check_show_fallback_sync(),
     "pricing_copy_safety":   lambda dom: check_pricing_copy_safety(),
     "public_copy_overclaims": lambda dom: check_public_copy_overclaims(),
+    "book_html_decommissioned": lambda dom: check_book_html_decommissioned(),
     "hreflang":              lambda dom: check_hreflang(),
     "header_cta_rule":       lambda dom: check_header_cta_rule(),
 }
