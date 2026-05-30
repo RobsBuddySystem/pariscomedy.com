@@ -89,14 +89,32 @@ class TestMailerRealSend(unittest.TestCase):
         result = m.send(email)
         self.assertEqual(result["mode"], "dryrun")
 
-    def test_real_send_with_unconfigured_provider_raises_not_implemented(self):
+    def test_real_send_with_unconfigured_provider_raises(self):
+        # With postmark provider but no real token: MailerError (fail-closed)
+        os.environ["POSTMARK_SERVER_TOKEN"] = ""
         m = _fresh_mailer(send_real=True, provider="postmark")
         email = m.magic_link_email("rs2@x.test", token="t")
-        with self.assertRaises(NotImplementedError):
+        with self.assertRaises(Exception):  # MailerError or NotImplementedError
             m.send(email)
         # Cleanup so other tests don't see EMAIL_SEND_REAL=true
         os.environ["EMAIL_SEND_REAL"] = "false"
         os.environ["EMAIL_PROVIDER"] = "dryrun"
+
+    def test_missing_postmark_token_fails_closed(self):
+        # Explicit: placeholder token should raise MailerError
+        import importlib
+        os.environ["EMAIL_SEND_REAL"] = "true"
+        os.environ["EMAIL_PROVIDER"] = "postmark"
+        os.environ["POSTMARK_SERVER_TOKEN"] = "PLACEHOLDER_DO_NOT_COMMIT"
+        import mailer as _m
+        importlib.reload(_m)
+        email = _m.magic_link_email("fc@x.test", token="t")
+        with self.assertRaises(_m.MailerError):
+            _m.send(email)
+        os.environ["EMAIL_SEND_REAL"] = "false"
+        os.environ["EMAIL_PROVIDER"] = "dryrun"
+        os.environ["POSTMARK_SERVER_TOKEN"] = ""
+        importlib.reload(_m)
 
 
 if __name__ == "__main__":

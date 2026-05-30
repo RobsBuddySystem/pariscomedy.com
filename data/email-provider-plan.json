@@ -1,0 +1,73 @@
+{
+  "generated_at": "2026-05-30T06:35:00Z",
+  "phase": "BACKEND.EMAIL.2-DNS-PROVIDER",
+  "provider_decision": {
+    "primary": "Postmark",
+    "rationale": "GDPR-compliant, EU data residency option, dedicated transactional stream, magic-link delivery optimized, free tier 100 emails/month, strong deliverability reputation, SPF/DKIM auto-provisioned per server.",
+    "alternatives": [
+      {"provider": "Resend", "note": "Developer-friendly, EU region, but newer reputation pool"},
+      {"provider": "Mailgun", "note": "Mature, EU region available, but more complex pricing"},
+      {"provider": "Amazon SES", "note": "Cheapest at scale, but requires more DNS setup and reputation warm-up"}
+    ]
+  },
+  "from_address": "noreply@pariscomedy.com",
+  "reply_to": "support@pariscomedy.com",
+  "support_email": "support@pariscomedy.com",
+  "payments_email": "payments@pariscomedy.com",
+  "message_stream": "outbound",
+  "dns_records": [
+    {
+      "type": "TXT",
+      "host": "pariscomedy.com",
+      "value": "v=spf1 include:spf.mtasv.net ~all",
+      "purpose": "SPF — authorize Postmark to send from pariscomedy.com",
+      "where_to_add": "Cloudflare DNS → pariscomedy.com zone → Add TXT record"
+    },
+    {
+      "type": "TXT",
+      "host": "pm._domainkey.pariscomedy.com",
+      "value": "(provided by Postmark after domain verification — unique per account)",
+      "purpose": "DKIM — cryptographically sign outgoing mail",
+      "where_to_add": "Cloudflare DNS → Add TXT record with DKIM value from Postmark dashboard"
+    },
+    {
+      "type": "TXT",
+      "host": "pariscomedy.com",
+      "value": "v=DMARC1; p=quarantine; rua=mailto:dmarc@pariscomedy.com; ruf=mailto:dmarc@pariscomedy.com; sp=reject; adkim=r; aspf=r",
+      "purpose": "DMARC — policy: quarantine unauthenticated mail; reports to dmarc@pariscomedy.com",
+      "where_to_add": "Cloudflare DNS → _dmarc.pariscomedy.com → Add TXT record"
+    },
+    {
+      "type": "CNAME",
+      "host": "pm-bounces.pariscomedy.com",
+      "value": "pm.mtasv.net",
+      "purpose": "Return-path / bounce handling — Postmark tracks bounces",
+      "where_to_add": "Cloudflare DNS → Add CNAME record"
+    }
+  ],
+  "verification_checklist": [
+    "Log in to Postmark → Sender Signatures → Add domain pariscomedy.com",
+    "Postmark generates DKIM TXT record → add to Cloudflare",
+    "Add SPF TXT to Cloudflare (merge with any existing SPF record)",
+    "Add DMARC TXT to _dmarc.pariscomedy.com",
+    "Add bounce CNAME pm-bounces.pariscomedy.com → pm.mtasv.net",
+    "Click 'Verify' in Postmark dashboard",
+    "Run: dig TXT pariscomedy.com | grep spf",
+    "Run: dig TXT pm._domainkey.pariscomedy.com",
+    "Run: dig TXT _dmarc.pariscomedy.com",
+    "Send test email to a real inbox via Postmark API with test token",
+    "Verify delivery + check spam score"
+  ],
+  "env_variables": {
+    "EMAIL_PROVIDER": "postmark",
+    "EMAIL_SEND_REAL": "false",
+    "EMAIL_FROM": "noreply@pariscomedy.com",
+    "EMAIL_REPLY_TO": "support@pariscomedy.com",
+    "POSTMARK_SERVER_TOKEN": "PLACEHOLDER_DO_NOT_COMMIT",
+    "POSTMARK_MESSAGE_STREAM": "outbound",
+    "SUPPORT_EMAIL": "support@pariscomedy.com",
+    "PAYMENTS_EMAIL": "payments@pariscomedy.com"
+  },
+  "fail_closed_rule": "If EMAIL_SEND_REAL=true but POSTMARK_SERVER_TOKEN is missing/placeholder, mailer.send() raises ConfigurationError. Default EMAIL_SEND_REAL=false means no real sending.",
+  "email_send_real_default": false
+}

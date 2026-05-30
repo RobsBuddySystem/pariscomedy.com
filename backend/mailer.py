@@ -112,6 +112,15 @@ def send(email: OutgoingEmail) -> dict:
         return {"delivered": False, "provider": "dryrun", "mode": "dryrun",
                 "to": email.to, "template": email.template}
 
+    # Fail closed: if provider token is missing or placeholder, raise before any call.
+    _POSTMARK_TOKEN = os.environ.get("POSTMARK_SERVER_TOKEN", "")
+    if EMAIL_PROVIDER == "postmark" and (
+        not _POSTMARK_TOKEN or _POSTMARK_TOKEN == "PLACEHOLDER_DO_NOT_COMMIT"
+    ):
+        raise MailerError(
+            "configuration_error: EMAIL_SEND_REAL=true but POSTMARK_SERVER_TOKEN is missing or placeholder. "
+            "Set a real token or keep EMAIL_SEND_REAL=false."
+        )
     # Real provider integration is intentionally NOT implemented in this
     # scaffold phase. It will land behind explicit BACKEND.EMAIL.1-PROVIDER
     # authorization with Postmark/Resend/SMTP keys.
