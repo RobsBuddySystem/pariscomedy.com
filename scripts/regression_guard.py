@@ -1308,7 +1308,236 @@ def check_canceled_shows_not_public() -> dict:
     }
 
 
+# ---------- P0.LIVE-DATA-INTEGRITY.1-SOT-FIX guards -------------------------
+#
+# These guards lock down the source-of-truth pipeline so freshness verification
+# always derives from the LIVE api.pariscomedy.com listing, the public ticket
+# CTA URL matches the API booking_url verbatim, and unverified rows can never
+# render a normal "Get tickets" CTA. Detail per BUG-P0-LIVE-DATA-001.
+
+LIVE_API_URL = "https://api.pariscomedy.com/api/listings"
+
+
+def _fetch_live_api_listings():
+    """Return parsed live API listings, or [] on failure."""
+    try:
+        req = urllib.request.Request(LIVE_API_URL, headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            return json.loads(r.read())
+    except Exception:
+        return []
+
+
+def check_live_api_source_of_truth() -> dict:
+    """Freshness verifier must point at api.pariscomedy.com/api/listings."""
+    p = REPO_ROOT / "scripts" / "freshness_verify.py"
+    if not p.exists():
+        return {"name": "live_api_source_of_truth", "result": "FAIL",
+                "evidence": {"reason": "freshness_verify.py missing"}}
+    src = p.read_text(encoding="utf-8", errors="ignore")
+    ok = "api.pariscomedy.com/api/listings" in src
+    return {
+        "name": "live_api_source_of_truth",
+        "result": "PASS" if ok else "FAIL",
+        "evidence": {"verifier_uses_live_api": ok,
+                     "expected": LIVE_API_URL},
+    }
+
+
+def check_api_freshness_url_parity() -> dict:
+    """Every freshness slug's source_url must equal live API booking_url
+    (unless explicitly overridden in data/manual-source-repoints.json).
+    Drift is ADVISORY — surfaces but does not hard-fail (DB mutations are out
+    of scope for this phase)."""
+    listings = _fetch_live_api_listings()
+    if not listings:
+        return {"name": "api_freshness_url_parity", "result": "FAIL",
+                "evidence": {"reason": "live API unreachable"}}
+    audit_p = REPO_ROOT / "data" / "freshness-audit.json"
+    if not audit_p.exists():
+        return {"name": "api_freshness_url_parity", "result": "FAIL",
+                "evidence": {"reason": "freshness-audit.json missing"}}
+    audit = json.loads(audit_p.read_text(encoding="utf-8"))
+    by_slug = {l["slug"]: l for l in (audit.get("listings") or [])}
+    repoints_p = REPO_ROOT / "data" / "manual-source-repoints.json"
+    repoints = {}
+    if repoints_p.exists():
+        try:
+            repoints = (json.loads(repoints_p.read_text(encoding="utf-8"))
+                        or {}).get("repoints", {}) or {}
+        except Exception:
+            repoints = {}
+    drift = []
+    for L in listings:
+        slug = L.get("slug")
+        if not slug:
+            continue
+        api_url = L.get("booking_url") or L.get("show_url") or ""
+        a = by_slug.get(slug)
+        if not a:
+            drift.append({"slug": slug, "kind": "no_audit_entry"})
+            continue
+        if slug in repoints:
+            continue  # explicit override authorized
+        fresh_url = a.get("source_url") or ""
+        if api_url and fresh_url and api_url != fresh_url:
+            drift.append({"slug": slug, "kind": "url_drift",
+                          "api": api_url, "freshness": fresh_url})
+    return {
+        "name": "api_freshness_url_parity",
+        "result": "PASS" if not drift else "ADVISORY",
+        "evidence": {"total_live": len(listings),
+                     "drift_count": len(drift), "drift": drift[:30]},
+    }
+
+
+def check_rendered_ticket_href_parity() -> dict:
+    """For each <article id="show-{slug}"> in show.html, the static ticket
+    href must equal the live API booking_url. Drift is ADVISORY (DB cannot
+    be mutated this phase)."""
+    show = REPO_ROOT / "show.html"
+    if not show.exists():
+        return {"name": "rendered_ticket_href_parity", "result": "FAIL",
+                "evidence": {"reason": "show.html missing"}}
+    listings = _fetch_live_api_listings()
+    if not listings:
+        return {"name": "rendered_ticket_href_parity", "result": "FAIL",
+                "evidence": {"reason": "live API unreachable"}}
+    by_slug = {L.get("slug"): (L.get("booking_url") or L.get("show_url") or "")
+               for L in listings if L.get("slug")}
+    html = show.read_text(encoding="utf-8")
+    # Match article blocks; pull first ticket-like href inside.
+    article_re = re.compile(
+        r'<article id="show-(?P<slug>[a-z0-9-]+)"[^>]*>(?P<body>.*?)</article>',
+        re.DOTALL)
+    href_re = re.compile(
+        r'href="(https?://[^"]*(?:eventbrite|shotgun|fnacspectacles|seetickets|billetreduc|fever|weezevent|billetweb|yurplan)[^"]*)"',
+        re.IGNORECASE)
+    drift = []
+    checked = 0
+    for m in article_re.finditer(html):
+        slug = m.group("slug")
+        body = m.group("body")
+        hm = href_re.search(body)
+        if not hm:
+            continue
+        rendered = hm.group(1)
+        api_url = by_slug.get(slug)
+        if not api_url:
+            continue
+        checked += 1
+        if rendered != api_url:
+            drift.append({"slug": slug, "rendered": rendered, "api": api_url})
+    return {
+        "name": "rendered_ticket_href_parity",
+        "result": "PASS" if not drift else "ADVISORY",
+        "evidence": {"checked": checked, "drift_count": len(drift),
+                     "drift": drift[:30]},
+    }
+
+
+def check_live_ticket_stale_token_check() -> dict:
+    """Verify that scripts/freshness_verify.py contains stale-token guard
+    logic and actually fetches the URL body (not header-only)."""
+    p = REPO_ROOT / "scripts" / "freshness_verify.py"
+    if not p.exists():
+        return {"name": "live_ticket_stale_token_check", "result": "FAIL",
+                "evidence": {"reason": "freshness_verify.py missing"}}
+    src = p.read_text(encoding="utf-8", errors="ignore").lower()
+    tokens = ["event ended", "sales ended", "ventes terminées",
+              "événement terminé", "event has ended"]
+    found = [t for t in tokens if t in src]
+    fetches_body = "r.read(" in src and ".decode(" in src
+    ok = bool(found) and fetches_body
+    return {
+        "name": "live_ticket_stale_token_check",
+        "result": "PASS" if ok else "FAIL",
+        "evidence": {"tokens_present": found,
+                     "fetches_body": fetches_body},
+    }
+
+
+def check_no_normal_cta_for_unverified() -> dict:
+    """Every page-rendering CTA path must gate on verification_status ==
+    verified_24h (or isFreshEnough) before emitting a normal Get tickets CTA.
+    Static check on show.html + index.html source."""
+    problems = []
+    # show.html: JS render must reference _ctaVerified gate
+    show = (REPO_ROOT / "show.html").read_text(encoding="utf-8", errors="ignore")
+    if "_ctaVerified" not in show:
+        problems.append({"file": "show.html",
+                         "reason": "JS CTA missing _ctaVerified gate"})
+    # show.html: every static article whose data-verification-status is NOT
+    # verified_24h must NOT contain a "Get tickets / source listing" link.
+    article_re = re.compile(
+        r'<article id="show-(?P<slug>[a-z0-9-]+)" data-verification-status="(?P<status>[^"]+)">(?P<body>.*?)</article>',
+        re.DOTALL)
+    for m in article_re.finditer(show):
+        slug = m.group("slug")
+        status = m.group("status")
+        body = m.group("body")
+        if status == "verified_24h":
+            continue
+        if "Get tickets / source listing" in body:
+            problems.append({"file": "show.html", "slug": slug,
+                             "status": status,
+                             "reason": "static normal CTA on unverified row"})
+    # index.html: Tonight + Promoted must gate on isFreshEnough
+    idx = (REPO_ROOT / "index.html").read_text(encoding="utf-8", errors="ignore")
+    if "renderTonightInParis" in idx or "tonight-show-grid" in idx:
+        # Locate Tonight block and ensure it calls isFreshEnough nearby
+        if "isFreshEnough" not in idx:
+            problems.append({"file": "index.html",
+                             "reason": "isFreshEnough missing entirely"})
+        else:
+            # heuristic: each Get tickets emit must sit within an isFreshEnough branch
+            # Find each occurrence of 'Get tickets →' and ensure the prior 600 chars
+            # mention isFreshEnough.
+            for mm in re.finditer(r"Get tickets →", idx):
+                start = max(0, mm.start() - 600)
+                window = idx[start:mm.start()]
+                if "isFreshEnough" not in window:
+                    problems.append({
+                        "file": "index.html",
+                        "offset": mm.start(),
+                        "reason": "Get tickets emit without nearby isFreshEnough gate",
+                    })
+    return {
+        "name": "no_normal_cta_for_unverified",
+        "result": "PASS" if not problems else "FAIL",
+        "evidence": {"problems": problems},
+    }
+
+
+def check_api_not_pariscomedy_static_404_guard() -> dict:
+    """Forbid any code path that fetches pariscomedy.com/api/listings (404)
+    instead of api.pariscomedy.com/api/listings (the live origin)."""
+    scan = list(REPO_ROOT.glob("*.html")) + list((REPO_ROOT / "scripts").glob("*.py"))
+    hits = []
+    bad_pat = re.compile(r"https?://(?:www\.)?pariscomedy\.com/api/listings", re.IGNORECASE)
+    for p in scan:
+        try:
+            text = p.read_text(encoding="utf-8", errors="ignore")
+        except Exception:
+            continue
+        for lineno, line in enumerate(text.splitlines(), 1):
+            if bad_pat.search(line):
+                hits.append({"file": p.name, "line": lineno,
+                             "text": line.strip()[:120]})
+    return {
+        "name": "api_not_pariscomedy_static_404_guard",
+        "result": "PASS" if not hits else "FAIL",
+        "evidence": {"hit_count": len(hits), "hits": hits[:20]},
+    }
+
+
 CHECKS = {
+    "live_api_source_of_truth":      lambda dom: check_live_api_source_of_truth(),
+    "api_freshness_url_parity":      lambda dom: check_api_freshness_url_parity(),
+    "rendered_ticket_href_parity":   lambda dom: check_rendered_ticket_href_parity(),
+    "live_ticket_stale_token_check": lambda dom: check_live_ticket_stale_token_check(),
+    "no_normal_cta_for_unverified":  lambda dom: check_no_normal_cta_for_unverified(),
+    "api_not_pariscomedy_static_404_guard": lambda dom: check_api_not_pariscomedy_static_404_guard(),
     "forbidden_strings":     lambda dom: check_forbidden_strings(),
     "internal_ctas":         lambda dom: check_internal_ctas(with_dom=dom),
     "raw_includes":          lambda dom: check_raw_includes(),
@@ -1361,7 +1590,9 @@ def main(argv: list[str]) -> int:
         ev_short = json.dumps(ev)[:200] if ev is not None else ""
         print(f"[{r['result']:4}] {r['name']:24} {ev_short}")
 
+    # ADVISORY is non-blocking — surfaces drift without failing the suite.
     fail = any(r["result"] == "FAIL" for r in results)
+    advisory = sum(1 for r in results if r["result"] == "ADVISORY")
     iso = _dt.datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
     out_path = LOGS_DIR / f"regression-guard.{iso}.json"
@@ -1373,7 +1604,8 @@ def main(argv: list[str]) -> int:
     }, indent=2))
     print(f"\nLog: {out_path}")
     print(f"Summary: {sum(1 for r in results if r['result']=='PASS')} pass, "
-          f"{sum(1 for r in results if r['result']=='FAIL')} fail")
+          f"{sum(1 for r in results if r['result']=='FAIL')} fail, "
+          f"{advisory} advisory")
     return 1 if fail else 0
 
 

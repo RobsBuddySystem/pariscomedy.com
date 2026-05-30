@@ -91,7 +91,7 @@ footer{padding:36px 16px;text-align:center;border-top:1px solid #222;color:#666;
  <p><strong>When:</strong> Saturday · 19:30</p>
  <p><strong>Language:</strong> EN</p>
  <p>Consistent English comedy night in East Paris with a real recurring run.</p>
- <p><a href="https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697801202099" rel="noopener nofollow sponsored" target="_blank">Get tickets / source listing →</a></p>
+ <p><span class="btn-disabled" data-cta-state="needs-review" aria-disabled="true">Tickets need review — check back soon</span></p>
  <p class="freshness"><small><strong>Source:</strong> Eventbrite · <strong>Last checked:</strong> 2026-05-30 · <strong>Status:</strong> needs review — confirm directly on source · confidence 10/100</small></p>
  <p><small>Tickets are sold on the source platform listed above, not by Paris Comedy. Times and prices can change — always confirm on the source link before purchase.</small></p>
  </article>
@@ -179,7 +179,7 @@ footer{padding:36px 16px;text-align:center;border-top:1px solid #222;color:#666;
  <p><strong>When:</strong> Wednesday · 20:00</p>
  <p><strong>Language:</strong> EN</p>
  <p>A recurring Wednesday English stand-up night in Bastille from Kuhl Comedy, built around sharp modern-life material and an expat-friendly crowd.</p>
- <p><a href="https://www.eventbrite.fr/e/billets-english-comedy-show-millennial-meltdown-paris-stand-up-night-1984665294321" rel="noopener nofollow sponsored" target="_blank">Get tickets / source listing →</a></p>
+ <p><span class="btn-disabled" data-cta-state="needs-review" aria-disabled="true">Tickets need review — check back soon</span></p>
  <p class="freshness"><small><strong>Source:</strong> Eventbrite · <strong>Last checked:</strong> 2026-05-30 · <strong>Status:</strong> needs review — confirm directly on source · confidence 10/100</small></p>
  <p><small>Tickets are sold on the source platform listed above, not by Paris Comedy. Times and prices can change — always confirm on the source link before purchase.</small></p>
  </article>
@@ -190,7 +190,7 @@ footer{padding:36px 16px;text-align:center;border-top:1px solid #222;color:#666;
  <p><strong>When:</strong> Friday / Saturday · 20:15</p>
  <p><strong>Language:</strong> EN</p>
  <p>A polished English-language solo show on a professional theatre stage Friday and Saturday nights.</p>
- <p><a href="https://www.eventbrite.fr/e/the-comedy-in-english-by-a-french-girl-that-will-make-you-love-paris-tickets-1764207685679" rel="noopener nofollow sponsored" target="_blank">Get tickets / source listing →</a></p>
+ <p><span class="btn-disabled" data-cta-state="needs-review" aria-disabled="true">Tickets need review — check back soon</span></p>
  <p class="freshness"><small><strong>Source:</strong> Eventbrite · <strong>Last checked:</strong> 2026-05-30 · <strong>Status:</strong> needs review — confirm directly on source · confidence 10/100</small></p>
  <p><small>Tickets are sold on the source platform listed above, not by Paris Comedy. Times and prices can change — always confirm on the source link before purchase.</small></p>
  </article>
@@ -234,7 +234,7 @@ footer{padding:36px 16px;text-align:center;border-top:1px solid #222;color:#666;
  <p><strong>When:</strong> Wednesday · 19:30</p>
  <p><strong>Language:</strong> EN</p>
  <p>Reliable mid-week English comedy in the Latin Quarter at La Pomme d’Eve.</p>
- <p><a href="https://www.eventbrite.fr/e/english-standup-wednesday-night-comedy-tickets-1750646975229" rel="noopener nofollow sponsored" target="_blank">Get tickets / source listing →</a></p>
+ <p><span class="btn-disabled" data-cta-state="needs-review" aria-disabled="true">Tickets need review — check back soon</span></p>
  <p class="freshness"><small><strong>Source:</strong> Eventbrite · <strong>Last checked:</strong> 2026-05-30 · <strong>Status:</strong> needs review — confirm directly on source · confidence 10/100</small></p>
  <p><small>Tickets are sold on the source platform listed above, not by Paris Comedy. Times and prices can change — always confirm on the source link before purchase.</small></p>
  </article>
@@ -507,8 +507,17 @@ function render(L) {
  document.title = (L.name || L.short_name || 'Show') + ' — Paris Comedy';
 
  const ctas = [];
- if (ticket) {
+ // P0.LIVE-DATA-INTEGRITY.1-SOT-FIX: gate the live "Get tickets" CTA on
+ // verification_status === 'verified_24h'. Anything less (stale, review,
+ // unreachable, missing audit) renders a disabled review variant instead
+ // of a normal external link. Prevents sending users to dead/ended pages.
+ const _auditEntry = FRESHNESS_AUDIT[L.slug] || FRESHNESS_AUDIT[slugifyName(L.name)];
+ const _verifStatus = _auditEntry && _auditEntry.verification_status;
+ const _ctaVerified = _verifStatus === 'verified_24h';
+ if (ticket && _ctaVerified) {
  ctas.push(`<a class="btn-primary" href="${esc(ticket)}" target="_blank" rel="noopener sponsored">Get tickets / source listing →</a>`);
+ } else if (ticket) {
+ ctas.push(`<span class="btn-primary btn-disabled" aria-disabled="true" data-cta-state="needs-review" title="Last verification did not pass — check back soon.">Tickets need review — check back soon</span>`);
  }
  if (address) {
  ctas.push(`<a class="btn-secondary" href="${esc(mapsLink((address || '') + (city ? ', ' + city : '')))}" target="_blank" rel="noopener">Map / directions →</a>`);

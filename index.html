@@ -799,15 +799,21 @@ function renderTonightInParis() {
  const lbl = document.getElementById('tonight-section-label');
  if (lbl) lbl.textContent = `${tonight.length} show${tonight.length===1?'':'s'} happening tonight`;
  const picks = tonight.slice().sort((a,b) => (a.start_time||'').localeCompare(b.start_time||'')).slice(0,3);
- grid.innerHTML = picks.map(s => `
+ grid.innerHTML = picks.map(s => {
+ // P0.LIVE-DATA-INTEGRITY.1-SOT-FIX: gate CTA on freshness
+ const fresh = isFreshEnough(s.slug);
+ const cta = fresh
+ ? `<a href="/r.html?kind=show&id=${encodeURIComponent(s.id||s.show_name||'')}&url=${encodeURIComponent(s.ticket_url||'')}" target="_blank" rel="noopener sponsored" class="featured-card-btn">Get tickets →</a>`
+ : `<span class="featured-card-btn btn-disabled" data-cta-state="needs-review" aria-disabled="true">Tickets need review — check back soon</span>`;
+ return `
  <div class="featured-card">
  <div><span class="featured-badge" style="background:#7c3aed;color:#fff">TONIGHT</span></div>
  <div class="featured-card-name">${(s.show_name||'').replace(/</g,'&lt;')}</div>
  <div class="featured-card-show">${(s.neighborhood||'').replace(/</g,'&lt;')}</div>
  <div class="featured-card-meta">${s.start_time||''} &middot; ${(s.venue||'').replace(/</g,'&lt;')}</div>
- <a href="/r.html?kind=show&id=${encodeURIComponent(s.id||s.show_name||'')}&url=${encodeURIComponent(s.ticket_url||'')}" target="_blank" rel="noopener sponsored" class="featured-card-btn">Get tickets →</a>
- </div>
- `).join('');
+ ${cta}
+ </div>`;
+ }).join('');
 }
 
 // Promoted Shows — strictly paid/editorial. Gates on /api/listings?featured=1.
@@ -848,13 +854,18 @@ async function renderPromotedThisWeek() {
  const days = (s.days && s.days[0]) || '';
  const venue = (s.venue && s.venue.name) || s.venue_name_raw || '';
  const url = s.booking_url || s.show_url || '#';
+ // P0.LIVE-DATA-INTEGRITY.1-SOT-FIX: gate CTA on freshness
+ const fresh = isFreshEnough(s.slug);
+ const cta = fresh
+ ? `<a href="${url}" target="_blank" rel="noopener sponsored" class="featured-card-btn">Get tickets →</a>`
+ : `<span class="featured-card-btn btn-disabled" data-cta-state="needs-review" aria-disabled="true">Tickets need review — check back soon</span>`;
  return `
  <div class="featured-card">
  <div><span class="featured-badge">PROMOTED</span></div>
  <div class="featured-card-name">${(s.short_name || s.name || '').replace(/</g,'&lt;')}</div>
  <div class="featured-card-show">${(s.name || '').replace(/</g,'&lt;')}</div>
  <div class="featured-card-meta">${days} &middot; ${s.start_time || ''} &middot; ${venue.replace(/</g,'&lt;')}</div>
- <a href="${url}" target="_blank" rel="noopener sponsored" class="featured-card-btn">Get tickets →</a>
+ ${cta}
  </div>`;
  }).join('');
 }
