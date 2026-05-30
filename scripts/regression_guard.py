@@ -365,10 +365,21 @@ def check_freshness_sanity() -> dict:
     summary = data.get("summary") or {}
     listings = data.get("listings") or []
     total_active = summary.get("total_active", 0)
-    stale = [l for l in listings if (l.get("status") or "").lower() == "stale"]
-    review = sum(1 for l in listings
-                 if (l.get("status") or "").lower() == "needs_human_review")
+    # P1.DATA.2.FIX: read verification_status (the field the verifier emits).
+    # The previous code read a non-existent `status` field, making this check
+    # a no-op that silently passed regardless of audit content.
+    def vs(l):
+        return (l.get("verification_status") or "").lower()
+    stale = [l for l in listings if vs(l) == "stale"]
+    review = sum(1 for l in listings if vs(l) == "needs_human_review")
+    unreachable = sum(1 for l in listings if vs(l) == "source_unreachable")
+    verified = sum(1 for l in listings
+                   if vs(l) in ("verified_24h", "verified_72h"))
     soft_warn = (review / max(1, len(listings))) > 0.05
+    # PASS criteria: audit must be present + non-empty. Stale rows are a hard
+    # failure (verifier should have re-classified). All-review or all-unreachable
+    # is a high-noise signal but not a regression failure on its own — operator
+    # follow-up is tracked separately.
     ok = total_active > 0 and not stale
     return {
         "name": "freshness_sanity",
@@ -377,6 +388,8 @@ def check_freshness_sanity() -> dict:
             "total_active": total_active,
             "stale_count": len(stale),
             "needs_human_review": review,
+            "source_unreachable": unreachable,
+            "verified_count": verified,
             "soft_warn_review_over_5pct": soft_warn,
         },
     }
@@ -563,6 +576,39 @@ def _dom_collect_hrefs(path: str, selector: str, attr: str | None = "href") -> l
 
 # ---------- Runner ---------------------------------------------------------
 
+def check_homepage_freshness_filter() -> dict:
+    """Guard: every SHOWS_DATA.filter() in index.html must apply isFreshEnough().
+
+    P1.DATA.2.FIX root-cause prevention: the Tonight panel filtered SHOWS_DATA
+    by date only, bypassing the freshness check. This guard scans index.html
+    statically: each `SHOWS_DATA.filter(` invocation must reference
+    `isFreshEnough` either in its callback body OR in a chained .filter()
+    within the next 240 characters.
+    """
+    p = (REPO_ROOT / "index.html")
+    if not p.exists():
+        return {"name": "homepage_freshness_filter", "result": "FAIL",
+                "evidence": {"reason": "index.html missing"}}
+    src = p.read_text(encoding="utf-8", errors="ignore")
+    pat = re.compile(r"SHOWS_DATA\s*(?:\|\|\s*\[\])?\s*\)?\s*\.filter\s*\(")
+    matches = []
+    problems = []
+    for m in pat.finditer(src):
+        start = m.start()
+        window = src[start:start + 360]
+        line_no = src.count("\n", 0, start) + 1
+        if "isFreshEnough" in window:
+            matches.append({"line": line_no, "ok": True})
+        else:
+            matches.append({"line": line_no, "ok": False, "snippet": window[:120].replace("\n", " ")})
+            problems.append({"line": line_no, "snippet": window[:120].replace("\n", " ")})
+    return {
+        "name": "homepage_freshness_filter",
+        "result": "PASS" if not problems else "FAIL",
+        "evidence": {"total_filter_sites": len(matches), "missing_isFreshEnough": problems},
+    }
+
+
 CHECKS = {
     "forbidden_strings":     lambda dom: check_forbidden_strings(),
     "internal_ctas":         lambda dom: check_internal_ctas(with_dom=dom),
@@ -572,6 +618,7 @@ CHECKS = {
     "status_sweep":          lambda dom: check_status_sweep(),
     "nav_consistency":       lambda dom: check_nav_consistency(),
     "freshness_sanity":      lambda dom: check_freshness_sanity(),
+    "homepage_freshness_filter": lambda dom: check_homepage_freshness_filter(),
     "hreflang":              lambda dom: check_hreflang(),
     "header_cta_rule":       lambda dom: check_header_cta_rule(),
 }

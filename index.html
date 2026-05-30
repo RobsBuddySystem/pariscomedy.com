@@ -407,11 +407,13 @@ let TONIGHT_SHOWS = [];
 let WEEK_SHOWS = [];
 
 function recomputeShowWindows() {
+ // P1.DATA.2.FIX: every SHOWS_DATA filter chain on the homepage must apply
+ // isFreshEnough() so ended Eventbrite listings cannot promote anywhere.
  TONIGHT_SHOWS = SHOWS_DATA
- .filter(s => s.date === todayParis && isFutureShow(s))
+ .filter(s => s.date === todayParis && isFutureShow(s) && isFreshEnough(s.slug))
  .sort((a,b) => (a.start_time||'').localeCompare(b.start_time||''));
  WEEK_SHOWS = SHOWS_DATA
- .filter(s => s.date >= todayParis && s.date <= weekEndParis() && isFutureShow(s))
+ .filter(s => s.date >= todayParis && s.date <= weekEndParis() && isFutureShow(s) && isFreshEnough(s.slug))
  .sort((a,b) => a.date !== b.date
  ? a.date.localeCompare(b.date)
  : (a.start_time||'').localeCompare(b.start_time||''));
@@ -524,7 +526,8 @@ function inferVibes(s) {
 function allShows() {
  const seen = new Set();
  const out = [];
- const source = SHOWS_DATA && SHOWS_DATA.length ? SHOWS_DATA.filter(s => s.date >= todayParis && isFutureShow(s)) : [...TOP_SHOWS, ...SHOWS];
+ // P1.DATA.2.FIX: allShows() feeds homepage panels — must apply isFreshEnough.
+ const source = SHOWS_DATA && SHOWS_DATA.length ? SHOWS_DATA.filter(s => s.date >= todayParis && isFutureShow(s) && isFreshEnough(s.slug)) : [...TOP_SHOWS, ...SHOWS];
  for (const s of source) {
  if (s.is_archived || s._stale) continue;
  const key = s.ticket_url || s.url || s.id || s.name || s.show_name;
@@ -780,7 +783,9 @@ function todayParisStr() {
 // there are no tonight shows.
 function renderTonightInParis() {
  const today = todayParisStr();
- const tonight = (SHOWS_DATA || []).filter(s => s.date === today);
+ // P1.DATA.2.FIX: apply freshness filter so ended Eventbrite listings do not
+ // promote on the homepage even when their date matches today.
+ const tonight = (SHOWS_DATA || []).filter(s => s.date === today && isFreshEnough(s.slug));
  const section = document.getElementById('tonight-in-paris-section');
  const grid = document.getElementById('tonight-show-grid');
  if (!grid || !section) return;
