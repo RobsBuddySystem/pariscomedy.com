@@ -1,5 +1,9 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | backend | BACKEND.AUTH.2-STAGING-ENABLE: 18-scenario staging round-trip proof
+
+Staging-only. In-memory DB, dry-run mailer. 18/18 PASS. Production AUTH_V2_ENABLED=false.
+
 ## 2026-05-30 | backend | BACKEND.SCAFFOLD.MANIFEST.1: readiness matrix + next-phase plan
 
 Audit-only. No code changes. Documents 7 scaffolds, 115 tests, 0 feature flags enabled,
