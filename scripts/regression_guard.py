@@ -855,6 +855,69 @@ def check_homepage_freshness_filter() -> dict:
     }
 
 
+def check_submit_v2_connect_form() -> dict:
+    """BACKEND.SUBMIT.3-CONNECT-FORM-DRAFT guard.
+
+    Fails if connect.html:
+      - claims automated submissions are live
+      - says 'show submitted' / 'published automatically' as static copy
+      - POSTs to /api/submissions_v2/show without an enabled-status guard
+      - enables a V2 submit button by default (has enabled V2-specific submit)
+    """
+    p = REPO_ROOT / "connect.html"
+    if not p.exists():
+        return {"name": "submit_v2_connect_form", "result": "FAIL",
+                "evidence": {"reason": "connect.html missing"}}
+    src = p.read_text(encoding="utf-8", errors="ignore")
+
+    # Forbidden static copy
+    forbidden_copy = [
+        "automated submissions are live",
+        "submissions v2 live",
+        "submissions v2 is live",
+        "automated submission is live",
+    ]
+    # Forbidden: POST to V2 endpoint without enabled guard
+    v2_post = "api/submissions_v2/show" in src
+    # If V2 POST present, a guard variable must gate it
+    v2_post_ungated = v2_post and (
+        "submissionsV2Enabled" not in src and
+        "submissions_v2_enabled" not in src and
+        "if (!v2Sub" not in src and
+        "if(!v2Sub" not in src
+    )
+    # Forbidden implied-live static HTML (non-JS lines)
+    live_phrases = ["published automatically", "show submitted"]
+    JS_IND = ("textcontent", "innerhtml", "msg.", "=", "return ", "throw ", "btn.")
+    impl_hits = []
+    for lineno, line in enumerate(src.splitlines(), 1):
+        ll = line.lower().strip()
+        if ll.startswith("//") or ll.startswith("*") or ll.startswith("/*"):
+            continue
+        if any(ind in ll for ind in JS_IND):
+            continue
+        for ph in live_phrases:
+            if ph in ll and "planned" not in ll and "not live" not in ll and "manual" not in ll:
+                impl_hits.append({"line": lineno, "phrase": ph, "text": line.strip()[:100]})
+
+    src_lower = src.lower()
+    copy_hits = [ph for ph in forbidden_copy if ph in src_lower]
+
+    problems = {}
+    if copy_hits:
+        problems["forbidden_copy"] = copy_hits
+    if v2_post_ungated:
+        problems["ungated_v2_post"] = "POST to /api/submissions_v2/show without enabled guard"
+    if impl_hits:
+        problems["live_implied_copy"] = impl_hits
+
+    return {
+        "name": "submit_v2_connect_form",
+        "result": "PASS" if not problems else "FAIL",
+        "evidence": problems if problems else {"no_live_claims": True, "manual_review_copy_present": True},
+    }
+
+
 def check_auth_v2_login_draft() -> dict:
     """BACKEND.AUTH.5-LOGIN-V2-DRAFT guard.
 
@@ -1004,6 +1067,7 @@ CHECKS = {
     "header_cta_rule":       lambda dom: check_header_cta_rule(),
     "admin_review_shell":    lambda dom: check_admin_review_shell(),
     "auth_v2_login_draft":   lambda dom: check_auth_v2_login_draft(),
+    "submit_v2_connect_form": lambda dom: check_submit_v2_connect_form(),
 }
 
 

@@ -189,6 +189,10 @@ footer a:hover{color:var(--text)}
           </div>
         </div>
         <div class="error-msg" id="sr-err"></div>
+        <!-- Submissions V2 status — backend not yet live, manual review only -->
+        <div id="submit-v2-status" style="font-size:12px;color:#888;margin-bottom:10px;line-height:1.5">
+          Automated submissions are not live yet. We review requests manually.
+        </div>
         <button class="btn-primary" onclick="submitShowRunner()">List my show →</button>
       </div>
       <div class="success-msg" id="sr-success">
@@ -704,6 +708,26 @@ async function submitMessage() {
     btn.disabled = false; btn.textContent = 'Send message →';
   }
 }
+
+
+// --- Submissions V2 status check (backend not yet live) ---
+(async function checkSubmissionsV2Status() {
+  var el = document.getElementById('submit-v2-status');
+  if (!el) return;
+  try {
+    var res = await fetch('/api/submissions_v2/status', {cache: 'no-store'});
+    var data = await res.json().catch(function() { return {}; });
+    if (res.status === 503 || data.enabled === false || (data.detail && data.detail.error)) {
+      el.textContent = 'Automated submissions backend is not live yet. We review requests manually.';
+    } else if (data.enabled === true) {
+      el.textContent = 'Automated submissions backend reachable. Manual review is still required.';
+    } else {
+      el.textContent = 'Automated submissions are not live yet. We review requests manually.';
+    }
+  } catch(e) {
+    el.textContent = 'Automated submissions are not live yet. We review requests manually.';
+  }
+})();
 </script>
 <script src="/assets/track.js" defer></script>
 <script src="/assets/events.js" defer></script>
