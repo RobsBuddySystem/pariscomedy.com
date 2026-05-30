@@ -1,0 +1,139 @@
+{
+  "generated_at": "2026-05-30T00:00:00Z",
+  "phase": "FINAL.SCAFFOLD-CLOSURE-MANIFEST.2",
+  "summary": "All 7 V2 backend systems scaffolded and disabled. All frontend/admin drafts complete. No production feature enabled. No DB migration applied.",
+  "public_safety_surface": {
+    "connect_html": "canonical booking route — manual review only, no automated backend",
+    "book_html": "CONTAMINATED / DECOMMISSIONED — not linked from any nav or CTA",
+    "pricing_html": "all planned features explicitly marked not-live or planned",
+    "feature_copy_guard": "PASS — regression_guard feature_copy_safety",
+    "freshness": "11 verified_24h, 3 needs_human_review, 0 stale"
+  },
+  "backend_systems": [
+    {
+      "system": "Auth V2",
+      "scaffold_phase": "BACKEND.AUTH.1 through BACKEND.AUTH.4-RATE-LIMITING — CLOSED_BY_CHATGPT",
+      "router_disabled_phase": "BACKEND.AUTH.4 — CLOSED_BY_CHATGPT",
+      "frontend_draft": "BACKEND.AUTH.5-LOGIN-V2-DRAFT — CLOSED_BY_CHATGPT",
+      "feature_flag": "AUTH_V2_ENABLED=false",
+      "production_db_migration": "002_auth_v2.sql — NOT APPLIED",
+      "production_status": "not live",
+      "next_required_step": "Postmark DNS live (BACKEND.EMAIL.4 runbook), then DB migration 002, then login.html cutover"
+    },
+    {
+      "system": "Email / Postmark",
+      "scaffold_phase": "BACKEND.EMAIL.1 through BACKEND.EMAIL.3-DNS-VERIFICATION-PREFLIGHT — CLOSED_BY_CHATGPT",
+      "router_disabled_phase": "N/A (mailer scaffold, not a router)",
+      "frontend_draft": "N/A",
+      "operator_runbook": "BACKEND.EMAIL.4-OPERATOR-DNS-RUNBOOK — CLOSED_BY_CHATGPT",
+      "feature_flag": "EMAIL_SEND_REAL=false",
+      "production_db_migration": "none required",
+      "production_status": "not live",
+      "next_required_step": "Robert: create Postmark account, add SPF/DKIM/DMARC/CNAME at Porkbun, verify in Postmark"
+    },
+    {
+      "system": "Submissions V2",
+      "scaffold_phase": "BACKEND.SUBMIT.1 through BACKEND.SUBMIT.2-ROUTER-DISABLED — CLOSED_BY_CHATGPT",
+      "router_disabled_phase": "BACKEND.SUBMIT.2 — CLOSED_BY_CHATGPT",
+      "frontend_draft": "BACKEND.SUBMIT.3-CONNECT-FORM-DRAFT — CLOSED_BY_CHATGPT",
+      "admin_shell": "BACKEND.ADMIN.1-REVIEW-QUEUE-SHELL — CLOSED_BY_CHATGPT",
+      "feature_flag": "SUBMISSIONS_V2_ENABLED=false",
+      "production_db_migration": "003_submissions_v2.sql — NOT APPLIED",
+      "production_status": "not live",
+      "next_required_step": "DB migration 003, then public form cutover, then admin approval actions"
+    },
+    {
+      "system": "Claims V2",
+      "scaffold_phase": "BACKEND.CLAIM.1 through BACKEND.CLAIM.2-ROUTER-DISABLED — CLOSED_BY_CHATGPT",
+      "router_disabled_phase": "BACKEND.CLAIM.2 — CLOSED_BY_CHATGPT",
+      "frontend_draft": "BACKEND.CLAIM.3-CONNECT-CLAIM-DRAFT — CLOSED_BY_CHATGPT",
+      "admin_shell": "BACKEND.ADMIN.1-REVIEW-QUEUE-SHELL — CLOSED_BY_CHATGPT",
+      "feature_flag": "CLAIMS_V2_ENABLED=false",
+      "production_db_migration": "004_claims_v2.sql — NOT APPLIED",
+      "production_status": "not live",
+      "next_required_step": "DB migration 004, then claim form cutover, then admin approval actions"
+    },
+    {
+      "system": "Payments V2",
+      "scaffold_phase": "BACKEND.PAYMENTS.1 through BACKEND.PAYMENTS.2-ROUTER-DISABLED — CLOSED_BY_CHATGPT",
+      "router_disabled_phase": "BACKEND.PAYMENTS.2 — CLOSED_BY_CHATGPT",
+      "frontend_draft": "N/A",
+      "feature_flag": "PAYMENTS_ENABLED=false",
+      "production_db_migration": "005_payments_v2.sql — NOT APPLIED",
+      "production_status": "not live",
+      "next_required_step": "Robert: choose payment provider (Stripe/SumUp), add API keys, VAT compliance review, then DB migration 005"
+    },
+    {
+      "system": "Messaging V2",
+      "scaffold_phase": "BACKEND.MESSAGING.1 through BACKEND.MESSAGING.2-ROUTER-DISABLED — CLOSED_BY_CHATGPT",
+      "router_disabled_phase": "BACKEND.MESSAGING.2 — CLOSED_BY_CHATGPT",
+      "frontend_draft": "BACKEND.MESSAGING.3-CONNECT-MESSAGE-DRAFT — CLOSED_BY_CHATGPT",
+      "feature_flag": "MESSAGING_V2_ENABLED=false",
+      "production_db_migration": "006_messaging_v2.sql — NOT APPLIED",
+      "production_status": "not live",
+      "next_required_step": "Payments V2 must be live first, then DB migration 006, then messaging gate"
+    },
+    {
+      "system": "Tickets / Adapters V2",
+      "scaffold_phase": "BACKEND.TICKETS.1 through BACKEND.TICKETS.2-ROUTER-DISABLED — CLOSED_BY_CHATGPT",
+      "router_disabled_phase": "BACKEND.TICKETS.2 — CLOSED_BY_CHATGPT",
+      "admin_shell": "BACKEND.TICKETS.3-ADMIN-DISCOVERY-DRAFT — CLOSED_BY_CHATGPT",
+      "feature_flag": "TICKETS_ADAPTERS_ENABLED=false, TICKET_IMPORTS_ENABLED=false, AFFILIATE_LINKS_ENABLED=false",
+      "production_db_migration": "007_tickets_v2.sql — NOT APPLIED",
+      "production_status": "not live",
+      "next_required_step": "robots.txt/ToS compliance review per platform, affiliate network approval (if any), DB migration 007"
+    }
+  ],
+  "admin_shell": {
+    "file": "admin-review.html",
+    "status": "read-only shell — BACKEND.ADMIN.1-REVIEW-QUEUE-SHELL CLOSED_BY_CHATGPT",
+    "submissions_queue": "read-only, buttons disabled",
+    "claims_queue": "read-only, buttons disabled",
+    "ticket_discovery_queue": "read-only with adapter registry, buttons disabled",
+    "no_write_status": true,
+    "noindex_nofollow": true,
+    "not_in_public_nav": true
+  },
+  "production_blockers": {
+    "postmark_dns": "Postmark account not created by Robert. SPF/DKIM/DMARC/CNAME missing at Porkbun.",
+    "db_migrations": "None of 002-007 applied to production DB. See BACKEND.DB.1-MIGRATION-RUNBOOK.",
+    "real_email_test": "EMAIL_SEND_REAL=false. No end-to-end magic link email tested.",
+    "payment_provider": "No Stripe/SumUp key. Robert must choose provider and add API keys.",
+    "login_cutover": "login.html still on legacy endpoints. Auth V2 draft only.",
+    "public_form_cutovers": "connect.html still on manual/legacy paths. V2 status notes only.",
+    "admin_approval_actions": "All approve/reject/import buttons disabled in admin-review.html.",
+    "ticket_tos_review": "No robots.txt/ToS compliance review per ticket platform.",
+    "affiliate_approval": "No affiliate network approval. AFFILIATE_LINKS_ENABLED=false."
+  },
+  "guard_inventory": {
+    "total_checks": 22,
+    "checks": [
+      {"name": "forbidden_strings", "prevents": "bilingual/mixed-language/marketing-claim leakage"},
+      {"name": "internal_ctas", "prevents": "venue cards linking externally"},
+      {"name": "raw_includes", "prevents": "unprocessed include directives"},
+      {"name": "stale_homepage_panel", "prevents": "empty homepage panel"},
+      {"name": "card_render", "prevents": "comedian/show card count regression"},
+      {"name": "status_sweep", "prevents": "public pages returning non-200"},
+      {"name": "nav_consistency", "prevents": "missing or duplicate nav-shell"},
+      {"name": "freshness_sanity", "prevents": "stale freshness audit rows"},
+      {"name": "homepage_freshness_filter", "prevents": "shows missing isFreshEnough filter"},
+      {"name": "show_fallback_sync", "prevents": "show.html noscript fallback diverging from audit JSON"},
+      {"name": "pricing_copy_safety", "prevents": "pricing.html implying live checkout/payments"},
+      {"name": "public_copy_overclaims", "prevents": "coverage/payment/feature overclaims in public HTML"},
+      {"name": "feature_copy_safety", "prevents": "planned features reading as live without qualifiers"},
+      {"name": "book_html_decommissioned", "prevents": "/book.html re-emerging in nav/CTAs"},
+      {"name": "hreflang", "prevents": "legal pages missing hreflang alternates"},
+      {"name": "header_cta_rule", "prevents": "page-specific CTAs leaking into global nav"},
+      {"name": "admin_review_shell", "prevents": "enabled approve/reject/import buttons in admin shell"},
+      {"name": "auth_v2_login_draft", "prevents": "login.html claiming Auth V2 is live"},
+      {"name": "submit_v2_connect_form", "prevents": "connect.html claiming automated submissions are live"},
+      {"name": "claim_v2_connect_draft", "prevents": "connect.html claiming automated claims/ownership changes are live"},
+      {"name": "messaging_v2_connect_draft", "prevents": "connect.html claiming DMs or paid messaging are live"},
+      {"name": "tickets_admin_discovery_draft", "prevents": "admin-review.html enabling imports or affiliate links"}
+    ]
+  },
+  "next_phase_recommendation": "BACKEND.DB.2-PRODUCTION-MIGRATION-DRY-RUN",
+  "recommendation_reason": "All scaffold phases closed. Email DNS requires Robert operator action (blocked). Payment provider requires Robert choice (blocked). Safest unblocked next step: a local/staging dry-run of migrations 002-007 to verify they apply cleanly before any production run. This is a pure validation phase — no flag changes, no production writes.",
+  "safe_to_enable_any_production_feature": false,
+  "regression_guard_result": "22/22 PASS"
+}
