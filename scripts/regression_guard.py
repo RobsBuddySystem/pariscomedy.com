@@ -1214,6 +1214,100 @@ def check_admin_review_shell() -> dict:
     }
 
 
+def check_canceled_shows_not_public() -> dict:
+    """P0.CANCELED-SHOWS.ENFORCE — canceled_shows.json is source of truth.
+
+    For every entry in data/canceled_shows.json with public_visible=false,
+    no slug or name (case-insensitive) may appear in any user-facing HTML
+    or in the published JSON arrays (data/shows_generated.json,
+    data/shows.json, data/shows_upcoming.json, data/venues.json).
+
+    Prevents the recurring Velvet Bar Open Mic regression (2026-05-04,
+    2026-05-24, 2026-05-30). canceled_shows.json itself and audit-only
+    files under data/ that record the historical conflict are excluded.
+    """
+    canceled_path = REPO_ROOT / "data" / "canceled_shows.json"
+    if not canceled_path.exists():
+        return {"name": "canceled_shows_not_public", "result": "PASS",
+                "evidence": {"reason": "no canceled_shows.json"}}
+    data = json.loads(canceled_path.read_text(encoding="utf-8"))
+    blocked_slugs: set[str] = set()
+    blocked_names: set[str] = set()
+    for e in data.get("canceled", []):
+        if e.get("public_visible") is True:
+            continue
+        if e.get("slug"):
+            blocked_slugs.add(e["slug"].lower())
+        for n in (e.get("names") or []):
+            if n and n.strip():
+                blocked_names.add(n.strip().lower())
+    if not blocked_slugs and not blocked_names:
+        return {"name": "canceled_shows_not_public", "result": "PASS",
+                "evidence": {"reason": "no blocked entries"}}
+
+    # User-facing HTML at repo root (skip admin pages, fr/ legal mirrors are fine to scan too)
+    html_files = sorted(REPO_ROOT.glob("*.html"))
+    # Published JSON arrays consumed by frontend
+    json_files = [
+        REPO_ROOT / "data" / "shows_generated.json",
+        REPO_ROOT / "data" / "shows.json",
+        REPO_ROOT / "data" / "shows_upcoming.json",
+        REPO_ROOT / "data" / "venues.json",
+        REPO_ROOT / "data" / "discovered_shows.json",
+    ]
+    hits: list[dict] = []
+
+    for p in html_files:
+        try:
+            text = p.read_text(encoding="utf-8", errors="ignore")
+        except Exception:
+            continue
+        low = text.lower()
+        for slug in blocked_slugs:
+            if slug in low:
+                hits.append({"file": p.name, "match": slug, "kind": "slug"})
+        for name in blocked_names:
+            if name in low:
+                hits.append({"file": p.name, "match": name, "kind": "name"})
+
+    for jp in json_files:
+        if not jp.exists():
+            continue
+        try:
+            jd = json.loads(jp.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+
+        def _walk(o):
+            if isinstance(o, dict):
+                slug = (o.get("slug") or "").lower()
+                name = (o.get("name") or o.get("show_name") or "").strip().lower()
+                if slug and slug in blocked_slugs:
+                    hits.append({"file": str(jp.relative_to(REPO_ROOT)),
+                                 "match": slug, "kind": "json_slug"})
+                if name and name in blocked_names:
+                    hits.append({"file": str(jp.relative_to(REPO_ROOT)),
+                                 "match": name, "kind": "json_name"})
+                for v in o.values():
+                    _walk(v)
+            elif isinstance(o, list):
+                for v in o:
+                    _walk(v)
+
+        _walk(jd)
+
+    return {
+        "name": "canceled_shows_not_public",
+        "result": "PASS" if not hits else "FAIL",
+        "evidence": {
+            "blocked_slugs": sorted(blocked_slugs),
+            "blocked_names": sorted(blocked_names),
+            "hit_count": len(hits),
+            "hits": hits[:50],
+        },
+    }
+
+
 CHECKS = {
     "forbidden_strings":     lambda dom: check_forbidden_strings(),
     "internal_ctas":         lambda dom: check_internal_ctas(with_dom=dom),
@@ -1237,6 +1331,7 @@ CHECKS = {
     "claim_v2_connect_draft": lambda dom: check_claim_v2_connect_draft(),
     "messaging_v2_connect_draft": lambda dom: check_messaging_v2_connect_draft(),
     "tickets_admin_discovery_draft": lambda dom: check_tickets_admin_discovery_draft(),
+    "canceled_shows_not_public": lambda dom: check_canceled_shows_not_public(),
 }
 
 
