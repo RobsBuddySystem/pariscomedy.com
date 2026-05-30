@@ -16,8 +16,10 @@ TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
     exit 1
   fi
   if ! git diff --quiet data/freshness-audit.json ; then
-    echo "freshness-audit.json changed — committing"
-    git add data/freshness-audit.json
+    echo "freshness-audit.json changed — syncing show.html noscript fallback"
+    # P1.DATA.3B — keep show.html raw fallback in sync with audit JSON.
+    python3 scripts/sync_show_fallback.py >/dev/null || echo "sync_show_fallback.py FAILED"
+    git add data/freshness-audit.json show.html
     git commit -m "data | freshness daily run ${TS}" --no-verify
     git push origin main || echo "push failed; will retry next run"
   else

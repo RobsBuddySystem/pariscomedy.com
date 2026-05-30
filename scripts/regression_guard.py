@@ -576,6 +576,63 @@ def _dom_collect_hrefs(path: str, selector: str, attr: str | None = "href") -> l
 
 # ---------- Runner ---------------------------------------------------------
 
+def check_show_fallback_sync() -> dict:
+    """P1.DATA.3B — show.html noscript fallback must match data/freshness-audit.json.
+
+    For every <article id="show-{slug}" data-verification-status="..."> block,
+    the status MUST equal the audit's verification_status for that slug, AND
+    the freshness "Last checked: YYYY-MM-DD" date MUST NOT be older than the
+    audit's last_checked_at date for that slug.
+
+    Closes the root cause class where one source of truth (audit JSON) is
+    updated but a static fallback in show.html still claims old states.
+    """
+    show = (REPO_ROOT / "show.html")
+    audit = (REPO_ROOT / "data" / "freshness-audit.json")
+    if not show.exists() or not audit.exists():
+        return {"name": "show_fallback_sync", "result": "FAIL",
+                "evidence": {"reason": "show.html or audit JSON missing"}}
+    a = json.loads(audit.read_text(encoding="utf-8"))
+    by_slug = {l["slug"]: l for l in a.get("listings", [])}
+    html = show.read_text(encoding="utf-8")
+    article_re = re.compile(
+        r'<article id="show-(?P<slug>[a-z0-9-]+)" data-verification-status="(?P<status>[^"]+)">(?P<body>.*?)</article>',
+        re.DOTALL,
+    )
+    freshness_re = re.compile(r"Last checked:</strong>\s*(\d{4}-\d{2}-\d{2})")
+    problems = []
+    checked = 0
+    for m in article_re.finditer(html):
+        slug = m.group("slug")
+        fallback_status = m.group("status")
+        body = m.group("body")
+        entry = by_slug.get(slug)
+        if not entry:
+            problems.append({"slug": slug, "kind": "no_audit_entry"})
+            continue
+        checked += 1
+        expected_status = entry.get("verification_status") or ""
+        if fallback_status != expected_status:
+            problems.append({
+                "slug": slug, "kind": "status_mismatch",
+                "fallback": fallback_status, "audit": expected_status,
+            })
+        fm = freshness_re.search(body)
+        if fm:
+            fallback_date = fm.group(1)
+            audit_date = (entry.get("last_checked_at") or "")[:10]
+            if audit_date and fallback_date < audit_date:
+                problems.append({
+                    "slug": slug, "kind": "date_drift",
+                    "fallback": fallback_date, "audit": audit_date,
+                })
+    return {
+        "name": "show_fallback_sync",
+        "result": "PASS" if not problems else "FAIL",
+        "evidence": {"articles_checked": checked, "problems": problems},
+    }
+
+
 def check_homepage_freshness_filter() -> dict:
     """Guard: every SHOWS_DATA.filter() in index.html must apply isFreshEnough().
 
@@ -619,6 +676,7 @@ CHECKS = {
     "nav_consistency":       lambda dom: check_nav_consistency(),
     "freshness_sanity":      lambda dom: check_freshness_sanity(),
     "homepage_freshness_filter": lambda dom: check_homepage_freshness_filter(),
+    "show_fallback_sync":    lambda dom: check_show_fallback_sync(),
     "hreflang":              lambda dom: check_hreflang(),
     "header_cta_rule":       lambda dom: check_header_cta_rule(),
 }

@@ -1,5 +1,56 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | data | P1.DATA.3B: sync show.html noscript fallback with audit JSON
+
+ChatGPT-authorized 2026-05-30 (P1.DATA.3B - synchronize show.html raw
+fallback with data/freshness-audit.json).
+
+Root cause: show.html had 14 hardcoded <article id="show-{slug}"> blocks
+inside <noscript> with static data-verification-status, source URL, and
+"Last checked: 2026-05-29" freshness lines. They were last hand-edited and
+never regenerated, so they drifted away from data/freshness-audit.json. ChatGPT
+caught millennial-meltdown showing verified_24h in show.html while the live
+audit said needs_human_review.
+
+scripts/sync_show_fallback.py (NEW):
+  Reads data/freshness-audit.json, walks every <article id="show-{slug}">
+  block in show.html, rewrites three things on each: the
+  data-verification-status attribute, the Get-tickets <a href> (so repointed
+  source URLs flow through to noscript), and the <p class="freshness">
+  inner content (Last checked / Status label / confidence). Everything else
+  in the article (h2 / venue / address / description / disclaimer) is
+  preserved. Idempotent.
+
+scripts/freshness_daily_wrapper.sh:
+  After every freshness_verify run, if the audit JSON changed the wrapper
+  now also runs sync_show_fallback.py and stages show.html in the same
+  commit. Daily 06:30 LaunchAgent will keep noscript in sync going forward.
+
+scripts/regression_guard.py - new check show_fallback_sync:
+  For every <article id="show-{slug}"> block in show.html, FAILs if
+  (a) the data-verification-status differs from data/freshness-audit.json's
+  verification_status for that slug, or (b) the freshness Last-checked date
+  is older than the audit's last_checked_at date for that slug.
+  Closes the drift root cause: any future audit run that does not
+  re-sync the fallback fails regression immediately.
+
+show.html: regenerated noscript articles for all 14 listings - now reflect:
+  verified_24h: charonne, comedy-crush, comedy-lab-chat-noir, cuba-compagnie,
+                coucou-friday, ffcn, green-light, green-mic-showcase, rocket,
+                smash, velvet-comedy (11 total)
+  needs_human_review: millennial-meltdown, theatre-bo-julie, wednesday-night-comedy
+  ffcn, charonne, velvet-comedy <a href> now uses the repointed Eventbrite URLs.
+
+Regression: 12/12 PASS (was 11/11). show_fallback_sync PASS, 0 problems on
+14 articles checked.
+
+Rollback: git revert <sha>
+
+Vault: chuck_vault/10-concepts/projects/pariscomedy-canonical/
+  P1_DATA_3B_FALLBACK_SYNC.md (to be created) +
+  PHASE_LEDGER.md (P1.DATA.3B row IN_GIT_UNVERIFIED).
+
+
 ## 2026-05-30 | data | P1.DATA.3.LITE: source repoints + remove "sales end" overmatch
 
 ChatGPT-authorized 2026-05-30 (P1.DATA.3.LITE — manual source URL repoint
