@@ -7,6 +7,12 @@ updated. Regression guard blocks any future /book.html reference. connect.html b
 BACKEND.AUTH.3 production readiness checklist accepted as readiness-only (no production cutover).
 122/122 tests pass. 13/13 regression checks pass.
 
+## 2026-05-30 | backend | BACKEND.PAYMENTS.2-ROUTER-DISABLED: payments v2 router wired, disabled
+
+payments_v2_router.py + 17 tests. PAYMENTS_ENABLED=false, PAYMENTS_PROVIDER=dryrun,
+PAYMENT_WEBHOOKS_ENABLED=false. Products catalog always-on. Checkout/portal/subscriptions/webhook
+all 503 disabled. Dry-run checkout, webhook idempotency, feature gate tested. 183/183 tests pass.
+
 ## 2026-05-30 | backend | BACKEND.CLAIM.2-ROUTER-DISABLED: claims v2 router wired, disabled
 
 claims_v2_router.py + 25 tests. CLAIMS_V2_ENABLED=false. All 10 routes disabled by default.
