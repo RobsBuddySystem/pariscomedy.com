@@ -1,0 +1,67 @@
+{
+  "phase": "BACKEND.EMAIL.4-OPERATOR-DNS-RUNBOOK",
+  "generated_at": "2026-05-30T00:00:00Z",
+  "scope": "operator-docs-only",
+  "real_email_enabled": false,
+  "api_key_in_repo": false,
+  "postmark_steps": [
+    "Create Postmark account at https://postmarkapp.com",
+    "Create server named pariscomedy-production",
+    "Create Transactional message stream named outbound",
+    "Note Server API Token (store as env var POSTMARK_SERVER_TOKEN — never commit)",
+    "Add domain pariscomedy.com under Sender Signatures",
+    "Copy DKIM TXT value (selector pm._domainkey, unique to your account)",
+    "Copy return-path CNAME target (pm.mtasv.net)"
+  ],
+  "porkbun_dns_steps": [
+    "Update SPF TXT on @ to add include:spf.protection.postmark.com",
+    "Add DKIM TXT at pm._domainkey with value from Postmark",
+    "Add DMARC TXT at _dmarc",
+    "Add CNAME pm-bounces pointing to pm.mtasv.net",
+    "Preserve existing MX records"
+  ],
+  "dns_records": [
+    {
+      "host": "@",
+      "type": "TXT",
+      "purpose": "SPF",
+      "current": "v=spf1 include:_spf.porkbun.com ~all",
+      "target": "v=spf1 include:_spf.porkbun.com include:spf.protection.postmark.com ~all"
+    },
+    {
+      "host": "pm._domainkey",
+      "type": "TXT",
+      "purpose": "DKIM",
+      "current": "missing",
+      "target": "(copy from Postmark Sender Signatures dashboard — unique to your account)"
+    },
+    {
+      "host": "_dmarc",
+      "type": "TXT",
+      "purpose": "DMARC",
+      "current": "missing",
+      "target": "v=DMARC1; p=none; rua=mailto:dmarc-reports@pariscomedy.com; sp=none; adkim=r; aspf=r"
+    },
+    {
+      "host": "pm-bounces",
+      "type": "CNAME",
+      "purpose": "return-path",
+      "current": "missing",
+      "target": "pm.mtasv.net"
+    }
+  ],
+  "verify_commands": [
+    "dig TXT pariscomedy.com",
+    "dig TXT pm._domainkey.pariscomedy.com",
+    "dig TXT _dmarc.pariscomedy.com",
+    "dig CNAME pm-bounces.pariscomedy.com"
+  ],
+  "safety": {
+    "EMAIL_SEND_REAL": "false — unchanged",
+    "POSTMARK_SERVER_TOKEN": "must NOT be committed to repo",
+    "AUTH_V2_ENABLED": "false — unchanged",
+    "production_db_migration": "not applied — unchanged",
+    "login_switch": "not done — unchanged"
+  },
+  "next_technical_phase": "BACKEND.EMAIL.5-DNS-LIVE-VERIFY"
+}
