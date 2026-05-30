@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-05-30T02:05:00Z",
+  "phase_id": "BACKEND.PAYMENTS.1-SCAFFOLD",
+  "currency": "EUR",
+  "products": [
+    {"id": "comic_plus",          "kind": "subscription", "price_cents": 100, "interval": "month",
+     "name": "Comic Plus",       "unlocks": ["messaging", "profile_highlight"]},
+    {"id": "booker_plus",         "kind": "subscription", "price_cents": 100, "interval": "month",
+     "name": "Booker Plus",      "unlocks": ["messaging", "promoted_show_tools"]},
+    {"id": "show_highlight",      "kind": "one_off",      "price_cents": 1000, "interval": null,
+     "name": "Show Highlight",   "unlocks": ["highlight_show"]},
+    {"id": "private_booking_lead","kind": "one_off",      "price_cents": 2500, "interval": null,
+     "name": "Private Booking Lead", "unlocks": ["private_booking_lead"]},
+    {"id": "admin_manual_credit", "kind": "manual_comp",  "price_cents": 0,    "interval": null,
+     "name": "Admin Manual Credit", "unlocks": []}
+  ]
+}

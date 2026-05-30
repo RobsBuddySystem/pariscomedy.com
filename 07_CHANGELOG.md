@@ -1,5 +1,37 @@
 # 07_CHANGELOG
 
+## 2026-05-30 | backend | BACKEND.PAYMENTS.1-SCAFFOLD: products + dry-run checkout + webhook idempotency
+
+ChatGPT-authorized. Scaffold only. No Stripe/SumUp call. No live checkout.
+
+data/payment-products.json (NEW): 5 SKUs (comic_plus, booker_plus,
+  show_highlight, private_booking_lead, admin_manual_credit).
+
+backend/migrations/005_payments_v2.sql (+ rollback): 5 tables:
+  payment_customers_v2, payment_subscriptions_v2, payment_invoices_v2,
+  payment_checkout_sessions_v2, payment_webhook_idempotency_v2.
+
+backend/payments_v2.py: service module.
+  list_products / get_product / create_checkout_session_dry_run /
+  record_webhook_event / apply_subscription_created /
+  apply_subscription_cancelled / subscription_status_for_user /
+  is_feature_unlocked / status.
+  PAYMENTS_ENABLED default false. PAYMENTS_PROVIDER default "dryrun".
+  PAYMENT_WEBHOOKS_ENABLED default false.
+  Webhook idempotency via UNIQUE on event_id - duplicate returns
+  {recorded:false, duplicate:true} without state change.
+
+backend/tests/test_payments_v2.py: 12 tests.
+
+Tests: 86/86 PASS across whole backend suite.
+Live frontend regression: 12/12 PASS unchanged. pricing.html unchanged.
+
+No real provider call. No API key added. No live webhook. No paid feature
+gated publicly.
+
+Rollback: git revert <this-sha>
+
+
 ## 2026-05-30 | backend | BACKEND.CLAIM.1-SCAFFOLD: comic/show_runner/venue claims
 
 ChatGPT-authorized. Scaffold only. No route. No public ownership change. No email.
