@@ -1,0 +1,56 @@
+{
+  "phase": "BACKEND.DB.2-PRODUCTION-MIGRATION-DRY-RUN",
+  "generated_at": "2026-05-30T10:40:00Z",
+  "dry_run_db_source": "/tmp/paris_dryrun_20260530T103937Z.db (fresh DB from 001_init.sql — production DB not in repo)",
+  "dry_run_db_copy": "/tmp/paris_dryrun_rollback_20260530T104115Z.db (second copy for rollback test)",
+  "production_db_touched": false,
+  "pre_migration_checksum": "38ba1415e93448f7a6a2bd878fbe7af6",
+  "pre_migration_tables": ["booker_lineup", "booker_shows", "booker_sessions", "messages_review_queue"],
+  "pre_migration_row_counts": {
+    "booker_lineup": 0, "booker_shows": 0, "booker_sessions": 0, "messages_review_queue": 0
+  },
+  "apply_result": {
+    "002_auth_v2.sql": "OK",
+    "003_submissions_v2.sql": "OK",
+    "004_claims_v2.sql": "OK",
+    "005_payments_v2.sql": "OK",
+    "006_messaging_v2.sql": "OK",
+    "007_tickets_v2.sql": "OK"
+  },
+  "expected_tables_verified": [
+    "users_v2", "sessions_v2", "magic_links_v2", "audit_events_v2", "rate_limits_v2",
+    "show_submissions_v2",
+    "claims_v2",
+    "payment_customers_v2", "payment_subscriptions_v2", "payment_invoices_v2",
+    "payment_checkout_sessions_v2", "payment_webhook_idempotency_v2",
+    "message_threads_v2", "messages_v2", "message_blocks_v2", "message_reports_v2",
+    "adapter_discoveries_v2"
+  ],
+  "all_expected_tables_present": true,
+  "post_migration_table_count": 22,
+  "existing_data_preserved": true,
+  "idempotency_result": {
+    "002_auth_v2.sql": "OK",
+    "003_submissions_v2.sql": "OK",
+    "004_claims_v2.sql": "OK",
+    "005_payments_v2.sql": "OK",
+    "006_messaging_v2.sql": "OK",
+    "007_tickets_v2.sql": "OK"
+  },
+  "rollback_result": {
+    "007_tickets_v2.rollback.sql": "OK",
+    "006_messaging_v2.rollback.sql": "OK",
+    "005_payments_v2.rollback.sql": "OK",
+    "004_claims_v2.rollback.sql": "OK",
+    "003_submissions_v2.rollback.sql": "OK",
+    "002_auth_v2.rollback.sql": "OK"
+  },
+  "post_rollback_v2_tables_remaining": 0,
+  "post_rollback_original_tables_preserved": true,
+  "backend_tests": "232/232 PASS",
+  "regression_guard": "22/22 PASS",
+  "production_db_migration_status": "NOT APPLIED — dry-run only. Production DB migration requires explicit operator approval.",
+  "safe_to_run_production_migration": false,
+  "feature_flags_changed": false,
+  "secrets_committed": false
+}
