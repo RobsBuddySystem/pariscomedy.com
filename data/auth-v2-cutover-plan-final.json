@@ -1,0 +1,81 @@
+{
+  "phase": "BACKEND.AUTH.6-CUTOVER-PLAN-FINAL",
+  "generated_at": "2026-05-30T12:00:00Z",
+  "plan_only": true,
+  "auth_v2_enabled": false,
+  "email_send_real": false,
+  "no_cutover_executed": true,
+  "preconditions": [
+    "db_migrations_002_to_007_applied_and_verified",
+    "postmark_dns_all_4_records_present_and_propagated",
+    "postmark_server_token_in_server_env_only_never_committed",
+    "email_send_real_false_confirmed_before_start",
+    "regression_guard_22_22_pass",
+    "backend_tests_232_232_pass",
+    "maintenance_window_scheduled"
+  ],
+  "cutover_phases": [
+    {
+      "id": "A",
+      "name": "EMAIL.6 Real-Send Preflight",
+      "action": "Send one real magic-link email to operator address via Postmark",
+      "go_gate": "Email received in inbox AND Postmark dashboard shows delivered",
+      "flag_changes": {"EMAIL_SEND_REAL": "true (preflight only)"},
+      "rollback": "Set EMAIL_SEND_REAL=false if email not received within 5 minutes"
+    },
+    {
+      "id": "B",
+      "name": "AUTH.7 Staging Smoke Test",
+      "action": "Enable AUTH_V2_ENABLED=true on staging, run all 7 smoke tests",
+      "go_gate": "All 7 smoke tests pass on staging",
+      "flag_changes": {"AUTH_V2_ENABLED": "true (staging only)"},
+      "rollback": "Fix failures before proceeding to production"
+    },
+    {
+      "id": "C",
+      "name": "AUTH.8 Admin-Only Enable (Production)",
+      "action": "Set AUTH_V2_ENABLED=true in production, test admin magic link flow",
+      "go_gate": "/api/auth_v2/status returns enabled:true AND magic link works AND legacy login still works",
+      "flag_changes": {"AUTH_V2_ENABLED": "true", "EMAIL_SEND_REAL": "true"},
+      "rollback": "fly secrets set AUTH_V2_ENABLED=false EMAIL_SEND_REAL=false && fly app restart"
+    },
+    {
+      "id": "D",
+      "name": "AUTH.9 login.html Switch",
+      "action": "Promote Auth V2 to primary login form, retain legacy as fallback link",
+      "go_gate": "Auth V2 form functional on production, legacy still reachable, 0 JS errors",
+      "flag_changes": "none (env flags already set in Phase C)",
+      "rollback": "git revert HEAD && git push origin main"
+    },
+    {
+      "id": "E",
+      "name": "AUTH.10 Legacy Retirement",
+      "action": "Remove legacy auth routes after 30-day coexistence period",
+      "go_gate": "Robert explicit sign-off + zero legacy auth calls in 7-day audit window",
+      "flag_changes": "legacy_auth_enabled=false or route removal",
+      "timing": "minimum 30 days after Phase D",
+      "rollback": "Restore legacy route handlers from git history"
+    }
+  ],
+  "smoke_tests": [
+    {"id": 1, "test": "GET /api/auth_v2/status", "expected": "{enabled:true, email_configured:true}"},
+    {"id": 2, "test": "POST /api/auth_v2/request-link with valid email", "expected": "HTTP 200, email delivered"},
+    {"id": 3, "test": "GET /api/auth_v2/verify?token=<valid>", "expected": "HTTP 200, session cookie set"},
+    {"id": 4, "test": "GET /api/auth_v2/verify?token=<expired>", "expected": "HTTP 401, token_expired"},
+    {"id": 5, "test": "GET /api/auth_v2/verify?token=<invalid>", "expected": "HTTP 401, invalid_token"},
+    {"id": 6, "test": "POST /api/auth/request (legacy comic)", "expected": "HTTP 200 — legacy works"},
+    {"id": 7, "test": "POST /api/booker/auth (legacy booker)", "expected": "HTTP 200 — legacy works"}
+  ],
+  "risk_register": [
+    {"id": "R1", "risk": "Postmark token missing/expired on server", "likelihood": "medium", "impact": "high", "mitigation": "Verify token in server env before Phase A"},
+    {"id": "R2", "risk": "Magic link email lands in spam", "likelihood": "low", "impact": "medium", "mitigation": "Check spam folder in Phase A; add X-PM-Tag header"},
+    {"id": "R3", "risk": "Token expiry too short", "likelihood": "low", "impact": "medium", "mitigation": "Default 15-min; consider 30-min for initial rollout"},
+    {"id": "R4", "risk": "Legacy login traffic during cutover", "likelihood": "low", "impact": "high", "mitigation": "Keep legacy routes live for 30 days minimum"},
+    {"id": "R5", "risk": "DB session table write failure", "likelihood": "low", "impact": "high", "mitigation": "Verify sessions_v2 writable before Phase C"},
+    {"id": "R6", "risk": "login.html CDN cache serving old version", "likelihood": "medium", "impact": "medium", "mitigation": "Append ?v=<timestamp> or purge CDN after Phase D"}
+  ],
+  "safe_to_enable_auth_v2_now": false,
+  "safe_to_enable_any_backend_feature": false,
+  "safe_to_execute_cutover_now": false,
+  "plan_document": "docs/BACKEND_AUTH_6_CUTOVER_PLAN_FINAL.md"
+}
