@@ -1,0 +1,59 @@
+{
+  "phase": "FINAL.OPERATOR-BLOCKER-HANDOFF",
+  "generated_at": "2026-05-30T12:45:00Z",
+  "handoff_only": true,
+  "no_execution": true,
+  "all_feature_flags_false": true,
+  "current_state": {
+    "public_site": "SAFE",
+    "backend_systems": "scaffolded_and_disabled",
+    "production_backend_features_live": 0,
+    "db_migrations_applied_to_production": false,
+    "v2_tables_on_production": "not_yet_applied"
+  },
+  "robert_action_list": {
+    "A": {
+      "name": "Postmark DNS Setup",
+      "records_needed": ["SPF include:spf.protection.postmark.com", "DKIM pm._domainkey CNAME", "DMARC _dmarc TXT", "Return-path pm-bounces CNAME"],
+      "proof_required_back": ["SPF TXT value", "DKIM CNAME target", "DMARC TXT value", "Return-path CNAME target", "Postmark dashboard green status"]
+    },
+    "B": {
+      "name": "Production DB Migration Authorization",
+      "authorization_text": "I authorize production DB migration 002-007 only, with backup first, no feature flags enabled.",
+      "prerequisite": "Confirm exact production DB path on server",
+      "proof_required_back": ["backup path", "before checksum", "after checksum", "row counts before/after", "17 V2 tables present output", "/api/*/status still disabled confirmation"]
+    },
+    "C": {
+      "name": "Payment Provider / VAT Decision",
+      "minimum_required": ["Stripe account created", "STRIPE_SECRET_KEY in server env (never committed)", "STRIPE_WEBHOOK_SECRET in server env (never committed)", "7 SumUp products created", "VAT configuration confirmed", "Legal review of checkout flow"]
+    },
+    "D": {
+      "name": "Confirm Production DB Path (optional now)",
+      "command": "echo $DB_PATH && sqlite3 $DB_PATH 'SELECT COUNT(*) FROM shows;'"
+    }
+  },
+  "db_authorization_exact_text": "I authorize production DB migration 002-007 only, with backup first, no feature flags enabled.",
+  "forbidden_actions": [
+    "AUTH_V2_ENABLED=true",
+    "EMAIL_SEND_REAL=true",
+    "login.html switch to Auth V2 primary",
+    "PAYMENTS_ENABLED=true",
+    "MESSAGING_V2_ENABLED=true",
+    "SUBMISSIONS_V2_ENABLED=true",
+    "CLAIMS_V2_ENABLED=true",
+    "TICKETS_ADAPTERS_ENABLED=true",
+    "production DB migration without Robert authorization text",
+    "real email to real users",
+    "secrets committed to repo"
+  ],
+  "next_path": {
+    "if_dns_completed": "Re-run BACKEND.EMAIL.5-DNS-LIVE-VERIFY → get EMAIL.6 real-send preflight authorization",
+    "if_db_authorized": "BACKEND.DB.4-PRODUCTION-MIGRATION-EXECUTION",
+    "if_neither": "Focus on content/source coverage — show data quality, Eventbrite live sync, show listing freshness",
+    "if_payment_provider_decided": "BACKEND.PAYMENTS.6-STRIPE-CONFIGURATION"
+  },
+  "regression_guard": "22/22 PASS",
+  "secrets_check": "no secrets committed, no flags enabled, no execution",
+  "safe_to_close": true,
+  "safe_to_enable_any_backend_feature": false
+}
