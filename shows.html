@@ -149,11 +149,15 @@ async function loadFreshnessAudit(){
 function badgeFor(showName){
  const key = slugify(showName);
  const f = FRESHNESS_BY_NAME[key];
- if (!f) return '';
- const st = f.verification_status;
- if (st === 'verified_24h') return '<span class="checked-badge ok">✓ checked today</span>';
- if (st === 'verified_72h') return '<span class="checked-badge warn">checked 1d+ ago</span>';
- return ''; // AUDIT-FIX: internal "needs review" QA flag must never render on the public site
+ // AUDIT-FIX: NEVER claim "checked today" from a status alone. Only show a freshness
+ // badge if there is a REAL last_checked timestamp, and only say "today" if it truly is.
+ // (The freshness audit currently emits verified_24h stubs with last_checked=null —
+ // those must not render any "checked" claim.) Internal "needs review" never shows publicly.
+ if (!f || !f.last_checked) return '';
+ const checked = String(f.last_checked).slice(0, 10);
+ const today = new Intl.DateTimeFormat('en-CA', {timeZone: 'Europe/Paris'}).format(new Date());
+ if (checked === today) return '<span class="checked-badge ok">✓ checked today</span>';
+ return '<span class="checked-badge warn">checked ' + checked + '</span>';
 }
 function updateBanner(){
  const banner = document.getElementById('today-banner');
