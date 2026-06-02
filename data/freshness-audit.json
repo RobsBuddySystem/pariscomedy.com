@@ -1,11 +1,12 @@
 {
   "summary": {
-    "generated_at": "2026-06-01T04:30:04Z",
+    "generated_at": "2026-06-02T04:30:02Z",
     "source": "https://api.pariscomedy.com/api/listings",
     "verification_run": true,
     "total_active": 14,
     "by_status": {
-      "needs_human_review": 6,
+      "source_unreachable": 1,
+      "needs_human_review": 5,
       "verified_24h": 8
     },
     "stale_or_review_count": 6
@@ -20,13 +21,13 @@
       "source_repointed": true,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
       "last_verified_at": null,
-      "confidence_score": 10,
+      "confidence_score": 5,
       "stale_risk": "high",
-      "verification_status": "needs_human_review",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
-      "source_notes": "[repointed via manual-source-repoints.json] past-event signal 'event ended' found on api_source_url"
+      "verification_status": "source_unreachable",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
+      "source_notes": "[repointed via manual-source-repoints.json] network error / timeout"
     },
     {
       "id": 3,
@@ -37,12 +38,12 @@
       "source_repointed": true,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
       "last_verified_at": null,
       "confidence_score": 10,
       "stale_risk": "high",
       "verification_status": "needs_human_review",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "[repointed via manual-source-repoints.json] past-event signal 'event ended' found on source_url"
     },
     {
@@ -54,12 +55,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
       "last_verified_at": null,
       "confidence_score": 10,
       "stale_risk": "high",
       "verification_status": "needs_human_review",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "past-event signal 'ventes terminées' found on source_url"
     },
     {
@@ -71,12 +72,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
       "last_verified_at": null,
       "confidence_score": 10,
       "stale_risk": "high",
       "verification_status": "needs_human_review",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "past-event signal 'event ended' found on source_url"
     },
     {
@@ -88,12 +89,12 @@
       "source_repointed": true,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
       "last_verified_at": null,
       "confidence_score": 10,
       "stale_risk": "high",
       "verification_status": "needs_human_review",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "[repointed via manual-source-repoints.json] past-event signal 'event ended' found on api_source_url"
     },
     {
@@ -105,12 +106,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
       "last_verified_at": null,
       "confidence_score": 10,
       "stale_risk": "high",
       "verification_status": "needs_human_review",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "past-event signal 'event ended' found on source_url"
     },
     {
@@ -122,12 +123,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
-      "last_verified_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
+      "last_verified_at": "2026-06-02T04:30:02Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -139,12 +140,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
-      "last_verified_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
+      "last_verified_at": "2026-06-02T04:30:02Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -156,12 +157,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
-      "last_verified_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
+      "last_verified_at": "2026-06-02T04:30:02Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -173,12 +174,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
-      "last_verified_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
+      "last_verified_at": "2026-06-02T04:30:02Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -190,12 +191,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
-      "last_verified_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
+      "last_verified_at": "2026-06-02T04:30:02Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -207,12 +208,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
-      "last_verified_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
+      "last_verified_at": "2026-06-02T04:30:02Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -224,12 +225,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
-      "last_verified_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
+      "last_verified_at": "2026-06-02T04:30:02Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     },
     {
@@ -241,12 +242,12 @@
       "source_repointed": false,
       "source_platform": "eventbrite",
       "source_type": "ticket",
-      "last_checked_at": "2026-06-01T04:30:04Z",
-      "last_verified_at": "2026-06-01T04:30:04Z",
+      "last_checked_at": "2026-06-02T04:30:02Z",
+      "last_verified_at": "2026-06-02T04:30:02Z",
       "confidence_score": 98,
       "stale_risk": "low",
       "verification_status": "verified_24h",
-      "next_check_due_at": "2026-06-02T04:30:04Z",
+      "next_check_due_at": "2026-06-03T04:30:02Z",
       "source_notes": "source verified: HTTP 200 + name/venue/slug match + future-event"
     }
   ]
