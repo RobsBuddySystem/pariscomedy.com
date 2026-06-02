@@ -255,7 +255,7 @@ function injectVerifiedItemList(){
 function langTag(s){
  const l = String(s.language || s.lang || '').toLowerCase();
  if (l === 'fr' || l === 'french') return '<span class="tag tag-en">FR</span>';
- if (l === 'bilingual' || l === 'bilingue') return '<span class="tag tag-en">Bilingual</span>';
+ // HARD RULE: no bilingual shows — only EN or FR. Anything not French is shown as English.
  return '<span class="tag tag-en">EN</span>';
 }
 // AUDIT-FIX (root cause): shows.html previously shipped a baked, hand-edited SHOWS
