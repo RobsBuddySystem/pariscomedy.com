@@ -75,15 +75,13 @@ def derive_platform_label(url: str) -> str:
 
 
 def build_freshness_inner(audit_entry: dict) -> str:
-    status = audit_entry.get("verification_status") or "needs_human_review"
-    label = STATUS_LABEL.get(status, status)
-    last_checked = (audit_entry.get("last_checked_at") or "")[:10]
-    conf = audit_entry.get("confidence_score", 0)
+    # Per Robert (2026-06-03): NEVER expose internal verification status,
+    # confidence score, or "last checked" on the public page — anywhere,
+    # including this no-JS fallback. Emit only a neutral source disclosure.
     platform = derive_platform_label(audit_entry.get("source_url") or "")
     return (
-        f"<strong>Source:</strong> {platform} · "
-        f"<strong>Last checked:</strong> {last_checked} · "
-        f"<strong>Status:</strong> {label} · confidence {conf}/100"
+        f"Tickets are sold on {platform}, not by Paris Comedy. "
+        f"Times and prices can change — always confirm on the source before purchase."
     )
 
 
