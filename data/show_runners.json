@@ -5,7 +5,7 @@
     "eventbrite_organizer_url": "https://www.eventbrite.com/o/comedy-lab-paris-27733626887",
     "eventbrite_org_id": "27733626887",
     "source_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679",
-    "source_verified_at": "2026-05-23T10:34:03+00:00"
+    "source_verified_at": "2026-06-03T04:30:43+00:00"
   },
   {
     "slug": "coucou-comedy",
@@ -13,7 +13,7 @@
     "eventbrite_organizer_url": "https://www.eventbrite.fr/o/coucou-comedy-43230488853",
     "eventbrite_org_id": "43230488853",
     "source_url": "https://www.eventbrite.fr/e/english-stand-up-comedy-in-paris-friday-night-show-tickets-364336088047",
-    "source_verified_at": "2026-05-23T10:34:03+00:00"
+    "source_verified_at": "2026-06-03T04:30:43+00:00"
   },
   {
     "slug": "tarik-tk",
@@ -21,7 +21,7 @@
     "eventbrite_organizer_url": "https://www.eventbrite.fr/o/tarik-tk-28965320811",
     "eventbrite_org_id": "28965320811",
     "source_url": "https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-573952757147",
-    "source_verified_at": "2026-05-23T10:34:03+00:00"
+    "source_verified_at": "2026-06-03T04:30:43+00:00"
   },
   {
     "slug": "caf-oscar",
@@ -29,7 +29,7 @@
     "eventbrite_organizer_url": "https://www.eventbrite.fr/o/cafe-oscar-28146148465",
     "eventbrite_org_id": "28146148465",
     "source_url": "https://www.eventbrite.fr/e/oscar-comedy-club-tickets-1985916648154",
-    "source_verified_at": "2026-05-23T10:34:03+00:00"
+    "source_verified_at": "2026-06-03T04:30:43+00:00"
   },
   {
     "slug": "smile-and-com-art",
@@ -37,7 +37,7 @@
     "eventbrite_organizer_url": "https://www.eventbrite.fr/o/smile-and-com-art-76556610073",
     "eventbrite_org_id": "76556610073",
     "source_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
-    "source_verified_at": "2026-05-23T10:34:03+00:00"
+    "source_verified_at": "2026-06-03T04:30:43+00:00"
   },
   {
     "slug": "kuhl-productions",
@@ -45,39 +45,7 @@
     "eventbrite_organizer_url": "https://www.eventbrite.fr/o/kuhl-productions-91229466093",
     "eventbrite_org_id": "91229466093",
     "source_url": "https://www.eventbrite.fr/e/english-stand-up-open-mic-on-taco-tuesday-by-kuhl-comedy-tickets-1760885549079",
-    "source_verified_at": "2026-05-23T10:34:03+00:00"
-  },
-  {
-    "slug": "comedy-crush",
-    "name": "Comedy Crush",
-    "eventbrite_organizer_url": "https://www.eventbrite.fr/o/comedy-crush-80466257363",
-    "eventbrite_org_id": "80466257363",
-    "source_url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1982356098454",
-    "source_verified_at": "2026-05-23T10:34:03+00:00"
-  },
-  {
-    "slug": "south-comedy-club",
-    "name": "South Comedy Club",
-    "eventbrite_organizer_url": "https://www.eventbrite.fr/o/south-comedy-club-83987202653",
-    "eventbrite_org_id": "83987202653",
-    "source_url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259",
-    "source_verified_at": "2026-05-23T10:34:03+00:00"
-  },
-  {
-    "slug": "maddie-storm",
-    "name": "Maddie Storm",
-    "eventbrite_organizer_url": "https://www.eventbrite.fr/o/maddie-storm-60153657563",
-    "eventbrite_org_id": "60153657563",
-    "source_url": "https://www.eventbrite.fr/e/the-dissident-comedy-show-tickets-1985334998424",
-    "source_verified_at": "2026-05-23T10:34:03+00:00"
-  },
-  {
-    "slug": "french-fried-comedy-night",
-    "name": "French Fried Comedy Night",
-    "eventbrite_organizer_url": "https://www.eventbrite.com/o/french-fried-comedy-night-18875461764",
-    "eventbrite_org_id": "18875461764",
-    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "source_verified_at": "2026-05-23T10:34:03+00:00"
+    "source_verified_at": "2026-06-03T04:30:43+00:00"
   },
   {
     "slug": "kiss-comedy-club",
@@ -85,6 +53,38 @@
     "eventbrite_organizer_url": "https://www.eventbrite.fr/o/kiss-comedy-club-56682508423",
     "eventbrite_org_id": "56682508423",
     "source_url": "https://www.eventbrite.fr/e/kiss-comedy-club-tickets-1935245083139",
-    "source_verified_at": "2026-05-23T10:34:03+00:00"
+    "source_verified_at": "2026-06-03T04:30:43+00:00"
+  },
+  {
+    "slug": "south-comedy-club",
+    "name": "South Comedy Club",
+    "eventbrite_organizer_url": "https://www.eventbrite.fr/o/south-comedy-club-83987202653",
+    "eventbrite_org_id": "83987202653",
+    "source_url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259",
+    "source_verified_at": "2026-06-03T04:30:43+00:00"
+  },
+  {
+    "slug": "comedy-crush",
+    "name": "Comedy Crush",
+    "eventbrite_organizer_url": "https://www.eventbrite.fr/o/comedy-crush-80466257363",
+    "eventbrite_org_id": "80466257363",
+    "source_url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1982356098454",
+    "source_verified_at": "2026-06-03T04:30:43+00:00"
+  },
+  {
+    "slug": "maddie-storm",
+    "name": "Maddie Storm",
+    "eventbrite_organizer_url": "https://www.eventbrite.fr/o/maddie-storm-60153657563",
+    "eventbrite_org_id": "60153657563",
+    "source_url": "https://www.eventbrite.fr/e/the-dissident-comedy-show-tickets-1985334998424",
+    "source_verified_at": "2026-06-03T04:30:43+00:00"
+  },
+  {
+    "slug": "french-fried-comedy-night",
+    "name": "French Fried Comedy Night",
+    "eventbrite_organizer_url": "https://www.eventbrite.com/o/french-fried-comedy-night-18875461764",
+    "eventbrite_org_id": "18875461764",
+    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
+    "source_verified_at": "2026-06-03T04:30:43+00:00"
   }
 ]
