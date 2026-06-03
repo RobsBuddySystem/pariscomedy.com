@@ -502,9 +502,9 @@ function render(L) {
  if (address) {
  ctas.push(`<a class="btn-secondary" href="${esc(mapsLink((address || '') + (city ? ', ' + city : '')))}" target="_blank" rel="noopener">Map / directions →</a>`);
  }
- // Per Robert (2026-06-03): no public "Claim this show" CTA on ANY show detail
- // page (not just claimed ones). Claiming/managing happens via the Connect /
- // Bookers flow, not a per-show public button.
+ // Per Robert (2026-06-03): no public ownership CTA on ANY show detail page (not
+ // just claimed ones). Claiming/managing happens via the Connect / Bookers flow,
+ // not a per-show public button. (Enforced by scripts/site_guard.py R8.)
 
  const tags = `${langTags(L)} <span class="tag show-type">${esc(showType)}</span>`;
 
