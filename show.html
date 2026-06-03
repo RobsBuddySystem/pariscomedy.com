@@ -502,7 +502,12 @@ function render(L) {
  if (address) {
  ctas.push(`<a class="btn-secondary" href="${esc(mapsLink((address || '') + (city ? ', ' + city : '')))}" target="_blank" rel="noopener">Map / directions →</a>`);
  }
- ctas.push(`<a class="btn-secondary" href="/connect.html">Claim or manage this show →</a>`);
+ // Per Robert (2026-06-03): a show that's already claimed must NOT show a
+ // "Claim" prompt. The owner manages it from their signed-in portal, not this
+ // public CTA — so hide it entirely for claimed shows.
+ if (!L.claimed) {
+   ctas.push(`<a class="btn-secondary" href="/connect.html">Claim this show →</a>`);
+ }
 
  const tags = `${langTags(L)} <span class="tag show-type">${esc(showType)}</span>`;
 
