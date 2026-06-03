@@ -266,9 +266,8 @@ async function loadFreshnessAudit(){
  } catch(_) {}
 }
 // statusLabel() removed 2026-06-03: it mapped internal verification states to
-// public-facing text ("verified in last 24h", "needs review…"). Verification is
-// internal now and never rendered, so this was dead code that only kept the
-// banned status strings alive in the source. See freshnessHTML().
+// public-facing wording. Verification is internal now and never rendered, so
+// this was dead code. See freshnessHTML() for the neutral source disclosure.
 function platformLabel(p){
  const v = String(p || '').toLowerCase();
  if (v === 'eventbrite') return 'Eventbrite';
