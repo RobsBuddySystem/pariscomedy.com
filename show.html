@@ -295,13 +295,14 @@ function platformLabel(p){
  return p || 'Source';
 }
 function freshnessHTML(L){
+ // Per Robert (2026-06-03): NEVER expose internal verification status, confidence
+ // score, or "last checked" on the public page anywhere. Verification stays
+ // internal. Show only a neutral, honest source disclosure.
+ const ticket = L.booking_url || L.show_url || '';
+ if (!ticket) return '';
  const audit = FRESHNESS_AUDIT[L.slug] || FRESHNESS_AUDIT[slugifyName(L.name)];
- if (!audit) return '';
- const date = (audit.last_checked_at || '').slice(0,10);
- const platform = platformLabel(audit.source_platform);
- const label = statusLabel(audit.verification_status);
- const conf = audit.confidence_score != null ? audit.confidence_score : '?';
- return `<p class="freshness"><small><strong>Source:</strong> ${esc(platform)} · <strong>Last checked:</strong> ${esc(date)} · <strong>Status:</strong> ${esc(label)} · confidence ${esc(String(conf))}/100</small></p>`;
+ const platform = platformLabel((audit && audit.source_platform) || L.source_platform);
+ return `<p class="freshness"><small>Tickets are sold on ${esc(platform)}, not by Paris Comedy. Times and prices can change — always confirm on the source before purchase.</small></p>`;
 }
 function mapsLink(addr){
  if (!addr) return '';
@@ -507,17 +508,15 @@ function render(L) {
  document.title = (L.name || L.short_name || 'Show') + ' — Paris Comedy';
 
  const ctas = [];
- // P0.LIVE-DATA-INTEGRITY.1-SOT-FIX: gate the live "Get tickets" CTA on
- // verification_status === 'verified_24h'. Anything less (stale, review,
- // unreachable, missing audit) renders a disabled review variant instead
- // of a normal external link. Prevents sending users to dead/ended pages.
- const _auditEntry = FRESHNESS_AUDIT[L.slug] || FRESHNESS_AUDIT[slugifyName(L.name)];
- const _verifStatus = _auditEntry && _auditEntry.verification_status;
- const _ctaVerified = _verifStatus === 'verified_24h';
- if (ticket && _ctaVerified) {
+ // P0.LIVE-DATA-INTEGRITY.2 (2026-06-03): this detail page is only reached for
+ // a show present in the live /api/listings (i.e. status=active). The backend
+ // freshness_worker now guarantees an active listing has a FUTURE bookable date
+ // (or is an editorial-pinned show Robert curates), so the live booking_url is
+ // current. Link it directly. (Replaces the old gate on the stale static
+ // freshness-audit.json verified_24h flag, which suppressed the buy button for
+ // editorial shows like FFCN even when their ticket link was live.)
+ if (ticket) {
  ctas.push(`<a class="btn-primary" href="${esc(ticket)}" target="_blank" rel="noopener sponsored">Get tickets / source listing →</a>`);
- } else if (ticket) {
- ctas.push(`<span class="btn-primary btn-disabled" aria-disabled="true" data-cta-state="needs-review" title="Last verification did not pass — check back soon.">Tickets need review — check back soon</span>`);
  }
  if (address) {
  ctas.push(`<a class="btn-secondary" href="${esc(mapsLink((address || '') + (city ? ', ' + city : '')))}" target="_blank" rel="noopener">Map / directions →</a>`);
