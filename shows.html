@@ -151,8 +151,8 @@ async function loadFreshnessAudit(){
  } catch(_) {}
 }
 function badgeFor(showName){
- // Per Robert (2026-06-03): do NOT show a "checked today"/freshness badge on the
- // public page anywhere. Verification stays internal.
+ // Per Robert (2026-06-03): no freshness/verification badge on the public page
+ // anywhere. Verification stays internal. (Enforced by scripts/site_guard.py.)
  return '';
 }
 function updateBanner(){
@@ -255,7 +255,7 @@ function injectVerifiedItemList(){
 function langTag(s){
  const l = String(s.language || s.lang || '').toLowerCase();
  if (l === 'fr' || l === 'french') return '<span class="tag tag-en">FR</span>';
- // HARD RULE: no bilingual shows — only EN or FR. Anything not French is shown as English.
+ // HARD RULE: every show is EN or FR only, never both. Anything not French shows as English.
  return '<span class="tag tag-en">EN</span>';
 }
 // AUDIT-FIX (root cause): shows.html previously shipped a baked, hand-edited SHOWS
