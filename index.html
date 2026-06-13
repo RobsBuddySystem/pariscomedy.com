@@ -810,10 +810,14 @@ async function renderPromotedThisWeek() {
   grid.innerHTML = promoted.map(s => {
     const days = (s.days && s.days[0]) || '';
     const venue = (s.venue && s.venue.name) || s.venue_name_raw || '';
-    const url = s.booking_url || s.show_url || '#';
+    const rawUrl = s.booking_url || s.show_url || '';
+    const url = rawUrl
+      ? `/r.html?kind=promoted_show&id=${encodeURIComponent(s.slug || s.id || s.name || '')}&url=${encodeURIComponent(rawUrl)}`
+      : '#';
+    const badge = s.is_highlighted ? 'PROMOTED · TOP PICK' : 'PROMOTED';
     return `
       <div class="featured-card">
-        <div><span class="featured-badge">PROMOTED</span></div>
+        <div><span class="featured-badge">${badge}</span></div>
         <div class="featured-card-name">${(s.short_name || s.name || '').replace(/</g,'&lt;')}</div>
         <div class="featured-card-show">${(s.name || '').replace(/</g,'&lt;')}</div>
         <div class="featured-card-meta">${days} &middot; ${s.start_time || ''} &middot; ${venue.replace(/</g,'&lt;')}</div>

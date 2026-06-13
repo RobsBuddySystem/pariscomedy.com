@@ -55,16 +55,35 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     return rawUrl;
   }
 
-  const finalUrl = await injectAffiliateRef(url);
+  function safeHttpUrl(rawUrl) {
+    try {
+      const u = new URL(rawUrl);
+      return /^https?:$/.test(u.protocol) ? u.href : '';
+    } catch (_) { return ''; }
+  }
 
-  // Best-effort click log to backend (fire-and-forget).
+  const safeUrl = safeHttpUrl(url);
+  if (!safeUrl) {
+    document.getElementById('show-name').textContent = 'Invalid destination URL.';
+    document.getElementById('manual-link').href = '/shows.html';
+    document.getElementById('manual-link').textContent = 'go to shows';
+    return;
+  }
+
+  const finalUrl = await injectAffiliateRef(safeUrl);
+  const clickPayload = JSON.stringify({id, kind, target: finalUrl, raw: safeUrl, ts: new Date().toISOString()});
+
+  // Best-effort click log to backend (fire-and-forget). GitHub Pages is static,
+  // so also call the canonical API host instead of relying on /api on the same origin.
   try {
-    fetch('/api/affiliate-click', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({id, kind, target: finalUrl, raw: url, ts: new Date().toISOString()}),
-      keepalive: true,
-    });
+    for (const endpoint of ['/api/affiliate-click', 'https://api.pariscomedy.com/api/affiliate-click']) {
+      fetch(endpoint, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: clickPayload,
+        keepalive: true,
+      }).catch(() => {});
+    }
   } catch (_) {}
 
   // Local fallback log so clicks are visible even with no backend.
