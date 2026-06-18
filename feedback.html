@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Send Feedback / Report a Bug — Paris Comedy</title>
+<meta name="description" content="Spotted something broken, or have an idea? Tell us — every message is read and acted on.">
+<link rel="canonical" href="https://pariscomedy.com/feedback.html">
+<style>
+:root{--bg:#0a0a0a;--fg:#f0f0f0;--muted:#888;--yellow:#f5c518;--card:#111;--line:#1e1e1e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh}
+a{color:inherit;text-decoration:none}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #222}
+.nav-logo{font-size:18px;font-weight:700;letter-spacing:-.5px}
+.nav-logo span{color:var(--yellow)}
+.nav-back{font-size:13px;color:var(--muted)}
+.wrap{max-width:600px;margin:0 auto;padding:40px 24px}
+h1{font-size:clamp(26px,4vw,40px);font-weight:800;letter-spacing:-1px;margin-bottom:10px}
+h1 span{color:var(--yellow)}
+.lead{color:var(--muted);font-size:15px;line-height:1.6;margin-bottom:24px}
+label{display:block;font-size:13px;color:#bbb;margin:14px 0 5px;font-weight:600}
+input,select,textarea{width:100%;padding:11px 14px;border-radius:9px;border:1px solid #2a2a2a;background:#111;color:var(--fg);font-size:15px;font-family:inherit}
+input:focus,select,textarea:focus{outline:none;border-color:#555}
+textarea{min-height:130px;resize:vertical}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+button{margin-top:18px;width:100%;padding:13px;border-radius:9px;border:none;background:var(--yellow);color:#000;font-size:15px;font-weight:700;cursor:pointer}
+button:hover{opacity:.92}
+button:disabled{opacity:.5;cursor:default}
+.msg{margin-top:16px;padding:12px 16px;border-radius:8px;font-size:14px;line-height:1.5;display:none}
+.msg.ok{display:block;background:#0f2a17;border:1px solid #2f7d4f;color:#9be8b4}
+.msg.err{display:block;background:#2a1212;border:1px solid #7d2f2f;color:#e8a0a0}
+footer{border-top:1px solid #222;padding:28px 24px;text-align:center;color:#666;font-size:13px}
+footer a{color:var(--yellow)}
+</style>
+</head>
+<body>
+<nav>
+ <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+ <a href="/" class="nav-back">← back to pariscomedy.com</a>
+</nav>
+<div class="wrap">
+ <h1>Send <span>Feedback</span></h1>
+ <p class="lead">Spotted something broken, or have an idea to make the site more useful for comics? Tell us. Every message is read — and if it's a clear bug, you'll often get a reply once it's fixed.</p>
+
+ <form id="fb-form">
+   <label for="kind">What kind of message?</label>
+   <select id="kind" name="kind">
+     <option value="bug">🐞 Something's broken (bug)</option>
+     <option value="idea">💡 An idea / request</option>
+     <option value="praise">🎉 Praise</option>
+     <option value="other">Other</option>
+   </select>
+
+   <label for="name">Your name (optional)</label>
+   <input id="name" name="name" type="text" autocomplete="name">
+
+   <label for="email">Your email</label>
+   <input id="email" name="email" type="email" autocomplete="email" required placeholder="so we can reply">
+
+   <label for="message">Your message</label>
+   <textarea id="message" name="message" required placeholder="What happened, on which page, and what you expected…"></textarea>
+
+   <div class="hp" aria-hidden="true"><label>Leave this empty</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
+
+   <button type="submit" id="submit">Send feedback</button>
+   <div class="msg" id="msg"></div>
+ </form>
+</div>
+<footer><a href="/">pariscomedy.com</a> · we read every message</footer>
+
+<script>
+const form=document.getElementById('fb-form');
+const msg=document.getElementById('msg');
+const btn=document.getElementById('submit');
+const params=new URLSearchParams(location.search);
+const fromPage=params.get('page')||document.referrer||'';
+
+async function apiBase(){
+ let api='https://api.pariscomedy.com';
+ try{const c=await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json());if(c&&c.api)api=c.api;}catch(e){}
+ return api;
+}
+form.addEventListener('submit',async function(e){
+ e.preventDefault();
+ msg.className='msg';msg.textContent='';
+ const payload={
+  name:document.getElementById('name').value.trim(),
+  email:document.getElementById('email').value.trim(),
+  kind:document.getElementById('kind').value,
+  message:document.getElementById('message').value.trim(),
+  website:document.getElementById('website').value,
+  page:fromPage
+ };
+ if(payload.message.length<5){msg.className='msg err';msg.textContent='Please add a little more detail.';return;}
+ btn.disabled=true;btn.textContent='Sending…';
+ try{
+  const api=await apiBase();
+  const r=await fetch(api+'/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  const j=await r.json().catch(()=>({}));
+  if(r.ok&&j.ok){
+   form.reset();
+   msg.className='msg ok';
+   msg.textContent='Thanks — got it'+(j.id?(' (#'+j.id+')'):'')+'. If it’s a bug, you’ll often hear back once it’s fixed.';
+  }else{
+   msg.className='msg err';
+   msg.textContent=(j.detail||'Could not send — please try again in a moment.');
+  }
+ }catch(err){
+  msg.className='msg err';msg.textContent='Network error — please try again.';
+ }finally{
+  btn.disabled=false;btn.textContent='Send feedback';
+ }
+});
+</script>
+</body>
+</html>
