@@ -980,7 +980,7 @@ async function quickAddComic() {
     };
     const r = await ((window.PCAuth&&window.PCAuth.authFetch)||fetch)((await API_BASE_PROMISE) + '/api/admin/comics', {
       method: 'POST',
-      headers: {'Content-Type':'application/json','X-Admin-Secret':'pc-admin-2026'},
+      headers: Object.assign({'Content-Type':'application/json'}, TOKEN ? {'X-Booker-Token': TOKEN} : {}),
       body: JSON.stringify(payload)
     });
     const data = await r.json();

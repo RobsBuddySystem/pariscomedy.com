@@ -117,6 +117,8 @@ async function loadData(days) {
   document.getElementById('main').style.display = 'block';
   document.getElementById('last-updated').textContent = `Last ${days} days — refreshed ${new Date().toLocaleTimeString()}`;
 
+  // HTML-escape attacker-controlled analytics strings (path/referrer/type) before innerHTML.
+  const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   // Metrics
   const metrics = [
     { label: 'Total events',      val: d.total_events    },
@@ -138,21 +140,21 @@ async function loadData(days) {
 
   // Top pages
   document.getElementById('top-pages').innerHTML = (d.top_pages||[]).slice(0,10).map(p =>
-    `<tr><td>${p.path||'/'}</td><td>${(p.count||0).toLocaleString()}</td></tr>`).join('') || '<tr><td colspan="2" style="color:#555">No data</td></tr>';
+    `<tr><td>${esc(p.path||'/')}</td><td>${(p.count||0).toLocaleString()}</td></tr>`).join('') || '<tr><td colspan="2" style="color:#555">No data</td></tr>';
 
   // Top referrers
   document.getElementById('top-refs').innerHTML = (d.top_referrers||[]).slice(0,10).map(r =>
-    `<tr><td>${r.referrer||'direct'}</td><td>${(r.count||0).toLocaleString()}</td></tr>`).join('') || '<tr><td colspan="2" style="color:#555">No data</td></tr>';
+    `<tr><td>${esc(r.referrer||'direct')}</td><td>${(r.count||0).toLocaleString()}</td></tr>`).join('') || '<tr><td colspan="2" style="color:#555">No data</td></tr>';
 
   // By type
   document.getElementById('by-type').innerHTML = (d.by_type||[]).map(e =>
-    `<tr><td>${e.event_type}</td><td>${(e.count||0).toLocaleString()}</td></tr>`).join('') || '<tr><td colspan="2" style="color:#555">No data</td></tr>';
+    `<tr><td>${esc(e.event_type)}</td><td>${(e.count||0).toLocaleString()}</td></tr>`).join('') || '<tr><td colspan="2" style="color:#555">No data</td></tr>';
 
   // Funnel
   const maxFunnel = Math.max(1, ...(d.funnel||[]).map(f=>f.count||0));
   document.getElementById('funnel').innerHTML = (d.funnel||[]).map(f => {
     const pct = Math.round(((f.count||0) / maxFunnel) * 100);
-    const label = (f.step||'').replace(/_/g,' ');
+    const label = esc((f.step||'').replace(/_/g,' '));
     return `<div class="funnel-row">
       <span class="funnel-label">${label}</span>
       <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:${pct}%"></div></div>
