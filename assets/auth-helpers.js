@@ -88,6 +88,7 @@
   function _readBearerToken() {
     try {
       return (
+        w.localStorage.getItem('pc_session_token') ||  // performer/portal magic-link session
         w.localStorage.getItem('pc_token') ||
         w.localStorage.getItem('token') ||
         w.localStorage.getItem('booker_token') ||
