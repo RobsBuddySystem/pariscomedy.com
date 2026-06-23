@@ -280,7 +280,14 @@ function freshnessHTML(L){
  // score, or "last checked" on the public page anywhere. Verification stays
  // internal. Show only a neutral, honest source disclosure.
  const ticket = L.booking_url || L.show_url || '';
- if (!ticket) return '';
+ if (!ticket) {
+   const ig = L.instagram || (L.venue && L.venue.instagram) || '';
+   if (ig) {
+     const handle = String(ig).replace(/^@/,'').replace(/.*instagram\.com\//,'').replace(/\/$/,'');
+     return '<p class="freshness"><a class="btn-book" href="https://instagram.com/'+esc(handle)+'" target="_blank" rel="noopener">Follow on Instagram for dates \u2192</a></p>';
+   }
+   return '';
+ }
  const audit = FRESHNESS_AUDIT[L.slug] || FRESHNESS_AUDIT[slugifyName(L.name)];
  const platform = platformLabel((audit && audit.source_platform) || L.source_platform);
  return `<p class="freshness"><small>Tickets are sold on ${esc(platform)}, not by Paris Comedy. Times and prices can change — always confirm on the source before purchase.</small></p>`;
