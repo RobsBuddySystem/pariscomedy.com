@@ -400,12 +400,12 @@ function logout() {
 }
 
 async function enterDashboard(comicsResp) {
-  document.getElementById('auth-gate').style.display='none';
-  document.getElementById('dashboard').classList.add('active');
-  document.getElementById('booker-email-display').textContent = EMAIL;
-  COMICS = comicsResp.comics;
-  document.getElementById('comic-count').textContent = `(${COMICS.length})`;
-  await loadShows();
+  COMICS = (comicsResp && comicsResp.comics) || [];   // set FIRST — never let a missing DOM node abort this
+  var ag = document.getElementById('auth-gate'); if (ag) ag.style.display = 'none';
+  var db = document.getElementById('dashboard'); if (db) db.classList.add('active');
+  var be = document.getElementById('booker-email-display'); if (be) be.textContent = EMAIL || '';
+  var cc = document.getElementById('comic-count'); if (cc) cc.textContent = '(' + COMICS.length + ')';
+  try { await loadShows(); } catch (e) { /* a new booker has no shows yet — don't block comics */ }
   renderComics();
   document.querySelectorAll('.filter-chip').forEach(c => c.onclick = () => { FILTER = c.dataset.filter; document.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active')); c.classList.add('active'); renderComics(); });
   document.dispatchEvent(new Event('dashboardReady'));
