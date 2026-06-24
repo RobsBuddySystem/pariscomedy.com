@@ -749,7 +749,7 @@ function exportLineup() {
 }
 
 // Auto-login if token persists
-if (TOKEN) { useToken(); }
+if (TOKEN) { api('/api/booker/comics').then(enterDashboard).catch(function(){ /* invalid/expired token: stay on the sign-in gate */ }); }
 
 // ── Extra tabs ──────────────────────────────────────────────────────────────
 function showTab(tab) {
