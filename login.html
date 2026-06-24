@@ -156,6 +156,10 @@ async function doAuth(path){
     if(r.session_token){
       localStorage.setItem('pc_session_token',r.session_token);
       localStorage.setItem('pc_auth_email',email);
+      if(role==='runner'){ // booker dashboard reads booker_token for X-Booker-Token
+        localStorage.setItem('booker_token',r.session_token);
+        localStorage.setItem('booker_email',email);
+      }
     }
     msg.classList.add('ok');
     msg.textContent=(path.indexOf('register')>=0?'Account created. ':'Signed in. ')+'Redirecting…';
