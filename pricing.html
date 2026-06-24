@@ -279,19 +279,25 @@ async function submitIntent(ev, type, planName) {
  err.textContent = 'Name and a valid email are required.'; return false;
  }
  if (window.pcTrack) pcTrack('pricing_intent', {role: type, plan: planName});
- document.getElementById('intent-' + type).style.display = 'none';
- var box = document.getElementById(type + '-celebrate');
- box.classList.add('show');
- if (type === 'comic') {
- box.innerHTML =
- '<h3>You\'re on the founding list 🎉</h3>' +
- '<p>' + esc(name) + ', we\'ve saved your email (<strong>' + esc(email) + '</strong>) for Comic Plus.</p>' +
- '<p>Checkout is not active yet. We\'ll email you when the founding offer goes live — no charge happens today.</p>';
- } else {
- box.innerHTML =
- '<h3>Early access requested 🎭</h3>' +
- '<p>' + esc(name) + ', we\'ve saved your email (<strong>' + esc(email) + '</strong>) for Booker Plus.</p>' +
- '<p>Checkout is not active yet. We\'ll contact you when Booker Plus launches — no charge happens today.</p>';
+ var planCode = (type === 'comic') ? 'comic_plus_lifetime' : 'booker_plus_intro';
+ err.textContent = 'Opening secure checkout…';
+ try {
+   var base = '';
+   try { base = (await fetch('/api-config.json', {cache:'no-store'}).then(r=>r.json())).api || ''; } catch(_) {}
+   base = base || 'https://api.pariscomedy.com';
+   var r = await fetch(base + '/api/checkout/intent', {
+     method: 'POST', headers: {'Content-Type': 'application/json'},
+     body: JSON.stringify({plan_code: planCode, contact_email: email, contact_name: name})
+   });
+   var d = await r.json();
+   if (d.checkout_url && d.configured) { window.location.href = d.checkout_url; return false; }
+   // Checkout not configured yet — save the lead gracefully.
+   document.getElementById('intent-' + type).style.display = 'none';
+   var box = document.getElementById(type + '-celebrate'); box.classList.add('show');
+   box.innerHTML = '<h3>Saved 🎉</h3><p>' + esc(name) + ', we\'ve saved <strong>' + esc(email) +
+     '</strong>. Secure checkout will be ready shortly — no charge today.</p>';
+ } catch (e) {
+   err.textContent = 'Could not open checkout: ' + e.message;
  }
  return false;
 }

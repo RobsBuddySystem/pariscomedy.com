@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Payment — Paris Comedy</title>
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#f0f0f0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{background:#111;border:1px solid #1e1e1e;border-radius:14px;padding:32px;max-width:460px;width:100%;text-align:center}
+h1{font-size:26px;margin-bottom:10px}
+p{color:#aaa;line-height:1.6;margin-bottom:14px}
+.spinner{width:34px;height:34px;border:3px solid #2a2a2a;border-top-color:#7c3aed;border-radius:50%;animation:spin 1s linear infinite;margin:16px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ok{color:#10b981}.warn{color:#f5c518}
+.btn{display:inline-block;margin-top:14px;background:#7c3aed;color:#fff;text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:700}
+.logo{font-size:18px;font-weight:700;margin-bottom:18px}.logo span{color:#f5c518}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">Paris<span>Comedy</span></div>
+  <div id="state">
+    <div class="spinner"></div>
+    <h1>Confirming your payment…</h1>
+    <p>One moment while we check with SumUp.</p>
+  </div>
+</div>
+<script>
+async function apiBase(){ try{ var c=await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json()); return c.api||'https://api.pariscomedy.com'; }catch(e){ return 'https://api.pariscomedy.com'; } }
+function intentId(){ return new URLSearchParams(location.search).get('intent') || ''; }
+function render(html){ document.getElementById('state').innerHTML = html; }
+async function confirm(){
+  var id = intentId();
+  if(!id){ render('<h1 class="warn">Missing reference</h1><p>We couldn\'t find your checkout. If you were charged, email <a href="mailto:booking@pariscomedy.com" style="color:#9d5ff5">booking@pariscomedy.com</a>.</p><a class="btn" href="/login.html">Back to sign in</a>'); return; }
+  var base = await apiBase();
+  for(var i=0;i<6;i++){
+    try{
+      var r = await fetch(base + '/api/checkout/intent/' + encodeURIComponent(id) + '/confirm', {method:'POST'});
+      var d = await r.json();
+      if(d.paid){
+        render('<h1 class="ok">Payment confirmed ✅</h1><p>Your <strong>' + (d.plan||'plan') + '</strong> is now active. Thank you!</p><a class="btn" href="/login.html">Go to your account</a>');
+        return;
+      }
+    }catch(e){}
+    await new Promise(function(res){ setTimeout(res, 2500); });
+  }
+  render('<h1 class="warn">Payment processing</h1><p>If your payment went through, your plan activates within a few minutes. Refresh this page, or we\'ll confirm by email. Questions? <a href="mailto:booking@pariscomedy.com" style="color:#9d5ff5">booking@pariscomedy.com</a></p><a class="btn" href="/login.html">Back to your account</a>');
+}
+confirm();
+</script>
+</body>
+</html>
