@@ -259,13 +259,25 @@ async function submitPromo(ev) {
  err.textContent = 'Name, email, and show name are required.'; return false;
  }
  if (window.pcTrack) pcTrack('featured_promo_click', {show: show});
- document.getElementById('intent-promo').style.display = 'none';
- var box = document.getElementById('promo-celebrate');
- box.classList.add('show');
- box.innerHTML =
- '<h3>Promotion waitlist — you\'re on the list ⭐</h3>' +
- '<p>' + esc(name) + ', we\'ve noted your interest in promoting <strong>' + esc(show) + '</strong>.</p>' +
- '<p>Paid promotions are planned but not yet active. We\'ll contact you at <strong>' + esc(email) + '</strong> when checkout launches. No charge happens today.</p>';
+ err.textContent = 'Opening secure checkout…';
+ try {
+   var base = '';
+   try { base = (await fetch('/api-config.json', {cache:'no-store'}).then(r=>r.json())).api || ''; } catch(_) {}
+   base = base || 'https://api.pariscomedy.com';
+   var r = await fetch(base + '/api/checkout/intent', {
+     method: 'POST', headers: {'Content-Type': 'application/json'},
+     body: JSON.stringify({plan_code: 'featured_show_30d', contact_email: email, contact_name: name,
+                           target_slug: show, target_kind: 'show'})
+   });
+   var d = await r.json();
+   if (d.checkout_url && d.configured) { window.location.href = d.checkout_url; return false; }
+   document.getElementById('intent-promo').style.display = 'none';
+   var box = document.getElementById('promo-celebrate'); box.classList.add('show');
+   box.innerHTML = '<h3>Saved ⭐</h3><p>' + esc(name) + ', noted your interest in promoting <strong>' +
+     esc(show) + '</strong>. Secure checkout will be ready shortly — no charge today.</p>';
+ } catch (e) {
+   err.textContent = 'Could not open checkout: ' + e.message;
+ }
  return false;
 }
 
