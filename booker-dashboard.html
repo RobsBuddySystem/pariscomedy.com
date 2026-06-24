@@ -309,9 +309,19 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
 
 <!-- Tab nav for extras (shown after login) -->
 <div id="extra-tabs" style="display:none;max-width:1400px;margin:14px auto;padding:0 20px">
-  <div style="display:flex;gap:8px">
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="btn btn-ghost" onclick="showTab('myshows')">🎬 My Shows</button>
     <button class="btn btn-ghost" onclick="showTab('venues')">🏠 Venues</button>
     <button class="btn btn-ghost" onclick="showTab('surveys')">📋 Surveys</button>
+  </div>
+</div>
+
+<!-- My Shows = the former Show Runner dashboard, now unified here -->
+<div id="myshows-section" style="display:none;max-width:1400px;margin:14px auto;padding:0 20px">
+  <div class="panel">
+    <h2 style="margin:0 0 4px">🎬 My Shows</h2>
+    <p style="color:var(--muted);margin:0 0 14px">Shows you run — manage their dates, lineups, and public page. Booker and show-runner are now one dashboard.</p>
+    <div id="myshows-list"><div class="empty">Loading…</div></div>
   </div>
 </div>
 
@@ -755,8 +765,28 @@ if (TOKEN) { api('/api/booker/comics').then(enterDashboard).catch(function(){ /*
 function showTab(tab) {
   document.getElementById('venues-section').style.display = tab === 'venues' ? 'block' : 'none';
   document.getElementById('surveys-section').style.display = tab === 'surveys' ? 'block' : 'none';
+  var ms = document.getElementById('myshows-section'); if (ms) ms.style.display = tab === 'myshows' ? 'block' : 'none';
   if (tab === 'venues') loadVenues();
   if (tab === 'surveys') loadSurveys();
+  if (tab === 'myshows') loadMyShows();
+}
+
+async function loadMyShows() {
+  const el = document.getElementById('myshows-list');
+  el.innerHTML = '<div class="empty">Loading…</div>';
+  try {
+    const base = await API_BASE_PROMISE;
+    const r = await ((window.PCAuth&&window.PCAuth.authFetch)||fetch)(base + '/api/owner/shows',
+      { headers: TOKEN ? {'Authorization':'Bearer '+TOKEN} : {} });
+    const d = await r.json();
+    const shows = (d && d.shows) || [];
+    if (!shows.length) { el.innerHTML = '<div class="empty">No shows on your account yet. Shows you run will appear here.</div>'; return; }
+    el.innerHTML = shows.map(function(slug){
+      return '<div class="panel" style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px">'
+        + '<div><b>' + slug + '</b></div>'
+        + '<a class="btn btn-primary" href="/show-runner.html?slug=' + encodeURIComponent(slug) + '">Manage dates &amp; lineup →</a></div>';
+    }).join('');
+  } catch(e) { el.innerHTML = '<div class="empty">Could not load your shows: ' + e.message + '</div>'; }
 }
 
 function _showExtraTabs() {

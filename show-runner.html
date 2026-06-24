@@ -296,8 +296,8 @@ async function login() {
  const r = await ((window.PCAuth&&window.PCAuth.authFetch)||fetch)((API || 'https://api.pariscomedy.com') + '/api/owner/shows?owner_token=' + encodeURIComponent(TOKEN));
  if (r.status !== 200) { document.getElementById('auth-err').textContent = 'Invalid token'; return; }
  const d = await r.json();
- if (!d.shows || !d.shows.length) { document.getElementById('auth-err').textContent = 'No shows linked to this token'; return; }
- currentSlug = d.shows[0];
+ if (!d.shows || !d.shows.length) { document.getElementById('auth-err').textContent = 'No shows linked to this account'; return; }
+ currentSlug = (window.__SR_SLUG && d.shows.indexOf(window.__SR_SLUG) >= 0) ? window.__SR_SLUG : d.shows[0];
  showUrl = 'https://pariscomedy.com/shows/' + currentSlug + '.html';
  document.getElementById('show-title').textContent = currentSlug;
  document.getElementById('show-url-link').href = showUrl;
@@ -566,9 +566,12 @@ async function generateDraft() {
  if (r.ok) document.getElementById('dr-preview').innerHTML = `<div class="preview">Subject: ${r.subject}\n\n${r.body_text}</div>`;
 }
 
-// Auto-login from URL or localStorage
+// Auto-login from URL, the unified login session, or a legacy owner token
 const u = new URLSearchParams(location.search).get('owner_token');
+const sess = localStorage.getItem('pc_session_token') || localStorage.getItem('booker_token') || '';
+window.__SR_SLUG = new URLSearchParams(location.search).get('slug') || '';
 if (u) { document.getElementById('owner-token').value = u; login(); }
+else if (sess) { document.getElementById('owner-token').value = sess; login(); }  // unified session
 else {
  const stored = localStorage.getItem('pc_owner_token');
  if (stored) { document.getElementById('owner-token').value = stored; login(); }
