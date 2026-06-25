@@ -213,6 +213,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
       <input id="comic-search" placeholder="Search by name…" oninput="renderComics()">
       <div class="filters">
         <button class="filter-chip active" data-filter="all">All</button>
+        <button class="filter-chip" data-filter="local">Local (Paris-based)</button>
         <button class="filter-chip" data-filter="recent">Performed in Paris (3mo)</button>
         <button class="filter-chip" data-filter="upcoming">Has upcoming show</button>
         <button class="filter-chip" data-filter="touring">Touring / one-man</button>
@@ -220,6 +221,10 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
         <button class="filter-chip" data-filter="fr">French</button>
       </div>
       <div class="comic-grid" id="comic-grid"></div>
+      <div style="text-align:center;margin-top:14px">
+        <span id="comic-shown" style="font-size:12px;color:var(--muted)"></span><br>
+        <button id="comic-more" class="btn btn-ghost" style="display:none;margin-top:8px" onclick="comicLoadMore()">Load more comics</button>
+      </div>
     </div>
   </div>
 
@@ -542,7 +547,10 @@ async function createShow() {
 
 function esc(s) { return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
-function renderComics() {
+var COMIC_PAGE = 1, COMIC_PER = 60;
+function comicLoadMore() { COMIC_PAGE++; renderComics(true); }
+function renderComics(keepPage) {
+  if (!keepPage) COMIC_PAGE = 1;
   const q = document.getElementById('comic-search').value.toLowerCase();
   let list = COMICS.filter(c => c.name.toLowerCase().includes(q));
   if (FILTER==='recent') list = list.filter(c => c.recent_paris);
@@ -550,9 +558,14 @@ function renderComics() {
   if (FILTER==='touring') list = list.filter(c => c.touring);
   if (FILTER==='en') list = list.filter(c => (c.langs||[]).includes('en'));
   if (FILTER==='fr') list = list.filter(c => (c.langs||[]).includes('fr'));
+  if (FILTER==='local') list = list.filter(c => !c.is_placeholder);
   const grid = document.getElementById('comic-grid');
-  if (!list.length) { grid.innerHTML='<div class="empty">No comics match.</div>'; return; }
-  grid.innerHTML = list.slice(0, 60).map(c => `
+  const _shown = document.getElementById('comic-shown'), _more = document.getElementById('comic-more');
+  if (!list.length) { grid.innerHTML='<div class="empty">No comics match.</div>'; if(_shown)_shown.textContent=''; if(_more)_more.style.display='none'; return; }
+  const shown = Math.min(list.length, COMIC_PAGE*COMIC_PER);
+  if (_shown) _shown.textContent = 'Showing ' + shown + ' of ' + list.length + ' comics';
+  if (_more) _more.style.display = (shown < list.length) ? 'inline-block' : 'none';
+  grid.innerHTML = list.slice(0, shown).map(c => `
     <div class="comic-card" draggable="true" data-slug="${esc(c.slug)}" data-name="${esc(c.name)}" ondragstart="onComicDragStart(event)" ondragend="onComicDragEnd(event)">
       <div class="card-click-area" onclick="openComicPanel('${esc(c.slug)}')" title="View profile">
       <div class="comic-photo">${c.photo ? `<img src="${esc(c.photo)}" loading="lazy" onerror="this.parentNode.textContent='🎤'">` : '🎤'}</div>
@@ -782,8 +795,9 @@ async function loadMyShows() {
     const shows = (d && d.shows) || [];
     if (!shows.length) { el.innerHTML = '<div class="empty">No shows on your account yet. Shows you run will appear here.</div>'; return; }
     el.innerHTML = shows.map(function(slug){
+      var nice = String(slug).replace(/-/g,' ').replace(/\b\w/g, function(ch){ return ch.toUpperCase(); });
       return '<div class="panel" style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px">'
-        + '<div><b>' + slug + '</b></div>'
+        + '<div><b>' + nice + '</b><div style="font-size:11px;color:var(--muted)">' + slug + '</div></div>'
         + '<a class="btn btn-primary" href="/show-runner.html?slug=' + encodeURIComponent(slug) + '">Manage dates &amp; lineup →</a></div>';
     }).join('');
   } catch(e) { el.innerHTML = '<div class="empty">Could not load your shows: ' + e.message + '</div>'; }
