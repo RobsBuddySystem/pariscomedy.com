@@ -32,12 +32,28 @@ button:disabled{opacity:.5;cursor:default}
 .msg.err{display:block;background:#2a1212;border:1px solid #7d2f2f;color:#e8a0a0}
 footer{border-top:1px solid #222;padding:28px 24px;text-align:center;color:#666;font-size:13px}
 footer a{color:var(--yellow)}
+nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.nav-links{display:flex;gap:18px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+.nav-links a:hover{color:var(--text)}
+.nav-active{color:var(--text)!important}
 </style>
 </head>
 <body>
 <nav>
  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
- <a href="/" class="nav-back">← back to pariscomedy.com</a>
+ <div class="nav-links">
+  <a href="/">Home</a>
+  <a href="/shows.html">Shows</a>
+  <a href="/hiring.html">Stage Time</a>
+  <a href="/venues.html">Venues</a>
+  <a href="/comedians.html">Comedians</a>
+  <a href="/bookers.html">Bookers</a>
+  <a href="/pricing.html">Pricing</a>
+  <a href="/login.html">Sign In</a>
+  <a href="/connect.html">Book / Connect</a>
+  <a href="/about.html">About</a>
+  <a href="/feedback.html" class="nav-active">Feedback</a>
+ </div>
 </nav>
 <div class="wrap">
  <h1>Send <span>Feedback</span></h1>
