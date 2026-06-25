@@ -314,8 +314,22 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
 <div id="extra-tabs" style="display:none;max-width:1400px;margin:14px auto;padding:0 20px">
   <div style="display:flex;gap:8px;flex-wrap:wrap">
     <button class="btn btn-ghost" onclick="showTab('myshows')">🎬 My Shows</button>
+    <button class="btn btn-ghost" onclick="showTab('offers')">💶 Offers</button>
     <button class="btn btn-ghost" onclick="showTab('venues')">🏠 Venues</button>
     <button class="btn btn-ghost" onclick="showTab('surveys')">📋 Surveys</button>
+  </div>
+</div>
+
+<div id="offers-section" style="display:none;max-width:1400px;margin:14px auto;padding:0 20px">
+  <div class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px">
+      <div>
+        <h2 style="margin:0 0 4px">💶 Offers</h2>
+        <p style="color:var(--muted);margin:0">Track and negotiate offers you’ve sent to comics.</p>
+      </div>
+      <button class="btn btn-secondary" onclick="loadOffers()">Refresh</button>
+    </div>
+    <div id="offers-list"><div class="empty">Loading…</div></div>
   </div>
 </div>
 
@@ -345,6 +359,7 @@ let TOKEN = localStorage.getItem('booker_token') || '';
 let EMAIL = localStorage.getItem('booker_email') || '';
 let COMICS = [];
 let SHOWS = [];
+let OFFERS = [];
 let CURRENT_SHOW = null;
 let FILTER = 'all';
 
@@ -409,6 +424,7 @@ async function enterDashboard(comicsResp) {
   var be = document.getElementById('booker-email-display'); if (be) be.textContent = EMAIL || '';
   var cc = document.getElementById('comic-count'); if (cc) cc.textContent = '(' + COMICS.length + ')';
   try { await loadShows(); } catch (e) { /* a new booker has no shows yet — don't block comics */ }
+  try { await loadOffers(); } catch (e) { /* offers are optional for a new booker */ }
   renderComics();
   document.querySelectorAll('.filter-chip').forEach(c => c.onclick = () => { FILTER = c.dataset.filter; document.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active')); c.classList.add('active'); renderComics(); });
   document.dispatchEvent(new Event('dashboardReady'));
@@ -777,9 +793,11 @@ function showTab(tab) {
   document.getElementById('venues-section').style.display = tab === 'venues' ? 'block' : 'none';
   document.getElementById('surveys-section').style.display = tab === 'surveys' ? 'block' : 'none';
   var ms = document.getElementById('myshows-section'); if (ms) ms.style.display = tab === 'myshows' ? 'block' : 'none';
+  var os = document.getElementById('offers-section'); if (os) os.style.display = tab === 'offers' ? 'block' : 'none';
   if (tab === 'venues') loadVenues();
   if (tab === 'surveys') loadSurveys();
   if (tab === 'myshows') loadMyShows();
+  if (tab === 'offers') loadOffers();
 }
 
 async function loadMyShows() {
@@ -819,6 +837,75 @@ function _showExtraTabs() {
   });
 }
 
+function money(cents) {
+  if (cents === null || cents === undefined || cents === '') return '—';
+  const n = parseInt(cents, 10);
+  if (!Number.isFinite(n)) return '—';
+  return '€' + (n / 100).toFixed(2);
+}
+
+async function loadOffers() {
+  const el = document.getElementById('offers-list');
+  if (el) el.innerHTML = '<div class="empty">Loading…</div>';
+  try {
+    const r = await api('/api/booker/offers');
+    OFFERS = r.offers || [];
+    renderOffers();
+  } catch(e) {
+    if (el) el.innerHTML = '<div class="empty">Could not load offers: ' + esc(e.message) + '</div>';
+  }
+}
+
+function renderOffers() {
+  const el = document.getElementById('offers-list');
+  if (!el) return;
+  if (!OFFERS.length) { el.innerHTML = '<div class="empty">No offers yet — use “Send offer” from a comic card.</div>'; return; }
+  el.innerHTML = OFFERS.map(o => {
+    const state = o.state || o.status || 'OFFERED';
+    const show = o.show_title || (o.show_id ? ('Show #' + o.show_id) : 'No show linked');
+    const when = [o.show_date, o.show_time].filter(Boolean).join(' ');
+    const terminal = ['CONFIRMED','DECLINED','WITHDRAWN','EXPIRED'].includes(state);
+    return `<div style="background:#0f0f0f;border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
+      <div style="min-width:240px;flex:1">
+        <strong>${esc(o.comic_name || o.comic_slug)}</strong>
+        <div style="color:var(--muted);font-size:12px">${esc(show)}${when ? ' · ' + esc(when) : ''}${o.show_venue ? ' · ' + esc(o.show_venue) : ''}</div>
+        <div style="color:var(--muted);font-size:12px;margin-top:4px">Offered: ${money(o.offered_fee_cents)} · Standing: ${money(o.standing_fee_cents || o.agreed_fee_cents || o.offered_fee_cents)}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+        <span class="badge" style="background:#25304d;color:#dbeafe">${esc(state)}</span>
+        <button class="btn btn-secondary" style="padding:6px 10px;font-size:12px" ${terminal ? 'disabled' : ''} onclick="counterOffer(${o.id})">Counter</button>
+        <button class="btn btn-primary" style="padding:6px 10px;font-size:12px" ${terminal ? 'disabled' : ''} onclick="offerAction(${o.id}, 'accept')">Accept</button>
+        <button class="btn btn-primary" style="padding:6px 10px;font-size:12px" ${state !== 'AGREED' ? 'disabled' : ''} onclick="offerAction(${o.id}, 'confirm')">Confirm</button>
+        <button class="btn btn-ghost" style="padding:6px 10px;font-size:12px" ${terminal ? 'disabled' : ''} onclick="offerAction(${o.id}, 'withdraw')">Withdraw</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function counterOffer(id) {
+  const feeText = prompt('Counter fee in euros (e.g. 80):');
+  if (feeText === null) return;
+  const fee = Math.round(parseFloat(String(feeText).replace(',', '.')) * 100);
+  if (!Number.isFinite(fee) || fee < 0) { toast('Invalid fee','error'); return; }
+  const message = prompt('Optional note / terms:', '') || '';
+  try {
+    await api('/api/booker/offers/' + id + '/counter', {method:'POST', body:JSON.stringify({fee_cents: fee, message})});
+    toast('Counter sent');
+    await loadOffers();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function offerAction(id, action) {
+  const labels = {accept:'accept this offer', confirm:'confirm this booking', withdraw:'withdraw this offer'};
+  if (!await askConfirm('Are you sure you want to ' + (labels[action] || action) + '?')) return;
+  try {
+    await api('/api/booker/offers/' + id + '/' + action, {method:'POST'});
+    toast('Offer updated');
+    await loadOffers();
+    try { await loadShows(); if (CURRENT_SHOW) selectShow(CURRENT_SHOW.id); } catch (_) {}
+  } catch(e) { toast(e.message, 'error'); }
+}
+
 // ── Offer Modal ─────────────────────────────────────────────────────────────
 let OFFER_SLUG = '', OFFER_NAME = '';
 
@@ -843,6 +930,7 @@ async function sendOffer() {
     })});
     toast('Offer sent to ' + OFFER_NAME);
     closeOfferModal();
+    try { await loadOffers(); } catch (_) {}
   } catch(e) {
     document.getElementById('offer-err').textContent = e.message;
   }
