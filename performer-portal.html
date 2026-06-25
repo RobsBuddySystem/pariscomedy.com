@@ -192,8 +192,8 @@ async function loadOffers(sessionToken) {
         ${o.show_notes?`<div style="color:#888;font-size:12px;margin-top:4px">${escP(o.show_notes)}</div>`:''}
         <div style="font-size:14px;margin:8px 0;color:#fff">Fee: <b>${escP(feeLabel(o))}</b></div>
         ${o.message?`<div style="font-size:13px;margin:6px 0;color:#ccc">"${escP(o.message)}"</div>`:''}
-        ${done?`<div style="color:#7ee08a;font-size:13px;margin-top:6px">✓ ${st==='CONFIRMED'?'Confirmed — payment is arranged directly with the venue.':'Agreed — awaiting the booker\\'s confirmation.'}</div>`:`
-        <label style="display:block;font-size:12px;color:#aaa;margin:8px 0 6px"><input type="checkbox" id="avail-${o.id}" checked> I\\'m available for this date</label>
+        ${done?`<div style="color:#7ee08a;font-size:13px;margin-top:6px">✓ ${st==='CONFIRMED'?'Confirmed — payment is arranged directly with the venue.':'Agreed — awaiting the booker\'s confirmation.'}</div>`:`
+        <label style="display:block;font-size:12px;color:#aaa;margin:8px 0 6px"><input type="checkbox" id="avail-${o.id}" checked> I'm available for this date</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn" style="padding:7px 12px;font-size:12px;background:#10b981" onclick="respondOffer(${o.id},'accepted','${escAttr(sessionToken)}')">Accept ${escP(feeLabel(o))}</button>
           <button class="btn secondary" style="padding:7px 12px;font-size:12px" onclick="counterOffer(${o.id},'${escAttr(sessionToken)}')">Negotiate fee</button>
