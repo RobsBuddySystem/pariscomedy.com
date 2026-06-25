@@ -26,6 +26,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
 .auth{max-width:460px;margin:40px auto}.msg{margin-top:10px;color:var(--muted);line-height:1.45}.err{color:#fca5a5}.ok{color:#86efac}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 </style>
 <script src="/assets/auth-helpers.js?v=20260620b" defer></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 <nav class="nav-shell nav-shell-portal">
@@ -46,9 +47,18 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
   </section>
 
   <section class="panel auth" id="auth-panel">
-    <h2>Sign in</h2>
-    <div class="field"><label>Email</label><input id="auth-email" type="email" placeholder="you@email.com"></div>
-    <button class="btn" onclick="requestLink()">Send magic link</button>
+    <h2>Sign in to your dashboard</h2>
+    <p style="color:var(--muted);font-size:13px;margin:0 0 12px">Arrived from a Mitzi invite link? You're already signed in — your replies and availability are saved. Otherwise continue below.</p>
+    <div id="gbtn"></div>
+    <div id="g-fallback" style="color:var(--muted);font-size:12px;margin-top:8px;display:none">Google sign-in is being set up — use email for now.</div>
+    <details style="margin-top:12px">
+      <summary style="cursor:pointer;color:var(--muted);font-size:13px">Use email instead</summary>
+      <div style="margin-top:8px">
+        <div class="field"><label>Email</label><input id="auth-email" type="email" placeholder="you@email.com"></div>
+        <div class="field"><label>Password</label><input id="auth-pass" type="password" placeholder="8+ characters — creates your account if new"></div>
+        <button class="btn" onclick="emailAuth()">Sign in / Create account</button>
+      </div>
+    </details>
     <div class="msg" id="auth-msg"></div>
   </section>
 
@@ -94,8 +104,58 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
 <script>
 let API='';
 async function apiBase(){if(API)return API;try{const c=await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json());API=c.api||'';}catch(e){API='';}return API;}
-async function api(path,opts={}){const base=await apiBase();const _f=(window.PCAuth&&window.PCAuth.authFetch)||fetch;const r=await _f(base+path,Object.assign({credentials:'include'},opts,{headers:Object.assign({'Content-Type':'application/json'},opts.headers||{})}));const j=await r.json().catch(()=>({detail:r.statusText}));if(!r.ok)throw new Error(j.detail||('HTTP '+r.status));return j;}
-async function requestLink(){const email=document.getElementById('auth-email').value.trim();const msg=document.getElementById('auth-msg');msg.className='msg';if(!email){msg.textContent='Email required.';msg.classList.add('err');return;}try{const r=await api('/api/auth/request',{method:'POST',body:JSON.stringify({email})});msg.textContent=r.dev_verify_url?'Magic link created. Open it, then return here and refresh: '+r.dev_verify_url:r.message;msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}}
+async function api(path,opts={}){const base=await apiBase();const tok=localStorage.getItem('pc_session_token')||'';const headers=Object.assign({'Content-Type':'application/json'},tok?{'Authorization':'Bearer '+tok}:{},opts.headers||{});const r=await fetch(base+path,Object.assign({credentials:'include'},opts,{headers}));const j=await r.json().catch(()=>({detail:r.statusText}));if(!r.ok)throw new Error(j.detail||('HTTP '+r.status));return j;}
+function storeSessionAndEnter(token){
+  if(!token)return;
+  localStorage.setItem('pc_session_token', token);
+  const ap=document.getElementById('auth-panel'); if(ap)ap.style.display='none';
+  loadPortal();
+  loadOffers(token);
+}
+function enterWithClaim(token){
+  // Arrived via a Mitzi claim link (?t=) — show the dashboard + offer immediately, no sign-in screen.
+  localStorage.setItem('pc_session_token', token);
+  const ap=document.getElementById('auth-panel'); if(ap)ap.style.display='none';
+  const p=document.getElementById('portal'); if(p)p.style.display='grid';
+  loadOffers(token);
+  loadPortal();
+}
+async function onGoogleCred(resp){
+  const msg=document.getElementById('auth-msg'); if(msg){msg.className='msg';msg.textContent='Signing in…';}
+  try{
+    const base=await apiBase();
+    const r=await fetch(base+'/api/auth/google',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({credential:resp.credential})});
+    const j=await r.json(); if(!r.ok)throw new Error(j.detail||'sign-in failed');
+    storeSessionAndEnter(j.session_token);
+  }catch(e){ if(msg){msg.textContent=e.message;msg.classList.add('err');} }
+}
+async function initGoogle(){
+  try{
+    const base=await apiBase();
+    const cfg=await fetch(base+'/api/auth/config').then(r=>r.json()).catch(()=>({}));
+    const cid=cfg.google_client_id||'';
+    if(cid && window.google && google.accounts && google.accounts.id){
+      google.accounts.id.initialize({client_id:cid, callback:onGoogleCred});
+      google.accounts.id.renderButton(document.getElementById('gbtn'),{theme:'filled_blue',size:'large',text:'continue_with',shape:'pill',width:280});
+    } else {
+      const f=document.getElementById('g-fallback'); if(f)f.style.display='block';
+    }
+  }catch(e){ const f=document.getElementById('g-fallback'); if(f)f.style.display='block'; }
+}
+async function emailAuth(){
+  const email=(document.getElementById('auth-email').value||'').trim();
+  const pass=(document.getElementById('auth-pass').value||'');
+  const msg=document.getElementById('auth-msg'); msg.className='msg';
+  if(!email||pass.length<8){msg.textContent='Email + 8-char password required.';msg.classList.add('err');return;}
+  const base=await apiBase();
+  async function post(path){return fetch(base+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pass,role:'comic'})});}
+  try{
+    let r=await post('/api/auth/login');
+    if(r.status===401){ r=await post('/api/auth/register'); }
+    const j=await r.json(); if(!r.ok)throw new Error(j.detail||'sign-in failed');
+    storeSessionAndEnter(j.session_token);
+  }catch(e){msg.textContent=e.message;msg.classList.add('err');}
+}
 function eur(c){return (c===null||c===undefined||c==='')?'—':'€'+(Number(c)/100).toFixed(0);}
 function feeLabel(o){const s=(o.standing_fee_cents!=null?o.standing_fee_cents:o.offered_fee_cents);
   if(o.fee_kind==='unpaid')return 'Unpaid spot';
@@ -169,7 +229,7 @@ async function counterOffer(offerId, token) {
 function escP(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function escAttr(s){return String(s||'').replace(/'/g,'\\\'');}
 
-async function loadPortal(){try{const me=await api('/api/me');if(!me.signed_in){document.getElementById('auth-panel').style.display='block';document.getElementById('portal').style.display='none';return;}document.getElementById('auth-panel').style.display='none';document.getElementById('portal').style.display='grid';const prof=await api('/api/member/profile?role=performer');const member=prof.member||{};const payment=(prof.payments||[]).find(p=>p.member_id===member.id)||{};fillAccount(me.user,member,payment);fillProfile(member);
+async function loadPortal(){try{const me=await api('/api/me');if(!me.signed_in){const tok=localStorage.getItem('pc_session_token')||'';if(tok){document.getElementById('auth-panel').style.display='none';document.getElementById('offers-panel').style.display='block';loadOffers(tok);return;}document.getElementById('auth-panel').style.display='block';document.getElementById('portal').style.display='none';return;}document.getElementById('auth-panel').style.display='none';document.getElementById('portal').style.display='grid';const prof=await api('/api/member/profile?role=performer');const member=prof.member||{};const payment=(prof.payments||[]).find(p=>p.member_id===member.id)||{};fillAccount(me.user,member,payment);fillProfile(member);
 // Load offers using session token from localStorage (set after magic link verify)
 const sessToken=localStorage.getItem('pc_session_token')||'';
 if(sessToken)loadOffers(sessToken);
@@ -178,7 +238,7 @@ function fillAccount(user,member,payment){document.getElementById('account-email
 function fillProfile(m){['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>{document.getElementById(id).value=m[id]||'';});}
 async function saveProfile(ev){ev.preventDefault();const msg=document.getElementById('save-msg');msg.textContent='Saving...';msg.className='msg';const payload={role:'performer'};['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>payload[id]=document.getElementById(id).value.trim());try{const r=await api('/api/member/profile',{method:'PATCH',body:JSON.stringify(payload)});fillProfile(r.member||{});msg.textContent='Saved.';msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}return false;}
 // Also store session_token when magic link verify redirects back with it in URL params
-(function(){const p=new URLSearchParams(location.search);const st=p.get('session_token')||p.get('t');if(st)localStorage.setItem('pc_session_token',st);})();
+(function(){const p=new URLSearchParams(location.search);const t=p.get('t')||p.get('session_token');if(t){try{enterWithClaim(t);}catch(e){localStorage.setItem('pc_session_token',t);}}try{initGoogle();}catch(e){}})();
 loadPortal().then(()=>{if(!localStorage.getItem('comic_tutorial_done'))setTimeout(showComicTutorial,800);});
 
 const COMIC_TUTORIAL=[
