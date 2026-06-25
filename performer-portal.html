@@ -317,10 +317,20 @@ function getPendingClaim() {
   return obj.slug;
 }
 
+// Expired/invalid sign-in (claim) link -> clean notice, NOT a bogus claim form.
+(function claimError(){
+  const e=new URLSearchParams(location.search).get('claim_error');
+  if(!e) return;
+  const banner=document.createElement('div');
+  banner.style.cssText='background:#2a1620;border:1px solid #ef4444;color:#fca5a5;padding:14px 18px;margin:12px auto;max-width:780px;border-radius:10px;font-size:14px;line-height:1.5';
+  banner.innerHTML='<strong>That sign-in link has expired or was already used.</strong><br><span style="color:#e09aa5">No problem — sign in below with Google or your email, or open the latest invite link we sent you.</span>';
+  const main=document.querySelector('main'); if(main) main.insertBefore(banner, main.firstChild);
+})();
+
 (async function handleClaim() {
   const params = new URLSearchParams(window.location.search);
   const slug = (params.get('claim') || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
-  if (!slug) return;
+  if (!slug || slug === 'invalid') return;
   // Persist across the magic-link round-trip — once signed in we redirect back here.
   // 24h TTL: see setPendingClaim / getPendingClaim above.
   setPendingClaim(slug);
