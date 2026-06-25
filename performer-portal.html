@@ -96,6 +96,12 @@ let API='';
 async function apiBase(){if(API)return API;try{const c=await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json());API=c.api||'';}catch(e){API='';}return API;}
 async function api(path,opts={}){const base=await apiBase();const _f=(window.PCAuth&&window.PCAuth.authFetch)||fetch;const r=await _f(base+path,Object.assign({credentials:'include'},opts,{headers:Object.assign({'Content-Type':'application/json'},opts.headers||{})}));const j=await r.json().catch(()=>({detail:r.statusText}));if(!r.ok)throw new Error(j.detail||('HTTP '+r.status));return j;}
 async function requestLink(){const email=document.getElementById('auth-email').value.trim();const msg=document.getElementById('auth-msg');msg.className='msg';if(!email){msg.textContent='Email required.';msg.classList.add('err');return;}try{const r=await api('/api/auth/request',{method:'POST',body:JSON.stringify({email})});msg.textContent=r.dev_verify_url?'Magic link created. Open it, then return here and refresh: '+r.dev_verify_url:r.message;msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}}
+function eur(c){return (c===null||c===undefined||c==='')?'—':'€'+(Number(c)/100).toFixed(0);}
+function feeLabel(o){const s=(o.standing_fee_cents!=null?o.standing_fee_cents:o.offered_fee_cents);
+  if(o.fee_kind==='unpaid')return 'Unpaid spot';
+  if(o.fee_kind==='door_split')return 'Door split'+(s!=null?(' (~'+eur(s)+')'):'');
+  return s!=null?eur(s):'Fee: open';}
+
 async function loadOffers(sessionToken) {
   if (!sessionToken) return;
   try {
@@ -106,28 +112,57 @@ async function loadOffers(sessionToken) {
     const panel = document.getElementById('offers-panel');
     const list = document.getElementById('offers-list');
     panel.style.display = 'block';
-    if (!offers.length) { list.innerHTML = '<p style="color:var(--muted);font-size:13px">No pending offers.</p>'; return; }
-    list.innerHTML = offers.map(o => `
-      <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-radius:8px;padding:12px;margin-bottom:8px">
-        <div style="font-weight:700;margin-bottom:4px">Offer from ${escP(o.booker_email)}</div>
-        ${o.show_title ? `<div style="color:#888;font-size:12px">Show: ${escP(o.show_title)} — ${escP(o.show_date||'')} @ ${escP(o.show_venue||'')}</div>` : ''}
-        ${o.message ? `<div style="font-size:13px;margin:6px 0;color:#ccc">${escP(o.message)}</div>` : ''}
-        <div style="display:flex;gap:8px;margin-top:8px">
-          <button class="btn" style="padding:7px 12px;font-size:12px;background:#10b981" onclick="respondOffer(${o.id},'accepted','${escAttr(sessionToken)}')">Accept</button>
-          <button class="btn secondary" style="padding:7px 12px;font-size:12px" onclick="respondOffer(${o.id},'declined','${escAttr(sessionToken)}')">Decline</button>
+    if (!offers.length) { list.innerHTML = '<p style="color:var(--muted);font-size:13px">No offers right now.</p>'; return; }
+    list.innerHTML = offers.map(o => {
+      const st=(o.state||'OFFERED'); const done=(st==='CONFIRMED'||st==='AGREED');
+      const when=[o.show_date,o.show_time].filter(Boolean).join(' ');
+      return `<div style="background:#0f0f0f;border:1px solid #1e1e1e;border-radius:10px;padding:14px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+          <div style="font-weight:700">${escP(o.show_title||'A show')} <span style="color:#888;font-weight:400;font-size:12px">via ${escP(o.booker_email)}</span></div>
+          <span style="font-size:11px;padding:2px 8px;border-radius:999px;background:#1e2a1e;color:#7ee08a">${escP(st)}</span>
         </div>
-      </div>`).join('');
+        <div style="color:#aaa;font-size:12px;margin-top:3px">${escP(when)||'date TBC'}${o.show_venue?' · '+escP(o.show_venue):''}</div>
+        ${o.show_notes?`<div style="color:#888;font-size:12px;margin-top:4px">${escP(o.show_notes)}</div>`:''}
+        <div style="font-size:14px;margin:8px 0;color:#fff">Fee: <b>${escP(feeLabel(o))}</b></div>
+        ${o.message?`<div style="font-size:13px;margin:6px 0;color:#ccc">"${escP(o.message)}"</div>`:''}
+        ${done?`<div style="color:#7ee08a;font-size:13px;margin-top:6px">✓ ${st==='CONFIRMED'?'Confirmed — payment is arranged directly with the venue.':'Agreed — awaiting the booker\\'s confirmation.'}</div>`:`
+        <label style="display:block;font-size:12px;color:#aaa;margin:8px 0 6px"><input type="checkbox" id="avail-${o.id}" checked> I\\'m available for this date</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" style="padding:7px 12px;font-size:12px;background:#10b981" onclick="respondOffer(${o.id},'accepted','${escAttr(sessionToken)}')">Accept ${escP(feeLabel(o))}</button>
+          <button class="btn secondary" style="padding:7px 12px;font-size:12px" onclick="counterOffer(${o.id},'${escAttr(sessionToken)}')">Negotiate fee</button>
+          <button class="btn secondary" style="padding:7px 12px;font-size:12px;background:#3a1620" onclick="respondOffer(${o.id},'declined','${escAttr(sessionToken)}')">Decline</button>
+        </div>`}
+      </div>`;}).join('');
   } catch(e) { console.warn('offers load failed', e); }
 }
 
 async function respondOffer(offerId, response, token) {
   const base = await apiBase();
+  const av=document.getElementById('avail-'+offerId);
+  const available=av?av.checked:true;
+  if(response==='accepted'&&!available){alert('Please confirm you\'re available, or use Negotiate / Decline.');return;}
   try {
     await ((window.PCAuth&&window.PCAuth.authFetch)||fetch)(base + '/api/performer/offers/' + offerId + '/respond', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({token, response})
+      body: JSON.stringify({token, response, available})
     });
-    document.querySelector(`[onclick*="respondOffer(${offerId}"]`)?.closest('div[style]')?.remove();
+    loadOffers(token);
+  } catch(e) { alert('Error: ' + e.message); }
+}
+
+async function counterOffer(offerId, token) {
+  const v=prompt('Propose your fee in euros (e.g. 120). Leave blank to just send a note.');
+  if(v===null)return;
+  const fee=(v.trim()==='')?null:Math.round(parseFloat(v)*100);
+  if(fee!==null&&(isNaN(fee)||fee<0)){alert('Enter a valid amount.');return;}
+  const note=prompt('Optional note to the booker (set length, conditions, dates...)')||'';
+  const base=await apiBase();
+  try {
+    await ((window.PCAuth&&window.PCAuth.authFetch)||fetch)(base + '/api/performer/offers/' + offerId + '/counter', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({token, fee_cents:fee, message:note})
+    });
+    loadOffers(token);
   } catch(e) { alert('Error: ' + e.message); }
 }
 
@@ -143,7 +178,7 @@ function fillAccount(user,member,payment){document.getElementById('account-email
 function fillProfile(m){['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>{document.getElementById(id).value=m[id]||'';});}
 async function saveProfile(ev){ev.preventDefault();const msg=document.getElementById('save-msg');msg.textContent='Saving...';msg.className='msg';const payload={role:'performer'};['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>payload[id]=document.getElementById(id).value.trim());try{const r=await api('/api/member/profile',{method:'PATCH',body:JSON.stringify(payload)});fillProfile(r.member||{});msg.textContent='Saved.';msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}return false;}
 // Also store session_token when magic link verify redirects back with it in URL params
-(function(){const p=new URLSearchParams(location.search);const st=p.get('session_token');if(st)localStorage.setItem('pc_session_token',st);})();
+(function(){const p=new URLSearchParams(location.search);const st=p.get('session_token')||p.get('t');if(st)localStorage.setItem('pc_session_token',st);})();
 loadPortal().then(()=>{if(!localStorage.getItem('comic_tutorial_done'))setTimeout(showComicTutorial,800);});
 
 const COMIC_TUTORIAL=[
