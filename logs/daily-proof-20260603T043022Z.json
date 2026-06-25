@@ -1,0 +1,40 @@
+{
+  "failures": [
+    "regression"
+  ],
+  "generated_at": "2026-06-03T04:30:22.018426+00:00",
+  "iso": "20260603T043022Z",
+  "sections": {
+    "freshness": {
+      "by_status": {},
+      "returncode": 0,
+      "status": "PASS",
+      "stderr_tail": "lub        ... verified_24h           (conf 98)\n  checking le-lieu-de-rire                ... needs_human_review     (conf 35)\n  checking le-trempoint                   ... verified_24h           (conf 98)\n  checking outside-comedy                 ... verified_24h           (conf 98)\n  checking well-com-le-plateau            ... verified_24h           (conf 98)\n\nwrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 4, 'verified_24h': 18}\n"
+    },
+    "regression": {
+      "fail_count": 3,
+      "fail_lines": [
+        "[FAIL] no_normal_cta_for_unverified {\"problems\": [{\"file\": \"show.html\", \"slug\": \"ffcn\", \"status\": \"needs_human_review\", \"reason\": \"static normal CTA on unverified row\"}, {\"file\": \"show.html\", \"slug\": \"ffcn\", \"status\": \"needs_human_revie",
+        "[FAIL] forbidden_strings        {\"hit_count\": 1, \"hits\": [{\"page\": \"/shows.html\", \"pattern\": \"bilingual\", \"snippet\": \"g tag-en\\\">FR</span>';  // HARD RULE: no bilingual shows \\u2014 only EN or FR. Anything not Fre\"}]}",
+        "[FAIL] show_fallback_sync       {\"articles_checked\": 9, \"problems\": [{\"slug\": \"charonne\", \"kind\": \"no_audit_entry\"}, {\"slug\": \"millennial-meltdown\", \"kind\": \"no_audit_entry\"}, {\"slug\": \"theatre-bo-julie\", \"kind\": \"no_audit_entry\"}, "
+      ],
+      "pass_count": 25,
+      "returncode": 1,
+      "status": "FAIL",
+      "summary_tail": [
+        "",
+        "Log: /Users/chuck/pariscomedy-push-20260526-095907/logs/regression-guard.20260603T043108Z.json",
+        "Summary: 25 pass, 3 fail, 1 advisory"
+      ]
+    },
+    "sitemap-size": {
+      "bytes": 8960,
+      "returncode": 0,
+      "status": "PASS",
+      "stdout_tail": [
+        "Wrote sitemap.xml with 40 URLs"
+      ],
+      "url_count": 40
+    }
+  }
+}

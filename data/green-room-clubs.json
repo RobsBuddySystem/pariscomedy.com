@@ -1,0 +1,1000 @@
+{
+  "note": "Public club facts only, compiled as a free resource for comics. Not a verified schedule — always confirm current dates on each club's own page.",
+  "count": 68,
+  "by_country": {
+    "France": 48,
+    "Belgium": 20
+  },
+  "cities": [
+    "Aix-en-Provence",
+    "Antwerp",
+    "Bordeaux",
+    "Brussels",
+    "Cabriès",
+    "Charleroi",
+    "Ghent",
+    "Leuven",
+    "Lille",
+    "Liège",
+    "Lyon",
+    "Marseille",
+    "Montpellier",
+    "Namur",
+    "Nantes",
+    "Paris",
+    "Perpignan",
+    "Rennes",
+    "Strasbourg",
+    "Toulouse",
+    "Troyes"
+  ],
+  "clubs": [
+    {
+      "name": "Flibustier",
+      "city": "Aix-en-Provence",
+      "city_key": "Aix-en-Provence",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre",
+      "website": "https://www.leflibustier.net/",
+      "social": "https://www.instagram.com/theatre_le_flibustier/",
+      "source": "https://www.leflibustier.net/"
+    },
+    {
+      "name": "Café Théâtre des Beaux-Arts",
+      "city": "Bordeaux",
+      "city_key": "Bordeaux",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre",
+      "website": "https://www.cafe-theatre-beauxarts.fr/",
+      "social": "https://www.instagram.com/cafetheatrebeauxarts/",
+      "source": "https://www.cafe-theatre-beauxarts.fr/"
+    },
+    {
+      "name": "La Nouvelle Comédie Gallien",
+      "city": "Bordeaux",
+      "city_key": "Bordeaux",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy theatre",
+      "website": "https://www.comediegallien.fr/",
+      "social": "https://www.instagram.com/comediegallien/",
+      "source": "https://www.comediegallien.fr/"
+    },
+    {
+      "name": "L’Inox Bordeaux",
+      "city": "Bordeaux",
+      "city_key": "Bordeaux",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy club / café-théâtre",
+      "website": "https://www.linox-bordeaux.com/",
+      "social": "https://www.instagram.com/linoxbordeaux/",
+      "source": "https://www.linox-bordeaux.com/"
+    },
+    {
+      "name": "La Comédie des Suds",
+      "city": "Cabriès / Aix-Marseille",
+      "city_key": "Cabriès",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy theatre",
+      "website": "https://www.lacomediedessuds.fr/",
+      "social": "https://www.instagram.com/lacomediedessuds/",
+      "source": "https://www.lacomediedessuds.fr/"
+    },
+    {
+      "name": "English Stand Up Comedy Club Lille-Brussels",
+      "city": "Lille / Brussels",
+      "city_key": "Lille",
+      "country": "France / Belgium",
+      "country_key": "France",
+      "languages": [
+        "EN"
+      ],
+      "venue_type": "English comedy producer / touring night",
+      "website": "https://englishstandupcomedylillebrussels.com/",
+      "social": "https://www.instagram.com/englishstandupcomedylillebrussels/",
+      "source": "https://englishstandupcomedylillebrussels.com/"
+    },
+    {
+      "name": "La Boîte à Rire Lille",
+      "city": "Lille",
+      "city_key": "Lille",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre",
+      "website": "https://www.laboitearire-lille.fr/",
+      "social": "https://www.instagram.com/laboitearirelille/",
+      "source": "https://www.laboitearire-lille.fr/"
+    },
+    {
+      "name": "La Comédie de Lille",
+      "city": "Lille",
+      "city_key": "Lille",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy theatre",
+      "website": "https://www.lacomediedelille.fr/",
+      "social": "https://www.instagram.com/lacomediedelille/",
+      "source": "https://www.lacomediedelille.fr/"
+    },
+    {
+      "name": "Spotlight Lille",
+      "city": "Lille",
+      "city_key": "Lille",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR",
+        "EN"
+      ],
+      "venue_type": "Comedy club / café-théâtre",
+      "website": "https://www.spotlight-lille.com/",
+      "social": "https://www.instagram.com/spotlight_lille/",
+      "source": "https://www.spotlight-lille.com/"
+    },
+    {
+      "name": "Espace Gerson",
+      "city": "Lyon",
+      "city_key": "Lyon",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre / humor venue",
+      "website": "https://www.espacegerson.com/",
+      "social": "https://www.instagram.com/espacegerson/",
+      "source": "https://www.espacegerson.com/"
+    },
+    {
+      "name": "Le Boui Boui",
+      "city": "Lyon",
+      "city_key": "Lyon",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre",
+      "website": "https://www.bouiboui.com/",
+      "social": "https://www.instagram.com/lebouiboui/",
+      "source": "https://www.bouiboui.com/"
+    },
+    {
+      "name": "Le Complexe Café-Théâtre",
+      "city": "Lyon",
+      "city_key": "Lyon",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre / comedy club",
+      "website": "https://www.lecomplexelyon.com/",
+      "social": "https://www.instagram.com/lecomplexe_lyon/",
+      "source": "https://www.lecomplexelyon.com/"
+    },
+    {
+      "name": "Le Nombril du Monde",
+      "city": "Lyon",
+      "city_key": "Lyon",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre",
+      "website": "https://www.lenombrildumonde.com/",
+      "social": "https://www.instagram.com/lenombrildumonde/",
+      "source": "https://www.lenombrildumonde.com/"
+    },
+    {
+      "name": "Le Spotlight Comedy Club Lyon",
+      "city": "Lyon",
+      "city_key": "Lyon",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy club",
+      "website": "https://www.spotlight-comedyclub.com/",
+      "social": "https://www.instagram.com/spotlight_comedyclub/",
+      "source": "https://www.spotlight-comedyclub.com/"
+    },
+    {
+      "name": "Divadlo Théâtre",
+      "city": "Marseille",
+      "city_key": "Marseille",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre",
+      "website": "https://www.divadlo-theatre.fr/",
+      "social": "https://www.instagram.com/divadlotheatre/",
+      "source": "https://www.divadlo-theatre.fr/"
+    },
+    {
+      "name": "Quai du Rire",
+      "city": "Marseille",
+      "city_key": "Marseille",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy theatre / café-théâtre",
+      "website": "https://www.quaidurire.com/",
+      "social": "https://www.instagram.com/quaidurire/",
+      "source": "https://www.quaidurire.com/"
+    },
+    {
+      "name": "Kawa Théâtre",
+      "city": "Montpellier",
+      "city_key": "Montpellier",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre",
+      "website": "https://www.kawatheatre.com/",
+      "social": "https://www.instagram.com/kawatheatre/",
+      "source": "https://www.kawatheatre.com/"
+    },
+    {
+      "name": "Le Point Comédie",
+      "city": "Montpellier",
+      "city_key": "Montpellier",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre / comedy club",
+      "website": "https://www.pointcomedy.fr/",
+      "social": "https://www.instagram.com/lepointcomedie/",
+      "source": "https://www.pointcomedy.fr/"
+    },
+    {
+      "name": "La Compagnie du Café-Théâtre",
+      "city": "Nantes",
+      "city_key": "Nantes",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre / comedy venue",
+      "website": "https://www.nantes-spectacles.com/",
+      "social": "https://www.instagram.com/compagnieducafetheatre/",
+      "source": "https://www.nantes-spectacles.com/"
+    },
+    {
+      "name": "Théâtre 100 Noms",
+      "city": "Nantes",
+      "city_key": "Nantes",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Theatre / comedy programming",
+      "website": "https://www.theatre100noms.com/",
+      "social": "https://www.instagram.com/theatre100noms/",
+      "source": "https://www.theatre100noms.com/"
+    },
+    {
+      "name": "Apollo Théâtre",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Theatre / comedy programming",
+      "website": "https://www.apollotheatre.fr/",
+      "social": "https://www.instagram.com/apollotheatreparis/",
+      "source": "https://www.apollotheatre.fr/"
+    },
+    {
+      "name": "Barbès Comedy Club / La Scène Barbès",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy club",
+      "website": "https://www.barbescomedyclub.com/",
+      "social": "https://www.instagram.com/barbescomedyclub/",
+      "source": "https://www.sortiraparis.com/en/what-to-see-in-paris/shows/articles/310795-la-scene-barbes-the-new-york-style-comedy-club"
+    },
+    {
+      "name": "Café Oscar",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy club",
+      "website": "https://www.cafe-oscar.com/",
+      "social": "https://www.instagram.com/cafeoscarparis/",
+      "source": "https://www.sortiraparis.com/en/what-to-see-in-paris/shows/articles/292236-cafe-oscar-paris-premier-comedy-club"
+    },
+    {
+      "name": "Cartel Comedy Club",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy club / bar restaurant",
+      "website": "https://cartelcomedyclub.fr/",
+      "social": "https://www.instagram.com/cartelcomedyclub/",
+      "source": "https://www.sortiraparis.com/en/what-to-see-in-paris/shows/articles/320627-cartel-comedy-club-the-new-comedy-club-in-the-heart-of-paris-our-review"
+    },
+    {
+      "name": "Comedy Lab Paris",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "EN"
+      ],
+      "venue_type": "English stand-up showcase",
+      "website": "https://www.eventbrite.com/o/comedy-lab-paris-27733626887",
+      "social": "https://www.instagram.com/comedylabparis/",
+      "source": "https://www.eventbrite.com/o/comedy-lab-paris-27733626887"
+    },
+    {
+      "name": "Coucou Comedy Club",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "EN"
+      ],
+      "venue_type": "English comedy night / club",
+      "website": "https://www.coucoucomedyclub.com/",
+      "social": "https://www.instagram.com/coucoucomedyclub/",
+      "source": "https://www.coucoucomedyclub.com/"
+    },
+    {
+      "name": "English Comedy in Paris",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "EN"
+      ],
+      "venue_type": "Community listings / producer network",
+      "website": "https://www.comedyinparis.com/",
+      "social": "https://www.instagram.com/comedyinparis/",
+      "source": "https://www.comedyinparis.com/shows"
+    },
+    {
+      "name": "Le Fridge Comedy Club",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR",
+        "EN"
+      ],
+      "venue_type": "Comedy club / bar restaurant",
+      "website": "https://www.lefridgecomedy.com/",
+      "social": "https://www.instagram.com/lefridgecomedy/",
+      "source": "https://www.sortiraparis.com/en/what-to-see-in-paris/shows/articles/227162-le-fridge-comedy-club-par-kev-adams-un-plateau-stand-up-avec-bar-et-restaurant-a-paris-notre-avis"
+    },
+    {
+      "name": "Madame Sarfati",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR",
+        "EN"
+      ],
+      "venue_type": "Comedy club",
+      "website": "https://www.madamesarfati.com/",
+      "social": "https://www.instagram.com/madamesarfati/",
+      "source": "https://www.madamesarfati.com/"
+    },
+    {
+      "name": "Paname Art Café",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR",
+        "EN"
+      ],
+      "venue_type": "Comedy club / café-théâtre",
+      "website": "https://www.panameartcafe.com/",
+      "social": "https://www.instagram.com/panameartcafe/",
+      "source": "https://www.panameartcafe.com/"
+    },
+    {
+      "name": "Paris Comedy",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "EN"
+      ],
+      "venue_type": "English comedy guide / listings",
+      "website": "https://pariscomedy.com/",
+      "social": "",
+      "source": "https://pariscomedy.com/"
+    },
+    {
+      "name": "Parisian Comedy Show",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "EN"
+      ],
+      "venue_type": "English comedy show / producer",
+      "website": "https://www.parisian-comedy-show.com/",
+      "social": "https://www.instagram.com/parisiancomedyshow/",
+      "source": "https://www.parisian-comedy-show.com/"
+    },
+    {
+      "name": "Prince Comedy Club",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy club / hybrid venue",
+      "website": "https://princecomedyclub.fr/",
+      "social": "https://www.instagram.com/princecomedyclub/",
+      "source": "https://www.sortiraparis.com/en/what-to-see-in-paris/shows/articles/327353-prince-comedy-club-humor-cocktails-and-stand-up-in-the-heart-of-paris"
+    },
+    {
+      "name": "Red Comedy Club",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy club / bar",
+      "website": "https://redcomedyclub.fr/",
+      "social": "https://www.instagram.com/redcomedyclub/",
+      "source": "https://www.sortiraparis.com/en/what-to-see-in-paris/shows/articles/316055-red-comedy-club-a-bar-comedy-club-offering-quality-stand-up-shows"
+    },
+    {
+      "name": "Sebastopol Comedy Club",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Hotel comedy stage",
+      "website": "https://www.123sebastopol.com/",
+      "social": "https://www.instagram.com/123sebastopol/",
+      "source": "https://www.sortiraparis.com/en/what-to-see-in-paris/shows/articles/185952-sebastopol-comedy-club-stand-up-comedy-in-a-paris-hotel"
+    },
+    {
+      "name": "The Comedy Clubhouse Paris",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "EN"
+      ],
+      "venue_type": "English comedy club / venue",
+      "website": "https://www.comedyclubhouse.fr/",
+      "social": "https://www.instagram.com/comedyclubhouseparis/",
+      "source": "https://www.comedyclubhouse.fr/"
+    },
+    {
+      "name": "Théâtre BO Saint-Martin",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre / comedy venue",
+      "website": "https://www.billetreduc.com/theatre-bo-saint-martin/S/117.htm",
+      "social": "",
+      "source": "https://www.billetreduc.com/theatre-bo-saint-martin/S/117.htm"
+    },
+    {
+      "name": "Théâtre du Marais",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre / theatre",
+      "website": "https://www.theatredumarais.fr/",
+      "social": "https://www.instagram.com/theatredumarais/",
+      "source": "https://www.theatredumarais.fr/"
+    },
+    {
+      "name": "Théâtre Le Bout",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre",
+      "website": "https://www.lebout.com/",
+      "social": "https://www.instagram.com/theatrelebout/",
+      "source": "https://www.lebout.com/"
+    },
+    {
+      "name": "Théâtre Trévise",
+      "city": "Paris",
+      "city_key": "Paris",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Theatre / comedy programming",
+      "website": "https://www.theatre-trevise.com/",
+      "social": "https://www.instagram.com/theatretrevise/",
+      "source": "https://www.theatre-trevise.com/"
+    },
+    {
+      "name": "La Boîte à Rire Perpignan",
+      "city": "Perpignan",
+      "city_key": "Perpignan",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre",
+      "website": "https://www.laboitearire.net/",
+      "social": "https://www.instagram.com/laboitearireperpignan/",
+      "source": "https://www.laboitearire.net/"
+    },
+    {
+      "name": "La Comédie de Rennes",
+      "city": "Rennes",
+      "city_key": "Rennes",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy theatre",
+      "website": "https://www.lacomediederennes.fr/",
+      "social": "https://www.instagram.com/lacomediederennes/",
+      "source": "https://www.lacomediederennes.fr/"
+    },
+    {
+      "name": "Le Bacchus",
+      "city": "Rennes",
+      "city_key": "Rennes",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre",
+      "website": "https://www.le-bacchus.com/",
+      "social": "https://www.instagram.com/cafetheatrelebacchus/",
+      "source": "https://www.le-bacchus.com/"
+    },
+    {
+      "name": "Le Shadok / Strasbourg comedy events",
+      "city": "Strasbourg",
+      "city_key": "Strasbourg",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR",
+        "EN"
+      ],
+      "venue_type": "Cultural venue / comedy events",
+      "website": "https://www.shadok.strasbourg.eu/",
+      "social": "https://www.instagram.com/leshadok/",
+      "source": "https://www.shadok.strasbourg.eu/"
+    },
+    {
+      "name": "Café-Théâtre Les 3T",
+      "city": "Toulouse",
+      "city_key": "Toulouse",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre / comedy venue",
+      "website": "https://www.3tcafetheatre.com/",
+      "social": "https://www.instagram.com/3tcafetheatre/",
+      "source": "https://www.3tcafetheatre.com/"
+    },
+    {
+      "name": "La Comédie de Toulouse",
+      "city": "Toulouse",
+      "city_key": "Toulouse",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy theatre",
+      "website": "https://www.lacomediedetoulouse.com/",
+      "social": "https://www.instagram.com/lacomediedetoulouse/",
+      "source": "https://www.lacomediedetoulouse.com/"
+    },
+    {
+      "name": "Le Citron Bleu",
+      "city": "Toulouse",
+      "city_key": "Toulouse",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre",
+      "website": "https://www.lecitronbleu.fr/",
+      "social": "https://www.instagram.com/lecitronbleu_toulouse/",
+      "source": "https://www.lecitronbleu.fr/"
+    },
+    {
+      "name": "Le Troyes Fois Plus",
+      "city": "Troyes",
+      "city_key": "Troyes",
+      "country": "France",
+      "country_key": "France",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre / comedy club",
+      "website": "https://www.letroyesfoisplus.fr/",
+      "social": "https://www.instagram.com/letroyesfoisplus/",
+      "source": "https://www.letroyesfoisplus.fr/"
+    },
+    {
+      "name": "Arenberg",
+      "city": "Antwerp",
+      "city_key": "Antwerp",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "NL",
+        "EN"
+      ],
+      "venue_type": "Theatre / comedy programming",
+      "website": "https://www.arenbergschouwburg.be/",
+      "social": "https://www.instagram.com/arenbergantwerpen/",
+      "source": "https://www.arenbergschouwburg.be/"
+    },
+    {
+      "name": "De Studio",
+      "city": "Antwerp",
+      "city_key": "Antwerp",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "NL",
+        "EN"
+      ],
+      "venue_type": "Cultural/theatre venue",
+      "website": "https://www.destudio.com/",
+      "social": "https://www.instagram.com/destudioantwerp/",
+      "source": "https://www.destudio.com/"
+    },
+    {
+      "name": "The Joker Comedy Club",
+      "city": "Antwerp",
+      "city_key": "Antwerp",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "NL",
+        "EN"
+      ],
+      "venue_type": "Comedy café / club",
+      "website": "https://www.joker.be/",
+      "social": "https://www.instagram.com/thejokerantwerp/",
+      "source": "https://www.joker.be/"
+    },
+    {
+      "name": "Belgian Comedy Network",
+      "city": "Brussels / Ghent / Leuven / Antwerp",
+      "city_key": "Brussels",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "EN"
+      ],
+      "venue_type": "English comedy network / promoter",
+      "website": "https://www.belgiancomedynetwork.com/",
+      "social": "https://www.instagram.com/belgiancomedynetwork/",
+      "source": "https://www.belgiancomedynetwork.com/"
+    },
+    {
+      "name": "English Comedy Brussels",
+      "city": "Brussels",
+      "city_key": "Brussels",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "EN"
+      ],
+      "venue_type": "English comedy club / promoter",
+      "website": "https://www.englishcomedybrussels.com/",
+      "social": "https://www.facebook.com/englishcomedybrussels/",
+      "source": "https://www.englishcomedybrussels.com/"
+    },
+    {
+      "name": "Kings of Comedy Club Brussels",
+      "city": "Brussels",
+      "city_key": "Brussels",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "FR",
+        "EN"
+      ],
+      "venue_type": "Comedy club",
+      "website": "https://kingscomedyclub.be/",
+      "social": "https://www.instagram.com/kingscomedyclub/",
+      "source": "https://englishstandupcomedylillebrussels.com/brussels-shows/"
+    },
+    {
+      "name": "La Tricoterie",
+      "city": "Brussels",
+      "city_key": "Brussels",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "FR",
+        "EN"
+      ],
+      "venue_type": "Cultural venue / theatre events",
+      "website": "https://www.tricoterie.be/",
+      "social": "https://www.instagram.com/latricoterie/",
+      "source": "https://www.tricoterie.be/"
+    },
+    {
+      "name": "L’Os à Moelle",
+      "city": "Brussels",
+      "city_key": "Brussels",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre / cabaret",
+      "website": "https://www.osamoelle.be/",
+      "social": "https://www.instagram.com/osamoelle/",
+      "source": "https://www.osamoelle.be/"
+    },
+    {
+      "name": "RITCS Café Comedy Club",
+      "city": "Brussels",
+      "city_key": "Brussels",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "EN",
+        "NL",
+        "FR"
+      ],
+      "venue_type": "Café / comedy club night",
+      "website": "https://www.ritcscafe.be/",
+      "social": "https://www.instagram.com/ritcscafe/",
+      "source": "https://bruxellessecrete.com/en/best-comedy-clubs-in-brussels/"
+    },
+    {
+      "name": "Side Splitters Comedy Brussels",
+      "city": "Brussels",
+      "city_key": "Brussels",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "EN"
+      ],
+      "venue_type": "English comedy club / open mics/showcases",
+      "website": "https://www.sidesplittersbrussels.com/",
+      "social": "https://www.facebook.com/sidesplittersbrussels/",
+      "source": "https://www.sidesplittersbrussels.com/about"
+    },
+    {
+      "name": "The Black Sheep Brussels",
+      "city": "Brussels",
+      "city_key": "Brussels",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "EN"
+      ],
+      "venue_type": "Pub / comedy night venue",
+      "website": "https://www.theblacksheepbrussels.com/",
+      "social": "https://www.instagram.com/theblacksheepbrussels/",
+      "source": "https://www.theblacksheepbrussels.com/"
+    },
+    {
+      "name": "Théâtre de la Toison d’Or",
+      "city": "Brussels",
+      "city_key": "Brussels",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy theatre",
+      "website": "https://www.ttotheatre.com/",
+      "social": "https://www.instagram.com/ttotheatre/",
+      "source": "https://www.ttotheatre.com/"
+    },
+    {
+      "name": "What The Fun Brussels",
+      "city": "Brussels",
+      "city_key": "Brussels",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "FR",
+        "EN"
+      ],
+      "venue_type": "Comedy collective / comedy nights",
+      "website": "https://www.whatthefun.be/",
+      "social": "https://www.instagram.com/whatthefun.be/",
+      "source": "https://www.whatthefun.be/"
+    },
+    {
+      "name": "Comédie Centrale Charleroi",
+      "city": "Charleroi",
+      "city_key": "Charleroi",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy theatre",
+      "website": "https://www.comediecentraledecharleroi.be/",
+      "social": "https://www.instagram.com/comediecentraledecharleroi/",
+      "source": "https://www.comediecentraledecharleroi.be/"
+    },
+    {
+      "name": "Amai Comedy Club Gent",
+      "city": "Ghent",
+      "city_key": "Ghent",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "NL",
+        "EN"
+      ],
+      "venue_type": "Comedy club",
+      "website": "https://www.amaicomedyclub.be/",
+      "social": "https://www.instagram.com/amaicomedyclub/",
+      "source": "https://www.amaicomedyclub.be/"
+    },
+    {
+      "name": "Lunatics Comedy",
+      "city": "Ghent / Belgium touring",
+      "city_key": "Ghent",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "EN"
+      ],
+      "venue_type": "English comedy promoter",
+      "website": "https://www.lunaticscomedy.com/",
+      "social": "https://www.instagram.com/lunaticscomedy/",
+      "source": "https://www.lunaticscomedy.com/"
+    },
+    {
+      "name": "STUK",
+      "city": "Leuven",
+      "city_key": "Leuven",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "NL",
+        "EN"
+      ],
+      "venue_type": "Arts centre / performance venue",
+      "website": "https://www.stuk.be/",
+      "social": "https://www.instagram.com/stukleuven/",
+      "source": "https://www.stuk.be/"
+    },
+    {
+      "name": "Comédie Centrale de Liège",
+      "city": "Liège",
+      "city_key": "Liège",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Comedy theatre",
+      "website": "https://www.comediecentraledeliege.be/",
+      "social": "https://www.instagram.com/comediecentraledeliege/",
+      "source": "https://www.comediecentraledeliege.be/"
+    },
+    {
+      "name": "Comédie en Île",
+      "city": "Liège",
+      "city_key": "Liège",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Café-théâtre / comedy venue",
+      "website": "https://www.comedieenile.be/",
+      "social": "https://www.instagram.com/comedieenile/",
+      "source": "https://www.comedieenile.be/"
+    },
+    {
+      "name": "Théâtre Jardin Passion",
+      "city": "Namur",
+      "city_key": "Namur",
+      "country": "Belgium",
+      "country_key": "Belgium",
+      "languages": [
+        "FR"
+      ],
+      "venue_type": "Theatre / comedy programming",
+      "website": "https://www.jardinpassion.be/",
+      "social": "https://www.instagram.com/theatrejardinpassion/",
+      "source": "https://www.jardinpassion.be/"
+    }
+  ]
+}

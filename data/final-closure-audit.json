@@ -1,0 +1,952 @@
+{
+  "_doc": "FINAL.CLOSURE.1 PRE-AUDIT — read-only comprehensive snapshot of pariscomedy.com state. Assembled for ChatGPT's final closure verdict. No HTML or nav modifications performed.",
+  "generated_at": "2026-05-29T22:40:37Z",
+  "deploy_sha": "571aa2017b65ddf4d88fdc31335c8081d85cb611",
+  "deploy_timestamp_utc": "2026-05-29T20:09:42+02:00",
+  "base_url": "https://pariscomedy.com",
+  "pages": {
+    "/": {
+      "status": 200,
+      "title": "English Stand-Up Comedy in Paris Tonight — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "The Home of English-Language Comedy in Paris",
+      "schema_blocks": [
+        "Organization",
+        "WebSite"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 53196
+    },
+    "/about.html": {
+      "status": 200,
+      "title": "About — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "About Paris Comedy",
+      "schema_blocks": [
+        "Organization"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 6092
+    },
+    "/pricing.html": {
+      "status": 200,
+      "title": "Pricing — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Founding Member offer.",
+      "schema_blocks": [
+        "Organization"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 22045
+    },
+    "/bookers.html": {
+      "status": 200,
+      "title": "For Bookers & Producers — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Run a Comedy Show in Paris ?",
+      "schema_blocks": [
+        "Organization"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 19346
+    },
+    "/book.html": {
+      "status": 200,
+      "title": "Book Comedy Talent in Paris — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Connect with Paris Comedy",
+      "schema_blocks": [
+        "Organization"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 36535
+    },
+    "/shows.html": {
+      "status": 200,
+      "title": "English Stand-Up Comedy Shows in Paris Tonight — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Paris Comedy Shows",
+      "schema_blocks": [
+        "CollectionPage"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 24542
+    },
+    "/venues.html": {
+      "status": 200,
+      "title": "Comedy Clubs &amp; Venues in Paris — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Comedy Venues in Paris",
+      "schema_blocks": [
+        "CollectionPage"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 25241
+    },
+    "/comedians.html": {
+      "status": 200,
+      "title": "Stand-Up Comedians in Paris — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Paris Comedy Comedians Directory",
+      "schema_blocks": [
+        "WebPage",
+        "ItemList"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 123384
+    },
+    "/archive.html": {
+      "status": 200,
+      "title": "Archive — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "The Archive",
+      "schema_blocks": [
+        "WebPage"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 6040
+    },
+    "/terms.html": {
+      "status": 200,
+      "title": "Terms — Paris Comedy",
+      "nav_shell": "nav-shell-minimal",
+      "footer_class": "footer-minimal",
+      "h1": "Terms",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 4733
+    },
+    "/privacy.html": {
+      "status": 200,
+      "title": "Privacy — Paris Comedy",
+      "nav_shell": "nav-shell-minimal",
+      "footer_class": "footer-minimal",
+      "h1": "Privacy",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 5626
+    },
+    "/disclosure.html": {
+      "status": 200,
+      "title": "Tickets & Affiliate Disclosure — Paris Comedy",
+      "nav_shell": "nav-shell-minimal",
+      "footer_class": null,
+      "h1": "Tickets & Affiliate Disclosure",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 6569
+    },
+    "/login.html": {
+      "status": 200,
+      "title": "Sign In - Paris Comedy",
+      "nav_shell": "nav-shell-auth",
+      "footer_class": null,
+      "h1": "Sign In",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 9778
+    },
+    "/performer-portal.html": {
+      "status": 200,
+      "title": "Performer Portal — Paris Comedy",
+      "nav_shell": "nav-shell-portal",
+      "footer_class": "footer-portal",
+      "h1": "Performer Portal",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 24159
+    },
+    "/booker-portal.html": {
+      "status": 200,
+      "title": "Booker Portal — Paris Comedy",
+      "nav_shell": "nav-shell-portal",
+      "footer_class": "footer-portal",
+      "h1": "Booker Portal",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 9564
+    },
+    "/booker-dashboard.html": {
+      "status": 200,
+      "title": "Booker Dashboard — Paris Comedy",
+      "nav_shell": "nav-shell-portal",
+      "footer_class": "footer-portal",
+      "h1": "Booker Dashboard",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 55799
+    },
+    "/show-runner.html": {
+      "status": 200,
+      "title": "Show Runner Portal — Paris Comedy",
+      "nav_shell": "nav-shell-portal",
+      "footer_class": "footer-portal",
+      "h1": "Show Runner Portal",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 31454
+    },
+    "/show.html": {
+      "status": 200,
+      "title": "Show — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Paris Comedy show details",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 33702
+    },
+    "/admin-events.html": {
+      "status": 200,
+      "title": "Events Dashboard — Paris Comedy Admin",
+      "nav_shell": "nav-shell-admin",
+      "footer_class": "footer-admin",
+      "h1": "Events Dashboard",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 9721
+    },
+    "/admin-crm.html": {
+      "status": 200,
+      "title": "CRM — Paris Comedy Admin",
+      "nav_shell": "nav-shell-admin",
+      "footer_class": "footer-admin",
+      "h1": "CRM Vault",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 17235
+    },
+    "/admin-messages.html": {
+      "status": 200,
+      "title": "Admin — Message & Booking Queue",
+      "nav_shell": "nav-shell-admin",
+      "footer_class": "footer-admin",
+      "h1": "Admin · Message & Booking Queue",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 7833
+    },
+    "/admin-payments.html": {
+      "status": 200,
+      "title": "Admin Payments — Paris Comedy",
+      "nav_shell": "nav-shell-admin",
+      "footer_class": "footer-admin",
+      "h1": "Admin Payments",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 11736
+    },
+    "/admin-submit.html": {
+      "status": 200,
+      "title": "Admin — Submit Show — Paris Comedy",
+      "nav_shell": "nav-shell-admin",
+      "footer_class": "footer-admin",
+      "h1": "ADMIN Submit a Show",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 14475
+    },
+    "/404.html": {
+      "status": 200,
+      "title": "Page Not Found — Paris Comedy",
+      "nav_shell": "nav-shell-minimal",
+      "footer_class": "footer-minimal",
+      "h1": "That bit didn't land.",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 7660
+    },
+    "/fr/terms.html": {
+      "status": 200,
+      "title": "Conditions d'utilisation — Paris Comedy",
+      "nav_shell": "nav-shell-minimal",
+      "footer_class": "footer-minimal",
+      "h1": "Conditions d'utilisation",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 5174
+    },
+    "/fr/privacy.html": {
+      "status": 200,
+      "title": "Confidentialité — Paris Comedy",
+      "nav_shell": "nav-shell-minimal",
+      "footer_class": "footer-minimal",
+      "h1": "Confidentialité",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 6397
+    },
+    "/fr/disclosure.html": {
+      "status": 200,
+      "title": "Billetterie & déclaration d'affiliation — Paris Comedy",
+      "nav_shell": "nav-shell-minimal",
+      "footer_class": null,
+      "h1": "Billetterie & déclaration d'affiliation",
+      "schema_blocks": [],
+      "doctrine_violations": 0,
+      "bytes": 6966
+    },
+    "/status.html": {
+      "status": 200,
+      "title": "Paris Comedy — Operator HUD",
+      "nav_shell": "nav-shell-admin",
+      "footer_class": null,
+      "h1": "Operator HUD",
+      "schema_blocks": [],
+      "doctrine_violations": 2,
+      "bytes": 11397
+    },
+    "/shows/charonne.html": {
+      "status": 200,
+      "title": "Charonne Comedy Club — Le Cafe de la Plage — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Charonne Comedy Club",
+      "schema_blocks": [
+        "Event"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 6618
+    },
+    "/shows/comedy-crush.html": {
+      "status": 200,
+      "title": "Comedy Crush Wednesday Show — Les Cariatiades — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Comedy Crush Wednesday Show",
+      "schema_blocks": [
+        "Event"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 6723
+    },
+    "/shows/comedy-lab-chat-noir.html": {
+      "status": 200,
+      "title": "Comedy Lab — Au Chat Noir — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Comedy Lab",
+      "schema_blocks": [
+        "Event"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 7214
+    },
+    "/shows/cuba-compagnie.html": {
+      "status": 200,
+      "title": "Cuba Compagnie Comedy Club — Cuba Compagnie — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Cuba Compagnie Comedy Club",
+      "schema_blocks": [
+        "Event"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 6938
+    },
+    "/shows/coucou-friday.html": {
+      "status": 200,
+      "title": "English Stand-Up Comedy in Paris — Friday Night Show — La Pomme d&#x27;Eve — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "English Stand-Up Comedy in Paris — Friday Night Show",
+      "schema_blocks": [
+        "Event"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 7165
+    },
+    "/shows/ffcn.html": {
+      "status": 200,
+      "title": "French Fried Comedy Night — Paris Comedy",
+      "nav_shell": null,
+      "footer_class": null,
+      "h1": "French Fried Comedy Night",
+      "schema_blocks": [
+        "EventSeries"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 14295
+    },
+    "/shows/green-light.html": {
+      "status": 200,
+      "title": "Green Light Comedy — Les Marquises — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Green Light Comedy",
+      "schema_blocks": [
+        "Event"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 6834
+    },
+    "/shows/green-mic-showcase.html": {
+      "status": 200,
+      "title": "Green Mic Showcase — Paris Comedy",
+      "nav_shell": null,
+      "footer_class": null,
+      "h1": "Green Mic Showcase",
+      "schema_blocks": [
+        "EventSeries"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 13301
+    },
+    "/shows/millennial-meltdown.html": {
+      "status": 200,
+      "title": "Millennial Meltdown — Le Bikini Bottom — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Millennial Meltdown",
+      "schema_blocks": [
+        "Event"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 7092
+    },
+    "/shows/rocket.html": {
+      "status": 200,
+      "title": "Rocket Comedy Club — Cotte 23 — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Rocket Comedy Club",
+      "schema_blocks": [
+        "Event"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 6733
+    },
+    "/shows/smash.html": {
+      "status": 200,
+      "title": "Smash Comedy Club — Comedie Cafe — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Smash Comedy Club",
+      "schema_blocks": [
+        "Event"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 6528
+    },
+    "/shows/velvet-comedy.html": {
+      "status": 200,
+      "title": "Velvet Bar Comedy — Le meilleur du stand-up — Velvet Bar — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Velvet Bar Comedy — Le meilleur du stand-up",
+      "schema_blocks": [
+        "Event"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 6914
+    },
+    "/shows/wednesday-night-comedy.html": {
+      "status": 200,
+      "title": "Wednesday Night Comedy — La Pomme d&#x27;Eve — Paris Comedy",
+      "nav_shell": "nav-shell-marketing",
+      "footer_class": null,
+      "h1": "Wednesday Night Comedy",
+      "schema_blocks": [
+        "Event"
+      ],
+      "doctrine_violations": 0,
+      "bytes": 6816
+    }
+  },
+  "navs": {
+    "marketing": {
+      "partial_path": "partials/nav.shell.marketing.html",
+      "shell_class": "nav-shell-marketing",
+      "href_count": 10,
+      "hrefs": [
+        "/",
+        "/",
+        "/shows.html",
+        "/venues.html",
+        "/comedians.html",
+        "/bookers.html",
+        "/pricing.html",
+        "/login.html",
+        "/book.html",
+        "/about.html"
+      ]
+    },
+    "minimal": {
+      "partial_path": "partials/nav.shell.minimal.html",
+      "shell_class": "nav-shell-minimal",
+      "href_count": 2,
+      "hrefs": [
+        "/",
+        "/"
+      ]
+    },
+    "auth": {
+      "partial_path": "partials/nav.shell.auth.html",
+      "shell_class": "nav-shell-auth",
+      "href_count": 3,
+      "hrefs": [
+        "/",
+        "/about.html",
+        "/book.html"
+      ]
+    },
+    "portal": {
+      "partial_path": "partials/nav.shell.portal.html",
+      "shell_class": "nav-shell-portal",
+      "href_count": 6,
+      "hrefs": [
+        "/",
+        "/performer-portal.html",
+        "/booker-portal.html",
+        "/booker-dashboard.html",
+        "/show-runner.html",
+        "#"
+      ]
+    },
+    "admin": {
+      "partial_path": "partials/nav.shell.admin.html",
+      "shell_class": "nav-shell-admin",
+      "href_count": 8,
+      "hrefs": [
+        "/",
+        "/admin-events.html",
+        "/admin-crm.html",
+        "/admin-messages.html",
+        "/admin-payments.html",
+        "/admin-submit.html",
+        "/api/review-queue.html",
+        "/login.html"
+      ]
+    }
+  },
+  "footers": {
+    "marketing": {
+      "partial_path": "partials/footer.marketing.html",
+      "footer_class": null,
+      "bytes": 523
+    },
+    "minimal": {
+      "partial_path": "partials/footer.minimal.html",
+      "footer_class": "footer-minimal",
+      "bytes": 428
+    },
+    "portal": {
+      "partial_path": "partials/footer.portal.html",
+      "footer_class": "footer-portal",
+      "bytes": 762
+    },
+    "admin": {
+      "partial_path": "partials/footer.admin.html",
+      "footer_class": "footer-admin",
+      "bytes": 951
+    }
+  },
+  "show_pages": [
+    {
+      "slug": "charonne",
+      "url": "/shows/charonne.html",
+      "live_status": 200,
+      "title": "Charonne Comedy Club — Le Cafe de la Plage — Paris Comedy",
+      "h1": "Charonne Comedy Club",
+      "schema_blocks": [
+        "Event"
+      ],
+      "ticket_cta_present": false,
+      "source_disclosure_present": true,
+      "freshness_status": "verified_24h",
+      "local_bytes": 6383
+    },
+    {
+      "slug": "comedy-crush",
+      "url": "/shows/comedy-crush.html",
+      "live_status": 200,
+      "title": "Comedy Crush Wednesday Show — Les Cariatiades — Paris Comedy",
+      "h1": "Comedy Crush Wednesday Show",
+      "schema_blocks": [
+        "Event"
+      ],
+      "ticket_cta_present": false,
+      "source_disclosure_present": true,
+      "freshness_status": "verified_24h",
+      "local_bytes": 6488
+    },
+    {
+      "slug": "comedy-lab-chat-noir",
+      "url": "/shows/comedy-lab-chat-noir.html",
+      "live_status": 200,
+      "title": "Comedy Lab — Au Chat Noir — Paris Comedy",
+      "h1": "Comedy Lab",
+      "schema_blocks": [
+        "Event"
+      ],
+      "ticket_cta_present": false,
+      "source_disclosure_present": true,
+      "freshness_status": "verified_24h",
+      "local_bytes": 6979
+    },
+    {
+      "slug": "cuba-compagnie",
+      "url": "/shows/cuba-compagnie.html",
+      "live_status": 200,
+      "title": "Cuba Compagnie Comedy Club — Cuba Compagnie — Paris Comedy",
+      "h1": "Cuba Compagnie Comedy Club",
+      "schema_blocks": [
+        "Event"
+      ],
+      "ticket_cta_present": false,
+      "source_disclosure_present": true,
+      "freshness_status": "verified_24h",
+      "local_bytes": 6703
+    },
+    {
+      "slug": "coucou-friday",
+      "url": "/shows/coucou-friday.html",
+      "live_status": 200,
+      "title": "English Stand-Up Comedy in Paris — Friday Night Show — La Pomme d&#x27;Eve — Paris Comedy",
+      "h1": "English Stand-Up Comedy in Paris — Friday Night Show",
+      "schema_blocks": [
+        "Event"
+      ],
+      "ticket_cta_present": false,
+      "source_disclosure_present": true,
+      "freshness_status": "verified_24h",
+      "local_bytes": 6930
+    },
+    {
+      "slug": "ffcn",
+      "url": "/shows/ffcn.html",
+      "live_status": 200,
+      "title": "French Fried Comedy Night — Paris Comedy",
+      "h1": "French Fried Comedy Night",
+      "schema_blocks": [
+        "EventSeries"
+      ],
+      "ticket_cta_present": true,
+      "source_disclosure_present": false,
+      "freshness_status": "verified_24h",
+      "local_bytes": 14060
+    },
+    {
+      "slug": "green-light",
+      "url": "/shows/green-light.html",
+      "live_status": 200,
+      "title": "Green Light Comedy — Les Marquises — Paris Comedy",
+      "h1": "Green Light Comedy",
+      "schema_blocks": [
+        "Event"
+      ],
+      "ticket_cta_present": false,
+      "source_disclosure_present": true,
+      "freshness_status": "verified_24h",
+      "local_bytes": 6599
+    },
+    {
+      "slug": "green-mic-showcase",
+      "url": "/shows/green-mic-showcase.html",
+      "live_status": 200,
+      "title": "Green Mic Showcase — Paris Comedy",
+      "h1": "Green Mic Showcase",
+      "schema_blocks": [
+        "EventSeries"
+      ],
+      "ticket_cta_present": true,
+      "source_disclosure_present": false,
+      "freshness_status": "verified_24h",
+      "local_bytes": 13066
+    },
+    {
+      "slug": "millennial-meltdown",
+      "url": "/shows/millennial-meltdown.html",
+      "live_status": 200,
+      "title": "Millennial Meltdown — Le Bikini Bottom — Paris Comedy",
+      "h1": "Millennial Meltdown",
+      "schema_blocks": [
+        "Event"
+      ],
+      "ticket_cta_present": false,
+      "source_disclosure_present": true,
+      "freshness_status": "verified_24h",
+      "local_bytes": 6857
+    },
+    {
+      "slug": "rocket",
+      "url": "/shows/rocket.html",
+      "live_status": 200,
+      "title": "Rocket Comedy Club — Cotte 23 — Paris Comedy",
+      "h1": "Rocket Comedy Club",
+      "schema_blocks": [
+        "Event"
+      ],
+      "ticket_cta_present": false,
+      "source_disclosure_present": true,
+      "freshness_status": "verified_24h",
+      "local_bytes": 6498
+    },
+    {
+      "slug": "smash",
+      "url": "/shows/smash.html",
+      "live_status": 200,
+      "title": "Smash Comedy Club — Comedie Cafe — Paris Comedy",
+      "h1": "Smash Comedy Club",
+      "schema_blocks": [
+        "Event"
+      ],
+      "ticket_cta_present": false,
+      "source_disclosure_present": true,
+      "freshness_status": "verified_24h",
+      "local_bytes": 6293
+    },
+    {
+      "slug": "velvet-comedy",
+      "url": "/shows/velvet-comedy.html",
+      "live_status": 200,
+      "title": "Velvet Bar Comedy — Le meilleur du stand-up — Velvet Bar — Paris Comedy",
+      "h1": "Velvet Bar Comedy — Le meilleur du stand-up",
+      "schema_blocks": [
+        "Event"
+      ],
+      "ticket_cta_present": false,
+      "source_disclosure_present": true,
+      "freshness_status": "verified_24h",
+      "local_bytes": 6679
+    },
+    {
+      "slug": "wednesday-night-comedy",
+      "url": "/shows/wednesday-night-comedy.html",
+      "live_status": 200,
+      "title": "Wednesday Night Comedy — La Pomme d&#x27;Eve — Paris Comedy",
+      "h1": "Wednesday Night Comedy",
+      "schema_blocks": [
+        "Event"
+      ],
+      "ticket_cta_present": false,
+      "source_disclosure_present": true,
+      "freshness_status": "verified_24h",
+      "local_bytes": 6581
+    }
+  ],
+  "source_adapters": {
+    "_doc": "Registry of ticketing/listing platform adapters. status: current (in production) | scaffolded (gated stub, no live calls) | none (not started). Live activation of any scaffolded adapter requires operator + ChatGPT authorization per P1.TICKETS.1 doctrine.",
+    "_write_lock_policy": "P5.AGENTS.1 — adapter scripts run as writers; before any write to data/ they MUST call scripts/agent_write_lock.py acquire <adapter_name> '<scope>' and release on completion (or on error). Stale-timeout 15 min. See chuck_vault P5_AGENTS_1_WRITE_LOCK.md.",
+    "_updated": "2026-05-29",
+    "adapters": {
+      "eventbrite": {
+        "status": "current",
+        "path": "scripts/discover_shows.py"
+      },
+      "billetreduc": {
+        "status": "scaffolded",
+        "path": "scripts/adapter_billetreduc.py",
+        "enabled": false
+      },
+      "fnac_spectacles": {
+        "status": "scaffolded",
+        "path": "scripts/adapter_fnac.py",
+        "enabled": false
+      },
+      "ticketmaster_fr": {
+        "status": "none",
+        "path": null
+      },
+      "shotgun": {
+        "status": "none",
+        "path": null
+      },
+      "fever": {
+        "status": "scaffolded",
+        "path": "scripts/adapter_fever.py",
+        "enabled": false
+      },
+      "weezevent": {
+        "status": "scaffolded",
+        "path": "scripts/adapter_weezevent.py",
+        "enabled": false
+      },
+      "yurplan": {
+        "status": "none",
+        "path": null
+      },
+      "helloasso": {
+        "status": "none",
+        "path": null
+      },
+      "seetickets_fr": {
+        "status": "none",
+        "path": null
+      },
+      "digitick": {
+        "status": "none",
+        "path": null
+      },
+      "francebillet": {
+        "status": "none",
+        "path": null
+      },
+      "placeminute": {
+        "status": "none",
+        "path": null
+      },
+      "mapado": {
+        "status": "none",
+        "path": null
+      },
+      "timeout_paris": {
+        "status": "none",
+        "path": null
+      },
+      "venue_direct": {
+        "status": "none",
+        "path": null
+      }
+    }
+  },
+  "legal_pages": {
+    "en": [
+      "/terms.html",
+      "/privacy.html",
+      "/disclosure.html"
+    ],
+    "fr": [
+      "/fr/terms.html",
+      "/fr/privacy.html",
+      "/fr/disclosure.html"
+    ],
+    "hreflang_check": "FAIL",
+    "hreflang_problems": [
+      {
+        "path": "/fr/terms.html",
+        "issue": "missing en+fr hreflang pair"
+      }
+    ]
+  },
+  "auth": {
+    "helper_path": "assets/auth-helpers.js",
+    "helper_exists": true,
+    "helper_loaded_on": [
+      "show-runner.html",
+      "login.html",
+      "performer-portal.html",
+      "booker-portal.html",
+      "booker-dashboard.html"
+    ],
+    "signOut_jsBound_canonical": true,
+    "stripTokenFromURL_active": true,
+    "audit_findings_count": {
+      "total": 10,
+      "closed_in_session": 7,
+      "open": 3
+    },
+    "open_findings": [
+      {
+        "id": "P3-AUTH-FIND-4",
+        "severity": "medium",
+        "title": "Magic link 'double-login' surfaces only a generic backend error"
+      },
+      {
+        "id": "P3-AUTH-FIND-7",
+        "severity": "medium",
+        "title": "No frontend exp / issuedAt — cannot pre-empt expired sessions"
+      },
+      {
+        "id": "P3-AUTH-FIND-10",
+        "severity": "medium",
+        "title": "Three independent token-storage surfaces — last-writer-wins, no canonical source"
+      }
+    ]
+  },
+  "freshness": {
+    "generated_at": "2026-05-29T16:23:37Z",
+    "total_active": 14,
+    "verified_24h": 13,
+    "needs_human_review": 1,
+    "stale_or_review_count": 1,
+    "review_listings": [
+      {
+        "slug": "theatre-bo-julie",
+        "name": "Oh My God She's Parisian! — Julie Coulon",
+        "notes": "source HTTP 200 but no name/venue/slug match — page may have changed"
+      }
+    ]
+  },
+  "mobile": {
+    "available": false,
+    "error": "'list' object has no attribute 'get'"
+  },
+  "regression_guard": {
+    "source_log": "regression-guard.20260529T223914Z.json",
+    "timestamp_utc": "20260529T223914Z",
+    "checks": 10,
+    "pass": 10,
+    "fail": 0,
+    "names": [
+      "forbidden_strings",
+      "internal_ctas",
+      "raw_includes",
+      "stale_homepage_panel",
+      "card_render",
+      "status_sweep",
+      "nav_consistency",
+      "freshness_sanity",
+      "hreflang",
+      "header_cta_rule"
+    ]
+  },
+  "phases_closed_this_session": [
+    "P0.SCOPED.1 — show.html noscript + homepage FAQ",
+    "P0.REGRESSION.1 — Submit your bio scrub, internal /show.html",
+    "P0.REGRESSION.2 — comedians.html empty directory render",
+    "P1.SOURCE.1 — multi-platform coverage audit",
+    "P1.SOURCE.2 — FNAC/Fever/Weezevent SCAFFOLDS",
+    "P1.TICKETS.1 — BilletRéduc adapter SCAFFOLD",
+    "P1.DATA.1-6 — freshness authority + verification job + UI badges",
+    "P1.COMPLIANCE.1 — disclosure page",
+    "P1.COMPLIANCE.2 — cookie/storage consent banner",
+    "P1.COMPLIANCE.3 — FR legal pages + hreflang",
+    "P2.4.x — nav.shell partials applied across marketing/minimal/auth/portal/admin",
+    "P2.UX.1 — header_cta_rule regression check",
+    "P2.UX.2 — mobile/tablet/desktop UX audit",
+    "P3.AUTH.1 — login/token safety audit",
+    "P3.AUTH.2 — auth-helpers.js + portal wiring (closed FIND-1/2/3/5/6/8/9)",
+    "P3.SUBMIT.1 — show submission audit",
+    "P3.SUBMIT.2-3-5-6 — book.html cleanup + honeypot parity + offline fallback + password gate",
+    "P3.SUBMIT.4 — intake_server deprecation + UI honesty banner",
+    "P3.CLAIM.1 — claim flow audit",
+    "P3.CLAIM.2-3 — evidence-collection fields",
+    "P3.CLAIM.4-7-8-9 — report-handler + pending_claim_slug expiry + fail-closed ownership + locked venue",
+    "P3.MESSAGING.1 — schema scaffold",
+    "P3.PAYMENTS.1 — plans architecture",
+    "P4.SCHEMA.1 — Event JSON-LD + ItemList",
+    "P4.PAGES.1 — 13 programmatic per-show static pages",
+    "P4.SITEMAP.1 — sitemap.xml + robots.txt regen",
+    "P4.SEO.1 — keyword alignment audit",
+    "P5.AGENTS.1 — agent_write_lock.py + pre-commit hook",
+    "P5.AUTOMATION.1 — daily proof package wrapper",
+    "P5.HUD.1 — /status.html operator HUD",
+    "SHOWS.DEFAULT.1 — /shows.html today-default",
+    "PROCESS.ROOT.1 — regression_guard.py",
+    "CSS-LANG-001 — bilingual scrub on 227 comedian pages"
+  ],
+  "phases_pending_final_verdict": [
+    "P3.AUTH FIND-4 — magic-link double-login UX",
+    "P3.AUTH FIND-7 — frontend exp/issuedAt to pre-empt expired sessions",
+    "P3.AUTH FIND-10 — consolidate token-storage surfaces",
+    "Programmatic candidates: /tonight, /this-week, per-venue pages (DEFERRED in P4.PAGES.1)",
+    "Live adapter activation for BilletRéduc/Fever/Weezevent/FNAC (operator + ChatGPT auth required)",
+    "ChatGPT closure verdict on master prompt scope (FINAL.CLOSURE.1)"
+  ],
+  "url_counts": {
+    "public_pages_probed": 28,
+    "show_pages_probed": 13,
+    "total_probed": 41,
+    "all_200": 41
+  }
+}

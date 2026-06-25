@@ -1,0 +1,44 @@
+{
+  "failures": [
+    "regression"
+  ],
+  "generated_at": "2026-06-15T04:30:33.756682+00:00",
+  "iso": "20260615T043033Z",
+  "sections": {
+    "freshness": {
+      "by_status": {},
+      "returncode": 0,
+      "status": "PASS",
+      "stderr_tail": "lub        ... verified_24h           (conf 98)\n  checking le-lieu-de-rire                ... needs_human_review     (conf 35)\n  checking le-trempoint                   ... verified_24h           (conf 98)\n  checking outside-comedy                 ... verified_24h           (conf 98)\n  checking well-com-le-plateau            ... verified_24h           (conf 98)\n\nwrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 3, 'verified_24h': 18}\n"
+    },
+    "regression": {
+      "fail_count": 7,
+      "fail_lines": [
+        "[FAIL] no_normal_cta_for_unverified {\"problems\": [{\"file\": \"show.html\", \"reason\": \"JS CTA missing _ctaVerified gate\"}, {\"file\": \"show.html\", \"slug\": \"ffcn\", \"status\": \"needs_human_review\", \"reason\": \"static normal CTA on unverified row\"",
+        "[FAIL] forbidden_strings        {\"hit_count\": 57, \"hits\": [{\"page\": \"/\", \"pattern\": \"bilingual\", \"snippet\": \"owing directory of English-language and bilingual comedy shows in Paris.   <a href=\\\"/show\"}, {\"page\": \"/\", \"pattern\": \"bil",
+        "[FAIL] stale_homepage_panel     {\"reason\": \"JS-rendered; container present=False. Re-run with --with-dom for live count.\", \"mode\": \"static-container-only\"}",
+        "[FAIL] nav_consistency          {\"problems\": [{\"page\": \"/\", \"nav_block_count\": 1, \"nav_shell_count\": 0, \"variants\": []}, {\"page\": \"/venues.html\", \"nav_block_count\": 1, \"nav_shell_count\": 0, \"variants\": []}, {\"page\": \"/comedians.html",
+        "[FAIL] homepage_freshness_filter {\"total_filter_sites\": 4, \"missing_isFreshEnough\": [{\"line\": 477, \"snippet\": \"SHOWS_DATA.filter(s => s.date === todayParis && isFutureShow(s)).sort((a,b) => a.start_time.localeCompare(b.start_time))\"}",
+        "[FAIL] show_fallback_sync       {\"articles_checked\": 9, \"problems\": [{\"slug\": \"charonne\", \"kind\": \"no_audit_entry\"}, {\"slug\": \"millennial-meltdown\", \"kind\": \"no_audit_entry\"}, {\"slug\": \"theatre-bo-julie\", \"kind\": \"no_audit_entry\"}, ",
+        "[FAIL] book_html_decommissioned {\"hits\": [{\"file\": \"index.html\", \"line\": 204, \"text\": \"<a href=\\\"/book.html\\\">Book / Connect</a>\"}, {\"file\": \"index.html\", \"line\": 216, \"text\": \"<a href=\\\"/book.html\\\" class=\\\"btn-secondary\\\">Book a P"
+      ],
+      "pass_count": 21,
+      "returncode": 1,
+      "status": "FAIL",
+      "summary_tail": [
+        "",
+        "Log: /Users/chuck/pariscomedy-push-20260526-095907/logs/regression-guard.20260615T043115Z.json",
+        "Summary: 21 pass, 7 fail, 1 advisory"
+      ]
+    },
+    "sitemap-size": {
+      "bytes": 9141,
+      "returncode": 0,
+      "status": "PASS",
+      "stdout_tail": [
+        "Wrote sitemap.xml with 41 URLs"
+      ],
+      "url_count": 41
+    }
+  }
+}

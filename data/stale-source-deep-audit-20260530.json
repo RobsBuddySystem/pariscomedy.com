@@ -1,0 +1,238 @@
+{
+  "audited_at": "2026-05-30T10:49:46Z",
+  "method": "WebFetch + curl HTML scan for past-event signals (event ended / sales ended / ventes terminées / sold out / complet)",
+  "total": 14,
+  "green": 8,
+  "yellow": 3,
+  "red": 3,
+  "listings": [
+    {
+      "slug": "charonne",
+      "name": "Charonne Comedy Club",
+      "source_url": "https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697801202099",
+      "source_url_status": "future_active",
+      "source_url_signals": [],
+      "api_source_url": "https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697805324429",
+      "api_source_url_status": "stale_past",
+      "api_source_url_signals": [
+        "Event ended",
+        "Sales ended Sat, Mar 21 • 7:30 PM"
+      ],
+      "classification": "YELLOW",
+      "stale_signals": [
+        "Sales ended Sat, Mar 21 • 7:30 PM",
+        "Event ended"
+      ],
+      "prior_verification_status": "needs_human_review",
+      "prior_confidence_score": 10
+    },
+    {
+      "slug": "ffcn",
+      "name": "French Fried Comedy Night",
+      "source_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838453379",
+      "source_url_status": "stale_past",
+      "source_url_signals": [
+        "Sales ended (Wed, May 27 10:00 PM)"
+      ],
+      "api_source_url": "https://www.eventbrite.com/e/french-fried-comedy-night-tickets-1989838522586",
+      "api_source_url_status": "future_active",
+      "api_source_url_signals": [],
+      "classification": "YELLOW",
+      "stale_signals": [
+        "Sales ended (Wed, May 27 10:00 PM)"
+      ],
+      "prior_verification_status": "needs_human_review",
+      "prior_confidence_score": 10
+    },
+    {
+      "slug": "millennial-meltdown",
+      "name": "Millennial Meltdown",
+      "source_url": "https://www.eventbrite.fr/e/billets-english-comedy-show-millennial-meltdown-paris-stand-up-night-1984665294321",
+      "source_url_status": "stale_past",
+      "source_url_signals": [
+        "Ventes terminées"
+      ],
+      "api_source_url": null,
+      "api_source_url_status": "n/a",
+      "api_source_url_signals": [],
+      "classification": "RED",
+      "stale_signals": [
+        "Ventes terminées"
+      ],
+      "prior_verification_status": "needs_human_review",
+      "prior_confidence_score": 10
+    },
+    {
+      "slug": "theatre-bo-julie",
+      "name": "Oh My God She's Parisian! — Julie Coulon",
+      "source_url": "https://www.eventbrite.fr/e/the-comedy-in-english-by-a-french-girl-that-will-make-you-love-paris-tickets-1764207685679",
+      "source_url_status": "stale_past",
+      "source_url_signals": [
+        "Event ended",
+        "Sales ended"
+      ],
+      "api_source_url": null,
+      "api_source_url_status": "n/a",
+      "api_source_url_signals": [],
+      "classification": "RED",
+      "stale_signals": [
+        "Event ended",
+        "Sales ended"
+      ],
+      "prior_verification_status": "needs_human_review",
+      "prior_confidence_score": 10
+    },
+    {
+      "slug": "velvet-comedy",
+      "name": "Velvet Bar Comedy — Le meilleur du stand-up",
+      "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
+      "source_url_status": "future_active",
+      "source_url_signals": [],
+      "api_source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840198599",
+      "api_source_url_status": "stale_past",
+      "api_source_url_signals": [
+        "Event ended",
+        "Sales ended (Wed, May 27 8:30 PM)"
+      ],
+      "classification": "YELLOW",
+      "stale_signals": [
+        "Event ended",
+        "Sales ended (Wed, May 27 8:30 PM)"
+      ],
+      "prior_verification_status": "needs_human_review",
+      "prior_confidence_score": 10
+    },
+    {
+      "slug": "wednesday-night-comedy",
+      "name": "Wednesday Night Comedy",
+      "source_url": "https://www.eventbrite.fr/e/english-standup-wednesday-night-comedy-tickets-1750646975229",
+      "source_url_status": "stale_past",
+      "source_url_signals": [
+        "Event ended",
+        "Sales ended"
+      ],
+      "api_source_url": null,
+      "api_source_url_status": "n/a",
+      "api_source_url_signals": [],
+      "classification": "RED",
+      "stale_signals": [
+        "Event ended",
+        "Sales ended"
+      ],
+      "prior_verification_status": "needs_human_review",
+      "prior_confidence_score": 10
+    },
+    {
+      "slug": "comedy-crush",
+      "name": "Comedy Crush Wednesday Show",
+      "source_url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1982356098454",
+      "source_url_status": "future_active",
+      "source_url_signals": [],
+      "api_source_url": null,
+      "api_source_url_status": "n/a",
+      "api_source_url_signals": [],
+      "classification": "GREEN",
+      "stale_signals": [],
+      "prior_verification_status": "verified_24h",
+      "prior_confidence_score": 98
+    },
+    {
+      "slug": "comedy-lab-chat-noir",
+      "name": "Comedy Lab",
+      "source_url": "https://www.eventbrite.com/e/english-stand-up-comedy-in-paris-thursday-saturday-night-shows-tickets-77709323679",
+      "source_url_status": "future_active",
+      "source_url_signals": [],
+      "api_source_url": null,
+      "api_source_url_status": "n/a",
+      "api_source_url_signals": [],
+      "classification": "GREEN",
+      "stale_signals": [],
+      "prior_verification_status": "verified_24h",
+      "prior_confidence_score": 98
+    },
+    {
+      "slug": "cuba-compagnie",
+      "name": "Cuba Compagnie Comedy Club",
+      "source_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
+      "source_url_status": "future_active",
+      "source_url_signals": [],
+      "api_source_url": null,
+      "api_source_url_status": "n/a",
+      "api_source_url_signals": [],
+      "classification": "GREEN",
+      "stale_signals": [],
+      "prior_verification_status": "verified_24h",
+      "prior_confidence_score": 98
+    },
+    {
+      "slug": "coucou-friday",
+      "name": "English Stand-Up Comedy in Paris — Friday Night Show",
+      "source_url": "https://www.eventbrite.fr/e/english-stand-up-comedy-in-paris-friday-night-show-tickets-364336088047",
+      "source_url_status": "future_active",
+      "source_url_signals": [],
+      "api_source_url": null,
+      "api_source_url_status": "n/a",
+      "api_source_url_signals": [],
+      "classification": "GREEN",
+      "stale_signals": [],
+      "prior_verification_status": "verified_24h",
+      "prior_confidence_score": 98
+    },
+    {
+      "slug": "green-light",
+      "name": "Green Light Comedy",
+      "source_url": "https://www.eventbrite.fr/e/standup-comedy-in-english-green-light-in-paris-tickets-927454971787",
+      "source_url_status": "future_active",
+      "source_url_signals": [],
+      "api_source_url": null,
+      "api_source_url_status": "n/a",
+      "api_source_url_signals": [],
+      "classification": "GREEN",
+      "stale_signals": [],
+      "prior_verification_status": "verified_24h",
+      "prior_confidence_score": 98
+    },
+    {
+      "slug": "green-mic-showcase",
+      "name": "Green Mic Showcase",
+      "source_url": "https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-573952757147",
+      "source_url_status": "future_active",
+      "source_url_signals": [],
+      "api_source_url": null,
+      "api_source_url_status": "n/a",
+      "api_source_url_signals": [],
+      "classification": "GREEN",
+      "stale_signals": [],
+      "prior_verification_status": "verified_24h",
+      "prior_confidence_score": 98
+    },
+    {
+      "slug": "rocket",
+      "name": "Rocket Comedy Club",
+      "source_url": "https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627",
+      "source_url_status": "future_active",
+      "source_url_signals": [],
+      "api_source_url": null,
+      "api_source_url_status": "n/a",
+      "api_source_url_signals": [],
+      "classification": "GREEN",
+      "stale_signals": [],
+      "prior_verification_status": "verified_24h",
+      "prior_confidence_score": 98
+    },
+    {
+      "slug": "smash",
+      "name": "Smash Comedy Club",
+      "source_url": "https://www.eventbrite.com/e/smash-comedy-club-tickets-1902240916789",
+      "source_url_status": "future_active",
+      "source_url_signals": [],
+      "api_source_url": null,
+      "api_source_url_status": "n/a",
+      "api_source_url_signals": [],
+      "classification": "GREEN",
+      "stale_signals": [],
+      "prior_verification_status": "verified_24h",
+      "prior_confidence_score": 98
+    }
+  ]
+}

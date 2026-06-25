@@ -1,0 +1,1600 @@
+
+==== 2026-05-29T15:21:32Z ====
+  checking charonne                       ... verified_24h           (conf 98)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... verified_24h           (conf 98)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking millennial-meltdown            ... verified_24h           (conf 98)
+  checking theatre-bo-julie               ... needs_human_review     (conf 35)
+  checking rocket                         ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking wednesday-night-comedy         ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 1, 'verified_24h': 13}
+freshness-audit.json changed — committing
+[main e0bca00] data | freshness daily run 2026-05-29T15:21:32Z
+ 1 file changed, 42 insertions(+), 42 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   e36d550..e0bca00  main -> main
+
+==== 2026-05-29T16:19:59Z ====
+  checking charonne                       ... source_unreachable     (conf 0)
+  checking comedy-crush                   ... source_unreachable     (conf 0)
+  checking comedy-lab-chat-noir           ... source_unreachable     (conf 0)
+  checking cuba-compagnie                 ... source_unreachable     (conf 0)
+  checking coucou-friday                  ... source_unreachable     (conf 0)
+  checking ffcn                           ... source_unreachable     (conf 0)
+  checking green-light                    ... source_unreachable     (conf 0)
+  checking green-mic-showcase             ... source_unreachable     (conf 0)
+  checking millennial-meltdown            ... source_unreachable     (conf 0)
+  checking theatre-bo-julie               ... source_unreachable     (conf 0)
+  checking rocket                         ... source_unreachable     (conf 0)
+  checking smash                          ... source_unreachable     (conf 0)
+  checking velvet-comedy                  ... source_unreachable     (conf 0)
+  checking wednesday-night-comedy         ... source_unreachable     (conf 0)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'source_unreachable': 14}
+freshness-audit.json changed — committing
+[main 6c53e97] data | freshness daily run 2026-05-29T16:19:59Z
+ 1 file changed, 109 insertions(+), 110 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   49a26cb..6c53e97  main -> main
+---- daily_proof_package ----
+
+==== 2026-05-29T16:21:05Z ====
+  checking charonne                       ... source_unreachable     (conf 0)
+  checking comedy-crush                   ... source_unreachable     (conf 0)
+  checking comedy-lab-chat-noir           ... source_unreachable     (conf 0)
+  checking cuba-compagnie                 ... source_unreachable     (conf 0)
+  checking coucou-friday                  ... source_unreachable     (conf 0)
+  checking ffcn                           ... source_unreachable     (conf 0)
+  checking green-light                    ... source_unreachable     (conf 0)
+  checking green-mic-showcase             ... source_unreachable     (conf 0)
+  checking millennial-meltdown            ... source_unreachable     (conf 0)
+  checking theatre-bo-julie               ... source_unreachable     (conf 0)
+  checking rocket                         ... source_unreachable     (conf 0)
+  checking smash                          ... source_unreachable     (conf 0)
+  checking velvet-comedy                  ... source_unreachable     (conf 0)
+  checking wednesday-night-comedy         ... source_unreachable     (conf 0)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'source_unreachable': 14}
+freshness-audit.json changed — committing
+[main d071f60] data | freshness daily run 2026-05-29T16:21:05Z
+ 1 file changed, 29 insertions(+), 29 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   50c2a3a..d071f60  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260529T162116Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+no change in sitemap.xml
+
+==== 2026-05-30T04:30:04Z ====
+  checking charonne                       ... verified_24h           (conf 98)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... verified_24h           (conf 98)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking millennial-meltdown            ... needs_human_review     (conf 10)
+  checking theatre-bo-julie               ... needs_human_review     (conf 10)
+  checking rocket                         ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking wednesday-night-comedy         ... needs_human_review     (conf 10)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 3, 'verified_24h': 11}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 3db4665] data | freshness daily run 2026-05-30T04:30:04Z
+ 1 file changed, 40 insertions(+), 40 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   64e0da6..3db4665  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260530T043017Z.json
+  [PASS] freshness
+  [PASS] regression
+  [PASS] sitemap-size
+daily-proof: ALL PASS
+daily-proof: ok
+sitemap.xml changed — committing
+[main 451f73e] infra | daily sitemap regen 2026-05-30T04:30:04Z
+ 1 file changed, 14 insertions(+), 38 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   3db4665..451f73e  main -> main
+
+==== 2026-05-31T04:30:02Z ====
+  checking charonne                       ... needs_human_review     (conf 10)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking millennial-meltdown            ... needs_human_review     (conf 10)
+  checking theatre-bo-julie               ... needs_human_review     (conf 10)
+  checking rocket                         ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... needs_human_review     (conf 10)
+  checking wednesday-night-comedy         ... needs_human_review     (conf 10)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 6, 'verified_24h': 8}
+freshness-audit.json changed — syncing show.html noscript fallback
+updated 14 articles in show.html
+  charonne                  needs_human_review     -> needs_human_review     (checked 2026-05-31, conf 10)
+  comedy-crush              verified_24h           -> verified_24h           (checked 2026-05-31, conf 98)
+  comedy-lab-chat-noir      verified_24h           -> verified_24h           (checked 2026-05-31, conf 98)
+  cuba-compagnie            verified_24h           -> verified_24h           (checked 2026-05-31, conf 98)
+  coucou-friday             verified_24h           -> verified_24h           (checked 2026-05-31, conf 98)
+  ffcn                      verified_24h           -> needs_human_review     (checked 2026-05-31, conf 10)
+  green-light               verified_24h           -> verified_24h           (checked 2026-05-31, conf 98)
+  green-mic-showcase        verified_24h           -> verified_24h           (checked 2026-05-31, conf 98)
+  millennial-meltdown       needs_human_review     -> needs_human_review     (checked 2026-05-31, conf 10)
+  theatre-bo-julie          needs_human_review     -> needs_human_review     (checked 2026-05-31, conf 10)
+  rocket                    verified_24h           -> verified_24h           (checked 2026-05-31, conf 98)
+  smash                     verified_24h           -> verified_24h           (checked 2026-05-31, conf 98)
+  velvet-comedy             verified_24h           -> needs_human_review     (checked 2026-05-31, conf 10)
+  wednesday-night-comedy    needs_human_review     -> needs_human_review     (checked 2026-05-31, conf 10)
+[main 6762ca7] data | freshness daily run 2026-05-31T04:30:02Z
+ 2 files changed, 65 insertions(+), 65 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   89a9add..6762ca7  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260531T043023Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main da17c8e] infra | daily sitemap regen 2026-05-31T04:30:02Z
+ 1 file changed, 16 insertions(+), 52 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   6762ca7..da17c8e  main -> main
+
+==== 2026-06-01T04:30:04Z ====
+  checking charonne                       ... needs_human_review     (conf 10)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking millennial-meltdown            ... needs_human_review     (conf 10)
+  checking theatre-bo-julie               ... needs_human_review     (conf 10)
+  checking rocket                         ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... needs_human_review     (conf 10)
+  checking wednesday-night-comedy         ... needs_human_review     (conf 10)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 6, 'verified_24h': 8}
+freshness-audit.json changed — syncing show.html noscript fallback
+updated 14 articles in show.html
+  charonne                  needs_human_review     -> needs_human_review     (checked 2026-06-01, conf 10)
+  comedy-crush              verified_24h           -> verified_24h           (checked 2026-06-01, conf 98)
+  comedy-lab-chat-noir      verified_24h           -> verified_24h           (checked 2026-06-01, conf 98)
+  cuba-compagnie            verified_24h           -> verified_24h           (checked 2026-06-01, conf 98)
+  coucou-friday             verified_24h           -> verified_24h           (checked 2026-06-01, conf 98)
+  ffcn                      needs_human_review     -> needs_human_review     (checked 2026-06-01, conf 10)
+  green-light               verified_24h           -> verified_24h           (checked 2026-06-01, conf 98)
+  green-mic-showcase        verified_24h           -> verified_24h           (checked 2026-06-01, conf 98)
+  millennial-meltdown       needs_human_review     -> needs_human_review     (checked 2026-06-01, conf 10)
+  theatre-bo-julie          needs_human_review     -> needs_human_review     (checked 2026-06-01, conf 10)
+  rocket                    verified_24h           -> verified_24h           (checked 2026-06-01, conf 98)
+  smash                     verified_24h           -> verified_24h           (checked 2026-06-01, conf 98)
+  velvet-comedy             needs_human_review     -> needs_human_review     (checked 2026-06-01, conf 10)
+  wednesday-night-comedy    needs_human_review     -> needs_human_review     (checked 2026-06-01, conf 10)
+[main 9f26068] data | freshness daily run 2026-06-01T04:30:04Z
+ 2 files changed, 51 insertions(+), 51 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   da17c8e..9f26068  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260601T043019Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 3168f18] infra | daily sitemap regen 2026-06-01T04:30:04Z
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   9f26068..3168f18  main -> main
+
+==== 2026-06-02T04:30:02Z ====
+  checking charonne                       ... source_unreachable     (conf 5)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking millennial-meltdown            ... needs_human_review     (conf 10)
+  checking theatre-bo-julie               ... needs_human_review     (conf 10)
+  checking rocket                         ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... needs_human_review     (conf 10)
+  checking wednesday-night-comedy         ... needs_human_review     (conf 10)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'source_unreachable': 1, 'needs_human_review': 5, 'verified_24h': 8}
+freshness-audit.json changed — syncing show.html noscript fallback
+updated 14 articles in show.html
+  charonne                  needs_human_review     -> source_unreachable     (checked 2026-06-02, conf 5)
+  comedy-crush              verified_24h           -> verified_24h           (checked 2026-06-02, conf 98)
+  comedy-lab-chat-noir      verified_24h           -> verified_24h           (checked 2026-06-02, conf 98)
+  cuba-compagnie            verified_24h           -> verified_24h           (checked 2026-06-02, conf 98)
+  coucou-friday             verified_24h           -> verified_24h           (checked 2026-06-02, conf 98)
+  ffcn                      needs_human_review     -> needs_human_review     (checked 2026-06-02, conf 10)
+  green-light               verified_24h           -> verified_24h           (checked 2026-06-02, conf 98)
+  green-mic-showcase        verified_24h           -> verified_24h           (checked 2026-06-02, conf 98)
+  millennial-meltdown       needs_human_review     -> needs_human_review     (checked 2026-06-02, conf 10)
+  theatre-bo-julie          needs_human_review     -> needs_human_review     (checked 2026-06-02, conf 10)
+  rocket                    verified_24h           -> verified_24h           (checked 2026-06-02, conf 98)
+  smash                     verified_24h           -> verified_24h           (checked 2026-06-02, conf 98)
+  velvet-comedy             needs_human_review     -> needs_human_review     (checked 2026-06-02, conf 10)
+  wednesday-night-comedy    needs_human_review     -> needs_human_review     (checked 2026-06-02, conf 10)
+[main 7d4292e] data | freshness daily run 2026-06-02T04:30:02Z
+ 2 files changed, 57 insertions(+), 56 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   3168f18..7d4292e  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260602T043030Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 266f994] infra | daily sitemap regen 2026-06-02T04:30:02Z
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   7d4292e..266f994  main -> main
+
+==== 2026-06-03T04:30:01Z ====
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking kiss-comedy                    ... verified_24h           (conf 98)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... needs_human_review     (conf 10)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 4, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+updated 9 articles in show.html
+  comedy-crush              verified_24h           -> verified_24h           (checked 2026-06-03, conf 98)
+  comedy-lab-chat-noir      verified_24h           -> verified_24h           (checked 2026-06-03, conf 98)
+  cuba-compagnie            verified_24h           -> verified_24h           (checked 2026-06-03, conf 98)
+  coucou-friday             verified_24h           -> verified_24h           (checked 2026-06-03, conf 98)
+  ffcn                      needs_human_review     -> needs_human_review     (checked 2026-06-03, conf 10)
+  green-light               verified_24h           -> verified_24h           (checked 2026-06-03, conf 98)
+  green-mic-showcase        verified_24h           -> verified_24h           (checked 2026-06-03, conf 98)
+  smash                     verified_24h           -> verified_24h           (checked 2026-06-03, conf 98)
+  velvet-comedy             needs_human_review     -> needs_human_review     (checked 2026-06-03, conf 10)
+[main 32d837b] data | freshness daily run 2026-06-03T04:30:01Z
+ 2 files changed, 395 insertions(+), 310 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   f637f35..32d837b  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260603T043022Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main dcf34f5] infra | daily sitemap regen 2026-06-03T04:30:01Z
+ 1 file changed, 71 insertions(+), 17 deletions(-)
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   32d837b..dcf34f5  main -> main
+
+==== 2026-06-04T04:30:00Z ====
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking kiss-comedy                    ... needs_human_review     (conf 10)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 4, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+updated 2 articles in show.html
+  ffcn                      needs_human_review     -> needs_human_review     (checked 2026-06-04, conf 10)
+  velvet-comedy             needs_human_review     -> verified_24h           (checked 2026-06-04, conf 98)
+[main 36508e2] data | freshness daily run 2026-06-04T04:30:00Z
+ 2 files changed, 92 insertions(+), 92 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+push failed; will retry next run
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260604T043033Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main b58caac] infra | daily sitemap regen 2026-06-04T04:30:00Z
+ 1 file changed, 32 insertions(+), 26 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+sitemap push failed; will retry next run
+
+==== 2026-06-06T04:30:04Z ====
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking kiss-comedy                    ... needs_human_review     (conf 10)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 4, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 5592859] data | freshness daily run 2026-06-06T04:30:04Z
+ 1 file changed, 63 insertions(+), 63 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+push failed; will retry next run
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260606T043033Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 9ad2b89] infra | daily sitemap regen 2026-06-06T04:30:04Z
+ 1 file changed, 19 insertions(+), 19 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+sitemap push failed; will retry next run
+
+==== 2026-06-07T04:30:04Z ====
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking kiss-comedy                    ... needs_human_review     (conf 10)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 4, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 54d9b4e] data | freshness daily run 2026-06-07T04:30:04Z
+ 1 file changed, 63 insertions(+), 63 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+push failed; will retry next run
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260607T043034Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main b7b2b6e] infra | daily sitemap regen 2026-06-07T04:30:04Z
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+sitemap push failed; will retry next run
+
+==== 2026-06-08T04:30:00Z ====
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking kiss-comedy                    ... needs_human_review     (conf 10)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 4, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 0b0ce79] data | freshness daily run 2026-06-08T04:30:00Z
+ 1 file changed, 63 insertions(+), 63 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+push failed; will retry next run
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260608T043031Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 367059f] infra | daily sitemap regen 2026-06-08T04:30:00Z
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+sitemap push failed; will retry next run
+
+==== 2026-06-09T04:30:00Z ====
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking kiss-comedy                    ... needs_human_review     (conf 10)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 4, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 90c45c2] data | freshness daily run 2026-06-09T04:30:00Z
+ 1 file changed, 63 insertions(+), 63 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+push failed; will retry next run
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260609T043029Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 3fe8ff8] infra | daily sitemap regen 2026-06-09T04:30:00Z
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+sitemap push failed; will retry next run
+
+==== 2026-06-10T04:30:05Z ====
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking kiss-comedy                    ... needs_human_review     (conf 10)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 4, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 9cdc0db] data | freshness daily run 2026-06-10T04:30:05Z
+ 1 file changed, 63 insertions(+), 63 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+push failed; will retry next run
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260610T043037Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main c4807b2] infra | daily sitemap regen 2026-06-10T04:30:05Z
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+sitemap push failed; will retry next run
+
+==== 2026-06-11T04:30:03Z ====
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking kiss-comedy                    ... needs_human_review     (conf 10)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 4, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main e5e3b7b] data | freshness daily run 2026-06-11T04:30:03Z
+ 1 file changed, 63 insertions(+), 63 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+push failed; will retry next run
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260611T043030Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main f701909] infra | daily sitemap regen 2026-06-11T04:30:03Z
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+sitemap push failed; will retry next run
+
+==== 2026-06-12T04:30:05Z ====
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking kiss-comedy                    ... needs_human_review     (conf 10)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 4, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 7326e8d] data | freshness daily run 2026-06-12T04:30:05Z
+ 1 file changed, 63 insertions(+), 63 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+push failed; will retry next run
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260612T043041Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 0613dd9] infra | daily sitemap regen 2026-06-12T04:30:05Z
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+sitemap push failed; will retry next run
+
+==== 2026-06-13T04:30:01Z ====
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking kiss-comedy                    ... needs_human_review     (conf 10)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 4, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main c89ec7d] data | freshness daily run 2026-06-13T04:30:01Z
+ 1 file changed, 63 insertions(+), 63 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+push failed; will retry next run
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260613T043032Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main c9f86a9] infra | daily sitemap regen 2026-06-13T04:30:01Z
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 22 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] kiss-comedy: ticket link not bookable (latest=2026-06-03 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+sitemap push failed; will retry next run
+
+==== 2026-06-14T04:30:04Z ====
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 3, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 004b59a] data | freshness daily run 2026-06-14T04:30:04Z
+ 1 file changed, 64 insertions(+), 81 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 21 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   2f5719d..004b59a  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260614T043034Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 667274d] infra | daily sitemap regen 2026-06-14T04:30:04Z
+ 1 file changed, 19 insertions(+), 19 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 21 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   004b59a..667274d  main -> main
+
+==== 2026-06-15T04:30:04Z ====
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 3, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main e1285d9] data | freshness daily run 2026-06-15T04:30:04Z
+ 1 file changed, 61 insertions(+), 61 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 21 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   667274d..e1285d9  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260615T043033Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 92f1f25] infra | daily sitemap regen 2026-06-15T04:30:04Z
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 21 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   e1285d9..92f1f25  main -> main
+
+==== 2026-06-16T04:30:03Z ====
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+Traceback (most recent call last):
+  File "/Users/chuck/pariscomedy-push-20260526-095907/scripts/freshness_verify.py", line 242, in <module>
+    sys.exit(main())
+  File "/Users/chuck/pariscomedy-push-20260526-095907/scripts/freshness_verify.py", line 237, in main
+    OUT.write_text(json.dumps(out, indent=2, ensure_ascii=False))
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1275, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors) as f:
+FAIL: freshness_verify.py exited non-zero
+
+==== 2026-06-17T04:30:00Z ====
+Traceback (most recent call last):
+  File "/Users/chuck/pariscomedy-push-20260526-095907/scripts/freshness_verify.py", line 242, in <module>
+    sys.exit(main())
+  File "/Users/chuck/pariscomedy-push-20260526-095907/scripts/freshness_verify.py", line 205, in main
+    with urllib.request.urlopen(req, timeout=15) as r:
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 214, in urlopen
+    return opener.open(url, data, timeout)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 523, in open
+    response = meth(req, response)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 632, in http_response
+    response = self.parent.error(
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 561, in error
+    return self._call_chain(*args)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 494, in _call_chain
+    result = func(*args)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 641, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 404: Not Found
+FAIL: freshness_verify.py exited non-zero
+
+==== 2026-06-18T04:30:04Z ====
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 35)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 3, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main a65119f] data | freshness daily run 2026-06-18T04:30:04Z
+ 1 file changed, 61 insertions(+), 61 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 21 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   92f1f25..a65119f  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260618T043034Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 169367e] infra | daily sitemap regen 2026-06-18T04:30:04Z
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 21 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   a65119f..169367e  main -> main
+
+==== 2026-06-19T04:30:00Z ====
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking englishman-night               ... needs_human_review     (conf 10)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking bootleg-bar-comedy-club        ... verified_24h           (conf 98)
+  checking le-lieu-de-rire                ... needs_human_review     (conf 35)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+  checking well-com-le-plateau            ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 3, 'verified_24h': 18}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 9e7004c] data | freshness daily run 2026-06-19T04:30:00Z
+ 1 file changed, 63 insertions(+), 63 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 21 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] englishman-night: ticket link not bookable (latest=2026-06-18 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+push failed; will retry next run
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260619T043030Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 9ebec90] infra | daily sitemap regen 2026-06-19T04:30:00Z
+ 1 file changed, 19 insertions(+), 19 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 21 active+visible listings + rendered pages
+
+WARNINGS (4):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+  ! [R5] bootleg-bar-comedy-club: no venue identity (no venue row, no venue_name_raw)
+
+HARD VIOLATIONS (1):
+  ✗ [R4] englishman-night: ticket link not bookable (latest=2026-06-18 http=200)
+
+FAIL — fix the above before declaring done / deploying.
+
+🛑 PUSH BLOCKED — site_guard found hard violations (see above). Fix them, then push.
+error: failed to push some refs to 'https://github.com/RobsBuddySystem/pariscomedy.com.git'
+sitemap push failed; will retry next run
+
+==== 2026-06-20T04:30:04Z ====
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 1, 'verified_24h': 16}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 8d90a62] data | freshness daily run 2026-06-20T04:30:04Z
+ 1 file changed, 55 insertions(+), 123 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 17 active+visible listings + rendered pages
+
+WARNINGS (3):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   e1d32ce..8d90a62  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260620T043033Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 1b9b0b4] infra | daily sitemap regen 2026-06-20T04:30:04Z
+ 1 file changed, 25 insertions(+), 37 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 17 active+visible listings + rendered pages
+
+WARNINGS (3):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   8d90a62..1b9b0b4  main -> main
+
+==== 2026-06-21T04:30:01Z ====
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 1, 'verified_24h': 16}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 2a31cc7] data | freshness daily run 2026-06-21T04:30:01Z
+ 1 file changed, 51 insertions(+), 51 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 17 active+visible listings + rendered pages
+
+WARNINGS (3):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   53db239..2a31cc7  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260621T043023Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main ef5a43b] infra | daily sitemap regen 2026-06-21T04:30:01Z
+ 1 file changed, 16 insertions(+), 16 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 17 active+visible listings + rendered pages
+
+WARNINGS (3):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   2a31cc7..ef5a43b  main -> main
+
+==== 2026-06-22T04:30:05Z ====
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 1, 'verified_24h': 16}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 6609dfd] data | freshness daily run 2026-06-22T04:30:05Z
+ 1 file changed, 51 insertions(+), 51 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 17 active+visible listings + rendered pages
+
+WARNINGS (3):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   ef5a43b..6609dfd  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260622T043029Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 3acac19] infra | daily sitemap regen 2026-06-22T04:30:05Z
+ 1 file changed, 16 insertions(+), 16 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 17 active+visible listings + rendered pages
+
+WARNINGS (3):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   6609dfd..3acac19  main -> main
+
+==== 2026-06-23T04:30:08Z ====
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 1, 'verified_24h': 16}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 4c57497] data | freshness daily run 2026-06-23T04:30:08Z
+ 1 file changed, 51 insertions(+), 51 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 17 active+visible listings + rendered pages
+
+WARNINGS (3):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   3acac19..4c57497  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260623T043044Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main 250eeef] infra | daily sitemap regen 2026-06-23T04:30:08Z
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 17 active+visible listings + rendered pages
+
+WARNINGS (3):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   4c57497..250eeef  main -> main
+
+==== 2026-06-25T04:30:00Z ====
+  checking ffcn                           ... needs_human_review     (conf 10)
+  checking broadway-comedy-club           ... verified_24h           (conf 98)
+  checking green-mic-sunday               ... verified_24h           (conf 98)
+  checking dissident                      ... verified_24h           (conf 98)
+  checking comedy-crush                   ... verified_24h           (conf 98)
+  checking comedy-lab-chat-noir           ... verified_24h           (conf 98)
+  checking cuba-compagnie                 ... verified_24h           (conf 98)
+  checking coucou-friday                  ... verified_24h           (conf 98)
+  checking green-light                    ... verified_24h           (conf 98)
+  checking green-mic-showcase             ... verified_24h           (conf 98)
+  checking smash                          ... verified_24h           (conf 98)
+  checking velvet-comedy                  ... verified_24h           (conf 98)
+  checking kuhl-open-mic                  ... verified_24h           (conf 98)
+  checking oscar                          ... verified_24h           (conf 98)
+  checking south-comedy                   ... verified_24h           (conf 98)
+  checking le-trempoint                   ... verified_24h           (conf 98)
+  checking outside-comedy                 ... verified_24h           (conf 98)
+
+wrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 1, 'verified_24h': 16}
+freshness-audit.json changed — syncing show.html noscript fallback
+no changes needed
+[main 8c18d7f] data | freshness daily run 2026-06-25T04:30:00Z
+ 1 file changed, 51 insertions(+), 51 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 17 active+visible listings + rendered pages
+
+WARNINGS (3):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   6b7854c..8c18d7f  main -> main
+---- daily_proof_package ----
+daily-proof: wrote /Users/chuck/pariscomedy-push-20260526-095907/logs/daily-proof-20260625T043020Z.json
+  [PASS] freshness
+  [FAIL] regression
+  [PASS] sitemap-size
+daily-proof: FAILURES = ['regression']
+daily-proof: one or more checks FAILED (see logs/daily-proof-*.json)
+sitemap.xml changed — committing
+[main a1dc6e0] infra | daily sitemap regen 2026-06-25T04:30:00Z
+ 1 file changed, 17 insertions(+), 17 deletions(-)
+── pre-push: running pariscomedy site_guard ──
+site_guard: checked 17 active+visible listings + rendered pages
+
+WARNINGS (3):
+  ! [R5] kuhl-open-mic: venue 'Toloache' has empty address — fill it
+  ! [R5] green-mic-sunday: venue 'Ma Cocotte du Faubourg' has empty address — fill it
+  ! [R5] outside-comedy: no venue identity (no venue row, no venue_name_raw)
+
+PASS — all hard rules satisfied.
+✅ site_guard passed — allowing push.
+To https://github.com/RobsBuddySystem/pariscomedy.com.git
+   8c18d7f..a1dc6e0  main -> main

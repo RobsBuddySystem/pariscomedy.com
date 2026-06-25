@@ -1,0 +1,38 @@
+{
+  "failures": [
+    "regression"
+  ],
+  "generated_at": "2026-05-29T16:21:16.157831+00:00",
+  "iso": "20260529T162116Z",
+  "sections": {
+    "freshness": {
+      "by_status": {},
+      "returncode": 0,
+      "status": "PASS",
+      "stderr_tail": "ing theatre-bo-julie               ... source_unreachable     (conf 0)\n  checking rocket                         ... source_unreachable     (conf 0)\n  checking smash                          ... source_unreachable     (conf 0)\n  checking velvet-comedy                  ... source_unreachable     (conf 0)\n  checking wednesday-night-comedy         ... source_unreachable     (conf 0)\n\nwrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'source_unreachable': 14}\n"
+    },
+    "regression": {
+      "fail_count": 1,
+      "fail_lines": [
+        "[FAIL] nav_consistency          {\"problems\": [{\"page\": \"/fr/disclosure.html\", \"nav_block_count\": 1, \"nav_shell_count\": 0, \"variants\": []}]}"
+      ],
+      "pass_count": 8,
+      "returncode": 1,
+      "status": "FAIL",
+      "summary_tail": [
+        "",
+        "Log: /Users/chuck/pariscomedy-push-20260526-095907/logs/regression-guard.20260529T162148Z.json",
+        "Summary: 8 pass, 1 fail"
+      ]
+    },
+    "sitemap-size": {
+      "bytes": 4395,
+      "returncode": 0,
+      "status": "PASS",
+      "stdout_tail": [
+        "Wrote sitemap.xml with 15 URLs"
+      ],
+      "url_count": 15
+    }
+  }
+}

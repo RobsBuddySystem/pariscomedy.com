@@ -1,0 +1,34 @@
+{
+  "failures": [],
+  "generated_at": "2026-05-30T04:30:17.237417+00:00",
+  "iso": "20260530T043017Z",
+  "sections": {
+    "freshness": {
+      "by_status": {},
+      "returncode": 0,
+      "status": "PASS",
+      "stderr_tail": "           ... needs_human_review     (conf 10)\n  checking rocket                         ... verified_24h           (conf 98)\n  checking smash                          ... verified_24h           (conf 98)\n  checking velvet-comedy                  ... verified_24h           (conf 98)\n  checking wednesday-night-comedy         ... needs_human_review     (conf 10)\n\nwrote /Users/chuck/pariscomedy-push-20260526-095907/data/freshness-audit.json: by_status={'needs_human_review': 3, 'verified_24h': 11}\n"
+    },
+    "regression": {
+      "fail_count": 0,
+      "fail_lines": [],
+      "pass_count": 13,
+      "returncode": 0,
+      "status": "PASS",
+      "summary_tail": [
+        "",
+        "Log: /Users/chuck/pariscomedy-push-20260526-095907/logs/regression-guard.20260530T043112Z.json",
+        "Summary: 13 pass, 0 fail"
+      ]
+    },
+    "sitemap-size": {
+      "bytes": 8339,
+      "returncode": 0,
+      "status": "PASS",
+      "stdout_tail": [
+        "Wrote sitemap.xml with 37 URLs"
+      ],
+      "url_count": 37
+    }
+  }
+}
