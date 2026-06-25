@@ -134,12 +134,19 @@ async function initGoogle(){
     const base=await apiBase();
     const cfg=await fetch(base+'/api/auth/config').then(r=>r.json()).catch(()=>({}));
     const cid=cfg.google_client_id||'';
-    if(cid && window.google && google.accounts && google.accounts.id){
-      google.accounts.id.initialize({client_id:cid, callback:onGoogleCred});
-      google.accounts.id.renderButton(document.getElementById('gbtn'),{theme:'filled_blue',size:'large',text:'continue_with',shape:'pill',width:280});
-    } else {
-      const f=document.getElementById('g-fallback'); if(f)f.style.display='block';
-    }
+    if(!cid){ const f=document.getElementById('g-fallback'); if(f)f.style.display='block'; return; }
+    // GSI script is async — poll until google.accounts.id is ready (up to ~10s), then render
+    let tries=0;
+    (function waitGsi(){
+      if(window.google && google.accounts && google.accounts.id){
+        google.accounts.id.initialize({client_id:cid, callback:onGoogleCred});
+        google.accounts.id.renderButton(document.getElementById('gbtn'),{theme:'filled_blue',size:'large',text:'continue_with',shape:'pill',width:280});
+        const f=document.getElementById('g-fallback'); if(f)f.style.display='none';
+        return;
+      }
+      if(tries++ < 50){ setTimeout(waitGsi,200); }
+      else { const f=document.getElementById('g-fallback'); if(f)f.style.display='block'; }
+    })();
   }catch(e){ const f=document.getElementById('g-fallback'); if(f)f.style.display='block'; }
 }
 async function emailAuth(){
