@@ -514,6 +514,14 @@ function selectShow(id) {
   renderShowList();
   renderLineup();
   loadShowTimeline(id);
+  // AUTO-FLOW: selecting a show auto-filters the comic list to whoever is
+  // available on that show's date (pull model — the comic set their dispo once,
+  // no outreach/spam). The booker can Clear to see everyone again.
+  const di = document.getElementById('avail-date');
+  if (di && CURRENT_SHOW && CURRENT_SHOW.show_date) {
+    di.value = String(CURRENT_SHOW.show_date).slice(0,10);
+    if (typeof onAvailDate === 'function') onAvailDate();
+  }
 }
 
 async function loadShowTimeline(showId) {
