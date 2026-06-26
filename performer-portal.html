@@ -123,6 +123,16 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
       </form>
       <span class="msg" id="inv-msg"></span>
     </section>
+
+    <section class="panel" style="grid-column:1/-1">
+      <h2>Profile photo / Photo de profil</h2>
+      <p style="color:var(--muted);font-size:13px;margin:0 0 12px">Paste a link to your photo (an Instagram image or headshot URL). It sets your public directory card. / Collez le lien de votre photo ; elle apparaît sur votre fiche publique.</p>
+      <form onsubmit="return addPhoto(event)" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+        <div class="field" style="margin-bottom:0;flex:1;min-width:240px"><label>Photo URL</label><input id="photo-url" type="url" placeholder="https://…/me.jpg" maxlength="600" required></div>
+        <button class="btn" type="submit">Set photo / Définir</button>
+      </form>
+      <span class="msg" id="photo-msg"></span>
+    </section>
   </section>
 </main>
 <script>
@@ -312,6 +322,18 @@ async function inviteBooker(ev){
     const r=await api('/api/show/invite-booker',{method:'POST',body:JSON.stringify({show_name:show,booker_email:email,note})});
     msg.textContent=r.message||'Thanks — we’ll review and reach out.'; msg.classList.add('ok');
     document.getElementById('inv-show').value='';document.getElementById('inv-email').value='';document.getElementById('inv-note').value='';
+  }catch(e){msg.textContent='Error: '+e.message;msg.classList.add('err');}
+  return false;
+}
+async function addPhoto(ev){
+  ev.preventDefault();
+  const url=document.getElementById('photo-url').value.trim();
+  const msg=document.getElementById('photo-msg'); msg.className='msg';
+  if(!url){msg.textContent='Photo URL required.';msg.classList.add('err');return false;}
+  try{
+    await api('/api/performer/photo',{method:'POST',body:JSON.stringify({url,is_primary:true})});
+    msg.textContent='Photo set — it’ll show on your public card.'; msg.classList.add('ok');
+    document.getElementById('photo-url').value='';
   }catch(e){msg.textContent='Error: '+e.message;msg.classList.add('err');}
   return false;
 }
