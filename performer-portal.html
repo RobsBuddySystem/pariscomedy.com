@@ -139,7 +139,7 @@ async function initGoogle(){
     let tries=0;
     (function waitGsi(){
       if(window.google && google.accounts && google.accounts.id){
-        google.accounts.id.initialize({client_id:cid, callback:onGoogleCred});
+        google.accounts.id.initialize({client_id:cid, callback:onGoogleCred, auto_select:true});
         google.accounts.id.renderButton(document.getElementById('gbtn'),{theme:'filled_blue',size:'large',text:'continue_with',shape:'pill',width:280});
         const f=document.getElementById('g-fallback'); if(f)f.style.display='none';
         return;
@@ -246,10 +246,10 @@ function fillProfile(m){['display_name','stage_name','bio','website','instagram'
 async function saveProfile(ev){ev.preventDefault();const msg=document.getElementById('save-msg');msg.textContent='Saving...';msg.className='msg';const payload={role:'performer'};['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>payload[id]=document.getElementById(id).value.trim());try{const r=await api('/api/member/profile',{method:'PATCH',body:JSON.stringify(payload)});fillProfile(r.member||{});msg.textContent='Saved.';msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}return false;}
 // Also store session_token when magic link verify redirects back with it in URL params
 (function(){const p=new URLSearchParams(location.search);const t=p.get('t')||p.get('session_token');if(t){try{enterWithClaim(t);}catch(e){localStorage.setItem('pc_session_token',t);}}try{initGoogle();}catch(e){}})();
-loadPortal().then(()=>{if(!localStorage.getItem('comic_tutorial_done'))setTimeout(showComicTutorial,800);});
+loadPortal().then(()=>{var _c=+(localStorage.getItem('comic_tutorial_count')||0);if(!localStorage.getItem('comic_tutorial_done')&&_c<2){localStorage.setItem('comic_tutorial_count',_c+1);setTimeout(showComicTutorial,800);}});
 
 const COMIC_TUTORIAL=[
-  {title:'Welcome to your Performer Portal',body:'This is your home base on Paris Comedy. Set up your profile so bookers can find and book you.'},
+  {title:'Welcome to your Performer Portal',body:'This is a new work space to help book stand-up jobs.'},
   {title:'1. Complete your profile',body:'Fill in your stage name, bio, languages, Instagram, and YouTube. This is what bookers see in the directory.'},
   {title:'2. Add a photo',body:'Paste a direct image URL in the Photo URL field. Use a clear headshot — it appears on your public comedian card.'},
   {title:'3. Booking offers',body:'When a booker wants to book you for a show, you\'ll see it here as an offer. You can accept or decline each one.'},
