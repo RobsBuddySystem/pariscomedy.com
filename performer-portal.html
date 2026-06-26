@@ -111,6 +111,18 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
       <span class="msg" id="avail-msg"></span>
       <div id="avail-list" style="margin-top:14px"></div>
     </section>
+
+    <section class="panel" style="grid-column:1/-1">
+      <h2>Know a show's booker? Invite them (free)</h2>
+      <p style="color:var(--muted);font-size:13px;margin:0 0 12px">If a show isn't on the platform yet and you know who books it, invite them. We review first and reach out — no spam — so they can claim the show free. / Si vous connaissez le programmateur d'un show absent du site, invitez-le (on vérifie d'abord, pas de spam).</p>
+      <form onsubmit="return inviteBooker(event)" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+        <div class="field" style="margin-bottom:0;flex:1;min-width:160px"><label>Show name</label><input id="inv-show" placeholder="e.g. Tuesday Night Comedy" maxlength="200" required></div>
+        <div class="field" style="margin-bottom:0;flex:1;min-width:160px"><label>Booker email</label><input id="inv-email" type="email" placeholder="booker@venue.com" maxlength="200" required></div>
+        <div class="field" style="margin-bottom:0;flex:1;min-width:160px"><label>Note (optional)</label><input id="inv-note" placeholder="how you know them" maxlength="500"></div>
+        <button class="btn" type="submit">Invite booker / Inviter</button>
+      </form>
+      <span class="msg" id="inv-msg"></span>
+    </section>
   </section>
 </main>
 <script>
@@ -288,6 +300,20 @@ async function removeAvailability(id){
     await api('/api/performer/availability/'+id,{method:'DELETE'});
     loadAvailability();
   }catch(e){alert('Error: '+e.message);}
+}
+async function inviteBooker(ev){
+  ev.preventDefault();
+  const show=document.getElementById('inv-show').value.trim();
+  const email=document.getElementById('inv-email').value.trim();
+  const note=document.getElementById('inv-note').value.trim();
+  const msg=document.getElementById('inv-msg'); msg.className='msg';
+  if(!show||!email){msg.textContent='Show name and booker email required.';msg.classList.add('err');return false;}
+  try{
+    const r=await api('/api/show/invite-booker',{method:'POST',body:JSON.stringify({show_name:show,booker_email:email,note})});
+    msg.textContent=r.message||'Thanks — we’ll review and reach out.'; msg.classList.add('ok');
+    document.getElementById('inv-show').value='';document.getElementById('inv-email').value='';document.getElementById('inv-note').value='';
+  }catch(e){msg.textContent='Error: '+e.message;msg.classList.add('err');}
+  return false;
 }
 async function saveProfile(ev){ev.preventDefault();const msg=document.getElementById('save-msg');msg.textContent='Saving...';msg.className='msg';const payload={role:'performer'};['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>payload[id]=document.getElementById(id).value.trim());try{const r=await api('/api/member/profile',{method:'PATCH',body:JSON.stringify(payload)});fillProfile(r.member||{});msg.textContent='Saved.';msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}return false;}
 // Also store session_token when magic link verify redirects back with it in URL params
