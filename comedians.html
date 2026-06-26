@@ -330,6 +330,44 @@ function renderGrid() {
 }
 renderGrid();
 
+// LIVE hydration (unify members<->comics): refresh cards from the directory API
+// so a comic's claimed-profile edits (written through on the backend) show
+// without a redeploy. The static COMICS array above is the SEO/offline fallback;
+// any failure here is a silent no-op so the page still works offline.
+(async () => {
+  try {
+    const cfg = await fetch('/api-config.json', {cache:'no-store'}).then(r=>r.json()).catch(()=>({api:''}));
+    const API = cfg.api || ''; if (!API) return;
+    const live = await fetch(`${API}/api/comics`).then(r=>r.ok?r.json():null).catch(()=>null);
+    if (!Array.isArray(live) || !live.length) return;
+    const bySlug = Object.fromEntries(COMICS.map(c=>[c.slug, c]));
+    live.forEach(p=>{
+      if (!p || !p.slug) return;
+      let langs = [];
+      if (Array.isArray(p.languages)) langs = p.languages;
+      else if (typeof p.languages === 'string' && p.languages.trim()) {
+        try { const j = JSON.parse(p.languages); langs = Array.isArray(j) ? j : p.languages.split(/[,\s]+/).filter(Boolean); }
+        catch (_) { langs = p.languages.split(/[,\s]+/).filter(Boolean); }
+      }
+      const name = p.stage_name || p.name || p.slug;
+      const item = {
+        slug: p.slug, name,
+        langs: langs.length ? langs : (bySlug[p.slug] ? bySlug[p.slug].langs : ['en']),
+        instagram: p.instagram || (bySlug[p.slug] ? bySlug[p.slug].instagram : '') || '',
+        photo: p.photo_url || p.photo || (bySlug[p.slug] ? bySlug[p.slug].photo : '')
+          || ('https://api.dicebear.com/9.x/initials/svg?seed='+encodeURIComponent(name)+'&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40'),
+        bio: (p.bio != null ? p.bio : (bySlug[p.slug] ? bySlug[p.slug].bio : '')) || '',
+        actuality: p.actuality || (bySlug[p.slug] ? bySlug[p.slug].actuality : '') || '',
+        video_url: p.video_url || ''
+      };
+      if (bySlug[p.slug]) Object.assign(bySlug[p.slug], item);
+      else { COMICS.push(item); bySlug[p.slug] = item; }
+    });
+    renderGrid();
+    if (typeof counts === 'function') counts();
+  } catch (_) { /* offline / API down → keep static render */ }
+})();
+
 document.querySelectorAll('.filter-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
