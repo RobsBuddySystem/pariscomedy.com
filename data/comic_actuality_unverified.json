@@ -5065,19 +5065,13 @@
     ]
   },
   {
-<<<<<<< HEAD
     "comic_slug": "romain-raulin",
     "comic_name": "Romain Raulin",
-=======
-    "comic_slug": "robert-hoehn",
-    "comic_name": "Robert Hoehn",
->>>>>>> origin/hourly-data
     "fact": "web:active",
     "methods": [
       "M5"
     ],
     "confidence": 1,
-<<<<<<< HEAD
     "checked_at": "2026-05-20T06:56:04+00:00",
     "type": "web_presence",
     "links": [
@@ -6547,38 +6541,6 @@
       {
         "title": "Sammy vore Jandel - YouTube",
         "url": "https://www.youtube.com/watch?v=IBr2xq3OAZg"
-=======
-    "checked_at": "2026-05-23T10:32:34+00:00",
-    "type": "web_presence",
-    "links": [
-      {
-        "title": "Robert Hoehn - Facebook",
-        "url": "https://www.facebook.com/RobertHoehn/"
-      },
-      {
-        "title": "Robert Hoehn - Comedian from Paris, France",
-        "url": "https://opencomedy.com/RobertHoehn"
-      },
-      {
-        "title": "Robert Hoehn - YouTube",
-        "url": "https://www.youtube.com/@RobertHoehn"
-      },
-      {
-        "title": "Robert Hoehn (@robertjhoehn) • Instagram photos and videos",
-        "url": "https://www.instagram.com/robertjhoehn/"
-      },
-      {
-        "title": "Robert Hoehn - Producer | LinkedIn",
-        "url": "https://www.linkedin.com/pub/dir/Robert/Hoehn/fr-5227-Paris-Area%2C-France"
-      },
-      {
-        "title": "Robert Hoehn : Réservation de Billets & Places | Billet Réduc'",
-        "url": "https://prod-apiapp.billetreduc.com/spectacle-robert-hoehn.htm"
-      },
-      {
-        "title": "American in France - Robert Hoehn - Listen Notes",
-        "url": "https://www.listennotes.com/podcasts/americans-in-france/american-in-france-robert-slQwMzofIUa/"
->>>>>>> origin/hourly-data
       }
     ]
   },

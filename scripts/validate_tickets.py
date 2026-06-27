@@ -95,13 +95,20 @@ def main():
 
     SHOWS.write_text(json.dumps(shows, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    existing = []
+    # review_queue.json was deprecated 2026-05-29 (now a {_status, items:[]} dict);
+    # live review lands at the canonical API. Only maintain it if it's still a flat list.
     if REVIEW.exists():
-        try: existing = json.loads(REVIEW.read_text(encoding="utf-8"))
-        except Exception: existing = []
-    keep_ids = {(r.get("id"), r.get("ticket_url")) for r in review}
-    existing = [r for r in existing if (r.get("id"), r.get("ticket_url")) not in keep_ids]
-    REVIEW.write_text(json.dumps(existing + review, ensure_ascii=False, indent=2), encoding="utf-8")
+        try:
+            existing = json.loads(REVIEW.read_text(encoding="utf-8"))
+        except Exception:
+            existing = []
+        if isinstance(existing, list):
+            keep_ids = {(r.get("id"), r.get("ticket_url")) for r in review}
+            existing = [r for r in existing
+                        if (r.get("id"), r.get("ticket_url")) not in keep_ids]
+            REVIEW.write_text(json.dumps(existing + review, ensure_ascii=False, indent=2),
+                              encoding="utf-8")
+        # else: deprecated dict shape — do not write (see file _note).
 
     print(json.dumps({"counts": counts, "total": len(shows), "checked_at": now}))
 

@@ -138,32 +138,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-<<<<<<< HEAD
-=======
-    "id": "velvet-openmic-20260520",
-    "recurring_id": "velvet-openmic",
-    "name": "Velvet Bar Comedy — Open Mic",
-    "venue_name": "Velvet Bar",
-    "address": "43 Rue Saint-Honoré, 75001 Paris",
-    "neighborhood": "Les Halles (1er)",
-    "start_date": "2026-05-20T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713",
-    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "openmic",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "unavailable",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
->>>>>>> origin/hourly-data
     "id": "broadway-comedy-club-20260520",
     "recurring_id": "broadway-comedy-club",
     "name": "Broadway Comedy Club - Paris",
@@ -1015,32 +989,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-<<<<<<< HEAD
-=======
-    "id": "velvet-openmic-20260527",
-    "recurring_id": "velvet-openmic",
-    "name": "Velvet Bar Comedy — Open Mic",
-    "venue_name": "Velvet Bar",
-    "address": "43 Rue Saint-Honoré, 75001 Paris",
-    "neighborhood": "Les Halles (1er)",
-    "start_date": "2026-05-27T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713",
-    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "openmic",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "unavailable",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
->>>>>>> origin/hourly-data
     "id": "broadway-comedy-club-20260527",
     "recurring_id": "broadway-comedy-club",
     "name": "Broadway Comedy Club - Paris",
@@ -1892,32 +1840,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-<<<<<<< HEAD
-=======
-    "id": "velvet-openmic-20260603",
-    "recurring_id": "velvet-openmic",
-    "name": "Velvet Bar Comedy — Open Mic",
-    "venue_name": "Velvet Bar",
-    "address": "43 Rue Saint-Honoré, 75001 Paris",
-    "neighborhood": "Les Halles (1er)",
-    "start_date": "2026-06-03T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713",
-    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "openmic",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "unavailable",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
->>>>>>> origin/hourly-data
     "id": "broadway-comedy-club-20260603",
     "recurring_id": "broadway-comedy-club",
     "name": "Broadway Comedy Club - Paris",
@@ -2769,32 +2691,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-<<<<<<< HEAD
-=======
-    "id": "velvet-openmic-20260610",
-    "recurring_id": "velvet-openmic",
-    "name": "Velvet Bar Comedy — Open Mic",
-    "venue_name": "Velvet Bar",
-    "address": "43 Rue Saint-Honoré, 75001 Paris",
-    "neighborhood": "Les Halles (1er)",
-    "start_date": "2026-06-10T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713",
-    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "openmic",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "unavailable",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
->>>>>>> origin/hourly-data
     "id": "broadway-comedy-club-20260610",
     "recurring_id": "broadway-comedy-club",
     "name": "Broadway Comedy Club - Paris",
@@ -3646,32 +3542,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-<<<<<<< HEAD
-=======
-    "id": "velvet-openmic-20260617",
-    "recurring_id": "velvet-openmic",
-    "name": "Velvet Bar Comedy — Open Mic",
-    "venue_name": "Velvet Bar",
-    "address": "43 Rue Saint-Honoré, 75001 Paris",
-    "neighborhood": "Les Halles (1er)",
-    "start_date": "2026-06-17T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713",
-    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-open-mic-stand-up-comedy-a-paris-tickets-1977106148713",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "openmic",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "unavailable",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
->>>>>>> origin/hourly-data
     "id": "broadway-comedy-club-20260617",
     "recurring_id": "broadway-comedy-club",
     "name": "Broadway Comedy Club - Paris",

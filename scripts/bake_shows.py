@@ -49,15 +49,18 @@ def main():
         print(f"REFUSE: only {len(active)} active shows (<10).", file=sys.stderr)
         sys.exit(2)
     blob = json.dumps(active, ensure_ascii=False, separators=(",", ":"))
+    baked = []
     for fname in ("index.html", "shows.html"):
         p = ROOT / fname
         content = p.read_text(encoding="utf-8")
         new = re.sub(r"const SHOWS_DATA = \[.*?\];", f"const SHOWS_DATA = {blob};", content, flags=re.DOTALL)
         if new == content:
-            print(f"WARN: no SHOWS_DATA replacement in {fname}", file=sys.stderr)
-            sys.exit(3)
+            # Page is live-wire (fetches /api/listings) — no static SHOWS_DATA to bake.
+            print(f"SKIP: no SHOWS_DATA placeholder in {fname} (live-wire page)", file=sys.stderr)
+            continue
         p.write_text(new, encoding="utf-8")
-    print(json.dumps({"baked_active": len(active), "total": len(shows)}))
+        baked.append(fname)
+    print(json.dumps({"baked_active": len(active), "total": len(shows), "baked_files": baked}))
 
 if __name__ == "__main__":
     main()
