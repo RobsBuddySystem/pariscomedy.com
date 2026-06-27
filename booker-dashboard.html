@@ -827,8 +827,9 @@ function exportLineup() {
   if (window.pcTrack) pcTrack('lineup_export', {show_id: s.id, show_title: s.title, comic_count: s.lineup.length});
 }
 
-// Auto-login if token persists
-if (TOKEN) { api('/api/booker/comics').then(enterDashboard).catch(function(){ /* invalid/expired token: stay on the sign-in gate */ }); }
+// Auto-login if a token persists — accept the unified pariscomedy session (Google sign-in)
+// as well as a legacy booker token, so ONE sign-in reaches the booker dashboard too.
+if (TOKEN || localStorage.getItem('pc_session_token')) { api('/api/booker/comics').then(enterDashboard).catch(function(){ /* invalid/expired token: stay on the sign-in gate */ }); }
 
 // ── Extra tabs ──────────────────────────────────────────────────────────────
 function showTab(tab) {

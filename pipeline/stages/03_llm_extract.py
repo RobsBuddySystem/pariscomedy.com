@@ -31,7 +31,7 @@ log = logging.getLogger(__name__)
 
 PROMPT_TEMPLATE = """\
 Is this a comedy event in Paris? Reply JSON only, no markdown:
-{{"is_comedy": bool, "confidence": 0.0-1.0, "type": "standup|openmic|improv|other", "language": "en|fr|bilingual|unknown", "is_recurring": bool, "has_specific_date": bool}}
+{{"is_comedy": bool, "confidence": 0.0-1.0, "type": "standup|openmic|improv|other", "language": "en|fr|unknown", "is_recurring": bool, "has_specific_date": bool}}
 
 Event: {name}
 Description: {description}"""
@@ -93,8 +93,10 @@ def keyword_score(name: str, description: str, config: dict) -> dict:
     en_signals = ["standup", "stand-up", "comedy", "comedian", "open mic", "showcase"]
     has_fr = any(s in text for s in fr_signals)
     has_en = any(s in text for s in en_signals)
+    # Every Paris show is EITHER French OR English — there is no "bilingual" (Robert, hard rule).
+    # Ambiguous (both signals) => "unknown"; the API serializer collapses unknown -> fr (default).
     if has_fr and has_en:
-        language = "bilingual"
+        language = "unknown"
     elif has_fr:
         language = "fr"
     elif has_en:
