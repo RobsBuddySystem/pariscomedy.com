@@ -257,32 +257,41 @@ let activeFilter = 'all';
 function counts() {
   let en=0,fr=0,bi=0;
   COMICS.forEach(c=>{
-    const hasEn=c.langs.includes('en'), hasFr=c.langs.includes('fr');
+    const langs=Array.isArray(c.langs)?c.langs:[];
+    const hasEn=langs.includes('en'), hasFr=langs.includes('fr');
     if(hasEn&&hasFr) bi++; else if(hasEn) en++; else if(hasFr) fr++;
   });
-  document.getElementById('count-en').textContent=en;
-  document.getElementById('count-fr').textContent=fr;
-  document.getElementById('count-bi').textContent=bi;
+  // Null-safe: a removed counter element must NEVER throw and blank the whole
+  // directory (that crash is why the comics "disappeared", 2026-06-29).
+  const set=(id,v)=>{const el=document.getElementById(id); if(el) el.textContent=v;};
+  set('count-en',en); set('count-fr',fr); set('count-bi',bi);
 }
 counts();
 
 const sel=document.getElementById('m-show');
-SHOWS.forEach(s=>{
-  const o=document.createElement('option');
-  o.value=s.id; o.textContent=s.name+(s.venue?' — '+s.venue:'');
-  sel.appendChild(o);
-});
+if (sel && Array.isArray(SHOWS)) {
+  const _seen=new Set();
+  SHOWS.filter(s=>s && s.name && !/french fried/i.test(s.name))
+       .filter(s=>{ if(_seen.has(s.name)) return false; _seen.add(s.name); return true; })
+       .forEach(s=>{
+         const o=document.createElement('option');
+         o.value=s.id; o.textContent=s.name+(s.venue?' — '+s.venue:'');
+         sel.appendChild(o);
+       });
+}
 
 function renderGrid() {
-  const q=document.getElementById('search').value.toLowerCase();
+  const _s=document.getElementById('search'); const q=_s?(_s.value||'').toLowerCase():'';
   const grid=document.getElementById('grid');
+  if(!grid) return;
   grid.innerHTML='';
   COMICS.forEach(c=>{
     if(c.is_archived) return;
-    const hasEn=c.langs.includes('en'), hasFr=c.langs.includes('fr');
+    const langs=Array.isArray(c.langs)?c.langs:[];
+    const hasEn=langs.includes('en'), hasFr=langs.includes('fr');
     const langKey=(hasEn&&hasFr)?'bi':hasEn?'en':'fr';
     if(activeFilter!=='all'&&activeFilter!==langKey) return;
-    if(q&&!c.name.toLowerCase().includes(q)) return;
+    if(q&&!String(c.name||'').toLowerCase().includes(q)) return;
 
     let tagHtml='';
     if(hasEn) tagHtml='<span class="tag tag-en">English</span>';
