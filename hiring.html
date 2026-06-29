@@ -93,12 +93,6 @@ footer a{color:var(--yellow)}
 <div class="count" id="count"></div>
 <div class="grid" id="grid"></div>
 
-<section class="leads" id="leads-section" style="display:none">
- <h2>Unconfirmed leads</h2>
- <p class="sub">We couldn't confirm these are currently running as open mics — chase the source before you rely on them.</p>
- <div id="leads"></div>
-</section>
-
 <footer>
  Free for comics. Each mic links to its own source — always confirm the night, time, and signup there before you go.<br>
  <a href="/">pariscomedy.com</a> · <a href="/comedians.html">Get listed as a comedian</a> · <a href="/feedback.html">Spot a problem? Tell us</a>
@@ -140,18 +134,7 @@ function render(){
   grid.appendChild(card);
  });
 }
-function renderLeads(){
- if(!LEADS.length) return;
- document.getElementById('leads-section').style.display='block';
- const box=document.getElementById('leads');
- LEADS.forEach(function(l){
-  const d=el('div','lead');
-  d.appendChild(el('b',null,l.name+' — '));
-  d.appendChild(document.createTextNode(l.why||''));
-  if(l.source){d.appendChild(document.createTextNode(' '));d.appendChild(link(l.source,'(source)',''));}
-  box.appendChild(d);
- });
-}
+function renderLeads(){ /* Unconfirmed leads removed from the public site — only verified, source-confirmed mics are published (Robert 2026-06-29). */ }
 function pill(container,group,value,label){
  const b=el('button','filter-btn'+(state[group]===value?' active':''),label);
  b.addEventListener('click',function(){state[group]=value;[].forEach.call(container.children,function(x){x.classList.remove('active');});b.classList.add('active');render();});
