@@ -320,17 +320,9 @@ function renderGrid() {
         </div>
         ${c.bio?`<div class="card-bio">${c.bio}</div>`:''}
       </a>
-      <div class="freshness-note">${c.instagram ? 'Source linked for audit' : 'Needs upstream source check'}</div>
       <div class="card-btns">
-        ${igUrl
-          ?`<a href="${igUrl}" target="_blank" class="btn-card">📷 Instagram</a>`
-          :`<span class="btn-card" style="opacity:.3;cursor:default;pointer-events:none">📷 —</span>`}
-        ${c.actuality
-          ?`<button class="btn-card" onclick="toggleActuality('${uid}')">📍 Actuality</button>`
-          :`<span class="btn-card" style="opacity:.3;cursor:default;pointer-events:none">📍 —</span>`}
-        <a class="btn-card" href="/c/${encodeURIComponent(c.slug)}.html" style="margin-left:auto">Profile →</a>
+        <a class="btn-card" href="/c/${encodeURIComponent(c.slug)}.html" style="flex:1">View profile →</a>
       </div>
-      ${c.actuality?`<div class="actuality-bubble" id="${uid}">${c.actuality}</div>`:''}
     `;
     grid.appendChild(card);
   });
