@@ -92,8 +92,9 @@ async function loadShows() {
     const rows = await fetch(api + '/api/listings', {cache:'no-store'}).then(r=>r.json());
     SHOWS = (Array.isArray(rows) ? rows : []).map(s => ({
       id: s.id,
+      slug: s.slug || '',
       name: s.name || '',
-      venue: s.venue_name_raw || s.venue || '',
+      venue: s.venue_name || (s.venue && s.venue.name) || s.venue_name_raw || '',
       days: Array.isArray(s.days) ? s.days : [],
       time: s.start_time || s.time || '',
       emoji: s.emoji || '\u{1F3A4}',
@@ -130,7 +131,7 @@ function render() {
       <div class="card-days">${s.days.join(' / ')} &middot; ${s.time}</div>
       <span class="tag tag-en">${(s.language||'en').toUpperCase()}</span>
       <div class="card-desc">${s.desc}</div>
-      <a href="${s.url}" target="_blank" class="btn-book">Book / Info →</a>`;
+      <a href="${s.slug ? ('/show.html?slug=' + encodeURIComponent(s.slug)) : s.url}" class="btn-book">Details &amp; tickets →</a>`;
     grid.appendChild(card);
   });
 }
