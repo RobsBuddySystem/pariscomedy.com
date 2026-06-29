@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <title>Shows — Paris Comedy</title>
-<meta name="description" content="Every English-language stand-up comedy show in Paris. Browse by night, find your show, book tickets.">
+<meta name="description" content="Every English-language stand-up comedy show in Paris, on one calendar. Find tonight's show, browse the month, book tickets.">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#f0f0f0;min-height:100vh}
@@ -17,26 +17,34 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .nav-links{display:flex;gap:20px;font-size:14px;color:#888;flex-wrap:wrap}
 .nav-links a:hover{color:#f0f0f0}
 .nav-active{color:#f0f0f0!important}
-.hero{text-align:center;padding:52px 24px 36px}
-.hero h1{font-size:clamp(26px,4vw,48px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:12px}
+.hero{text-align:center;padding:44px 24px 8px}
+.hero h1{font-size:clamp(26px,4vw,46px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:10px}
 .hero h1 span{color:#f5c518}
-.hero p{color:#888;font-size:15px;max-width:500px;margin:0 auto}
-.filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:20px 16px 0}
-.filter-btn{padding:8px 18px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;font-size:13px;cursor:pointer}
-.filter-btn:hover{border-color:#666;color:#f0f0f0}
-.filter-btn.active{background:#f5c518;border-color:#f5c518;color:#000;font-weight:600}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding:24px;max-width:1100px;margin:0 auto}
-.card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px}
-.card:hover{border-color:#333}
-.card-emoji{font-size:28px}
-.card-name{font-size:15px;font-weight:700}
-.card-venue{font-size:12px;color:#666}
-.card-days{font-size:12px;color:#888}
-.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
-.tag-en{background:#1a3a5c;color:#7ab3e0}
-.card-desc{font-size:13px;color:#888;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.btn-book{margin-top:auto;padding:9px;border-radius:8px;border:none;background:#f5c518;color:#000;font-size:12px;font-weight:700;cursor:pointer;text-align:center;display:block}
-.btn-book:hover{opacity:.9}
+.hero p{color:#888;font-size:15px;max-width:520px;margin:0 auto}
+.calwrap{max-width:1180px;margin:0 auto;padding:24px 16px 60px}
+.calbar{display:flex;align-items:center;justify-content:center;gap:22px;margin:18px 0 18px}
+.calbar button{background:#151515;border:1px solid #2a2a2a;color:#f0f0f0;width:38px;height:38px;border-radius:10px;font-size:18px;cursor:pointer;line-height:1}
+.calbar button:hover{border-color:#f5c518;color:#f5c518}
+.calbar .month{font-size:20px;font-weight:700;letter-spacing:-.3px;min-width:210px;text-align:center}
+.today-btn{width:auto!important;padding:0 14px;font-size:13px!important;font-weight:600}
+.calscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cal{min-width:760px;display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.dow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#666;text-align:center;padding:6px 0}
+.cell{background:#0f0f0f;border:1px solid #1c1c1c;border-radius:10px;min-height:118px;padding:8px;display:flex;flex-direction:column;gap:6px}
+.cell.blank{background:transparent;border:0}
+.cell.past{opacity:.4}
+.cell.today{border-color:#f5c518;box-shadow:0 0 0 1px #f5c518 inset}
+.cell-date{font-size:12px;color:#777;font-weight:700;align-self:flex-end}
+.cell.today .cell-date{color:#f5c518}
+.ev{display:block;background:#171717;border:1px solid #242424;border-radius:8px;padding:6px 8px;transition:border-color .15s}
+.ev:hover{border-color:#f5c518}
+.ev-time{font-size:11px;font-weight:800;color:#f5c518;letter-spacing:.02em}
+.ev-name{font-size:12px;font-weight:600;color:#eee;line-height:1.25;margin-top:1px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ev-venue{font-size:10px;color:#777;margin-top:1px}
+.ev-lang{display:inline-block;font-size:9px;font-weight:700;padding:1px 5px;border-radius:6px;margin-top:3px;background:#1a3a5c;color:#7ab3e0}
+.ev-lang.fr{background:#3a1a2a;color:#e07ab3}
+.empty{grid-column:1/-1;text-align:center;color:#555;padding:48px}
+@media(max-width:640px){.hero{padding:32px 16px 4px}.calbar .month{min-width:150px;font-size:17px}}
 footer{border-top:1px solid #222;padding:32px 24px;text-align:center;color:#666;font-size:13px}
 footer a{color:#666}footer a:hover{color:#f0f0f0}
 .footer-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
@@ -61,22 +69,21 @@ footer a{color:#666}footer a:hover{color:#f0f0f0}
 </nav>
 
 <div class="hero">
-  <h1>Paris Comedy <span>Shows</span></h1>
-  <p>Stand-up every night of the week — English and French stand-up across Paris.</p>
+  <h1>Comedy <span>Calendar</span></h1>
+  <p>Every stand-up show in Paris, by night. Tap any show for details and tickets.</p>
 </div>
 
-<div class="filters">
-  <button class="filter-btn active" data-day="all">All</button>
-  <button class="filter-btn" data-day="Monday">Mon</button>
-  <button class="filter-btn" data-day="Tuesday">Tue</button>
-  <button class="filter-btn" data-day="Wednesday">Wed</button>
-  <button class="filter-btn" data-day="Thursday">Thu</button>
-  <button class="filter-btn" data-day="Friday">Fri</button>
-  <button class="filter-btn" data-day="Saturday">Sat</button>
-  <button class="filter-btn" data-day="Sunday">Sun</button>
+<div class="calwrap">
+  <div class="calbar">
+    <button id="prev" aria-label="Previous month">&#8249;</button>
+    <div class="month" id="monthLabel">—</div>
+    <button id="next" aria-label="Next month">&#8250;</button>
+    <button class="today-btn" id="todayBtn">Today</button>
+  </div>
+  <div class="calscroll">
+    <div class="cal" id="cal"></div>
+  </div>
 </div>
-
-<div class="grid" id="grid"></div>
 
 <footer>
   <div class="footer-links">
@@ -91,68 +98,76 @@ footer a{color:#666}footer a:hover{color:#f0f0f0}
 </footer>
 
 <script>
-// Shows are read LIVE from /api/listings — never bake a static array here.
-// site_guard R10 enforces this; the baked array caused repeated stale / blank-grid incidents.
+// Shows are read LIVE from /api/listings — never bake a static array (site_guard R10).
+const DOW = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 let SHOWS = [];
-async function loadShows() {
+let view = new Date(); view.setDate(1);
+
+function parisTodayStr(){ return new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Paris'}); }
+
+async function loadShows(){
   let api = 'https://api.pariscomedy.com';
-  try { const c = await fetch('/api-config.json', {cache:'no-store'}).then(r=>r.json()); if (c && c.api) api = c.api; } catch (e) {}
+  try { const c = await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json()); if(c&&c.api) api=c.api; } catch(e){}
   try {
-    const rows = await fetch(api + '/api/listings', {cache:'no-store'}).then(r=>r.json());
-    SHOWS = (Array.isArray(rows) ? rows : []).map(s => ({
-      id: s.id,
-      slug: s.slug || '',
-      name: s.name || '',
+    const rows = await fetch(api+'/api/listings',{cache:'no-store'}).then(r=>r.json());
+    SHOWS = (Array.isArray(rows)?rows:[]).filter(s=>s.booking_url||s.show_url).map(s=>({
+      slug: s.slug||'',
+      name: s.name||'',
       venue: s.venue_name || (s.venue && s.venue.name) || s.venue_name_raw || '',
-      days: Array.isArray(s.days) ? s.days : [],
-      time: s.start_time || s.time || '',
-      emoji: s.emoji || '\u{1F3A4}',
-      desc: s.description_en || s.description_fr || '',
-      url: s.booking_url || s.show_url || '',
-      language: (s.language || 'en')
+      days: Array.isArray(s.days)?s.days:[],
+      time: s.start_time||'',
+      language: (s.language||'en')
     }));
-  } catch (e) { console.warn('[pc] /api/listings fetch failed', e); SHOWS = []; }
+  } catch(e){ console.warn('[pc] /api/listings failed', e); SHOWS=[]; }
   render();
 }
 
-let active = 'all';
-function isSeasonallyVisible(s) {
-  const today = new Date().toLocaleDateString('sv-SE', {timeZone: 'Europe/Paris'});
-  const name = (s.name || '').toLowerCase();
-  if (name.includes('velvet bar comedy')) {
-    if (today >= '2026-07-09' && today < '2026-09-09') return false;
-    if (today > '2026-12-24') return false;
-  }
+function isSeasonallyVisible(name, dateStr){
+  const n=(name||'').toLowerCase();
+  if(n.includes('velvet bar comedy')){ if(dateStr>='2026-07-09'&&dateStr<'2026-09-09') return false; if(dateStr>'2026-12-24') return false; }
   return true;
 }
-function render() {
-  const grid = document.getElementById('grid');
-  grid.innerHTML = '';
-  SHOWS.forEach(s => {
-    if (!s.url || !isSeasonallyVisible(s)) return;
-    if (active !== 'all' && !s.days.includes(active)) return;
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <div class="card-emoji">${s.emoji}</div>
-      <div class="card-name">${s.name}</div>
-      <div class="card-venue">${s.venue}</div>
-      <div class="card-days">${s.days.join(' / ')} &middot; ${s.time}</div>
-      <span class="tag tag-en">${(s.language||'en').toUpperCase()}</span>
-      <div class="card-desc">${s.desc}</div>
-      <a href="${s.slug ? ('/show.html?slug=' + encodeURIComponent(s.slug)) : s.url}" class="btn-book">Details &amp; tickets →</a>`;
-    grid.appendChild(card);
-  });
+function showsOn(date){
+  const wd = DOW[date.getDay()];
+  const ds = date.toLocaleDateString('sv-SE');
+  return SHOWS.filter(s=>s.days.includes(wd) && isSeasonallyVisible(s.name, ds))
+             .sort((a,b)=>(a.time||'').localeCompare(b.time||''));
 }
 
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    active = btn.dataset.day;
-    render();
+function render(){
+  const y=view.getFullYear(), m=view.getMonth();
+  document.getElementById('monthLabel').textContent = MONTHS[m]+' '+y;
+  const cal=document.getElementById('cal'); cal.innerHTML='';
+  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>{
+    const h=document.createElement('div'); h.className='dow'; h.textContent=d; cal.appendChild(h);
   });
-});
+  const first=new Date(y,m,1); const pad=first.getDay(); const dim=new Date(y,m+1,0).getDate();
+  const todayStr=parisTodayStr();
+  for(let i=0;i<pad;i++){ const b=document.createElement('div'); b.className='cell blank'; cal.appendChild(b); }
+  for(let d=1; d<=dim; d++){
+    const date=new Date(y,m,d); const ds=date.toLocaleDateString('sv-SE');
+    const cell=document.createElement('div'); cell.className='cell';
+    if(ds<todayStr) cell.className+=' past';
+    if(ds===todayStr) cell.className+=' today';
+    const dn=document.createElement('div'); dn.className='cell-date'; dn.textContent=d; cell.appendChild(dn);
+    showsOn(date).forEach(s=>{
+      const a=document.createElement('a'); a.className='ev';
+      a.href = s.slug ? ('/show.html?slug='+encodeURIComponent(s.slug)) : '#';
+      a.innerHTML = `<div class="ev-time">${s.time||''}</div>`
+        + `<div class="ev-name">${s.name}</div>`
+        + (s.venue?`<div class="ev-venue">${s.venue}</div>`:'')
+        + `<span class="ev-lang ${s.language==='fr'?'fr':''}">${(s.language||'en').toUpperCase()}</span>`;
+      cell.appendChild(a);
+    });
+    cal.appendChild(cell);
+  }
+  if(!SHOWS.length){ const e=document.createElement('div'); e.className='empty'; e.textContent='Loading shows…'; cal.appendChild(e); }
+}
+
+document.getElementById('prev').onclick=()=>{ view.setMonth(view.getMonth()-1); render(); };
+document.getElementById('next').onclick=()=>{ view.setMonth(view.getMonth()+1); render(); };
+document.getElementById('todayBtn').onclick=()=>{ view=new Date(); view.setDate(1); render(); };
 loadShows();
 </script>
 </body>
