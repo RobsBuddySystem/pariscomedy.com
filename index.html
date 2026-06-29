@@ -585,7 +585,6 @@ function renderTonightPanel() {
       <div class="tonight-info">
         <div class="tonight-name"><a href="${s.ticket_url ? '/r.html?kind=show&id='+encodeURIComponent(s.id||s.show_name||'')+'&url='+encodeURIComponent(s.ticket_url) : '#'}" target="_blank" rel="noopener sponsored">${s.show_name}</a></div>
         <div class="tonight-venue">${s.venue} &middot; ${s.neighborhood}</div>
-        <div class="tonight-proof">${isFreshSource(s) ? 'Source checked today' : 'Listing may be stale · check source'}</div>
       </div>
     </div>`;
   }).join('');

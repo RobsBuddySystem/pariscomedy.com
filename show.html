@@ -148,9 +148,7 @@ function freshnessHTML(L){
    }
    return '';
  }
- const audit = FRESHNESS_AUDIT[L.slug] || FRESHNESS_AUDIT[slugifyName(L.name)];
- const platform = platformLabel((audit && audit.source_platform) || L.source_platform);
- return `<p class="freshness"><small>Tickets are sold on ${esc(platform)}, not by Paris Comedy. Times and prices can change — always confirm on the source before purchase.</small></p>`;
+ return '';
 }
 function mapsLink(addr){
  if (!addr) return '';
@@ -364,7 +362,7 @@ function render(L) {
  // freshness-audit.json verified_24h flag, which suppressed the buy button for
  // editorial shows like FFCN even when their ticket link was live.)
  if (ticket) {
- ctas.push(`<a class="btn-primary" href="${esc(ticket)}" target="_blank" rel="noopener sponsored">Get tickets / source listing →</a>`);
+ ctas.push(`<a class="btn-primary" href="${esc(ticket)}" target="_blank" rel="noopener sponsored">Get tickets →</a>`);
  }
  if (address) {
  ctas.push(`<a class="btn-secondary" href="${esc(mapsLink((address || '') + (city ? ', ' + city : '')))}" target="_blank" rel="noopener">Map / directions →</a>`);
@@ -386,7 +384,6 @@ function render(L) {
  <div class="detail-meta">${esc(days)}${time ? ' · ' + esc(time) : ''}${address ? ' · ' + esc(address) : ''}</div>
  <div class="detail-tag-row">${tags}</div>
  ${description ? `<p class="detail-desc">${esc(description)}</p>` : ''}
- ${freshnessHTML(L)}
  <div class="cta-row">${ctas.join('')}</div>
  <div class="info-grid">
  <div class="info-card">
@@ -400,10 +397,6 @@ function render(L) {
  <div class="info-card">
  <h3>Language</h3>
  <p>${L.language ? esc(String(L.language).toUpperCase()) : 'English'}</p>
- </div>
- <div class="info-card">
- <h3>Source</h3>
- <p>${ticket ? `<a href="${esc(ticket)}" target="_blank" rel="noopener sponsored">External listing</a>` : 'No external source on file'}${verifiedAt ? '<br><span style="color:#666;font-size:12px">Verified ' + esc(verifiedAt) + '</span>' : ''}</p>
  </div>
  </div>
  <div class="related">
