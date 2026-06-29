@@ -3,7 +3,7 @@
   "doc": "P1.DATA.3.LITE — manual source_url repoints for listings whose API-stored source_url points to an ended Eventbrite event instance. Each entry must have been hand-verified to (a) be HTTP 200, (b) carry no HTML 'event ended'/'sales ended' badge, (c) have a title that shares the listing's distinctive tokens (venue or brand). Loose matches (e.g. same organizer but different show) are NOT included; those listings stay needs_human_review until a verified URL exists.",
   "repoints": {
     "charonne": {
-      "old_url": "https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697805324429",
+      "old_url": "https://www.billetreduc.com/spectacle/charonne-comedy-club-386471",
       "new_url": "https://www.eventbrite.fr/e/charonne-comedy-club-tickets-1697801202099",
       "new_title": "Charonne Comedy Club",
       "next_date_seen": "Sat, May 30 • 7:30 PM",
