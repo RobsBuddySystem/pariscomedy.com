@@ -183,7 +183,13 @@ function render(){
   }
 }
 function scrollToToday(){
-  requestAnimationFrame(()=>{ const t=document.getElementById('todayCell'); if(t) t.scrollIntoView({behavior:'smooth',block:'center',inline:'center'}); });
+  // Land on TODAY when the page opens (Robert 2026-06-29): bring today's row near
+  // the top of the viewport. Double-rAF so layout is settled before measuring.
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    const t=document.getElementById('todayCell'); if(!t) return;
+    const y=t.getBoundingClientRect().top + window.pageYOffset - 96;
+    if(y>40) window.scrollTo({top:y,behavior:'smooth'});
+  }));
 }
 document.getElementById('prev').onclick=()=>{ view.setMonth(view.getMonth()-1); render(); };
 document.getElementById('next').onclick=()=>{ view.setMonth(view.getMonth()+1); render(); };
