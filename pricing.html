@@ -259,24 +259,21 @@ async function submitPromo(ev) {
  err.textContent = 'Name, email, and show name are required.'; return false;
  }
  if (window.pcTrack) pcTrack('featured_promo_click', {show: show});
- err.textContent = 'Opening secure checkout…';
+ err.textContent = 'Saving…';
  try {
    var base = '';
    try { base = (await fetch('/api-config.json', {cache:'no-store'}).then(r=>r.json())).api || ''; } catch(_) {}
    base = base || 'https://api.pariscomedy.com';
-   var r = await fetch(base + '/api/checkout/intent', {
+   // FREE while we build — capture the lead, then send to claim / list the show.
+   // NEVER route to payment for now. Robert 2026-06-29.
+   await fetch(base + '/api/checkout/intent', {
      method: 'POST', headers: {'Content-Type': 'application/json'},
      body: JSON.stringify({plan_code: 'featured_show_30d', contact_email: email, contact_name: name,
                            target_slug: show, target_kind: 'show'})
-   });
-   var d = await r.json();
-   if (d.checkout_url && d.configured) { window.location.href = d.checkout_url; return false; }
-   document.getElementById('intent-promo').style.display = 'none';
-   var box = document.getElementById('promo-celebrate'); box.classList.add('show');
-   box.innerHTML = '<h3>Saved ⭐</h3><p>' + esc(name) + ', noted your interest in promoting <strong>' +
-     esc(show) + '</strong>. Secure checkout will be ready shortly — no charge today.</p>';
+   }).catch(function(){});
+   window.location.href = '/connect.html';
  } catch (e) {
-   err.textContent = 'Could not open checkout: ' + e.message;
+   window.location.href = '/connect.html';
  }
  return false;
 }
@@ -292,24 +289,20 @@ async function submitIntent(ev, type, planName) {
  }
  if (window.pcTrack) pcTrack('pricing_intent', {role: type, plan: planName});
  var planCode = (type === 'comic') ? 'comic_plus_lifetime' : 'booker_plus_intro';
- err.textContent = 'Opening secure checkout…';
+ err.textContent = 'Saving your details…';
  try {
    var base = '';
    try { base = (await fetch('/api-config.json', {cache:'no-store'}).then(r=>r.json())).api || ''; } catch(_) {}
    base = base || 'https://api.pariscomedy.com';
-   var r = await fetch(base + '/api/checkout/intent', {
+   // FREE while we build — capture the early-access lead, then send them to claim /
+   // list their show. NEVER route to payment (the service is free for now). Robert 2026-06-29.
+   await fetch(base + '/api/checkout/intent', {
      method: 'POST', headers: {'Content-Type': 'application/json'},
      body: JSON.stringify({plan_code: planCode, contact_email: email, contact_name: name})
-   });
-   var d = await r.json();
-   if (d.checkout_url && d.configured) { window.location.href = d.checkout_url; return false; }
-   // Checkout not configured yet — save the lead gracefully.
-   document.getElementById('intent-' + type).style.display = 'none';
-   var box = document.getElementById(type + '-celebrate'); box.classList.add('show');
-   box.innerHTML = '<h3>Saved 🎉</h3><p>' + esc(name) + ', we\'ve saved <strong>' + esc(email) +
-     '</strong>. Secure checkout will be ready shortly — no charge today.</p>';
+   }).catch(function(){});
+   window.location.href = '/connect.html';
  } catch (e) {
-   err.textContent = 'Could not open checkout: ' + e.message;
+   window.location.href = '/connect.html';
  }
  return false;
 }
