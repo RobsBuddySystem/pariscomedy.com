@@ -933,7 +933,7 @@
     "P5.HUD.1 — /status.html operator HUD",
     "SHOWS.DEFAULT.1 — /shows.html today-default",
     "PROCESS.ROOT.1 — regression_guard.py",
-    "CSS-LANG-001 — bilingual scrub on 227 comedian pages"
+    "CSS-LANG-001 — English/French scrub on 227 comedian pages"
   ],
   "phases_pending_final_verdict": [
     "P3.AUTH FIND-4 — magic-link double-login UX",

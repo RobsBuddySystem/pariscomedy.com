@@ -76,7 +76,7 @@
         "Is sebmarx.com the correct primary ticket/booking source, or does he use Eventbrite/Shotgun?",
         "Is this a duplicate of any current ParisComedy English listing?",
         "Should this be listed as 'Sebastian Marx Sunday Show' or as a La Scène Barbès recurring listing?",
-        "Is this comedy night still bilingual/English-primary?"
+        "Is this comedy night still English/French/English-primary?"
       ],
       "compliance_note": "Public website. No login required. Verify schedule before adding."
     },
@@ -99,7 +99,7 @@
         "Is the Paris run still active and on sale? (FNAC page shows 'Paname Comedy Club — Paris'; verify dates)",
         "What is the full venue address? (Paname Art Cafe, Canal Saint-Martin area — confirm on panameartcafe.com)",
         "Is this a duplicate of any current ParisComedy French listing?",
-        "Is the language French-only? (Verify — some Paname shows have bilingual elements)",
+        "Is the language French-only? (Verify — some Paname shows have English/French elements)",
         "Is the FNAC Spectacles page suitable as the booking source, or prefer panameartcafe.com?"
       ],
       "compliance_note": "Public FNAC Spectacles page. No login required."

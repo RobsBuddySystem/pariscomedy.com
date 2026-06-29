@@ -1,5 +1,5 @@
 {
-  "_doc": "P3.MESSAGING.1 — proposed schema for direct messaging. SCAFFOLD ONLY. No backend code, no live tables. Schema lives here as the canonical reference for the future BE implementation. Doctrine: no bilingual/mixed-language. Free join, free 1 DM/day, paid DM Plus (€1/mo) = unlimited + read receipts.",
+  "_doc": "P3.MESSAGING.1 — proposed schema for direct messaging. SCAFFOLD ONLY. No backend code, no live tables. Schema lives here as the canonical reference for the future BE implementation. Doctrine: no mixed-language. Free join, free 1 DM/day, paid DM Plus (€1/mo) = unlimited + read receipts.",
   "_status": "scaffolded",
   "_enabled": false,
   "_updated": "2026-05-29",

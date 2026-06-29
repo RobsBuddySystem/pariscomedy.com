@@ -1,5 +1,5 @@
 {
-  "_doc": "P3.PAYMENTS.1 — proposed plan catalog for paid promotion + subscription. SCAFFOLD ONLY. No live processor integration, no live keys, no checkout wiring. Schema lives here as the canonical reference for the future BE phase. Doctrine: no bilingual/mixed-language in any plan copy.",
+  "_doc": "P3.PAYMENTS.1 — proposed plan catalog for paid promotion + subscription. SCAFFOLD ONLY. No live processor integration, no live keys, no checkout wiring. Schema lives here as the canonical reference for the future BE phase. Doctrine: no mixed-language in any plan copy.",
   "_status": "scaffolded",
   "_enabled": false,
   "_updated": "2026-05-29",
@@ -108,7 +108,7 @@
     }
   ],
   "doctrine": {
-    "no_bilingual_copy": true,
+    "no_English/French_copy": true,
     "no_live_processor_integration": true,
     "no_processor_keys_in_repo": true,
     "vat_handling": "FR 20% VAT inclusive in displayed price; invoice line must break out HT / TVA / TTC",

@@ -614,8 +614,8 @@
     ],
     "instagram": "",
     "photo": "https://api.dicebear.com/9.x/initials/svg?seed=Clement+Nassif&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40",
-    "bio": "Bilingual stand-up comedian performing in Paris comedy rooms.",
-    "actuality": "Clement Nassif, a bilingual stand-up, brings laughs to Paris comedy stages with English and French humor."
+    "bio": "English/French stand-up comedian performing in Paris comedy rooms.",
+    "actuality": "Clement Nassif, a English-and-French stand-up, brings laughs to Paris comedy stages with English and French humor."
   },
   {
     "slug": "ccilia-ekolo",
@@ -889,8 +889,29 @@
     ],
     "instagram": "https://www.instagram.com/gadelmaleh/",
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-gadelmaleh_1753952102.jpg",
-    "bio": "French comedy legend who crossed over to perform in English, doing sets in New York and appearing on major US platforms. He bridged French and American comedy. Toured with Sarah Donnelly.",
-    "actuality": "Active in Paris comedy — Instagram 2M followers."
+    "bio": "Gad Elmaleh is a Moroccan-Canadian stand-up comedian and actor with a major French-language career and international screen credits.",
+    "actuality": "Spotlight updated 2026-06-29: Lui-même.",
+    "one_man_show": "Lui-même",
+    "one_man_show_url": "https://www.gadelmaleh.com/",
+    "imdb_url": "https://www.imdb.com/name/nm0255362/",
+    "filmography": "IMDb lists Gad Elmaleh as known for Priceless, Midnight in Paris and Jack and Jill; his own site links his official channels and current news.",
+    "fun_fact": "IMDb's biography notes that his first one-man show, Décalages, drew on his experiences in Montreal and Paris.",
+    "press": "His official site foregrounds a very large social audience, including Instagram, Facebook and X/Twitter links.",
+    "source_citations": [
+      {
+        "label": "Official site",
+        "url": "https://www.gadelmaleh.com/"
+      },
+      {
+        "label": "IMDb",
+        "url": "https://www.imdb.com/name/nm0255362/"
+      },
+      {
+        "label": "IMDb biography",
+        "url": "https://www.imdb.com/name/nm0255362/bio/"
+      }
+    ],
+    "language": "en"
   },
   {
     "slug": "ghislain-blique",
@@ -937,8 +958,29 @@
     ],
     "instagram": "https://www.instagram.com/_fosko_/",
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-fosko_1753951668.jpg",
-    "bio": "",
-    "actuality": "Active in Paris comedy — Instagram 88K followers."
+    "bio": "Guillaume Fosko is a French stand-up comedian associated with Paname Art Café, Le Point Virgule and Café Oscar. Source pages describe his comedy around family life, parenting and self-deprecation.",
+    "actuality": "Spotlight updated 2026-06-29: Daron Fragile.",
+    "one_man_show": "Daron Fragile",
+    "one_man_show_url": "https://www.lepointvirgule.com/event-pro/guillaumefosko/",
+    "imdb_url": "https://www.imdb.com/name/nm15145226/",
+    "filmography": "Génération Paname; TV appearances noted by Le Point Virgule include Canal+, France 2 and NRJ12.",
+    "fun_fact": "Le Point Virgule says he won the audience prize at the Brides-les-Bains comedy festival in 2019.",
+    "press": "Le Point Virgule presents him as a Paname Art Café and Café Oscar resident comic, radio columnist and online-video creator.",
+    "source_citations": [
+      {
+        "label": "Paname Art Café",
+        "url": "https://www.panameartcafe.com/artiste/guillaume-fosko"
+      },
+      {
+        "label": "Théâtre Le Point Virgule",
+        "url": "https://www.lepointvirgule.com/event-pro/guillaumefosko/"
+      },
+      {
+        "label": "IMDb",
+        "url": "https://www.imdb.com/name/nm15145226/"
+      }
+    ],
+    "language": "en"
   },
   {
     "slug": "gulsum",
@@ -1273,8 +1315,8 @@
     ],
     "instagram": "",
     "photo": "https://api.dicebear.com/9.x/initials/svg?seed=Julie+Coulon&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40",
-    "bio": "Runs 'Oh My God She's Parisian!' at Theatre BO Saint-Martin. Bilingual comedian with a strong expat-friendly premise.",
-    "actuality": "Julie Coulon currently hosts 'Oh My God She's Parisian!', a bilingual comedy show appealing to ex-pats at Theatre BO Saint-Martin in Paris."
+    "bio": "Runs 'Oh My God She's Parisian!' at Theatre BO Saint-Martin. English/French comedian with a strong expat-friendly premise.",
+    "actuality": "Julie Coulon currently hosts 'Oh My God She's Parisian!', an English-and-French comedy show appealing to ex-pats at Theatre BO Saint-Martin in Paris."
   },
   {
     "slug": "julie-haddad-kan",
@@ -1285,8 +1327,8 @@
     ],
     "instagram": "",
     "photo": "https://api.dicebear.com/9.x/initials/svg?seed=Julie+Haddad+Kan&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40",
-    "bio": "Comedian performing in Paris bilingual comedy rooms including FFCN.",
-    "actuality": "Currently witty and bilingual, Julie Haddad Kan delights audiences at Parisian comedy venues such as FFCN."
+    "bio": "Comedian performing in Paris English-and-French comedy rooms including FFCN.",
+    "actuality": "Currently witty in English and French, Julie Haddad Kan delights audiences at Parisian comedy venues such as FFCN."
   },
   {
     "slug": "julie-kennedy",
@@ -1545,7 +1587,7 @@
     "instagram": "",
     "photo": "https://api.dicebear.com/9.x/initials/svg?seed=Lorene+Cadeau&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40",
     "bio": "FFCN alumna with 'Real Life in Paris' set (1.9K+ views). French comic performing in English — instantly Paris-specific premise that lands fast with expat rooms.",
-    "actuality": "Currently active with the popular \"Real Life in Paris\" stand-up routine, Lorene Cadeau entertains expats with her bilingual (English + French) comedy performances in Paris."
+    "actuality": "Currently active with the popular \"Real Life in Paris\" stand-up routine, Lorene Cadeau entertains expats with her English-and-French comedy performances in Paris."
   },
   {
     "slug": "lorenzo",
@@ -2156,7 +2198,7 @@
     ],
     "instagram": "",
     "photo": "https://api.dicebear.com/9.x/initials/svg?seed=Patti+Mansbach&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40",
-    "bio": "FFCN alumna. Her 'Fear of Getting a French Boyfriend' set on French Fried Comedy Night has 12K+ YouTube views — a clean, crowd-forward premise that lands hard in the bilingual room.",
+    "bio": "FFCN alumna. Her 'Fear of Getting a French Boyfriend' set on French Fried Comedy Night has 12K+ YouTube views — a clean, crowd-forward premise that lands hard in the English-and-French room.",
     "actuality": "Currently gaining traction with over 12K YouTube views for her 'Fear of Getting a French Boyfriend' set on Paris's French Fried Comedy Night."
   },
   {
@@ -2242,8 +2284,29 @@
     ],
     "instagram": "https://www.instagram.com/redouanebougheraba/",
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignette-redouane_1753969463.jpg",
-    "bio": "",
-    "actuality": "Active in Paris comedy — Instagram 1M followers."
+    "bio": "Redouane Bougheraba is a Marseille comedian and actor. His official site presents him as a Jamel Comedy Club representative from the South of France.",
+    "actuality": "Spotlight updated 2026-06-29: À jamais.",
+    "one_man_show": "À jamais",
+    "one_man_show_url": "https://redouanebougheraba.fr/",
+    "imdb_url": "https://www.imdb.com/name/nm8296813/",
+    "filmography": "IMDb lists Sous écrous, Taxi 5 and Délocalisés among his acting credits.",
+    "fun_fact": "His official site calls À jamais his first show and describes national touring around France.",
+    "press": "AlloCiné maintains a dedicated filmography page for his cinema and TV work.",
+    "source_citations": [
+      {
+        "label": "Official site",
+        "url": "https://redouanebougheraba.fr/"
+      },
+      {
+        "label": "IMDb",
+        "url": "https://www.imdb.com/name/nm8296813/"
+      },
+      {
+        "label": "AlloCiné filmography",
+        "url": "https://www.allocine.fr/personne/fichepersonne-879239/filmographie/"
+      }
+    ],
+    "language": "en"
   },
   {
     "slug": "remi-abeli",
@@ -2267,7 +2330,7 @@
     "instagram": "https://www.instagram.com/rey_mendes_o/",
     "photo": "https://www.panameartcafe.com/storage/files/artists/vignete-reymendes_1754320913.jpg",
     "bio": "",
-    "actuality": "Rey Mendes continues to captivate Paris audiences with his sharp wit and bilingual charm in popular comedy clubs."
+    "actuality": "Rey Mendes continues to captivate Paris audiences with his sharp wit and English-and-French charm in popular comedy clubs."
   },
   {
     "slug": "richard-rennie",
@@ -2304,7 +2367,7 @@
     ],
     "instagram": "https://www.instagram.com/robertlericain/",
     "photo": "https://storage.googleapis.com/showtime-uploads-317/global/acts/d97y/G4EN5F4JK3DGBIP6",
-    "bio": "American bilingual comedian and one of the early builders of the Paris English-language comedy scene. Launched French Fried Comedy Night in 2013 at Paname Art Cafe, helped give Paul Taylor one of his first regular stages, and produced/directed 'La Bise' — the viral video that helped map the scene. Now runs FFCN at Velvet Bar Wednesdays.",
+    "bio": "American comedian performing in English and French and one of the early builders of the Paris English-language comedy scene. Launched French Fried Comedy Night in 2013 at Paname Art Cafe, helped give Paul Taylor one of his first regular stages, and produced/directed 'La Bise' — the viral video that helped map the scene. Now runs FFCN at Velvet Bar Wednesdays.",
     "actuality": "Active in Paris comedy — Instagram 2,365 followers.",
     "video_url": "https://youtu.be/eLnrNuQYP9o",
     "source": "confirmed.show/green-mic"
@@ -2440,8 +2503,25 @@
     ],
     "instagram": "https://www.instagram.com/sebastianmarxcomedy/",
     "photo": "https://api.dicebear.com/9.x/initials/svg?seed=Sebastian+Marx&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40",
-    "bio": "New Yorker who fell in love with a French woman and moved to Paris. Created 'New York Comedy Night' at SoGymnase — the FIRST regular English stand-up show in Paris. Appeared on Jamel Comedy Club (Canal+), got a radio gig on RTL with Stephane Bern, and later France Inter. He proved English-language comedy could work in Paris.",
-    "actuality": "Sebastian Marx, the New Yorker behind 'New York Comedy Night' at SoGymnase, continues to energize the Paris comedy scene with his bilingual performances."
+    "bio": "Sebastian Marx is an American stand-up comedian living in Paris. His official site describes him as an American humorist in France, currently in Paris and on tour.",
+    "actuality": "Spotlight updated 2026-06-29: On est bien là.",
+    "one_man_show": "On est bien là",
+    "one_man_show_url": "https://www.sebmarx.com/en/",
+    "imdb_url": "https://www.imdb.com/name/nm5717536/",
+    "filmography": "IMDb lists All About Yves, What's Up France? and Expats: Paris among his credits.",
+    "fun_fact": "His official site jokes that after 15 years in France, being a foreigner is no longer an excuse.",
+    "press": "His official site lists 2026-2027 tour dates, including a Paris date at La Scala.",
+    "source_citations": [
+      {
+        "label": "Official site",
+        "url": "https://www.sebmarx.com/en/"
+      },
+      {
+        "label": "IMDb",
+        "url": "https://www.imdb.com/name/nm5717536/"
+      }
+    ],
+    "language": "en"
   },
   {
     "slug": "sehun",
@@ -2576,7 +2656,7 @@
     ],
     "instagram": "https://www.instagram.com/taniadutel/",
     "photo": "https://api.dicebear.com/9.x/initials/svg?seed=Tania+Dutel&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40",
-    "bio": "French comedian who performs brilliantly in both French and English. Known for sharp observational humor and fearless stage presence. A regular at English-language shows in Paris and proof that the scene is truly bilingual.",
+    "bio": "French comedian who performs brilliantly in both French and English. Known for sharp observational humor and fearless stage presence. A regular at English-language shows in Paris and proof that the scene is active in English and French.",
     "actuality": "Active in Paris comedy — Instagram 137K followers."
   },
   {

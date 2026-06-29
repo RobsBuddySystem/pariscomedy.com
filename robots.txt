@@ -1,15 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /admin-events.html
-Disallow: /admin-crm.html
-Disallow: /admin-messages.html
-Disallow: /admin-payments.html
-Disallow: /admin-submit.html
-Disallow: /api/
-Disallow: /performer-portal.html
-Disallow: /booker-portal.html
-Disallow: /booker-dashboard.html
-Disallow: /show-runner.html
-Disallow: /login.html
-
+Disallow: /admin
+Disallow: /owner
 Sitemap: https://pariscomedy.com/sitemap.xml

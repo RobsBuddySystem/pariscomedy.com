@@ -1,0 +1,25 @@
+[
+  {
+    "created_at": "2026-06-29",
+    "type": "comic_spotlight",
+    "status": "queued",
+    "title": "Comic spotlight: Gad Elmaleh",
+    "language": "en",
+    "url": "https://pariscomedy.com/c/gad-elmaleh.html",
+    "copy": "Comic spotlight: Gad Elmaleh's Paris Comedy profile now has source-cited screen credits, official links and a clean route to his current show information.",
+    "sources": [
+      {
+        "label": "Official site",
+        "url": "https://www.gadelmaleh.com/"
+      },
+      {
+        "label": "IMDb",
+        "url": "https://www.imdb.com/name/nm0255362/"
+      },
+      {
+        "label": "IMDb biography",
+        "url": "https://www.imdb.com/name/nm0255362/bio/"
+      }
+    ]
+  }
+]

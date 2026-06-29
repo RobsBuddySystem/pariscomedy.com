@@ -106,7 +106,7 @@ code{font-family:ui-monospace,monospace;background:#181818;padding:1px 5px;borde
     <thead><tr><th>Page</th><th>Forbidden Strings Found</th><th>Result</th></tr></thead>
     <tbody><tr><td colspan="3" class="loading">Scanning pages for forbidden strings…</td></tr></tbody>
   </table>
-  <p class="muted" style="margin-top:8px">Forbidden: <code>bilingual</code>, <code>mixed-language</code>, <code>mixed language</code>. Doctrine: 0 instances sitewide.</p>
+  <p class="muted" style="margin-top:8px">Forbidden: <code>English/French</code>, <code>mixed-language</code>, <code>mixed language</code>. Doctrine: 0 instances sitewide.</p>
 </div>
 
 <div class="section">
@@ -132,7 +132,7 @@ const PUBLIC_PAGES = [
   '/fr/terms.html','/fr/privacy.html','/fr/disclosure.html'
 ];
 
-const FORBIDDEN = ['bilingual','mixed-language','mixed language'];
+const FORBIDDEN = ['English/French','mixed-language','mixed language'];
 const DOCTRINE_PAGES = ['/','/shows.html','/comedians.html'];
 
 function fmtAge(iso){

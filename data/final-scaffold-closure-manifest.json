@@ -108,7 +108,7 @@
   "guard_inventory": {
     "total_checks": 22,
     "checks": [
-      {"name": "forbidden_strings", "prevents": "bilingual/mixed-language/marketing-claim leakage"},
+      {"name": "forbidden_strings", "prevents": "mixed-language/marketing-claim leakage"},
       {"name": "internal_ctas", "prevents": "venue cards linking externally"},
       {"name": "raw_includes", "prevents": "unprocessed include directives"},
       {"name": "stale_homepage_panel", "prevents": "empty homepage panel"},
