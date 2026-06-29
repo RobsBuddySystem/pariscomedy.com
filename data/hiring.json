@@ -107,41 +107,5 @@
       "confidence": "high"
     }
   ],
-  "unverified_leads": [
-    {
-      "name": "Mic Drop Comedy Club",
-      "why": "Curated monthly lineup, not open signup; possible summer break.",
-      "source": "https://www.instagram.com/micdrop.paris"
-    },
-    {
-      "name": "Funny Hour English open mic",
-      "why": "No citable source found in any search — do not publish without one.",
-      "source": ""
-    },
-    {
-      "name": "Blast Off All Stars",
-      "why": "Booked showcase, not a walk-up open mic — pitch to perform.",
-      "source": "https://www.blastoffcomedy.com/"
-    },
-    {
-      "name": "Green Light in Paris",
-      "why": "Booked 3-act showcase, not an open mic — pitch via IG @greenmiccomedy.",
-      "source": "https://www.billetreduc.com/spectacle/stand-up-comedy-in-english-green-light-in-paris-359865"
-    },
-    {
-      "name": "New York Comedy Night (Le Fridge)",
-      "why": "Showcase, not walk-up; no confirmed signup path.",
-      "source": "https://lefridgecomedy.com/"
-    },
-    {
-      "name": "Coucou Comedy Club",
-      "why": "Checked 2026-06: curated/booked international showcase (free booking, pay-what-you-can), no open-mic signup advertised. Pitch via coucoucomedy@gmail.com / IG @coucoucomedy.",
-      "source": "https://www.coucoucomedyclub.com/"
-    },
-    {
-      "name": "Open Mic du Dimanche (Jardin Sauvage)",
-      "why": "Found 2026-06-29: Sunday French open mic at Jardin Sauvage, 7 rue du Boulle 75011. Fever listing says runs 'until June 30' with tickets not currently available, and shows no start time or performer signup method — do not publish until a current date + time + signup are confirmed.",
-      "source": "https://feverup.com/m/73890"
-    }
-  ]
+  "unverified_leads": []
 }
