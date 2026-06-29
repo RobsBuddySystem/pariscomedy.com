@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Marc Rougé — Paris Comedy</title>
-<meta name="description" content="Known for his sharp wit and linguistic prowess, Marc Rougé is currently captivating Parisian audiences with his innovative stand-up routines in French.">
+<meta name="description" content="Marc Rougé — stand-up comedian in Paris. Listed on Paris Comedy.">
 <link rel="canonical" href="https://pariscomedy.com/c/marc-rouge.html">
 <meta property="og:title" content="Marc Rougé — Paris Comedy">
 <meta property="og:image" content="https://www.panameartcafe.com/storage/files/artists/vignette-marc_1753890892.jpg">
@@ -67,12 +67,10 @@ section.block h2{font-size:18px;margin-bottom:14px}
 </nav>
 <main>
   <section class="hero">
-    <img src="https://www.panameartcafe.com/storage/files/artists/vignette-marc_1753890892.jpg" alt="Marc Rougé" onerror="this.style.display='none'">
+    <img src="https://api.dicebear.com/9.x/initials/svg?seed=Marc%20Roug%C3%A9&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40" alt="Marc Rougé" onerror="this.style.display='none'">
     <div>
       <h1>Marc Rougé</h1>
       <div class="badges"><span class="badge badge-fr">FR</span></div>
-      
-      <p class="actuality">Known for his sharp wit and linguistic prowess, Marc Rougé is currently captivating Parisian audiences with his innovative stand-up routines in French.</p>
       <div class="links-row"><a class="btn" href="https://www.instagram.com/rougemarc/?hl=fr" target="_blank" rel="noopener">Instagram ↗</a></div>
     </div>
   </section>
@@ -121,7 +119,7 @@ section.block h2{font-size:18px;margin-bottom:14px}
       const j = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(j.detail || ('HTTP ' + r.status));
       msg.style.color = '#4ade80';
-      msg.textContent = 'You&rsquo;re on the list. We&rsquo;ll email you when this comic books a Paris show.';
+      msg.textContent = "You're on the list. We'll email you when this comic books a Paris show.";
       document.getElementById('follow-email').value = '';
     } catch (e) {
       msg.style.color = '#fca5a5';

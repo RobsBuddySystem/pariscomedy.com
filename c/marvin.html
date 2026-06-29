@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Marvin — Paris Comedy</title>
-<meta name="description" content="Active in Paris comedy — Instagram 4,485 followers.">
+<meta name="description" content="Marvin — stand-up comedian in Paris. Listed on Paris Comedy.">
 <link rel="canonical" href="https://pariscomedy.com/c/marvin.html">
 <meta property="og:title" content="Marvin — Paris Comedy">
 <meta property="og:image" content="https://api.dicebear.com/9.x/initials/svg?seed=Marvin&amp;backgroundColor=1a1a2e&amp;textColor=ffffff&amp;fontSize=40">
@@ -71,8 +71,6 @@ section.block h2{font-size:18px;margin-bottom:14px}
     <div>
       <h1>Marvin</h1>
       <div class="badges"><span class="badge badge-en">EN</span></div>
-      
-      <p class="actuality">Active in Paris comedy — Instagram 4,485 followers.</p>
       <div class="links-row"><a class="btn" href="https://www.instagram.com/marvparks/" target="_blank" rel="noopener">Instagram ↗</a></div>
     </div>
   </section>
@@ -121,7 +119,7 @@ section.block h2{font-size:18px;margin-bottom:14px}
       const j = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(j.detail || ('HTTP ' + r.status));
       msg.style.color = '#4ade80';
-      msg.textContent = 'You&rsquo;re on the list. We&rsquo;ll email you when this comic books a Paris show.';
+      msg.textContent = "You're on the list. We'll email you when this comic books a Paris show.";
       document.getElementById('follow-email').value = '';
     } catch (e) {
       msg.style.color = '#fca5a5';
