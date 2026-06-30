@@ -59,6 +59,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .ev-lang{display:inline-block;font-size:8.5px;font-weight:800;padding:1px 6px;border-radius:6px;margin-top:4px;letter-spacing:.04em}
 .ev-lang.en{background:rgba(34,211,238,.16);color:#67e8f9}
 .ev-lang.fr{background:rgba(236,72,153,.16);color:#f9a8d4}
+.ev-ok{display:inline-block;font-size:8.5px;font-weight:800;padding:1px 6px;border-radius:6px;margin-top:4px;margin-left:4px;letter-spacing:.04em;background:rgba(201,168,76,.18);color:#e8c96a}
 .cell-empty{font-size:10px;color:var(--dim);margin-top:auto;font-style:italic}
 @media(max-width:640px){.hero{padding:38px 16px 4px}.month{min-width:150px;font-size:18px}}
 footer{border-top:1px solid var(--border);padding:36px 24px;text-align:center;color:var(--muted);font-size:13px}
@@ -133,7 +134,8 @@ async function loadShows(){
       venue: s.venue_name || (s.venue && s.venue.name) || s.venue_name_raw || '',
       days: Array.isArray(s.days)?s.days:[],
       time: s.start_time||'',
-      language: (s.language||'en')
+      language: (s.language||'en'),
+      dates: Array.isArray(s.dates)?s.dates:[]
     }));
   } catch(e){ console.warn('[pc] /api/listings failed', e); SHOWS=[]; }
   render(); scrollToToday();
@@ -147,8 +149,13 @@ function isSeasonallyVisible(name, dateStr){
 function showsOn(date){
   const wd = DOW[date.getDay()];
   const ds = date.toLocaleDateString('sv-SE');
-  return SHOWS.filter(s=>s.days.includes(wd) && isSeasonallyVisible(s.name, ds))
-             .sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+  return SHOWS.filter(s=>{
+    // Shows synced from Eventbrite (eb_bridge) carry CONFIRMED dates — place them on
+    // those exact occurrences only, not on every matching weekday. Others fall back to
+    // the recurring weekday pattern.
+    if (s.dates && s.dates.length) return s.dates.some(x=>x.date===ds);
+    return s.days.includes(wd) && isSeasonallyVisible(s.name, ds);
+  }).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
 }
 
 function render(){
@@ -172,10 +179,12 @@ function render(){
     evs.forEach(s=>{
       const a=document.createElement('a'); a.className='ev';
       a.href = s.slug ? ('/show.html?slug='+encodeURIComponent(s.slug)) : '#';
+      const confirmed = s.dates && s.dates.some(x=>x.date===ds);
       a.innerHTML = `<div class="ev-time">${s.time||''}</div>`
         + `<div class="ev-name">${s.name}</div>`
         + (s.venue?`<div class="ev-venue">${s.venue}</div>`:'')
-        + `<span class="ev-lang ${s.language==='fr'?'fr':'en'}">${(s.language||'en').toUpperCase()}</span>`;
+        + `<span class="ev-lang ${s.language==='fr'?'fr':'en'}">${(s.language||'en').toUpperCase()}</span>`
+        + (confirmed?`<span class="ev-ok">✓ confirmed</span>`:'');
       cell.appendChild(a);
     });
     if(ds===TODAY && !evs.length){ const e=document.createElement('div'); e.className='cell-empty'; e.textContent='No show tonight'; cell.appendChild(e); }

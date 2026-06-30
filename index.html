@@ -748,7 +748,8 @@ function renderWeekRow() {
   row.innerHTML = cards.map(s => {
     const [y,m,d] = s.date.split('-').map(Number);
     const dt = new Date(y,m-1,d);
-    const badge = `${DAY_ABBR[dt.getDay()]} &middot; ${MONTH_ABBR[m-1]} ${d}`;
+    const more = s.upcoming_count > 1 ? ` &middot; +${s.upcoming_count - 1} MORE` : '';
+    const badge = `${DAY_ABBR[dt.getDay()]} &middot; ${MONTH_ABBR[m-1]} ${d}${more}`;
     return `<div style="background:#111827;border:1px solid #1e2a3a;border-radius:10px;padding:16px;min-width:200px;flex-shrink:0">
       <div style="font-size:10px;font-weight:700;letter-spacing:.08em;color:#c9a84c;margin-bottom:4px">${badge}</div>
       <div style="font-size:14px;font-weight:700;margin-bottom:4px">${s.show_name}</div>
