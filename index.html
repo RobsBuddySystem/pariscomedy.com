@@ -120,6 +120,7 @@ section{max-width:1100px;margin:0 auto;padding:56px 24px}
 .show-card-name{font-size:15px;font-weight:700}
 .show-card-venue{font-size:12px;color:#666}
 .show-card-meta{font-size:13px;color:var(--muted)}
+.show-card-date{display:inline-flex;align-items:center;gap:5px;align-self:flex-start;font-size:12px;font-weight:700;color:var(--gold-light);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);border-radius:999px;padding:3px 10px}
 .show-proof{display:flex;gap:12px;font-size:11px;color:#555;margin-top:2px}
 .show-proof span{display:inline-flex;align-items:center;gap:4px}
 .show-card-btn{display:block;text-align:center;padding:9px;border-radius:8px;background:var(--yellow);color:#000;font-size:12px;font-weight:700;margin-top:auto}
@@ -412,6 +413,17 @@ let SHOWS_DATA = [];   // populated live from /api/listings (see loadLiveShows)
 const todayParis = new Date().toLocaleDateString('sv-SE', {timeZone: 'Europe/Paris'});
 const nowParis = () => new Date(new Date().toLocaleString('en-US', {timeZone:'Europe/Paris'}));
 
+// Format an ISO date (YYYY-MM-DD) as "Tue 1 Jul" for the confirmed-date badge.
+function fmtNextDate(iso) {
+  if (!iso) return '';
+  var p = iso.split('-'); if (p.length !== 3) return '';
+  var d = new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+  if (isNaN(d)) return '';
+  var DN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var MN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return DN[d.getDay()] + ' ' + d.getDate() + ' ' + MN[d.getMonth()];
+}
+
 function showStart(s) {
   if (!s.date || !s.start_time) return null;
   const [y,m,d] = s.date.split('-').map(Number);
@@ -472,6 +484,7 @@ function expandListings(listings){
         start_time:L.start_time||'', venue:_venueName(L), neighborhood:_hood(L),
         language:L.language, show_type:L.show_type, emoji:L.emoji||'\uD83C\uDFA4',
         description:L.description_en||'', ticket_url:url, url:url,
+        next_date:L.next_date||'', upcoming_count:L.upcoming_count||0,
         last_verified_at:(L.verified_at||'').slice(0,10), claimed:!!L.claimed });
     }
   }
@@ -541,6 +554,8 @@ function allShows() {
       time: s.time || s.start_time,
       url: s.url || s.ticket_url,
       date: s.date,
+      next_date: s.next_date || '',
+      upcoming_count: s.upcoming_count || 0,
       last_verified_at: s.last_verified_at,
       comics_on_bill: s.comics_on_bill || 0,
       _vibes: inferVibes(s)
@@ -656,10 +671,15 @@ function renderGrid() {
       ? `<div class="show-proof"><span>🎤 ${s.comics_on_bill} comics on the bill</span></div>` : '';
     const vibeHtml = s._vibes && s._vibes.length
       ? `<div class="show-vibe-tags">${s._vibes.slice(0,3).map(v=>`<span class="vibe-tag">${v}</span>`).join('')}</div>` : '';
+    const badgeDate = fmtNextDate(s.next_date || s.date);
+    const dateBadge = badgeDate
+      ? `<div class="show-card-date">📅 ${badgeDate}${s.upcoming_count > 1 ? ` &middot; +${s.upcoming_count - 1} more` : ''}</div>`
+      : '';
     return `<div class="show-card">
       <div class="show-card-name">${s.name}</div>
       <div class="show-card-venue">${s.venue||''}</div>
       <div class="show-card-meta">${s.day} &middot; ${s.time||'—'}</div>
+      ${dateBadge}
       ${proof}
       ${vibeHtml}
       ${ticketCta(s, 'show-card-btn')}
