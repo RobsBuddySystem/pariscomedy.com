@@ -293,12 +293,18 @@ let VENUES = [];
 
 let dayFilter = 'all', typeFilter = 'all';
 
-function mapsLink(v) {
-  if (v.address && v.address !== 'TBD' && !v.address.includes('TBD')) {
-    return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(v.address);
-  }
-  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(v.name + ' Paris');
+// Task #18 (Robert 2026-07-03): "📍 Directions" opens the venue (NAME + ADDRESS)
+// in the phone's native maps app. https://maps.google.com/?q= works on both
+// Android and iPhone; maps.apple.com is the iOS-native extra. No map iframes,
+// no retired Google MyMaps.
+function venueMapsQuery(v) {
+  const addr = (v.address && !String(v.address).includes('TBD')) ? v.address : '';
+  let q = [v.name, addr].filter(Boolean).join(', ');
+  if (!addr && !q.toLowerCase().includes('paris')) q += ', Paris';
+  return encodeURIComponent(q);
 }
+function mapsLink(v) { return 'https://maps.google.com/?q=' + venueMapsQuery(v); }
+function appleMapsLink(v) { return 'https://maps.apple.com/?q=' + venueMapsQuery(v); }
 
 function badgeClass(t) { return 'badge badge-' + (t || 'showcase'); }
 function badgeLabel(t) {
@@ -357,7 +363,7 @@ function renderSpotlight() {
     <div class="spotlight-meta">${[v.day, v.time, v.name, v.neighborhood&&v.neighborhood!=='TBD'?v.neighborhood:''].filter(Boolean).join(' \u00b7 ')}</div>
     <div class="spotlight-meta">${[addr, metro].filter(Boolean).join(' \u00b7 ')}</div>
     ${v.notes?`<div class="spotlight-meta">${v.notes}</div>`:''}
-    ${(v.slug||v.eventbrite_url)?`<div class="card-actions"><a href="${v.slug?('/show.html?slug='+encodeURIComponent(v.slug)):v.eventbrite_url}" class="btn-tickets">Details & tickets \u2192</a></div>`:''}
+    <div class="card-actions">${(v.slug||v.eventbrite_url)?`<a href="${v.slug?('/show.html?slug='+encodeURIComponent(v.slug)):v.eventbrite_url}" class="btn-tickets">Details & tickets \u2192</a>`:''}<a href="${mapsLink(v)}" target="_blank" rel="noopener" class="btn-map">\ud83d\udccd Directions</a></div>
   </div>`;
 }
 
@@ -446,7 +452,8 @@ function render() {
       <div class="card-actions">
         ${ticketsBtn}
         ${bookerBtn}
-        <a href="${mapsLink(v)}" target="_blank" class="btn-map">Map →</a>
+        <a href="${mapsLink(v)}" target="_blank" rel="noopener" class="btn-map">📍 Directions</a>
+        <a href="${appleMapsLink(v)}" target="_blank" rel="noopener" class="btn-map">Apple&nbsp;Maps</a>
       </div>
       ${featuredHint}
       <div style="text-align:right;margin-top:6px">
