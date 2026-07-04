@@ -34,7 +34,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
   <div class="nav-links">
     <a href="/performer-portal.html" class="nav-active">Performer Portal</a>
     <a href="/booker-dashboard.html">Booker Dashboard</a>
-    <a href="#" onclick="event.preventDefault(); if(window.PCAuth){PCAuth.signOut();}else{location.assign('/login.html');} return false;">Sign Out</a>
+    <a id="nav-auth" href="#" onclick="event.preventDefault(); if(localStorage.getItem('pc_session_token')){ if(window.PCAuth){PCAuth.signOut();}else{localStorage.removeItem('pc_session_token');location.reload();} } else { location.assign('/login.html'); } return false;">Sign In</a>
   </div>
 </nav>
 <main>
@@ -653,5 +653,6 @@ window.addEventListener('focus', async () => {
   .footer-portal a:hover { color: #c4b5fd; }
   .footer-portal-sep { margin: 0 6px; opacity: 0.5; }
 </style>
+<script>(function(){var a=document.getElementById("nav-auth");if(a)a.textContent=localStorage.getItem("pc_session_token")?"Sign Out":"Sign In";})();</script>
 </body>
 </html>
