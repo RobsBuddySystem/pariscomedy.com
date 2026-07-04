@@ -556,7 +556,7 @@ function getPendingClaim() {
       step.innerHTML = 'DM this code to <b>@pariscomedy_com</b> on Instagram (or comment it on our latest post):'
         + '<div style="font-size:22px;font-weight:900;letter-spacing:2px;margin:8px 0;color:#fff">' + r.code + '</div>'
         + '<span style="color:#a89060">Keep this page open — it confirms automatically within a few minutes.</span>'
-        + '<button id="ig-check-btn" type="button" style="display:block;margin-top:10px;background:#0f0f0f;border:1px solid #f59e0b;color:#f5c518;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;font:inherit">I\\'ve sent it — check now</button>';
+        + '<button id="ig-check-btn" type="button" style="display:block;margin-top:10px;background:#0f0f0f;border:1px solid #f59e0b;color:#f5c518;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;font:inherit">I\'ve sent it — check now</button>';
       document.getElementById('ig-check-btn').addEventListener('click', () => igPollOnce(handle));
       if (igPoll) clearInterval(igPoll);
       igPoll = setInterval(() => igPollOnce(handle), 15000);
