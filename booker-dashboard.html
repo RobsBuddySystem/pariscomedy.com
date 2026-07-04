@@ -230,6 +230,18 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
         <button id="comic-more" class="btn btn-ghost" style="display:none;margin-top:8px" onclick="comicLoadMore()">Load more comics</button>
       </div>
     </div>
+
+    <!-- Who's available (Perform -> Availability v1) -->
+    <div class="panel" style="margin-top:14px">
+      <h2>Who's available <span style="font-weight:400;color:var(--muted);font-size:12px" id="wa-count"></span></h2>
+      <p style="font-size:12px;color:var(--muted);margin:0 0 10px">Comics who marked themselves free to perform, by date. / Les comics qui se sont déclarés dispo, par date.</p>
+      <div style="display:flex;gap:8px;align-items:end;flex-wrap:wrap;margin-bottom:12px">
+        <div><label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px">From</label><input type="date" id="wa-from" style="font-size:12px;padding:6px 8px;background:#0f0f0f;border:1px solid var(--border);border-radius:6px;color:var(--text)"></div>
+        <div><label style="font-size:11px;color:var(--muted);display:block;margin-bottom:3px">To</label><input type="date" id="wa-to" style="font-size:12px;padding:6px 8px;background:#0f0f0f;border:1px solid var(--border);border-radius:6px;color:var(--text)"></div>
+        <button class="btn btn-ghost" style="font-size:12px" onclick="loadWhoAvailable()">Refresh</button>
+      </div>
+      <div id="wa-list"><div class="empty">Loading…</div></div>
+    </div>
   </div>
 
   <!-- Comic profile side panel -->
@@ -434,6 +446,49 @@ async function enterDashboard(comicsResp) {
   renderComics();
   document.querySelectorAll('.filter-chip').forEach(c => c.onclick = () => { FILTER = c.dataset.filter; document.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active')); c.classList.add('active'); renderComics(); });
   document.dispatchEvent(new Event('dashboardReady'));
+  try { initWhoAvailable(); } catch (e) { /* availability panel is additive */ }
+}
+
+// ===== Who's available (Perform -> Availability v1, GET /api/availability/browse) =====
+// Public consented data only: the API returns name + own socials (allow-list)
+// plus the comic's own note. Rendered per date, everything escaped.
+function initWhoAvailable() {
+  const f = document.getElementById('wa-from'), t = document.getElementById('wa-to');
+  if (!f || !t) return;
+  const today = new Date(), plus14 = new Date(Date.now() + 14*864e5);
+  if (!f.value) f.value = today.toISOString().slice(0,10);
+  if (!t.value) t.value = plus14.toISOString().slice(0,10);
+  loadWhoAvailable();
+}
+async function loadWhoAvailable() {
+  const list = document.getElementById('wa-list'), count = document.getElementById('wa-count');
+  if (!list) return;
+  const frm = (document.getElementById('wa-from')||{}).value || '';
+  const to = (document.getElementById('wa-to')||{}).value || '';
+  list.innerHTML = '<div class="empty">Loading…</div>';
+  try {
+    const base = await API_BASE_PROMISE;
+    const r = await fetch(base + '/api/availability/browse?from=' + encodeURIComponent(frm) + '&to=' + encodeURIComponent(to)).then(x => x.json());
+    if (!r || !r.ok) throw new Error((r && r.detail) || 'load failed');
+    const dates = r.dates || {};
+    const keys = Object.keys(dates).sort();
+    if (count) count.textContent = '(' + (r.count || 0) + ')';
+    if (!keys.length) { list.innerHTML = '<div class="empty">No comics have marked availability in this range yet. / Aucune dispo déclarée sur cette période.</div>'; return; }
+    list.innerHTML = keys.map(d => {
+      const day = new Date(d + 'T12:00:00').toLocaleDateString('en-GB', {weekday:'short', day:'numeric', month:'short'});
+      const cards = dates[d].map(c => {
+        const ig = (c.instagram||'').replace(/^@/,'').replace(/^https?:\/\/(www\.)?instagram\.com\//i,'').replace(/[\/?].*$/,'');
+        const igLink = ig ? `<a href="https://instagram.com/${encodeURIComponent(ig)}" target="_blank" rel="noopener" style="color:var(--purple-light);font-size:11px">@${esc(ig)}</a>` : '';
+        const site = c.website ? ` <a href="${esc(c.website)}" target="_blank" rel="noopener" style="color:var(--muted);font-size:11px">site</a>` : '';
+        return `<span style="display:inline-flex;align-items:center;gap:6px;background:#111827;border:1px solid var(--border);border-radius:999px;padding:5px 12px;margin:0 6px 6px 0;font-size:12px">
+          <strong>${esc(c.stage_name)}</strong>${igLink}${site}${c.note?`<span style="color:var(--muted)">· ${esc(c.note)}</span>`:''}
+        </span>`;
+      }).join('');
+      return `<div style="margin-bottom:12px"><div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">${esc(day)} · ${esc(d)}</div>${cards}</div>`;
+    }).join('');
+  } catch (e) {
+    list.innerHTML = '<div class="empty">Could not load availability: ' + esc(e.message) + '</div>';
+  }
 }
 
 async function loadShows() {
