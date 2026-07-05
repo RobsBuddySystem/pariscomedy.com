@@ -127,6 +127,10 @@ section{max-width:1100px;margin:0 auto;padding:56px 24px}
 .show-card-btn:hover{opacity:.9}
 .show-vibe-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
 .vibe-tag{font-size:10px;padding:2px 7px;border-radius:4px;background:#1a1a2e;color:#c4b5fd;border:1px solid #2a1a4a;font-weight:600}
+/* Dedicated, always-visible language badge — French shows must never read as English (Robert 2026-07-05) */
+.show-card-lang{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.03em}
+.show-card-lang.en{background:#0b2a4a;color:#7cc4ff;border:1px solid #14477a}
+.show-card-lang.fr{background:#3a0b1a;color:#ff9db0;border:1px solid #7a1430}
 .no-shows-msg{padding:32px 20px;text-align:center;color:var(--muted);font-size:15px;grid-column:1/-1;line-height:1.7}
 .no-shows-msg strong{color:var(--text)}
 .no-shows-msg a{color:var(--purple-light);font-weight:600}
@@ -536,11 +540,8 @@ function todayName() { return DAYS[new Date().getDay()]; }
 function inferVibes(s) {
   const txt = ((s.name||s.show_name||'') + ' ' + (s.desc||s.description||'') + ' ' + (s.show_type||'')).toLowerCase();
   const tags = [];
-  const langs = s.langs || s.language;
-  if (langs) {
-    if (langs.includes('EN') || langs.includes('en')) tags.push('English');
-    else tags.push('French');
-  }
+  // Language is shown via the dedicated authoritative .show-card-lang badge (single source
+  // of truth on every card), NOT as a truncatable vibe.
   if (/open.?mic|open mic/.test(txt)) tags.push('Open Mic');
   else if (/showcase|show/.test(txt)) tags.push('Showcase');
   if (/improv/.test(txt)) tags.push('Improv');
@@ -613,11 +614,14 @@ function renderTonightPanel() {
   }
 
   const rows = TONIGHT_SHOWS.slice(0,6).map(s => {
+    const _tlc = (Array.isArray(s.language) ? s.language[0] : s.language || 'en').toString().toLowerCase();
+    const _tIsFr = _tlc.includes('fr') && !_tlc.includes('en');
+    const tLang = `<span class="show-card-lang ${_tIsFr?'fr':'en'}">${_tIsFr?'🇫🇷 FR':'🇬🇧 EN'}</span>`;
     return `<div class="tonight-row">
       <div class="tonight-time">${s.start_time||'—'}</div>
       <div class="tonight-info">
         <div class="tonight-name"><a href="${showHref(s)}">${s.show_name}</a></div>
-        <div class="tonight-venue">${s.venue} &middot; ${s.neighborhood}</div>
+        <div class="tonight-venue">${s.venue} &middot; ${s.neighborhood} &nbsp;${tLang}</div>
       </div>
     </div>`;
   }).join('');
@@ -691,10 +695,13 @@ function renderGrid() {
     const dateBadge = badgeDate
       ? `<div class="show-card-date">📅 ${badgeDate}${s.upcoming_count > 1 ? ` &middot; +${s.upcoming_count - 1} more` : ''}</div>`
       : '';
+    const _lc = (Array.isArray(s.language) ? s.language[0] : s.language || 'en').toString().toLowerCase();
+    const _isFr = _lc.includes('fr') && !_lc.includes('en');
+    const langBadge = `<span class="show-card-lang ${_isFr?'fr':'en'}">${_isFr?'🇫🇷 French':'🇬🇧 English'}</span>`;
     return `<div class="show-card">
       <div class="show-card-name">${s.name}</div>
       <div class="show-card-venue">${s.venue||''}</div>
-      <div class="show-card-meta">${s.day} &middot; ${s.time||'—'}</div>
+      <div class="show-card-meta">${s.day} &middot; ${s.time||'—'} &nbsp;${langBadge}</div>
       ${dateBadge}
       ${proof}
       ${vibeHtml}
