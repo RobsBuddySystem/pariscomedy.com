@@ -39,7 +39,7 @@ const META_TRANSLATIONS = {
     home: {
         en: {
             title: 'Paris Comedy — The Home of English-Language Comedy in Paris',
-            description: 'The home of English-language comedy in Paris. {showCount} verified weekly shows, {venueCount} current venues. French Fried Comedy Night, Velvet Bar Comedy, and more. Reserve your spot on Eventbrite.',
+            description: 'The home of English-language comedy in Paris. {showCount} verified weekly shows, {venueCount} current venues. French Fried Comedy Night and more. Reserve your spot on Eventbrite.',
             ogTitle: 'Paris Comedy — English-Language Comedy in Paris',
             ogDescription: '{showCount} verified weekly shows in English & French across {venueCount} current venues. Open mics, showcases, and the legendary French Fried Comedy Night. Reserve your spot.',
             twitterTitle: 'Paris Comedy — English Comedy in Paris',
@@ -47,7 +47,7 @@ const META_TRANSLATIONS = {
         },
         fr: {
             title: 'Paris Comedy — Le rendez-vous du stand-up en anglais à Paris',
-            description: 'Le point de repère du stand-up en anglais à Paris. {showCount} spectacles hebdomadaires vérifiés, {venueCount} salles actuelles. French Fried Comedy Night, Velvet Bar Comedy et plus encore.',
+            description: 'Le point de repère du stand-up en anglais à Paris. {showCount} spectacles hebdomadaires vérifiés, {venueCount} salles actuelles. French Fried Comedy Night and more.',
             ogTitle: 'Paris Comedy — Stand-up en anglais à Paris',
             ogDescription: '{showCount} spectacles hebdomadaires vérifiés en anglais et en français dans {venueCount} salles actuelles. Open mics, plateaux et la légendaire French Fried Comedy Night.',
             twitterTitle: 'Paris Comedy — Stand-up à Paris',
@@ -55,7 +55,7 @@ const META_TRANSLATIONS = {
         },
         es: {
             title: 'Paris Comedy — La casa de la comedia en inglés en París',
-            description: 'La referencia de la comedia en inglés en París. {showCount} shows semanales verificados y {venueCount} salas activas. French Fried Comedy Night, Velvet Bar Comedy y más.',
+            description: 'La referencia de la comedia en inglés en París. {showCount} shows semanales verificados y {venueCount} salas activas. French Fried Comedy Night and more.',
             ogTitle: 'Paris Comedy — Comedia en inglés en París',
             ogDescription: '{showCount} shows semanales verificados en inglés y francés en {venueCount} salas activas. Open mics, showcases y la legendaria French Fried Comedy Night.',
             twitterTitle: 'Paris Comedy — Comedia en París',
@@ -63,7 +63,7 @@ const META_TRANSLATIONS = {
         },
         de: {
             title: 'Paris Comedy — Die Heimat der englischsprachigen Comedy in Paris',
-            description: 'Die Anlaufstelle für englischsprachige Comedy in Paris. {showCount} verifizierte wöchentliche Shows an {venueCount} aktuellen Venues. French Fried Comedy Night, Velvet Bar Comedy und mehr.',
+            description: 'Die Anlaufstelle für englischsprachige Comedy in Paris. {showCount} verifizierte wöchentliche Shows an {venueCount} aktuellen Venues. French Fried Comedy Night and more.',
             ogTitle: 'Paris Comedy — Englische Comedy in Paris',
             ogDescription: '{showCount} verifizierte wöchentliche Shows auf Englisch und Französisch an {venueCount} aktuellen Venues. Open Mics, Showcases und die legendäre French Fried Comedy Night.',
             twitterTitle: 'Paris Comedy — Comedy in Paris',
@@ -71,7 +71,7 @@ const META_TRANSLATIONS = {
         },
         ja: {
             title: 'Paris Comedy — パリの英語コメディの拠点',
-            description: 'パリで英語コメディを探すならここ。毎週{showCount}本の検証済みショー、現在の会場は{venueCount}か所。French Fried Comedy Night や Velvet Bar Comedy などを掲載。',
+            description: 'パリで英語コメディを探すならここ。毎週{showCount}本の検証済みショー、現在の会場は{venueCount}か所。French Fried Comedy Night and more.',
             ogTitle: 'Paris Comedy — パリの英語コメディ',
             ogDescription: '英語とフランス語の検証済みコメディショーが毎週{showCount}本、現在の会場は{venueCount}か所。オープンマイク、ショーケース、French Fried Comedy Night。',
             twitterTitle: 'Paris Comedy — パリのコメディ',
@@ -79,7 +79,7 @@ const META_TRANSLATIONS = {
         },
         zh: {
             title: 'Paris Comedy — 巴黎英文单口喜剧中心',
-            description: '巴黎英文喜剧的聚集地。每周{showCount}场已核实演出、{venueCount}个当前场地。French Fried Comedy Night、Velvet Bar Comedy 等都在这里。',
+            description: '巴黎英文喜剧的聚集地。每周{showCount}场已核实演出、{venueCount}个当前场地。French Fried Comedy Night and more.',
             ogTitle: 'Paris Comedy — 巴黎英文喜剧',
             ogDescription: '每周{showCount}场已核实的英语和法语喜剧演出，覆盖{venueCount}个当前场地。开放麦、拼盘秀，以及招牌 French Fried Comedy Night。',
             twitterTitle: 'Paris Comedy — 巴黎喜剧',
@@ -537,7 +537,7 @@ function renderFrenchFocus() {
     section.style.display = '';
 
     if (!upcoming.length) {
-        grid.innerHTML = `<div class="show-card" style="padding:20px;grid-column:1/-1;"><strong style="font-family:var(--font-display);font-size:1.05rem;display:block;margin-bottom:8px;">Les dates françaises reviennent bientôt</strong><p style="margin:0;color:var(--text-muted);">En attendant, vous pouvez réserver une soirée bilingue ou une date 100 % anglais un peu plus bas.</p></div>`;
+        grid.innerHTML = `<div class="show-card" style="padding:20px;grid-column:1/-1;"><strong style="font-family:var(--font-display);font-size:1.05rem;display:block;margin-bottom:8px;">English comedy dates return soon</strong><p style="margin:0;color:var(--text-muted);">Paris Comedy specializes in English-language shows. Check the current English listings below.</p></div>`;
         return;
     }
 
@@ -779,7 +779,7 @@ function renderAllShows(filter = 'all') {
     if (!grid) return;
     const filtered = filter === 'all' ? SHOWS : SHOWS.filter(s => s.type === filter);
     const intro = currentLang === 'fr'
-        ? `<div class="show-card" style="padding:18px 20px;grid-column:1/-1;border:1px solid rgba(124,58,237,0.25);background:rgba(124,58,237,0.08);"><div style="font-family:var(--font-display);font-size:1.05rem;margin-bottom:6px;">🇬🇧 La scène anglophone reste juste ici</div><div style="color:var(--text-muted);line-height:1.6;">Paris Comedy reste spécialisé sur l'anglais et le bilingue. Sur la version française du site, on met d'abord en avant les options françaises ou bilingues pour le public local — puis on garde toutes les dates en anglais visibles et faciles à réserver.</div></div>`
+        ? `<div class="show-card" style="padding:18px 20px;grid-column:1/-1;border:1px solid rgba(124,58,237,0.25);background:rgba(124,58,237,0.08);"><div style="font-family:var(--font-display);font-size:1.05rem;margin-bottom:6px;">🇬🇧 La scène anglophone reste juste ici</div><div style="color:var(--text-muted);line-height:1.6;">Paris Comedy specializes in English-language comedy. Current English listings stay visible and easy to book.</div></div>`
         : '';
     grid.innerHTML = intro + filtered.map(renderShowCard).join('');
     if (window._revealInit) window._revealInit(grid);
@@ -1120,7 +1120,7 @@ function renderUntranslatable() {
                 <a href="shows.html" class="untrans-cta">Hear it live at FFCN →</a>
                 <div class="untrans-share">
                     <span class="untrans-share-label">Share:</span>
-                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('"' + item.word + '" — ' + item.lang + '. ' + item.definition + ' 😂 ' + item.punchline + ' pariscomedy.com')}&hashtags=lostintranslation,pariscomedy,bilingual" target="_blank" rel="noopener" class="untrans-share-btn untrans-share-x" aria-label="Share on X/Twitter">𝕏</a>
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('"' + item.word + '" — ' + item.lang + '. ' + item.definition + ' 😂 ' + item.punchline + ' pariscomedy.com')}&hashtags=lostintranslation,pariscomedy,englishcomedy" target="_blank" rel="noopener" class="untrans-share-btn untrans-share-x" aria-label="Share on X/Twitter">𝕏</a>
                     <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="untrans-share-btn untrans-share-ig" aria-label="Share on Instagram" title="Copy word + punchline to post on Instagram">📸</a>
                     <button class="untrans-share-btn untrans-share-copy" onclick="(function(){const text='"${item.word.replace(/'/g, "\\'")}": ${item.definition.replace(/'/g, "\\'")} 😂 ${item.punchline.replace(/'/g, "\\'")} — pariscomedy.com';navigator.clipboard&&navigator.clipboard.writeText(text).then(()=>{this.textContent='✅';setTimeout(()=>{this.textContent='📋'},1500)}).catch(()=>{});}).call(this)" aria-label="Copy to clipboard">📋</button>
                 </div>

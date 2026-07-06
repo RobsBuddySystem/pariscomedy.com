@@ -1,28 +1,5 @@
 [
   {
-    "id": "rocket-20260519",
-    "recurring_id": "rocket",
-    "name": "Rocket Comedy Club",
-    "venue_name": "Cotte 23",
-    "address": "23 Rue de la Mare, 75020 Paris",
-    "neighborhood": "Belleville (20th)",
-    "start_date": "2026-05-19T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627",
-    "source_url": "https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "lofi-20260519",
     "recurring_id": "lofi",
     "name": "LOFI Comedy Club",
@@ -84,29 +61,6 @@
     "recurring_source": true,
     "featured": false,
     "type": "openmic",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "cuba-compagnie-20260519",
-    "recurring_id": "cuba-compagnie",
-    "name": "Cuba Compagnie Comedy Club",
-    "venue_name": "Cuba Compagnie",
-    "address": "48 Bd Beaumarchais, 75011 Paris",
-    "neighborhood": "Bastille (11th)",
-    "start_date": "2026-05-19T19:30:00+02:00",
-    "end_date": null,
-    "time": "19:30",
-    "booking_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
-    "source_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
     "is_archived": false,
     "langs": [
       "en"
@@ -267,52 +221,6 @@
     "last_checked": "2026-05-19T00:00:00+02:00",
     "recurring_source": true,
     "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "south-comedy-20260520",
-    "recurring_id": "south-comedy",
-    "name": "South Comedy Club",
-    "venue_name": "Comédie Café",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-05-20T20:00:00+02:00",
-    "end_date": null,
-    "time": "20:00",
-    "booking_url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259",
-    "source_url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "velvet-comedy-20260520",
-    "recurring_id": "velvet-comedy",
-    "name": "Velvet Bar Comedy — Le meilleur du stand-up",
-    "venue_name": "Velvet Bar",
-    "address": "43 Rue Saint-Honoré, 75001 Paris",
-    "neighborhood": "Les Halles (1er)",
-    "start_date": "2026-05-20T20:30:00+02:00",
-    "end_date": null,
-    "time": "20:30",
-    "booking_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": true,
     "type": "standup",
     "is_archived": false,
     "langs": [
@@ -621,29 +529,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-    "id": "smash-20260523",
-    "recurring_id": "smash",
-    "name": "Smash Comedy Club",
-    "venue_name": "Comédie Café",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-05-23T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.com/e/smash-comedy-club-tickets-1902240916789",
-    "source_url": "https://www.eventbrite.com/e/smash-comedy-club-tickets-1902240916789",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "integrire-20260523",
     "recurring_id": "integrire",
     "name": "IntégRire Comedy Night",
@@ -690,29 +575,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-    "id": "charonne-20260523",
-    "recurring_id": "charonne",
-    "name": "Charonne Comedy Club",
-    "venue_name": "Le Café de la Plage",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-05-23T19:30:00+02:00",
-    "end_date": null,
-    "time": "19:30",
-    "booking_url": "https://www.billetreduc.com/spectacle/charonne-comedy-club-386471",
-    "source_url": "https://www.billetreduc.com/spectacle/charonne-comedy-club-386471",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "comedy-lab-chat-noir-20260523",
     "recurring_id": "comedy-lab-chat-noir",
     "name": "Comedy Lab",
@@ -756,29 +618,6 @@
       "en"
     ],
     "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "oscar-20260524",
-    "recurring_id": "oscar",
-    "name": "Oscar Comedy Club",
-    "venue_name": "Café Oscar",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-05-24T17:00:00+02:00",
-    "end_date": null,
-    "time": "17:00",
-    "booking_url": "https://www.eventbrite.fr/e/oscar-comedy-club-tickets-1985916648154",
-    "source_url": "https://www.eventbrite.fr/e/oscar-comedy-club-tickets-1985916648154",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
@@ -851,29 +690,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-    "id": "rocket-20260526",
-    "recurring_id": "rocket",
-    "name": "Rocket Comedy Club",
-    "venue_name": "Cotte 23",
-    "address": "23 Rue de la Mare, 75020 Paris",
-    "neighborhood": "Belleville (20th)",
-    "start_date": "2026-05-26T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627",
-    "source_url": "https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "lofi-20260526",
     "recurring_id": "lofi",
     "name": "LOFI Comedy Club",
@@ -935,29 +751,6 @@
     "recurring_source": true,
     "featured": false,
     "type": "openmic",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "cuba-compagnie-20260526",
-    "recurring_id": "cuba-compagnie",
-    "name": "Cuba Compagnie Comedy Club",
-    "venue_name": "Cuba Compagnie",
-    "address": "48 Bd Beaumarchais, 75011 Paris",
-    "neighborhood": "Bastille (11th)",
-    "start_date": "2026-05-26T19:30:00+02:00",
-    "end_date": null,
-    "time": "19:30",
-    "booking_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
-    "source_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
     "is_archived": false,
     "langs": [
       "en"
@@ -1118,52 +911,6 @@
     "last_checked": "2026-05-19T00:00:00+02:00",
     "recurring_source": true,
     "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "south-comedy-20260527",
-    "recurring_id": "south-comedy",
-    "name": "South Comedy Club",
-    "venue_name": "Comédie Café",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-05-27T20:00:00+02:00",
-    "end_date": null,
-    "time": "20:00",
-    "booking_url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259",
-    "source_url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "velvet-comedy-20260527",
-    "recurring_id": "velvet-comedy",
-    "name": "Velvet Bar Comedy — Le meilleur du stand-up",
-    "venue_name": "Velvet Bar",
-    "address": "43 Rue Saint-Honoré, 75001 Paris",
-    "neighborhood": "Les Halles (1er)",
-    "start_date": "2026-05-27T20:30:00+02:00",
-    "end_date": null,
-    "time": "20:30",
-    "booking_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": true,
     "type": "standup",
     "is_archived": false,
     "langs": [
@@ -1472,29 +1219,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-    "id": "smash-20260530",
-    "recurring_id": "smash",
-    "name": "Smash Comedy Club",
-    "venue_name": "Comédie Café",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-05-30T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.com/e/smash-comedy-club-tickets-1902240916789",
-    "source_url": "https://www.eventbrite.com/e/smash-comedy-club-tickets-1902240916789",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "integrire-20260530",
     "recurring_id": "integrire",
     "name": "IntégRire Comedy Night",
@@ -1541,29 +1265,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-    "id": "charonne-20260530",
-    "recurring_id": "charonne",
-    "name": "Charonne Comedy Club",
-    "venue_name": "Le Café de la Plage",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-05-30T19:30:00+02:00",
-    "end_date": null,
-    "time": "19:30",
-    "booking_url": "https://www.billetreduc.com/spectacle/charonne-comedy-club-386471",
-    "source_url": "https://www.billetreduc.com/spectacle/charonne-comedy-club-386471",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "comedy-lab-chat-noir-20260530",
     "recurring_id": "comedy-lab-chat-noir",
     "name": "Comedy Lab",
@@ -1607,29 +1308,6 @@
       "en"
     ],
     "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "oscar-20260531",
-    "recurring_id": "oscar",
-    "name": "Oscar Comedy Club",
-    "venue_name": "Café Oscar",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-05-31T17:00:00+02:00",
-    "end_date": null,
-    "time": "17:00",
-    "booking_url": "https://www.eventbrite.fr/e/oscar-comedy-club-tickets-1985916648154",
-    "source_url": "https://www.eventbrite.fr/e/oscar-comedy-club-tickets-1985916648154",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
@@ -1702,29 +1380,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-    "id": "rocket-20260602",
-    "recurring_id": "rocket",
-    "name": "Rocket Comedy Club",
-    "venue_name": "Cotte 23",
-    "address": "23 Rue de la Mare, 75020 Paris",
-    "neighborhood": "Belleville (20th)",
-    "start_date": "2026-06-02T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627",
-    "source_url": "https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "lofi-20260602",
     "recurring_id": "lofi",
     "name": "LOFI Comedy Club",
@@ -1786,29 +1441,6 @@
     "recurring_source": true,
     "featured": false,
     "type": "openmic",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "cuba-compagnie-20260602",
-    "recurring_id": "cuba-compagnie",
-    "name": "Cuba Compagnie Comedy Club",
-    "venue_name": "Cuba Compagnie",
-    "address": "48 Bd Beaumarchais, 75011 Paris",
-    "neighborhood": "Bastille (11th)",
-    "start_date": "2026-06-02T19:30:00+02:00",
-    "end_date": null,
-    "time": "19:30",
-    "booking_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
-    "source_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
     "is_archived": false,
     "langs": [
       "en"
@@ -1969,52 +1601,6 @@
     "last_checked": "2026-05-19T00:00:00+02:00",
     "recurring_source": true,
     "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "south-comedy-20260603",
-    "recurring_id": "south-comedy",
-    "name": "South Comedy Club",
-    "venue_name": "Comédie Café",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-06-03T20:00:00+02:00",
-    "end_date": null,
-    "time": "20:00",
-    "booking_url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259",
-    "source_url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "velvet-comedy-20260603",
-    "recurring_id": "velvet-comedy",
-    "name": "Velvet Bar Comedy — Le meilleur du stand-up",
-    "venue_name": "Velvet Bar",
-    "address": "43 Rue Saint-Honoré, 75001 Paris",
-    "neighborhood": "Les Halles (1er)",
-    "start_date": "2026-06-03T20:30:00+02:00",
-    "end_date": null,
-    "time": "20:30",
-    "booking_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": true,
     "type": "standup",
     "is_archived": false,
     "langs": [
@@ -2323,29 +1909,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-    "id": "smash-20260606",
-    "recurring_id": "smash",
-    "name": "Smash Comedy Club",
-    "venue_name": "Comédie Café",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-06-06T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.com/e/smash-comedy-club-tickets-1902240916789",
-    "source_url": "https://www.eventbrite.com/e/smash-comedy-club-tickets-1902240916789",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "integrire-20260606",
     "recurring_id": "integrire",
     "name": "IntégRire Comedy Night",
@@ -2392,29 +1955,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-    "id": "charonne-20260606",
-    "recurring_id": "charonne",
-    "name": "Charonne Comedy Club",
-    "venue_name": "Le Café de la Plage",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-06-06T19:30:00+02:00",
-    "end_date": null,
-    "time": "19:30",
-    "booking_url": "https://www.billetreduc.com/spectacle/charonne-comedy-club-386471",
-    "source_url": "https://www.billetreduc.com/spectacle/charonne-comedy-club-386471",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "comedy-lab-chat-noir-20260606",
     "recurring_id": "comedy-lab-chat-noir",
     "name": "Comedy Lab",
@@ -2458,29 +1998,6 @@
       "en"
     ],
     "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "oscar-20260607",
-    "recurring_id": "oscar",
-    "name": "Oscar Comedy Club",
-    "venue_name": "Café Oscar",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-06-07T17:00:00+02:00",
-    "end_date": null,
-    "time": "17:00",
-    "booking_url": "https://www.eventbrite.fr/e/oscar-comedy-club-tickets-1985916648154",
-    "source_url": "https://www.eventbrite.fr/e/oscar-comedy-club-tickets-1985916648154",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
@@ -2553,29 +2070,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-    "id": "rocket-20260609",
-    "recurring_id": "rocket",
-    "name": "Rocket Comedy Club",
-    "venue_name": "Cotte 23",
-    "address": "23 Rue de la Mare, 75020 Paris",
-    "neighborhood": "Belleville (20th)",
-    "start_date": "2026-06-09T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627",
-    "source_url": "https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "lofi-20260609",
     "recurring_id": "lofi",
     "name": "LOFI Comedy Club",
@@ -2637,29 +2131,6 @@
     "recurring_source": true,
     "featured": false,
     "type": "openmic",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "cuba-compagnie-20260609",
-    "recurring_id": "cuba-compagnie",
-    "name": "Cuba Compagnie Comedy Club",
-    "venue_name": "Cuba Compagnie",
-    "address": "48 Bd Beaumarchais, 75011 Paris",
-    "neighborhood": "Bastille (11th)",
-    "start_date": "2026-06-09T19:30:00+02:00",
-    "end_date": null,
-    "time": "19:30",
-    "booking_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
-    "source_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
     "is_archived": false,
     "langs": [
       "en"
@@ -2820,52 +2291,6 @@
     "last_checked": "2026-05-19T00:00:00+02:00",
     "recurring_source": true,
     "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "south-comedy-20260610",
-    "recurring_id": "south-comedy",
-    "name": "South Comedy Club",
-    "venue_name": "Comédie Café",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-06-10T20:00:00+02:00",
-    "end_date": null,
-    "time": "20:00",
-    "booking_url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259",
-    "source_url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "velvet-comedy-20260610",
-    "recurring_id": "velvet-comedy",
-    "name": "Velvet Bar Comedy — Le meilleur du stand-up",
-    "venue_name": "Velvet Bar",
-    "address": "43 Rue Saint-Honoré, 75001 Paris",
-    "neighborhood": "Les Halles (1er)",
-    "start_date": "2026-06-10T20:30:00+02:00",
-    "end_date": null,
-    "time": "20:30",
-    "booking_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": true,
     "type": "standup",
     "is_archived": false,
     "langs": [
@@ -3174,29 +2599,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-    "id": "smash-20260613",
-    "recurring_id": "smash",
-    "name": "Smash Comedy Club",
-    "venue_name": "Comédie Café",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-06-13T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.com/e/smash-comedy-club-tickets-1902240916789",
-    "source_url": "https://www.eventbrite.com/e/smash-comedy-club-tickets-1902240916789",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "integrire-20260613",
     "recurring_id": "integrire",
     "name": "IntégRire Comedy Night",
@@ -3243,29 +2645,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-    "id": "charonne-20260613",
-    "recurring_id": "charonne",
-    "name": "Charonne Comedy Club",
-    "venue_name": "Le Café de la Plage",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-06-13T19:30:00+02:00",
-    "end_date": null,
-    "time": "19:30",
-    "booking_url": "https://www.billetreduc.com/spectacle/charonne-comedy-club-386471",
-    "source_url": "https://www.billetreduc.com/spectacle/charonne-comedy-club-386471",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "comedy-lab-chat-noir-20260613",
     "recurring_id": "comedy-lab-chat-noir",
     "name": "Comedy Lab",
@@ -3309,29 +2688,6 @@
       "en"
     ],
     "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "oscar-20260614",
-    "recurring_id": "oscar",
-    "name": "Oscar Comedy Club",
-    "venue_name": "Café Oscar",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-06-14T17:00:00+02:00",
-    "end_date": null,
-    "time": "17:00",
-    "booking_url": "https://www.eventbrite.fr/e/oscar-comedy-club-tickets-1985916648154",
-    "source_url": "https://www.eventbrite.fr/e/oscar-comedy-club-tickets-1985916648154",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
@@ -3404,29 +2760,6 @@
     "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
   },
   {
-    "id": "rocket-20260616",
-    "recurring_id": "rocket",
-    "name": "Rocket Comedy Club",
-    "venue_name": "Cotte 23",
-    "address": "23 Rue de la Mare, 75020 Paris",
-    "neighborhood": "Belleville (20th)",
-    "start_date": "2026-06-16T19:00:00+02:00",
-    "end_date": null,
-    "time": "19:00",
-    "booking_url": "https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627",
-    "source_url": "https://www.eventbrite.fr/e/rocket-comedy-club-tickets-1001216875627",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "ended",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
     "id": "lofi-20260616",
     "recurring_id": "lofi",
     "name": "LOFI Comedy Club",
@@ -3488,29 +2821,6 @@
     "recurring_source": true,
     "featured": false,
     "type": "openmic",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "cuba-compagnie-20260616",
-    "recurring_id": "cuba-compagnie",
-    "name": "Cuba Compagnie Comedy Club",
-    "venue_name": "Cuba Compagnie",
-    "address": "48 Bd Beaumarchais, 75011 Paris",
-    "neighborhood": "Bastille (11th)",
-    "start_date": "2026-06-16T19:30:00+02:00",
-    "end_date": null,
-    "time": "19:30",
-    "booking_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
-    "source_url": "https://www.eventbrite.fr/e/cuba-compagnie-comedy-club-tickets-1254791257429",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
     "is_archived": false,
     "langs": [
       "en"
@@ -3671,52 +2981,6 @@
     "last_checked": "2026-05-19T00:00:00+02:00",
     "recurring_source": true,
     "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "south-comedy-20260617",
-    "recurring_id": "south-comedy",
-    "name": "South Comedy Club",
-    "venue_name": "Comédie Café",
-    "address": "Paris",
-    "neighborhood": "",
-    "start_date": "2026-06-17T20:00:00+02:00",
-    "end_date": null,
-    "time": "20:00",
-    "booking_url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259",
-    "source_url": "https://www.eventbrite.fr/e/billets-south-comedy-club-1716456721259",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": false,
-    "type": "standup",
-    "is_archived": false,
-    "langs": [
-      "en"
-    ],
-    "ticket_url_status": "active",
-    "ticket_url_checked_at": "2026-05-23T10:41:54+00:00"
-  },
-  {
-    "id": "velvet-comedy-20260617",
-    "recurring_id": "velvet-comedy",
-    "name": "Velvet Bar Comedy — Le meilleur du stand-up",
-    "venue_name": "Velvet Bar",
-    "address": "43 Rue Saint-Honoré, 75001 Paris",
-    "neighborhood": "Les Halles (1er)",
-    "start_date": "2026-06-17T20:30:00+02:00",
-    "end_date": null,
-    "time": "20:30",
-    "booking_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "source_url": "https://www.eventbrite.com/e/velvet-bar-comedy-le-meilleur-du-stand-up-a-paris-tickets-1989840111338",
-    "last_checked": "2026-05-19T00:00:00+02:00",
-    "recurring_source": true,
-    "featured": true,
     "type": "standup",
     "is_archived": false,
     "langs": [
