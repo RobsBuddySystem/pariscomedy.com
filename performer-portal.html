@@ -297,7 +297,7 @@ const sessToken=localStorage.getItem('pc_session_token')||'';
 if(sessToken)loadOffers(sessToken);
 }catch(e){document.getElementById('auth-msg').textContent=e.message;}}
 function fillAccount(user,member,payment){document.getElementById('account-email').textContent=user.email||'';document.getElementById('account-plan').textContent=member.plan_label||'Performer Free';const active=member.status==='active';document.getElementById('account-status').innerHTML='<span class="pill '+(active?'active':'pending')+'">'+(member.status||'pending_payment').replace('_',' ')+'</span>';document.getElementById('account-founding').textContent=member.founding_number?('#'+member.founding_number):'Not assigned';document.getElementById('account-payment').textContent=payment.status?((payment.provider_ref||'pending')+' · '+payment.status):'No paid plan yet';const pay=document.getElementById('pay-link');pay.style.display=active?'none':'inline-block';if(payment.checkout_url)pay.href=payment.checkout_url;}
-function fillProfile(m){['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>{document.getElementById(id).value=m[id]||'';});}
+function fillProfile(m){['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>{document.getElementById(id).value=m[id]||'';});const pv=document.getElementById('drop-preview');if(pv&&m.photo_url){pv.innerHTML='<img src="'+m.photo_url+'?t='+Date.now()+'" alt="current photo" style="width:120px;height:120px;object-fit:cover;border-radius:10px;margin-bottom:10px"><div style="color:#6fe08a;font-size:12px;margin-bottom:6px">✓ Your current photo</div>';}}
 // ===== Availability calendar (Perform -> Availability v1, /api/availability) =====
 // Month grid: tap a date to toggle "I'm free that night". Server keys on the
 // comic's own slug (claimed page or matching email) — nothing to configure here.
@@ -442,7 +442,7 @@ async function uploadPhoto(file){
       headers:tok?{'Authorization':'Bearer '+tok}:{},body:fd});
     const j=await r.json().catch(()=>({detail:r.statusText}));
     if(!r.ok)throw new Error(j.detail||('HTTP '+r.status));
-    msg.textContent='Photo set — it’ll show on your public card.';msg.classList.add('ok');
+    msg.textContent='✓ Saved — this is now your public photo.';msg.classList.add('ok');if(j.url){pv.innerHTML='<img src="'+j.url+'?t='+Date.now()+'" alt="" style="width:120px;height:120px;object-fit:cover;border-radius:10px;margin-bottom:10px"><div style="color:#6fe08a;font-size:12px;margin-bottom:6px">✓ Your current photo</div>';}
   }catch(e){msg.textContent='Error: '+e.message;msg.classList.add('err');}
 }
 (function initDrop(){
