@@ -361,6 +361,12 @@ async function populateShowPicker(){
     const list=Array.isArray(rows)?rows:(rows.listings||[]);
     list.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
     list.forEach(s=>{ if(s&&s.id&&s.name){ const o=document.createElement('option'); o.value=s.id; o.textContent=s.name; sel.appendChild(o);} });
+    // 2026-07-07: autocomplete the free-text "invite a booker → show name" field from
+    // known shows (Robert: "if a comic starts writing the show name, it populates").
+    let dl=document.getElementById('known-shows');
+    if(!dl){dl=document.createElement('datalist');dl.id='known-shows';document.body.appendChild(dl);
+      const inv=document.getElementById('inv-show'); if(inv)inv.setAttribute('list','known-shows');}
+    dl.innerHTML=''; list.forEach(s=>{ if(s&&s.name){const o=document.createElement('option');o.value=s.name;dl.appendChild(o);} });
     _showPickerLoaded=true;
   }catch(_){}
 }
