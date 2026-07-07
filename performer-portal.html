@@ -139,11 +139,19 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
 
     <section class="panel" style="grid-column:1/-1">
       <h2>Profile photo / Photo de profil</h2>
-      <p style="color:var(--muted);font-size:13px;margin:0 0 12px">Paste a link to your photo (an Instagram image or headshot URL). It sets your public directory card. / Collez le lien de votre photo ; elle apparaît sur votre fiche publique.</p>
-      <form onsubmit="return addPhoto(event)" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
-        <div class="field" style="margin-bottom:0;flex:1;min-width:240px"><label>Photo URL</label><input id="photo-url" type="url" placeholder="https://…/me.jpg" maxlength="600" required></div>
-        <button class="btn" type="submit">Set photo / Définir</button>
-      </form>
+      <div id="drop-zone" tabindex="0" onclick="document.getElementById('photo-file').click()"
+        style="border:2px dashed var(--border,#2d4b70);border-radius:12px;padding:26px 18px;text-align:center;cursor:pointer;transition:.15s;background:rgba(255,255,255,.02)">
+        <div id="drop-preview"></div>
+        <div style="font-weight:700">Drag &amp; drop your photo here</div>
+        <div style="color:var(--muted);font-size:13px;margin-top:4px">or click to choose · JPG/PNG/WEBP, max 6MB / Glissez-déposez votre photo</div>
+        <input id="photo-file" type="file" accept="image/*" style="display:none" onchange="uploadPhoto(this.files[0])">
+      </div>
+      <details style="margin-top:10px"><summary style="color:var(--muted);font-size:13px;cursor:pointer">Or paste a photo URL / Ou coller un lien</summary>
+        <form onsubmit="return addPhoto(event)" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-top:8px">
+          <div class="field" style="margin-bottom:0;flex:1;min-width:240px"><label>Photo URL</label><input id="photo-url" type="url" placeholder="https://…/me.jpg" maxlength="600"></div>
+          <button class="btn" type="submit">Set photo / Définir</button>
+        </form>
+      </details>
       <span class="msg" id="photo-msg"></span>
     </section>
   </section>
@@ -418,6 +426,31 @@ async function addPhoto(ev){
   }catch(e){msg.textContent='Error: '+e.message;msg.classList.add('err');}
   return false;
 }
+async function uploadPhoto(file){
+  const msg=document.getElementById('photo-msg'); msg.className='msg';
+  if(!file){return;}
+  if(!file.type.startsWith('image/')){msg.textContent='Please choose an image.';msg.classList.add('err');return;}
+  if(file.size>6*1024*1024){msg.textContent='Image too large (max 6MB).';msg.classList.add('err');return;}
+  // instant local preview
+  const pv=document.getElementById('drop-preview');
+  pv.innerHTML='<img src="'+URL.createObjectURL(file)+'" alt="" style="width:120px;height:120px;object-fit:cover;border-radius:10px;margin-bottom:10px">';
+  msg.textContent='Uploading…';
+  try{
+    const base=await apiBase();const tok=localStorage.getItem('pc_session_token')||'';
+    const fd=new FormData(); fd.append('file',file);
+    const r=await fetch(base+'/api/performer/photo/upload',{method:'POST',credentials:'include',
+      headers:tok?{'Authorization':'Bearer '+tok}:{},body:fd});
+    const j=await r.json().catch(()=>({detail:r.statusText}));
+    if(!r.ok)throw new Error(j.detail||('HTTP '+r.status));
+    msg.textContent='Photo set — it’ll show on your public card.';msg.classList.add('ok');
+  }catch(e){msg.textContent='Error: '+e.message;msg.classList.add('err');}
+}
+(function initDrop(){
+  const dz=document.getElementById('drop-zone'); if(!dz)return;
+  ['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.style.borderColor='#D4AF37';dz.style.background='rgba(212,175,55,.08)';}));
+  ['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.style.borderColor='';dz.style.background='rgba(255,255,255,.02)';}));
+  dz.addEventListener('drop',e=>{const f=e.dataTransfer.files&&e.dataTransfer.files[0];if(f)uploadPhoto(f);});
+})();
 async function saveProfile(ev){ev.preventDefault();const msg=document.getElementById('save-msg');msg.textContent='Saving...';msg.className='msg';const payload={role:'performer'};['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>payload[id]=document.getElementById(id).value.trim());try{const r=await api('/api/member/profile',{method:'PATCH',body:JSON.stringify(payload)});fillProfile(r.member||{});msg.textContent='Saved.';msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}return false;}
 // Also store session_token when magic link verify redirects back with it in URL params
 (function(){const p=new URLSearchParams(location.search);const t=p.get('t')||p.get('session_token');if(t){try{enterWithClaim(t);}catch(e){localStorage.setItem('pc_session_token',t);}}try{initGoogle();}catch(e){}})();
