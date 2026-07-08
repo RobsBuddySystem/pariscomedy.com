@@ -97,6 +97,11 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
         </div>
         <button class="btn" type="submit">Save profile</button>
         <span class="msg" id="save-msg"></span>
+        <label style="display:flex;align-items:center;gap:8px;margin-top:14px;color:var(--muted);font-size:13px;text-transform:none;letter-spacing:0">
+          <input type="checkbox" id="unlist-toggle" style="width:auto" onchange="setListing(!this.checked)">
+          Hide my page from the public directory / Masquer ma fiche
+        </label>
+        <span class="msg" id="listing-msg"></span>
       </form>
     </section>
 
@@ -297,7 +302,7 @@ const sessToken=localStorage.getItem('pc_session_token')||'';
 if(sessToken)loadOffers(sessToken);
 }catch(e){document.getElementById('auth-msg').textContent=e.message;}}
 function fillAccount(user,member,payment){document.getElementById('account-email').textContent=user.email||'';document.getElementById('account-plan').textContent=member.plan_label||'Performer Free';const active=member.status==='active';document.getElementById('account-status').innerHTML='<span class="pill '+(active?'active':'pending')+'">'+(member.status||'pending_payment').replace('_',' ')+'</span>';document.getElementById('account-founding').textContent=member.founding_number?('#'+member.founding_number):'Not assigned';document.getElementById('account-payment').textContent=payment.status?((payment.provider_ref||'pending')+' · '+payment.status):'No paid plan yet';const pay=document.getElementById('pay-link');pay.style.display=active?'none':'inline-block';if(payment.checkout_url)pay.href=payment.checkout_url;}
-function fillProfile(m){['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>{document.getElementById(id).value=m[id]||'';});const pv=document.getElementById('drop-preview');if(pv&&m.photo_url){pv.innerHTML='<img src="'+m.photo_url+'?t='+Date.now()+'" alt="current photo" style="width:120px;height:120px;object-fit:cover;border-radius:10px;margin-bottom:10px"><div style="color:#6fe08a;font-size:12px;margin-bottom:6px">✓ Your current photo</div>';}}
+function fillProfile(m){['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>{document.getElementById(id).value=m[id]||'';});const ut=document.getElementById('unlist-toggle');if(ut)ut.checked=(m.comic_status==='hidden_by_owner');const pv=document.getElementById('drop-preview');if(pv&&m.photo_url){pv.innerHTML='<img src="'+m.photo_url+'?t='+Date.now()+'" alt="current photo" style="width:120px;height:120px;object-fit:cover;border-radius:10px;margin-bottom:10px"><div style="color:#6fe08a;font-size:12px;margin-bottom:6px">✓ Your current photo</div>';}}
 // ===== Availability calendar (Perform -> Availability v1, /api/availability) =====
 // Month grid: tap a date to toggle "I'm free that night". Server keys on the
 // comic's own slug (claimed page or matching email) — nothing to configure here.
@@ -457,6 +462,12 @@ async function uploadPhoto(file){
   ['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.style.borderColor='';dz.style.background='rgba(255,255,255,.02)';}));
   dz.addEventListener('drop',e=>{const f=e.dataTransfer.files&&e.dataTransfer.files[0];if(f)uploadPhoto(f);});
 })();
+async function setListing(listed){
+  const msg=document.getElementById('listing-msg'); msg.className='msg';
+  try{ const r=await api('/api/performer/listing',{method:'POST',body:JSON.stringify({listed})});
+    msg.textContent=listed?'Your page is public.':'Your page is hidden from the directory.'; msg.classList.add('ok');
+  }catch(e){ msg.textContent=e.message; msg.classList.add('err'); }
+}
 async function saveProfile(ev){ev.preventDefault();const msg=document.getElementById('save-msg');msg.textContent='Saving...';msg.className='msg';const payload={role:'performer'};['display_name','stage_name','bio','website','instagram','youtube','video_url','city'].forEach(id=>payload[id]=document.getElementById(id).value.trim());try{const r=await api('/api/member/profile',{method:'PATCH',body:JSON.stringify(payload)});fillProfile(r.member||{});msg.textContent='Saved.';msg.classList.add('ok');}catch(e){msg.textContent=e.message;msg.classList.add('err');}return false;}
 // Also store session_token when magic link verify redirects back with it in URL params
 (function(){const p=new URLSearchParams(location.search);const t=p.get('t')||p.get('session_token');if(t){try{enterWithClaim(t);}catch(e){localStorage.setItem('pc_session_token',t);}}try{initGoogle();}catch(e){}})();
