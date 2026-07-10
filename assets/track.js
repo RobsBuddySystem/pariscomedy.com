@@ -1,5 +1,6 @@
 // pariscomedy.com lightweight visitor tracking.
-// Sends one page-view event per page load to /api/track. No third-party
+// Sends one page-view event per page load to /api/track, plus a page-leave
+// ping (time on page + max scroll depth) via sendBeacon. No third-party
 // service, no cookies — just a sessionStorage random session_id so we can
 // roughly count unique visits without persistent fingerprinting.
 (function () {
@@ -15,17 +16,53 @@
   } catch (_) {
     // Storage unavailable; ship without session id.
   }
+  const params = new URLSearchParams(location.search);
+  const path = location.pathname + location.search;
   const payload = {
-    path: location.pathname + location.search,
+    path: path,
     referrer: (document.referrer || '').slice(0, 300),
     session_id: sid,
+    screen: (screen && screen.width && screen.height) ? (screen.width + 'x' + screen.height) : '',
+    lang: (navigator.language || '').slice(0, 20),
+    utm_source: (params.get('utm_source') || '').slice(0, 100),
+    utm_campaign: (params.get('utm_campaign') || '').slice(0, 100),
   };
+  let apiBase = '';
+  const startedAt = Date.now();
+  let maxScroll = 0;
+  const trackScroll = () => {
+    try {
+      const doc = document.documentElement;
+      const scrollable = Math.max(1, doc.scrollHeight - doc.clientHeight);
+      const pct = Math.round(100 * Math.min(1, (window.scrollY || 0) / scrollable));
+      if (pct > maxScroll) maxScroll = pct;
+    } catch (_) { /* ignore */ }
+  };
+  window.addEventListener('scroll', trackScroll, {passive: true});
+
+  const sendLeave = () => {
+    try {
+      const durationS = Math.round((Date.now() - startedAt) / 1000);
+      const leavePayload = JSON.stringify({
+        session_id: sid, path: path, duration_s: durationS, scroll_pct: maxScroll,
+      });
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(apiBase + '/api/track/leave',
+          new Blob([leavePayload], {type: 'application/json'}));
+      }
+    } catch (_) { /* best-effort only */ }
+  };
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') sendLeave();
+  });
+  window.addEventListener('pagehide', sendLeave);
+
   // Resolve API base from /api-config.json if present.
   fetch('/api-config.json', {cache: 'no-store'})
     .then(r => r.json()).catch(() => ({}))
     .then(c => {
-      const api = (c && c.api) || '';
-      fetch(api + '/api/track', {
+      apiBase = (c && c.api) || '';
+      fetch(apiBase + '/api/track', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload),
