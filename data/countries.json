@@ -1,0 +1,128 @@
+[
+  {
+    "continent": "Oceania",
+    "id": 1,
+    "iso2": "AU",
+    "name": "Australia",
+    "primary_languages": "en"
+  },
+  {
+    "continent": "Europe",
+    "id": 2,
+    "iso2": "BE",
+    "name": "Belgium",
+    "primary_languages": "nl,fr,de"
+  },
+  {
+    "continent": "North America",
+    "id": 3,
+    "iso2": "CA",
+    "name": "Canada",
+    "primary_languages": "en,fr"
+  },
+  {
+    "continent": "Asia",
+    "id": 4,
+    "iso2": "CN",
+    "name": "China",
+    "primary_languages": "zh,en"
+  },
+  {
+    "continent": "Europe",
+    "id": 5,
+    "iso2": "CZ",
+    "name": "Czechia",
+    "primary_languages": "cs"
+  },
+  {
+    "continent": "Europe",
+    "id": 6,
+    "iso2": "DK",
+    "name": "Denmark",
+    "primary_languages": "da"
+  },
+  {
+    "continent": "Europe",
+    "id": 7,
+    "iso2": "DE",
+    "name": "Germany",
+    "primary_languages": "de"
+  },
+  {
+    "continent": "Asia",
+    "id": 8,
+    "iso2": "IN",
+    "name": "India",
+    "primary_languages": "hi,en"
+  },
+  {
+    "continent": "Europe",
+    "id": 9,
+    "iso2": "IE",
+    "name": "Ireland",
+    "primary_languages": "en,ga"
+  },
+  {
+    "continent": "Asia",
+    "id": 10,
+    "iso2": "JP",
+    "name": "Japan",
+    "primary_languages": "ja"
+  },
+  {
+    "continent": "Europe",
+    "id": 11,
+    "iso2": "NL",
+    "name": "Netherlands",
+    "primary_languages": "nl"
+  },
+  {
+    "continent": "Asia",
+    "id": 12,
+    "iso2": "SG",
+    "name": "Singapore",
+    "primary_languages": "en,zh,ms,ta"
+  },
+  {
+    "continent": "Africa",
+    "id": 13,
+    "iso2": "ZA",
+    "name": "South Africa",
+    "primary_languages": "en,af,zu"
+  },
+  {
+    "continent": "Europe",
+    "id": 14,
+    "iso2": "ES",
+    "name": "Spain",
+    "primary_languages": "es"
+  },
+  {
+    "continent": "Asia",
+    "id": 15,
+    "iso2": "TH",
+    "name": "Thailand",
+    "primary_languages": "th"
+  },
+  {
+    "continent": "Asia",
+    "id": 16,
+    "iso2": "AE",
+    "name": "UAE",
+    "primary_languages": "ar,en"
+  },
+  {
+    "continent": "Europe",
+    "id": 17,
+    "iso2": "GB",
+    "name": "UK",
+    "primary_languages": "en"
+  },
+  {
+    "continent": "Europe",
+    "id": 20,
+    "iso2": "FR",
+    "name": "France",
+    "primary_languages": "fr"
+  }
+]
