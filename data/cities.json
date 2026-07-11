@@ -248,5 +248,215 @@
     "longitude": 2.3522,
     "name": "Paris",
     "timezone": "Europe/Paris"
+  },
+  {
+    "country_id": 22,
+    "country_iso2": "PT",
+    "country_name": "Portugal",
+    "id": 26,
+    "latitude": 38.7223,
+    "longitude": -9.1393,
+    "name": "Lisbon",
+    "timezone": "Europe/Lisbon"
+  },
+  {
+    "country_id": 23,
+    "country_iso2": "CH",
+    "country_name": "Switzerland",
+    "id": 27,
+    "latitude": 47.3769,
+    "longitude": 8.5417,
+    "name": "Zurich",
+    "timezone": "Europe/Zurich"
+  },
+  {
+    "country_id": 24,
+    "country_iso2": "LV",
+    "country_name": "Latvia",
+    "id": 28,
+    "latitude": 56.9496,
+    "longitude": 24.1052,
+    "name": "Riga",
+    "timezone": "Europe/Riga"
+  },
+  {
+    "country_id": 25,
+    "country_iso2": "RS",
+    "country_name": "Serbia",
+    "id": 29,
+    "latitude": 44.7866,
+    "longitude": 20.4489,
+    "name": "Belgrade",
+    "timezone": "Europe/Belgrade"
+  },
+  {
+    "country_id": 20,
+    "country_iso2": "FR",
+    "country_name": "France",
+    "id": 30,
+    "latitude": 45.764,
+    "longitude": 4.8357,
+    "name": "Lyon",
+    "timezone": "Europe/Paris"
+  },
+  {
+    "country_id": 7,
+    "country_iso2": "DE",
+    "country_name": "Germany",
+    "id": 31,
+    "latitude": 48.1351,
+    "longitude": 11.582,
+    "name": "Munich",
+    "timezone": "Europe/Berlin"
+  },
+  {
+    "country_id": 7,
+    "country_iso2": "DE",
+    "country_name": "Germany",
+    "id": 32,
+    "latitude": 53.5511,
+    "longitude": 9.9937,
+    "name": "Hamburg",
+    "timezone": "Europe/Berlin"
+  },
+  {
+    "country_id": 17,
+    "country_iso2": "GB",
+    "country_name": "UK",
+    "id": 33,
+    "latitude": 55.9533,
+    "longitude": -3.1883,
+    "name": "Edinburgh",
+    "timezone": "Europe/London"
+  },
+  {
+    "country_id": 22,
+    "country_iso2": "PT",
+    "country_name": "Portugal",
+    "id": 34,
+    "latitude": 41.1579,
+    "longitude": -8.6291,
+    "name": "Porto",
+    "timezone": "Europe/Lisbon"
+  },
+  {
+    "country_id": 22,
+    "country_iso2": "PT",
+    "country_name": "Portugal",
+    "id": 35,
+    "latitude": 40.6405,
+    "longitude": -8.6538,
+    "name": "Aveiro",
+    "timezone": "Europe/Lisbon"
+  },
+  {
+    "country_id": 26,
+    "country_iso2": "IT",
+    "country_name": "Italy",
+    "id": 36,
+    "latitude": 45.4642,
+    "longitude": 9.19,
+    "name": "Milan",
+    "timezone": "Europe/Rome"
+  },
+  {
+    "country_id": 26,
+    "country_iso2": "IT",
+    "country_name": "Italy",
+    "id": 37,
+    "latitude": 41.9028,
+    "longitude": 12.4964,
+    "name": "Rome",
+    "timezone": "Europe/Rome"
+  },
+  {
+    "country_id": 27,
+    "country_iso2": "AT",
+    "country_name": "Austria",
+    "id": 38,
+    "latitude": 48.2082,
+    "longitude": 16.3738,
+    "name": "Vienna",
+    "timezone": "Europe/Vienna"
+  },
+  {
+    "country_id": 5,
+    "country_iso2": "CZ",
+    "country_name": "Czechia",
+    "id": 39,
+    "latitude": 49.1951,
+    "longitude": 16.6068,
+    "name": "Brno",
+    "timezone": "Europe/Prague"
+  },
+  {
+    "country_id": 28,
+    "country_iso2": "SE",
+    "country_name": "Sweden",
+    "id": 40,
+    "latitude": 59.3293,
+    "longitude": 18.0686,
+    "name": "Stockholm",
+    "timezone": "Europe/Stockholm"
+  },
+  {
+    "country_id": 29,
+    "country_iso2": "PL",
+    "country_name": "Poland",
+    "id": 41,
+    "latitude": 52.2297,
+    "longitude": 21.0122,
+    "name": "Warsaw",
+    "timezone": "Europe/Warsaw"
+  },
+  {
+    "country_id": 23,
+    "country_iso2": "CH",
+    "country_name": "Switzerland",
+    "id": 42,
+    "latitude": 46.2044,
+    "longitude": 6.1432,
+    "name": "Geneva",
+    "timezone": "Europe/Zurich"
+  },
+  {
+    "country_id": 30,
+    "country_iso2": "NO",
+    "country_name": "Norway",
+    "id": 43,
+    "latitude": 59.9139,
+    "longitude": 10.7522,
+    "name": "Oslo",
+    "timezone": "Europe/Oslo"
+  },
+  {
+    "country_id": 31,
+    "country_iso2": "FI",
+    "country_name": "Finland",
+    "id": 44,
+    "latitude": 60.1699,
+    "longitude": 24.9384,
+    "name": "Helsinki",
+    "timezone": "Europe/Helsinki"
+  },
+  {
+    "country_id": 6,
+    "country_iso2": "DK",
+    "country_name": "Denmark",
+    "id": 45,
+    "latitude": 56.1629,
+    "longitude": 10.2039,
+    "name": "Aarhus",
+    "timezone": "Europe/Copenhagen"
+  },
+  {
+    "country_id": 32,
+    "country_iso2": "GR",
+    "country_name": "Greece",
+    "id": 46,
+    "latitude": 37.9838,
+    "longitude": 23.7275,
+    "name": "Athens",
+    "timezone": "Europe/Athens"
   }
 ]
