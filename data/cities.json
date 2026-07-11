@@ -458,5 +458,15 @@
     "longitude": 23.7275,
     "name": "Athens",
     "timezone": "Europe/Athens"
+  },
+  {
+    "country_id": 33,
+    "country_iso2": "HU",
+    "country_name": "Hungary",
+    "id": 47,
+    "latitude": 47.4979,
+    "longitude": 19.0402,
+    "name": "Budapest",
+    "timezone": "Europe/Budapest"
   }
 ]
