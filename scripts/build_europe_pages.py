@@ -344,7 +344,7 @@ def render_event_page(ev: dict, siblings: list[dict], image_url: str | None = No
 <div class="wrap">
   <div class="crumb"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/europe.html">Europe</a> &nbsp;/&nbsp; <a href="/europe.html#{esc(city_slug(ev))}">{esc(city)}</a> &nbsp;/&nbsp; {esc(title)}</div>
   <div class="past-banner" id="pastBanner">This show has passed — more in {esc(city)} below.</div>
-  {f'<img class="hero-img" src="{esc(image_url)}" alt="{esc(title)}" loading="lazy" onerror="this.style.display=\'none\'">' if image_url else ''}
+  {f'<img class="hero-img" src="{esc(image_url)}" alt="{esc(title)}" loading="lazy">' if image_url else ''}
   <h1>{esc(title)}</h1>
   <div class="event-date">{esc(long_date)}</div>
   <div class="event-venue">{f'<span class="name">{esc(venue)}</span>' if venue else ''}{f' · {esc(address_line)}' if address_line else ''}{f' · {esc(city)}' if city else ''}</div>
@@ -359,6 +359,11 @@ def render_event_page(ev: dict, siblings: list[dict], image_url: str | None = No
 {FOOTER_HTML}
 <script>
 (function(){{
+  // Hide the hero image if its hotlinked CDN source is dead (capture-phase
+  // listener; no inline on*= attributes — the deploy gate blocks those).
+  document.addEventListener('error', function(e){{
+    if(e.target && e.target.classList && e.target.classList.contains('hero-img')) e.target.style.display='none';
+  }}, true);
   var startsAt = {json.dumps(ev.get("starts_at"))};
   var endsAt = {json.dumps(ev.get("ends_at"))};
   function isPast(){{
