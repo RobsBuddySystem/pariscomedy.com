@@ -116,18 +116,15 @@ let ALL = [];
 let activeCity = 'All';
 let GENERATED_AT = null;
 
-// "Today" in Europe/Paris as a UTC instant marking local midnight — anything
-// with starts_at before this instant is in the past and gets hidden.
-function parisMidnightUTC(){
-  const now = new Date();
-  const parisYMD = now.toLocaleDateString('en-CA', {timeZone:'Europe/Paris'}); // YYYY-MM-DD
-  return new Date(parisYMD + 'T00:00:00+02:00'); // CEST offset; good enough for a date-only cutoff
-}
 function isPast(ev){
   if(!ev || !ev.starts_at) return false;
   const start = new Date(ev.starts_at);
   if(isNaN(start.getTime())) return false;
-  return start < parisMidnightUTC();
+  // An event disappears once it has ENDED, not at midnight — a 19:15 show must
+  // be gone by 22:15, and tonight's 23:00 show must still be visible.
+  // starts_at carries its own timezone offset, so plain Date math is correct.
+  const end = ev.ends_at ? new Date(ev.ends_at) : new Date(start.getTime() + 3*3600*1000);
+  return (isNaN(end.getTime()) ? new Date(start.getTime() + 3*3600*1000) : end) < new Date();
 }
 
 const esc = s => (s==null?'':String(s)).replace(/[&<>"']/g, c => (
