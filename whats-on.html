@@ -114,6 +114,21 @@ footer a{color:#666}
 const DATA_URL = '/data/upcoming_events.json';
 let ALL = [];
 let activeCity = 'All';
+let GENERATED_AT = null;
+
+// "Today" in Europe/Paris as a UTC instant marking local midnight — anything
+// with starts_at before this instant is in the past and gets hidden.
+function parisMidnightUTC(){
+  const now = new Date();
+  const parisYMD = now.toLocaleDateString('en-CA', {timeZone:'Europe/Paris'}); // YYYY-MM-DD
+  return new Date(parisYMD + 'T00:00:00+02:00'); // CEST offset; good enough for a date-only cutoff
+}
+function isPast(ev){
+  if(!ev || !ev.starts_at) return false;
+  const start = new Date(ev.starts_at);
+  if(isNaN(start.getTime())) return false;
+  return start < parisMidnightUTC();
+}
 
 const esc = s => (s==null?'':String(s)).replace(/[&<>"']/g, c => (
   {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -135,18 +150,21 @@ function fmtPrice(ev){
 }
 
 function cityList(){
-  const set = [...new Set(ALL.map(e=>e.city_name).filter(Boolean))].sort();
+  const set = [...new Set(ALL.filter(e=>!isPast(e)).map(e=>e.city_name).filter(Boolean))].sort();
   return ['All', ...set];
 }
 
 function render(){
-  const rows = ALL
+  const upcoming = ALL.filter(e => !isPast(e));
+  const rows = upcoming
     .filter(e => activeCity==='All' || e.city_name===activeCity)
     .sort((a,b)=> new Date(a.starts_at) - new Date(b.starts_at));
 
+  const updatedLine = GENERATED_AT ? `<span>Updated ${esc(fmtDate(GENERATED_AT))}</span>` : '';
   document.getElementById('stats').innerHTML =
-    `<span><strong>${ALL.length}</strong> upcoming shows</span>`+
-    `<span><strong>${cityList().length-1}</strong> cities</span>`;
+    `<span><strong>${upcoming.length}</strong> upcoming shows</span>`+
+    `<span><strong>${cityList().length-1}</strong> cities</span>`+
+    updatedLine;
 
   document.getElementById('filters').innerHTML = cityList().map(c =>
     `<button class="filter-btn ${c===activeCity?'active':''}" data-city="${esc(c)}">${esc(c)}</button>`
@@ -184,10 +202,22 @@ function render(){
 (async function(){
   try{
     const data = await fetch(DATA_URL, {cache:'no-store'}).then(r=>r.ok?r.json():[]);
-    ALL = Array.isArray(data) ? data : [];
+    // Tolerate two shapes: a plain array (current format), or an object
+    // like {generated_at, events:[...]} (future format). generated_at is
+    // optional in either case.
+    if(Array.isArray(data)){
+      ALL = data;
+      GENERATED_AT = null;
+    }else if(data && typeof data==='object'){
+      ALL = Array.isArray(data.events) ? data.events : [];
+      GENERATED_AT = data.generated_at || null;
+    }else{
+      ALL = [];
+    }
   }catch(e){ ALL = []; }
   render();
 })();
 </script>
+<script src="/assets/track.js" defer></script>
 </body>
 </html>
