@@ -27,6 +27,7 @@ so the page build always has the freshest event_images.json to embed.
 from __future__ import annotations
 
 import json
+import html as html_lib
 import re
 import time
 import urllib.error
@@ -66,7 +67,9 @@ def extract_image_url(html: str) -> str | None:
     for pattern in (OG_IMAGE_RE, OG_IMAGE_RE_REV, TWITTER_IMAGE_RE, TWITTER_IMAGE_RE_REV):
         m = pattern.search(html)
         if m:
-            url = m.group(1).strip()
+            # Meta content is HTML-entity-encoded (&amp;) — unescape or signed
+            # URLs (img.evbuc.com ...&s=<sig>) lose their signature and 403.
+            url = html_lib.unescape(m.group(1).strip())
             if url:
                 return url
     return None
@@ -79,9 +82,31 @@ def fetch_image_url(url: str) -> str | None:
             raw = resp.read(400_000)  # og:image tags are always in the <head>; cap the read
             charset = resp.headers.get_content_charset() or "utf-8"
             html = raw.decode(charset, errors="replace")
+            final_url = resp.geturl()  # post-redirect base for relative og:image paths
     except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, ValueError, OSError):
         return None
-    return extract_image_url(html)
+    img = extract_image_url(html)
+    if not img:
+        return None
+    # Eventbrite (and others) emit RELATIVE og:image paths like
+    # /e/_next/image?url=... — stored verbatim they resolve against
+    # pariscomedy.com in the browser and 404. Always absolutize.
+    img = urllib.parse.urljoin(final_url, img)
+    # Eventbrite's /_next/image resizer refuses hotlinks; unwrap to the real
+    # CDN asset it proxies (the url= param), which serves cross-origin fine.
+    parsed = urllib.parse.urlparse(img)
+    if parsed.path.endswith("/_next/image") or "/_next/image" in parsed.path:
+        # parse_qs already url-decodes ONE layer — exactly right. The evbuc
+        # URL's own path stays percent-encoded (https%3A%2F%2Fcdn...): its
+        # signature (s=) is computed over that encoded form, so decoding
+        # again invalidates it (sig_invalid).
+        qs = urllib.parse.parse_qs(parsed.query)
+        inner = (qs.get("url") or [None])[0]
+        if inner:
+            img = inner
+    if not img.startswith(("http://", "https://")):
+        return None
+    return img
 
 
 def main() -> None:
