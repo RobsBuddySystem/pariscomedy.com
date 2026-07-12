@@ -240,3 +240,97 @@ curl -s https://pariscomedy.com/sitemap.xml | grep -i robert-hoehn   # LIVE: sti
 
 No git commits were made. No `git push`. No `alembic`. No DB `--apply`. No
 `launchctl load`. No service restarts.
+
+---
+
+# APPEND — 2026-07-12 (2): Europe hub + per-event pages + ticket-click routing
+
+Scope: build-only task in the working tree, nothing committed/pushed/deployed
+(orchestrator ships via `pariscomedy-deploy`'s guarded flow separately).
+
+**New: `europe.html`** — the Europe hub, replaces `whats-on.html` as the
+primary listings page. Same NOIR PARIS palette/nav/footer as `index.html` /
+old `whats-on.html`. Sticky city-chip nav (sliding gold underline via
+`::after` transform), Today/This Weekend/This Month/All date filters, 3-col
+card grid (1-col mobile), gold stacked date badges, gradient-letter card
+placeholders when no image field exists, skeleton shimmer while
+`data/upcoming_events.json` loads, city-anchor sections under "All". Reuses
+`whats-on.html`'s proven `isPast()` (ends_at, or starts_at+3h fallback) so
+ended shows disappear automatically. Cards link ONLY to each event's own
+`/europe/<city>/<event>.html` page, never to the ticket/source URL directly.
+
+**New: `scripts/build_europe_pages.py`** (python3, stdlib only) — generates:
+- `europe/<city-slug>/<event-slug>.html` — one static page per event in
+  `data/upcoming_events.json` (100 events → 100 pages, 9 city folders).
+  Each page has H1, long-form date, venue/address, language tag, Event
+  JSON-LD (name/startDate/endDate/location/offers), BreadcrumbList JSON-LD,
+  self-canonical, og: tags, the `track.js` beacon, a "More in {City}"
+  section (up to 4 sibling cards), and a ticket button routed through
+  `europe/go.html?e=<slug>`. Each page embeds the same client-side
+  `isPast()` check — if stale between nightly rebuilds, it swaps the
+  ticket button for a "this show has passed" banner instead of waiting for
+  the next regen.
+- `data/ticket_links.json` — `{generated_at, PARTNER_PARAMS: {}, links: {slug: {url, title, city}}}`.
+  `PARTNER_PARAMS` is the single future hook for ticket-partnership revenue:
+  a `"*"` key applies a param to every outbound host, a bare hostname key
+  scopes it to one partner. Empty today; one regenerate populates every
+  event page's outbound link once a deal lands, since `go.html` resolves
+  the URL + params at click time, not at generation time.
+
+**New: `europe/go.html`** — static redirect page, modeled on the existing
+`r.html` pattern (spinner, manual fallback link, `localStorage` click log).
+Looks up `?e=<slug>` in `data/ticket_links.json`, appends any
+`PARTNER_PARAMS`, redirects after 300ms. Its own pageview (tracked by the
+existing `/assets/track.js` beacon, zero new backend) IS the ticket-click
+evidence for partnership negotiations — no separate analytics event needed.
+Excluded from `sitemap.xml` (utility page, `noindex`).
+
+**Changed: `whats-on.html`** — body replaced with a meta-refresh +
+JS redirect + visible link to `/europe.html` (static 301-style since GitHub
+Pages can't do server redirects). `noindex,follow` so search engines drop it
+in favor of the canonical `europe.html`.
+
+**Changed nav (surgical, existing pages only):** `about.html`,
+`archive.html`, `bookers.html`, `comedians.html`, `connect.html`,
+`index.html`, `login.html`, `pricing.html`, `show.html`, `shows.html`,
+`venues.html`, `partials/nav.shell.marketing.html` — the single
+`<a href="/whats-on.html">What's On</a>` nav link replaced with
+`<a href="/europe.html">Europe</a>`, byte-identical elsewhere (no page
+restructuring).
+
+**Changed: `scripts/generate_sitemap.py`** — added `europe.html` to
+`PUBLIC_PAGES`, and a new block that walks `europe/**/*.html` on disk
+(excluding `go.html`) and adds each discovered event page. Re-ran:
+`sitemap.xml` now has 137 URLs (was ~36 before this pass; +1 for
+`europe.html`, +100 for event pages).
+
+**New (design only, NOT loaded): `scripts/com.pariscomedy.europe-refresh.plist`**
+— nightly 03:25 launchd job that would run `build_europe_pages.py`. Docstring
+notes `data/upcoming_events.json` itself is exported from the
+comedy-network-db project, not produced by this script — the plist only
+regenerates HTML/JSON derived from that file. Not copied to
+`~/Library/LaunchAgents/`, not loaded, per the validate-before-cron rule.
+
+**Verify (local `python3 -m http.server`):**
+```
+curl -s :8931/europe.html | grep -o '<title>[^<]*</title>'   # Europe title OK
+curl -s :8931/europe.html | grep -c 'assets/track.js'         # 1
+curl -s :8931/whats-on.html | grep -o 'http-equiv="refresh"[^>]*'  # -> /europe.html
+curl -s :8931/europe/zurich/<slug>.html | grep -c 'application/ld+json'  # 2 (Event + BreadcrumbList)
+curl -s :8931/europe/zurich/<slug>.html | grep -c 'rel="canonical"'      # 1
+curl -s :8931/europe/zurich/<slug>.html | grep -o 'europe/go.html?e=[^"]*'  # ticket button routes through go.html
+curl -s :8931/europe/go.html | grep -c 'ticket_links.json'    # 3 (script fetches + comment refs)
+curl -s :8931/data/ticket_links.json | python3 -c "import json,sys;d=json.load(sys.stdin);print(len(d['links']))"  # 100
+grep -c 'europe.html' sitemap.xml   # 1
+grep -c '/europe/' sitemap.xml      # 100
+grep -c 'go.html' sitemap.xml       # 0 (correctly excluded)
+```
+All passed.
+
+**File counts:** 100 event pages under `europe/` (9 city folders) + 1 hub
+(`europe.html`) + 1 redirect (`europe/go.html`) + 1 generator script + 1
+data file (`data/ticket_links.json`) + 1 design-only plist + 12 surgical nav
+edits + 1 rewritten redirect stub (`whats-on.html`) + `sitemap.xml`
+regenerated.
+
+No git commits, no push, no deploy.

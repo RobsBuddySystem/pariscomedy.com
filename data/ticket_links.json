@@ -1,0 +1,506 @@
+{
+  "generated_at": "2026-07-12T20:36:29.613309+00:00",
+  "PARTNER_PARAMS": {},
+  "links": {
+    "open-writing-workshop-30": {
+      "url": "https://thecomedyclubhouse.es/event/open-writing-workshop-16/",
+      "title": "Open Writing Workshop",
+      "city": "Barcelona"
+    },
+    "show-up-go-up-31": {
+      "url": "https://thecomedyclubhouse.es/event/show-up-go-up/2026-07-11/",
+      "title": "Show Up Go Up",
+      "city": "Barcelona"
+    },
+    "cocktails-comedy-3": {
+      "url": "https://www.comedycafe.nl/agenda/cocktails-comedy-in-english-3-4/",
+      "title": "Cocktails & Comedy",
+      "city": "Amsterdam"
+    },
+    "witch-hunt-17": {
+      "url": "https://www.comedycafeberlin.com/event/witch-hunt-27/",
+      "title": "Witch Hunt",
+      "city": "Berlin"
+    },
+    "the-saturday-spotlight-32": {
+      "url": "https://thecomedyclubhouse.es/event/the-saturday-spotlight-22/",
+      "title": "The Saturday Spotlight",
+      "city": "Barcelona"
+    },
+    "masters-of-comedy-4": {
+      "url": "https://www.comedycafe.nl/agenda/masters-of-comedy-2-7/",
+      "title": "Masters of Comedy",
+      "city": "Amsterdam"
+    },
+    "lolyamorous-a-comedy-dating-show-33": {
+      "url": "https://thecomedyclubhouse.es/event/lolyamorous-a-comedy-dating-show-6/",
+      "title": "LOLyamorous – A Comedy Dating Show",
+      "city": "Barcelona"
+    },
+    "the-confession-an-improv-show-worth-repenting-for-18": {
+      "url": "https://www.comedycafeberlin.com/event/the-confession-an-improv-show-worth-repenting-for-6/",
+      "title": "The Confession: An Improv Show Worth Repenting For",
+      "city": "Berlin"
+    },
+    "atomic-comedy-lgbtq-friends-34": {
+      "url": "https://thecomedyclubhouse.es/event/atomic-comedy-lgbtq-friends-4/",
+      "title": "AtoMIC Comedy: LGBTQ+ & Friends",
+      "city": "Barcelona"
+    },
+    "live-in-the-alcove-35": {
+      "url": "https://thecomedyclubhouse.es/event/live-in-the-alcove-17/",
+      "title": "Live in The Alcove",
+      "city": "Barcelona"
+    },
+    "fifa-world-cup-2026-norway-vs-england-qf-36": {
+      "url": "https://thecomedyclubhouse.es/event/fifa-world-cup-2026-norway-vs-england/",
+      "title": "FIFA World Cup 2026  - Norway vs England (QF)",
+      "city": "Barcelona"
+    },
+    "workshop-di-stand-up-in-italiano-37": {
+      "url": "https://thecomedyclubhouse.es/event/workshop-di-stand-up-in-italiano/2026-07-12/",
+      "title": "Workshop di stand-Up in italiano",
+      "city": "Barcelona"
+    },
+    "open-clown-workshop-38": {
+      "url": "https://thecomedyclubhouse.es/event/open-clown-workshop-4/",
+      "title": "Open Clown Workshop",
+      "city": "Barcelona"
+    },
+    "fine-actually-39": {
+      "url": "https://thecomedyclubhouse.es/event/fine-actually/",
+      "title": "Fine, Actually",
+      "city": "Barcelona"
+    },
+    "facce-da-mandill-40": {
+      "url": "https://thecomedyclubhouse.es/event/facce-da-mandilla-6/",
+      "title": "Facce da Mandillä",
+      "city": "Barcelona"
+    },
+    "green-mic-comedy-show-90": {
+      "url": "https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-1990645557449",
+      "title": "Green Mic Comedy Show",
+      "city": "Paris"
+    },
+    "the-ccb-improv-jam-19": {
+      "url": "https://www.comedycafeberlin.com/event/the-ccb-improv-jam-215/",
+      "title": "The CCB Improv Jam",
+      "city": "Berlin"
+    },
+    "emil-wakim-5": {
+      "url": "https://www.comedycafe.nl/agenda/emil-wakim-amsterdam/",
+      "title": "Emil Wakim",
+      "city": "Amsterdam"
+    },
+    "open-green-mic-monday-madness-101": {
+      "url": "https://www.eventbrite.fr/e/open-green-mic-monday-madness-comedy-tickets-1990645368885",
+      "title": "Open Green Mic — Monday Madness",
+      "city": "Paris"
+    },
+    "offside-comedy-comedy-for-people-that-hate-balls-54": {
+      "url": "https://www.meetup.com/in-your-face-english_stand-up-comedy-in-zurich/events/315555429/",
+      "title": "Offside Comedy: Comedy for people that hate balls",
+      "city": "Zurich"
+    },
+    "green-light-comedy-79": {
+      "url": "https://www.eventbrite.fr/e/standup-comedy-in-english-green-light-in-paris-tickets-1990645435083",
+      "title": "Green Light Comedy",
+      "city": "Paris"
+    },
+    "yellowdicomedy-every-tuesday-free-entry-english-standup-comedy-open-mic-47": {
+      "url": "https://www.meetup.com/free-english-comedy-for-expats-in-milan/events/315401180/",
+      "title": "Yellowdicomedy - EVERY TUESDAY Free Entry English Standup Comedy Open Mic",
+      "city": "Milan"
+    },
+    "roisin-brehony-and-lucy-green-macbeth-20": {
+      "url": "https://www.comedycafeberlin.com/event/roisin-brehony-and-lucy-green-macbeth-2/",
+      "title": "Roisin Brehony and Lucy Green: Macbeth",
+      "city": "Berlin"
+    },
+    "yellowdicomedy-standup-comedy-workshop-jokes-writing-and-performing-48": {
+      "url": "https://www.meetup.com/free-english-comedy-for-expats-in-milan/events/315415996/",
+      "title": "Yellowdicomedy - Standup comedy workshop - jokes writing and performing",
+      "city": "Milan"
+    },
+    "theo-mason-wood-innocent-until-proven-sexy-21": {
+      "url": "https://www.comedycafeberlin.com/event/theo-mason-wood-innocent-until-proven-sexy/",
+      "title": "Theo Mason Wood: Innocent Until Proven Sexy",
+      "city": "Berlin"
+    },
+    "comedy-crush-wednesday-show-59": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1982356257931",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "the-dissident-comedy-show-77": {
+      "url": "https://www.eventbrite.fr/e/the-dissident-comedy-show-tickets-1985335041553",
+      "title": "The Dissident Comedy Show",
+      "city": "Paris"
+    },
+    "free-entry-english-standup-dating-disaster-night-yellow-di-comedy-49": {
+      "url": "https://www.meetup.com/free-english-comedy-for-expats-in-milan/events/315417123/",
+      "title": "Free Entry: English Standup - 💔DATING DISASTER NIGHT💔 - Yellow Di Comedy",
+      "city": "Milan"
+    },
+    "kathy-maniura-the-cycling-man-22": {
+      "url": "https://www.comedycafeberlin.com/event/kathy-maniura-the-cycling-man/",
+      "title": "Kathy Maniura: The Cycling Man",
+      "city": "Berlin"
+    },
+    "ayo-adenekan-we-ve-hit-the-second-hour-wip-23": {
+      "url": "https://www.comedycafeberlin.com/event/ayo-adenekan-weve-hit-the-second-hour-wip/",
+      "title": "Ayo Adenekan: We’ve Hit the Second Hour (WIP)",
+      "city": "Berlin"
+    },
+    "this-thursdays-at-robins-comedy-brew-english-stand-up-comedy-open-mic-55": {
+      "url": "https://www.meetup.com/in-your-face-english_stand-up-comedy-in-zurich/events/315431381/",
+      "title": "This Thursdays at ROBINS - Comedy Brew! English Stand-Up Comedy Open Mic",
+      "city": "Zurich"
+    },
+    "bec-hill-s-work-in-progress-24": {
+      "url": "https://www.comedycafeberlin.com/event/bec-hills-work-in-progress/",
+      "title": "Bec Hill’s Work in Progress",
+      "city": "Berlin"
+    },
+    "comedy-night-in-english-6": {
+      "url": "https://www.comedycafe.nl/agenda/comedy-night-in-english-4/",
+      "title": "Comedy Night in English",
+      "city": "Amsterdam"
+    },
+    "rosalie-minnitt-clementine-2-wip-25": {
+      "url": "https://www.comedycafeberlin.com/event/rosalie-minnitt-clementine-2-wip/",
+      "title": "Rosalie Minnitt: Clementine 2 (WIP)",
+      "city": "Berlin"
+    },
+    "english-stand-up-comedy-open-mic-handle-removed-42": {
+      "url": "https://www.meetup.com/comedycachet/events/315425558/",
+      "title": "ENGLISH STAND UP COMEDY OPEN MIC [handle removed]",
+      "city": "Porto"
+    },
+    "joz-norris-is-hugh-jackman-is-the-phantom-of-the-opera-wip-26": {
+      "url": "https://www.comedycafeberlin.com/event/joz-norris-is-hugh-jackman-is-the-phantom-of-the-opera-wip/",
+      "title": "Joz Norris Is Hugh Jackman Is The Phantom Of The Opera (WIP)",
+      "city": "Berlin"
+    },
+    "undateable-english-comedy-dating-stories-50": {
+      "url": "https://www.meetup.com/viennacomedy/events/315423172/",
+      "title": "UNDATEABLE • English Comedy & Dating Stories",
+      "city": "Vienna"
+    },
+    "kate-cheka-the-last-funny-woman-27": {
+      "url": "https://www.comedycafeberlin.com/event/kate-checka-the-last-funny-woman/",
+      "title": "Kate Cheka: The Last Funny Woman",
+      "city": "Berlin"
+    },
+    "green-mic-showcase-83": {
+      "url": "https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-1990645905490",
+      "title": "Green Mic Showcase",
+      "city": "Paris"
+    },
+    "cocktails-comedy-7": {
+      "url": "https://www.comedycafe.nl/agenda/cocktails-comedy-2-6/",
+      "title": "Cocktails & Comedy",
+      "city": "Amsterdam"
+    },
+    "yellowdicomedy-17th-july-lake-como-free-entry-english-standup-comedy-46": {
+      "url": "https://www.meetup.com/free-english-comedy-for-expats-in-milan/events/315410020/",
+      "title": "Yellowdicomedy - 17th July - Lake Como - Free Entry English Standup Comedy",
+      "city": "Milan"
+    },
+    "john-luke-roberts-what-i-talk-about-when-i-run-about-talking-28": {
+      "url": "https://www.comedycafeberlin.com/event/john-luke-roberts-what-i-talk-about-when-i-run-about-talking/",
+      "title": "John-Luke Roberts: What I Talk About When I Run About, Talking",
+      "city": "Berlin"
+    },
+    "cocktails-comedy-8": {
+      "url": "https://www.comedycafe.nl/agenda/cocktails-comedy-in-english-3-5/",
+      "title": "Cocktails & Comedy",
+      "city": "Amsterdam"
+    },
+    "masters-of-comedy-9": {
+      "url": "https://www.comedycafe.nl/agenda/masters-of-comedy-2-8/",
+      "title": "Masters of Comedy",
+      "city": "Amsterdam"
+    },
+    "green-mic-comedy-show-91": {
+      "url": "https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-1990645558452",
+      "title": "Green Mic Comedy Show",
+      "city": "Paris"
+    },
+    "cocktails-comedy-10": {
+      "url": "https://www.comedycafe.nl/agenda/cocktails-comedy-4-2/",
+      "title": "Cocktails & Comedy",
+      "city": "Amsterdam"
+    },
+    "open-green-mic-monday-madness-102": {
+      "url": "https://www.eventbrite.fr/e/open-green-mic-monday-madness-comedy-tickets-1990645369888",
+      "title": "Open Green Mic — Monday Madness",
+      "city": "Paris"
+    },
+    "offside-comedy-comedy-for-people-that-hate-balls-56": {
+      "url": "https://www.meetup.com/in-your-face-english_stand-up-comedy-in-zurich/events/315555438/",
+      "title": "Offside Comedy: Comedy for people that hate balls",
+      "city": "Zurich"
+    },
+    "green-light-comedy-80": {
+      "url": "https://www.eventbrite.fr/e/standup-comedy-in-english-green-light-in-paris-tickets-1990645436086",
+      "title": "Green Light Comedy",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-60": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1982356258934",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "the-dissident-comedy-show-78": {
+      "url": "https://www.eventbrite.fr/e/the-dissident-comedy-show-tickets-1985335042556",
+      "title": "The Dissident Comedy Show",
+      "city": "Paris"
+    },
+    "this-thursdays-at-robins-comedy-brew-english-stand-up-comedy-open-mic-57": {
+      "url": "https://www.meetup.com/in-your-face-english_stand-up-comedy-in-zurich/events/315194451/",
+      "title": "This Thursdays at ROBINS - Comedy Brew! English Stand-Up Comedy Open Mic",
+      "city": "Zurich"
+    },
+    "comedy-night-in-english-11": {
+      "url": "https://www.comedycafe.nl/agenda/comedy-night-in-english-5/",
+      "title": "Comedy Night in English",
+      "city": "Amsterdam"
+    },
+    "free-at-last-stand-up-comedy-premiere-51": {
+      "url": "https://www.meetup.com/viennacomedy/events/315426818/",
+      "title": "FREE AT LAST! • Stand-up Comedy Premiere",
+      "city": "Vienna"
+    },
+    "green-mic-showcase-84": {
+      "url": "https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-1990645906493",
+      "title": "Green Mic Showcase",
+      "city": "Paris"
+    },
+    "cocktails-comedy-12": {
+      "url": "https://www.comedycafe.nl/agenda/cocktails-comedy-2-7/",
+      "title": "Cocktails & Comedy",
+      "city": "Amsterdam"
+    },
+    "cocktails-comedy-13": {
+      "url": "https://www.comedycafe.nl/agenda/cocktails-comedy-in-english-3-6/",
+      "title": "Cocktails & Comedy",
+      "city": "Amsterdam"
+    },
+    "green-mic-comedy-show-92": {
+      "url": "https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-1990645559455",
+      "title": "Green Mic Comedy Show",
+      "city": "Paris"
+    },
+    "open-green-mic-monday-madness-103": {
+      "url": "https://www.eventbrite.fr/e/open-green-mic-monday-madness-comedy-tickets-1990645370891",
+      "title": "Open Green Mic — Monday Madness",
+      "city": "Paris"
+    },
+    "green-light-comedy-81": {
+      "url": "https://www.eventbrite.fr/e/standup-comedy-in-english-green-light-in-paris-tickets-1990645437089",
+      "title": "Green Light Comedy",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-61": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1982356259937",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "expat-problems-english-stand-up-comedy-52": {
+      "url": "https://www.meetup.com/viennacomedy/events/315426761/",
+      "title": "EXPAT PROBLEMS • English Stand-Up Comedy",
+      "city": "Vienna"
+    },
+    "green-mic-showcase-85": {
+      "url": "https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-1990645907496",
+      "title": "Green Mic Showcase",
+      "city": "Paris"
+    },
+    "green-mic-comedy-show-93": {
+      "url": "https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-1990645560458",
+      "title": "Green Mic Comedy Show",
+      "city": "Paris"
+    },
+    "open-green-mic-monday-madness-104": {
+      "url": "https://www.eventbrite.fr/e/open-green-mic-monday-madness-comedy-tickets-1990645371894",
+      "title": "Open Green Mic — Monday Madness",
+      "city": "Paris"
+    },
+    "english-stand-up-comedy-open-mic-handle-removed-43": {
+      "url": "https://www.meetup.com/comedycachet/events/rmrmstyjclbhb/",
+      "title": "ENGLISH STAND UP COMEDY OPEN MIC [handle removed]",
+      "city": "Porto"
+    },
+    "laughing-gas-english-stand-up-comedy-53": {
+      "url": "https://www.meetup.com/viennacomedy/events/315423074/",
+      "title": "LAUGHING GAS • English Stand-Up Comedy",
+      "city": "Vienna"
+    },
+    "green-mic-showcase-86": {
+      "url": "https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-1990645908499",
+      "title": "Green Mic Showcase",
+      "city": "Paris"
+    },
+    "green-mic-comedy-show-94": {
+      "url": "https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-1990645561461",
+      "title": "Green Mic Comedy Show",
+      "city": "Paris"
+    },
+    "open-green-mic-monday-madness-105": {
+      "url": "https://www.eventbrite.fr/e/open-green-mic-monday-madness-comedy-tickets-1990645372897",
+      "title": "Open Green Mic — Monday Madness",
+      "city": "Paris"
+    },
+    "green-mic-showcase-87": {
+      "url": "https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-1990645909502",
+      "title": "Green Mic Showcase",
+      "city": "Paris"
+    },
+    "green-mic-comedy-show-95": {
+      "url": "https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-1990645562464",
+      "title": "Green Mic Comedy Show",
+      "city": "Paris"
+    },
+    "open-green-mic-monday-madness-106": {
+      "url": "https://www.eventbrite.fr/e/open-green-mic-monday-madness-comedy-tickets-1990645373900",
+      "title": "Open Green Mic — Monday Madness",
+      "city": "Paris"
+    },
+    "english-stand-up-comedy-open-mic-handle-removed-44": {
+      "url": "https://www.meetup.com/comedycachet/events/smrmstyjclbbc/",
+      "title": "ENGLISH STAND UP COMEDY OPEN MIC [handle removed]",
+      "city": "Porto"
+    },
+    "green-mic-showcase-88": {
+      "url": "https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-1990645910505",
+      "title": "Green Mic Showcase",
+      "city": "Paris"
+    },
+    "green-mic-comedy-show-96": {
+      "url": "https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-1990645563467",
+      "title": "Green Mic Comedy Show",
+      "city": "Paris"
+    },
+    "open-green-mic-monday-madness-107": {
+      "url": "https://www.eventbrite.fr/e/open-green-mic-monday-madness-comedy-tickets-1990645374903",
+      "title": "Open Green Mic — Monday Madness",
+      "city": "Paris"
+    },
+    "green-mic-showcase-89": {
+      "url": "https://www.eventbrite.fr/e/billets-standup-comedy-in-english-green-mic-showcase-montmartre-1990645911508",
+      "title": "Green Mic Showcase",
+      "city": "Paris"
+    },
+    "green-mic-comedy-show-97": {
+      "url": "https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-1990645564470",
+      "title": "Green Mic Comedy Show",
+      "city": "Paris"
+    },
+    "open-green-mic-monday-madness-108": {
+      "url": "https://www.eventbrite.fr/e/open-green-mic-monday-madness-comedy-tickets-1990645375906",
+      "title": "Open Green Mic — Monday Madness",
+      "city": "Paris"
+    },
+    "kuhl-comedy-show-100": {
+      "url": "https://www.eventbrite.fr/e/billets-kuhl-comedy-show-paris-english-stand-up-cocktail-night-1991824763486",
+      "title": "Kuhl Comedy Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-62": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650271603",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "english-stand-up-comedy-open-mic-handle-removed-45": {
+      "url": "https://www.meetup.com/comedycachet/events/315497077/",
+      "title": "ENGLISH STAND UP COMEDY OPEN MIC [handle removed]",
+      "city": "Porto"
+    },
+    "green-mic-comedy-show-98": {
+      "url": "https://www.eventbrite.fr/e/green-mic-comedy-show-tickets-1990645565473",
+      "title": "Green Mic Comedy Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-63": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650050943",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-64": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650051946",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-65": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650052949",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-66": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650053952",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "kuhl-comedy-open-mic-99": {
+      "url": "https://www.eventbrite.fr/e/english-stand-up-open-mic-on-taco-tuesday-by-kuhl-comedy-tickets-1976760442697",
+      "title": "Kuhl Comedy Open Mic",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-67": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650054955",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-68": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650055958",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-69": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650056961",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-70": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650057964",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-58": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650058967",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-71": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650059970",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-72": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650060973",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-73": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650061976",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-74": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650062979",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-75": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650063982",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    },
+    "comedy-crush-wednesday-show-76": {
+      "url": "https://www.eventbrite.fr/e/comedy-crushs-wednesday-show-tickets-1992650064985",
+      "title": "Comedy Crush Wednesday Show",
+      "city": "Paris"
+    }
+  }
+}
