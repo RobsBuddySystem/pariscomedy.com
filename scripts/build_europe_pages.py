@@ -42,7 +42,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from xml.sax.saxutils import escape as xml_escape
 
@@ -188,6 +188,26 @@ FOOTER_HTML = """<footer>
 </footer>"""
 
 
+def event_over(ev: dict) -> bool:
+    """Build-time twin of the client isPast(): over at ends_at, else starts_at+3h."""
+    s = ev.get("starts_at")
+    if not s:
+        return False
+    try:
+        start = datetime.fromisoformat(s)
+    except Exception:
+        return False
+    end = None
+    if ev.get("ends_at"):
+        try:
+            end = datetime.fromisoformat(ev["ends_at"])
+        except Exception:
+            end = None
+    if end is None:
+        end = start + timedelta(hours=3)
+    return end < datetime.now(end.tzinfo)
+
+
 def sibling_card_html(ev: dict) -> str:
     where = ev.get("venue_name") or ev.get("organization_name") or ""
     d = ev.get("starts_at") or ""
@@ -197,8 +217,10 @@ def sibling_card_html(ev: dict) -> str:
         day_label = dd.strftime("%a %-d %b")
     except Exception:
         day_label = d
+    ends = ev.get("ends_at") or ""
     return (
-        f'<a class="sib-card" href="{esc(event_url_path(ev))}">'
+        f'<a class="sib-card" href="{esc(event_url_path(ev))}"'
+        f' data-starts="{esc(d)}" data-ends="{esc(ends)}">'
         f'<div class="sib-date">{esc(day_label)}</div>'
         f'<div class="sib-title">{esc(ev.get("title"))}</div>'
         f'<div class="sib-where">{esc(where)}</div>'
@@ -340,6 +362,25 @@ def render_event_page(ev: dict, siblings: list[dict]) -> str:
     var btn = document.getElementById('ticketBtn');
     if(btn) btn.style.display = 'none';
   }}
+  // "More in {{city}}" sibling cards are baked at build time — hide any whose
+  // event has since ended, and drop the whole section if none survive.
+  function cardPast(el){{
+    var s = el.getAttribute('data-starts');
+    if(!s) return false;
+    var start = new Date(s);
+    if(isNaN(start.getTime())) return false;
+    var e = el.getAttribute('data-ends');
+    var end = e ? new Date(e) : new Date(start.getTime() + 3*3600*1000);
+    if(isNaN(end.getTime())) end = new Date(start.getTime() + 3*3600*1000);
+    return end < new Date();
+  }}
+  var sibs = document.querySelectorAll('.sib-card');
+  var alive = 0;
+  sibs.forEach(function(el){{ if(cardPast(el)){{ el.style.display='none'; }} else {{ alive++; }} }});
+  if(sibs.length && !alive){{
+    var mc = document.querySelector('.more-city');
+    if(mc) mc.style.display = 'none';
+  }}
 }})();
 </script>
 <script src="/assets/track.js" defer></script>
@@ -381,7 +422,10 @@ def main() -> None:
     written = 0
     for ev in events:
         city = ev.get("city_name") or "Other"
-        siblings = [s for s in by_city.get(city, []) if s.get("id") != ev.get("id")]
+        siblings = [
+            s for s in by_city.get(city, [])
+            if s.get("id") != ev.get("id") and not event_over(s)
+        ]
         page_dir = OUT_DIR / city_slug(ev)
         page_dir.mkdir(parents=True, exist_ok=True)
         page_path = page_dir / f"{event_slug(ev)}.html"
