@@ -91,10 +91,6 @@ footer a{color:#666}
   
   <a class="btn-tickets" id="ticketBtn" href="/europe/go.html?e=fine-actually-39">Tickets &amp; details →</a>
   
-  <div class="more-city">
-    <h2>More in Barcelona</h2>
-    <div class="sib-grid"><a class="sib-card" href="/europe/barcelona/open-writing-workshop-30.html"><div class="sib-date">Sat 11 Jul</div><div class="sib-title">Open Writing Workshop</div><div class="sib-where">The Comedy Clubhouse</div></a><a class="sib-card" href="/europe/barcelona/show-up-go-up-31.html"><div class="sib-date">Sat 11 Jul</div><div class="sib-title">Show Up Go Up</div><div class="sib-where">The Comedy Clubhouse</div></a><a class="sib-card" href="/europe/barcelona/the-saturday-spotlight-32.html"><div class="sib-date">Sat 11 Jul</div><div class="sib-title">The Saturday Spotlight</div><div class="sib-where">The Comedy Clubhouse</div></a><a class="sib-card" href="/europe/barcelona/lolyamorous-a-comedy-dating-show-33.html"><div class="sib-date">Sat 11 Jul</div><div class="sib-title">LOLyamorous – A Comedy Dating Show</div><div class="sib-where">The Comedy Clubhouse</div></a></div>
-  </div>
 </div>
 <footer>
   <div class="frow">
@@ -123,6 +119,25 @@ footer a{color:#666}
     document.getElementById('pastBanner').classList.add('show');
     var btn = document.getElementById('ticketBtn');
     if(btn) btn.style.display = 'none';
+  }
+  // "More in {city}" sibling cards are baked at build time — hide any whose
+  // event has since ended, and drop the whole section if none survive.
+  function cardPast(el){
+    var s = el.getAttribute('data-starts');
+    if(!s) return false;
+    var start = new Date(s);
+    if(isNaN(start.getTime())) return false;
+    var e = el.getAttribute('data-ends');
+    var end = e ? new Date(e) : new Date(start.getTime() + 3*3600*1000);
+    if(isNaN(end.getTime())) end = new Date(start.getTime() + 3*3600*1000);
+    return end < new Date();
+  }
+  var sibs = document.querySelectorAll('.sib-card');
+  var alive = 0;
+  sibs.forEach(function(el){ if(cardPast(el)){ el.style.display='none'; } else { alive++; } });
+  if(sibs.length && !alive){
+    var mc = document.querySelector('.more-city');
+    if(mc) mc.style.display = 'none';
   }
 })();
 </script>

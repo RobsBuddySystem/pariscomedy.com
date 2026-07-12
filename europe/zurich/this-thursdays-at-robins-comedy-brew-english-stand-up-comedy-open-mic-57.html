@@ -93,7 +93,7 @@ footer a{color:#666}
   
   <div class="more-city">
     <h2>More in Zurich</h2>
-    <div class="sib-grid"><a class="sib-card" href="/europe/zurich/offside-comedy-comedy-for-people-that-hate-balls-54.html"><div class="sib-date">Tue 14 Jul</div><div class="sib-title">Offside Comedy: Comedy for people that hate balls</div><div class="sib-where">IN YOUR FACE Comedy Zurich</div></a><a class="sib-card" href="/europe/zurich/this-thursdays-at-robins-comedy-brew-english-stand-up-comedy-open-mic-55.html"><div class="sib-date">Thu 16 Jul</div><div class="sib-title">This Thursdays at ROBINS - Comedy Brew! English Stand-Up Comedy Open Mic</div><div class="sib-where">IN YOUR FACE Comedy Zurich</div></a><a class="sib-card" href="/europe/zurich/offside-comedy-comedy-for-people-that-hate-balls-56.html"><div class="sib-date">Tue 21 Jul</div><div class="sib-title">Offside Comedy: Comedy for people that hate balls</div><div class="sib-where">IN YOUR FACE Comedy Zurich</div></a></div>
+    <div class="sib-grid"><a class="sib-card" href="/europe/zurich/offside-comedy-comedy-for-people-that-hate-balls-54.html" data-starts="2026-07-14T19:30:00+02:00" data-ends="2026-07-14T21:30:00+02:00"><div class="sib-date">Tue 14 Jul</div><div class="sib-title">Offside Comedy: Comedy for people that hate balls</div><div class="sib-where">IN YOUR FACE Comedy Zurich</div></a><a class="sib-card" href="/europe/zurich/this-thursdays-at-robins-comedy-brew-english-stand-up-comedy-open-mic-55.html" data-starts="2026-07-16T19:30:00+02:00" data-ends="2026-07-16T22:00:00+02:00"><div class="sib-date">Thu 16 Jul</div><div class="sib-title">This Thursdays at ROBINS - Comedy Brew! English Stand-Up Comedy Open Mic</div><div class="sib-where">IN YOUR FACE Comedy Zurich</div></a><a class="sib-card" href="/europe/zurich/offside-comedy-comedy-for-people-that-hate-balls-56.html" data-starts="2026-07-21T19:30:00+02:00" data-ends="2026-07-21T21:30:00+02:00"><div class="sib-date">Tue 21 Jul</div><div class="sib-title">Offside Comedy: Comedy for people that hate balls</div><div class="sib-where">IN YOUR FACE Comedy Zurich</div></a></div>
   </div>
 </div>
 <footer>
@@ -123,6 +123,25 @@ footer a{color:#666}
     document.getElementById('pastBanner').classList.add('show');
     var btn = document.getElementById('ticketBtn');
     if(btn) btn.style.display = 'none';
+  }
+  // "More in {city}" sibling cards are baked at build time — hide any whose
+  // event has since ended, and drop the whole section if none survive.
+  function cardPast(el){
+    var s = el.getAttribute('data-starts');
+    if(!s) return false;
+    var start = new Date(s);
+    if(isNaN(start.getTime())) return false;
+    var e = el.getAttribute('data-ends');
+    var end = e ? new Date(e) : new Date(start.getTime() + 3*3600*1000);
+    if(isNaN(end.getTime())) end = new Date(start.getTime() + 3*3600*1000);
+    return end < new Date();
+  }
+  var sibs = document.querySelectorAll('.sib-card');
+  var alive = 0;
+  sibs.forEach(function(el){ if(cardPast(el)){ el.style.display='none'; } else { alive++; } });
+  if(sibs.length && !alive){
+    var mc = document.querySelector('.more-city');
+    if(mc) mc.style.display = 'none';
   }
 })();
 </script>
