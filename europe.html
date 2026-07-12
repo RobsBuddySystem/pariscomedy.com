@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<title>Europe — Live English Comedy Shows Across Europe — Paris Comedy</title>
+<meta name="description" content="English-language stand-up comedy shows across Europe — Paris, London, Barcelona and more. Dates, venues, prices, updated from official club listings.">
+<link rel="canonical" href="https://pariscomedy.com/europe.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Paris Comedy">
+<meta property="og:title" content="Europe — Live English Comedy Shows Across Europe">
+<meta property="og:description" content="English-language stand-up comedy shows across Europe — dates, venues, prices and links to each show's own page.">
+<meta property="og:url" content="https://pariscomedy.com/europe.html">
+<meta property="og:image" content="https://pariscomedy.com/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Europe — Live English Comedy Shows Across Europe">
+<meta name="twitter:description" content="English-language stand-up comedy shows across Europe.">
+<meta name="twitter:image" content="https://pariscomedy.com/assets/og-default.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Europe — Live English Comedy Shows Across Europe","url":"https://pariscomedy.com/europe.html","description":"English-language stand-up comedy shows across Europe.","isPartOf":{"@type":"WebSite","name":"Paris Comedy","url":"https://pariscomedy.com/"}}</script>
+<style>
+/* === NOIR PARIS THEME (same tokens as whats-on.html / index.html) === */
+:root{--navy:#0a0e1a;--card-bg:#111827;--border:#1e2a3a;--purple:#7c3aed;--gold:#c9a84c;--gold-light:#e8c96a;--red:#c41e3a;--white:#f0f0f0;--muted:#8899aa;--tag-en-bg:#0f2744;--tag-en:#7ab3e0;--tag-fr-bg:#241033;--tag-fr:#c79bf0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--navy);color:var(--white);min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--navy);z-index:100;flex-wrap:wrap;gap:8px}
+.nav-logo{font-size:18px;font-weight:700;letter-spacing:-0.5px}
+.nav-logo span{color:var(--gold)}
+.nav-active{color:var(--white)!important}
+.nav-links{display:flex;gap:20px;font-size:14px;color:var(--muted);align-items:center;flex-wrap:wrap}
+.nav-links a:hover{color:var(--white)}
+@media(max-width:620px){nav{align-items:flex-start}.nav-links{gap:12px}}
+
+.hero{padding:24px 24px 4px;max-width:1200px;margin:0 auto}
+.hero h1{font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-0.5px;line-height:1.15;margin-bottom:6px}
+.hero h1 span{color:var(--gold)}
+.hero p{color:var(--muted);font-size:14px;max-width:640px;line-height:1.5}
+.stats-bar{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:#667788;align-items:baseline;margin-top:10px}
+.stats-bar strong{color:var(--gold);font-size:15px;margin-right:4px}
+
+/* City chip nav — sticky, horizontal-scroll on mobile, sliding underline */
+.city-nav-wrap{position:sticky;top:57px;background:var(--navy);z-index:90;border-bottom:1px solid var(--border)}
+.city-nav{display:flex;gap:4px;overflow-x:auto;overflow-y:hidden;padding:0 16px;max-width:1200px;margin:0 auto;scrollbar-width:none}
+.city-nav::-webkit-scrollbar{display:none}
+.city-chip{position:relative;flex:0 0 auto;padding:14px 14px 12px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;transition:color .15s}
+.city-chip::after{content:'';position:absolute;left:14px;right:14px;bottom:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:center;transition:transform .25s ease}
+.city-chip:hover{color:var(--white)}
+.city-chip.active{color:var(--white)}
+.city-chip.active::after{transform:scaleX(1)}
+
+.date-filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:16px 16px 0;max-width:1200px;margin:0 auto}
+.filter-btn{padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;cursor:pointer;transition:all .15s}
+.filter-btn:hover{border-color:#445566;color:var(--white)}
+.filter-btn.active{background:#1e2a3a;color:var(--white);border-color:var(--gold)}
+
+.city-section{max-width:1200px;margin:0 auto;padding:0 24px}
+.city-section h2{font-size:19px;font-weight:800;padding:28px 0 4px;scroll-margin-top:120px}
+.city-section h2 .count{color:var(--muted);font-weight:500;font-size:13px;margin-left:8px}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:12px 24px 24px;max-width:1200px;margin:0 auto}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.grid{grid-template-columns:1fr;padding:12px 16px 24px}}
+
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.35);border-color:rgba(201,168,76,0.4)}
+.card-media{position:relative;width:100%;aspect-ratio:16/9;background:var(--border);overflow:hidden}
+.card-media img{width:100%;height:100%;object-fit:cover;display:block}
+.card-media .placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:800;color:rgba(255,255,255,.85)}
+.card-date-badge{position:absolute;top:10px;left:10px;background:var(--gold);color:#221a08;border-radius:8px;padding:6px 9px;text-align:center;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.card-date-badge .day{display:block;font-size:18px;font-weight:800}
+.card-date-badge .mon{display:block;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-top:2px}
+.card-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card-title{font-size:15px;font-weight:700;line-height:1.3}
+.card-where{font-size:13px;color:var(--muted);line-height:1.5}
+.card-where .venue{color:var(--white)}
+.card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+.tag{padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;letter-spacing:.3px}
+.tag-en{background:var(--tag-en-bg);color:var(--tag-en)}
+.tag-fr{background:var(--tag-fr-bg);color:var(--tag-fr)}
+.tag-city{background:#1a2230;color:#9fb3c8}
+.tag-price{background:#141d14;color:#8fce8f}
+.tag-free{background:#141d14;color:#8fce8f}
+
+/* Skeleton shimmer while loading */
+.skel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:12px 24px 24px;max-width:1200px;margin:0 auto}
+@media(max-width:900px){.skel-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.skel-grid{grid-template-columns:1fr;padding:12px 16px 24px}}
+.skel-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.skel-media{aspect-ratio:16/9;background:linear-gradient(90deg,#141b28 25%,#1c2536 37%,#141b28 63%);background-size:400% 100%;animation:shimmer 1.4s ease infinite}
+.skel-lines{padding:14px 16px}
+.skel-line{height:10px;border-radius:4px;margin-bottom:8px;background:linear-gradient(90deg,#141b28 25%,#1c2536 37%,#141b28 63%);background-size:400% 100%;animation:shimmer 1.4s ease infinite}
+.skel-line.w60{width:60%}
+.skel-line.w80{width:80%}
+@keyframes shimmer{0%{background-position:100% 0}100%{background-position:0 0}}
+
+.state{max-width:1200px;margin:0 auto;padding:48px 24px;text-align:center;color:var(--muted);font-size:15px}
+.state strong{color:var(--white)}
+
+footer{border-top:1px solid #222;padding:32px 24px;text-align:center;color:#666;font-size:13px;margin-top:32px}
+footer .frow{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+footer a{color:#666}
+</style>
+</head>
+<body>
+<nav class="nav-shell nav-shell-marketing">
+  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/shows.html">Shows</a>
+    <a href="/europe.html" class="nav-active">Europe</a>
+    <a href="/hiring.html">Stage Time</a>
+    <a href="/venues.html">Venues</a>
+    <a href="/comedians.html">Comedians</a>
+    <a href="/bookers.html">Bookers</a>
+    <a href="/pricing.html">Pricing</a>
+    <a href="/login.html">Sign In</a>
+    <a href="/connect.html">Book / Connect</a>
+    <a href="/about.html">About</a>
+    <a href="/feedback.html">Feedback</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Comedy Across <span>Europe</span></h1>
+  <p>English-language stand-up shows across Europe's clubs, pulled from official listings. Tap a show for the full page.</p>
+  <div class="stats-bar" id="stats"></div>
+</div>
+
+<div class="city-nav-wrap">
+  <div class="city-nav" id="cityNav"></div>
+</div>
+<div class="date-filters" id="dateFilters"></div>
+
+<div id="skeleton" class="skel-grid">
+  <div class="skel-card"><div class="skel-media"></div><div class="skel-lines"><div class="skel-line w80"></div><div class="skel-line w60"></div></div></div>
+  <div class="skel-card"><div class="skel-media"></div><div class="skel-lines"><div class="skel-line w80"></div><div class="skel-line w60"></div></div></div>
+  <div class="skel-card"><div class="skel-media"></div><div class="skel-lines"><div class="skel-line w80"></div><div class="skel-line w60"></div></div></div>
+  <div class="skel-card"><div class="skel-media"></div><div class="skel-lines"><div class="skel-line w80"></div><div class="skel-line w60"></div></div></div>
+  <div class="skel-card"><div class="skel-media"></div><div class="skel-lines"><div class="skel-line w80"></div><div class="skel-line w60"></div></div></div>
+  <div class="skel-card"><div class="skel-media"></div><div class="skel-lines"><div class="skel-line w80"></div><div class="skel-line w60"></div></div></div>
+</div>
+<div id="content"></div>
+
+<footer>
+  <div class="frow">
+    <a href="/">Home</a>
+    <a href="/shows.html">Shows</a>
+    <a href="/venues.html">Venues</a>
+    <a href="/connect.html">Book a Show</a>
+    <a href="/comedians.html">For Comedians</a>
+  </div>
+  <div>payments@pariscomedy.com</div>
+</footer>
+
+<script>
+const DATA_URL = '/data/upcoming_events.json';
+let ALL = [];
+let activeCity = 'All';
+let activeDate = 'All';
+let GENERATED_AT = null;
+
+function slugify(s){
+  return (s||'').toString().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'') || 'event';
+}
+function citySlug(name){ return slugify(name); }
+function eventSlug(ev){ return slugify(ev.title) + '-' + ev.id; }
+function eventUrl(ev){ return '/europe/' + citySlug(ev.city_name || 'other') + '/' + eventSlug(ev) + '.html'; }
+
+function isPast(ev){
+  if(!ev || !ev.starts_at) return false;
+  const start = new Date(ev.starts_at);
+  if(isNaN(start.getTime())) return false;
+  const end = ev.ends_at ? new Date(ev.ends_at) : new Date(start.getTime() + 3*3600*1000);
+  return (isNaN(end.getTime()) ? new Date(start.getTime() + 3*3600*1000) : end) < new Date();
+}
+
+const esc = s => (s==null?'':String(s)).replace(/[&<>"']/g, c => (
+  {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function fmtDate(iso){
+  try{
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})
+      + ' · ' + d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  }catch(e){ return iso; }
+}
+function fmtBadge(iso){
+  try{
+    const d = new Date(iso);
+    return {
+      day: d.getDate(),
+      mon: d.toLocaleDateString('en-GB',{month:'short'})
+    };
+  }catch(e){ return {day:'',mon:''}; }
+}
+function fmtPrice(ev){
+  if(ev.price_min==null && ev.price_max==null) return null;
+  const cur = ev.currency==='EUR'?'€':(ev.currency==='GBP'?'£':(ev.currency?ev.currency+' ':''));
+  const n = v => (v==null?'':(Math.round(Number(v)*100)/100).toString().replace(/\.00$/,''));
+  if(ev.price_min!=null && ev.price_max!=null && ev.price_min!==ev.price_max)
+    return cur+n(ev.price_min)+'–'+n(ev.price_max);
+  const val = ev.price_min!=null?ev.price_min:ev.price_max;
+  if(Number(val)===0) return 'Free';
+  return cur+n(val);
+}
+function langTag(ev){
+  const v = (ev.language||'').toString().toLowerCase();
+  if(v.includes('fr')) return '<span class="tag tag-fr">FR</span>';
+  return '<span class="tag tag-en">EN</span>';
+}
+
+function cityList(){
+  const set = [...new Set(ALL.filter(e=>!isPast(e)).map(e=>e.city_name).filter(Boolean))].sort();
+  return ['All', ...set];
+}
+
+function inDateWindow(ev){
+  if(activeDate==='All') return true;
+  const start = new Date(ev.starts_at);
+  const now = new Date();
+  if(activeDate==='Today'){
+    return start.toDateString() === now.toDateString();
+  }
+  if(activeDate==='This Weekend'){
+    const day = now.getDay(); // 0=Sun..6=Sat
+    const daysToSat = (6 - day + 7) % 7;
+    const sat = new Date(now); sat.setHours(0,0,0,0); sat.setDate(now.getDate()+daysToSat);
+    const monAfter = new Date(sat); monAfter.setDate(sat.getDate()+2); monAfter.setHours(23,59,59,999);
+    return start >= sat && start <= monAfter;
+  }
+  if(activeDate==='This Month'){
+    return start.getFullYear()===now.getFullYear() && start.getMonth()===now.getMonth();
+  }
+  return true;
+}
+
+function cardHTML(ev){
+  const badge = fmtBadge(ev.starts_at);
+  const price = fmtPrice(ev);
+  const where = [ev.venue_name, ev.organization_name].filter(Boolean)
+    .filter((v,i,a)=>a.indexOf(v)===i)[0] || ev.organization_name || '';
+  const initial = (ev.title||'?').trim().charAt(0).toUpperCase() || '?';
+  const hue = (Math.abs([...String(ev.id)].reduce((a,c)=>a+c.charCodeAt(0),0)) % 360);
+  const media = `<div class="card-media">
+      <div class="placeholder" style="background:linear-gradient(135deg,hsl(${hue},55%,22%),hsl(${(hue+40)%360},55%,14%))">${esc(initial)}</div>
+      <div class="card-date-badge"><span class="day">${badge.day}</span><span class="mon">${esc(badge.mon)}</span></div>
+    </div>`;
+  return `<a class="card" href="${esc(eventUrl(ev))}">
+    ${media}
+    <div class="card-body">
+      <div class="card-title">${esc(ev.title)}</div>
+      <div class="card-where">${ev.city_name?esc(ev.city_name):''}${where?` · <span class="venue">${esc(where)}</span>`:''}</div>
+      <div class="card-tags">
+        ${langTag(ev)}
+        ${price?`<span class="tag ${price==='Free'?'tag-free':'tag-price'}">${esc(price)}</span>`:''}
+      </div>
+    </div>
+  </a>`;
+}
+
+function render(){
+  document.getElementById('skeleton').style.display = 'none';
+  const upcoming = ALL.filter(e => !isPast(e)).filter(inDateWindow);
+
+  const updatedLine = GENERATED_AT ? `<span>Updated ${esc(fmtDate(GENERATED_AT))}</span>` : '';
+  document.getElementById('stats').innerHTML =
+    `<span><strong>${upcoming.length}</strong> upcoming shows</span>`+
+    `<span><strong>${cityList().length-1}</strong> cities</span>`+
+    updatedLine;
+
+  document.getElementById('cityNav').innerHTML = cityList().map(c =>
+    `<div class="city-chip ${c===activeCity?'active':''}" data-city="${esc(c)}">${esc(c)}</div>`
+  ).join('');
+  document.querySelectorAll('.city-chip').forEach(b =>
+    b.addEventListener('click',()=>{ activeCity=b.dataset.city; render(); if(b.dataset.city!=='All'){ const el=document.getElementById(citySlug(b.dataset.city)); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); } }));
+
+  const dateOpts = ['Today','This Weekend','This Month','All'];
+  document.getElementById('dateFilters').innerHTML = dateOpts.map(d =>
+    `<button class="filter-btn ${d===activeDate?'active':''}" data-d="${esc(d)}">${esc(d)}</button>`
+  ).join('');
+  document.querySelectorAll('.filter-btn').forEach(b =>
+    b.addEventListener('click',()=>{ activeDate=b.dataset.d; render(); }));
+
+  const content = document.getElementById('content');
+  const filtered = upcoming.filter(e => activeCity==='All' || e.city_name===activeCity)
+    .sort((a,b)=> new Date(a.starts_at) - new Date(b.starts_at));
+
+  if(!filtered.length){
+    content.innerHTML = `<div class="state">No upcoming shows listed right now. Check back soon.</div>`;
+    return;
+  }
+
+  if(activeCity !== 'All'){
+    content.innerHTML = `<div class="grid">${filtered.map(cardHTML).join('')}</div>`;
+    return;
+  }
+
+  // "All" -> grouped by city with anchors
+  const byCity = new Map();
+  filtered.forEach(ev => {
+    const key = ev.city_name || 'Other';
+    if(!byCity.has(key)) byCity.set(key, []);
+    byCity.get(key).push(ev);
+  });
+  const cities = [...byCity.keys()].sort();
+  content.innerHTML = cities.map(c => `
+    <div class="city-section" id="${citySlug(c)}">
+      <h2>${esc(c)}<span class="count">${byCity.get(c).length} upcoming</span></h2>
+    </div>
+    <div class="grid">${byCity.get(c).map(cardHTML).join('')}</div>
+  `).join('');
+}
+
+(async function(){
+  try{
+    const data = await fetch(DATA_URL, {cache:'no-store'}).then(r=>r.ok?r.json():[]);
+    if(Array.isArray(data)){
+      ALL = data;
+      GENERATED_AT = null;
+    }else if(data && typeof data==='object'){
+      ALL = Array.isArray(data.events) ? data.events : [];
+      GENERATED_AT = data.generated_at || null;
+    }else{
+      ALL = [];
+    }
+  }catch(e){ ALL = []; }
+  render();
+})();
+</script>
+<script src="/assets/track.js" defer></script>
+</body>
+</html>
