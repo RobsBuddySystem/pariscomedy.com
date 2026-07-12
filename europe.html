@@ -157,7 +157,9 @@ footer a{color:#666}
 
 <script>
 const DATA_URL = '/data/upcoming_events.json';
+const IMAGES_URL = '/data/event_images.json';
 let ALL = [];
+let IMAGES = {};
 let activeCity = 'All';
 let activeDate = 'All';
 let GENERATED_AT = null;
@@ -179,6 +181,22 @@ function isPast(ev){
 
 const esc = s => (s==null?'':String(s)).replace(/[&<>"']/g, c => (
   {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+// Image-error fallback: hotlinked CDN images can die — swap the broken <img>
+// back out for the gradient-letter placeholder so the layout never breaks.
+// Wired via a delegated capture listener (no inline on*= attributes — the
+// deploy gate rightly blocks those).
+function imgFallback(img){
+  const hue = img.dataset.hue || 200, hue2 = img.dataset.hue2 || 240;
+  const ph = document.createElement('div');
+  ph.className = 'placeholder';
+  ph.style.background = `linear-gradient(135deg,hsl(${hue},55%,22%),hsl(${hue2},55%,14%))`;
+  ph.textContent = img.dataset.initial || '?';
+  img.replaceWith(ph);
+}
+document.addEventListener('error', function(e){
+  if(e.target && e.target.tagName === 'IMG' && e.target.closest('.card-media')) imgFallback(e.target);
+}, true);
 
 function fmtDate(iso){
   try{
@@ -244,8 +262,14 @@ function cardHTML(ev){
     .filter((v,i,a)=>a.indexOf(v)===i)[0] || ev.organization_name || '';
   const initial = (ev.title||'?').trim().charAt(0).toUpperCase() || '?';
   const hue = (Math.abs([...String(ev.id)].reduce((a,c)=>a+c.charCodeAt(0),0)) % 360);
+  const placeholder = `<div class="placeholder" style="background:linear-gradient(135deg,hsl(${hue},55%,22%),hsl(${(hue+40)%360},55%,14%))">${esc(initial)}</div>`;
+  const imgUrl = IMAGES[String(ev.id)];
+  const hue2 = (hue+40)%360;
+  const mediaInner = imgUrl
+    ? `<img src="${esc(imgUrl)}" alt="${esc(ev.title||'')}" loading="lazy" data-hue="${hue}" data-hue2="${hue2}" data-initial="${esc(initial)}">`
+    : placeholder;
   const media = `<div class="card-media">
-      <div class="placeholder" style="background:linear-gradient(135deg,hsl(${hue},55%,22%),hsl(${(hue+40)%360},55%,14%))">${esc(initial)}</div>
+      ${mediaInner}
       <div class="card-date-badge"><span class="day">${badge.day}</span><span class="mon">${esc(badge.mon)}</span></div>
     </div>`;
   return `<a class="card" href="${esc(eventUrl(ev))}">
@@ -316,7 +340,10 @@ function render(){
 
 (async function(){
   try{
-    const data = await fetch(DATA_URL, {cache:'no-store'}).then(r=>r.ok?r.json():[]);
+    const [data, images] = await Promise.all([
+      fetch(DATA_URL, {cache:'no-store'}).then(r=>r.ok?r.json():[]),
+      fetch(IMAGES_URL, {cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}))
+    ]);
     if(Array.isArray(data)){
       ALL = data;
       GENERATED_AT = null;
@@ -326,7 +353,8 @@ function render(){
     }else{
       ALL = [];
     }
-  }catch(e){ ALL = []; }
+    IMAGES = (images && typeof images==='object') ? images : {};
+  }catch(e){ ALL = []; IMAGES = {}; }
   render();
 })();
 </script>

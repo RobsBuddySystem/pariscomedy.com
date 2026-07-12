@@ -11,10 +11,11 @@
 <meta property="og:title" content="Comedy Night in English — Amsterdam — Paris Comedy">
 <meta property="og:description" content="Comedy Night in English — English-language stand-up comedy in Amsterdam, Thursday 16 July 2026, 20:30.">
 <meta property="og:url" content="https://pariscomedy.com/europe/amsterdam/comedy-night-in-english-6.html">
-<meta property="og:image" content="https://pariscomedy.com/assets/og-default.png">
+<meta property="og:image" content="https://www.comedycafe.nl/wp-content/uploads/2026/06/Comedy-Night-3-scaled-e1780923171976-1030x580.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Comedy Night in English — Amsterdam — Paris Comedy">
 <meta name="twitter:description" content="Comedy Night in English — English-language stand-up comedy in Amsterdam, Thursday 16 July 2026, 20:30.">
+<meta name="twitter:image" content="https://www.comedycafe.nl/wp-content/uploads/2026/06/Comedy-Night-3-scaled-e1780923171976-1030x580.jpg">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "Comedy Night in English", "url": "https://pariscomedy.com/europe/amsterdam/comedy-night-in-english-6.html", "startDate": "2026-07-16T20:30:00+02:00", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "eventStatus": "https://schema.org/EventScheduled", "endDate": "2026-07-16T22:30:00+02:00", "location": {"@type": "Place", "name": "Comedy Cafe Amsterdam", "address": {"@type": "PostalAddress", "streetAddress": null, "addressLocality": "Amsterdam", "addressCountry": "NL"}}, "offers": {"@type": "Offer", "price": 18.5, "priceCurrency": "EUR", "url": "https://pariscomedy.com/europe/go.html?e=comedy-night-in-english-6", "availability": "https://schema.org/InStock"}}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pariscomedy.com/"}, {"@type": "ListItem", "position": 2, "name": "Europe", "item": "https://pariscomedy.com/europe.html"}, {"@type": "ListItem", "position": 3, "name": "Amsterdam", "item": "https://pariscomedy.com/europe.html#amsterdam"}, {"@type": "ListItem", "position": 4, "name": "Comedy Night in English", "item": "https://pariscomedy.com/europe/amsterdam/comedy-night-in-english-6.html"}]}</script>
 <style>
@@ -34,6 +35,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .crumb a:hover{color:var(--white)}
 .past-banner{background:#241033;border:1px solid #3a1f52;color:#c79bf0;border-radius:10px;padding:14px 16px;font-size:14px;margin-bottom:20px;display:none}
 .past-banner.show{display:block}
+.hero-img{width:100%;max-height:360px;object-fit:cover;border-radius:12px;margin-bottom:20px;display:block;border:1px solid var(--border)}
 h1{font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-0.5px;line-height:1.2;margin-bottom:10px}
 .event-date{font-size:15px;color:var(--gold);font-weight:700;margin-bottom:6px}
 .event-venue{font-size:15px;color:var(--muted);margin-bottom:16px}
@@ -81,6 +83,7 @@ footer a{color:#666}
 <div class="wrap">
   <div class="crumb"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/europe.html">Europe</a> &nbsp;/&nbsp; <a href="/europe.html#amsterdam">Amsterdam</a> &nbsp;/&nbsp; Comedy Night in English</div>
   <div class="past-banner" id="pastBanner">This show has passed — more in Amsterdam below.</div>
+  <img class="hero-img" src="https://www.comedycafe.nl/wp-content/uploads/2026/06/Comedy-Night-3-scaled-e1780923171976-1030x580.jpg" alt="Comedy Night in English" loading="lazy">
   <h1>Comedy Night in English</h1>
   <div class="event-date">Thursday 16 July 2026, 20:30</div>
   <div class="event-venue"><span class="name">Comedy Cafe Amsterdam</span> · Amsterdam</div>
@@ -109,6 +112,11 @@ footer a{color:#666}
 </footer>
 <script>
 (function(){
+  // Hide the hero image if its hotlinked CDN source is dead (capture-phase
+  // listener; no inline on*= attributes — the deploy gate blocks those).
+  document.addEventListener('error', function(e){
+    if(e.target && e.target.classList && e.target.classList.contains('hero-img')) e.target.style.display='none';
+  }, true);
   var startsAt = "2026-07-16T20:30:00+02:00";
   var endsAt = "2026-07-16T22:30:00+02:00";
   function isPast(){

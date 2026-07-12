@@ -11,10 +11,11 @@
 <meta property="og:title" content="ENGLISH STAND UP COMEDY OPEN MIC [handle removed] — Porto — Paris Comedy">
 <meta property="og:description" content="ENGLISH STAND UP COMEDY OPEN MIC [handle removed] — English-language stand-up comedy in Porto, Wednesday 2 September 2026, 22:30.">
 <meta property="og:url" content="https://pariscomedy.com/europe/porto/english-stand-up-comedy-open-mic-handle-removed-45.html">
-<meta property="og:image" content="https://pariscomedy.com/assets/og-default.png">
+<meta property="og:image" content="https://secure.meetupstatic.com/photos/event/4/1/4/d/600_529456717.jpeg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ENGLISH STAND UP COMEDY OPEN MIC [handle removed] — Porto — Paris Comedy">
 <meta name="twitter:description" content="ENGLISH STAND UP COMEDY OPEN MIC [handle removed] — English-language stand-up comedy in Porto, Wednesday 2 September 2026, 22:30.">
+<meta name="twitter:image" content="https://secure.meetupstatic.com/photos/event/4/1/4/d/600_529456717.jpeg">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "ENGLISH STAND UP COMEDY OPEN MIC [handle removed]", "url": "https://pariscomedy.com/europe/porto/english-stand-up-comedy-open-mic-handle-removed-45.html", "startDate": "2026-09-02T22:30:00+02:00", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "eventStatus": "https://schema.org/EventScheduled", "endDate": "2026-09-03T00:00:00+02:00", "location": {"@type": "Place", "name": "Comedy Cachet", "address": {"@type": "PostalAddress", "streetAddress": null, "addressLocality": "Porto", "addressCountry": "PT"}}}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pariscomedy.com/"}, {"@type": "ListItem", "position": 2, "name": "Europe", "item": "https://pariscomedy.com/europe.html"}, {"@type": "ListItem", "position": 3, "name": "Porto", "item": "https://pariscomedy.com/europe.html#porto"}, {"@type": "ListItem", "position": 4, "name": "ENGLISH STAND UP COMEDY OPEN MIC [handle removed]", "item": "https://pariscomedy.com/europe/porto/english-stand-up-comedy-open-mic-handle-removed-45.html"}]}</script>
 <style>
@@ -34,6 +35,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .crumb a:hover{color:var(--white)}
 .past-banner{background:#241033;border:1px solid #3a1f52;color:#c79bf0;border-radius:10px;padding:14px 16px;font-size:14px;margin-bottom:20px;display:none}
 .past-banner.show{display:block}
+.hero-img{width:100%;max-height:360px;object-fit:cover;border-radius:12px;margin-bottom:20px;display:block;border:1px solid var(--border)}
 h1{font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-0.5px;line-height:1.2;margin-bottom:10px}
 .event-date{font-size:15px;color:var(--gold);font-weight:700;margin-bottom:6px}
 .event-venue{font-size:15px;color:var(--muted);margin-bottom:16px}
@@ -81,6 +83,7 @@ footer a{color:#666}
 <div class="wrap">
   <div class="crumb"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/europe.html">Europe</a> &nbsp;/&nbsp; <a href="/europe.html#porto">Porto</a> &nbsp;/&nbsp; ENGLISH STAND UP COMEDY OPEN MIC [handle removed]</div>
   <div class="past-banner" id="pastBanner">This show has passed — more in Porto below.</div>
+  <img class="hero-img" src="https://secure.meetupstatic.com/photos/event/4/1/4/d/600_529456717.jpeg" alt="ENGLISH STAND UP COMEDY OPEN MIC [handle removed]" loading="lazy">
   <h1>ENGLISH STAND UP COMEDY OPEN MIC [handle removed]</h1>
   <div class="event-date">Wednesday 2 September 2026, 22:30</div>
   <div class="event-venue"><span class="name">Comedy Cachet</span> · Porto</div>
@@ -109,6 +112,11 @@ footer a{color:#666}
 </footer>
 <script>
 (function(){
+  // Hide the hero image if its hotlinked CDN source is dead (capture-phase
+  // listener; no inline on*= attributes — the deploy gate blocks those).
+  document.addEventListener('error', function(e){
+    if(e.target && e.target.classList && e.target.classList.contains('hero-img')) e.target.style.display='none';
+  }, true);
   var startsAt = "2026-09-02T22:30:00+02:00";
   var endsAt = "2026-09-03T00:00:00+02:00";
   function isPast(){

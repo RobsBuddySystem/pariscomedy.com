@@ -11,10 +11,11 @@
 <meta property="og:title" content="UNDATEABLE • English Comedy &amp; Dating Stories — Vienna — Paris Comedy">
 <meta property="og:description" content="UNDATEABLE • English Comedy &amp; Dating Stories — English-language stand-up comedy in Vienna, Friday 17 July 2026, 19:30.">
 <meta property="og:url" content="https://pariscomedy.com/europe/vienna/undateable-english-comedy-dating-stories-50.html">
-<meta property="og:image" content="https://pariscomedy.com/assets/og-default.png">
+<meta property="og:image" content="https://secure.meetupstatic.com/photos/event/9/5/9/0/600_517718288.jpeg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="UNDATEABLE • English Comedy &amp; Dating Stories — Vienna — Paris Comedy">
 <meta name="twitter:description" content="UNDATEABLE • English Comedy &amp; Dating Stories — English-language stand-up comedy in Vienna, Friday 17 July 2026, 19:30.">
+<meta name="twitter:image" content="https://secure.meetupstatic.com/photos/event/9/5/9/0/600_517718288.jpeg">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "UNDATEABLE • English Comedy & Dating Stories", "url": "https://pariscomedy.com/europe/vienna/undateable-english-comedy-dating-stories-50.html", "startDate": "2026-07-17T19:30:00+02:00", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "eventStatus": "https://schema.org/EventScheduled", "endDate": "2026-07-17T21:30:00+02:00", "location": {"@type": "Place", "name": "Comedy For Expats", "address": {"@type": "PostalAddress", "streetAddress": null, "addressLocality": "Vienna", "addressCountry": "AT"}}}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pariscomedy.com/"}, {"@type": "ListItem", "position": 2, "name": "Europe", "item": "https://pariscomedy.com/europe.html"}, {"@type": "ListItem", "position": 3, "name": "Vienna", "item": "https://pariscomedy.com/europe.html#vienna"}, {"@type": "ListItem", "position": 4, "name": "UNDATEABLE • English Comedy & Dating Stories", "item": "https://pariscomedy.com/europe/vienna/undateable-english-comedy-dating-stories-50.html"}]}</script>
 <style>
@@ -34,6 +35,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .crumb a:hover{color:var(--white)}
 .past-banner{background:#241033;border:1px solid #3a1f52;color:#c79bf0;border-radius:10px;padding:14px 16px;font-size:14px;margin-bottom:20px;display:none}
 .past-banner.show{display:block}
+.hero-img{width:100%;max-height:360px;object-fit:cover;border-radius:12px;margin-bottom:20px;display:block;border:1px solid var(--border)}
 h1{font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-0.5px;line-height:1.2;margin-bottom:10px}
 .event-date{font-size:15px;color:var(--gold);font-weight:700;margin-bottom:6px}
 .event-venue{font-size:15px;color:var(--muted);margin-bottom:16px}
@@ -81,6 +83,7 @@ footer a{color:#666}
 <div class="wrap">
   <div class="crumb"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/europe.html">Europe</a> &nbsp;/&nbsp; <a href="/europe.html#vienna">Vienna</a> &nbsp;/&nbsp; UNDATEABLE • English Comedy &amp; Dating Stories</div>
   <div class="past-banner" id="pastBanner">This show has passed — more in Vienna below.</div>
+  <img class="hero-img" src="https://secure.meetupstatic.com/photos/event/9/5/9/0/600_517718288.jpeg" alt="UNDATEABLE • English Comedy &amp; Dating Stories" loading="lazy">
   <h1>UNDATEABLE • English Comedy &amp; Dating Stories</h1>
   <div class="event-date">Friday 17 July 2026, 19:30</div>
   <div class="event-venue"><span class="name">Comedy For Expats</span> · Vienna</div>
@@ -109,6 +112,11 @@ footer a{color:#666}
 </footer>
 <script>
 (function(){
+  // Hide the hero image if its hotlinked CDN source is dead (capture-phase
+  // listener; no inline on*= attributes — the deploy gate blocks those).
+  document.addEventListener('error', function(e){
+    if(e.target && e.target.classList && e.target.classList.contains('hero-img')) e.target.style.display='none';
+  }, true);
   var startsAt = "2026-07-17T19:30:00+02:00";
   var endsAt = "2026-07-17T21:30:00+02:00";
   function isPast(){
