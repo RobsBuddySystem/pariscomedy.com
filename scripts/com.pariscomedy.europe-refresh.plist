@@ -13,6 +13,13 @@
   plus data/ticket_links.json. If the export step is not wired up before
   this job is loaded, it will silently rebuild pages from stale data.
 
+  Ordering: scripts/fetch_event_images.py MUST run BEFORE
+  scripts/build_europe_pages.py in this job — it scrapes og:image from each
+  event's canonical_event_url into data/event_images.json, which the page
+  build then embeds as hero images / og:image meta. When enabling this job
+  for real, chain both scripts (fetch_event_images.py first, then
+  build_europe_pages.py), not just the page build alone.
+
   To actually enable this job (NOT done as part of this build task):
     cp scripts/com.pariscomedy.europe-refresh.plist ~/Library/LaunchAgents/
     launchctl load ~/Library/LaunchAgents/com.pariscomedy.europe-refresh.plist

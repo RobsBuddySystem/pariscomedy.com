@@ -31,6 +31,13 @@ script — it is exported nightly by the comedy-network-db project and synced
 into this repo. See scripts/com.pariscomedy.europe-refresh.plist for the
 nightly schedule this script is meant to run under, AFTER that export lands.
 
+Images: scripts/fetch_event_images.py runs BEFORE this script in the nightly
+refresh and writes data/event_images.json (event id -> og:image URL scraped
+from canonical_event_url). When present, this script embeds that photo as
+the event page's hero image and og:image meta tag; events with no entry (or
+an image that later 404s / hotlink-dies) fall back to the plain text layout
+client-side via onerror — the page never breaks.
+
 Run:
   python3 scripts/build_europe_pages.py
 
@@ -49,6 +56,7 @@ from xml.sax.saxutils import escape as xml_escape
 REPO = Path(__file__).resolve().parent.parent
 BASE = "https://pariscomedy.com"
 DATA_FILE = REPO / "data" / "upcoming_events.json"
+IMAGES_FILE = REPO / "data" / "event_images.json"
 OUT_DIR = REPO / "europe"
 TICKET_LINKS_FILE = REPO / "data" / "ticket_links.json"
 
@@ -131,6 +139,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .crumb a:hover{color:var(--white)}
 .past-banner{background:#241033;border:1px solid #3a1f52;color:#c79bf0;border-radius:10px;padding:14px 16px;font-size:14px;margin-bottom:20px;display:none}
 .past-banner.show{display:block}
+.hero-img{width:100%;max-height:360px;object-fit:cover;border-radius:12px;margin-bottom:20px;display:block;border:1px solid var(--border)}
 h1{font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-0.5px;line-height:1.2;margin-bottom:10px}
 .event-date{font-size:15px;color:var(--gold);font-weight:700;margin-bottom:6px}
 .event-venue{font-size:15px;color:var(--muted);margin-bottom:16px}
@@ -276,7 +285,7 @@ def breadcrumb_ld_json(ev: dict) -> dict:
     }
 
 
-def render_event_page(ev: dict, siblings: list[dict]) -> str:
+def render_event_page(ev: dict, siblings: list[dict], image_url: str | None = None) -> str:
     url_path = event_url_path(ev)
     slug = event_slug(ev)
     canonical = BASE + url_path
@@ -291,6 +300,7 @@ def render_event_page(ev: dict, siblings: list[dict]) -> str:
     meta_desc = (
         desc[:200] if desc else f"{title} — English-language stand-up comedy in {city or 'Europe'}, {long_date}."
     )
+    og_image = image_url or "https://pariscomedy.com/assets/og-default.png"
 
     ld_event = json.dumps(event_ld_json(ev), ensure_ascii=False)
     ld_breadcrumb = json.dumps(breadcrumb_ld_json(ev), ensure_ascii=False)
@@ -320,10 +330,11 @@ def render_event_page(ev: dict, siblings: list[dict]) -> str:
 <meta property="og:title" content="{esc(page_title)}">
 <meta property="og:description" content="{esc(meta_desc)}">
 <meta property="og:url" content="{esc(canonical)}">
-<meta property="og:image" content="https://pariscomedy.com/assets/og-default.png">
+<meta property="og:image" content="{esc(og_image)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{esc(page_title)}">
 <meta name="twitter:description" content="{esc(meta_desc)}">
+<meta name="twitter:image" content="{esc(og_image)}">
 <script type="application/ld+json">{ld_event}</script>
 <script type="application/ld+json">{ld_breadcrumb}</script>
 <style>{CARD_CSS_SHARED}</style>
@@ -333,6 +344,7 @@ def render_event_page(ev: dict, siblings: list[dict]) -> str:
 <div class="wrap">
   <div class="crumb"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/europe.html">Europe</a> &nbsp;/&nbsp; <a href="/europe.html#{esc(city_slug(ev))}">{esc(city)}</a> &nbsp;/&nbsp; {esc(title)}</div>
   <div class="past-banner" id="pastBanner">This show has passed — more in {esc(city)} below.</div>
+  {f'<img class="hero-img" src="{esc(image_url)}" alt="{esc(title)}" loading="lazy" onerror="this.style.display=\'none\'">' if image_url else ''}
   <h1>{esc(title)}</h1>
   <div class="event-date">{esc(long_date)}</div>
   <div class="event-venue">{f'<span class="name">{esc(venue)}</span>' if venue else ''}{f' · {esc(address_line)}' if address_line else ''}{f' · {esc(city)}' if city else ''}</div>
@@ -409,6 +421,15 @@ def main() -> None:
     if not isinstance(events, list):
         events = events.get("events", [])
 
+    images: dict[str, str] = {}
+    if IMAGES_FILE.exists():
+        try:
+            raw_images = json.loads(IMAGES_FILE.read_text())
+            if isinstance(raw_images, dict):
+                images = {str(k): v for k, v in raw_images.items() if isinstance(v, str)}
+        except Exception:
+            images = {}
+
     # Group by city for "More in {City}" sibling lookups, sorted by start time.
     by_city: dict[str, list[dict]] = {}
     for ev in events:
@@ -429,7 +450,8 @@ def main() -> None:
         page_dir = OUT_DIR / city_slug(ev)
         page_dir.mkdir(parents=True, exist_ok=True)
         page_path = page_dir / f"{event_slug(ev)}.html"
-        page_path.write_text(render_event_page(ev, siblings), encoding="utf-8")
+        image_url = images.get(str(ev.get("id")))
+        page_path.write_text(render_event_page(ev, siblings, image_url), encoding="utf-8")
         written += 1
 
         url = ev.get("canonical_event_url")

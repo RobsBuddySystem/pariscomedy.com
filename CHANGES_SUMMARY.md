@@ -334,3 +334,63 @@ edits + 1 rewritten redirect stub (`whats-on.html`) + `sitemap.xml`
 regenerated.
 
 No git commits, no push, no deploy.
+
+---
+
+## Real photos on Europe pages (2026-07-12)
+
+**New: `scripts/fetch_event_images.py`** — stdlib-only (urllib + re), fetches
+each event's `canonical_event_url` (Eventbrite/Meetup/venue pages) with a
+browser User-Agent, 10s timeout, 0.5s polite sleep between requests, and
+extracts `og:image` (falls back to `twitter:image`) via regex. Writes
+`data/event_images.json` (event id → image URL). Idempotent/mergeable: loads
+existing entries first and only overwrites on a successful fetch, so a
+flaky night (403s, timeouts) never blanks out images already found.
+
+**Run result:** 100 events processed, **90 images found / 10 failures**
+(90% hit rate) — failures are mostly non-Eventbrite venue pages that either
+403 a bot UA or don't carry an og:image tag. `data/event_images.json` now
+has 90 entries.
+
+**Updated: `europe.html`** — loads `data/event_images.json` alongside
+`data/upcoming_events.json` via `Promise.all`. Card media renders `<img
+loading="lazy">` when a mapped image exists; the existing gradient-letter
+placeholder is now BOTH the no-image case AND the client-side `onerror`
+fallback (via a shared `window.__imgFallback` helper) — a dead hotlinked CDN
+image swaps back to the placeholder instead of breaking the card layout.
+
+**Updated: `scripts/build_europe_pages.py`** — event detail pages now embed
+a hero image (`.hero-img`, max-height 360px, `object-fit:cover`, rounded,
+bordered) when `data/event_images.json` has an entry for that event, plus
+`og:image`/`twitter:image` meta pointing at the same photo (falls back to
+the site default `og-default.png` otherwise) for better social-share
+previews. Hero `<img>` uses `onerror="this.style.display='none'"` — same
+never-break-the-layout guarantee. Sibling "More in {city}" cards are
+unchanged (text-only by design). Docstring updated to note the new
+`fetch_event_images.py` → `build_europe_pages.py` run order. Regenerated all
+100 event pages.
+
+**Updated: `scripts/com.pariscomedy.europe-refresh.plist`** (still
+design-only, not loaded) — comment block now states
+`fetch_event_images.py` must run BEFORE `build_europe_pages.py` in the
+nightly chain so the page build always has fresh image data.
+
+**Verify (local `python3 -m http.server`):**
+```
+curl -s :8931/europe/barcelona/open-writing-workshop-30.html | grep -c 'hero-img'   # 1 (known-good image event)
+curl -s :8931/europe/barcelona/open-writing-workshop-30.html | grep 'og:image'      # real thecomedyclubhouse.es photo URL
+curl -s :8931/europe/berlin/witch-hunt-17.html | grep -c 'hero-img'                 # 0 (no-image event, no hero <img> emitted)
+curl -s :8931/europe/berlin/witch-hunt-17.html | grep 'og:image'                    # falls back to og-default.png
+curl -s :8931/europe.html | grep -c 'event_images.json'                             # 1 (IMAGES_URL wired + Promise.all)
+curl -s -o /dev/null -w '%{http_code}' :8931/data/event_images.json                 # 200
+```
+All passed — good-image event has hero + real og:image, no-image event still
+renders cleanly via the gradient placeholder, europe.html references
+`event_images.json`.
+
+**File counts:** 1 new script (`scripts/fetch_event_images.py`) + 1 new data
+file (`data/event_images.json`, 90 entries) + `europe.html` wired for
+images + `scripts/build_europe_pages.py` updated (hero image + og:image) +
+100 event pages regenerated + 1 plist comment update.
+
+No git commits, no push, no deploy.
