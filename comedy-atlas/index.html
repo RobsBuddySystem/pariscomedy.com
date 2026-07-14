@@ -5,20 +5,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
-<title>COMEDY ATLAS — Find Comedy in Paris | Paris Comedy</title>
-<meta name="description" content="COMEDY ATLAS: find English-language stand-up comedy in Paris. Verified listings, official ticket links, updated from live data.">
+<title>COMEDY ATLAS — The Worldwide Hub for Stand-Up Comedy Booking</title>
+<meta name="description" content="COMEDY ATLAS: comics find shows, bookers find comics, free. Browse live comedy by city and festival, worldwide.">
 <link rel="canonical" href="https://pariscomedy.com/comedy-atlas/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Paris Comedy">
-<meta property="og:title" content="COMEDY ATLAS — Find Comedy in Paris">
-<meta property="og:description" content="Find comedy. Find a spot. Fill a lineup. English-language stand-up in Paris, verified and current.">
+<meta property="og:title" content="COMEDY ATLAS — The Worldwide Hub for Stand-Up Comedy Booking">
+<meta property="og:description" content="Comics find shows. Bookers find comics. Free.">
 <meta property="og:url" content="https://pariscomedy.com/comedy-atlas/">
 <style>
 /* ---------------------------------------------------------------------
-   COMEDY ATLAS — self-contained static page (no build step, no external
-   CDN). Palette matches pariscomedy.com's existing dark theme
-   (see pariscomedy-push-20260526-095907/index.html) so this reads as
-   part of the same site, not a bolted-on tool.
+   COMEDY ATLAS — HUB landing page. Self-contained static page (no build
+   step, no external CDN). Palette matches pariscomedy.com's existing dark
+   theme (see pariscomedy-push-20260526-095907/index.html) so this reads as
+   part of the same site, not a bolted-on tool. Shared card/list styling
+   also used by city.html (per-city view) for visual continuity.
    ------------------------------------------------------------------- */
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -28,9 +29,6 @@
   --gold:#c9a84c;--gold-light:#e8c96a;
   --red:#c41e3a;--green:#3fb950;
 }
-/* Light-theme override for viewers whose system prefers light --
-   pariscomedy.com itself is dark-only today, but this page stays
-   theme-aware per the build brief. */
 @media (prefers-color-scheme: light){
   :root{--bg:#f7f5f0;--card:#ffffff;--border:#e2ddd2;--text:#171512;--muted:#5a5348}
 }
@@ -38,9 +36,9 @@ html,body{background:var(--bg);color:var(--text)}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;line-height:1.5}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
-.container{max-width:900px;margin:0 auto;padding:0 20px}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
 
-/* Nav — matches pariscomedy.com's existing nav-shell/nav-links pattern */
+/* Nav */
 nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:100;flex-wrap:wrap;gap:8px}
 .nav-logo{font-size:16px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
 .nav-logo .site-name{color:var(--muted);font-weight:500}
@@ -48,30 +46,42 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .nav-links{display:flex;gap:20px;font-size:14px;color:var(--muted);flex-wrap:wrap}
 .nav-links a:hover{color:var(--text)}
 
-/* Header / identity block */
-.atlas-header{max-width:900px;margin:0 auto;padding:40px 20px 24px}
-.atlas-wordmark{font-size:clamp(28px,6vw,44px);font-weight:800;letter-spacing:-1px;line-height:1.05}
+/* Hero */
+.atlas-hero{max-width:1100px;margin:0 auto;padding:48px 20px 28px}
+.atlas-wordmark{font-size:clamp(30px,6vw,48px);font-weight:800;letter-spacing:-1px;line-height:1.05}
 .atlas-wordmark .dot{color:var(--gold)}
-.atlas-promise{color:var(--muted);font-size:16px;margin-top:10px;max-width:520px}
-.atlas-routes{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.route-pill{border:1px solid var(--border);padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;color:var(--muted)}
-.route-pill.primary{border-color:var(--purple);color:var(--text)}
+.atlas-tagline{color:var(--gold-light);font-size:18px;font-weight:700;margin-top:10px}
+.atlas-mission{color:var(--muted);font-size:16px;margin-top:8px;max-width:560px}
+.atlas-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.cta-btn{border-radius:10px;padding:13px 22px;font-size:14px;font-weight:700}
+.cta-btn.comic{background:var(--purple);color:#fff}
+.cta-btn.comic:hover{opacity:.9}
+.cta-btn.booker{border:1px solid var(--gold);color:var(--gold)}
+.cta-btn.booker:hover{background:var(--gold);color:#100c00}
 
 /* Freshness / trust bar */
-.freshness{max-width:900px;margin:0 auto;padding:0 20px 8px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.freshness{max-width:1100px;margin:0 auto;padding:0 20px 8px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .freshness .dot-live{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block}
 .freshness .dot-live.stale{background:var(--red)}
+.stats-row{max-width:1100px;margin:0 auto;padding:6px 20px 0;font-size:13px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.stats-row strong{color:var(--gold)}
 
-/* City/date utility bar (static for Phase-3 initial release: Paris only) */
-.utility-bar{max-width:900px;margin:16px auto 0;padding:0 20px}
-.utility-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.city-current{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px}
-.city-current .flag{margin-right:6px}
-select#filter-lang, select#filter-format{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;font-family:inherit}
+/* Section shell */
+.atlas-section{max-width:1100px;margin:0 auto;padding:32px 20px 8px}
+.atlas-section h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
 
-/* Event list */
-main{max-width:900px;margin:0 auto;padding:24px 20px 80px}
-.day-group{margin-bottom:28px}
+/* City / festival card grids */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.place-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;display:block;transition:border-color .15s}
+.place-card:hover{border-color:var(--purple)}
+.place-card .place-name{font-size:17px;font-weight:700}
+.place-card .place-meta{color:var(--muted);font-size:13px;margin-top:6px}
+.place-card .place-count{color:var(--gold);font-weight:700}
+.place-card .place-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--green);margin-top:8px}
+
+/* Event list (recently verified strip) */
+main{max-width:1100px;margin:0 auto;padding:8px 20px 40px}
+.day-group{margin-bottom:24px}
 .day-heading{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 .event-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:12px;display:flex;flex-direction:column;gap:6px}
 .event-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
@@ -90,12 +100,12 @@ main{max-width:900px;margin:0 auto;padding:24px 20px 80px}
 
 /* States */
 .state-block{text-align:center;padding:60px 20px;color:var(--muted)}
-.state-block h2{color:var(--text);font-size:20px;margin-bottom:8px}
+.state-block h2{color:var(--text);font-size:20px;margin-bottom:8px;border:none;text-transform:none;letter-spacing:0}
 .state-block.error{color:var(--red)}
 .spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--purple);border-radius:50%;margin:0 auto 16px;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.privacy-note{max-width:900px;margin:0 auto;padding:0 20px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--border);padding-top:20px}
+.privacy-note{max-width:1100px;margin:0 auto;padding:0 20px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--border);padding-top:20px;margin-top:20px}
 .privacy-note strong{color:var(--text)}
 
 footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;color:var(--muted);font-size:12px}
@@ -107,30 +117,10 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
 
 /*
   ---------------------------------------------------------------------
-  READY-TO-PASTE HOMEPAGE NAV SNIPPET (Phase-3 §6.2, BUILD_STATE.md "Do
-  not redo": the ONLY permitted homepage change is adding this button —
-  do NOT restyle the homepage). This is a comment only; nothing here
-  modifies the live homepage. A human/deploy step pastes this into
-  pariscomedy-push-20260526-095907/index.html's existing
-  <div class="nav-links"> block (see that file's line ~239-248) and,
-  separately, adds the "Perform or run a show?" section per §6.2.
-
-  <div class="nav-links">
-    <a href="/shows.html">Shows</a>
-    <a href="/europe.html">Europe</a>
-    <a href="/venues.html">Venues</a>
-    <a href="/comedians.html">Comedians</a>
-    <a href="/bookers.html">Bookers</a>
-    <a href="/comedy-atlas/" style="color:var(--gold);font-weight:700">COMEDY ATLAS</a>
-    <a href="/login.html">Sign In</a>
-    <a href="/about.html">About</a>
-    <a href="/feedback.html">Feedback</a>
-  </div>
-
-  Homepage section (place after the hero, before the shows list):
-  <section style="max-width:1100px;margin:0 auto;padding:24px;text-align:center">
-    <p>Perform or run a show? <a href="/comedy-atlas/" style="color:var(--gold);font-weight:700">Open COMEDY ATLAS →</a></p>
-  </section>
+  READY-TO-PASTE HOMEPAGE NAV SNIPPET has moved to a dedicated file:
+  site/comedy-atlas/HOMEPAGE_SNIPPET.html (Phase-3 §6.2). Nothing here
+  modifies the live homepage. See that file for the exact markup + the
+  human/deploy steps.
   ---------------------------------------------------------------------
 */
 </style>
@@ -147,13 +137,19 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
   </div>
 </nav>
 
-<header class="atlas-header">
+<header class="atlas-hero">
   <div class="atlas-wordmark">COMEDY ATLAS<span class="dot">.</span></div>
-  <p class="atlas-promise">Find comedy. Find a spot. Fill a lineup.</p>
-  <div class="atlas-routes">
-    <span class="route-pill primary">Find comedy</span>
-    <span class="route-pill">I'm a comedian</span>
-    <span class="route-pill">I run a show</span>
+  <p class="atlas-tagline">Comics find shows. Bookers find comics. Free.</p>
+  <p class="atlas-mission">The worldwide hub for stand-up comedy booking — browse live shows and free
+    festival lineups by city, book a spot, or fill one. No fees, no gatekeeping.</p>
+  <div class="atlas-cta-row">
+    <!--
+      TODO(product): placeholder routes — no destination pages exist yet.
+      Robert to confirm final copy + where these should land (comic
+      profile / show-runner claim flow) before wiring.
+    -->
+    <a href="#im-a-comic" class="cta-btn comic">I'm a comic →</a>
+    <a href="#im-a-booker" class="cta-btn booker">I'm a booker →</a>
   </div>
 </header>
 
@@ -161,24 +157,12 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
   <span class="dot-live" id="freshness-dot"></span>
   <span id="freshness-text">Checking data freshness…</span>
 </div>
-
-<div class="utility-bar">
-  <div class="utility-row">
-    <span class="city-current"><span class="flag">📍</span>Paris</span>
-    <select id="filter-lang" aria-label="Filter by language">
-      <option value="">All languages</option>
-      <option value="en">English</option>
-    </select>
-    <select id="filter-format" aria-label="Filter by format">
-      <option value="">All formats</option>
-    </select>
-  </div>
-</div>
+<div class="stats-row" id="stats-row"></div>
 
 <main id="app" aria-live="polite">
   <div class="state-block" id="loading-state">
     <div class="spinner" aria-hidden="true"></div>
-    <p>Loading Paris shows…</p>
+    <p>Loading COMEDY ATLAS…</p>
   </div>
 </main>
 
@@ -186,228 +170,90 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
   <strong>Privacy:</strong> COMEDY ATLAS shows public event and venue details
   only. No comedian or organizer contact information is ever shown here — the
   privacy relay is the product. Every listing links to the organizer's
-  official ticket page.
+  official ticket page. <strong>Free:</strong> discovery and booking on
+  COMEDY ATLAS costs nothing, for comics or bookers.
 </p>
 
 <footer>
-  <div>COMEDY ATLAS is part of Paris Comedy — English-language comedy, Paris first.</div>
+  <div>COMEDY ATLAS is part of Paris Comedy — worldwide comedy booking, one city at a time.</div>
 </footer>
 
+<script src="atlas-common.js"></script>
 <script>
 (function () {
   "use strict";
-
-  // Data contract: data/comedy-atlas/upcoming_events.json, published by
-  // scripts/publish_atlas_data.py from the public_upcoming_events view
-  // (migration 0046, English-only by construction — never inferred here).
-  var DATA_URL = "../data/comedy-atlas/upcoming_events.json";
-  var MANIFEST_URL = "../data/comedy-atlas/MANIFEST.json";
+  var A = window.AtlasCommon;
 
   var app = document.getElementById("app");
   var freshnessText = document.getElementById("freshness-text");
   var freshnessDot = document.getElementById("freshness-dot");
-  var langFilter = document.getElementById("filter-lang");
-  var formatFilter = document.getElementById("filter-format");
-
-  var allEvents = [];
-
-  function escapeHtml(s) {
-    if (s === null || s === undefined) return "";
-    return String(s)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
-  }
-
-  function fmtDayHeading(d) {
-    return d.toLocaleDateString("en-GB", {
-      weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Paris"
-    });
-  }
-
-  function fmtTime(d) {
-    return d.toLocaleTimeString("en-GB", {
-      hour: "2-digit", minute: "2-digit", timeZone: "Europe/Paris"
-    });
-  }
-
-  function fmtPrice(ev) {
-    if (ev.price_min == null && ev.price_max == null) return null;
-    var cur = ev.currency ? (" " + ev.currency) : "";
-    if (ev.price_min != null && ev.price_max != null && ev.price_min !== ev.price_max) {
-      return ev.price_min + "–" + ev.price_max + cur;
-    }
-    var p = ev.price_min != null ? ev.price_min : ev.price_max;
-    return (p === 0 ? "Free" : (p + cur));
-  }
-
-  function statusBadge(ev) {
-    if (ev.status === "cancelled") return '<span class="badge cancelled">Cancelled</span>';
-    if (ev.sold_out_status === "sold_out") return '<span class="badge soldout">Sold out</span>';
-    return '<span class="badge verified">Verified</span>';
-  }
-
-  function renderEmpty(msg) {
-    app.innerHTML = '<div class="state-block"><h2>No shows to show — yet</h2><p>' +
-      escapeHtml(msg) + '</p></div>';
-  }
+  var statsRow = document.getElementById("stats-row");
 
   function renderError() {
-    app.innerHTML = '<div class="state-block error"><h2>Couldn’t load Paris shows</h2>' +
+    app.innerHTML = '<div class="state-block error"><h2>Couldn’t load COMEDY ATLAS</h2>' +
       '<p>The listings feed didn’t respond. Try again shortly, or check ' +
       '<a href="/shows.html" style="color:var(--purple-light)">the full shows page</a>.</p></div>';
   }
 
-  function buildFormatOptions(events) {
-    var formats = {};
-    events.forEach(function (ev) {
-      if (ev.genre && ev.genre !== "unknown") formats[ev.genre] = true;
-    });
-    Object.keys(formats).sort().forEach(function (f) {
-      var opt = document.createElement("option");
-      opt.value = f;
-      opt.textContent = f.charAt(0).toUpperCase() + f.slice(1);
-      formatFilter.appendChild(opt);
-    });
+  function renderEmpty() {
+    app.innerHTML = '<div class="state-block"><h2>No shows to show — yet</h2>' +
+      '<p>Check back soon as more cities come online.</p></div>';
   }
 
-  function applyFilters() {
-    var lang = langFilter.value;
-    var format = formatFilter.value;
-    var filtered = allEvents.filter(function (ev) {
-      if (lang && ev.language !== lang) return false;
-      if (format && ev.genre !== format) return false;
-      return true;
-    });
-    render(filtered);
+  function cityCard(entry) {
+    var slug = A.escapeHtml(entry.city);
+    var tag = "";
+    if (entry.city === "Edinburgh") tag = '<div class="place-tag">Free Fringe city</div>';
+    return '<a class="place-card" href="city.html?city=' + encodeURIComponent(entry.city) + '">' +
+      '<div class="place-name">' + slug + '</div>' +
+      '<div class="place-meta"><span class="place-count">' + entry.count + '</span> upcoming show' +
+      (entry.count === 1 ? '' : 's') + '</div>' + tag + '</a>';
+  }
+
+  function festivalCard(entry) {
+    var url = 'city.html?city=' + encodeURIComponent(entry.city) + '&org=' + encodeURIComponent(entry.org);
+    return '<a class="place-card" href="' + url + '">' +
+      '<div class="place-name">' + A.escapeHtml(entry.org) + '</div>' +
+      '<div class="place-meta">' + A.escapeHtml(entry.city) + ' · <span class="place-count">' +
+      entry.count + '</span> free show' + (entry.count === 1 ? '' : 's') + '</div>' +
+      '<div class="place-tag">Free entry</div></a>';
   }
 
   function render(events) {
-    if (!events.length) {
-      renderEmpty("No upcoming Paris shows match right now. Check back soon, or widen your filters.");
-      return;
+    if (!events.length) { renderEmpty(); return; }
+
+    var cities = A.groupByCity(events);
+    var festivals = A.groupFestivals(events);
+
+    var totalShows = events.length;
+    statsRow.innerHTML = '<span><strong>' + totalShows + '</strong> upcoming shows</span>' +
+      '<span><strong>' + cities.length + '</strong> cities live</span>' +
+      (festivals.length ? '<span><strong>' + festivals.length + '</strong> free festivals</span>' : '');
+
+    var html = '';
+
+    html += '<section class="atlas-section"><h2>Cities</h2><div class="card-grid">';
+    cities.forEach(function (c) { html += cityCard(c); });
+    html += '</div></section>';
+
+    if (festivals.length) {
+      html += '<section class="atlas-section"><h2>Festivals</h2><div class="card-grid">';
+      festivals.forEach(function (f) { html += festivalCard(f); });
+      html += '</div></section>';
     }
 
-    // Group by Europe/Paris calendar day, in starts_at order (data is
-    // already ordered "starts_at, id" by the export, but we re-sort
-    // defensively since this is a public untrusted-shape fetch).
-    var withDates = events.map(function (ev) {
-      return { ev: ev, d: new Date(ev.starts_at) };
-    }).filter(function (x) {
-      return !isNaN(x.d.getTime());
-    }).sort(function (a, b) { return a.d - b.d; });
-
-    var groups = [];
-    var lastKey = null;
-    withDates.forEach(function (x) {
-      var key = x.d.toLocaleDateString("en-GB", { timeZone: "Europe/Paris" });
-      if (key !== lastKey) {
-        groups.push({ key: key, day: x.d, items: [] });
-        lastKey = key;
-      }
-      groups[groups.length - 1].items.push(x);
-    });
-
-    var html = "";
-    groups.forEach(function (g) {
-      html += '<section class="day-group">';
-      html += '<div class="day-heading">' + escapeHtml(fmtDayHeading(g.day)) + '</div>';
-      g.items.forEach(function (x) {
-        var ev = x.ev;
-        var venueBit = ev.venue_name ? escapeHtml(ev.venue_name) : null;
-        var orgBit = ev.organization_name ? escapeHtml(ev.organization_name) : null;
-        var price = fmtPrice(ev);
-        var metaParts = [];
-        if (venueBit) metaParts.push(venueBit);
-        if (orgBit && orgBit !== venueBit) metaParts.push(orgBit);
-        if (ev.language === "en") metaParts.push("English");
-        if (price) metaParts.push(price);
-        var meta = metaParts.join(' <span class="sep">·</span> ');
-
-        var hasUrl = ev.canonical_event_url && /^https?:\/\//.test(ev.canonical_event_url);
-        var ticket = hasUrl
-          ? '<a class="ticket-link" href="' + escapeHtml(ev.canonical_event_url) + '" rel="noopener noreferrer" target="_blank">Official tickets →</a>'
-          : '<span class="ticket-link disabled">No ticket link yet</span>';
-
-        html += '<article class="event-card">';
-        html += '  <div class="event-top">';
-        html += '    <div class="event-title">' + escapeHtml(ev.title || "Untitled show") + "</div>";
-        html += '    <div class="event-time">' + escapeHtml(fmtTime(x.d)) + "</div>";
-        html += "  </div>";
-        html += '  <div class="event-meta">' + meta + " " + statusBadge(ev) + "</div>";
-        html += '  <div class="event-actions">' + ticket + "</div>";
-        html += "</article>";
-      });
-      html += "</section>";
-    });
+    // Recently verified: the soonest 6 shows across every city, as a quick
+    // "network activity" taste of what COMEDY ATLAS covers today.
+    var soon = events.slice().sort(function (a, b) {
+      return new Date(a.starts_at) - new Date(b.starts_at);
+    }).slice(0, 6);
+    html += '<section class="atlas-section"><h2>Recently verified</h2>' + A.renderEventCards(soon) + '</section>';
 
     app.innerHTML = html;
   }
 
-  function setFreshness(manifest) {
-    if (!manifest || !manifest.generated_at) {
-      freshnessText.textContent = "Freshness unknown.";
-      freshnessDot.classList.add("stale");
-      return;
-    }
-    var when = new Date(manifest.generated_at);
-    if (isNaN(when.getTime())) {
-      freshnessText.textContent = "Freshness unknown.";
-      freshnessDot.classList.add("stale");
-      return;
-    }
-    var ageHours = (Date.now() - when.getTime()) / 36e5;
-    if (ageHours > 48) freshnessDot.classList.add("stale");
-    freshnessText.textContent = "Data updated " + when.toLocaleString("en-GB", {
-      timeZone: "Europe/Paris", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit"
-    }) + " (Paris time).";
-  }
-
-  function loadManifest() {
-    fetch(MANIFEST_URL, { cache: "no-store" })
-      .then(function (r) { if (!r.ok) throw new Error("no manifest"); return r.json(); })
-      .then(setFreshness)
-      .catch(function () { setFreshness(null); });
-  }
-
-  function loadEvents() {
-    fetch(DATA_URL, { cache: "no-store" })
-      .then(function (r) {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.json();
-      })
-      .then(function (data) {
-        if (!Array.isArray(data)) throw new Error("unexpected payload shape");
-
-        // Defense in depth, mirroring publish_atlas_data.py's own French
-        // refusal: this page must never RENDER a French-labeled event even
-        // if one somehow reached the JSON. It never guesses language for
-        // anything the data leaves blank.
-        var safe = data.filter(function (ev) { return ev.language !== "fr"; });
-
-        // Paris-first per Phase-3 initial release scope.
-        var paris = safe.filter(function (ev) { return ev.city_name === "Paris"; });
-
-        allEvents = paris;
-        buildFormatOptions(paris);
-        if (!paris.length) {
-          renderEmpty("No upcoming Paris shows in the current feed.");
-          return;
-        }
-        render(paris);
-      })
-      .catch(function (err) {
-        renderError();
-      });
-  }
-
-  langFilter.addEventListener("change", applyFilters);
-  formatFilter.addEventListener("change", applyFilters);
-
-  loadEvents();
-  loadManifest();
+  A.fetchEvents().then(render).catch(renderError);
+  A.fetchManifest().then(function (m) { A.setFreshness(freshnessDot, freshnessText, m); });
 })();
 </script>
 </body>

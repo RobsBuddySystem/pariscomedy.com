@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<title id="doc-title">COMEDY ATLAS — City | Paris Comedy</title>
+<meta id="doc-desc" name="description" content="COMEDY ATLAS: find English-language stand-up comedy by city, worldwide. Verified listings, official ticket links.">
+<!--
+  Static per-city view, generalized across every city in the data via a
+  ?city= query param (GitHub Pages needs no server-side routing for this —
+  one file, no build step). Works today for Paris (ticketed) and Edinburgh
+  (Free Fringe / Laughing Horse — price 0 renders as "Free", not "£0",
+  via atlas-common.js's shared fmtPrice). Add ?org=<name> to scope further
+  to one festival organizer (used by the hub's festival cards).
+-->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#7c3aed;--purple-light:#9d5ff5;
+  --bg:#0a0e1a;--card:#111827;--border:#1e2a3a;
+  --text:#f0f0f0;--muted:#8899aa;
+  --gold:#c9a84c;--gold-light:#e8c96a;
+  --red:#c41e3a;--green:#3fb950;
+}
+@media (prefers-color-scheme: light){
+  :root{--bg:#f7f5f0;--card:#ffffff;--border:#e2ddd2;--text:#171512;--muted:#5a5348}
+}
+html,body{background:var(--bg);color:var(--text)}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;line-height:1.5}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{max-width:900px;margin:0 auto;padding:0 20px}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:100;flex-wrap:wrap;gap:8px}
+.nav-logo{font-size:16px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
+.nav-logo .site-name{color:var(--muted);font-weight:500}
+.nav-links{display:flex;gap:20px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+.nav-links a:hover{color:var(--text)}
+
+.atlas-header{max-width:900px;margin:0 auto;padding:32px 20px 16px}
+.back-link{font-size:13px;color:var(--muted);margin-bottom:10px;display:inline-block}
+.back-link:hover{color:var(--text)}
+.atlas-wordmark{font-size:clamp(24px,5vw,36px);font-weight:800;letter-spacing:-1px;line-height:1.1}
+.atlas-wordmark .dot{color:var(--gold)}
+.atlas-promise{color:var(--muted);font-size:15px;margin-top:8px;max-width:520px}
+
+.freshness{max-width:900px;margin:0 auto;padding:0 20px 8px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.freshness .dot-live{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block}
+.freshness .dot-live.stale{background:var(--red)}
+
+.utility-bar{max-width:900px;margin:16px auto 0;padding:0 20px}
+.utility-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.city-current{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px}
+.city-current .flag{margin-right:6px}
+select#filter-lang, select#filter-format, select#filter-org{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;font-family:inherit}
+
+main{max-width:900px;margin:0 auto;padding:24px 20px 80px}
+.day-group{margin-bottom:28px}
+.day-heading{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.event-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:12px;display:flex;flex-direction:column;gap:6px}
+.event-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.event-title{font-size:16px;font-weight:700;line-height:1.3}
+.event-time{font-size:13px;color:var(--gold);font-weight:700;white-space:nowrap}
+.event-meta{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px}
+.event-meta .sep{opacity:.5}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
+.badge.verified{color:var(--green);border-color:var(--green)}
+.badge.cancelled{color:var(--red);border-color:var(--red)}
+.badge.soldout{color:var(--gold);border-color:var(--gold)}
+.event-actions{margin-top:6px}
+.ticket-link{display:inline-block;font-size:13px;font-weight:700;color:#fff;background:var(--purple);padding:8px 16px;border-radius:8px}
+.ticket-link:hover{opacity:.9}
+.ticket-link.disabled{background:transparent;border:1px solid var(--border);color:var(--muted)}
+
+.state-block{text-align:center;padding:60px 20px;color:var(--muted)}
+.state-block h2{color:var(--text);font-size:20px;margin-bottom:8px}
+.state-block.error{color:var(--red)}
+.spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--purple);border-radius:50%;margin:0 auto 16px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.privacy-note{max-width:900px;margin:0 auto;padding:0 20px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--border);padding-top:20px}
+.privacy-note strong{color:var(--text)}
+
+footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;color:var(--muted);font-size:12px}
+
+@media(max-width:600px){
+  .nav-links{font-size:13px;gap:14px}
+  .event-top{flex-direction:column;gap:2px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><span class="site-name">Paris Comedy</span></a>
+  <div class="nav-links">
+    <a href="/shows.html">Shows</a>
+    <a href="/europe.html">Europe</a>
+    <a href="/comedy-atlas/" style="color:var(--gold);font-weight:700">COMEDY ATLAS</a>
+    <a href="/about.html">About</a>
+  </div>
+</nav>
+
+<header class="atlas-header">
+  <a href="index.html" class="back-link">← All cities and festivals</a>
+  <div class="atlas-wordmark" id="city-wordmark">COMEDY ATLAS<span class="dot">.</span></div>
+  <p class="atlas-promise" id="city-promise">Loading city…</p>
+</header>
+
+<div class="freshness" id="freshness">
+  <span class="dot-live" id="freshness-dot"></span>
+  <span id="freshness-text">Checking data freshness…</span>
+</div>
+
+<div class="utility-bar">
+  <div class="utility-row">
+    <span class="city-current"><span class="flag">📍</span><span id="city-current-name">City</span></span>
+    <select id="filter-lang" aria-label="Filter by language">
+      <option value="">All languages</option>
+      <option value="en">English</option>
+    </select>
+    <select id="filter-format" aria-label="Filter by format">
+      <option value="">All formats</option>
+    </select>
+    <select id="filter-org" aria-label="Filter by organizer" style="display:none">
+      <option value="">All organizers</option>
+    </select>
+  </div>
+</div>
+
+<main id="app" aria-live="polite">
+  <div class="state-block" id="loading-state">
+    <div class="spinner" aria-hidden="true"></div>
+    <p>Loading shows…</p>
+  </div>
+</main>
+
+<p class="privacy-note container">
+  <strong>Privacy:</strong> COMEDY ATLAS shows public event and venue details
+  only. No comedian or organizer contact information is ever shown here — the
+  privacy relay is the product. Every listing links to the organizer's
+  official ticket page.
+</p>
+
+<footer>
+  <div>COMEDY ATLAS is part of Paris Comedy — worldwide comedy booking, one city at a time.</div>
+</footer>
+
+<script src="atlas-common.js"></script>
+<script>
+(function () {
+  "use strict";
+  var A = window.AtlasCommon;
+
+  var params = new URLSearchParams(window.location.search);
+  var cityParam = params.get("city") || "Paris";
+  var orgParam = params.get("org") || "";
+
+  document.title = "COMEDY ATLAS — " + cityParam + " | Paris Comedy";
+  document.getElementById("doc-desc").setAttribute(
+    "content", "COMEDY ATLAS: find English-language stand-up comedy in " + cityParam + ". Verified listings, official ticket links."
+  );
+  document.getElementById("city-wordmark").innerHTML = A.escapeHtml(cityParam) + '<span class="dot">.</span>';
+  document.getElementById("city-current-name").textContent = cityParam;
+
+  var app = document.getElementById("app");
+  var freshnessText = document.getElementById("freshness-text");
+  var freshnessDot = document.getElementById("freshness-dot");
+  var langFilter = document.getElementById("filter-lang");
+  var formatFilter = document.getElementById("filter-format");
+  var orgFilter = document.getElementById("filter-org");
+  var cityPromise = document.getElementById("city-promise");
+
+  var allEvents = [];
+
+  function renderEmpty(msg) {
+    app.innerHTML = '<div class="state-block"><h2>No shows to show — yet</h2><p>' +
+      A.escapeHtml(msg) + '</p></div>';
+  }
+
+  function renderError() {
+    app.innerHTML = '<div class="state-block error"><h2>Couldn’t load ' + A.escapeHtml(cityParam) + ' shows</h2>' +
+      '<p>The listings feed didn’t respond. Try again shortly, or check ' +
+      '<a href="/shows.html" style="color:var(--purple-light)">the full shows page</a>.</p></div>';
+  }
+
+  function buildFormatOptions(events) {
+    var formats = {};
+    events.forEach(function (ev) {
+      if (ev.genre && ev.genre !== "unknown") formats[ev.genre] = true;
+    });
+    Object.keys(formats).sort().forEach(function (f) {
+      var opt = document.createElement("option");
+      opt.value = f;
+      opt.textContent = f.charAt(0).toUpperCase() + f.slice(1);
+      formatFilter.appendChild(opt);
+    });
+  }
+
+  function buildOrgOptions(events) {
+    var orgs = {};
+    events.forEach(function (ev) {
+      if (ev.organization_name) orgs[ev.organization_name] = true;
+    });
+    var names = Object.keys(orgs).sort();
+    if (names.length < 2) return;
+    orgFilter.style.display = "";
+    names.forEach(function (name) {
+      var opt = document.createElement("option");
+      opt.value = name;
+      opt.textContent = name;
+      if (name === orgParam) opt.selected = true;
+      orgFilter.appendChild(opt);
+    });
+  }
+
+  function applyFilters() {
+    var lang = langFilter.value;
+    var format = formatFilter.value;
+    var org = orgFilter.value;
+    var filtered = allEvents.filter(function (ev) {
+      if (lang && ev.language !== lang) return false;
+      if (format && ev.genre !== format) return false;
+      if (org && ev.organization_name !== org) return false;
+      return true;
+    });
+    if (!filtered.length) {
+      renderEmpty("No upcoming " + cityParam + " shows match right now. Check back soon, or widen your filters.");
+      return;
+    }
+    app.innerHTML = A.renderEventCards(filtered);
+  }
+
+  A.fetchEvents().then(function (data) {
+    var cityEvents = data.filter(function (ev) { return ev.city_name === cityParam; });
+
+    if (!cityEvents.length) {
+      cityPromise.textContent = "No upcoming shows found for " + cityParam + " yet.";
+      renderEmpty("No upcoming " + cityParam + " shows in the current feed.");
+      return;
+    }
+
+    var freeCount = cityEvents.filter(function (ev) {
+      return ev.price_min === 0 || ev.price_min === "0.00" || Number(ev.price_min) === 0;
+    }).length;
+    cityPromise.textContent = cityEvents.length + " upcoming show" + (cityEvents.length === 1 ? "" : "s") +
+      " in " + cityParam + (freeCount ? " — " + freeCount + " free" : "") + ".";
+
+    allEvents = cityEvents;
+    buildFormatOptions(cityEvents);
+    buildOrgOptions(cityEvents);
+    if (orgParam) orgFilter.value = orgParam;
+    applyFilters();
+  }).catch(renderError);
+
+  A.fetchManifest().then(function (m) { A.setFreshness(freshnessDot, freshnessText, m); });
+
+  langFilter.addEventListener("change", applyFilters);
+  formatFilter.addEventListener("change", applyFilters);
+  orgFilter.addEventListener("change", applyFilters);
+})();
+</script>
+</body>
+</html>

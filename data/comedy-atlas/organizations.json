@@ -1370,5 +1370,33 @@
     "name": "Blast Off Comedy",
     "organization_type": "production_company",
     "website_url": null
+  },
+  {
+    "active_status": "active",
+    "city_id": 33,
+    "city_name": "Edinburgh",
+    "country_iso2": "GB",
+    "country_name": "UK",
+    "description": null,
+    "id": 102,
+    "instagram_handle": null,
+    "instagram_url": null,
+    "name": "PBH's Free Fringe",
+    "organization_type": "other",
+    "website_url": "https://freefringe.org.uk"
+  },
+  {
+    "active_status": "active",
+    "city_id": 33,
+    "city_name": "Edinburgh",
+    "country_iso2": "GB",
+    "country_name": "UK",
+    "description": null,
+    "id": 103,
+    "instagram_handle": null,
+    "instagram_url": null,
+    "name": "Laughing Horse Free Festival",
+    "organization_type": "other",
+    "website_url": "https://freefestival.co.uk"
   }
 ]
