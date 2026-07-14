@@ -72,6 +72,90 @@
     return events.filter(function (ev) { return ev.language !== "fr"; });
   }
 
+  // --- Format derivation (Phase-3 listing-filtering-ux, 2026-07-14) -------
+  // The canonical `genre` column is populated for a minority of rows today
+  // (see docs/research/listing-filtering-ux-2026-07-14.md — Edinburgh export
+  // is ~23% "standup", the rest "unknown"; this is a DATA GAP in the
+  // upstream pipeline, not something this client-side code can fully close).
+  // We derive a best-effort format from genre + title keywords so the format
+  // filter/grid has real, non-fabricated buckets. Anything we can't place
+  // goes in "unclassified" rather than being guessed into "Stand-up" —
+  // never invent a fact the data doesn't support.
+  var FORMAT_LABELS = {
+    standup: "Stand-up",
+    improv: "Improv",
+    showcase: "Showcase",
+    openmic: "Open Mic",
+    sketch: "Sketch / Variety",
+    unclassified: "Unclassified"
+  };
+
+  function deriveFormat(ev) {
+    var title = (ev.title || "").toLowerCase();
+    if (/\bopen mic\b/.test(title)) return "openmic";
+    if (/\bimprov/.test(title)) return "improv";
+    if (/\bshowcase\b/.test(title)) return "showcase";
+    if (/\bsketch\b/.test(title)) return "sketch";
+    if (ev.genre === "standup") return "standup";
+    return "unclassified";
+  }
+
+  // --- Time-bucket helpers --------------------------------------------
+  // All bucketing is done against Europe/Paris wall-clock "now", matching
+  // the existing day-heading convention in renderEventCards. This does NOT
+  // correct the upstream offset quirk visible in some Edinburgh starts_at
+  // values (data-quality issue, out of scope here) — it only keeps "today" /
+  // "this weekend" consistent with what the page already renders.
+  function parisNow() {
+    var s = new Date().toLocaleString("en-US", { timeZone: "Europe/Paris" });
+    return new Date(s);
+  }
+
+  function parisDateKey(d) {
+    return d.toLocaleDateString("en-GB", { timeZone: "Europe/Paris" });
+  }
+
+  function parisHour(d) {
+    return Number(d.toLocaleString("en-GB", { timeZone: "Europe/Paris", hour: "2-digit", hour12: false }));
+  }
+
+  // Returns { tonight: fn, weekend: fn, week: fn, day: fn(dateKey) } — each
+  // fn(date) -> bool, evaluated against a fixed "now" so every card in one
+  // render pass is judged against the same instant.
+  function makeTimeBuckets(now) {
+    now = now || parisNow();
+    var todayKey = parisDateKey(now);
+    // Weekend = the Fri/Sat/Sun containing "now" if now is already Fri-Sun,
+    // else the coming Fri-Sun. JS getDay(): 0=Sun..6=Sat.
+    var dow = now.getDay();
+    var daysToFriday = (5 - dow + 7) % 7; // 0 if today is already Friday
+    if (dow === 6) daysToFriday = -1; // Saturday: weekend already started
+    if (dow === 0) daysToFriday = -2; // Sunday: weekend already started
+    var friStart = new Date(now.getTime());
+    friStart.setDate(friStart.getDate() + daysToFriday);
+    friStart.setHours(0, 0, 0, 0);
+    var sunEnd = new Date(friStart.getTime());
+    sunEnd.setDate(sunEnd.getDate() + 2);
+    sunEnd.setHours(23, 59, 59, 999);
+
+    var weekEnd = new Date(now.getTime());
+    weekEnd.setDate(weekEnd.getDate() + 7);
+
+    return {
+      tonight: function (d) { return parisDateKey(d) === todayKey && d.getTime() >= now.getTime(); },
+      weekend: function (d) { return d.getTime() >= friStart.getTime() && d.getTime() <= sunEnd.getTime() && d.getTime() >= now.getTime(); },
+      week: function (d) { return d.getTime() >= now.getTime() && d.getTime() <= weekEnd.getTime(); },
+      day: function (d, dateKey) { return parisDateKey(d) === dateKey; },
+      timeOfDay: function (d, bucket) {
+        var h = parisHour(d);
+        if (bucket === "afternoon") return h >= 12 && h < 17;
+        if (bucket === "evening") return h >= 17 && h < 21;
+        if (bucket === "late") return h >= 21 || h < 4;
+        return true;
+      }
+    };
+  }
+
   function fetchEvents() {
     return fetch(DATA_URL, { cache: "no-store" }).then(function (r) {
       if (!r.ok) throw new Error("HTTP " + r.status);
@@ -202,6 +286,11 @@
     setFreshness: setFreshness,
     groupByCity: groupByCity,
     groupFestivals: groupFestivals,
-    renderEventCards: renderEventCards
+    renderEventCards: renderEventCards,
+    FORMAT_LABELS: FORMAT_LABELS,
+    deriveFormat: deriveFormat,
+    parisNow: parisNow,
+    parisDateKey: parisDateKey,
+    makeTimeBuckets: makeTimeBuckets
   };
 })(window);
