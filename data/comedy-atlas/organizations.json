@@ -1356,5 +1356,19 @@
     "name": "Coucou Comedy",
     "organization_type": "production_company",
     "website_url": null
+  },
+  {
+    "active_status": "active",
+    "city_id": 25,
+    "city_name": "Paris",
+    "country_iso2": "FR",
+    "country_name": "France",
+    "description": "staged by pipeline.resolve for ticketing source 95 ('Eventbrite: Blast Off Comedy') \u2014 no canonical org matched the event title or source label",
+    "id": 101,
+    "instagram_handle": null,
+    "instagram_url": null,
+    "name": "Blast Off Comedy",
+    "organization_type": "production_company",
+    "website_url": null
   }
 ]
