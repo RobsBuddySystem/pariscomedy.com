@@ -390,5 +390,12 @@
     "iso2": "XK",
     "name": "Kosovo",
     "primary_languages": "sq"
+  },
+  {
+    "continent": "North America",
+    "id": 60,
+    "iso2": "US",
+    "name": "United States",
+    "primary_languages": "en"
   }
 ]
