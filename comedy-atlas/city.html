@@ -97,6 +97,12 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .time-strip{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
 #filter-when{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer}
 #filter-day{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:999px;padding:8px 12px;font-size:13px;font-family:inherit}
+.near-me-toggle{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer}
+.near-me-toggle:hover{border-color:var(--purple-light)}
+.near-me-toggle[aria-pressed="true"]{border-color:var(--purple);background:rgba(124,58,237,.15);color:var(--purple-light)}
+.event-distance{color:var(--muted)}
+.atlas-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9996;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 18px;font-size:13px;max-width:calc(100% - 32px);box-shadow:0 4px 14px rgba(0,0,0,.3);opacity:0;transition:opacity .2s}
+.atlas-toast.show{opacity:1}
 
 .facet-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
 .facet-row select, .facet-row input[type=text]{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit}
@@ -226,6 +232,7 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
       <option value="day">Specific date…</option>
     </select>
     <input type="date" id="filter-day" aria-label="Pick a date" style="display:none">
+    <button type="button" id="near-me-toggle" class="near-me-toggle" aria-pressed="false">📍 Sort by distance</button>
   </div>
 
   <div id="format-grid" class="format-grid" style="display:none"></div>
@@ -336,7 +343,14 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
   document.getElementById("city-wordmark").innerHTML = A.escapeHtml(cityParam) + '<span class="dot">.</span>';
   document.getElementById("city-current-name").textContent = cityParam;
 
-  var app = document.getElementById("app");
+  // 2026-07-19 P0 fix: this used to look up id="app", which doesn't exist
+  // on this page -- the actual listing container is <main id="main-content">
+  // (same id-mismatch bug class the homepage had, commit 3cba7ca). Every
+  // app.innerHTML write below (render/renderEmpty/renderSmartEmpty/
+  // renderError) was silently throwing "Cannot set properties of null" on
+  // EVERY city page, live, leaving every visitor stuck on "Loading shows…"
+  // forever -- found while live-verifying the smart-empty-state feature.
+  var app = document.getElementById("main-content");
   var freshnessText = document.getElementById("freshness-text");
   var freshnessDot = document.getElementById("freshness-dot");
   var searchInput = document.getElementById("filter-search");
@@ -357,9 +371,11 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
   var orgBannerText = document.getElementById("org-filter-banner-text");
   var orgBannerClear = document.getElementById("org-filter-clear");
   var cityPromise = document.getElementById("city-promise");
+  var nearMeToggle = document.getElementById("near-me-toggle");
 
   var allEvents = [];
   var visibleLimit = PAGE_SIZE;
+  var userCoords = null; // {lat, lon} once geolocation succeeds -- never persisted, this-page-load only
 
   // ---- state <-> URL --------------------------------------------------
   var state = {
@@ -369,6 +385,7 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
     format: params.get("format") || "",
     venue: params.get("venue") || "",
     price: params.get("price") || "",
+    distanceSort: false,
     lang: params.get("lang") || "",
     duration: params.get("duration") || "",
     org: orgParam,
@@ -412,6 +429,43 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
   function renderEmpty(msg) {
     app.innerHTML = '<div class="state-block"><h2>No shows to show — yet</h2><p>' +
       A.escapeHtml(msg) + '</p></div>';
+  }
+
+  // Quick-win batch (2026-07-19, competitor+persona gap analysis) feature
+  // #3: SMART EMPTY STATES. When a time filter (tonight/weekend/week/a
+  // specific date) yields zero shows, a bare "no shows" message is a dead
+  // end — this instead surfaces the next real, upcoming show in this city
+  // (computed from the already-loaded, unfiltered `allEvents` array, never
+  // a fabricated date) and links straight to it. Only fires for a
+  // RESTRICTIVE time filter (not "all upcoming", which has no time-based
+  // explanation for zero results — the generic message there is honest:
+  // some other facet filter, or genuinely nothing in this city, is why).
+  var WHEN_EMPTY_LABELS = { tonight: "tonight", weekend: "this weekend", week: "this week" };
+
+  function findNextShow(events) {
+    var now = new Date();
+    var next = null;
+    for (var i = 0; i < events.length; i++) {
+      var d = new Date(events[i].starts_at);
+      if (isNaN(d.getTime()) || d < now) continue;
+      if (!next || d < new Date(next.starts_at)) next = events[i];
+    }
+    return next;
+  }
+
+  function renderSmartEmpty(timeLabel, ev) {
+    var d = new Date(ev.starts_at);
+    var dateStr = isNaN(d.getTime()) ? "" :
+      d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }) +
+      " · " + d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    var href = ev.show_series_slug
+      ? "show/" + encodeURIComponent(ev.show_series_slug) + "/"
+      : (ev.slug ? "event/" + encodeURIComponent(ev.slug) + "/" : null);
+    var titleHtml = A.escapeHtml(ev.title || "this show");
+    if (href) titleHtml = '<a href="' + href + '">' + titleHtml + "</a>";
+    app.innerHTML = '<div class="state-block">' +
+      '<h2>Nothing ' + A.escapeHtml(timeLabel) + ' in ' + A.escapeHtml(cityParam) + '</h2>' +
+      '<p>Next show is ' + A.escapeHtml(dateStr) + ': ' + titleHtml + '</p></div>';
   }
 
   function renderError() {
@@ -584,6 +638,73 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
 
   var venueMapEl = document.getElementById("venue-map");
 
+  // Roadmap #14 helpers -----------------------------------------------
+
+  var toastTimer = null;
+  function toast(msg) {
+    var el = document.getElementById("atlas-toast");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "atlas-toast";
+      el.className = "atlas-toast";
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    clearTimeout(toastTimer);
+    // rAF so the display change and the opacity transition don't collapse
+    // into a single, invisible paint on repeat calls.
+    requestAnimationFrame(function () { el.classList.add("show"); });
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 3200);
+  }
+
+  // Attaches a `_distanceKm` (or null, when the group's earliest occurrence
+  // has no real venue coordinates -- never guessed) to a NEW array of
+  // groups, using AtlasCommon.distanceKm's shared haversine implementation
+  // so this page's numbers always match atlas-venue-map.js's own distances.
+  function attachDistances(groups, coords) {
+    return groups.map(function (g) {
+      var primary = g.events[0];
+      var copy = {};
+      for (var k in g) { if (Object.prototype.hasOwnProperty.call(g, k)) copy[k] = g[k]; }
+      var lat = primary.venue_latitude, lon = primary.venue_longitude;
+      copy._distanceKm = (typeof lat === "number" && typeof lon === "number" && !isNaN(lat) && !isNaN(lon))
+        ? Math.round(A.distanceKm(coords.lat, coords.lon, lat, lon) * 10) / 10
+        : null;
+      return copy;
+    });
+  }
+
+  function setDistanceSort(on) {
+    state.distanceSort = on;
+    nearMeToggle.setAttribute("aria-pressed", on ? "true" : "false");
+    render();
+  }
+
+  nearMeToggle.addEventListener("click", function () {
+    if (state.distanceSort) { setDistanceSort(false); return; } // toggle off, no re-prompt
+    if (!("geolocation" in navigator)) {
+      toast("Your browser doesn't support location — showing the usual order instead.");
+      return;
+    }
+    nearMeToggle.disabled = true;
+    nearMeToggle.textContent = "📍 Locating…";
+    navigator.geolocation.getCurrentPosition(
+      function (pos) {
+        userCoords = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+        nearMeToggle.disabled = false;
+        nearMeToggle.textContent = "📍 Sort by distance";
+        setDistanceSort(true);
+      },
+      function () {
+        nearMeToggle.disabled = false;
+        nearMeToggle.textContent = "📍 Sort by distance";
+        toast("Location access was denied — showing the usual order instead.");
+        setDistanceSort(false);
+      },
+      { timeout: 8000, maximumAge: 300000 }
+    );
+  });
+
   function render() {
     var filtered = applyFilters();
     buildFormatGrid(allEvents);
@@ -606,6 +727,14 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
 
     if (!filtered.length) {
       resultCount.textContent = "0 shows match your filters";
+      var timeLabel = state.when === "day" && state.day
+        ? "on " + state.day
+        : WHEN_EMPTY_LABELS[state.when];
+      var nextShow = timeLabel ? findNextShow(allEvents) : null;
+      if (nextShow) {
+        renderSmartEmpty(timeLabel, nextShow);
+        return;
+      }
       renderEmpty("No " + cityParam + " shows match right now. Try widening your filters or picking a different time range.");
       return;
     }
@@ -617,12 +746,44 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
     // (the flat, per-date list) still feeds the venue map above and the
     // total-dates count below -- only the card rendering itself groups.
     var groups = A.groupEventsByShow(filtered);
+
+    // Roadmap #14 — near-me sort. Reorders the SAME already-filtered group
+    // list by distance from the visitor's last-shared location (state.when/
+    // format/etc are unaffected -- this only changes ordering). A group
+    // with no venue coordinates on its earliest occurrence sinks to the
+    // bottom, tagged "distance unknown" rather than guessed or dropped --
+    // same "never fabricate a location" discipline as atlas-venue-map.js.
+    if (state.distanceSort && userCoords) {
+      groups = attachDistances(groups, userCoords).sort(function (a, b) {
+        if (a._distanceKm == null && b._distanceKm == null) return 0;
+        if (a._distanceKm == null) return 1;
+        if (b._distanceKm == null) return -1;
+        return a._distanceKm - b._distanceKm;
+      });
+    }
+
     var shownGroups = groups.slice(0, visibleLimit);
     resultCount.textContent = shownGroups.length + " of " + groups.length + " show" + (groups.length === 1 ? "" : "s") +
       " shown (" + filtered.length + " date" + (filtered.length === 1 ? "" : "s") + " total" +
       (cityPromise._total ? " · " + cityPromise._total + " total in " + cityParam : "") + ")";
 
     app.innerHTML = A.renderGroupedEventCards(shownGroups);
+
+    // Distance annotations are appended as a DOM pass rather than plumbed
+    // through AtlasCommon.renderGroupedEventCards (shared with index.html,
+    // which has no concept of "distance from visitor") -- .event-card
+    // elements render in the exact same order as shownGroups, so a
+    // straight index correlation is safe here.
+    if (state.distanceSort && userCoords) {
+      var cardEls = app.querySelectorAll(".event-card");
+      shownGroups.forEach(function (g, i) {
+        var metaEl = cardEls[i] && cardEls[i].querySelector(".event-meta");
+        if (!metaEl) return;
+        var label = g._distanceKm == null ? "distance unknown" : g._distanceKm + " km away";
+        metaEl.insertAdjacentHTML("beforeend",
+          ' <span class="sep">·</span><span class="event-distance">' + A.escapeHtml(label) + "</span>");
+      });
+    }
 
     if (groups.length > shownGroups.length) {
       var row = document.createElement("div");
