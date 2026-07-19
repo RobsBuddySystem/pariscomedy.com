@@ -3,25 +3,353 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>COMEDY ATLAS has moved</title>
-<meta name="robots" content="noindex">
-<link rel="canonical" href="https://comedyatlas.app/comedy-atlas/">
-<meta http-equiv="refresh" content="0; url=https://comedyatlas.app/comedy-atlas/">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<title>COMEDY ATLAS — The Worldwide Hub for Stand-Up Comedy Booking</title>
+<link rel="manifest" href="/comedy-atlas/manifest.webmanifest">
+<meta name="theme-color" content="#0a0e1a">
+<link rel="apple-touch-icon" href="/comedy-atlas/icons/apple-touch-icon.png">
+<link rel="icon" href="/comedy-atlas/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="32x32" href="/comedy-atlas/icons/atlas-favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/comedy-atlas/icons/atlas-favicon-16.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Atlas">
+<meta name="description" content="COMEDY ATLAS: comics find shows, bookers find comics, free. Browse live comedy by city and festival, worldwide.">
+<link rel="canonical" href="https://pariscomedy.com/comedy-atlas/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Paris Comedy">
+<meta property="og:title" content="COMEDY ATLAS — The Worldwide Hub for Stand-Up Comedy Booking">
+<meta property="og:description" content="Comics find shows. Bookers find comics. Free.">
+<meta property="og:url" content="https://pariscomedy.com/comedy-atlas/">
 <style>
+/* ---------------------------------------------------------------------
+   COMEDY ATLAS — HUB landing page. Self-contained static page (no build
+   step, no external CDN). Palette matches pariscomedy.com's existing dark
+   theme (see pariscomedy-push-20260526-095907/index.html) so this reads as
+   part of the same site, not a bolted-on tool. Shared card/list styling
+   also used by city.html (per-city view) for visual continuity.
+   ------------------------------------------------------------------- */
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0a0e1a;--card:#111827;--border:#1e2a3a;--text:#f0f0f0;--muted:#8899aa;--gold:#c9a84c}
-@media (prefers-color-scheme: light){:root{--bg:#f7f5f0;--card:#ffffff;--border:#e2ddd2;--text:#171512;--muted:#5a5348}}
-html,body{background:var(--bg);color:var(--text);min-height:100vh}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;align-items:center;justify-content:center}
-.card{max-width:420px;margin:0 auto;padding:40px 20px;text-align:center}
-.dot{color:var(--gold)}
-a{color:var(--gold);text-decoration:none}
+:root{
+  --purple:#7c3aed;--purple-light:#9d5ff5;
+  --bg:#0a0e1a;--card:#111827;--border:#1e2a3a;
+  --text:#f0f0f0;--muted:#8899aa;
+  --gold:#c9a84c;--gold-light:#e8c96a;
+  --red:#c41e3a;--green:#3fb950;
+}
+@media (prefers-color-scheme: light){
+  :root{--bg:#f7f5f0;--card:#ffffff;--border:#e2ddd2;--text:#171512;--muted:#5a5348}
+}
+html,body{background:var(--bg);color:var(--text)}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;line-height:1.5}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* Nav */
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:100;flex-wrap:wrap;gap:8px}.skip-link{position:absolute;left:-9999px;top:0;background:var(--card);color:var(--text);padding:10px 16px;z-index:1000;border-radius:0 0 8px 0;font-size:13px;font-weight:700}.skip-link:focus{left:0}.nav-links a.nav-active{color:var(--text);font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.nav-logo{font-size:16px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
+.nav-logo .site-name{color:var(--muted);font-weight:500}
+.nav-logo .atlas-name{color:var(--gold)}
+.nav-links{display:flex;gap:20px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+.nav-links a:hover{color:var(--text)}
+
+/* Hero */
+.atlas-hero{max-width:1100px;margin:0 auto;padding:48px 20px 28px;display:flex;align-items:center;gap:32px;justify-content:space-between}
+.atlas-hero-copy{flex:1 1 480px;min-width:0}
+.atlas-wordmark{font-size:clamp(30px,6vw,48px);font-weight:800;letter-spacing:-1px;line-height:1.05}
+.atlas-wordmark .dot{color:var(--gold)}
+.atlas-tagline{color:var(--gold-light);font-size:18px;font-weight:700;margin-top:10px}
+.atlas-mission{color:var(--muted);font-size:16px;margin-top:8px;max-width:560px}
+.atlas-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.atlas-hero-figure{flex:0 0 auto;width:clamp(120px,18vw,200px);opacity:0;transform:translateY(10px) scale(.97);animation:atlas-hero-in .6s ease-out .1s forwards}
+.atlas-hero-figure img{width:100%;height:auto;display:block}
+@keyframes atlas-hero-in{to{opacity:1;transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.atlas-hero-figure{opacity:1;transform:none;animation:none}}
+@media(max-width:640px){
+  .atlas-hero{flex-direction:column-reverse;text-align:center;gap:12px}
+  .atlas-hero-figure{width:clamp(96px,32vw,140px)}
+  .atlas-mission{max-width:none}
+  .atlas-cta-row{justify-content:center}
+}
+.cta-btn{border-radius:10px;padding:13px 22px;font-size:14px;font-weight:700}
+.cta-btn.comic{background:var(--purple);color:#fff}
+.cta-btn.comic:hover{opacity:.9}
+.cta-btn.booker{border:1px solid var(--gold);color:var(--gold)}
+.cta-btn.booker:hover{background:var(--gold);color:#100c00}
+.cta-btn.fan{border:1px solid var(--border);color:var(--muted)}
+.cta-btn.fan:hover{border-color:var(--purple-light);color:var(--text)}
+
+/* Freshness / trust bar */
+.freshness{max-width:1100px;margin:0 auto;padding:0 20px 8px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.freshness .dot-live{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block}
+.freshness .dot-live.stale{background:var(--red)}
+.stats-row{max-width:1100px;margin:0 auto;padding:6px 20px 0;font-size:13px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.stats-row strong{color:var(--gold)}
+
+/* Section shell */
+.atlas-section{max-width:1100px;margin:0 auto;padding:32px 20px 8px}
+.atlas-section h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+/* City / festival card grids */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.place-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;display:block;transition:border-color .15s}
+.place-card:hover{border-color:var(--purple)}
+.place-card .place-name{font-size:17px;font-weight:700}
+.place-card .place-meta{color:var(--muted);font-size:13px;margin-top:6px}
+.place-card .place-count{color:var(--gold);font-weight:700}
+.place-card .place-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--green);margin-top:8px}
+
+/* "Also tracking" stub-city list (2026-07-19): compact links, not big
+   cards -- these are 1-2-show stubs from touring-organizer feeds, not
+   real per-city coverage yet (see docs/atlas-ops/ROADMAP_GAPS). */
+.stub-note{color:var(--muted);font-size:12.5px;margin-bottom:12px;max-width:640px}
+.stub-list{display:flex;flex-wrap:wrap;gap:8px 16px}
+.stub-list a{font-size:13px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:5px 12px}
+.stub-list a:hover{color:var(--text);border-color:var(--purple)}
+.stub-list .stub-count{color:var(--gold);font-weight:700}
+.badge.city-badge{color:var(--purple-light);border-color:var(--purple-light);margin-right:4px}
+
+/* Event list (recently verified strip) */
+main{max-width:1100px;margin:0 auto;padding:8px 20px 40px}
+.day-group{margin-bottom:24px}
+.day-heading{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.event-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:12px;display:flex;flex-direction:column;gap:6px}
+a.event-card{color:inherit;text-decoration:none;transition:border-color .15s}
+a.event-card:hover{border-color:var(--purple)}
+.event-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.event-title{font-size:16px;font-weight:700;line-height:1.3}
+.event-time{font-size:13px;color:var(--gold);font-weight:700;white-space:nowrap}
+.event-meta{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px}
+.event-meta .sep{opacity:.5}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
+.badge.verified{color:var(--green);border-color:var(--green)}
+.badge.cancelled{color:var(--red);border-color:var(--red)}
+.badge.soldout{color:var(--gold);border-color:var(--gold)}
+.event-actions{margin-top:6px}
+.ticket-link{display:inline-block;font-size:13px;font-weight:700;color:#fff;background:var(--purple);padding:8px 16px;border-radius:8px}
+.ticket-link:hover{opacity:.9}
+.ticket-link.disabled{background:transparent;border:1px solid var(--border);color:var(--muted)}
+
+/* States */
+.state-block{text-align:center;padding:60px 20px;color:var(--muted)}
+.state-block h2{color:var(--text);font-size:20px;margin-bottom:8px;border:none;text-transform:none;letter-spacing:0}
+.state-block.error{color:var(--red)}
+.spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--purple);border-radius:50%;margin:0 auto 16px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.privacy-note{max-width:1100px;margin:0 auto;padding:0 20px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--border);padding-top:20px;margin-top:20px}
+.privacy-note strong{color:var(--text)}
+
+footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;color:var(--muted);font-size:12px}
+.footer-links{margin-top:8px}
+.footer-links a{color:var(--muted)}
+.footer-links a:hover{color:var(--text)}
+.footer-links .sep{margin:0 8px;opacity:.5}
+
+@media(max-width:600px){
+  .nav-links{font-size:13px;gap:14px}
+  .event-top{flex-direction:column;gap:2px}
+}
+
+/*
+  ---------------------------------------------------------------------
+  READY-TO-PASTE HOMEPAGE NAV SNIPPET has moved to a dedicated file:
+  site/comedy-atlas/HOMEPAGE_SNIPPET.html (Phase-3 §6.2). Nothing here
+  modifies the live homepage. See that file for the exact markup + the
+  human/deploy steps.
+  ---------------------------------------------------------------------
+*/
 </style>
 </head>
 <body>
-<div class="card">
-<p>COMEDY ATLAS has moved &rarr; <a href="https://comedyatlas.app/comedy-atlas/">comedyatlas.app</a></p>
+
+<a href="#main-content" class="skip-link">Skip to content</a>
+<nav>
+  <a href="/" class="nav-logo"><span class="site-name">Paris Comedy</span></a>
+  <div class="nav-links">
+    <a href="/shows.html">Shows</a>
+    <a href="/europe.html">Europe</a>
+    <a href="/comedy-atlas/" style="color:var(--gold);font-weight:700">COMEDY ATLAS</a>
+    <a href="/comedy-atlas/blog/">Blog</a>
+    <a href="/about.html">About</a>
+  </div>
+</nav>
+
+<header class="atlas-hero">
+  <div class="atlas-hero-copy">
+    <div class="atlas-wordmark">COMEDY ATLAS<span class="dot">.</span></div>
+    <p class="atlas-tagline">Comics find shows. Bookers find comics. Free.</p>
+    <p class="atlas-mission">The worldwide hub for stand-up comedy booking — browse live shows and free
+      festival lineups by city, book a spot, or fill one. No fees, no gatekeeping.</p>
+    <div class="atlas-cta-row">
+      <a href="/comedy-atlas/login.html?role=comic&next=/comedy-atlas/comic.html" class="cta-btn comic">I'm a comic →</a>
+      <a href="/comedy-atlas/login.html?role=booker&next=/comedy-atlas/booker.html" class="cta-btn booker">I'm a booker →</a>
+      <a href="/comedy-atlas/login.html?role=fan&next=/comedy-atlas/itinerary.html" class="cta-btn fan">♥ For fans — save shows &amp; get alerts</a>
+    </div>
+  </div>
+  <div class="atlas-hero-figure">
+    <picture>
+      <source srcset="/comedy-atlas/assets/brand/atlas-character-hero-600.webp" type="image/webp">
+      <img src="/comedy-atlas/assets/brand/atlas-character-hero-600.png" width="600" height="600"
+        alt="Cartoon Atlas straining under the weight of the globe while gripping a stand-up mic, the COMEDY ATLAS badge logo">
+    </picture>
+  </div>
+</header>
+
+<div class="freshness" id="freshness">
+  <span class="dot-live" id="freshness-dot"></span>
+  <span id="freshness-text">Checking data freshness…</span>
 </div>
-<script>location.replace('https://comedyatlas.app' + location.pathname + location.search);</script>
+<div class="stats-row" id="stats-row"></div>
+
+<main id="main-content" aria-live="polite">
+  <div class="state-block" id="loading-state">
+    <div class="spinner" aria-hidden="true"></div>
+    <p>Loading COMEDY ATLAS…</p>
+  </div>
+</main>
+
+<div class="atlas-subscribe-mount container"></div>
+
+<p class="privacy-note container">
+  <strong>Privacy:</strong> COMEDY ATLAS shows public event and venue details
+  only. No comedian or organizer contact information is ever shown here — the
+  privacy relay is the product. Every listing links to the organizer's
+  official ticket page. <strong>Free:</strong> discovery and booking on
+  COMEDY ATLAS costs nothing, for comics or bookers.
+</p>
+
+<footer>
+  <div>COMEDY ATLAS is part of Paris Comedy — worldwide comedy booking, one city at a time.</div>
+  <div class="footer-links">
+    <a href="https://instagram.com/comedyatlasapp" target="_blank" rel="noopener">Instagram</a>
+    <span class="sep">·</span>
+    <a href="mailto:contact@comedyatlas.app">contact@comedyatlas.app</a>
+  </div>
+<div class="footer-feedback-cta"><button type="button" onclick="if(window.AtlasFeedback)window.AtlasFeedback.open({subject:'suggestion'})" style="background:none;border:none;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer">Is something missing? Send us a message</button></div>
+</footer>
+
+<script src="atlas-track.js"></script>
+<script src="atlas-pwa.js"></script>
+<script src="atlas-common.js"></script>
+<script src="atlas-city-subscribe.js"></script>
+<script>
+(function () {
+  "use strict";
+  var A = window.AtlasCommon;
+
+  var app = document.getElementById("main-content");
+  var freshnessText = document.getElementById("freshness-text");
+  var freshnessDot = document.getElementById("freshness-dot");
+  var statsRow = document.getElementById("stats-row");
+
+  function renderError() {
+    app.innerHTML = '<div class="state-block error"><h2>Couldn’t load COMEDY ATLAS</h2>' +
+      '<p>The listings feed didn’t respond. Try again shortly, or check ' +
+      '<a href="/shows.html" style="color:var(--purple-light)">the full shows page</a>.</p></div>';
+  }
+
+  function renderEmpty() {
+    app.innerHTML = '<div class="state-block"><h2>No shows to show — yet</h2>' +
+      '<p>Check back soon as more cities come online.</p></div>';
+  }
+
+  // FEATURED_MIN_SHOWS: cities with real registered-source coverage today
+  // (London/Edinburgh/Madrid/Amsterdam/Barcelona/Berlin/Paris/Dublin) all
+  // clear this bar comfortably; every other live city is a 1-5-show stub
+  // from a touring organizer's feed, not real per-city coverage (Robert,
+  // 2026-07-19: "I'm sure there's more than one show in Montreal" -- he's
+  // right, Montreal has exactly 1, a stray touring-act event, not a scene).
+  var FEATURED_MIN_SHOWS = 15;
+
+  // Always shows the country -- Robert's core need ("I don't know where
+  // Riga is") applies just as honestly to a city everyone already knows
+  // (Paris, London): consistency beats a subjective "major city" list.
+  function cityLabel(entry) {
+    var slug = A.escapeHtml(entry.city);
+    return entry.country ? slug + ', ' + A.escapeHtml(entry.country) : slug;
+  }
+
+  function cityCard(entry) {
+    var tag = "";
+    if (entry.city === "Edinburgh") tag = '<div class="place-tag">Free Fringe city</div>';
+    return '<a class="place-card" href="city.html?city=' + encodeURIComponent(entry.city) + '">' +
+      '<div class="place-name">' + cityLabel(entry) + '</div>' +
+      '<div class="place-meta"><span class="place-count">' + entry.count + '</span> upcoming show' +
+      (entry.count === 1 ? '' : 's') + '</div>' + tag + '</a>';
+  }
+
+  function stubCityLink(entry) {
+    return '<a href="city.html?city=' + encodeURIComponent(entry.city) + '">' +
+      cityLabel(entry) + ' · <span class="stub-count">' + entry.count + '</span></a>';
+  }
+
+  function festivalCard(entry) {
+    var url = 'city.html?city=' + encodeURIComponent(entry.city) + '&org=' + encodeURIComponent(entry.org);
+    return '<a class="place-card" href="' + url + '">' +
+      '<div class="place-name">' + A.escapeHtml(entry.org) + '</div>' +
+      '<div class="place-meta">' + A.escapeHtml(entry.city) + ' · <span class="place-count">' +
+      entry.count + '</span> free show' + (entry.count === 1 ? '' : 's') + '</div>' +
+      '<div class="place-tag">Free entry</div></a>';
+  }
+
+  function render(events, citiesJson) {
+    if (!events.length) { renderEmpty(); return; }
+
+    var cities = A.groupByCity(events, A.citiesByName(citiesJson));
+    var featured = cities.filter(function (c) { return c.count >= FEATURED_MIN_SHOWS; });
+    var stubs = cities.filter(function (c) { return c.count < FEATURED_MIN_SHOWS; });
+    var festivals = A.groupFestivals(events);
+
+    var totalShows = events.length;
+    statsRow.innerHTML = '<span><strong>' + totalShows + '</strong> upcoming shows</span>' +
+      '<span><strong>' + cities.length + '</strong> cities live</span>' +
+      (festivals.length ? '<span><strong>' + festivals.length + '</strong> free festivals</span>' : '');
+
+    var html = '';
+
+    html += '<section class="atlas-section"><h2>Cities</h2><div class="card-grid">';
+    featured.forEach(function (c) { html += cityCard(c); });
+    html += '</div>';
+
+    if (stubs.length) {
+      html += '<div style="margin-top:20px">' +
+        '<p class="stub-note">Also tracking — cities where we\'ve spotted shows but don\'t yet have ' +
+        'full coverage:</p><div class="stub-list">' +
+        stubs.map(stubCityLink).join('') + '</div></div>';
+    }
+
+    html += '<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)"><a href="/comedy-atlas/cities/" style="color:var(--gold);font-weight:700">Browse all ' + cities.length + ' cities →</a></div></section>';
+
+    if (festivals.length) {
+      html += '<section class="atlas-section"><h2>Festivals</h2><div class="card-grid">';
+      festivals.forEach(function (f) { html += festivalCard(f); });
+      html += '</div></section>';
+    }
+
+    // Recently verified: the soonest shows across every city, grouped by
+    // date with a city badge per card (2026-07-19, Robert: the old flat
+    // 6-item list mixed every city together) -- capped per day and total
+    // days so this stays a taste, not a full listing (full listings live
+    // on /city/<slug>/).
+    var soon = events.slice().sort(function (a, b) {
+      return new Date(a.starts_at) - new Date(b.starts_at);
+    }).slice(0, 60);
+    html += '<section class="atlas-section"><h2>Recently verified</h2>' +
+      A.renderEventCards(soon, { showCityBadge: true, maxPerDay: 3, maxDays: 5 }) + '</section>';
+
+    app.innerHTML = html;
+  }
+
+  Promise.all([A.fetchEvents(), A.fetchCities()]).then(function (results) {
+    render(results[0], results[1]);
+  }).catch(renderError);
+  A.fetchManifest().then(function (m) { A.setFreshness(freshnessDot, freshnessText, m); });
+})();
+</script>
+<script src="atlas-feedback.js"></script>
+<script src="near.js"></script>
 </body>
 </html>
