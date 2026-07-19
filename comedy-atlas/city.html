@@ -3,25 +3,745 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>COMEDY ATLAS — Browse by City (moved)</title>
-<meta name="robots" content="noindex">
-<link rel="canonical" href="https://comedyatlas.app/comedy-atlas/city.html">
-<meta http-equiv="refresh" content="0; url=https://comedyatlas.app/comedy-atlas/city.html">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<title id="doc-title">COMEDY ATLAS — City | Paris Comedy</title>
+<link rel="canonical" href="https://pariscomedy.com/comedy-atlas/city.html">
+<link rel="manifest" href="/comedy-atlas/manifest.webmanifest">
+<meta name="theme-color" content="#0a0e1a">
+<link rel="apple-touch-icon" href="/comedy-atlas/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Atlas">
+<meta id="doc-desc" name="description" content="COMEDY ATLAS: find English-language stand-up comedy by city, worldwide. Verified listings, official ticket links.">
+<!--
+  Static per-city view, generalized across every city in the data via a
+  ?city= query param (GitHub Pages needs no server-side routing for this —
+  one file, no build step). Works today for Paris (~80 ticketed shows) and
+  Edinburgh (600+ Free Fringe / Laughing Horse shows — festival scale).
+
+  Filtering UX (docs/research/listing-filtering-ux-2026-07-14.md):
+  time quick-views (Tonight/Weekend/Week/date-picker) as the primary control,
+  then format/venue/free-paid/language facets + always-visible search, all
+  client-side over data/comedy-atlas/upcoming_events.json, combined with AND
+  logic, counts updated live, state round-tripped through the URL so any
+  filtered view is a shareable link (?city=Edinburgh&when=weekend&format=standup).
+
+  Data gaps (do NOT fabricate — see research doc + atlas-common.js comments):
+  - `genre` is populated for a minority of rows (Edinburgh: ~23% "standup",
+    rest "unknown") -> format is derived client-side from genre + title
+    keywords (AtlasCommon.deriveFormat); anything unmatched is labeled
+    "Unclassified", never guessed into a real category.
+  - Edinburgh rows have `venue_name = null` (the export only carries the
+    umbrella organizer — PBH's Free Fringe / Laughing Horse Free Festival —
+    not a physical venue). The "Venue" filter falls back to
+    organization_name when venue_name is absent and is labelled accordingly;
+    a true per-venue facet needs a pipeline fix (venue materialization for
+    Edinburgh sources), not something this page can invent.
+  - No neighbourhood/area, accessibility, or age-restriction fields exist in
+    the export -> those facets from the research doc are omitted entirely.
+  - Duration facet (Phase 3b deliverable #6, 2026-07-17): event_instances.
+    ends_at is real, source-parsed data (never fabricated) and is populated
+    for ~100% of upcoming rows, BUT for umbrella festival listings
+    (venue_name null -- Edinburgh PBH/Laughing Horse) starts_at/ends_at span
+    the entire announced run, not one show's length. AtlasCommon.
+    deriveDurationBucket() returns null (excluded, never mis-bucketed) for
+    any event without a real venue_name, so the "Any length" facet only
+    ever buckets real per-show durations; buildDurationOptions() hides the
+    whole control (mirrors the organizer-facet convention) when a city has
+    zero events with a derivable duration.
+-->
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0a0e1a;--card:#111827;--border:#1e2a3a;--text:#f0f0f0;--muted:#8899aa;--gold:#c9a84c}
-@media (prefers-color-scheme: light){:root{--bg:#f7f5f0;--card:#ffffff;--border:#e2ddd2;--text:#171512;--muted:#5a5348}}
-html,body{background:var(--bg);color:var(--text);min-height:100vh}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;align-items:center;justify-content:center}
-.card{max-width:420px;margin:0 auto;padding:40px 20px;text-align:center}
-.dot{color:var(--gold)}
-a{color:var(--gold);text-decoration:none}
+:root{
+  --purple:#7c3aed;--purple-light:#9d5ff5;
+  --bg:#0a0e1a;--card:#111827;--border:#1e2a3a;
+  --text:#f0f0f0;--muted:#8899aa;
+  --gold:#c9a84c;--gold-light:#e8c96a;
+  --red:#c41e3a;--green:#3fb950;
+}
+@media (prefers-color-scheme: light){
+  :root{--bg:#f7f5f0;--card:#ffffff;--border:#e2ddd2;--text:#171512;--muted:#5a5348}
+}
+html,body{background:var(--bg);color:var(--text)}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;line-height:1.5}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{max-width:900px;margin:0 auto;padding:0 20px}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:100;flex-wrap:wrap;gap:8px}.skip-link{position:absolute;left:-9999px;top:0;background:var(--card);color:var(--text);padding:10px 16px;z-index:1000;border-radius:0 0 8px 0;font-size:13px;font-weight:700}.skip-link:focus{left:0}.nav-links a.nav-active{color:var(--text);font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.nav-logo{font-size:16px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
+.nav-logo .site-name{color:var(--muted);font-weight:500}
+.nav-links{display:flex;gap:20px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+.nav-links a:hover{color:var(--text)}
+
+.atlas-header{max-width:900px;margin:0 auto;padding:32px 20px 16px}
+.back-link{font-size:13px;color:var(--muted);margin-bottom:10px;display:inline-block}
+.back-link:hover{color:var(--text)}
+.atlas-wordmark{font-size:clamp(24px,5vw,36px);font-weight:800;letter-spacing:-1px;line-height:1.1}
+.atlas-wordmark .dot{color:var(--gold)}
+.atlas-promise{color:var(--muted);font-size:15px;margin-top:8px;max-width:520px}
+
+.freshness{max-width:900px;margin:0 auto;padding:0 20px 8px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.freshness .dot-live{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block}
+.freshness .dot-live.stale{background:var(--red)}
+
+.filters{max-width:900px;margin:16px auto 0;padding:0 20px}
+.city-current{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;margin-bottom:12px}
+.city-current .flag{margin-right:6px}
+
+.search-row{margin-bottom:10px}
+#filter-search{width:100%;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-size:14px;font-family:inherit}
+#filter-search::placeholder{color:var(--muted)}
+
+.time-strip{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
+#filter-when{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer}
+#filter-day{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:999px;padding:8px 12px;font-size:13px;font-family:inherit}
+
+.facet-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.facet-row select, .facet-row input[type=text]{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit}
+#filter-venue{min-width:180px}
+
+.format-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin:6px 0 14px}
+.format-tile{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:left;font-family:inherit;cursor:pointer;color:var(--text)}
+.format-tile:hover{border-color:var(--purple-light)}
+.format-tile.active{border-color:var(--purple);background:rgba(124,58,237,.12)}
+.format-tile .fmt-name{font-weight:700;font-size:13px}
+.format-tile .fmt-count{color:var(--muted);font-size:12px;margin-top:2px}
+
+.result-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted);padding:4px 0 4px}
+.clear-filters{color:var(--purple-light);font-weight:700;cursor:pointer;background:none;border:none;font-family:inherit;font-size:13px}
+.clear-filters:hover{text-decoration:underline}
+.org-filter-banner{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--purple-light);border-radius:10px;padding:10px 16px;margin-bottom:10px;font-size:14px;font-weight:600}
+.org-filter-banner #org-filter-clear{color:var(--purple-light)}
+
+main{max-width:900px;margin:0 auto;padding:8px 20px 80px}
+.day-group{margin-bottom:28px}
+.day-heading{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.event-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:12px;display:flex;flex-direction:column;gap:6px}
+.event-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.event-title{font-size:16px;font-weight:700;line-height:1.3}
+.event-title-link{color:var(--text);text-decoration:none}
+.event-title-link:hover{color:var(--purple-light);text-decoration:underline}
+.event-date-link{color:var(--muted);text-decoration:none}
+.event-date-link:hover{color:var(--purple-light);text-decoration:underline}
+.event-time{font-size:13px;color:var(--gold);font-weight:700;white-space:nowrap}
+.event-meta{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px}
+.event-meta .sep{opacity:.5}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
+.badge.verified{color:var(--green);border-color:var(--green)}
+.badge.cancelled{color:var(--red);border-color:var(--red)}
+.badge.soldout{color:var(--gold);border-color:var(--gold)}
+.event-actions{margin-top:6px}
+.ticket-link{display:inline-block;font-size:13px;font-weight:700;color:#fff;background:var(--purple);padding:8px 16px;border-radius:8px}
+.ticket-link:hover{opacity:.9}
+.ticket-link.disabled{background:transparent;border:1px solid var(--border);color:var(--muted)}
+
+/* Recurring-show grouping (Phase 3b refinement, 2026-07-18): one card per
+   show_series, with its own upcoming dates listed compactly instead of N
+   duplicate full-width cards (the Berlin "21 copies of Laughing Spree
+   Comedy" regression a frontend audit flagged 2026-07-17). */
+.event-date-count{font-size:13px;color:var(--gold);font-weight:700;white-space:nowrap}
+.event-dates{list-style:none;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.event-dates li{display:flex;gap:8px;align-items:baseline}
+.more-dates summary{font-size:13px;font-weight:700;color:var(--purple-light);cursor:pointer;list-style:none;margin-top:2px}
+.more-dates summary::-webkit-details-marker{display:none}
+.more-dates[open] summary{margin-bottom:4px}
+
+.show-more-row{text-align:center;margin-top:8px}
+#show-more-btn{background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:12px 22px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer}
+#show-more-btn:hover{border-color:var(--purple-light)}
+
+.state-block{text-align:center;padding:60px 20px;color:var(--muted)}
+.state-block h2{color:var(--text);font-size:20px;margin-bottom:8px}
+.state-block.error{color:var(--red)}
+.spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--purple);border-radius:50%;margin:0 auto 16px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.venue-map-section{max-width:900px;margin:0 auto;padding:0 20px 8px}
+.venue-map-heading{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:10px}
+.venue-map-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.venue-map-locate-btn{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer}
+.venue-map-locate-btn:hover{border-color:var(--purple-light)}
+.venue-map-count{font-size:13px;color:var(--muted)}
+.venue-map-status{font-size:12.5px;color:var(--muted);margin-top:6px;min-height:1em}
+.venue-map-empty{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;color:var(--muted);font-size:13.5px}
+.venue-map-popup strong{display:block;margin-bottom:4px}
+.venue-map-popup-row{font-size:13px;padding:2px 0}
+.venue-map-popup-row a{color:var(--purple,#7c3aed);font-weight:700}
+
+.privacy-note{max-width:900px;margin:0 auto;padding:0 20px 40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--border);padding-top:20px}
+.privacy-note strong{color:var(--text)}
+
+footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;color:var(--muted);font-size:12px}
+.footer-links{margin-top:8px}
+.footer-links a{color:var(--muted)}
+.footer-links a:hover{color:var(--text)}
+.footer-links .sep{margin:0 8px;opacity:.5}
+
+@media(max-width:600px){
+  .nav-links{font-size:13px;gap:14px}
+  .event-top{flex-direction:column;gap:2px}
+}
 </style>
 </head>
 <body>
-<div class="card">
-<p>COMEDY ATLAS has moved &rarr; <a href="https://comedyatlas.app/comedy-atlas/city.html">comedyatlas.app</a></p>
+
+<a href="#main-content" class="skip-link">Skip to content</a>
+<nav>
+  <a href="/" class="nav-logo"><span class="site-name">Paris Comedy</span></a>
+  <div class="nav-links">
+    <a href="/shows.html">Shows</a>
+    <a href="/europe.html">Europe</a>
+    <a href="/comedy-atlas/" style="color:var(--gold);font-weight:700">COMEDY ATLAS</a>
+    <a href="/comedy-atlas/blog/">Blog</a>
+    <a href="/about.html">About</a>
+  </div>
+</nav>
+
+<header class="atlas-header">
+  <a href="index.html" class="back-link">← All cities and festivals</a>
+  <div class="atlas-wordmark" id="city-wordmark">COMEDY ATLAS<span class="dot">.</span></div>
+  <p class="atlas-promise" id="city-promise">Loading city…</p>
+</header>
+
+<div class="freshness" id="freshness">
+  <span class="dot-live" id="freshness-dot"></span>
+  <span id="freshness-text">Checking data freshness…</span>
 </div>
-<script>location.replace('https://comedyatlas.app' + location.pathname + location.search);</script>
+
+<div class="filters">
+  <span class="city-current"><span class="flag">📍</span><span id="city-current-name">City</span></span>
+
+  <div class="search-row">
+    <input type="text" id="filter-search" placeholder="Search by title, venue, or organizer…" autocomplete="off">
+  </div>
+
+  <div class="time-strip" role="group" aria-label="Filter by time">
+    <select id="filter-when" aria-label="Filter by day">
+      <option value="tonight">Tonight</option>
+      <option value="weekend">This weekend</option>
+      <option value="week">This week</option>
+      <option value="all">All upcoming</option>
+      <option value="day">Specific date…</option>
+    </select>
+    <input type="date" id="filter-day" aria-label="Pick a date" style="display:none">
+  </div>
+
+  <div id="format-grid" class="format-grid" style="display:none"></div>
+
+  <div class="facet-row">
+    <select id="filter-format" aria-label="Filter by format">
+      <option value="">All formats</option>
+    </select>
+    <input type="text" id="filter-venue" list="venue-options" placeholder="Venue…" aria-label="Filter by venue">
+    <datalist id="venue-options"></datalist>
+    <select id="filter-price" aria-label="Filter by price">
+      <option value="">Free &amp; paid</option>
+      <option value="free">Free only</option>
+      <option value="paid">Paid only</option>
+    </select>
+    <select id="filter-lang" aria-label="Filter by language">
+      <option value="">All languages</option>
+      <option value="en">English</option>
+    </select>
+    <select id="filter-tod" aria-label="Filter by time of day">
+      <option value="">Any time of day</option>
+      <option value="morning">Morning</option>
+      <option value="afternoon">Afternoon</option>
+      <option value="evening">Evening</option>
+      <option value="late">Late night</option>
+    </select>
+    <select id="filter-duration" aria-label="Filter by duration" style="display:none">
+      <option value="">Any length</option>
+      <option value="under45">Under 45 min</option>
+      <option value="45to90">45–90 min</option>
+      <option value="over90">Over 90 min</option>
+    </select>
+    <select id="filter-org" aria-label="Filter by organizer" style="display:none">
+      <option value="">All organizers</option>
+    </select>
+  </div>
+
+  <div class="org-filter-banner" id="org-filter-banner" style="display:none">
+    <span id="org-filter-banner-text"></span>
+    <button type="button" class="clear-filters" id="org-filter-clear">✕ Clear</button>
+  </div>
+
+  <div class="result-bar">
+    <span id="result-count"></span>
+    <button type="button" class="clear-filters" id="clear-filters">Clear filters</button>
+  </div>
+</div>
+
+<div class="venue-map-section">
+  <div class="venue-map-heading">Venue map</div>
+  <div id="venue-map"></div>
+</div>
+
+<main id="main-content" aria-live="polite">
+  <div class="state-block" id="loading-state">
+    <div class="spinner" aria-hidden="true"></div>
+    <p>Loading shows…</p>
+  </div>
+</main>
+
+<div class="atlas-subscribe-mount container" id="atlas-subscribe-mount"></div>
+
+<p class="privacy-note container">
+  <strong>Privacy:</strong> COMEDY ATLAS shows public event and venue details
+  only. No comedian or organizer contact information is ever shown here — the
+  privacy relay is the product. Every listing links to the organizer's
+  official ticket page.
+</p>
+
+<footer>
+  <div>COMEDY ATLAS is part of Paris Comedy — worldwide comedy booking, one city at a time.</div>
+  <div class="footer-links">
+    <a href="https://instagram.com/comedyatlasapp" target="_blank" rel="noopener">Instagram</a>
+    <span class="sep">·</span>
+    <a href="mailto:contact@comedyatlas.app">contact@comedyatlas.app</a>
+  </div>
+<div class="footer-feedback-cta"><button type="button" onclick="if(window.AtlasFeedback)window.AtlasFeedback.open({subject:'suggestion'})" style="background:none;border:none;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer">Is something missing? Send us a message</button></div>
+</footer>
+
+<script src="atlas-track.js"></script>
+<script src="atlas-pwa.js"></script>
+<script src="atlas-common.js"></script>
+<script>
+  document.getElementById("atlas-subscribe-mount").setAttribute(
+    "data-city", new URLSearchParams(window.location.search).get("city") || "Paris");
+</script>
+<script src="atlas-city-subscribe.js"></script>
+<script src="atlas-venue-map.js"></script>
+<script>
+(function () {
+  "use strict";
+  var A = window.AtlasCommon;
+
+  // Festival-scale threshold: above this many events for the city, show the
+  // format-grid drill-in entry point above the facet row (research doc:
+  // "aggressive de-scoping via category grid before a wall of cards").
+  var FESTIVAL_SCALE = 60;
+  var PAGE_SIZE = 40;
+
+  var params = new URLSearchParams(window.location.search);
+  var cityParam = params.get("city") || "Paris";
+  var orgParam = params.get("org") || "";
+
+  document.title = "COMEDY ATLAS — " + cityParam + " | Paris Comedy";
+  document.getElementById("doc-desc").setAttribute(
+    "content", "COMEDY ATLAS: find English-language stand-up comedy in " + cityParam + ". Verified listings, official ticket links."
+  );
+  document.getElementById("city-wordmark").innerHTML = A.escapeHtml(cityParam) + '<span class="dot">.</span>';
+  document.getElementById("city-current-name").textContent = cityParam;
+
+  var app = document.getElementById("app");
+  var freshnessText = document.getElementById("freshness-text");
+  var freshnessDot = document.getElementById("freshness-dot");
+  var searchInput = document.getElementById("filter-search");
+  var dayInput = document.getElementById("filter-day");
+  var whenFilter = document.getElementById("filter-when");
+  var formatFilter = document.getElementById("filter-format");
+  var venueInput = document.getElementById("filter-venue");
+  var venueOptions = document.getElementById("venue-options");
+  var priceFilter = document.getElementById("filter-price");
+  var langFilter = document.getElementById("filter-lang");
+  var todFilter = document.getElementById("filter-tod");
+  var durationFilter = document.getElementById("filter-duration");
+  var orgFilter = document.getElementById("filter-org");
+  var formatGrid = document.getElementById("format-grid");
+  var resultCount = document.getElementById("result-count");
+  var clearBtn = document.getElementById("clear-filters");
+  var orgBanner = document.getElementById("org-filter-banner");
+  var orgBannerText = document.getElementById("org-filter-banner-text");
+  var orgBannerClear = document.getElementById("org-filter-clear");
+  var cityPromise = document.getElementById("city-promise");
+
+  var allEvents = [];
+  var visibleLimit = PAGE_SIZE;
+
+  // ---- state <-> URL --------------------------------------------------
+  var state = {
+    when: params.get("when") || "week",
+    day: params.get("day") || "",
+    tod: params.get("tod") || "",
+    format: params.get("format") || "",
+    venue: params.get("venue") || "",
+    price: params.get("price") || "",
+    lang: params.get("lang") || "",
+    duration: params.get("duration") || "",
+    org: orgParam,
+    q: params.get("q") || ""
+  };
+  if (["tonight", "weekend", "week", "all", "day"].indexOf(state.when) === -1) state.when = "week";
+  if (state.day) state.when = "day";
+  var whenWasExplicit = !!params.get("when") || !!state.day;
+
+  function syncUrl() {
+    var p = new URLSearchParams();
+    p.set("city", cityParam);
+    if (state.when && state.when !== "week") p.set("when", state.when);
+    if (state.when === "day" && state.day) p.set("day", state.day);
+    if (state.tod) p.set("tod", state.tod);
+    if (state.format) p.set("format", state.format);
+    if (state.venue) p.set("venue", state.venue);
+    if (state.price) p.set("price", state.price);
+    if (state.lang) p.set("lang", state.lang);
+    if (state.duration) p.set("duration", state.duration);
+    if (state.org) p.set("org", state.org);
+    if (state.q) p.set("q", state.q);
+    var qs = p.toString();
+    history.replaceState(null, "", window.location.pathname + (qs ? "?" + qs : ""));
+  }
+
+  function syncControlsFromState() {
+    whenFilter.value = state.when;
+    dayInput.style.display = state.when === "day" ? "" : "none";
+    dayInput.value = state.day || "";
+    formatFilter.value = state.format;
+    venueInput.value = state.venue;
+    priceFilter.value = state.price;
+    langFilter.value = state.lang;
+    todFilter.value = state.tod;
+    durationFilter.value = state.duration;
+    orgFilter.value = state.org;
+    searchInput.value = state.q;
+  }
+
+  function renderEmpty(msg) {
+    app.innerHTML = '<div class="state-block"><h2>No shows to show — yet</h2><p>' +
+      A.escapeHtml(msg) + '</p></div>';
+  }
+
+  function renderError() {
+    app.innerHTML = '<div class="state-block error"><h2>Couldn’t load ' + A.escapeHtml(cityParam) + ' shows</h2>' +
+      '<p>The listings feed didn’t respond. Try again shortly, or check ' +
+      '<a href="/shows.html" style="color:var(--purple-light)">the full shows page</a>.</p></div>';
+  }
+
+  function buildFormatCounts(events) {
+    var counts = {};
+    events.forEach(function (ev) {
+      var f = A.deriveFormat(ev);
+      counts[f] = (counts[f] || 0) + 1;
+    });
+    return counts;
+  }
+
+  function buildFormatOptions(events) {
+    var counts = buildFormatCounts(events);
+    formatFilter.innerHTML = '<option value="">All formats</option>';
+    Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; }).forEach(function (f) {
+      var opt = document.createElement("option");
+      opt.value = f;
+      opt.textContent = (A.FORMAT_LABELS[f] || f) + " (" + counts[f] + ")";
+      formatFilter.appendChild(opt);
+    });
+  }
+
+  // Above festival scale, show a drill-in grid of format tiles (research
+  // doc: Edinburgh-Fringe-style category grid before the list).
+  function buildFormatGrid(events) {
+    if (events.length < FESTIVAL_SCALE) {
+      formatGrid.style.display = "none";
+      formatGrid.innerHTML = "";
+      return;
+    }
+    var counts = buildFormatCounts(events);
+    var order = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; });
+    formatGrid.innerHTML = "";
+    formatGrid.style.display = "";
+    order.forEach(function (f) {
+      var tile = document.createElement("button");
+      tile.type = "button";
+      tile.className = "format-tile" + (state.format === f ? " active" : "");
+      tile.setAttribute("data-format", f);
+      tile.innerHTML = '<div class="fmt-name">' + A.escapeHtml(A.FORMAT_LABELS[f] || f) + '</div>' +
+        '<div class="fmt-count">' + counts[f] + " show" + (counts[f] === 1 ? "" : "s") + '</div>';
+      tile.addEventListener("click", function () {
+        state.format = (state.format === f) ? "" : f;
+        onFilterChange();
+      });
+      formatGrid.appendChild(tile);
+    });
+  }
+
+  // Venue facet: real venue_name when present (Paris), falls back to
+  // organization_name when the export has none (Edinburgh — umbrella
+  // organizer stands in for a per-venue facet; see file-header data-gap note).
+  function venueKey(ev) {
+    return ev.venue_name || ev.organization_name || "";
+  }
+
+  function buildVenueOptions(events) {
+    var counts = {};
+    events.forEach(function (ev) {
+      var v = venueKey(ev);
+      if (!v) return;
+      counts[v] = (counts[v] || 0) + 1;
+    });
+    var names = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; });
+    venueOptions.innerHTML = "";
+    names.forEach(function (name) {
+      var opt = document.createElement("option");
+      opt.value = name;
+      opt.label = name + " (" + counts[name] + ")";
+      opt.textContent = opt.label;
+      venueOptions.appendChild(opt);
+    });
+  }
+
+  // Duration facet: only shown when at least some events in this city carry
+  // a real, non-umbrella duration (see AtlasCommon.deriveDurationBucket for
+  // why umbrella/festival rows are excluded rather than mis-bucketed).
+  // Mirrors buildOrgOptions' own "hide the facet if it wouldn't be useful"
+  // convention (there: <2 distinct organizers; here: 0 derivable durations).
+  function buildDurationOptions(events) {
+    var any = events.some(function (ev) { return A.deriveDurationBucket(ev) !== null; });
+    durationFilter.style.display = any ? "" : "none";
+    if (!any && state.duration) { state.duration = ""; }
+  }
+
+  function buildOrgOptions(events) {
+    var orgs = {};
+    events.forEach(function (ev) {
+      if (ev.organization_name) orgs[ev.organization_name] = true;
+    });
+    var names = Object.keys(orgs).sort();
+    if (names.length < 2) return;
+    orgFilter.style.display = "";
+    orgFilter.innerHTML = '<option value="">All organizers</option>';
+    names.forEach(function (name) {
+      var opt = document.createElement("option");
+      opt.value = name;
+      opt.textContent = name;
+      orgFilter.appendChild(opt);
+    });
+  }
+
+  function matchesSearch(ev, q) {
+    if (!q) return true;
+    q = q.toLowerCase();
+    var hay = [ev.title, ev.venue_name, ev.organization_name].filter(Boolean).join(" ").toLowerCase();
+    return hay.indexOf(q) !== -1;
+  }
+
+  // 2026-07-18 ("fans can't tell what's free" — Chuck's editorial desk,
+  // "free" is a top filter per Fringe research): ev.is_free (migration
+  // 0094, sourced from event_instances.audience_payment_type) is the
+  // primary signal now -- a genuinely free show frequently has no
+  // price_min at all (see atlas-common.js fmtPrice's docstring for the
+  // root cause), so this filter previously missed every free show that
+  // had no explicit $0 ticket price on file. price_min===0 stays as a
+  // fallback for rows is_free hasn't been backfilled onto yet.
+  function matchesPrice(ev, price) {
+    if (!price) return true;
+    var min = ev.price_min == null ? null : Number(ev.price_min);
+    var isFree = ev.is_free === true || min === 0;
+    if (price === "free") return isFree;
+    if (price === "paid") return !isFree && (min != null || ev.is_free === false);
+    return true;
+  }
+
+  function matchesDuration(ev, duration) {
+    if (!duration) return true;
+    return A.deriveDurationBucket(ev) === duration;
+  }
+
+  function applyFilters() {
+    var buckets = A.makeTimeBuckets();
+    var filtered = allEvents.filter(function (ev) {
+      var d = new Date(ev.starts_at);
+      if (isNaN(d.getTime())) return false;
+
+      if (state.when === "tonight" && !buckets.tonight(d)) return false;
+      if (state.when === "weekend" && !buckets.weekend(d)) return false;
+      if (state.when === "week" && !buckets.week(d)) return false;
+      if (state.when === "day" && state.day && !buckets.day(d, formatIsoDay(state.day))) return false;
+
+      if (state.tod && !buckets.timeOfDay(d, state.tod)) return false;
+      if (state.lang && ev.language !== state.lang) return false;
+      if (state.format && A.deriveFormat(ev) !== state.format) return false;
+      if (state.venue && venueKey(ev) !== state.venue) return false;
+      if (state.org && ev.organization_name !== state.org) return false;
+      if (!matchesPrice(ev, state.price)) return false;
+      if (!matchesDuration(ev, state.duration)) return false;
+      if (!matchesSearch(ev, state.q)) return false;
+      return true;
+    });
+    return filtered;
+  }
+
+  // The <input type=date> value (YYYY-MM-DD) needs no conversion vs.
+  // toLocaleDateString("en-GB") day keys ("DD/MM/YYYY") produced elsewhere —
+  // convert once here so buckets.day() compares like keys.
+  function formatIsoDay(iso) {
+    var parts = iso.split("-");
+    if (parts.length !== 3) return iso;
+    return parts[2] + "/" + parts[1] + "/" + parts[0];
+  }
+
+  var venueMapEl = document.getElementById("venue-map");
+
+  function render() {
+    var filtered = applyFilters();
+    buildFormatGrid(allEvents);
+
+    if (state.org) {
+      var orgGroupCount = A.groupEventsByShow(filtered).length;
+      orgBannerText.textContent = orgGroupCount + " show" + (orgGroupCount === 1 ? "" : "s") +
+        " by " + state.org;
+      orgBanner.style.display = "flex";
+    } else {
+      orgBanner.style.display = "none";
+    }
+
+    if (venueMapEl && window.AtlasVenueMap) {
+      window.AtlasVenueMap.render(venueMapEl, filtered, { basePath: "" });
+    }
+    Array.prototype.forEach.call(formatGrid.children, function (tile) {
+      tile.classList.toggle("active", tile.getAttribute("data-format") === state.format);
+    });
+
+    if (!filtered.length) {
+      resultCount.textContent = "0 shows match your filters";
+      renderEmpty("No " + cityParam + " shows match right now. Try widening your filters or picking a different time range.");
+      return;
+    }
+
+    // Grouped by recurring show (Phase 3b refinement, 2026-07-18) --
+    // pagination happens at the GROUP level (one "show more" page = more
+    // distinct shows), not the individual-date level, so a 21-date
+    // recurring show never gets split mid-group across pages. `filtered`
+    // (the flat, per-date list) still feeds the venue map above and the
+    // total-dates count below -- only the card rendering itself groups.
+    var groups = A.groupEventsByShow(filtered);
+    var shownGroups = groups.slice(0, visibleLimit);
+    resultCount.textContent = shownGroups.length + " of " + groups.length + " show" + (groups.length === 1 ? "" : "s") +
+      " shown (" + filtered.length + " date" + (filtered.length === 1 ? "" : "s") + " total" +
+      (cityPromise._total ? " · " + cityPromise._total + " total in " + cityParam : "") + ")";
+
+    app.innerHTML = A.renderGroupedEventCards(shownGroups);
+
+    if (groups.length > shownGroups.length) {
+      var row = document.createElement("div");
+      row.className = "show-more-row";
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.id = "show-more-btn";
+      btn.textContent = "Show " + Math.min(PAGE_SIZE, groups.length - shownGroups.length) + " more (" +
+        (groups.length - shownGroups.length) + " remaining)";
+      btn.addEventListener("click", function () {
+        visibleLimit += PAGE_SIZE;
+        render();
+      });
+      row.appendChild(btn);
+      app.appendChild(row);
+    }
+  }
+
+  function onFilterChange() {
+    visibleLimit = PAGE_SIZE;
+    syncControlsFromState();
+    syncUrl();
+    render();
+  }
+
+  whenFilter.addEventListener("change", function () {
+    state.when = whenFilter.value;
+    if (state.when !== "day") state.day = "";
+    onFilterChange();
+  });
+
+  dayInput.addEventListener("change", function () {
+    state.day = dayInput.value;
+    state.when = state.day ? "day" : "week";
+    onFilterChange();
+  });
+
+  formatFilter.addEventListener("change", function () { state.format = formatFilter.value; onFilterChange(); });
+  priceFilter.addEventListener("change", function () { state.price = priceFilter.value; onFilterChange(); });
+  langFilter.addEventListener("change", function () { state.lang = langFilter.value; onFilterChange(); });
+  todFilter.addEventListener("change", function () { state.tod = todFilter.value; onFilterChange(); });
+  durationFilter.addEventListener("change", function () { state.duration = durationFilter.value; onFilterChange(); });
+  orgFilter.addEventListener("change", function () { state.org = orgFilter.value; onFilterChange(); });
+  venueInput.addEventListener("input", function () { state.venue = venueInput.value; onFilterChange(); });
+
+  var searchTimer = null;
+  searchInput.addEventListener("input", function () {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(function () {
+      state.q = searchInput.value;
+      onFilterChange();
+    }, 150);
+  });
+
+  clearBtn.addEventListener("click", function () {
+    state = { when: "week", day: "", tod: "", format: "", venue: "", price: "", lang: "", duration: "", org: "", q: "" };
+    onFilterChange();
+  });
+
+  // Bug #7 (2026-07-19 QA): homepage festival cards link to
+  // city.html?city=<x>&org=<y>, expecting a scoped "shows by this
+  // organizer" view -- the org= param was already read into state.org and
+  // applied in applyFilters() above, but nothing told the visitor the
+  // list was scoped, and there was no dedicated way to leave that scope
+  // without also resetting every other filter (When/day/format/etc via
+  // "Clear filters"). This banner + its own Clear control fixes both.
+  orgBannerClear.addEventListener("click", function () {
+    state.org = "";
+    onFilterChange();
+  });
+
+  A.fetchEvents().then(function (data) {
+    var cityEvents = data.filter(function (ev) { return ev.city_name === cityParam; });
+
+    if (!cityEvents.length) {
+      cityPromise.textContent = "No upcoming shows found for " + cityParam + " yet.";
+      renderEmpty("No upcoming " + cityParam + " shows in the current feed.");
+      return;
+    }
+
+    // 2026-07-18 ("fans can't tell what's free" — Chuck's editorial desk):
+    // is_free (migration 0094) checked FIRST -- a genuinely free show often
+    // carries no price_min at all (see atlas-common.js fmtPrice's
+    // docstring for the root cause), so this count previously undercounted
+    // free shows to exactly the ones with an explicit $0 price on file.
+    var freeCount = cityEvents.filter(function (ev) {
+      return ev.is_free === true || ev.price_min === 0 || ev.price_min === "0.00" ||
+        Number(ev.price_min) === 0;
+    }).length;
+    cityPromise._total = cityEvents.length;
+    cityPromise.textContent = cityEvents.length + " upcoming show" + (cityEvents.length === 1 ? "" : "s") +
+      " in " + cityParam + (freeCount ? " — " + freeCount + " free" : "") + ".";
+
+    allEvents = cityEvents;
+
+    // "This week" is the researched default, but a festival that hasn't
+    // started yet (Edinburgh in July, before its August run) would show
+    // zero shows under it -- fall back to "All upcoming" in that case,
+    // matching the research doc's "This week (or upcoming)" default.
+    if (!whenWasExplicit) {
+      var wkBuckets = A.makeTimeBuckets();
+      var hasThisWeek = cityEvents.some(function (ev) {
+        var d = new Date(ev.starts_at);
+        return !isNaN(d.getTime()) && wkBuckets.week(d);
+      });
+      if (!hasThisWeek) state.when = "all";
+    }
+
+    buildFormatOptions(cityEvents);
+    buildVenueOptions(cityEvents);
+    buildDurationOptions(cityEvents);
+    buildOrgOptions(cityEvents);
+    syncControlsFromState();
+    render();
+  }).catch(renderError);
+
+  A.fetchManifest().then(function (m) { A.setFreshness(freshnessDot, freshnessText, m); });
+})();
+</script>
+<script src="atlas-feedback.js"></script>
 </body>
 </html>
