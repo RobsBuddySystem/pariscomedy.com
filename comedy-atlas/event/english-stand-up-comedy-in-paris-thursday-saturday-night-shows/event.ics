@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:english-stand-up-comedy-in-paris-thursday-saturday-night-shows@comedyat
+ las.app
+DTSTAMP:20260719T212302Z
+DTSTART:20270413T163000Z
+DTEND:20270413T180000Z
+SUMMARY:English Stand Up Comedy in Paris - Thursday & Saturday Night Shows
+LOCATION:76 Rue Jean-Pierre Timbaud\, Paris
+DESCRIPTION:Voted Paris' Best English Comedy Show - live at the iconic Chat
+  Noir in the 11th\, the city's coolest district.\nMore info: https://parisc
+ omedy.com/comedy-atlas/event/english-stand-up-comedy-in-paris-thursday-satu
+ rday-night-shows/
+URL:https://pariscomedy.com/comedy-atlas/event/english-stand-up-comedy-in-p
+ aris-thursday-saturday-night-shows/
+END:VEVENT
+END:VCALENDAR

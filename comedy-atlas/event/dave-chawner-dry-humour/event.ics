@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:dave-chawner-dry-humour@comedyatlas.app
+DTSTAMP:20260719T212302Z
+DTSTART:20260806T171500Z
+DTEND:20260806T191500Z
+SUMMARY:Dave Chawner: Dry Humour
+LOCATION:The Counting House / The Loft\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/dave-chaw
+ ner-dry-humour/
+URL:https://pariscomedy.com/comedy-atlas/event/dave-chawner-dry-humour/
+END:VEVENT
+END:VCALENDAR

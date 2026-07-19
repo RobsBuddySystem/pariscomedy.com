@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:adhd-a-crowdwork-comedy-show@comedyatlas.app
+DTSTAMP:20260719T212301Z
+DTSTART:20260806T171000Z
+DTEND:20260806T191000Z
+SUMMARY:ADHD: A Crowdwork Comedy Show
+LOCATION:The City Cafe / Nineties\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/adhd-a-cr
+ owdwork-comedy-show/
+URL:https://pariscomedy.com/comedy-atlas/event/adhd-a-crowdwork-comedy-show
+ /
+END:VEVENT
+END:VCALENDAR

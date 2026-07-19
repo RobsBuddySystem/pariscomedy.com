@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:101-rules-for-a-better-world-by-comedians@comedyatlas.app
+DTSTAMP:20260719T212301Z
+DTSTART:20260806T104500Z
+DTEND:20260806T124500Z
+SUMMARY:101 Rules for a Better World (by Comedians)
+LOCATION:Bar 50 / The Alcove\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/101-rules
+ -for-a-better-world-by-comedians/
+URL:https://pariscomedy.com/comedy-atlas/event/101-rules-for-a-better-world
+ -by-comedians/
+END:VEVENT
+END:VCALENDAR

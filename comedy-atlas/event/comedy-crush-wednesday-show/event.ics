@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:comedy-crush-wednesday-show@comedyatlas.app
+DTSTAMP:20260719T212301Z
+DTSTART:20261104T193000Z
+DTEND:20261104T213000Z
+SUMMARY:Comedy Crush Wednesday Show
+LOCATION:Paris
+DESCRIPTION:A stand up showcase in English featuring rotating lineups of ta
+ lented local and international comedians\nMore info: https://pariscomedy.co
+ m/comedy-atlas/event/comedy-crush-wednesday-show/
+URL:https://pariscomedy.com/comedy-atlas/event/comedy-crush-wednesday-show/
+END:VEVENT
+END:VCALENDAR

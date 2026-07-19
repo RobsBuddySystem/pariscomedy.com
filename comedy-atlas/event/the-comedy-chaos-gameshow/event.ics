@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:the-comedy-chaos-gameshow@comedyatlas.app
+DTSTAMP:20260719T212303Z
+DTSTART:20260806T221500Z
+DTEND:20260807T001500Z
+SUMMARY:The Comedy Chaos Gameshow
+LOCATION:West Nic Records / Main Cellar\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/the-comed
+ y-chaos-gameshow/
+URL:https://pariscomedy.com/comedy-atlas/event/the-comedy-chaos-gameshow/
+END:VEVENT
+END:VCALENDAR

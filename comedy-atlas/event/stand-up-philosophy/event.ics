@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:stand-up-philosophy@comedyatlas.app
+DTSTAMP:20260719T212303Z
+DTSTART:20260806T133000Z
+DTEND:20260806T153000Z
+SUMMARY:Stand-up Philosophy
+LOCATION:The Counting House / The Ballroom\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/stand-up-
+ philosophy/
+URL:https://pariscomedy.com/comedy-atlas/event/stand-up-philosophy/
+END:VEVENT
+END:VCALENDAR

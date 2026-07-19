@@ -14,8 +14,15 @@
 window.AtlasAuth = (function () {
   "use strict";
 
-  var API_BASE = (location.hostname === "atlas-api.pariscomedy.com")
-    ? "" : "https://atlas-api.pariscomedy.com";
+  // Origin-aware API base. Same-site cross-origin in every case (registrable
+  // domain matches its api host), so the Lax session cookie flows with
+  // credentials:"include". Current pariscomedy hosts unchanged; comedyatlas.app
+  // added as a parallel primary. Unknown hosts fall back to the paris api.
+  var API_BASE = (function (h) {
+    if (h === "atlas-api.pariscomedy.com" || h === "api.comedyatlas.app") return "";
+    if (h === "comedyatlas.app" || h === "www.comedyatlas.app") return "https://api.comedyatlas.app";
+    return "https://atlas-api.pariscomedy.com";
+  })(location.hostname);
 
   function api(path, opts) {
     opts = opts || {};
@@ -55,5 +62,6 @@ window.AtlasAuth = (function () {
     });
   }
 
-  return {api: api, post: post, put: put, get: get, me: me, escapeHtml: escapeHtml};
+  return {api: api, post: post, put: put, get: get, me: me, escapeHtml: escapeHtml,
+           apiBase: API_BASE};
 })();

@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:comedy-through-the-ages@comedyatlas.app
+DTSTAMP:20260719T212302Z
+DTSTART:20260806T180000Z
+DTEND:20260806T200000Z
+SUMMARY:Comedy Through the Ages
+LOCATION:Freddy's / Band Room\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/comedy-th
+ rough-the-ages/
+URL:https://pariscomedy.com/comedy-atlas/event/comedy-through-the-ages/
+END:VEVENT
+END:VCALENDAR

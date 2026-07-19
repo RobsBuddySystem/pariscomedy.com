@@ -6,15 +6,25 @@
  *
  * Data contract: data/comedy-atlas/upcoming_events.json + MANIFEST.json,
  * published by scripts/publish_atlas_data.py from the public_upcoming_events
- * view (migration 0046). That view is NOT city-scoped — it already carries
- * every city with approved, English-only (or explicitly-null-language)
+ * view. That view is NOT city-scoped — it carries every city's approved
  * upcoming events, so both pages read the exact same file.
+ *
+ * Language policy (2026-07-19, Robert's decision, option (b) — docs/
+ * atlas-ops/LANGUAGE_POLICY_ANALYSIS_2026-07-19.md): migration
+ * 0102_language_label_not_gate dropped the view's old `language = 'en'`
+ * publish gate. `language` is now a LABEL on every row, not a filter — the
+ * data here can (and does) include real non-English shows and unconfirmed
+ * (`language: null`) ones. Nothing is hidden here in atlas-common.js either;
+ * `matchesLanguage`/`languageLabel`/`languageTag` below give every page a
+ * shared, English-DEFAULT filter with an explicit "all languages" opt-out,
+ * never a silent drop.
  */
 (function (global) {
   "use strict";
 
   var DATA_URL = "../data/comedy-atlas/upcoming_events.json";
   var MANIFEST_URL = "../data/comedy-atlas/MANIFEST.json";
+  var CITIES_URL = "../data/comedy-atlas/cities.json";
 
   // Known Edinburgh Fringe free-festival umbrella organizations. These are
   // ORG names that appear on Edinburgh events (source IS the org — see
@@ -48,7 +58,20 @@
   // Price 0 always renders as "Free" — true both for Paris free open-mics
   // and for every Edinburgh Free Fringe / Laughing Horse show (donation
   // model, price_min = 0.00 in the data, never a real currency amount).
+  //
+  // 2026-07-18 (Chuck's editorial desk + daily-blog-build audit, "fans
+  // can't tell what's free"): `is_free` (migration 0094 view column,
+  // derived from event_instances.audience_payment_type — a SOURCED signal,
+  // Eventbrite's own top-level is_free boolean, see pipeline/parse.py's
+  // EventbriteApiEventsParser 1.3) is checked FIRST, before price_min/
+  // price_max. Root cause this closes: a genuinely free Eventbrite show
+  // (most of Paris's real organizers) never carried a $0 ticket_classes
+  // entry at all, so price_min/price_max stayed NULL — indistinguishable
+  // from "price unknown" — and this function returned null (no badge shown)
+  // even though the show WAS free. is_free is a real, independent,
+  // source-declared fact, not derived from price being absent.
   function fmtPrice(ev) {
+    if (ev.is_free === true) return "Free";
     if (ev.price_min == null && ev.price_max == null) return null;
     var cur = ev.currency ? (" " + ev.currency) : "";
     if (ev.price_min != null && ev.price_max != null && ev.price_min !== ev.price_max) {
@@ -66,8 +89,8 @@
   // a tag only appears where there's a genuine, documented reason for doubt.
   // Today that's `venue_name` missing -- an umbrella festival listing
   // (Edinburgh PBH/Laughing Horse) stands in an organizer name for a real
-  // physical venue, so we can't vouch for the location the way we can for
-  // a venued show.
+  // physical venue (see the data-gaps note in city.html's header comment),
+  // so we can't vouch for the location the way we can for a venued show.
   function statusBadge(ev) {
     if (ev.status === "cancelled") return '<span class="badge cancelled">Cancelled</span>';
     if (ev.sold_out_status === "sold_out") return '<span class="badge soldout">Sold out</span>';
@@ -75,11 +98,45 @@
     return "";
   }
 
-  // Defense in depth, mirroring publish_atlas_data.py's own French refusal:
-  // never RENDER a French-labeled event even if one somehow reached the
-  // JSON. Never infers language for anything the data leaves blank.
-  function dropFrench(events) {
-    return events.filter(function (ev) { return ev.language !== "fr"; });
+  // --- Language: a LABEL, not a gate (2026-07-19, option (b)) -------------
+  // Replaces the old dropFrench() -- that function unconditionally REMOVED
+  // every French-labeled row from every page's data before any filter even
+  // ran, which is exactly the client-side mirror of the view-level gate
+  // migration 0102 removed from the database. A real French/Italian/etc.
+  // show is real, wanted data now; nothing in this file drops it. The
+  // default EXPERIENCE stays English-first: matchesLanguage below is what
+  // every page's filter calls, defaulting to "en" unless the visitor (or a
+  // page that deliberately shows everything) asks for "all" or a specific
+  // other code.
+  var LANGUAGE_LABELS = {
+    en: "English", fr: "Français", it: "Italiano", es: "Español",
+    de: "Deutsch", nl: "Nederlands", pt: "Português", pl: "Polski",
+    ca: "Català"
+  };
+
+  function languageLabel(code) {
+    if (!code) return null;
+    return LANGUAGE_LABELS[code] || (String(code).charAt(0).toUpperCase() + String(code).slice(1));
+  }
+
+  // lang: "" or "en" (the default) -> English only; "all" -> every language,
+  // including unconfirmed (null); any other value -> exact code match
+  // (unconfirmed rows never match a specific code — only "all" surfaces them).
+  function matchesLanguage(ev, lang) {
+    if (!lang || lang === "en") return ev.language === "en";
+    if (lang === "all") return true;
+    return ev.language === lang;
+  }
+
+  // Small badge, same idiom as statusBadge below — appears ONLY on a row
+  // whose language is genuinely unconfirmed (null), never claims "English"
+  // or any other value it doesn't have. A known non-English language is
+  // shown as plain text in the card meta line (renderEventCards /
+  // renderGroupedEventCards), not as a badge, to match the existing
+  // "English" meta-text convention those functions already used.
+  function languageTag(ev) {
+    if (ev.language) return "";
+    return '<span class="badge lang-unconfirmed">Language not confirmed</span>';
   }
 
   // --- Format derivation (Phase-3 listing-filtering-ux, 2026-07-14) -------
@@ -110,6 +167,38 @@
     return "unclassified";
   }
 
+  // --- Duration derivation (Phase 3b deliverable #6, 2026-07-17) ----------
+  // event_instances.ends_at is real, source-parsed data (never a fabricated
+  // default -- pipeline/parse.py leaves it NULL rather than guess a bad one)
+  // and is populated for ~100% of upcoming rows today. BUT: for umbrella
+  // festival listings where venue_name is null (Edinburgh PBH/Laughing Horse
+  // -- the organizer's whole run stands in for a venue, see the file-header
+  // note above and atlas-common's own FESTIVAL_ORGS), starts_at/ends_at span
+  // the ENTIRE announced run (verified: median ~90min for venued rows vs.
+  // multi-day spans for umbrella rows) -- using that span as a per-show
+  // duration would be actively misleading, not just imprecise. So duration
+  // is derived ONLY for events with a real venue_name; umbrella rows return
+  // null (excluded from the facet entirely, never bucketed into a wrong
+  // guess) rather than fabricate a number the data doesn't support.
+  var DURATION_LABELS = {
+    under45: "Under 45 min",
+    "45to90": "45–90 min",
+    over90: "Over 90 min"
+  };
+
+  function deriveDurationBucket(ev) {
+    if (!ev.venue_name) return null; // umbrella listing -- span is unreliable
+    if (!ev.starts_at || !ev.ends_at) return null;
+    var start = new Date(ev.starts_at);
+    var end = new Date(ev.ends_at);
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) return null;
+    var minutes = (end.getTime() - start.getTime()) / 60000;
+    if (minutes <= 0) return null; // degenerate/equal timestamps -- unknown, not zero
+    if (minutes <= 45) return "under45";
+    if (minutes <= 90) return "45to90";
+    return "over90";
+  }
+
   // --- Time-bucket helpers --------------------------------------------
   // All bucketing is done against Europe/Paris wall-clock "now", matching
   // the existing day-heading convention in renderEventCards. This does NOT
@@ -134,7 +223,6 @@
   // render pass is judged against the same instant.
   function makeTimeBuckets(now) {
     now = now || parisNow();
-    var todayKey = parisDateKey(now);
     // Weekend = the Fri/Sat/Sun containing "now" if now is already Fri-Sun,
     // else the coming Fri-Sun. JS getDay(): 0=Sun..6=Sat.
     var dow = now.getDay();
@@ -151,13 +239,30 @@
     var weekEnd = new Date(now.getTime());
     weekEnd.setDate(weekEnd.getDate() + 7);
 
+    // "Tonight" cutoff (Robert, 2026-07-18): extends past midnight to 4am,
+    // a standard nightlife-industry convention -- a show starting at 1am is
+    // still "tonight" to a real visitor, not "tomorrow". Mirrors the exact
+    // same anchor logic as apps/atlas_api/main.py's /shows/near default
+    // window so the UI and API never disagree: if it's already past 4am,
+    // tonight's window runs through 4am TOMORROW; if it's still before 4am,
+    // tonight already started yesterday evening and its window closes at
+    // 4am TODAY (no reset to a "new tonight" at midnight).
+    var tonightCutoff = new Date(now.getTime());
+    if (parisHour(now) < 4) {
+      tonightCutoff.setHours(4, 0, 0, 0);
+    } else {
+      tonightCutoff.setDate(tonightCutoff.getDate() + 1);
+      tonightCutoff.setHours(4, 0, 0, 0);
+    }
+
     return {
-      tonight: function (d) { return parisDateKey(d) === todayKey && d.getTime() >= now.getTime(); },
+      tonight: function (d) { return d.getTime() >= now.getTime() && d.getTime() < tonightCutoff.getTime(); },
       weekend: function (d) { return d.getTime() >= friStart.getTime() && d.getTime() <= sunEnd.getTime() && d.getTime() >= now.getTime(); },
       week: function (d) { return d.getTime() >= now.getTime() && d.getTime() <= weekEnd.getTime(); },
       day: function (d, dateKey) { return parisDateKey(d) === dateKey; },
       timeOfDay: function (d, bucket) {
         var h = parisHour(d);
+        if (bucket === "morning") return h >= 4 && h < 12;
         if (bucket === "afternoon") return h >= 12 && h < 17;
         if (bucket === "evening") return h >= 17 && h < 21;
         if (bucket === "late") return h >= 21 || h < 4;
@@ -172,7 +277,11 @@
       return r.json();
     }).then(function (data) {
       if (!Array.isArray(data)) throw new Error("unexpected payload shape");
-      return dropFrench(data);
+      // 2026-07-19: no language filtering happens here any more (see the
+      // module docstring) — every page decides its OWN default via
+      // matchesLanguage, so a page that wants everything (or a specific
+      // non-English default) isn't forced through an English-only fetch.
+      return data;
     });
   }
 
@@ -180,6 +289,33 @@
     return fetch(MANIFEST_URL, { cache: "no-store" })
       .then(function (r) { if (!r.ok) throw new Error("no manifest"); return r.json(); })
       .catch(function () { return null; });
+  }
+
+  // Location filters (Phase 3b, 2026-07-18): cities.json carries every
+  // known city's centroid lat/lon (117 rows today) -- published alongside
+  // upcoming_events.json by the same publish_atlas_data.py, same MANIFEST.
+  // Used for the "Near me" city-level fallback: venue coordinate coverage
+  // is only ~64% overall (Paris ~complete; Berlin/London/Edinburgh mostly
+  // missing -- see BUILD_STATE.md), so a per-VENUE distance check alone
+  // would silently drop most shows in those cities even when the user is
+  // obviously in the right city. Degrades to null (never throws) so a
+  // fetch failure just disables city-level near-me fallback, not the page.
+  function fetchCities() {
+    return fetch(CITIES_URL, { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("no cities"); return r.json(); })
+      .catch(function () { return null; });
+  }
+
+  // Haversine great-circle distance in km. Standard formula, no dependency.
+  function distanceKm(lat1, lon1, lat2, lon2) {
+    var R = 6371;
+    var dLat = (lat2 - lat1) * Math.PI / 180;
+    var dLon = (lon2 - lon1) * Math.PI / 180;
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
   }
 
   function setFreshness(dotEl, textEl, manifest) {
@@ -201,15 +337,38 @@
     }) + " (Paris time).";
   }
 
-  function groupByCity(events) {
+  // citiesByName is an optional { "Riga": {country_name, country_iso2, ...}, ... }
+  // lookup built from cities.json (fetchCities()). When present, each returned
+  // entry carries `country` -- Robert's 2026-07-19 feedback ("I don't know
+  // where Riga is") is honored by ALWAYS attaching the country when known,
+  // not just for cities judged "not major": consistency beats a subjective
+  // major-city list, and it costs nothing for the cities everyone already
+  // recognizes (Paris, London).
+  function groupByCity(events, citiesByName) {
     var counts = {};
     events.forEach(function (ev) {
       var city = ev.city_name || "Unknown";
       counts[city] = (counts[city] || 0) + 1;
     });
     return Object.keys(counts).map(function (city) {
-      return { city: city, count: counts[city] };
+      var country = null;
+      if (citiesByName && citiesByName[city]) {
+        country = citiesByName[city].country_name || citiesByName[city].country_iso2 || null;
+      }
+      return { city: city, count: counts[city], country: country };
     }).sort(function (a, b) { return b.count - a.count; });
+  }
+
+  // Builds a { cityName: cityRow } lookup from cities.json's array shape
+  // (fetchCities()'s resolved value). Returns {} for null/non-array input
+  // rather than throwing, so a fetch failure just means no country labels.
+  function citiesByName(citiesArray) {
+    var map = {};
+    if (!Array.isArray(citiesArray)) return map;
+    citiesArray.forEach(function (c) {
+      if (c && c.name) map[c.name] = c;
+    });
+    return map;
   }
 
   function groupFestivals(events) {
@@ -228,7 +387,19 @@
   // then returns the HTML for the shared event-card list markup. Used by
   // both the hub's "recently verified" strip (small N) and the full
   // per-city view (all matching events).
-  function renderEventCards(events) {
+  //
+  // opts (2026-07-19, Robert: "there needs to be a better way of organising
+  // the shows" on the homepage strip, which mixed every city into one flat
+  // list):
+  //   showCityBadge -- prepend each card's meta row with a small city chip
+  //     (homepage strip spans many cities; a per-city page already knows
+  //     its own city and doesn't need this).
+  //   maxPerDay -- cap how many cards render per day-group (the rest are
+  //     simply not shown here, same "organization not redesign" spirit as
+  //     the day grouping itself; full listings remain on /city/<slug>/).
+  //   maxDays -- cap how many day-groups render at all.
+  function renderEventCards(events, opts) {
+    opts = opts || {};
     var withDates = events.map(function (ev) {
       return { ev: ev, d: new Date(ev.starts_at) };
     }).filter(function (x) {
@@ -246,38 +417,302 @@
       groups[groups.length - 1].items.push(x);
     });
 
+    if (opts.maxDays) groups = groups.slice(0, opts.maxDays);
+
     var html = "";
     groups.forEach(function (g) {
+      // Listing diversity (2026-07-19): when a day's items get capped by
+      // maxPerDay (the homepage "Recently verified" strip caps at 3/day
+      // across every city), pick which ones survive the cap via a
+      // round-robin over venue/organizer FIRST -- otherwise a single busy
+      // venue with several same-day shows fills the whole cap and a
+      // different venue on the same day never appears. Seeded by the
+      // day's own key so the pick is stable for that day. No-op when
+      // maxPerDay isn't set (full per-city listings keep every item).
+      var dayItems = opts.maxPerDay
+        ? roundRobinByKey(g.items, function (x) {
+            return x.ev.venue_name || x.ev.organization_name || "";
+          }, g.key)
+        : g.items;
+      var items = opts.maxPerDay ? dayItems.slice(0, opts.maxPerDay) : dayItems;
       html += '<section class="day-group">';
       html += '<div class="day-heading">' + escapeHtml(fmtDayHeading(g.day)) + '</div>';
-      g.items.forEach(function (x) {
+      items.forEach(function (x) {
         var ev = x.ev;
         var venueBit = ev.venue_name ? escapeHtml(ev.venue_name) : null;
         var orgBit = ev.organization_name ? escapeHtml(ev.organization_name) : null;
         var price = fmtPrice(ev);
         var metaParts = [];
+        if (opts.showCityBadge && ev.city_name) {
+          metaParts.push('<span class="badge city-badge">' + escapeHtml(ev.city_name) + '</span>');
+        }
         if (venueBit) metaParts.push(venueBit);
         if (orgBit && orgBit !== venueBit) metaParts.push(orgBit);
-        if (ev.language === "en") metaParts.push("English");
+        if (ev.language && ev.language !== "en") metaParts.push(languageLabel(ev.language));
         if (price) metaParts.push(price);
         var meta = metaParts.join(' <span class="sep">·</span> ');
 
-        var hasUrl = ev.canonical_event_url && /^https?:\/\//.test(ev.canonical_event_url);
-        var ticket = hasUrl
-          ? '<a class="ticket-link" href="' + escapeHtml(ev.canonical_event_url) + '" rel="noopener noreferrer" target="_blank">Official tickets →</a>'
-          : '<span class="ticket-link disabled">No ticket link yet</span>';
+        // 2026-07-18, Robert (5th report of this exact bug class, this time
+        // on the homepage "Recently verified" strip -- rendered by this
+        // SAME function, since index.html calls A.renderEventCards too):
+        // a listing card's ONLY destination is the event's own dedicated
+        // page (spec/phase-3b-fan-experience.md's Standing rules #1). The
+        // 2026-07-18-earlier fix added the title link but LEFT the
+        // "Official tickets" exit button on the card as a "secondary
+        // action" -- that was itself still a policy violation: the
+        // Official-tickets link exists ONLY on the event's own page
+        // (go.html's tracked choke point, reached from there), never on a
+        // card, not even as a secondary control. No ticket link/button of
+        // any kind on cards now -- matches scripts/generate_entity_pages.py's
+        // related-events card (render_event_card), which has always done
+        // this correctly (single link to /comedy-atlas/event/<slug>/, no
+        // separate ticket exit). The whole card is the click target when a
+        // slug exists (same <a class="place-card"> idiom this file's own
+        // cityCard/festivalCard already use in index.html); a card with no
+        // slug yet renders as a plain, non-clickable block rather than
+        // fabricate a link or fall back to a raw ticket exit.
+        var eventHref = ev.slug ? "event/" + encodeURIComponent(ev.slug) + "/" : null;
+        var titleText = escapeHtml(ev.title || "Untitled show");
+        var cardTag = eventHref ? "a" : "div";
+        var cardHrefAttr = eventHref ? ' href="' + escapeHtml(eventHref) + '"' : "";
 
-        html += '<article class="event-card">';
+        html += "<" + cardTag + ' class="event-card"' + cardHrefAttr + ">";
         html += '  <div class="event-top">';
-        html += '    <div class="event-title">' + escapeHtml(ev.title || "Untitled show") + "</div>";
+        html += '    <div class="event-title">' + titleText + "</div>";
         html += '    <div class="event-time">' + escapeHtml(fmtTime(x.d)) + "</div>";
         html += "  </div>";
-        html += '  <div class="event-meta">' + meta + " " + statusBadge(ev) + "</div>";
-        html += '  <div class="event-actions">' + ticket + "</div>";
-        html += "</article>";
+        html += '  <div class="event-meta">' + meta + " " + statusBadge(ev) + languageTag(ev) + "</div>";
+        html += "</" + cardTag + ">";
       });
       html += "</section>";
     });
+    return html;
+  }
+
+  // --- Recurring-show grouping (Phase 3b refinement, 2026-07-18) ---------
+  // A single show_series (the recurring show, e.g. "Laughing Spree Comedy")
+  // can have dozens of individual event_instances (dated occurrences) live
+  // at once -- confirmed live on Berlin's city page: 64 listed events, only
+  // 10 distinct show titles, one show appearing as 21 separate full-width
+  // duplicate cards with no grouping (BUILD_STATE.md frontend-audit finding,
+  // 2026-07-17). Groups an already-filtered event list into one entry per
+  // recurring show -- keyed by show_series_id (migration 0079/0086, already
+  // present on public_upcoming_events / upcoming_events.json) when present,
+  // falling back to organization_name+title when no series relationship
+  // exists yet (e.g. some Edinburgh umbrella listings) so those rows still
+  // consolidate with their own same-org/same-title duplicates rather than
+  // silently skip grouping. Each group's member events are sorted
+  // chronologically; groups themselves are sorted by their EARLIEST
+  // upcoming occurrence -- a single-occurrence show sorts exactly where it
+  // would have before this change.
+  function groupEventsByShow(events) {
+    var groups = {};
+    var order = [];
+    events.forEach(function (ev) {
+      var key = ev.show_series_id != null
+        ? "series:" + ev.show_series_id
+        : "orgtitle:" + (ev.organization_name || "") + "||" + (ev.title || "");
+      if (!groups[key]) {
+        groups[key] = {
+          key: key,
+          title: ev.show_series_name || ev.title || "Untitled show",
+          events: []
+        };
+        order.push(key);
+      }
+      groups[key].events.push(ev);
+    });
+    var result = order.map(function (key) { return groups[key]; });
+    result.forEach(function (g) {
+      g.events.sort(function (a, b) { return new Date(a.starts_at) - new Date(b.starts_at); });
+      g.earliest = new Date(g.events[0].starts_at);
+    });
+    result.sort(function (a, b) { return a.earliest - b.earliest; });
+    return result;
+  }
+
+  // --- Listing diversity / fair interleaving (2026-07-19) ----------------
+  // Robert: "JK Comedy Club Soho has the only visibility for London --
+  // there needs to be a way to show other venues/shows." Verified live
+  // against exports/upcoming_events.json before writing this: London has
+  // 1010 upcoming rows across only 47 distinct show_series, and JK Comedy
+  // Club's three rooms (Leicester Square/Soho/Covent Garden) account for
+  // 44 of those 47 groups -- the other 3 groups (Comedy Carnival Covent
+  // Garden, x1; The Comedy Store, x1) are real, live, ticketable shows
+  // that a strict "earliest date first" sort (groupEventsByShow's own
+  // ordering) buries: Comedy Carnival's earliest occurrence sorts behind
+  // ~17 JK groups, and The Comedy Store's two rows are the LAST two of
+  // 47 by date (October, months out) -- so a plain chronological list's
+  // first 12+ cards are 100% JK regardless of page size.
+  //
+  // A per-calendar-day round-robin (bucket by day, diversify within each
+  // bucket) was tried first and rejected: verified against the same real
+  // data that most individual days in this dataset only ever have ONE
+  // distinct venue's shows on them (e.g. Sunday is JK Covent Garden only,
+  // Tuesday is JK Soho only) -- diversifying WITHIN a single-venue day
+  // bucket is a no-op, so that approach would never have surfaced Comedy
+  // Carnival or The Comedy Store at all. What actually works, verified
+  // against this same data: a GLOBAL round-robin across organizer/venue
+  // queues (each queue internally still date-ascending), so every
+  // distinct venue gets a turn before any one venue gets a second card --
+  // round 1 alone guarantees all 5 London venues appear somewhere in the
+  // first 5 cards, comfortably inside "first 12".
+  //
+  // Deterministic, never Math.random (repo convention -- reproducible
+  // output for tests and for two visitors loading the same page the same
+  // day): `seed` rotates WHICH venue leads the rotation, string-hashed so
+  // it changes from one calendar day to the next (per Robert's "stable
+  // per day" ask -- a venue that led yesterday doesn't necessarily lead
+  // today) but is byte-identical for every request on the same day.
+  function _seedOffset(seed, modulus) {
+    if (!seed || modulus <= 1) return 0;
+    var h = 0;
+    for (var i = 0; i < seed.length; i++) {
+      h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+    }
+    return h % modulus;
+  }
+
+  // Generic building block: stable round-robin over `items`, keyed by
+  // keyFn(item) -- preserves each key's own relative order (its queue is
+  // just a filter of the original array, in original order), only the
+  // INTERLEAVING across keys is reordered. `seed` (any string) picks a
+  // deterministic starting key so repeated calls with the same seed
+  // produce byte-identical output (tests rely on this), and different
+  // seeds (e.g. a different calendar day) rotate which key leads.
+  function roundRobinByKey(items, keyFn, seed) {
+    var order = [];
+    var buckets = {};
+    items.forEach(function (it) {
+      var k = keyFn(it) || "";
+      if (!Object.prototype.hasOwnProperty.call(buckets, k)) {
+        buckets[k] = [];
+        order.push(k);
+      }
+      buckets[k].push(it);
+    });
+    if (order.length <= 1) return items.slice();
+
+    var offset = _seedOffset(seed, order.length);
+    var rotated = order.slice(offset).concat(order.slice(0, offset));
+
+    var result = [];
+    var remaining = items.length;
+    while (remaining > 0) {
+      for (var i = 0; i < rotated.length; i++) {
+        var bucket = buckets[rotated[i]];
+        if (bucket.length) {
+          result.push(bucket.shift());
+          remaining -= 1;
+        }
+      }
+    }
+    return result;
+  }
+
+  // Applies roundRobinByKey to groupEventsByShow()'s output specifically --
+  // key = venue_name, falling back to organization_name (same convention
+  // as city.html's own venueKey()), then the group's own key so a group
+  // with neither still gets its own bucket rather than colliding with
+  // every other unattributed group into one giant "" bucket.
+  function interleaveGroupsByVenue(groups, seed) {
+    return roundRobinByKey(groups, function (g) {
+      var primary = g.events[0];
+      return primary.venue_name || primary.organization_name || g.key;
+    }, seed);
+  }
+
+  // Renders groupEventsByShow()'s output: one card per show, its earliest
+  // occurrence's venue/price/language as the card's headline meta, and a
+  // compact date list (first 3 dates inline, the rest behind a native
+  // <details> disclosure) instead of N duplicate cards. Single-occurrence
+  // groups render exactly like the old renderEventCards per-event card
+  // (title, date/time, meta, ticket link) -- only a genuinely recurring
+  // show gets the date-list treatment.
+  var GROUPED_VISIBLE_DATES = 3;
+
+  function renderGroupedEventCards(groups) {
+    var html = "";
+    groups.forEach(function (g) {
+      var primary = g.events[0];
+      var venueBit = primary.venue_name ? escapeHtml(primary.venue_name) : null;
+      var orgBit = primary.organization_name ? escapeHtml(primary.organization_name) : null;
+      var price = fmtPrice(primary);
+      var metaParts = [];
+      if (venueBit) metaParts.push(venueBit);
+      if (orgBit && orgBit !== venueBit) metaParts.push(orgBit);
+      if (primary.language && primary.language !== "en") metaParts.push(languageLabel(primary.language));
+      if (price) metaParts.push(price);
+      var meta = metaParts.join(' <span class="sep">·</span> ');
+
+      // 2026-07-18: the group's title links to the SHOW's own page
+      // (public_upcoming_events.show_series_slug, migration 0090) when a
+      // real show identity exists -- added specifically because the
+      // 692-show backfill earlier today created 711 real show pages that
+      // were technically live but never actually reachable by browsing
+      // the site (Robert: "did you put that on the site so people can
+      // see it?" -- the honest answer was no, this was the missing
+      // link). Falls back to the earliest occurrence's own event page
+      // for any group that hasn't been linked to a show_series yet
+      // (matches renderEventCards' per-event fallback), so a recurring
+      // show is never a click-straight-to-tickets dead end at any level
+      // either way.
+      var groupHref = primary.show_series_slug
+        ? "show/" + encodeURIComponent(primary.show_series_slug) + "/"
+        : (primary.slug ? "event/" + encodeURIComponent(primary.slug) + "/" : null);
+      var groupTitleHtml = escapeHtml(g.title);
+      if (groupHref) {
+        groupTitleHtml = '<a class="event-title-link" href="' + escapeHtml(groupHref) + '">' + groupTitleHtml + "</a>";
+      }
+
+      html += '<article class="event-card">';
+      html += '  <div class="event-top">';
+      html += '    <div class="event-title">' + groupTitleHtml + "</div>";
+      if (g.events.length > 1) {
+        html += '    <div class="event-date-count">' + g.events.length + " dates</div>";
+      } else {
+        html += '    <div class="event-time">' + escapeHtml(fmtTime(g.earliest)) + "</div>";
+      }
+      html += "  </div>";
+      html += '  <div class="event-meta">' + meta + " " + statusBadge(primary) + languageTag(primary) + "</div>";
+
+      if (g.events.length > 1) {
+        var visible = g.events.slice(0, GROUPED_VISIBLE_DATES);
+        var rest = g.events.slice(GROUPED_VISIBLE_DATES);
+        html += _datesListHtml(visible);
+        if (rest.length) {
+          html += '  <details class="more-dates">';
+          html += '    <summary>+' + rest.length + " more date" + (rest.length === 1 ? "" : "s") + "</summary>";
+          html += _datesListHtml(rest);
+          html += "  </details>";
+        }
+      }
+
+      // 2026-07-18: no card-level ticket exit here either (same standing
+      // rule as renderEventCards above) -- the group's own title link
+      // (and, for a multi-date group, each date's own link) already route
+      // to that show/event's dedicated page; the Official-tickets button
+      // belongs exclusively there.
+      html += "</article>";
+    });
+    return html;
+  }
+
+  function _datesListHtml(evs) {
+    var html = '<ul class="event-dates">';
+    evs.forEach(function (ev) {
+      var d = new Date(ev.starts_at);
+      var label = escapeHtml(fmtDayHeading(d)) + ", " + escapeHtml(fmtTime(d));
+      var href = ev.slug ? "event/" + encodeURIComponent(ev.slug) + "/" : null;
+      html += "<li>" + (href
+        ? '<a class="event-date-link" href="' + escapeHtml(href) + '">' + label + "</a>"
+        : label);
+      if (ev.status === "cancelled" || ev.sold_out_status === "sold_out") {
+        html += " " + statusBadge(ev);
+      }
+      html += "</li>";
+    });
+    html += "</ul>";
     return html;
   }
 
@@ -290,15 +725,27 @@
     fmtTime: fmtTime,
     fmtPrice: fmtPrice,
     statusBadge: statusBadge,
-    dropFrench: dropFrench,
+    LANGUAGE_LABELS: LANGUAGE_LABELS,
+    languageLabel: languageLabel,
+    matchesLanguage: matchesLanguage,
+    languageTag: languageTag,
     fetchEvents: fetchEvents,
     fetchManifest: fetchManifest,
+    fetchCities: fetchCities,
+    distanceKm: distanceKm,
     setFreshness: setFreshness,
     groupByCity: groupByCity,
+    citiesByName: citiesByName,
     groupFestivals: groupFestivals,
     renderEventCards: renderEventCards,
+    groupEventsByShow: groupEventsByShow,
+    renderGroupedEventCards: renderGroupedEventCards,
+    roundRobinByKey: roundRobinByKey,
+    interleaveGroupsByVenue: interleaveGroupsByVenue,
     FORMAT_LABELS: FORMAT_LABELS,
     deriveFormat: deriveFormat,
+    DURATION_LABELS: DURATION_LABELS,
+    deriveDurationBucket: deriveDurationBucket,
     parisNow: parisNow,
     parisDateKey: parisDateKey,
     makeTimeBuckets: makeTimeBuckets

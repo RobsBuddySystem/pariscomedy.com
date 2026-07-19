@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:edinburgh-magic-circle-showcase@comedyatlas.app
+DTSTAMP:20260719T212302Z
+DTSTART:20260810T200000Z
+DTEND:20260810T220000Z
+SUMMARY:EDINBURGH MAGIC CIRCLE SHOWCASE
+LOCATION:Liquid Room – Studio\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/edinburgh
+ -magic-circle-showcase/
+URL:https://pariscomedy.com/comedy-atlas/event/edinburgh-magic-circle-showc
+ ase/
+END:VEVENT
+END:VCALENDAR

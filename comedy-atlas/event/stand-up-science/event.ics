@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:stand-up-science@comedyatlas.app
+DTSTAMP:20260719T212303Z
+DTSTART:20260806T163000Z
+DTEND:20260806T183000Z
+SUMMARY:Stand-Up Science
+LOCATION:The Pear Tree / Main Room\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/stand-up-
+ science/
+URL:https://pariscomedy.com/comedy-atlas/event/stand-up-science/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:almost-50-and-a-woman@comedyatlas.app
+DTSTAMP:20260719T212301Z
+DTSTART:20260806T103000Z
+DTEND:20260806T123000Z
+SUMMARY:Almost 50 AND a Woman
+LOCATION:Boston Bar (New Town) / Basement Bar\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/almost-50
+ -and-a-woman/
+URL:https://pariscomedy.com/comedy-atlas/event/almost-50-and-a-woman/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:spoken-word-showcase@comedyatlas.app
+DTSTAMP:20260719T212302Z
+DTSTART:20260808T101500Z
+DTEND:20260808T121500Z
+SUMMARY:SPOKEN WORD SHOWCASE
+LOCATION:Whistlebinkies – Small Room\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/spoken-wo
+ rd-showcase/
+URL:https://pariscomedy.com/comedy-atlas/event/spoken-word-showcase/
+END:VEVENT
+END:VCALENDAR

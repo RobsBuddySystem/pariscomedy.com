@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:late-bite-mixed-bill-late-night-stand-up@comedyatlas.app
+DTSTAMP:20260719T212302Z
+DTSTART:20260806T204500Z
+DTEND:20260806T224500Z
+SUMMARY:Late Bite: Mixed-Bill Late-Night Stand-Up
+LOCATION:West Nic Records / Main Cellar\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/late-bite
+ -mixed-bill-late-night-stand-up/
+URL:https://pariscomedy.com/comedy-atlas/event/late-bite-mixed-bill-late-ni
+ ght-stand-up/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:elliot-wengler-jokemon@comedyatlas.app
+DTSTAMP:20260719T212302Z
+DTSTART:20260806T104500Z
+DTEND:20260806T124500Z
+SUMMARY:Elliot Wengler: Jokemon
+LOCATION:The Counting House / The Lounge\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/elliot-we
+ ngler-jokemon/
+URL:https://pariscomedy.com/comedy-atlas/event/elliot-wengler-jokemon/
+END:VEVENT
+END:VCALENDAR

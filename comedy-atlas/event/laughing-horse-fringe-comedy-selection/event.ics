@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:laughing-horse-fringe-comedy-selection@comedyatlas.app
+DTSTAMP:20260719T212302Z
+DTSTART:20260807T204500Z
+DTEND:20260807T224500Z
+SUMMARY:Laughing Horse Fringe Comedy Selection
+LOCATION:Bar 50 / The Alcove\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/laughing-
+ horse-fringe-comedy-selection/
+URL:https://pariscomedy.com/comedy-atlas/event/laughing-horse-fringe-comedy
+ -selection/
+END:VEVENT
+END:VCALENDAR

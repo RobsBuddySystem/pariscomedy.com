@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:comedy-striptease@comedyatlas.app
+DTSTAMP:20260719T212302Z
+DTSTART:20260805T233000Z
+DTEND:20260806T013000Z
+SUMMARY:Comedy Striptease
+LOCATION:West Nic Records / Main Cellar\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/comedy-st
+ riptease/
+URL:https://pariscomedy.com/comedy-atlas/event/comedy-striptease/
+END:VEVENT
+END:VCALENDAR

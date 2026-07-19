@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//COMEDY ATLAS//Event Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:same-same-but-different@comedyatlas.app
+DTSTAMP:20260719T212302Z
+DTSTART:20260808T203000Z
+DTEND:20260808T223000Z
+SUMMARY:SAME SAME BUT DIFFERENT
+LOCATION:Southsider – Side Lounge\, Edinburgh
+DESCRIPTION:More info: https://pariscomedy.com/comedy-atlas/event/same-same
+ -but-different/
+URL:https://pariscomedy.com/comedy-atlas/event/same-same-but-different/
+END:VEVENT
+END:VCALENDAR
