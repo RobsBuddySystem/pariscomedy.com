@@ -1,1 +1,0 @@
-DROP TABLE IF EXISTS claims_v2;
