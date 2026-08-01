@@ -3,9 +3,35 @@
 // ping (time on page + max scroll depth) via sendBeacon. No third-party
 // service, no cookies — just a sessionStorage random session_id so we can
 // roughly count unique visits without persistent fingerprinting.
+//
+// GA4 (2026-08-01): also loads Google's gtag.js and fires the standard
+// 'config' call for Robert's existing GA4 property (G-1Q74JY864H). This is
+// the SAME measurement ID and the SAME minimal call shape already live on
+// comedyatlas.app via atlas-track.js — that file's header comment names
+// THIS file as its origin, so this is the one pattern, not a second one.
+// No custom event parameters are ever passed: only gtag's own automatic
+// page_location/page_referrer. Nothing this file constructs (session id,
+// path, referrer, screen size) is sent to GA4 — that data stays in the
+// first-party /api/track beacon below. No PII: no email, no name, no
+// booker/comic identifier is ever read or sent by this file.
 (function () {
   if (window.__pcTracked) return;
   window.__pcTracked = true;
+
+  try {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', 'G-1Q74JY864H');
+
+    const gaTag = document.createElement('script');
+    gaTag.async = true;
+    gaTag.src = 'https://www.googletagmanager.com/gtag/js?id=G-1Q74JY864H';
+    document.head.appendChild(gaTag);
+  } catch (_) {
+    // Google Analytics is optional; keep the first-party tracker below reliable.
+  }
+
   let sid = '';
   try {
     sid = sessionStorage.getItem('pc_sid') || '';
