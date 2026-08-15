@@ -101,15 +101,15 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
         <span class="msg" id="save-msg"></span>
         <label style="display:flex;align-items:center;gap:8px;margin-top:14px;color:var(--muted);font-size:13px;text-transform:none;letter-spacing:0">
           <input type="checkbox" id="unlist-toggle" style="width:auto" onchange="setListing(!this.checked)">
-          Hide my page from the public directory / Masquer ma fiche
+          Hide my page from the public directory
         </label>
         <span class="msg" id="listing-msg"></span>
       </form>
     </section>
 
     <section class="panel" style="grid-column:1/-1">
-      <h2>Availability / Mes dispos</h2>
-      <p style="color:var(--muted);font-size:13px;margin:0 0 12px">Tap the dates you're free to perform — bookers see who's available each night. / Touchez vos dates libres ; les programmateurs voient qui est dispo chaque soir.</p>
+      <h2>Availability</h2>
+      <p style="color:var(--muted);font-size:13px;margin:0 0 12px">Tap the dates you're free to perform — bookers see who's available each night.</p>
       <div id="cal-wrap" style="max-width:420px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
           <button class="btn secondary" type="button" style="padding:6px 12px" onclick="calShift(-1)" aria-label="Previous month">&#8592;</button>
@@ -383,10 +383,10 @@ async function loadAvailability(){
   try{
     const r=await api('/api/performer/availability');
     const rows=(r.availability||[]).filter(a=>a.status==='available');
-    if(!rows.length){wrap.innerHTML='<p style="color:var(--muted);font-size:13px">No open dates yet. / Aucune date pour le moment.</p>';return;}
+    if(!rows.length){wrap.innerHTML='<p style="color:var(--muted);font-size:13px">No open dates yet.</p>';return;}
     wrap.innerHTML=rows.map(a=>`<div class="status-row" style="align-items:center">
       <span><strong style="color:var(--text)">${escP(a.date)}</strong>${a.note?` <span style="color:var(--muted)">— ${escP(a.note)}</span>`:''}</span>
-      <button class="btn secondary" style="padding:6px 10px;font-size:12px" onclick="removeAvailability(${a.id})">Remove / Retirer</button>
+      <button class="btn secondary" style="padding:6px 10px;font-size:12px" onclick="removeAvailability(${a.id})">Remove</button>
     </div>`).join('');
   }catch(e){wrap.innerHTML='<p class="err" style="font-size:13px">'+escP(e.message)+'</p>';}
 }
