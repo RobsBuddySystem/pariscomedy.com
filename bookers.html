@@ -235,10 +235,13 @@ footer a:hover{color:var(--text)}
       <button class="btn-submit" id="cl-btn" onclick="submitClaim()">Submit claim →</button>
     </div>
     <div class="success-msg" id="cl-success">
-      Thanks! We'll review your claim and be in touch within 48 hours.
+      Thanks! We'll review your claim and be in touch as fast as we can — usually within a few days.
     </div>
   </div>
 
+  <!-- Booker Plus checkout CTA neutralized 2026-08-14: STRIPE_ENABLED=0, no live checkout.
+  Restore the priced version only once /api/checkout/config returns enabled:true.
+  Original markup:
   <div class="plus-teaser">
     <h2>Booker Plus — €1/month</h2>
     <p>Promote your shows to the top of listings, message comics directly, and feature a show in the homepage slot.</p>
@@ -249,6 +252,18 @@ footer a:hover{color:var(--text)}
     </div>
     <p style="margin-top:16px;font-size:13px;color:#888">€1/month or €12/year. Cancel anytime.</p>
     <a href="/pricing.html#booker-plus" class="btn-primary" style="margin-top:8px">Start Booker Plus →</a>
+  </div>
+  -->
+  <div class="plus-teaser">
+    <h2>Booker Plus — coming soon</h2>
+    <p>Promote your shows to the top of listings, message comics directly, and feature a show in the homepage slot. Not live yet — nothing is charged today.</p>
+    <div>
+      <span class="lock-badge">Promote shows to top of listings</span>
+      <span class="lock-badge">Send direct messages to comics</span>
+      <span class="lock-badge">Feature show on homepage</span>
+    </div>
+    <p style="margin-top:16px;font-size:13px;color:#888">Free to use right now. If a charge ever comes, we'll tell you clearly first — see <a href="/pricing.html" style="color:#888;text-decoration:underline">pricing</a>.</p>
+    <a href="/pricing.html" class="btn-primary" style="margin-top:8px">See pricing →</a>
   </div>
 </section>
 
@@ -325,6 +340,6 @@ async function markClaimedShows(){
 }
 document.addEventListener('DOMContentLoaded',markClaimedShows);
 </script>
-<script src="/assets/track.js?v=20260801" defer></script>
+<script src="/assets/track.js?v=20260802" defer></script>
 </body>
 </html>

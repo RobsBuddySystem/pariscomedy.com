@@ -120,12 +120,12 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
         <div class="msg" id="cal-msg" style="font-size:12px;min-height:18px"></div>
       </div>
       <details style="margin-top:14px">
-      <summary style="cursor:pointer;color:var(--muted);font-size:13px;margin-bottom:10px">Advanced: availability for a specific show / Dispo pour un show précis</summary>
+      <summary style="cursor:pointer;color:var(--muted);font-size:13px;margin-bottom:10px">Advanced: availability for a specific show</summary>
       <form onsubmit="return addAvailability(event)" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
         <div class="field" style="margin-bottom:0"><label>Date</label><input id="avail-date" type="date" required style="width:auto"></div>
-        <div class="field" style="margin-bottom:0;min-width:200px"><label>Show (optional / facultatif)</label><select id="avail-show" style="width:auto"><option value="">Any show / N'importe</option></select></div>
-        <div class="field" style="margin-bottom:0;flex:1;min-width:200px"><label>Note (optional / facultatif)</label><input id="avail-note" placeholder="e.g. after 20h / dispo en soirée" maxlength="500"></div>
-        <button class="btn" type="submit">Add date / Ajouter</button>
+        <div class="field" style="margin-bottom:0;min-width:200px"><label>Show (optional)</label><select id="avail-show" style="width:auto"><option value="">Any show</option></select></div>
+        <div class="field" style="margin-bottom:0;flex:1;min-width:200px"><label>Note (optional)</label><input id="avail-note" placeholder="e.g. after 20h" maxlength="500"></div>
+        <button class="btn" type="submit">Add date</button>
       </form>
       <span class="msg" id="avail-msg"></span>
       <div id="avail-list" style="margin-top:14px"></div>
@@ -134,29 +134,29 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
 
     <section class="panel" style="grid-column:1/-1">
       <h2>Know a show's booker? Invite them (free)</h2>
-      <p style="color:var(--muted);font-size:13px;margin:0 0 12px">If a show isn't on the platform yet and you know who books it, invite them. We review first and reach out — no spam — so they can claim the show free. / Si vous connaissez le programmateur d'un show absent du site, invitez-le (on vérifie d'abord, pas de spam).</p>
+      <p style="color:var(--muted);font-size:13px;margin:0 0 12px">If a show isn't on the platform yet and you know who books it, invite them. We review first and reach out — no spam — so they can claim the show free.</p>
       <form onsubmit="return inviteBooker(event)" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
         <div class="field" style="margin-bottom:0;flex:1;min-width:160px"><label>Show name</label><input id="inv-show" placeholder="e.g. Tuesday Night Comedy" maxlength="200" required></div>
         <div class="field" style="margin-bottom:0;flex:1;min-width:160px"><label>Booker email</label><input id="inv-email" type="email" placeholder="booker@venue.com" maxlength="200" required></div>
         <div class="field" style="margin-bottom:0;flex:1;min-width:160px"><label>Note (optional)</label><input id="inv-note" placeholder="how you know them" maxlength="500"></div>
-        <button class="btn" type="submit">Invite booker / Inviter</button>
+        <button class="btn" type="submit">Invite booker</button>
       </form>
       <span class="msg" id="inv-msg"></span>
     </section>
 
     <section class="panel" style="grid-column:1/-1">
-      <h2>Profile photo / Photo de profil</h2>
+      <h2>Profile photo</h2>
       <div id="drop-zone" tabindex="0" onclick="document.getElementById('photo-file').click()"
         style="border:2px dashed var(--border,#2d4b70);border-radius:12px;padding:26px 18px;text-align:center;cursor:pointer;transition:.15s;background:rgba(255,255,255,.02)">
         <div id="drop-preview"></div>
         <div style="font-weight:700">Drag &amp; drop your photo here</div>
-        <div style="color:var(--muted);font-size:13px;margin-top:4px">or click to choose · JPG/PNG/WEBP, max 6MB / Glissez-déposez votre photo</div>
+        <div style="color:var(--muted);font-size:13px;margin-top:4px">or click to choose · JPG/PNG/WEBP, max 6MB</div>
         <input id="photo-file" type="file" accept="image/*" style="display:none" onchange="uploadPhoto(this.files[0])">
       </div>
-      <details style="margin-top:10px"><summary style="color:var(--muted);font-size:13px;cursor:pointer">Or paste a photo URL / Ou coller un lien</summary>
+      <details style="margin-top:10px"><summary style="color:var(--muted);font-size:13px;cursor:pointer">Or paste a photo URL</summary>
         <form onsubmit="return addPhoto(event)" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-top:8px">
           <div class="field" style="margin-bottom:0;flex:1;min-width:240px"><label>Photo URL</label><input id="photo-url" type="url" placeholder="https://…/me.jpg" maxlength="600"></div>
-          <button class="btn" type="submit">Set photo / Définir</button>
+          <button class="btn" type="submit">Set photo</button>
         </form>
       </details>
       <span class="msg" id="photo-msg"></span>
@@ -397,12 +397,12 @@ async function addAvailability(ev){
   const note=document.getElementById('avail-note').value.trim();
   const showSel=document.getElementById('avail-show');
   const show_id=(showSel&&showSel.value)?parseInt(showSel.value,10):null;
-  if(!date){msg.textContent='Pick a date. / Choisissez une date.';msg.classList.add('err');return false;}
+  if(!date){msg.textContent='Pick a date.';msg.classList.add('err');return false;}
   msg.textContent='Saving…';
   try{
     await api('/api/performer/availability',{method:'POST',body:JSON.stringify({date,status:'available',note,show_id})});
     document.getElementById('avail-note').value='';
-    msg.textContent='Added. / Ajouté.';msg.classList.add('ok');
+    msg.textContent='Added.';msg.classList.add('ok');
     loadAvailability();
   }catch(e){msg.textContent=e.message;msg.classList.add('err');}
   return false;

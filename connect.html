@@ -134,7 +134,7 @@ footer a:hover{color:var(--text)}
       <div id="report-banner" style="display:none;background:#1a0a00;border:1px solid #f59e0b;border-radius:8px;padding:14px 16px;margin-bottom:16px">
         <div style="font-size:13px;color:#f59e0b;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Report an issue</div>
         <div style="margin-top:6px;font-size:15px;color:#f0f0f0">Reporting issue with: <strong id="report-show-slug"></strong> &mdash; please describe below</div>
-        <div style="margin-top:4px;font-size:12px;color:#888">Use the show name / day / time / contact email fields below to describe the issue. We review reports within 48 hours.</div>
+        <div style="margin-top:4px;font-size:12px;color:#888">Use the show name / day / time / contact email fields below to describe the issue. We review reports as fast as we can — usually within a few days.</div>
       </div>
       <h2 id="sr-title">List your comedy show</h2>
       <p class="subhead" id="sr-subhead">Get your show in front of Paris Comedy's audience. Submit your details and we'll get you listed.</p>
@@ -178,7 +178,7 @@ footer a:hover{color:var(--text)}
         <!-- P3.CLAIM.3 evidence-collection fields (closes FIND-3). Shown only in claim mode. -->
         <div id="sr-claim-evidence" style="display:none;margin-top:6px;padding:14px 16px;background:#0f0f1a;border:1px solid #2a1a4a;border-radius:10px">
           <div style="font-size:12px;color:#9d5ff5;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px">Verification (optional)</div>
-          <div style="font-size:12px;color:#888;line-height:1.5;margin-bottom:12px">These help us verify you run this show. We review every claim within 48 hours.</div>
+          <div style="font-size:12px;color:#888;line-height:1.5;margin-bottom:12px">These help us verify you run this show. We review every claim as fast as we can — usually within a few days.</div>
           <div class="field">
             <label>Show Instagram handle</label>
             <input type="text" id="sr-show-instagram" placeholder="@yourshow">
@@ -210,7 +210,7 @@ footer a:hover{color:var(--text)}
   <div class="path" id="comedian">
     <div class="section-card">
       <h2>I'm a comedian looking for stages</h2>
-      <p class="subhead">Submit your bio and we'll connect you with Paris show runners and bookers within 48 hours.</p>
+      <p class="subhead">Submit your bio and we'll connect you with Paris show runners and bookers as fast as we can — usually within a few days.</p>
       <div id="form-comedian">
         <input type="text" name="hp_url" id="co-hp_url" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
         <div class="form-row">
@@ -248,7 +248,7 @@ footer a:hover{color:var(--text)}
         <button class="btn-primary" onclick="submitComedian()">Submit my bio →</button>
       </div>
       <div class="success-msg" id="co-success">
-        Got it! We'll review and connect you with bookers within 48 hours.
+        Got it! We'll review and connect you with bookers as fast as we can — usually within a few days.
       </div>
       <div style="margin-top:20px;padding:14px 16px;background:#0f0f1a;border:1px solid #2a1a4a;border-radius:10px;font-size:13px;color:#888;line-height:1.6">
         💬 Comic Plus messaging is planned — not live yet. <a href="/pricing.html#comic-plus" style="color:#9d5ff5;font-weight:600">Join the Comic Plus waitlist →</a>
@@ -261,7 +261,7 @@ footer a:hover{color:var(--text)}
   <div class="path" id="booker">
     <div class="section-card">
       <h2>I want to book a comedian</h2>
-      <p class="subhead">Looking for talent for your event? We'll be in touch within 24 hours.</p>
+      <p class="subhead">Looking for talent for your event? We'll be in touch as fast as we can — usually within a few days.</p>
       <div id="form-booker">
         <input type="text" name="hp_url" id="bk-hp_url" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
         <div class="form-row">
@@ -301,7 +301,7 @@ footer a:hover{color:var(--text)}
         <button class="btn-primary" onclick="submitBooker()">Send request →</button>
       </div>
       <div class="success-msg" id="bk-success">
-        We'll be in touch within 24 hours.
+        We'll be in touch as fast as we can — usually within a few days.
       </div>
     </div>
   </div>
@@ -310,7 +310,7 @@ footer a:hover{color:var(--text)}
   <div class="path" id="message">
     <div class="section-card">
       <h2>Send a message</h2>
-      <p class="subhead">Reach out to a booker, comic, or venue. Messages are reviewed before delivery — usually within 24 hours.</p>
+      <p class="subhead">Reach out to a booker, comic, or venue. Messages are reviewed before delivery — as fast as we can, usually within a few days.</p>
       <div id="form-message">
         <input type="text" id="msg-website" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
         <input type="text" name="hp_url" id="msg-hp_url" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
@@ -364,7 +364,7 @@ footer a:hover{color:var(--text)}
         <p style="font-size:12px;color:#666;margin-top:10px">Messages are reviewed before delivery to protect inboxes. We don't share private email addresses publicly.</p>
       </div>
       <div class="success-msg" id="msg-success">
-        Message received. We'll review and forward it within 24 hours. You'll get a copy by email if delivery succeeds.
+        Message received. We'll review and forward it as fast as we can — usually within a few days. You'll get a copy by email if delivery succeeds.
       </div>
     </div>
   </div>
@@ -538,7 +538,7 @@ async function submitShowRunner() {
   a.textContent = 'pariscomedy.com/shows/' + slug + '.html';
   // Adjust headings
   document.getElementById('sr-title').textContent = 'Claim: ' + nm;
-  document.getElementById('sr-subhead').textContent = 'You are claiming a show page. We review every claim within 48 hours before any ownership badge is shown publicly.';
+  document.getElementById('sr-subhead').textContent = 'You are claiming a show page. We review every claim as fast as we can, usually within a few days, before any ownership badge is shown publicly.';
   // Prefill venue and lock it so the claimant cannot rewrite the venue
   // associated with the show being claimed (parity with show_name lock).
   const ven = params.get('venue');
@@ -582,7 +582,7 @@ async function submitShowRunner() {
     contactEl.addEventListener('blur', check);
   }
   // Update success message
-  document.getElementById('sr-success').textContent = 'Claim received. We will review and contact you within 48 hours.';
+  document.getElementById('sr-success').textContent = 'Claim received. We will review and contact you as fast as we can, usually within a few days.';
 })();
 
 // Preload report banner from query params (?report=<slug>)
@@ -605,7 +605,7 @@ async function submitShowRunner() {
   const t = document.getElementById('sr-title');
   const sh = document.getElementById('sr-subhead');
   if (t) t.textContent = 'Report an issue: ' + slug;
-  if (sh) sh.textContent = 'Use the form below to describe the issue. We review reports within 48 hours.';
+  if (sh) sh.textContent = 'Use the form below to describe the issue. We review reports as fast as we can, usually within a few days.';
   // Prefill show name with slug (placeholder for the actual show title;
   // /shows/<slug>.html is a static page so we cannot reliably look up the
   // title client-side without an extra fetch — slug is the contract).
@@ -613,7 +613,7 @@ async function submitShowRunner() {
   if (showNameEl && !showNameEl.value) showNameEl.value = slug;
   // Update success message
   const success = document.getElementById('sr-success');
-  if (success) success.textContent = 'Report received. We will review and contact you within 48 hours.';
+  if (success) success.textContent = 'Report received. We will review and contact you as fast as we can, usually within a few days.';
   // Scroll the form-section into view so the user sees the banner immediately.
   try {
     const sec = document.querySelector('#show-runner .section-card');
@@ -776,6 +776,6 @@ async function submitMessage() {
   }
 })();
 </script>
-<script src="/assets/track.js?v=20260801" defer></script>
+<script src="/assets/track.js?v=20260802" defer></script>
 </body>
 </html>
