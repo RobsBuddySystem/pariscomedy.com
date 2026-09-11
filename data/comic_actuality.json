@@ -374,33 +374,6 @@
     "wikipedia": "https://en.wikipedia.org/wiki/Justin_Hamilton_(comedian)"
   },
   {
-    "comic_slug": "karthik",
-    "comic_name": "Karthik",
-    "fact": "web:active",
-    "methods": [
-      "M5",
-      "M6"
-    ],
-    "confidence": 2,
-    "checked_at": "2026-05-23T10:32:34+00:00",
-    "type": "web_presence",
-    "links": [
-      {
-        "title": "Karthik | We are thrilled to announce Passport Pals - Instagram",
-        "url": "https://www.instagram.com/p/DIa3-uyscoa/"
-      },
-      {
-        "title": "English Standup Comedy Special - Lost in Translation starring Karthik",
-        "url": "https://allevents.in/paris/english-standup-comedy-special-lost-in-translation-starring-karthik/10000950239480867"
-      },
-      {
-        "title": "Karthik Events - 1 Upcoming Activities and Tickets | Eventbrite",
-        "url": "https://www.eventbrite.co.uk/o/karthik-94807437793"
-      }
-    ],
-    "wikipedia": "https://en.wikipedia.org/wiki/Karthik_Kumar"
-  },
-  {
     "comic_slug": "kenny",
     "comic_name": "Kenny",
     "fact": "web:active",
