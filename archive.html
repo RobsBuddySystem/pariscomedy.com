@@ -58,6 +58,7 @@ footer{text-align:center;padding:40px 24px;color:#555;font-size:12px;border-top:
     <a href="/about.html">About</a>
     <a href="/feedback.html">Feedback</a>
   </div>
+  <div data-pc-search></div>
 </nav>
 <div class="hero">
   <h1>The <span>Archive</span></h1>
@@ -109,5 +110,6 @@ render('shows',  ARCH_SHOWS,  s => `<div class="item"><div class="nm">${s.name}<
 render('venues', ARCH_VENUES, v => `<div class="item"><div class="nm">${v.name}</div><div class="meta">${v.address||''}</div></div>`);
 </script>
 <script src="/assets/track.js?v=20260801" defer></script>
+<script src="/pc-search.js?v=20260913" defer></script>
 </body>
 </html>
