@@ -269,6 +269,36 @@ if (sel && Array.isArray(SHOWS)) {
        });
 }
 
+function pcEscapeHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
+
+function pcInitials(name) {
+  const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+  const chars = parts.slice(0, 2).map(p => p[0].toUpperCase());
+  return chars.join('') || '?';
+}
+
+function pcInitialsAvatarSrc(initials) {
+  const safe = pcEscapeHtml(initials);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56">`
+    + `<rect width="56" height="56" rx="28" fill="#1a1a2e"/>`
+    + `<text x="28" y="28" text-anchor="middle" dominant-baseline="central" `
+    + `font-family="system-ui,-apple-system,sans-serif" font-size="20" fill="#ffffff">${safe}</text>`
+    + `</svg>`;
+  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+}
+
+document.addEventListener('error', function(ev) {
+  const img = ev.target;
+  if (!img || img.tagName !== 'IMG' || !img.classList || !img.classList.contains('card-photo')) return;
+  if (img.dataset.pcFallbackApplied === '1') return;
+  img.dataset.pcFallbackApplied = '1';
+  img.src = pcInitialsAvatarSrc(img.dataset.initials || '?');
+}, true);
+
 function renderGrid() {
   const _s=document.getElementById('search'); const q=_s?(_s.value||'').toLowerCase():'';
   const grid=document.getElementById('grid');
@@ -301,7 +331,7 @@ function renderGrid() {
     card.innerHTML=`
       <a class="card-link" href="/c/${encodeURIComponent(c.slug)}.html" style="display:block;color:inherit;text-decoration:none">
         <div class="card-top">
-          <img class="card-photo" src="${c.photo}" alt="${c.name}" loading="lazy" decoding="async" width="56" height="56" onerror="this.src='https://api.dicebear.com/9.x/initials/svg?seed='+encodeURIComponent(c.name)+'&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40'">
+          <img class="card-photo" src="${c.photo}" alt="${c.name}" loading="lazy" decoding="async" width="56" height="56" data-initials="${pcEscapeHtml(pcInitials(c.name))}">
           <div class="card-meta">
             <div class="card-name">${c.name}${isNew?' <span class="tag" style="background:#14532d;color:#4ade80;margin-left:6px">NEW</span>':''}</div>
             <div class="card-tags">${tagHtml}</div>
@@ -554,7 +584,7 @@ function buildComicCard(c, isFeatured) {
     ${isFeatured?'<div class="featured-badge">Featured</div>':''}
     <a href="/c/${encodeURIComponent(c.slug)}.html" style="display:block;color:inherit;text-decoration:none">
       <div class="card-top">
-        <img class="card-photo" src="${c.photo}" alt="${c.name}" loading="lazy" decoding="async" width="56" height="56" onerror="this.src='https://api.dicebear.com/9.x/initials/svg?seed='+encodeURIComponent(c.name)+'&backgroundColor=1a1a2e&textColor=ffffff&fontSize=40'">
+        <img class="card-photo" src="${c.photo}" alt="${c.name}" loading="lazy" decoding="async" width="56" height="56" data-initials="${pcEscapeHtml(pcInitials(c.name))}">
         <div class="card-meta">
           <div class="card-name">${c.name}${isNew?' <span class="tag" style="background:#14532d;color:#4ade80;margin-left:6px">NEW</span>':''}</div>
           <div class="card-tags">${tagHtml}</div>
