@@ -68,7 +68,8 @@ footer a{color:var(--yellow)}
  <div class="rows">
   <div class="pills" id="country-pills" role="group" aria-label="Filter by country"></div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-   <select id="city" class="gr-select" aria-label="Filter by city"></select>
+   <input id="city" class="gr-select" type="text" list="city-list" placeholder="Type a city…" aria-label="Filter by city" autocomplete="off">
+   <datalist id="city-list"></datalist>
    <div class="pills" id="lang-pills" role="group" aria-label="Filter by set language"></div>
   </div>
  </div>
@@ -83,7 +84,7 @@ footer a{color:var(--yellow)}
 
 <script>
 const FALLBACK = {note:'', count:0, by_country:{}, cities:[], clubs:[]};
-const state = {country:'all', city:'all', lang:'all', q:''};
+const state = {country:'all', city:'', lang:'all', q:''};
 let DATA = FALLBACK;
 
 function el(tag, cls, text){
@@ -97,6 +98,9 @@ function link(href, label, cls){
  a.href=href; a.target='_blank'; a.rel='noopener noreferrer';
  return a;
 }
+function norm(s){
+ return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+}
 function socialLabel(url){
  if(!url) return null;
  const u=url.toLowerCase();
@@ -106,7 +110,7 @@ function socialLabel(url){
 }
 function matches(c){
  if(state.country!=='all' && c.country_key!==state.country) return false;
- if(state.city!=='all' && c.city_key!==state.city) return false;
+ if(state.city && norm(c.city_key).indexOf(norm(state.city))===-1) return false;
  if(state.lang!=='all' && (c.languages||[]).indexOf(state.lang)===-1) return false;
  if(state.q){
   const hay=(c.name+' '+c.city+' '+c.country+' '+c.venue_type).toLowerCase();
@@ -161,9 +165,9 @@ function init(){
  makePill(cp,'France',fr?('France · '+fr):'France','country');
  makePill(cp,'Belgium',be?('Belgium · '+be):'Belgium','country');
  const city=document.getElementById('city');
- const optAll=el('option',null,'All cities'); optAll.value='all'; city.appendChild(optAll);
- (DATA.cities||[]).forEach(function(ci){const o=el('option',null,ci);o.value=ci;city.appendChild(o);});
- city.addEventListener('change',function(){state.city=city.value;render();});
+ const cityList=document.getElementById('city-list');
+ (DATA.cities||[]).forEach(function(ci){const o=el('option');o.value=ci;cityList.appendChild(o);});
+ city.addEventListener('input',function(){state.city=city.value.trim();render();});
  const lp=document.getElementById('lang-pills');
  makePill(lp,'all','All','lang');
  ['EN','FR','NL'].forEach(function(code){makePill(lp,code,code,'lang');});
