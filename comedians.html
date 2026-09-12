@@ -73,6 +73,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .search-wrap{padding:16px 24px 0;max-width:400px;margin:0 auto}
 .search-wrap input{width:100%;padding:10px 16px;border-radius:8px;border:1px solid var(--border);background:#111827;color:var(--white);font-size:14px;outline:none}
 .search-wrap input:focus{border-color:#445566}
+.atlas-more{max-width:1200px;margin:0 auto;padding:0 24px 8px}
+.atlas-more-title{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.4px;text-transform:uppercase;margin-bottom:8px}
+.atlas-more-list{display:flex;flex-wrap:wrap;gap:8px}
+.atlas-more-item{display:inline-block;padding:6px 12px;border:1px solid var(--border);border-radius:20px;font-size:13px;color:var(--muted)}
+.atlas-more-item:hover{border-color:var(--gold);color:var(--gold)}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding:24px;max-width:1200px;margin:0 auto}
 
@@ -191,6 +196,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 </div>
 
 <div class="grid" id="grid"></div>
+
+<div class="atlas-more" id="atlas-more" hidden></div>
 
 <section class="how-section" id="how" style="text-align:center;padding:40px 24px 56px">
   <p class="sub" style="margin-bottom:16px">Not listed yet? Submit your bio and we'll add your profile to the directory.</p>
@@ -360,6 +367,83 @@ document.querySelectorAll('.filter-btn').forEach(btn=>{
   });
 });
 document.getElementById('search').addEventListener('input',renderGrid);
+
+// === COMEDY ATLAS cross-search (pariscomedy.com + comedyatlas.app share one comic pool) ===
+// Local comics stay the primary result set; Atlas results appear as a
+// supplementary strip below, deduped against what's already shown locally.
+function pcNormName(s) {
+  return String(s == null ? '' : s)
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function pcEscapeHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, m => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[m]));
+}
+
+function pcMergeAtlas(atlasComics, localComics) {
+  const localSlugs = new Set((localComics || []).map(c => c && c.slug).filter(Boolean));
+  const localNames = new Set((localComics || []).map(c => pcNormName(c && c.name)).filter(Boolean));
+  const seen = new Set();
+  const out = [];
+  (atlasComics || []).forEach(c => {
+    if (!c || !c.slug) return;
+    if (localSlugs.has(c.slug)) return;
+    const nname = pcNormName(c.stage_name);
+    if (!nname || localNames.has(nname)) return;
+    if (seen.has(c.slug) || seen.has(nname)) return;
+    seen.add(c.slug); seen.add(nname);
+    out.push(c);
+  });
+  return out;
+}
+
+function pcRenderAtlasResults(atlasList) {
+  const box = document.getElementById('atlas-more');
+  if (!box) return;
+  // Only ever link to a comedyatlas.app page: never trust an href from a response blindly.
+  const safe = (atlasList || []).filter(c => /^https:\/\/comedyatlas\.app\//.test(String((c && c.atlas_url) || '')));
+  if (!safe.length) { box.hidden = true; box.innerHTML = ''; return; }
+  const items = safe.map(c => {
+    const name = pcEscapeHtml(c.stage_name || '');
+    const city = c.home_city ? ', ' + pcEscapeHtml(c.home_city) : '';
+    const url = pcEscapeHtml(c.atlas_url || '');
+    return `<a class="atlas-more-item" href="${url}" target="_blank" rel="noopener">${name}${city}</a>`;
+  }).join('');
+  box.innerHTML = `<div class="atlas-more-title">More comedians on COMEDY ATLAS</div><div class="atlas-more-list">${items}</div>`;
+  box.hidden = false;
+}
+
+let pcAtlasTimer = null;
+let pcAtlasSeq = 0;
+function pcSearchAtlas(query) {
+  clearTimeout(pcAtlasTimer);
+  const box = document.getElementById('atlas-more');
+  const q = String(query == null ? '' : query).trim();
+  if (q.length < 2) { pcAtlasSeq++; if (box) { box.hidden = true; box.innerHTML = ''; } return; }
+  pcAtlasTimer = setTimeout(() => {
+    const seq = ++pcAtlasSeq;
+    const controller = ('AbortController' in window) ? new AbortController() : null;
+    const timeoutId = controller ? setTimeout(() => controller.abort(), 5000) : null;
+    fetch(`https://api.comedyatlas.app/v1/comics?q=${encodeURIComponent(q)}&limit=20`, controller ? { signal: controller.signal } : {})
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (timeoutId) clearTimeout(timeoutId);
+        if (seq !== pcAtlasSeq) return; // a newer query has since superseded this response
+        if (!data || !Array.isArray(data.comics)) return;
+        pcRenderAtlasResults(pcMergeAtlas(data.comics, COMICS));
+      })
+      .catch(() => {
+        if (timeoutId) clearTimeout(timeoutId);
+        if (seq === pcAtlasSeq && box) { box.hidden = true; box.innerHTML = ''; }
+      });
+  }, 250);
+}
+document.getElementById('search').addEventListener('input', e => pcSearchAtlas(e.target.value));
 
 function openModal(slug,name) {
   document.getElementById('m-name').value=name||'';
