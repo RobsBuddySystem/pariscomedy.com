@@ -38,7 +38,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .hero h1{font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-0.5px;line-height:1.15;margin-bottom:6px}
 .hero h1 span{color:var(--gold)}
 .hero p{color:var(--muted);font-size:14px;max-width:640px;line-height:1.5}
-.stats-bar{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:#667788;align-items:baseline;margin-top:10px}
+.stats-bar{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:#7c8ca0;align-items:baseline;margin-top:10px}
 .stats-bar strong{color:var(--gold);font-size:15px;margin-right:4px}
 
 /* City chip nav — sticky, horizontal-scroll on mobile, sliding underline */
@@ -99,9 +99,9 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .state{max-width:1200px;margin:0 auto;padding:48px 24px;text-align:center;color:var(--muted);font-size:15px}
 .state strong{color:var(--white)}
 
-footer{border-top:1px solid #222;padding:32px 24px;text-align:center;color:#666;font-size:13px;margin-top:32px}
+footer{border-top:1px solid #222;padding:32px 24px;text-align:center;color:#888;font-size:13px;margin-top:32px}
 footer .frow{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
-footer a{color:#666}
+footer a{color:#888}
 </style>
 </head>
 <body>
@@ -124,6 +124,7 @@ footer a{color:#666}
   <div data-pc-search></div>
 </nav>
 
+<main>
 <div class="hero">
   <h1>Comedy Across <span>Europe</span></h1>
   <p>English-language stand-up shows across Europe's clubs, pulled from official listings. Tap a show for the full page.</p>
@@ -144,6 +145,7 @@ footer a{color:#666}
   <div class="skel-card"><div class="skel-media"></div><div class="skel-lines"><div class="skel-line w80"></div><div class="skel-line w60"></div></div></div>
 </div>
 <div id="content"></div>
+</main>
 
 <footer>
   <div class="frow">
@@ -359,7 +361,7 @@ function render(){
   render();
 })();
 </script>
-<script src="/assets/track.js?v=20260801" defer></script>
+<script src="/assets/track.js?v=20260923" defer></script>
 <script src="/pc-search.js?v=20260913" defer></script>
 </body>
 </html>

@@ -85,6 +85,7 @@ footer{padding:36px 16px;text-align:center;border-top:1px solid #222;color:#666;
  </div>
  <div data-pc-search></div>
 </nav>
+<main>
 
 <div class="wrap" id="wrap">
  <noscript>
@@ -100,6 +101,7 @@ footer{padding:36px 16px;text-align:center;border-top:1px solid #222;color:#666;
  <div id="detail" style="display:none"></div>
 </div>
 
+</main>
 <footer>
  <div class="footer-links">
  <a href="/shows.html">Tonight's Comedy Shows in Paris</a>
@@ -202,6 +204,32 @@ function nextOccurrenceISO(days, today){
  }
  return addDaysISO(today.year, today.month, today.day, minDiff).iso;
 }
+// Fix 2026-09-23: the Event schema's startDate must be a CONFIRMED occurrence
+// (L.dates, synced from Eventbrite by scripts/eb_bridge.py / L.next_date),
+// never a guessed "next matching weekday" — that fabricated a dated Google
+// rich-result for shows the API has zero confirmed dates for (upcoming_count
+// 0), e.g. Choumi in English, Comedy Lab, Oh My God She's Parisian!, Funny
+// Women Paris. nextOccurrenceISO() above is kept only for callers that still
+// need a weekday guess; buildEventSchema no longer uses it.
+function nextConfirmedOccurrence(L, todayISO){
+ if (L && L.next_date && L.next_date >= todayISO) {
+   return { date: L.next_date, time: L.next_time || null };
+ }
+ const dates = Array.isArray(L && L.dates) ? L.dates : [];
+ for (const occ of dates){
+   if (occ && occ.date && occ.date >= todayISO) return { date: occ.date, time: occ.time || null };
+ }
+ return null;
+}
+function parisOffset(dateISO, hhmm){
+ // Europe/Paris UTC offset ("+01:00" winter / "+02:00" summer) for that local date+time.
+ const [y,m,d]=dateISO.split('-').map(Number), [h,mi]=hhmm.split(':').map(Number);
+ const guess=Date.UTC(y,m-1,d,h,mi);
+ const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Paris',hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).formatToParts(new Date(guess));
+ const g=k=>Number(parts.find(p=>p.type===k).value);
+ const mins=Math.round((Date.UTC(g('year'),g('month')-1,g('day'),g('hour'),g('minute'))-guess)/60000);
+ return (mins>=0?'+':'-')+String(Math.floor(Math.abs(mins)/60)).padStart(2,'0')+':'+String(Math.abs(mins)%60).padStart(2,'0');
+}
 function endTimePlus2h(startTime){
  // startTime "HH:MM"; return HH:MM 2 hours later (clamped to 23:59)
  if (!startTime || !/^\d{1,2}:\d{2}$/.test(startTime)) return '22:00';
@@ -247,15 +275,18 @@ function buildEventSchema(L, audit){
  const days = Array.isArray(L.days) ? L.days : [];
  if (!days.length) return null;
  const today = parisTodayParts();
- const startDateOnly = nextOccurrenceISO(days, today);
- if (!startDateOnly) return null;
- // Past-date guard: parsed date must be >= today (Paris)
  const todayISO = today.year + '-' + pad2(today.month) + '-' + pad2(today.day);
+ // Confirmed occurrence only — never a guessed weekday (see fix note above).
+ const occ = nextConfirmedOccurrence(L, todayISO);
+ if (!occ) return null;
+ const startDateOnly = occ.date;
+ // Past-date guard: parsed date must be >= today (Paris)
  if (startDateOnly < todayISO) return null;
- const startTime = (L.start_time && /^\d{1,2}:\d{2}$/.test(L.start_time)) ? L.start_time : '20:00';
+ const startTime = (occ.time && /^\d{1,2}:\d{2}$/.test(occ.time)) ? occ.time
+   : (L.start_time && /^\d{1,2}:\d{2}$/.test(L.start_time)) ? L.start_time : '20:00';
  const endTime = endTimePlus2h(startTime);
- const startDate = startDateOnly + 'T' + startTime + ':00+02:00';
- const endDate   = startDateOnly + 'T' + endTime   + ':00+02:00';
+ const startDate = startDateOnly + 'T' + startTime + ':00' + parisOffset(startDateOnly, startTime);
+ const endDate   = startDateOnly + 'T' + endTime   + ':00' + parisOffset(startDateOnly, endTime);
  const slug = L.slug || audit.slug || '';
  const venueName = (L.venue && L.venue.name) || L.venue_name_raw || '';
  const address = (L.venue && L.venue.address) || L.address || '';
@@ -453,7 +484,7 @@ function renderError(msg) {
  }
 })();
 </script>
-<script src="/assets/track.js?v=20260801" defer></script>
+<script src="/assets/track.js?v=20260923" defer></script>
 <script src="/pc-search.js?v=20260913" defer></script>
 </body>
 </html>

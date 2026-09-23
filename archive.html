@@ -60,6 +60,7 @@ footer{text-align:center;padding:40px 24px;color:#555;font-size:12px;border-top:
   </div>
   <div data-pc-search></div>
 </nav>
+<main>
 <div class="hero">
   <h1>The <span>Archive</span></h1>
   <p>Comedians, shows and venues that haven't been seen on a Paris stage in 6+ months. Kept for the historical record.</p>
@@ -80,6 +81,7 @@ footer{text-align:center;padding:40px 24px;color:#555;font-size:12px;border-top:
   <div class="row" id="venues"></div>
 </div>
 
+</main>
 <footer>
   <div class="footer-links">
     <a href="/shows.html">Tonight's Comedy Shows in Paris</a>
@@ -109,7 +111,7 @@ render('comics', ARCH_COMICS, c => `<div class="item"><div class="nm">${c.name}<
 render('shows',  ARCH_SHOWS,  s => `<div class="item"><div class="nm">${s.name}</div><div class="meta">${s.venue||''} · ended ${s.end_date||'—'}</div></div>`);
 render('venues', ARCH_VENUES, v => `<div class="item"><div class="nm">${v.name}</div><div class="meta">${v.address||''}</div></div>`);
 </script>
-<script src="/assets/track.js?v=20260801" defer></script>
+<script src="/assets/track.js?v=20260923" defer></script>
 <script src="/pc-search.js?v=20260913" defer></script>
 </body>
 </html>

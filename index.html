@@ -86,7 +86,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 /* Tonight right panel */
 .hero-right{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;min-height:220px}
 .tonight-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.tonight-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tonight-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .tonight-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:6px;box-shadow:0 0 8px #4ade80}
 .tonight-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
 .tonight-row:last-child{border-bottom:0}
@@ -94,7 +94,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .tonight-info{}
 .tonight-name{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
 .tonight-venue{font-size:12px;color:var(--muted);margin-top:2px}
-.tonight-proof{font-size:11px;color:#666;margin-top:2px}
+.tonight-proof{font-size:12px;color:#888;margin-top:2px}
 .next-night-msg{padding:20px 0;text-align:center;color:var(--muted);font-size:14px;line-height:1.6}
 .next-night-msg strong{color:var(--text)}
 .next-night-msg a{color:var(--purple-light);font-weight:600}
@@ -119,17 +119,17 @@ section{max-width:1100px;margin:0 auto;padding:56px 24px}
 .show-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:border-color .2s;display:flex;flex-direction:column;gap:8px}
 .show-card:hover{border-color:#333}
 .show-card-name{font-size:15px;font-weight:700}
-.show-card-venue{font-size:12px;color:#666}
+.show-card-venue{font-size:12px;color:#888}
 .show-card-meta{font-size:13px;color:var(--muted)}
 .show-card-date{display:inline-flex;align-items:center;gap:5px;align-self:flex-start;font-size:12px;font-weight:700;color:var(--gold-light);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);border-radius:999px;padding:3px 10px}
-.show-proof{display:flex;gap:12px;font-size:11px;color:#555;margin-top:2px}
+.show-proof{display:flex;gap:12px;font-size:12px;color:#888;margin-top:2px}
 .show-proof span{display:inline-flex;align-items:center;gap:4px}
 .show-card-btn{display:block;text-align:center;padding:9px;border-radius:8px;background:var(--yellow);color:#000;font-size:12px;font-weight:700;margin-top:auto}
 .show-card-btn:hover{opacity:.9}
 .show-vibe-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
-.vibe-tag{font-size:10px;padding:2px 7px;border-radius:4px;background:#1a1a2e;color:#c4b5fd;border:1px solid #2a1a4a;font-weight:600}
+.vibe-tag{font-size:12px;padding:2px 7px;border-radius:4px;background:#1a1a2e;color:#c4b5fd;border:1px solid #2a1a4a;font-weight:600}
 /* Dedicated, always-visible language badge — French shows must never read as English (Robert 2026-07-05) */
-.show-card-lang{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.03em}
+.show-card-lang{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.03em}
 .show-card-lang.en{background:#0b2a4a;color:#7cc4ff;border:1px solid #14477a}
 .show-card-lang.fr{background:#3a0b1a;color:#ff9db0;border:1px solid #7a1430}
 .no-shows-msg{padding:32px 20px;text-align:center;color:var(--muted);font-size:15px;grid-column:1/-1;line-height:1.7}
@@ -139,15 +139,15 @@ section{max-width:1100px;margin:0 auto;padding:56px 24px}
 /* Featured shows */
 .featured-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
 .featured-card{background:var(--card);border:1px solid var(--gold);border-radius:12px;padding:20px;box-shadow:0 0 16px rgba(201,168,76,.1);display:flex;flex-direction:column;gap:8px}
-.featured-badge{display:inline-block;padding:3px 10px;border-radius:10px;background:var(--gold);color:#000;font-size:11px;font-weight:700;margin-bottom:4px}
+.featured-badge{display:inline-block;padding:3px 10px;border-radius:10px;background:var(--gold);color:#000;font-size:12px;font-weight:700;margin-bottom:4px}
 /* Weekly rotation section */
 .weekly-rotation-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px 18px;background:linear-gradient(90deg,rgba(201,168,76,0.12) 0%,rgba(201,168,76,0.04) 100%);border:1px solid rgba(201,168,76,0.25);border-radius:10px;flex-wrap:wrap;gap:6px}
 .weekly-rotation-title{font-size:14px;font-weight:700;color:var(--gold)}
-.weekly-rotation-sub{font-size:11px;color:var(--muted)}
+.weekly-rotation-sub{font-size:12px;color:var(--muted)}
 /* Confetti */
 @keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(105vh) rotate(720deg);opacity:0}}
 .confetti-piece{position:fixed;top:-20px;width:10px;height:10px;border-radius:2px;pointer-events:none;z-index:9999;animation:confettiFall linear forwards}
-.verified-badge{display:inline-block;padding:3px 9px;border-radius:10px;background:#14532d;color:#4ade80;font-size:10px;font-weight:700;margin-left:6px}
+.verified-badge{display:inline-block;padding:3px 9px;border-radius:10px;background:#14532d;color:#4ade80;font-size:12px;font-weight:700;margin-left:6px}
 .featured-card-name{font-size:16px;font-weight:700}
 .featured-card-show{font-size:14px;font-weight:600;color:var(--purple-light)}
 .featured-card-meta{font-size:13px;color:var(--muted)}
@@ -155,7 +155,7 @@ section{max-width:1100px;margin:0 auto;padding:56px 24px}
 .featured-video iframe{width:100%;height:100%;border:none}
 .featured-card-btn{display:block;text-align:center;padding:9px;border-radius:8px;background:var(--gold);color:#000;font-size:12px;font-weight:700;margin-top:auto}
 .featured-card-btn:hover{opacity:.9}
-.featured-section-cta{margin-top:20px;font-size:13px;color:#666;text-align:center}
+.featured-section-cta{margin-top:20px;font-size:13px;color:#888;text-align:center}
 .featured-section-cta a{color:var(--gold)}
 .featured-section-cta a:hover{text-decoration:underline}
 
@@ -199,11 +199,11 @@ section{max-width:1100px;margin:0 auto;padding:56px 24px}
 footer{border-top:1px solid var(--border);padding:40px 24px;text-align:center;color:var(--muted);font-size:13px}
 footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 .footer-links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;font-size:14px}
-.footer-lightning{margin-top:8px;font-size:12px;color:#555}
+.footer-lightning{margin-top:8px;font-size:12px;color:#888}
 .tip-jar{margin:24px auto 0;max-width:320px;background:#161616;border:1px solid #2a1a4a;border-radius:14px;padding:20px 24px;text-align:center}
 .tip-jar a.tip-btn{display:inline-block;padding:11px 28px;border-radius:10px;background:#f5c518;color:#111;font-size:15px;font-weight:700;text-decoration:none;transition:opacity .2s}
 .tip-jar a.tip-btn:hover{opacity:.85}
-.tip-jar .tip-label{margin-top:10px;font-size:12px;color:#666}
+.tip-jar .tip-label{margin-top:10px;font-size:12px;color:#888}
 .tip-jar .tip-addr{margin-top:4px;font-size:12px;color:#888;font-family:monospace}
 </style>
 </head>
@@ -398,7 +398,7 @@ public wording. Original markup preserved below for restoration.
     <input id="newsletter-email" type="email" required placeholder="you@example.com" style="flex:1;min-width:200px;padding:10px 12px;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:8px;color:#f0f0f0;font:inherit">
     <button type="submit" style="background:var(--gold,#c9a84c);color:#000;border:0;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer">Subscribe →</button>
   </form>
-  <label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:#777;cursor:pointer">
+  <label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:#888;cursor:pointer">
     <input type="checkbox" id="newsletter-consent" checked> I agree to receive the Paris Comedy weekly digest. I can unsubscribe at any time. See our <a href="/privacy.html" style="color:#c9a84c">privacy policy</a>.
   </label>
   <div id="newsletter-msg" style="margin-top:10px;font-size:13px;min-height:18px"></div>
@@ -500,22 +500,35 @@ function _hood(L){
   var a=(L.venue && L.venue.address)||''; var m=a.match(/\b(7500\d|7501\d|7502\d|920\d\d|930\d\d|940\d\d)\b/);
   return m ? 'Paris '+m[1].slice(3) : ((L.venue && L.venue.city) || 'Paris');
 }
+// A show may only occupy a specific calendar cell (Tonight / This Week / the
+// grid) when the API has a CONFIRMED occurrence for that exact date, in
+// L.dates (synced from Eventbrite by scripts/eb_bridge.py). L.days is only a
+// recurrence pattern ("Thursdays") \u2014 it is NOT proof the show is actually on
+// this Thursday, so it must never be used alone to manufacture a date.
+// (Fix 2026-09-23: expandListings previously placed every listing on every
+// matching weekday for the next 7 days regardless of L.dates/upcoming_count,
+// showing fabricated dates \u2014 e.g. Choumi in English on 27/09 \u2014 for shows with
+// upcoming_count:0 and no confirmed Eventbrite sync.)
 function expandListings(listings){
-  var out=[], base=new Date(todayParis+'T00:00:00');
+  // Walk the CONFIRMED dates inside the next 7 days. A confirmed date is shown
+  // even when it falls off the usual weekday or the show has no weekly pattern.
+  var out=[], base=new Date(todayParis+'T00:00:00'), win={};
+  for (var off=0; off<7; off++){
+    var d=new Date(base); d.setDate(d.getDate()+off);
+    win[d.toLocaleDateString('sv-SE')]=DAYS[d.getDay()];
+  }
   for (var i=0;i<listings.length;i++){
     var L=listings[i];
-    var days=Array.isArray(L.days)?L.days:(L.days?[L.days]:[]);
-    if(!days.length) continue;                       // no known night -> can't place on homepage
-    var url=L.booking_url||L.show_url||'';
-    for (var off=0; off<7; off++){
-      var d=new Date(base); d.setDate(d.getDate()+off);
-      var wd=DAYS[d.getDay()];
-      if(days.indexOf(wd)===-1) continue;
-      var ds=d.toLocaleDateString('sv-SE');
-      out.push({ id:L.slug+'-'+ds, slug:L.slug||'', show_name:L.name, name:L.name, date:ds, day:wd,
-        start_time:L.start_time||'', venue:_venueName(L), neighborhood:_hood(L),
+    var confirmed=Array.isArray(L.dates)?L.dates:[];
+    var url=L.booking_url||L.show_url||'', seen={};
+    for (var ci=0; ci<confirmed.length; ci++){
+      var occ=confirmed[ci], ds=occ&&occ.date;
+      if(!ds || !win[ds] || seen[ds]) continue;       // outside the window, or duplicate
+      seen[ds]=1;
+      out.push({ id:L.slug+'-'+ds, slug:L.slug||'', show_name:L.name, name:L.name, date:ds, day:win[ds],
+        start_time:occ.time||L.start_time||'', venue:_venueName(L), neighborhood:_hood(L),
         language:L.language, show_type:L.show_type, emoji:L.emoji||'\uD83C\uDFA4',
-        description:L.description_en||'', ticket_url:url, url:url,
+        description:L.description_en||'', ticket_url:occ.url||url, url:occ.url||url,
         next_date:L.next_date||'', upcoming_count:L.upcoming_count||0,
         last_verified_at:(L.verified_at||'').slice(0,10), claimed:!!L.claimed });
     }
@@ -753,6 +766,7 @@ function injectEventSchemas() {
       "organizer": { "@type": "Organization", "name": "Paris Comedy" }
     };
   });
+  if (!schemas.length) return; // don't emit an empty JSON-LD graph entry
   const el = document.createElement('script');
   el.type = 'application/ld+json';
   el.textContent = JSON.stringify(schemas);
@@ -788,10 +802,10 @@ function renderWeekRow() {
     const more = s.upcoming_count > 1 ? ` &middot; +${s.upcoming_count - 1} MORE` : '';
     const badge = `${DAY_ABBR[dt.getDay()]} &middot; ${MONTH_ABBR[m-1]} ${d}${more}`;
     return `<div style="background:#111827;border:1px solid #1e2a3a;border-radius:10px;padding:16px;min-width:200px;flex-shrink:0">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;color:#c9a84c;margin-bottom:4px">${badge}</div>
+      <div style="font-size:12px;font-weight:700;letter-spacing:.08em;color:#c9a84c;margin-bottom:4px">${badge}</div>
       <div style="font-size:14px;font-weight:700;margin-bottom:4px">${s.show_name}</div>
       <div style="font-size:12px;color:#8899aa;margin-bottom:12px">${s.start_time} &middot; ${s.neighborhood}</div>
-      <a href="${showHref(s)}" style="display:block;text-align:center;padding:7px;border-radius:6px;background:#c9a84c;color:#000;font-size:11px;font-weight:700">View show &rarr;</a>
+      <a href="${showHref(s)}" style="display:block;text-align:center;padding:7px;border-radius:6px;background:#c9a84c;color:#000;font-size:12px;font-weight:700">View show &rarr;</a>
     </div>`;
   }).join('');
 }
@@ -964,7 +978,7 @@ async function submitNewsletter(ev) {
 }
 </script>
 <script src="/assets/ads.js" defer></script>
-<script src="/assets/track.js?v=20260802" defer></script>
+<script src="/assets/track.js?v=20260923" defer></script>
 </main>
 <script src="/pc-search.js?v=20260913" defer></script>
 </body>

@@ -4,9 +4,9 @@
     --card-bg: var(--bg-card);
     --surface: #191928; --border: #2a2a40; --border-light: #363650;
     --border-color: var(--border);
-    --text: #e8e8f0; --text-dim: #9696b0; --text-muted: #6c6c8a;
+    --text: #e8e8f0; --text-dim: #9696b0; --text-muted: #8888a8;
     --accent: #ff3366; --accent-light: #ff5c8a; --accent-glow: rgba(255,51,102,0.15);
-    --purple: #7c3aed; --purple-glow: rgba(124,58,237,0.15);
+    --purple: #7c3aed; --purple-glow: rgba(124,58,237,0.15); --color-accent: #9e6ef1;
     --green: #22c55e; --green-dim: rgba(34,197,94,0.15);
     --gold: #f59e0b; --gold-dim: rgba(245,158,11,0.15);
     --radius: 12px; --radius-lg: 20px; --radius-sm: 8px;

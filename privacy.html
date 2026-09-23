@@ -7,7 +7,6 @@
   <meta name="description" content="Privacy policy for pariscomedy.com — what we collect, why, and how to opt out.">
   <link rel="canonical" href="https://pariscomedy.com/privacy.html">
   <link rel="alternate" hreflang="en" href="https://pariscomedy.com/privacy.html">
-  <link rel="alternate" hreflang="fr" href="https://pariscomedy.com/fr/privacy.html">
   <link rel="alternate" hreflang="x-default" href="https://pariscomedy.com/privacy.html">
   <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
@@ -16,13 +15,13 @@
   <meta property="og:description" content="Privacy policy for pariscomedy.com.">
   <meta property="og:url" content="https://pariscomedy.com/privacy.html">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css?v=20260923">
   <style>
     .legal { max-width: 760px; margin: 40px auto; padding: 0 20px; line-height: 1.6; }
     .legal h1 { margin-bottom: 8px; }
     .legal .updated { color: var(--color-muted, #94a3b8); font-size: 0.9rem; margin-bottom: 24px; }
     .legal h2 { margin-top: 28px; }
-    .legal a { color: var(--color-accent, #7c3aed); }
+    .legal a { color: var(--color-accent, #7c3aed); text-decoration: underline; }
     .footer-minimal { padding: 16px 20px; text-align: center; color: #94a3b8; font-size: 0.9rem; }
     .footer-minimal a { color: inherit; }
     .footer-minimal-sep { margin: 0 6px; }
@@ -36,9 +35,8 @@
   </div>
 </nav>
   <main class="legal">
-    <p style="text-align:right;font-size:0.9rem;"><a href="/fr/privacy.html" hreflang="fr" lang="fr">Français</a></p>
     <h1>Privacy</h1>
-    <p class="updated">Last updated: 2026-05-28</p>
+    <p class="updated">Last updated: 2026-08-02</p>
 
     <h2>What we collect</h2>
     <p>
@@ -52,15 +50,47 @@
 
     <h2>Cookies and consent</h2>
     <p>
-      pariscomedy.com uses a consent banner on first visit. Non-essential analytics and tracking do not
-      fire until you have made a choice. You can revoke consent any time via the
-      <em>Manage cookie preferences</em> link in the footer (when present).
+      pariscomedy.com uses a consent banner on first visit. Non-essential analytics do not fire until
+      you have made a choice — see "Analytics" below for exactly what that gates and what it doesn't.
+      You can change your choice at any time using the button in that section.
     </p>
     <p>
-      We use first-party cookies for session state and for remembering your consent choice. We do not
+      We use browser local storage (not a tracking cookie) to remember your consent choice. We do not
       use third-party advertising cookies on this site, except on the homepage which may display
       partner offers (see "Ads" below).
     </p>
+
+    <h2>Analytics</h2>
+    <p>We run two separate analytics tools. They are not the same thing, and only one of them needs
+      your permission:</p>
+    <ul>
+      <li><strong>Our own first-party beacon</strong> (page path, referrer, screen size, browser
+        language, and a random per-tab session id — never a name, email, or IP stored against it)
+        posts straight to our own API. It has no third-party recipient and sets no cross-site cookie.
+        This is the "anonymous analytics" described above, it runs on every visit, and we treat it as
+        strictly necessary to operate the site — so it is <strong>not</strong> gated behind the choice
+        below.</li>
+      <li><strong>Google Analytics (GA4, measurement ID <code>G-1Q74JY864H</code>)</strong> is
+        optional and off by default. On your first visit you'll see a banner with an Accept and a
+        Reject button — <strong>rejecting is exactly as easy as accepting</strong>, one click either
+        way, no pre-ticked box, no follow-up nag. No request to Google of any kind is made, and no
+        Google cookie (<code>_ga</code>, <code>_gid</code>) is set, unless and until you click Accept.
+        Google acts as the processor; the purpose is aggregate traffic and audience measurement
+        (visits, pages, rough location from IP, device/browser type) — we never send it a name, email,
+        or account id. Data retention follows Google's own GA4 property configuration, not a setting
+        we control; see <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy
+        policy</a> for how Google itself handles it.</li>
+      <li>pariscomedy.com and <a href="https://comedyatlas.app">comedyatlas.app</a> share this one GA4
+        property (same project, two domains), with Google's cross-domain linking configured so moving
+        between the two doesn't fragment a session into a false "referral" in either site's traffic
+        reports.</li>
+      <li>Your choice lives in your own browser's local storage, scoped to this site only — it is not
+        shared with comedyatlas.app or any other site, and clearing your browser storage resets it to
+        "not asked yet" (the banner will show again on your next visit). Change your mind any time:
+        <button type="button" onclick="if(window.PCConsent)window.PCConsent.showBanner();"
+          style="background:none;border:none;padding:0;font:inherit;color:var(--color-accent,#7c3aed);text-decoration:underline;cursor:pointer">reopen
+          the analytics choice</button>.</li>
+    </ul>
 
     <h2>What we do NOT do</h2>
     <ul>
@@ -108,5 +138,7 @@
       <a href="/privacy.html">Privacy</a>
     </div>
   </footer>
+
+<script src="/assets/track.js?v=20260923" defer></script>
 </body>
 </html>

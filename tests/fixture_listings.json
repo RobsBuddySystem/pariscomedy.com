@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "confirmed-friday-show",
+    "name": "Confirmed Friday Show",
+    "venue_name_raw": "Test Venue A",
+    "days": [
+      "Friday"
+    ],
+    "start_time": "20:00",
+    "language": "en",
+    "show_type": "standup",
+    "emoji": "🎤",
+    "description_en": "A show with real Eventbrite-synced dates.",
+    "booking_url": "https://example.com/confirmed-friday",
+    "show_url": "https://example.com/confirmed-friday",
+    "verified_at": "2026-06-29",
+    "claimed": true,
+    "next_date": "__NEXT_FRIDAY__",
+    "next_time": "20:00",
+    "dates": [
+      {
+        "date": "__NEXT_FRIDAY__",
+        "time": "20:00",
+        "url": "https://example.com/tickets/1"
+      },
+      {
+        "date": "__NEXT_FRIDAY_PLUS_7__",
+        "time": "20:00",
+        "url": "https://example.com/tickets/2"
+      }
+    ],
+    "upcoming_count": 2
+  },
+  {
+    "slug": "unconfirmed-thursday-show",
+    "name": "Unconfirmed Thursday Show",
+    "venue_name_raw": "Test Venue B",
+    "days": [
+      "Thursday",
+      "Saturday"
+    ],
+    "start_time": "20:00",
+    "language": "en",
+    "show_type": "standup",
+    "emoji": "🎤",
+    "description_en": "A recurring show with NO confirmed dates in the source of truth — no Eventbrite sync, upcoming_count is 0.",
+    "booking_url": "https://example.com/unconfirmed-thursday",
+    "show_url": "https://example.com/unconfirmed-thursday",
+    "verified_at": "2026-06-29",
+    "claimed": false,
+    "next_date": null,
+    "next_time": null,
+    "dates": [],
+    "upcoming_count": 0
+  },
+  {
+    "slug": "no-days-show",
+    "name": "No Recurrence Info Show",
+    "venue_name_raw": "Test Venue C",
+    "days": [],
+    "start_time": "",
+    "language": "en",
+    "show_type": "standup",
+    "emoji": "🎤",
+    "description_en": "A show with no known recurring night at all.",
+    "booking_url": "https://example.com/no-days",
+    "show_url": "https://example.com/no-days",
+    "verified_at": "2026-06-29",
+    "claimed": false,
+    "next_date": null,
+    "next_time": null,
+    "dates": [],
+    "upcoming_count": 0
+  },
+  {
+    "slug": "one-off-tuesday-special",
+    "name": "One-off Tuesday Special",
+    "venue_name_raw": "Test Venue D",
+    "days": [],
+    "start_time": "",
+    "language": "en",
+    "show_type": "standup",
+    "emoji": "🎤",
+    "description_en": "No weekly pattern, one confirmed date.",
+    "booking_url": "https://example.com/oneoff",
+    "show_url": "https://example.com/oneoff",
+    "verified_at": "2026-09-20",
+    "claimed": false,
+    "next_date": "__ONEOFF__",
+    "next_time": "21:00",
+    "dates": [
+      {
+        "date": "__ONEOFF__",
+        "time": "21:00",
+        "url": "https://example.com/tickets/oneoff"
+      },
+      {
+        "date": "__ONEOFF__",
+        "time": "21:00",
+        "url": "https://example.com/tickets/oneoff"
+      }
+    ],
+    "upcoming_count": 1
+  }
+]

@@ -30,8 +30,8 @@ button:disabled{opacity:.5;cursor:default}
 .msg{margin-top:16px;padding:12px 16px;border-radius:8px;font-size:14px;line-height:1.5;display:none}
 .msg.ok{display:block;background:#0f2a17;border:1px solid #2f7d4f;color:#9be8b4}
 .msg.err{display:block;background:#2a1212;border:1px solid #7d2f2f;color:#e8a0a0}
-footer{border-top:1px solid #222;padding:28px 24px;text-align:center;color:#666;font-size:13px}
-footer a{color:var(--yellow)}
+footer{border-top:1px solid #222;padding:28px 24px;text-align:center;color:#888;font-size:13px}
+footer a{color:var(--yellow);text-decoration:underline}
 nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .nav-links{display:flex;gap:18px;font-size:14px;color:var(--muted);flex-wrap:wrap}
 .nav-links a:hover{color:var(--text)}
@@ -56,7 +56,7 @@ nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-
  </div>
  <div data-pc-search></div>
 </nav>
-<div class="wrap">
+<main class="wrap">
  <h1>Send <span>Feedback</span></h1>
  <p class="lead">Spotted something broken, or have an idea to make the site more useful for comics? Tell us. Every message is read — and if it's a clear bug, you'll often get a reply once it's fixed.</p>
 
@@ -83,7 +83,7 @@ nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-
    <button type="submit" id="submit">Send feedback</button>
    <div class="msg" id="msg"></div>
  </form>
-</div>
+</main>
 <footer><a href="/">pariscomedy.com</a> · we read every message</footer>
 
 <script>
