@@ -7,17 +7,17 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <title>English Stand-Up Comedy in Paris Tonight — Paris Comedy</title>
-<meta name="description" content="Find English-language stand-up comedy shows in Paris tonight — verified listings, updated daily.">
+<meta name="description" content="Find English-language stand-up comedy shows in Paris tonight — dates taken from each show's ticket page.">
 <link rel="canonical" href="https://pariscomedy.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Paris Comedy">
 <meta property="og:title" content="English Stand-Up Comedy in Paris Tonight — Paris Comedy">
-<meta property="og:description" content="Find English-language stand-up comedy shows in Paris tonight — verified listings, updated daily.">
+<meta property="og:description" content="Find English-language stand-up comedy shows in Paris tonight — dates taken from each show's ticket page.">
 <meta property="og:url" content="https://pariscomedy.com/">
 <meta property="og:image" content="https://pariscomedy.com/assets/og-default.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="English Stand-Up Comedy in Paris Tonight — Paris Comedy">
-<meta name="twitter:description" content="Find English-language stand-up comedy shows in Paris tonight — verified listings, updated daily.">
+<meta name="twitter:description" content="Find English-language stand-up comedy shows in Paris tonight — dates taken from each show's ticket page.">
 <meta name="twitter:image" content="https://pariscomedy.com/assets/og-default.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Paris Comedy","url":"https://pariscomedy.com/","email":"payments@pariscomedy.com","description":"The home of English-language stand-up comedy in Paris."}
@@ -205,52 +205,41 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 .tip-jar a.tip-btn:hover{opacity:.85}
 .tip-jar .tip-label{margin-top:10px;font-size:12px;color:#888}
 .tip-jar .tip-addr{margin-top:4px;font-size:12px;color:#888;font-family:monospace}
+/* CLS: reserve room for the API-filled blocks */
+.hero-right{min-height:230px}#shows-grid{min-height:420px}#week-shows-row{min-height:150px}#tonight-in-paris-section{min-height:250px}
 </style>
+<link rel="stylesheet" href="/css/pc-nav.css?v=20261002">
+<script src="/js/pc-nav.js?v=20261002" defer></script>
+<script src="/js/pc-core.js?v=20261002"></script>
 </head>
 <body>
 <main>
 
-<!-- Launch Banner -->
-<div class="launch-banner">
-  🎉 Paris Comedy is live — a growing directory of English-language comedy shows in Paris.
-  <a href="/shows.html">Browse tonight's shows →</a>
-</div>
-
-<nav class="nav-shell nav-shell-marketing">
-  <a href="/" class="pcl-brand play" id="pclBrand" title="Paris Comedy">
-    <svg class="pcl-logo-icon" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <defs>
-        <linearGradient id="pclCr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#eef3f8"/><stop offset=".22" stop-color="#b6bfc9"/><stop offset=".5" stop-color="#ffffff"/><stop offset=".72" stop-color="#aab4be"/><stop offset="1" stop-color="#e4e9ef"/></linearGradient>
-        <radialGradient id="pclBf" cx="50%" cy="100%" r="70%"><stop offset="0" stop-color="#2f9dff" stop-opacity=".6"/><stop offset="1" stop-color="#2f9dff" stop-opacity="0"/></radialGradient>
-        <clipPath id="pclTc"><path d="M57,62 L63,62 C68,95 76,128 96,148 L24,148 C44,128 52,95 57,62 Z"/></clipPath>
-      </defs>
-      <rect x="42" y="8" width="36" height="48" rx="18" fill="url(#pclCr)" stroke="#5d6671" stroke-width="1"/>
-      <g stroke="#454c55" stroke-width="1.4" opacity=".5" stroke-linecap="round"><line x1="49" y1="22" x2="71" y2="22"/><line x1="48" y1="30" x2="72" y2="30"/><line x1="48" y1="38" x2="72" y2="38"/><line x1="49" y1="46" x2="71" y2="46"/></g>
-      <ellipse cx="52" cy="20" rx="6" ry="3.5" fill="#fff" opacity=".5"/>
-      <rect x="52" y="55" width="16" height="8" rx="3" fill="url(#pclCr)" stroke="#5d6671" stroke-width=".8"/>
-      <path d="M57,62 L63,62 C68,95 76,128 96,148 L24,148 C44,128 52,95 57,62 Z" fill="url(#pclCr)" stroke="#5d6671" stroke-width="1" stroke-linejoin="round"/>
-      <g clip-path="url(#pclTc)"><rect x="20" y="120" width="80" height="34" fill="url(#pclBf)"/></g>
-      <rect x="44" y="112" width="32" height="5" rx="1.5" fill="url(#pclCr)" stroke="#5d6671" stroke-width=".7"/>
-      <path d="M44,148 L76,148 L76,143 C76,124 44,124 44,143 Z" fill="#0a0e1a"/>
-      <line x1="60" y1="124" x2="60" y2="148" stroke="#0a0e1a" stroke-width="4"/>
-    </svg>
-    <span class="pcl-wordmark"><span class="pcl-word-piece pcl-p">Paris</span><span class="pcl-word-piece pcl-c">Comedy</span>
-      <svg class="pcl-sparkle" viewBox="0 0 24 24"><path d="M12 0l2.4 7.6L22 10l-7.6 2.4L12 20l-2.4-7.6L2 10l7.6-2.4z" fill="#2f9dff"/></svg>
-    </span>
-  </a>
+<!--pc-nav:start (generated from partials/nav.shell.marketing.html by tools/apply_nav.py - edit the partial, never a page)-->
+<nav class="nav-shell nav-shell-marketing pc-nav" aria-label="Main">
+  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
   <div class="nav-links">
     <a href="/shows.html">Shows</a>
-    <a href="/europe.html">Europe</a>
     <a href="/venues.html">Venues</a>
     <a href="/comedians.html">Comedians</a>
-    <a href="/bookers.html">Bookers</a>
-    <a href="https://comedyatlas.app" style="color:#c9a84c;font-weight:700">COMEDY ATLAS</a>
-    <a href="/login.html">Sign In</a>
-    <a href="/about.html">About</a>
-    <a href="/feedback.html">Feedback</a>
+    <a href="/hiring.html">Stage Time</a>
+    <a href="https://comedyatlas.app" class="nav-atlas">COMEDY ATLAS</a>
+    <details class="nav-more">
+      <summary>More</summary>
+      <div class="nav-more-menu">
+        <a href="/europe.html">Europe</a>
+        <a href="/bookers.html">Bookers</a>
+        <a href="/connect.html">Book / Connect</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/about.html">About</a>
+        <a href="/feedback.html">Feedback</a>
+      </div>
+    </details>
+    <a href="/login.html" class="nav-signin">Sign in</a>
   </div>
   <div data-pc-search></div>
 </nav>
+<!--pc-nav:end-->
 
 <section style="max-width:1100px;margin:0 auto;padding:20px 24px;text-align:center;color:#8899aa;font-size:15px">
   <p>Perform or run a show anywhere? <a href="https://comedyatlas.app" style="color:#c9a84c;font-weight:700">Open COMEDY ATLAS →</a> — comics find shows, bookers find comics. Free, worldwide.</p>
@@ -260,7 +249,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 <div class="hero-wrap">
   <div class="hero-left">
     <h1>The Home of<br><span class="accent">English-Language</span><br>Comedy in Paris</h1>
-    <p>Stand-up throughout the week — shows in English and in French. Tourists, expats, locals — all welcome.</p>
+    <p>Stand-up throughout the week — every show in English. Tourists, expats, locals — all welcome.</p>
     <div class="cta-row">
       <a href="#shows-section" class="btn-primary">Find Tonight's Show →</a>
       <a href="/connect.html" class="btn-secondary">Book a Private Show</a>
@@ -272,7 +261,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 </div>
 
 <!-- Featured Shows Section -->
-<section id="tonight-in-paris-section" style="display:none">
+<section id="tonight-in-paris-section">
   <div class="weekly-rotation-header">
     <div class="weekly-rotation-title" id="tonight-section-title"></div>
     <div class="weekly-rotation-sub" id="tonight-section-label"></div>
@@ -361,7 +350,7 @@ public wording. Original markup preserved below for restoration.
   <div class="faq-list">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Are the shows in English?</div>
-      <div class="faq-a">Most shows on Paris Comedy are in English or in French — each listing is clearly labelled. If you only speak English, look for shows tagged EN; there are English-language shows throughout the week.</div>
+      <div class="faq-a">Every show on Paris Comedy is in English. Each listing is labelled EN, and there are English-language shows throughout the week.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How do I buy tickets?</div>
@@ -519,6 +508,7 @@ function expandListings(listings){
   }
   for (var i=0;i<listings.length;i++){
     var L=listings[i];
+    var _lg=[].concat(L.language||'en').join(',').toLowerCase(); if(_lg.indexOf('en')===-1) continue;   // English-only rule: non-English listings are filtered at render (data untouched)
     var confirmed=Array.isArray(L.dates)?L.dates:[];
     var url=L.booking_url||L.show_url||'', seen={};
     for (var ci=0; ci<confirmed.length; ci++){
@@ -526,7 +516,7 @@ function expandListings(listings){
       if(!ds || !win[ds] || seen[ds]) continue;       // outside the window, or duplicate
       seen[ds]=1;
       out.push({ id:L.slug+'-'+ds, slug:L.slug||'', show_name:L.name, name:L.name, date:ds, day:win[ds],
-        start_time:occ.time||L.start_time||'', venue:_venueName(L), neighborhood:_hood(L),
+        start_time:PC.timeOn(L,ds), venue:_venueName(L), neighborhood:_hood(L),
         language:L.language, show_type:L.show_type, emoji:L.emoji||'\uD83C\uDFA4',
         description:L.description_en||'', ticket_url:occ.url||url, url:occ.url||url,
         next_date:L.next_date||'', upcoming_count:L.upcoming_count||0,
@@ -536,7 +526,9 @@ function expandListings(listings){
   return out;
 }
 function recomputeWindows(){
-  TONIGHT_SHOWS = SHOWS_DATA.filter(function(s){return s.date===todayParis && isFutureShow(s);})
+  // One source of truth (js/pc-core.js): Tonight = every confirmed occurrence dated today, the same set the calendar and
+  // the 'Tonight in Paris' section count. (Was: only shows not yet started, so panel/section/calendar disagreed.)
+  TONIGHT_SHOWS = SHOWS_DATA.filter(function(s){return s.date===todayParis;})
     .sort(function(a,b){return (a.start_time||'').localeCompare(b.start_time||'');});
   WEEK_SHOWS = SHOWS_DATA.filter(function(s){return s.date>=todayParis && s.date<=weekEndParis() && isFutureShow(s);})
     .sort(function(a,b){return a.date!==b.date?a.date.localeCompare(b.date):(a.start_time||'').localeCompare(b.start_time||'');});
@@ -838,7 +830,10 @@ function renderTonightInParis() {
   const grid = document.getElementById('tonight-show-grid');
   if (!grid || !section) return;
   if (!tonight.length) {
-    section.style.display = 'none';
+    // Keep the block (CLS: never collapse it after first paint) and say so plainly.
+    const t0 = document.getElementById('tonight-section-title'); if (t0) t0.textContent = 'Tonight in Paris';
+    const l0 = document.getElementById('tonight-section-label'); if (l0) l0.textContent = 'No confirmed show tonight - see the week below';
+    grid.innerHTML = '';
     return;
   }
   section.style.display = '';

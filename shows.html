@@ -82,32 +82,56 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .ev-lang.en{background:rgba(34,211,238,.16);color:#67e8f9}
 .ev-lang.fr{background:rgba(236,72,153,.16);color:#f9a8d4}
 .ev-ok{display:inline-block;font-size:12px;font-weight:800;padding:1px 6px;border-radius:6px;margin-top:4px;margin-left:4px;letter-spacing:.04em;background:rgba(201,168,76,.18);color:#e8c96a}
+.regular{margin-top:28px;font-size:14px;color:var(--muted)}.regular h2{font-size:16px;color:var(--text);margin-bottom:6px}.regular ul{list-style:none;margin-top:10px}.regular li{padding:10px 0;border-top:1px solid var(--border)}.regular li a{color:var(--text);font-weight:700}.regular li span{display:block;font-size:13px}
 .cell-empty{font-size:12px;color:var(--dim);margin-top:auto;font-style:italic}
-@media(max-width:640px){.hero{padding:38px 16px 4px}.month{min-width:150px;font-size:18px}}
+@media(max-width:640px){.hero{padding:38px 16px 4px}.month{min-width:150px;font-size:18px}
+  /* Phone: a vertical agenda instead of a 7-column grid scrolled sideways. Past days, blank days and days with no show are
+     hidden (today always stays), so there is no empty band above the first show and no clipped 'confirmed' badge. */
+  .calscroll{overflow:visible;min-height:320px}
+  .cal{min-width:0;display:flex;flex-direction:column;gap:10px}
+  .dow,.cell.blank,.cell.past,.cell:not(.has-ev):not(.today){display:none}
+  .cell{min-height:0;max-height:none;overflow:visible}
+  .cell-dayname{display:inline}
+  .navbtn{width:44px;height:44px}.today-btn,.clear-filters,.filterbar select{min-height:44px}
+  .cell-more{min-height:44px}
+  .ev{padding:10px 12px}}
+.cell-dayname{display:none}
 footer{border-top:1px solid var(--border);padding:36px 24px;text-align:center;color:var(--muted);font-size:13px}
 footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 .footer-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+/* CLS: reserve the calendar's height until the API answers so the footer/layout does not jump */
+main{min-height:90vh}.calscroll{min-height:760px}
 </style>
+<link rel="stylesheet" href="/css/pc-nav.css?v=20261002">
+<script src="/js/pc-nav.js?v=20261002" defer></script>
+<script src="/js/pc-core.js?v=20261002"></script>
 </head>
 <body>
-<nav class="nav-shell nav-shell-marketing">
+<!--pc-nav:start (generated from partials/nav.shell.marketing.html by tools/apply_nav.py - edit the partial, never a page)-->
+<nav class="nav-shell nav-shell-marketing pc-nav" aria-label="Main">
   <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
   <div class="nav-links">
-    <a href="/">Home</a>
-    <a href="/shows.html" class="nav-active">Shows</a>
-    <a href="/europe.html">Europe</a>
-    <a href="/hiring.html">Stage Time</a>
+    <a href="/shows.html">Shows</a>
     <a href="/venues.html">Venues</a>
     <a href="/comedians.html">Comedians</a>
-    <a href="/bookers.html">Bookers</a>
-    <a href="/pricing.html">Pricing</a>
-    <a href="/login.html">Sign In</a>
-    <a href="/connect.html">Book / Connect</a>
-    <a href="/about.html">About</a>
-    <a href="/feedback.html">Feedback</a>
+    <a href="/hiring.html">Stage Time</a>
+    <a href="https://comedyatlas.app" class="nav-atlas">COMEDY ATLAS</a>
+    <details class="nav-more">
+      <summary>More</summary>
+      <div class="nav-more-menu">
+        <a href="/europe.html">Europe</a>
+        <a href="/bookers.html">Bookers</a>
+        <a href="/connect.html">Book / Connect</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/about.html">About</a>
+        <a href="/feedback.html">Feedback</a>
+      </div>
+    </details>
+    <a href="/login.html" class="nav-signin">Sign in</a>
   </div>
   <div data-pc-search></div>
 </nav>
+<!--pc-nav:end-->
 
 <main>
 <div class="hero">
@@ -145,6 +169,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
   <div class="calscroll">
     <div class="cal" id="cal"></div>
   </div>
+  <div class="regular" id="regularNights"></div>
 </div>
 </main>
 
@@ -182,15 +207,17 @@ async function loadShows(){
   try { const c = await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json()); if(c&&c.api) api=c.api; } catch(e){}
   try {
     const rows = await fetch(api+'/api/listings',{cache:'no-store'}).then(r=>r.json());
-    SHOWS = (Array.isArray(rows)?rows:[]).filter(s=>s.booking_url||s.show_url).map(s=>({
+    SHOWS = (Array.isArray(rows)?rows:[]).filter(s=>s.booking_url||s.show_url).filter(s=>[].concat(s.language||'en').join(',').toLowerCase().indexOf('en')!==-1).map(s=>({
       slug: s.slug||'',
       name: s.name||'',
       venue: s.venue_name || (s.venue && s.venue.name) || s.venue_name_raw || '',
       days: Array.isArray(s.days)?s.days:[],
       time: s.start_time||'',
       language: (s.language||'en'),
-      dates: Array.isArray(s.dates)?s.dates:[]
+      dates: Array.isArray(s.dates)?s.dates:[],
+      raw: s
     }));
+    renderRegular();
   } catch(e){ console.warn('[pc] /api/listings failed', e); SHOWS=[]; }
   render(); scrollToToday();
 }
@@ -226,10 +253,10 @@ function occurrencesForDate(date){
   const ds = date.toLocaleDateString('sv-SE');
   const out = [];
   SHOWS.forEach(function(s){
+    // Only CONFIRMED dates are painted (same rule as the home page - js/pc-core.js). A weekday pattern is not proof of a
+    // date, so shows with no confirmed date appear in the 'Regular nights' list under the calendar instead of every week.
     if (s.dates && s.dates.length) {
-      if (s.dates.some(function(x){ return x.date===ds; })) out.push({ show:s, confirmed:true });
-    } else if (s.days.includes(wd) && isSeasonallyVisible(s.name, ds)) {
-      out.push({ show:s, confirmed:false });
+      if (s.dates.some(function(x){ return x.date===ds; })) out.push({ show:s, confirmed:true, time:PC.timeOn(s.raw, ds) });
     }
   });
   return out;
@@ -242,15 +269,15 @@ function dedupe(items){
   const seen = {}; const order = [];
   items.forEach(function(it){
     const s = it.show;
-    const key = (s.slug ? 'slug:'+s.slug : 'nt:'+s.name+'||'+s.venue) + '||' + s.time;
+    const key = (s.slug ? 'slug:'+s.slug : 'nt:'+s.name+'||'+s.venue) + '||' + it.time;
     if (!seen[key]) { seen[key] = it; order.push(key); }
   });
   return order.map(function(k){ return seen[k]; });
 }
 
-function matchesFilters(s, cellDate){
+function matchesFilters(it, cellDate){
   if (state.dow !== '' && String(cellDate.getDay()) !== state.dow) return false;
-  if (state.tod && timeOfDayBucket(s.time) !== state.tod) return false;
+  if (state.tod && timeOfDayBucket(it.time) !== state.tod) return false;
   return true;
 }
 
@@ -260,11 +287,11 @@ function showsOn(date){
   // the next one). Look at the following calendar date's occurrences and
   // pull its late-night shows back onto this cell.
   const nextDate = new Date(date); nextDate.setDate(nextDate.getDate()+1);
-  const own = occurrencesForDate(date).filter(function(it){ return !isLateNight(it.show.time); });
-  const shiftedIn = occurrencesForDate(nextDate).filter(function(it){ return isLateNight(it.show.time); });
+  const own = occurrencesForDate(date).filter(function(it){ return !isLateNight(it.time); });
+  const shiftedIn = occurrencesForDate(nextDate).filter(function(it){ return isLateNight(it.time); });
   let items = dedupe(own.concat(shiftedIn));
-  items = items.filter(function(it){ return matchesFilters(it.show, date); });
-  return items.sort(function(a,b){ return (a.show.time||'').localeCompare(b.show.time||''); });
+  items = items.filter(function(it){ return matchesFilters(it, date); });
+  return items.sort(function(a,b){ return (a.time||'').localeCompare(b.time||''); });
 }
 
 function render(){
@@ -286,17 +313,18 @@ function render(){
     // onto the chosen weekday, e.g. "only Fridays".
     if (state.dow !== '' && String(date.getDay()) !== state.dow) cell.className += ' dow-dimmed';
     const top=document.createElement('div'); top.className='cell-top';
-    top.innerHTML = `<span class="cell-date">${d}</span>` + (ds===TODAY?'<span class="today-pill">TONIGHT</span>':'');
+    top.innerHTML = `<span class="cell-date"><span class="cell-dayname">${DOW[date.getDay()].slice(0,3)} </span>${d}</span>` + (ds===TODAY?'<span class="today-pill">TONIGHT</span>':'');
     cell.appendChild(top);
     const evs = showsOn(date);
     const cellKey = ds;
     const isExpanded = !!expandedCells[cellKey];
+    if (evs.length) cell.className += ' has-ev';
     const capped = isExpanded ? evs : evs.slice(0, CELL_CAP);
     capped.forEach(it=>{
       const s = it.show;
       const a=document.createElement('a'); a.className='ev';
       a.href = s.slug ? ('/show.html?slug='+encodeURIComponent(s.slug)) : '#';
-      a.innerHTML = `<div class="ev-time">${s.time||''}</div>`
+      a.innerHTML = `<div class="ev-time">${it.time||''}</div>`
         + `<div class="ev-name">${s.name}</div>`
         + (s.venue?`<div class="ev-venue">${s.venue}</div>`:'')
         + `<span class="ev-lang ${s.language==='fr'?'fr':'en'}">${(s.language||'en').toUpperCase()}</span>`
@@ -320,12 +348,25 @@ function render(){
     cal.appendChild(cell);
   }
 }
+// Shows with NO confirmed date: listed honestly under the calendar, never painted on weekdays.
+function renderRegular(){
+  const host = document.getElementById('regularNights'); if (!host) return;
+  const rows = SHOWS.filter(function(s){ return !(s.dates && s.dates.length); });
+  if (!rows.length) { host.innerHTML=''; return; }
+  host.innerHTML = '<h2>Regular nights &mdash; dates not confirmed yet</h2><p>These shows run on a regular night but we have no confirmed date for them right now. Check the show page before you go.</p><ul>'
+    + rows.map(function(s){
+        const when = (s.days||[]).join(' / ') + (s.time ? ' &middot; '+s.time : '');
+        return '<li><a href="'+(s.slug?('/show.html?slug='+encodeURIComponent(s.slug)):'#')+'">'+s.name+'</a> <span>'+when+(s.venue?' &middot; '+s.venue:'')+'</span></li>';
+      }).join('') + '</ul>';
+}
 function scrollToToday(){
   // Land on TODAY when the page opens (Robert 2026-06-29): bring today's row near
   // the top of the viewport. Double-rAF so layout is settled before measuring.
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
     const t=document.getElementById('todayCell'); if(!t) return;
     const y=t.getBoundingClientRect().top + window.pageYOffset - 96;
+    // Phones show a vertical agenda (see CSS) where today is already at the top: do not scroll past the title/filters.
+    if (window.matchMedia && window.matchMedia('(max-width:640px)').matches) return;
     if(y>40) window.scrollTo({top:y,behavior:'smooth'});
   }));
 }

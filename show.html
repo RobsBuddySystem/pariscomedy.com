@@ -64,27 +64,39 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .loading{padding:48px 0;text-align:center;color:#666;font-size:14px}
 footer{padding:36px 16px;text-align:center;border-top:1px solid #222;color:#666;font-size:13px;margin-top:auto}
 .footer-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+/* CLS: reserve room for the show detail until the API answers */
+main{min-height:85vh}.wrap{min-height:520px}
 </style>
+<link rel="stylesheet" href="/css/pc-nav.css?v=20261002">
+<script src="/js/pc-nav.js?v=20261002" defer></script>
+<script src="/js/pc-core.js?v=20261002"></script>
 </head>
 <body>
-<nav class="nav-shell nav-shell-marketing">
- <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
- <div class="nav-links">
- <a href="/">Home</a>
- <a href="/shows.html" class="nav-active">Shows</a>
- <a href="/europe.html">Europe</a>
- <a href="/hiring.html">Stage Time</a>
- <a href="/venues.html">Venues</a>
- <a href="/comedians.html">Comedians</a>
- <a href="/bookers.html">Bookers</a>
- <a href="/pricing.html">Pricing</a>
- <a href="/login.html">Sign In</a>
- <a href="/connect.html">Book / Connect</a>
- <a href="/about.html">About</a>
- <a href="/feedback.html">Feedback</a>
- </div>
- <div data-pc-search></div>
+<!--pc-nav:start (generated from partials/nav.shell.marketing.html by tools/apply_nav.py - edit the partial, never a page)-->
+<nav class="nav-shell nav-shell-marketing pc-nav" aria-label="Main">
+  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+  <div class="nav-links">
+    <a href="/shows.html">Shows</a>
+    <a href="/venues.html">Venues</a>
+    <a href="/comedians.html">Comedians</a>
+    <a href="/hiring.html">Stage Time</a>
+    <a href="https://comedyatlas.app" class="nav-atlas">COMEDY ATLAS</a>
+    <details class="nav-more">
+      <summary>More</summary>
+      <div class="nav-more-menu">
+        <a href="/europe.html">Europe</a>
+        <a href="/bookers.html">Bookers</a>
+        <a href="/connect.html">Book / Connect</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/about.html">About</a>
+        <a href="/feedback.html">Feedback</a>
+      </div>
+    </details>
+    <a href="/login.html" class="nav-signin">Sign in</a>
+  </div>
+  <div data-pc-search></div>
 </nav>
+<!--pc-nav:end-->
 <main>
 
 <div class="wrap" id="wrap">
@@ -379,7 +391,7 @@ function render(L) {
  const address = (L.venue && (L.venue.address || '')) || L.address || '';
  const city = (L.venue && L.venue.city) || 'Paris';
  const days = Array.isArray(L.days) ? L.days.join(' · ') : '';
- const time = L.start_time || '';
+ const time = PC.displayTime(L);   // next confirmed occurrence's time, else template time (js/pc-core.js)
  const showType = (L.show_type || 'showcase').replace(/_/g,' ');
  const description = L.description_en || L.description_fr || '';
  const ticket = L.booking_url || L.show_url || '';
@@ -448,6 +460,14 @@ function render(L) {
 }
 
 function renderError(msg) {
+ // Unknown / retired show: GitHub Pages cannot answer a ?slug= URL with a real 404, so tell crawlers
+ // explicitly (noindex) and send visitors to the live calendar instead of leaving a dead-end "200".
+ try {
+  var rm = document.querySelector('meta[name="robots"]');
+  if (!rm) { rm = document.createElement('meta'); rm.name = 'robots'; document.head.appendChild(rm); }
+  rm.setAttribute('content', 'noindex, follow');
+  setTimeout(function(){ window.location.replace('/shows.html'); }, 3500);
+ } catch(_) {}
  document.getElementById('loading').style.display='none';
  const d=document.getElementById('detail');
  d.style.display='block';
@@ -455,7 +475,7 @@ function renderError(msg) {
  <div class="error">
  <h1>Show not found</h1>
  <p>${esc(msg)}</p>
- <p style="margin-top:16px"><a href="/shows.html">← Back to all shows</a></p>
+ <p style="margin-top:16px"><a href="/shows.html">← Back to all shows</a> (taking you there in a moment)</p>
  </div>
  `;
 }

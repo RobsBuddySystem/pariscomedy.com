@@ -75,27 +75,36 @@ footer a:hover{color:var(--text)}
 .footer-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
 </style>
 <!-- v20260530-safe: honest pricing copy; no checkout; no payment CTAs; waitlist-only -->
+<link rel="stylesheet" href="/css/pc-nav.css?v=20261002">
+<script src="/js/pc-nav.js?v=20261002" defer></script>
 </head>
 <body>
 
-<nav class="nav-shell nav-shell-marketing">
+<!--pc-nav:start (generated from partials/nav.shell.marketing.html by tools/apply_nav.py - edit the partial, never a page)-->
+<nav class="nav-shell nav-shell-marketing pc-nav" aria-label="Main">
   <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
   <div class="nav-links">
-    <a href="/">Home</a>
     <a href="/shows.html">Shows</a>
-    <a href="/europe.html">Europe</a>
-    <a href="/hiring.html">Stage Time</a>
     <a href="/venues.html">Venues</a>
     <a href="/comedians.html">Comedians</a>
-    <a href="/bookers.html">Bookers</a>
-    <a href="/pricing.html" class="nav-active">Pricing</a>
-    <a href="/login.html">Sign In</a>
-    <a href="/connect.html">Book / Connect</a>
-    <a href="/about.html">About</a>
-    <a href="/feedback.html">Feedback</a>
+    <a href="/hiring.html">Stage Time</a>
+    <a href="https://comedyatlas.app" class="nav-atlas">COMEDY ATLAS</a>
+    <details class="nav-more">
+      <summary>More</summary>
+      <div class="nav-more-menu">
+        <a href="/europe.html">Europe</a>
+        <a href="/bookers.html">Bookers</a>
+        <a href="/connect.html">Book / Connect</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/about.html">About</a>
+        <a href="/feedback.html">Feedback</a>
+      </div>
+    </details>
+    <a href="/login.html" class="nav-signin">Sign in</a>
   </div>
   <div data-pc-search></div>
 </nav>
+<!--pc-nav:end-->
 <main>
 
 <div class="hero">
@@ -111,7 +120,7 @@ footer a:hover{color:var(--text)}
  <div class="plan-price">€0 <small>right now</small></div>
  <div class="plan-desc">For comics, shows, bookers and fans alike. This is the whole service.</div>
  <ul class="plan-features">
- <li>Browse every English &amp; French comedy show in Paris</li>
+ <li>Browse every English-language comedy show in Paris</li>
  <li>Get listed &amp; <strong>claim your own page</strong> — edit it, add your links, or ask us to remove it</li>
  <li>Connect with shows and bookers</li>
  <li>Be notified when you're added to a lineup</li>

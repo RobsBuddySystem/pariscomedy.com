@@ -44,26 +44,35 @@ input{width:100%;padding:12px;background:var(--input);border:1px solid var(--bor
 </style>
 <script src="/assets/auth-helpers.js?v=20260620b" defer></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<link rel="stylesheet" href="/css/pc-nav.css?v=20261002">
+<script src="/js/pc-nav.js?v=20261002" defer></script>
 </head>
 <body>
-<nav class="nav-shell nav-shell-marketing">
+<!--pc-nav:start (generated from partials/nav.shell.marketing.html by tools/apply_nav.py - edit the partial, never a page)-->
+<nav class="nav-shell nav-shell-marketing pc-nav" aria-label="Main">
   <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
   <div class="nav-links">
-    <a href="/">Home</a>
     <a href="/shows.html">Shows</a>
-    <a href="/europe.html">Europe</a>
-    <a href="/hiring.html">Stage Time</a>
     <a href="/venues.html">Venues</a>
     <a href="/comedians.html">Comedians</a>
-    <a href="/bookers.html">Bookers</a>
-    <a href="/pricing.html">Pricing</a>
-    <a href="/login.html" class="nav-active">Sign In</a>
-    <a href="/connect.html">Book / Connect</a>
-    <a href="/about.html">About</a>
-    <a href="/feedback.html">Feedback</a>
+    <a href="/hiring.html">Stage Time</a>
+    <a href="https://comedyatlas.app" class="nav-atlas">COMEDY ATLAS</a>
+    <details class="nav-more">
+      <summary>More</summary>
+      <div class="nav-more-menu">
+        <a href="/europe.html">Europe</a>
+        <a href="/bookers.html">Bookers</a>
+        <a href="/connect.html">Book / Connect</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/about.html">About</a>
+        <a href="/feedback.html">Feedback</a>
+      </div>
+    </details>
+    <a href="/login.html" class="nav-signin">Sign in</a>
   </div>
   <div data-pc-search></div>
 </nav>
+<!--pc-nav:end-->
 <main>
   <section class="top">
     <div>
@@ -103,7 +112,7 @@ input{width:100%;padding:12px;background:var(--input);border:1px solid var(--bor
 
     <aside class="panel route-card">
       <h2 id="route-title">Comic access</h2>
-      <p id="route-copy">Enter your comic email. The backend creates a magic link, stores the request, and the mail drain/Postie path delivers it when mail is configured.</p>
+      <p id="route-copy">Sign in or create a comic account with your email and password to manage your profile and get booked.</p>
       <div class="status-row"><span>Comic destination</span><strong><a href="/performer-portal.html">Performer Portal</a></strong></div>
       <div class="status-row"><span>Booker destination</span><strong><a href="/booker-portal.html">Booker Portal</a></strong></div>
       <div class="status-row"><span>Lineups</span><strong><a href="/booker-dashboard.html">Dashboard</a></strong></div>
@@ -111,11 +120,10 @@ input{width:100%;padding:12px;background:var(--input);border:1px solid var(--bor
   </section>
 
   <!-- Auth V2 magic-link draft — superseded by the live email+password sign-in above -->
-  <section class="v2-draft" id="auth-v2-draft" style="display:none" aria-label="Auth V2 magic-link login — superseded">
-    <div class="v2-draft-header">Magic-Link Login (Auth V2 — planned, not live yet)</div>
+  <section class="v2-draft" id="auth-v2-draft" style="display:none" aria-label="Email sign-in link">
+    <div class="v2-draft-header">Email sign-in link (coming soon)</div>
     <div class="v2-draft-notice">
-      This section previews the upcoming magic-link login flow. The backend is not yet live.
-      The button below is disabled until the Auth V2 backend is enabled in production.
+      Sign-in by email link is coming soon. For now, please use your email and password above.
     </div>
     <div class="v2-role" role="group" aria-label="Account role">
       <button type="button" id="v2-role-comic" class="active" onclick="v2SetRole('comic')">Comic</button>
@@ -126,9 +134,9 @@ input{width:100%;padding:12px;background:var(--input);border:1px solid var(--bor
       <input id="v2-email" type="email" autocomplete="email" placeholder="you@email.com">
     </div>
     <button class="btn" id="v2-submit" type="button" disabled onclick="v2RequestLink()">
-      Request magic link — not live yet
+      Email me a sign-in link (coming soon)
     </button>
-    <div class="v2-status-line" id="v2-status-line">Magic-link login is not live yet. Backend status: checking…</div>
+    <div class="v2-status-line" id="v2-status-line">Email sign-in link is coming soon.</div>
     <div class="msg" id="v2-msg"></div>
   </section>
 </main>
@@ -241,19 +249,19 @@ async function v2CheckStatus() {
     var res = await fetch('/api/auth_v2/status', {cache: 'no-store'});
     var data = await res.json().catch(function() { return {}; });
     if (res.status === 503 || data.enabled === false || (data.detail && data.detail.error)) {
-      statusLine.textContent = 'Magic-link login is not live yet. Auth V2 backend is disabled.';
+      statusLine.textContent = 'Email sign-in link is coming soon.';
       btn.disabled = true;
     } else if (data.enabled === true) {
       v2Enabled = true;
-      statusLine.textContent = 'Auth V2 backend reachable. Magic-link login available.';
+      statusLine.textContent = 'Email sign-in link is available.';
       btn.disabled = false;
       btn.textContent = 'Request magic link';
     } else {
-      statusLine.textContent = 'Magic-link login is not live yet. Unexpected backend response.';
+      statusLine.textContent = 'Email sign-in link is coming soon.';
       btn.disabled = true;
     }
   } catch(e) {
-    statusLine.textContent = 'Magic-link login is not live yet. Auth V2 backend unavailable.';
+    statusLine.textContent = 'Email sign-in link is coming soon.';
     btn.disabled = true;
   }
 }

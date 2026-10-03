@@ -126,9 +126,10 @@
       '#' + BANNER_ID + '{background:#ffffff;color:#171512;border-top-color:#e2ddd2}' +
       '#' + BANNER_ID + ' .pc-ga-consent-text a{color:#7a5c10}' +
       '#' + BANNER_ID + ' button{border-color:#7a5c10}}' +
-      '@media(max-width:420px){#' + BANNER_ID + '{padding:12px}' +
-      '#' + BANNER_ID + ' .pc-ga-consent-actions{width:100%;justify-content:stretch}' +
-      '#' + BANNER_ID + ' button{flex:1 1 0}}';
+      '@media(max-width:420px){#' + BANNER_ID + '{padding:8px 12px;gap:6px}' +
+      '#' + BANNER_ID + ' .pc-ga-consent-text{font-size:12.5px;line-height:1.35}' +
+      '#' + BANNER_ID + ' .pc-ga-consent-actions{width:100%;justify-content:stretch;gap:8px}' +
+      '#' + BANNER_ID + ' button{flex:1 1 0;min-height:44px;padding:0 12px}}';
     document.head.appendChild(style);
   }
 

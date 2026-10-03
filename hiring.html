@@ -60,25 +60,35 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 footer{border-top:1px solid #222;padding:30px 24px;text-align:center;color:#666;font-size:13px;line-height:1.6}
 footer a{color:var(--yellow)}
 </style>
+<link rel="stylesheet" href="/css/pc-nav.css?v=20261002">
+<script src="/js/pc-nav.js?v=20261002" defer></script>
 </head>
 <body>
-<nav>
- <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
- <div class="nav-links">
-  <a href="/">Home</a>
-  <a href="/shows.html">Shows</a>
-  <a href="/hiring.html" class="nav-active">Stage Time</a>
-  <a href="/venues.html">Venues</a>
-  <a href="/comedians.html">Comedians</a>
-  <a href="/bookers.html">Bookers</a>
-  <a href="/pricing.html">Pricing</a>
-  <a href="/login.html">Sign In</a>
-  <a href="/connect.html">Book / Connect</a>
-  <a href="/about.html">About</a>
-  <a href="/feedback.html">Feedback</a>
- </div>
- <div data-pc-search></div>
+<!--pc-nav:start (generated from partials/nav.shell.marketing.html by tools/apply_nav.py - edit the partial, never a page)-->
+<nav class="nav-shell nav-shell-marketing pc-nav" aria-label="Main">
+  <a href="/" class="nav-logo">Paris<span>Comedy</span></a>
+  <div class="nav-links">
+    <a href="/shows.html">Shows</a>
+    <a href="/venues.html">Venues</a>
+    <a href="/comedians.html">Comedians</a>
+    <a href="/hiring.html">Stage Time</a>
+    <a href="https://comedyatlas.app" class="nav-atlas">COMEDY ATLAS</a>
+    <details class="nav-more">
+      <summary>More</summary>
+      <div class="nav-more-menu">
+        <a href="/europe.html">Europe</a>
+        <a href="/bookers.html">Bookers</a>
+        <a href="/connect.html">Book / Connect</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/about.html">About</a>
+        <a href="/feedback.html">Feedback</a>
+      </div>
+    </details>
+    <a href="/login.html" class="nav-signin">Sign in</a>
+  </div>
+  <div data-pc-search></div>
 </nav>
+<!--pc-nav:end-->
 
 <div class="hero">
  <h1>Find <span>Stage Time</span> 🎤</h1>
@@ -88,8 +98,7 @@ footer a{color:var(--yellow)}
 
 <div class="controls">
  <input id="search" class="search" type="search" placeholder="Search a mic, venue, or area…" aria-label="Search open mics">
- <div class="filters" id="lang-filters" role="group" aria-label="Filter by language"></div>
- <div class="filters" id="day-filters" role="group" aria-label="Filter by day"></div>
+  <div class="filters" id="day-filters" role="group" aria-label="Filter by day"></div>
 </div>
 <div class="count" id="count"></div>
 <div class="grid" id="grid"></div>
@@ -143,8 +152,6 @@ function pill(container,group,value,label){
 }
 function init(){
  document.getElementById('note').textContent=NOTE||'';
- const lf=document.getElementById('lang-filters');
- pill(lf,'lang','all','All');pill(lf,'lang','EN','English');pill(lf,'lang','FR','French');
  const df=document.getElementById('day-filters');
  pill(df,'day','all','Any day');DAYS.forEach(function(d){pill(df,'day',d,d.slice(0,3));});
  const s=document.getElementById('search');
@@ -153,7 +160,8 @@ function init(){
 }
 fetch('/data/hiring.json',{cache:'no-store'})
  .then(function(r){return r.json();})
- .then(function(d){MICS=d.verified||[];LEADS=d.unverified_leads||[];NOTE=d.note||'';init();})
+ .then(function(d){MICS=(d.verified||[]).filter(function(m){return String(m.language||'EN').toUpperCase()!=='FR';});   // English-only rule: French mics filtered at render, data untouched
+  LEADS=d.unverified_leads||[];NOTE=d.note||'';init();})
  .catch(function(e){console.warn('[hiring] load failed',e);document.getElementById('note').textContent='Could not load the open-mic list — try refreshing.';});
 </script>
 <script src="/pc-search.js?v=20260913" defer></script>

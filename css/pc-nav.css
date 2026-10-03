@@ -1,0 +1,29 @@
+/* pc-nav.css - the ONE nav style for every public page (markup: partials/nav.shell.marketing.html) */
+nav.pc-nav{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 16px;padding:6px 24px;border-bottom:1px solid #222;position:sticky;top:0;z-index:100;background:#0a0a0a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.pc-nav .nav-logo{font-size:18px;font-weight:700;letter-spacing:-.5px;color:#f0f0f0;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.pc-nav .nav-logo span{color:#f5c518}
+.pc-nav .nav-links{display:flex;align-items:center;flex-wrap:wrap;gap:0 4px;font-size:14px;color:#9aa4b2;margin:0}
+.pc-nav .nav-links>a,.pc-nav .nav-more>summary{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;color:#9aa4b2;text-decoration:none;cursor:pointer;list-style:none;border-radius:8px;background:none;border:0;font:inherit}
+.pc-nav .nav-more>summary::-webkit-details-marker{display:none}
+.pc-nav .nav-more>summary::after{content:"\25BE";margin-left:5px;font-size:11px}
+.pc-nav .nav-links>a:hover,.pc-nav .nav-more>summary:hover,.pc-nav a[aria-current="page"]{color:#f0f0f0}
+.pc-nav a[aria-current="page"]{box-shadow:inset 0 -2px 0 #f5c518;border-radius:0}
+.pc-nav .nav-links>a.nav-atlas{color:#c9a84c;font-weight:700}
+.pc-nav .nav-links>a.nav-signin{border:1px solid #3a3a3a;margin-left:6px}
+.pc-nav .nav-more{position:relative}
+.pc-nav .nav-more-menu{position:absolute;right:0;top:100%;min-width:190px;background:#111;border:1px solid #2a2a2a;border-radius:10px;padding:6px;display:flex;flex-direction:column;box-shadow:0 12px 30px rgba(0,0,0,.5);z-index:101}
+.pc-nav .nav-more-menu a{display:flex;align-items:center;min-height:44px;padding:0 12px;color:#cfd6df;text-decoration:none;border-radius:6px}
+.pc-nav .nav-more-menu a:hover{background:#1c1c1c;color:#fff}
+@media(max-width:640px){
+  nav.pc-nav{padding:4px 12px;gap:0 8px}
+  .pc-nav .nav-links{width:100%;gap:0}
+  .pc-nav .nav-links>a,.pc-nav .nav-more>summary{padding:0 9px;font-size:14px}
+  .pc-nav .nav-more-menu{left:0;right:auto}
+}
+
+/* Phone tap-target floor (44px) for the controls the audit measured at 29-37px. Scoped to <=640px; desktop unchanged. */
+@media(max-width:640px){
+  .pcs-input,input[type=search],input[type=text]#search{min-height:44px}
+  .filter-btn,.chip,.pill,.btn,.btn-primary,.btn-secondary,.lang-btn,.hero-pills a{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+  .filters{gap:8px}
+}
