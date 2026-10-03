@@ -105,8 +105,8 @@ async function loadData(days) {
   if (!_token) { document.getElementById('auth-error').textContent = 'Token required'; return; }
   let apiBase = '';
   try { const c = await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json()); apiBase = c.api || ''; } catch(_) {}
-  const url = `${apiBase}/api/admin/events/summary?days=${days}&token=${encodeURIComponent(_token)}`;
-  const r = await fetch(url);
+  const url = `${apiBase}/api/admin/events/summary?days=${days}`;
+  const r = await fetch(url, {headers: {'X-Admin-Token': _token}});  // header, not URL (M4)
   if (r.status === 401) {
     document.getElementById('auth-error').textContent = 'Invalid token';
     return;

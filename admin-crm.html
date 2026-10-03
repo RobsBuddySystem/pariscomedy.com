@@ -189,7 +189,7 @@ async function login() {
   if (!TOKEN) return;
   try { const c = await fetch('/api-config.json').then(r=>r.json()); API_BASE = c.api || ''; } catch(_) {}
   // Probe with /api/imports/history
-  const r = await fetch((API_BASE || 'https://api.pariscomedy.com') + '/api/imports/history?token=' + encodeURIComponent(TOKEN));
+  const r = await fetch((API_BASE || 'https://api.pariscomedy.com') + '/api/imports/history', {headers: {'X-Admin-Token': TOKEN}}); // 2026-09-30 security fix (P-03): header, not URL
   if (r.status === 401) { document.getElementById('auth-err').textContent = 'Invalid token'; return; }
   document.getElementById('auth').style.display = 'none';
   document.getElementById('main').style.display = 'block';
@@ -313,7 +313,7 @@ async function suppress() {
 
 // Auto-login if ?token= in URL
 const u = new URLSearchParams(location.search).get('token');
-if (u) { document.getElementById('token').value = u; login(); }
+if (u) { document.getElementById('token').value = u; try { history.replaceState(null, '', location.pathname); } catch (e) {} login(); } // P-03: drop token from URL
 </script>
 
 <footer class="footer footer-admin">
