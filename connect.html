@@ -732,60 +732,24 @@ async function submitMessage() {
 
 
 // --- Messaging V2 status check (backend not yet live) ---
-(async function checkMessagingV2Status() {
+(function checkMessagingV2Status() {
+  // 2026-10-17: the status probe 404'd on every view (backend not live); static text only.
   var el = document.getElementById('messaging-v2-status');
-  if (!el) return;
-  try {
-    var res = await fetch('/api/messaging_v2/status', {cache: 'no-store'});
-    var data = await res.json().catch(function() { return {}; });
-    if (res.status === 503 || data.enabled === false || (data.detail && data.detail.error)) {
-      el.textContent = 'Direct messaging backend is not live yet. Messages are reviewed manually before delivery.';
-    } else if (data.enabled === true) {
-      el.textContent = 'Messaging V2 backend reachable. Paid messaging is not active yet.';
-    } else {
-      el.textContent = 'Direct messaging is not live yet. Messages are reviewed manually before delivery.';
-    }
-  } catch(e) {
-    el.textContent = 'Direct messaging backend is not live yet. Messages are reviewed manually before delivery.';
-  }
+  if (el) el.textContent = 'Direct messaging backend is not live yet. Messages are reviewed manually before delivery.';
 })();
 
 // --- Claims V2 status check (backend not yet live) ---
-(async function checkClaimsV2Status() {
+(function checkClaimsV2Status() {
+  // 2026-10-17: the status probe 404'd on every view (backend not live); static text only.
   var el = document.getElementById('claim-v2-status');
-  if (!el) return;
-  try {
-    var res = await fetch('/api/claims_v2/status', {cache: 'no-store'});
-    var data = await res.json().catch(function() { return {}; });
-    if (res.status === 503 || data.enabled === false || (data.detail && data.detail.error)) {
-      el.textContent = 'Automated claims backend is not live yet. Claims are reviewed manually.';
-    } else if (data.enabled === true) {
-      el.textContent = 'Claims V2 backend reachable. Ownership changes require admin review.';
-    } else {
-      el.textContent = 'Automated claims are not live yet. Claims are reviewed manually.';
-    }
-  } catch(e) {
-    el.textContent = 'Automated claims backend is not live yet. Claims are reviewed manually.';
-  }
+  if (el) el.textContent = 'Automated claims backend is not live yet. Claims are reviewed manually.';
 })();
 
 // --- Submissions V2 status check (backend not yet live) ---
-(async function checkSubmissionsV2Status() {
+(function checkSubmissionsV2Status() {
+  // 2026-10-17: the status probe 404'd on every view (backend not live); static text only.
   var el = document.getElementById('submit-v2-status');
-  if (!el) return;
-  try {
-    var res = await fetch('/api/submissions_v2/status', {cache: 'no-store'});
-    var data = await res.json().catch(function() { return {}; });
-    if (res.status === 503 || data.enabled === false || (data.detail && data.detail.error)) {
-      el.textContent = 'Automated submissions backend is not live yet. We review requests manually.';
-    } else if (data.enabled === true) {
-      el.textContent = 'Automated submissions backend reachable. Manual review is still required.';
-    } else {
-      el.textContent = 'Automated submissions are not live yet. We review requests manually.';
-    }
-  } catch(e) {
-    el.textContent = 'Automated submissions are not live yet. We review requests manually.';
-  }
+  if (el) el.textContent = 'Automated submissions backend is not live yet. We review requests manually.';
 })();
 </script>
 <script src="/assets/track.js?v=20260923" defer></script>

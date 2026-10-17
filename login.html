@@ -243,27 +243,13 @@ function v2SetRole(r) {
   document.getElementById('v2-role-booker').classList.toggle('active', r === 'booker');
 }
 async function v2CheckStatus() {
+  // 2026-10-17: the /api/auth_v2/status probe 404'd on every page view (the V2
+  // backend is not live), so the page no longer calls it. Re-add the probe
+  // only when the endpoint ships.
   var statusLine = document.getElementById('v2-status-line');
   var btn = document.getElementById('v2-submit');
-  try {
-    var res = await fetch('/api/auth_v2/status', {cache: 'no-store'});
-    var data = await res.json().catch(function() { return {}; });
-    if (res.status === 503 || data.enabled === false || (data.detail && data.detail.error)) {
-      statusLine.textContent = 'Email sign-in link is coming soon.';
-      btn.disabled = true;
-    } else if (data.enabled === true) {
-      v2Enabled = true;
-      statusLine.textContent = 'Email sign-in link is available.';
-      btn.disabled = false;
-      btn.textContent = 'Request magic link';
-    } else {
-      statusLine.textContent = 'Email sign-in link is coming soon.';
-      btn.disabled = true;
-    }
-  } catch(e) {
-    statusLine.textContent = 'Email sign-in link is coming soon.';
-    btn.disabled = true;
-  }
+  if (statusLine) statusLine.textContent = 'Email sign-in link is coming soon.';
+  if (btn) btn.disabled = true;
 }
 async function v2RequestLink() {
   if (!v2Enabled) return; // guard: never send while disabled
