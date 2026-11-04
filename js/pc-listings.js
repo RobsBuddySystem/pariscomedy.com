@@ -50,7 +50,64 @@
     return fetchJson(api + '/api/listings' + (featured ? '?featured=1' : ''), 8000);
   }
 
-  function load(opts) {
+  // Partner tagging (audit 2026-11-04): pariscomedy.com linked BilletReduc
+  // straight to billetreduc.com, bypassing the Awin wrap, so those clicks
+  // earned nothing. Apply COMEDY ATLAS's live partner rules -- the same
+  // file and the same logic as comedyatlas.app/comedy-atlas/go.html
+  // (PARTNER_PARAMS appended, PARTNER_REDIRECTS wrapping, #fragment dropped
+  // before an Awin wrap) -- so there is one source of truth for partner
+  // codes. If the file cannot be read, links are left exactly as they are.
+  var PARTNER_CONFIG_URL = 'https://comedyatlas.app/comedy-atlas/partner-config.json';
+  var _partners = null;
+
+  function partnerConfig() {
+    if (!_partners) {
+      _partners = fetch(PARTNER_CONFIG_URL, { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .catch(function () { return null; });
+    }
+    return _partners;
+  }
+
+  function tagUrl(raw, cfg) {
+    if (!raw || !cfg) return raw;
+    var u;
+    try { u = new URL(raw); } catch (e) { return raw; }
+    if (u.protocol !== 'https:' && u.protocol !== 'http:') return raw;
+    var host = u.hostname.toLowerCase().replace(/^www\./, '');
+    var params = (cfg.PARTNER_PARAMS || {})[host] || {};
+    Object.keys(params).forEach(function (k) {
+      if (!u.searchParams.has(k)) u.searchParams.set(k, params[k]);
+    });
+    var template = (cfg.PARTNER_REDIRECTS || {})[host];
+    if (template && template.indexOf('{url}') !== -1) {
+      var networkHost = '';
+      try { networkHost = new URL(template.split('{url}')[0]).hostname.toLowerCase().replace(/^www\./, ''); } catch (e) { return u.toString(); }
+      if (host !== networkHost) {
+        u.hash = '';
+        return template.replace('{url}', encodeURIComponent(u.toString()));
+      }
+    }
+    return u.toString();
+  }
+
+  function tagRows(rows, cfg) {
+    if (!cfg) return rows;
+    return rows.map(function (r) {
+      if (!r) return r;
+      var o = Object.assign({}, r);
+      o.booking_url = tagUrl(r.booking_url, cfg);
+      o.show_url = tagUrl(r.show_url, cfg);
+      if (Array.isArray(r.dates)) {
+        o.dates = r.dates.map(function (d) {
+          return (d && d.url) ? Object.assign({}, d, { url: tagUrl(d.url, cfg) }) : d;
+        });
+      }
+      return o;
+    });
+  }
+
+  function loadRaw(opts) {
     var featured = !!(opts && opts.featured);
     return config().then(function (c) {
       var api = (c && c.api) || DEFAULT_API;
@@ -68,5 +125,11 @@
     });
   }
 
-  root.PCListings = { load: load, config: config };
+  function load(opts) {
+    return Promise.all([loadRaw(opts), partnerConfig()]).then(function (res) {
+      return tagRows(res[0], res[1]);
+    });
+  }
+
+  root.PCListings = { load: load, config: config, tagUrl: tagUrl };
 })(window);
