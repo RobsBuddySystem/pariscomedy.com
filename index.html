@@ -211,6 +211,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--text)}
 <link rel="stylesheet" href="/css/pc-nav.css?v=20261002">
 <script src="/js/pc-nav.js?v=20261002" defer></script>
 <script src="/js/pc-core.js?v=20261002"></script>
+<script src="/js/pc-listings.js?v=20261104"></script>
 </head>
 <body>
 <main>
@@ -537,8 +538,7 @@ async function loadLiveShows(){
   var api='https://api.pariscomedy.com';
   try{ var c=await fetch('/api-config.json',{cache:'no-store'}).then(function(r){return r.json();}); if(c&&c.api)api=c.api; }catch(e){}
   try{
-    var data=await fetch(api+'/api/listings').then(function(r){return r.json();});
-    var listings=Array.isArray(data)?data:(data.listings||[]);
+    var listings=await PCListings.load();
     SHOWS_DATA=expandListings(listings);
   }catch(e){ console.warn('[pc] live /api/listings fetch failed', e); }
   recomputeWindows();
@@ -873,7 +873,7 @@ async function renderPromotedThisWeek() {
   }
   let promoted = [];
   try {
-    promoted = await fetch(api + '/api/listings?featured=1').then(r => r.json());
+    promoted = await PCListings.load({ featured: true });
   } catch (e) {
     console.warn('[pc] /api/listings?featured=1 fetch failed', e);
   }

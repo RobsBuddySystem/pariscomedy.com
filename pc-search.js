@@ -84,11 +84,15 @@
   var _listings = null;
   function listings() {
     if (_listings) return _listings;
-    _listings = apiBase().then(function (api) {
-      return fetch(api + '/api/listings', { cache: 'no-store' })
-        .then(function (r) { return r.ok ? r.json() : []; })
-        .catch(function () { return []; });
-    }).then(function (rows) { return Array.isArray(rows) ? rows : []; });
+    // Same feed as the page (js/pc-listings.js, Atlas or backend per
+    // /api-config.json) when the page loads it; the backend otherwise.
+    _listings = (window.PCListings
+      ? window.PCListings.load().catch(function () { return []; })
+      : apiBase().then(function (api) {
+        return fetch(api + '/api/listings', { cache: 'no-store' })
+          .then(function (r) { return r.ok ? r.json() : []; })
+          .catch(function () { return []; });
+      })).then(function (rows) { return Array.isArray(rows) ? rows : []; });
     return _listings;
   }
 

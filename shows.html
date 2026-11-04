@@ -106,6 +106,7 @@ main{min-height:90vh}.calscroll{min-height:760px}
 <link rel="stylesheet" href="/css/pc-nav.css?v=20261002">
 <script src="/js/pc-nav.js?v=20261002" defer></script>
 <script src="/js/pc-core.js?v=20261002"></script>
+<script src="/js/pc-listings.js?v=20261104"></script>
 </head>
 <body>
 <!--pc-nav:start (generated from partials/nav.shell.marketing.html by tools/apply_nav.py - edit the partial, never a page)-->
@@ -237,7 +238,7 @@ async function loadShows(){
   try { const c = await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json()); if(c&&c.api) api=c.api; } catch(e){}
   let failed = false;
   try {
-    const rows = await fetchJson(api+'/api/listings', 8000);
+    const rows = await PCListings.load();
     SHOWS = (Array.isArray(rows)?rows:[]).filter(s=>s.booking_url||s.show_url).filter(s=>[].concat(s.language||'en').join(',').toLowerCase().indexOf('en')!==-1).map(s=>({
       slug: s.slug||'',
       name: s.name||'',
