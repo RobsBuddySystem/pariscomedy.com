@@ -115,6 +115,47 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
 .success-toast{position:fixed;bottom:20px;right:20px;background:var(--green);color:#fff;padding:12px 18px;border-radius:8px;font-weight:600;display:none;z-index:1000}
 .success-toast.show{display:block}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* Booker tools (call sheet, bill messages, standby list, reports, calendar, board) */
+@media(min-width:1025px){#lineup-panel{max-height:calc(100vh - 100px);overflow-y:auto}}
+.slot[draggable="true"]{cursor:grab}
+.slot.dragging{opacity:.4}
+.slot-move{display:flex;gap:4px}
+.slot-move .btn{padding:4px 8px;font-size:12px;min-width:30px;line-height:1}
+.tool-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tool-row .btn{font-size:12px;padding:7px 11px}
+.tool-row .btn.active{background:var(--purple);border-color:var(--purple);color:#fff}
+.tool-box{border:1px solid var(--border);border-radius:8px;padding:12px;background:#0f0f0f;font-size:13px}
+.tool-box h3{font-size:13px;margin-bottom:8px}
+.tool-note{color:var(--muted);font-size:11px;line-height:1.5;margin:6px 0}
+.tool-scroll{overflow-x:auto}
+.tool-table{width:100%;border-collapse:collapse;font-size:12px}
+.tool-table th{color:var(--muted);text-align:left;font-weight:600;padding:4px 8px 4px 0;white-space:nowrap}
+.tool-table td{padding:5px 8px 5px 0;border-top:1px solid #1e1e1e;vertical-align:top}
+.banner-ok{background:#14532d;color:#d1fae5;border-radius:8px;padding:10px 12px;font-size:13px;font-weight:600;margin:10px 0}
+.banner-err{background:#3a1a1a;color:#fecaca;border-radius:8px;padding:10px 12px;font-size:13px;margin:10px 0}
+.chip-row{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.chip-row .filter-chip{font-family:monospace}
+.link-box{display:flex;gap:6px;margin:6px 0}
+.link-box input{flex:1;font-size:12px;min-width:0}
+.link-box .btn{flex-shrink:0;font-size:12px;padding:7px 11px}
+.pick-row{display:flex;gap:6px;align-items:center;padding:5px 0;border-top:1px solid #1e1e1e;font-size:13px}
+.pick-row .grow{flex:1;min-width:0}
+.pick-row .btn{padding:3px 8px;font-size:12px}
+.counter-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:12px}
+.counter{background:#0f0f0f;border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center}
+.counter b{display:block;font-size:22px}
+.counter span{font-size:11px;color:var(--muted)}
+.board-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;background:#0f0f0f;border:1px solid var(--border);border-radius:8px;margin-bottom:6px;font-size:13px}
+.board-row .meta{color:var(--muted);font-size:11px}
+.board-tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;background:#222;color:var(--muted)}
+.tag.warn{background:#2a2a1a;color:var(--yellow)}
+.tag.bad{background:#3a1a1a;color:#e07a7a}
+.tag.good{background:#14532d;color:#4ade80}
+.board-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.board-filters input[type=text],.board-filters select{width:auto;flex:1;min-width:140px}
+@media(max-width:480px){#dashboard{padding:12px}.panel{padding:14px}.slot{flex-wrap:wrap}.link-box{flex-direction:column}}
 </style>
 <script src="/assets/auth-helpers.js?v=20260620b" defer></script>
 </head>
@@ -262,6 +303,11 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
       <button class="btn btn-secondary" onclick="exportLineup()" id="export-btn" disabled>Export as text</button>
     </div>
     <div style="margin-top:10px;font-size:11px;color:var(--muted)">Notifications go through manual review before delivery. No private emails are exposed.</div>
+    <div id="show-tools" style="margin-top:18px;display:none">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Show tools</div>
+      <div class="tool-row" id="tool-row"></div>
+      <div id="tool-body"></div>
+    </div>
     <div id="show-timeline-wrap" style="margin-top:18px;display:none">
       <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Show timeline</div>
       <div id="show-timeline-list" style="font-size:12px;color:var(--muted);line-height:1.9"></div>
@@ -337,6 +383,37 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
     <button class="btn btn-ghost" onclick="showTab('offers')">💶 Offers</button>
     <button class="btn btn-ghost" onclick="showTab('venues')">🏠 Venues</button>
     <button class="btn btn-ghost" onclick="showTab('surveys')">📋 Surveys</button>
+    <button class="btn btn-ghost" onclick="showTab('board')">📊 Board</button>
+    <button class="btn btn-ghost" onclick="showTab('calendar')">📅 Calendar feed</button>
+  </div>
+</div>
+
+<div id="board-section" style="display:none;max-width:1400px;margin:14px auto;padding:0 20px">
+  <div class="panel">
+    <h2 style="margin:0 0 4px">📊 Board</h2>
+    <p style="color:var(--muted);margin:0 0 14px">Every show at a glance: open spots, replies you are waiting for, and acts that said no.</p>
+    <div class="board-filters">
+      <input type="text" id="board-q" placeholder="Search title, venue or act…" onkeydown="if(event.key==='Enter')loadBoard()">
+      <select id="board-status" onchange="renderBoard()">
+        <option value="">All shows</option>
+        <option value="open_spots">Open spots</option>
+        <option value="awaiting_replies">Awaiting replies</option>
+        <option value="needs_replacement">Needs replacement</option>
+        <option value="full">Full</option>
+      </select>
+      <label style="display:flex;gap:6px;align-items:center;margin:0;text-transform:none;font-size:13px;white-space:nowrap"><input type="checkbox" id="board-past" style="width:auto" onchange="loadBoard()"> Include past shows</label>
+      <button class="btn btn-secondary" onclick="loadBoard()">Refresh</button>
+    </div>
+    <div id="board-counters" class="counter-row"></div>
+    <div id="board-list"><div class="empty">Loading…</div></div>
+  </div>
+</div>
+
+<div id="calendar-section" style="display:none;max-width:1400px;margin:14px auto;padding:0 20px">
+  <div class="panel">
+    <h2 style="margin:0 0 4px">📅 Calendar feed</h2>
+    <p style="color:var(--muted);margin:0 0 14px">Subscribe to your shows in Apple Calendar, Google Calendar or Outlook. The calendar updates by itself when your shows change.</p>
+    <div id="calendar-body"></div>
   </div>
 </div>
 
@@ -496,6 +573,8 @@ async function loadWhoAvailable() {
 async function loadShows() {
   const r = await api('/api/booker/shows');
   SHOWS = r.shows;
+  // Past shows opened from the Board stay in the list for this visit.
+  (window.__pastShows || []).forEach(ps => { if (!SHOWS.some(x => x.id === ps.id)) SHOWS.push(ps); });
   renderShowList();
 }
 
@@ -570,6 +649,7 @@ function selectShow(id) {
   CURRENT_SHOW = SHOWS.find(s => s.id===id);
   renderShowList();
   renderLineup();
+  if (typeof resetShowTools === 'function') resetShowTools();
   loadShowTimeline(id);
   // AUTO-FLOW: selecting a show auto-filters the comic list to whoever is
   // available on that show's date (pull model — the comic set their dispo once,
@@ -779,17 +859,13 @@ async function inviteComic(slug, name, slotIndex) {
   } catch(e) { toast(e.message,'error'); }
 }
 
-function renderLineup() {
-  const panel = document.getElementById('lineup-slots');
-  document.getElementById('lineup-show-title').textContent = CURRENT_SHOW ? `· ${CURRENT_SHOW.title}` : '';
-  if (!CURRENT_SHOW) { panel.innerHTML='<div class="empty">Select a show.</div>'; return; }
-  const lu = CURRENT_SHOW.lineup;
-  const slots = CURRENT_SHOW.slots;
-  // Place rows with an explicit slot_index at their slot; rows without one
-  // fall into the next free slot (legacy / non-drag adds).
+// Map slot index -> lineup row. Rows without a stored slot_index fall into the
+// next free slot (legacy / non-drag adds).
+function placeLineup(show) {
+  const slots = show.slots;
   const byIndex = new Array(slots).fill(null);
   const unplaced = [];
-  for (const r of lu) {
+  for (const r of show.lineup) {
     if (typeof r.slot_index === 'number' && r.slot_index >= 0 && r.slot_index < slots && !byIndex[r.slot_index]) {
       byIndex[r.slot_index] = r;
     } else {
@@ -799,23 +875,80 @@ function renderLineup() {
   for (let i=0; i<slots && unplaced.length; i++) {
     if (!byIndex[i]) byIndex[i] = unplaced.shift();
   }
+  return byIndex;
+}
+
+function renderLineup() {
+  const panel = document.getElementById('lineup-slots');
+  document.getElementById('lineup-show-title').textContent = CURRENT_SHOW ? `· ${CURRENT_SHOW.title}` : '';
+  if (!CURRENT_SHOW) { panel.innerHTML='<div class="empty">Select a show.</div>'; return; }
+  const lu = CURRENT_SHOW.lineup;
+  const slots = CURRENT_SHOW.slots;
+  const byIndex = placeLineup(CURRENT_SHOW);
+  const dnd = 'ondragover="onSlotDragOver(event)" ondragleave="onSlotDragLeave(event)" ondrop="onSlotDrop(event)"';
   let html = '';
   for (let i=0; i<slots; i++) {
     const row = byIndex[i];
     if (row) {
       html += `
-        <div class="slot filled">
+        <div class="slot filled" draggable="true" data-slot-index="${i}" data-lineup-id="${row.id}" ondragstart="onSlotDragStart(event)" ondragend="onSlotDragEnd(event)" ${dnd}>
           <div class="slot-name">${i+1}. ${esc(row.comic_name)}</div>
-          <span class="slot-status ${row.status}">${row.status}</span>
+          <span class="slot-status ${esc(row.status)}">${esc(row.status)}</span>
+          <span class="slot-move">
+            <button class="btn btn-ghost" ${i===0?'disabled':''} title="Move up" aria-label="Move ${esc(row.comic_name)} up" onclick="moveSlot(${row.id}, ${i-1})">↑</button>
+            <button class="btn btn-ghost" ${i===slots-1?'disabled':''} title="Move down" aria-label="Move ${esc(row.comic_name)} down" onclick="moveSlot(${row.id}, ${i+1})">↓</button>
+          </span>
           <button class="btn btn-ghost" style="padding:4px 8px;font-size:11px" onclick="removeFromLineup(${row.id})">×</button>
         </div>`;
     } else {
-      html += `<div class="slot" data-slot-index="${i}" ondragover="onSlotDragOver(event)" ondragleave="onSlotDragLeave(event)" ondrop="onSlotDrop(event)">Slot ${i+1} — drop a comic here</div>`;
+      html += `<div class="slot" data-slot-index="${i}" ${dnd}>Slot ${i+1} — drop a comic here</div>`;
     }
   }
   panel.innerHTML = html;
   document.getElementById('notify-btn').disabled = lu.length === 0;
   document.getElementById('export-btn').disabled = lu.length === 0;
+  if (typeof renderShowToolsRow === 'function') renderShowToolsRow();
+}
+
+// ===== Reorder filled slots (drag on desktop, ↑/↓ buttons on touch) =====
+let REORDER_BUSY = false;
+function onSlotDragStart(ev) {
+  const el = ev.currentTarget;
+  el.classList.add('dragging');
+  ev.dataTransfer.effectAllowed = 'move';
+  ev.dataTransfer.setData('application/x-pc-lineup', el.dataset.lineupId);
+  ev.dataTransfer.setData('text/plain', '');
+}
+function onSlotDragEnd(ev) {
+  ev.currentTarget.classList.remove('dragging');
+  document.querySelectorAll('.slot.drop-target').forEach(el => el.classList.remove('drop-target'));
+}
+async function moveSlot(lineupId, toIdx) {
+  const show = CURRENT_SHOW;
+  if (!show || REORDER_BUSY || toIdx < 0 || toIdx >= show.slots) return;
+  const byIndex = placeLineup(show);
+  const fromIdx = byIndex.findIndex(r => r && r.id === lineupId);
+  if (fromIdx < 0 || fromIdx === toIdx) return;
+  const target = byIndex[toIdx];
+  const moves = [{lineup_id: lineupId, slot_index: toIdx}];
+  if (target) moves.push({lineup_id: target.id, slot_index: fromIdx});
+  // Optimistic update: show the new order now, put it back if the server says no.
+  const snapshot = JSON.parse(JSON.stringify(show.lineup));
+  const sorted = (arr) => arr.sort((a,b) => (a.slot_index==null)-(b.slot_index==null) || a.slot_index-b.slot_index || a.id-b.id);
+  for (const m of moves) { const r = show.lineup.find(x => x.id === m.lineup_id); if (r) r.slot_index = m.slot_index; }
+  sorted(show.lineup);
+  renderLineup();
+  REORDER_BUSY = true;
+  try {
+    const r = await api(`/api/booker/shows/${show.id}/lineup/reorder`, {method:'POST', body: JSON.stringify({moves})});
+    if (r && Array.isArray(r.lineup)) { show.lineup = r.lineup; }
+    if (CURRENT_SHOW && CURRENT_SHOW.id === show.id) renderLineup();
+    toast(target ? 'Swapped places' : 'Moved');
+  } catch(e) {
+    show.lineup = snapshot;
+    if (CURRENT_SHOW && CURRENT_SHOW.id === show.id) renderLineup();
+    toast("Couldn't change the order — " + plainErr(e.message), 'error');
+  } finally { REORDER_BUSY = false; }
 }
 
 function onComicDragStart(ev) {
@@ -833,7 +966,8 @@ function onComicDragEnd(ev) {
 }
 function onSlotDragOver(ev) {
   ev.preventDefault();
-  ev.dataTransfer.dropEffect = 'copy';
+  const isMove = Array.from(ev.dataTransfer.types || []).includes('application/x-pc-lineup');
+  ev.dataTransfer.dropEffect = isMove ? 'move' : 'copy';
   ev.currentTarget.classList.add('drop-target');
 }
 function onSlotDragLeave(ev) {
@@ -842,6 +976,14 @@ function onSlotDragLeave(ev) {
 function onSlotDrop(ev) {
   ev.preventDefault();
   ev.currentTarget.classList.remove('drop-target');
+  const movingId = ev.dataTransfer.getData('application/x-pc-lineup');
+  if (movingId) {
+    const to = parseInt(ev.currentTarget.dataset.slotIndex, 10);
+    if (Number.isFinite(to)) moveSlot(parseInt(movingId, 10), to);
+    return;
+  }
+  // A filled slot only accepts reorder drags, not new comics from the directory.
+  if (ev.currentTarget.classList.contains('filled')) return;
   let payload;
   try { payload = JSON.parse(ev.dataTransfer.getData('text/plain') || '{}'); }
   catch (_) { return; }
@@ -888,12 +1030,367 @@ function exportLineup() {
 // as well as a legacy booker token, so ONE sign-in reaches the booker dashboard too.
 if (TOKEN || localStorage.getItem('pc_session_token')) { api('/api/booker/comics').then(enterDashboard).catch(function(){ /* invalid/expired token: stay on the sign-in gate */ }); }
 
+// ===== Booker tools: plain-words errors, copy helpers =====
+function plainErr(msg) {
+  const m = String(msg || '');
+  if (/Failed to fetch|NetworkError|Load failed/i.test(m)) return "we couldn't reach the server. Check your connection and try again.";
+  if (/collision/i.test(m)) return "two acts can't share one slot. Pick a free slot, or swap with another act.";
+  if (/out of range/i.test(m)) return "that slot doesn't exist on this show.";
+  if (/slot already filled/i.test(m)) return 'that slot is already filled.';
+  if (/report only for shows/i.test(m)) return 'reports can only be written once the show has happened.';
+  if (/subject and body required/i.test(m)) return 'please write both a subject and a message.';
+  if (/not found|not on this show/i.test(m)) return "that show or act isn't on your account any more. Refresh the page and try again.";
+  if (/missing token|401|invalid token/i.test(m)) return 'your session has expired. Sign in again.';
+  if (/^[\[{]/.test(m)) return "something in what you entered isn't valid. Check the fields and try again.";
+  return m.charAt(0).toLowerCase() + m.slice(1);
+}
+function cap1(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+function errBox(e) { return `<div class="banner-err" role="alert">Sorry, ${esc(plainErr(e.message))}</div>`; }
+function linkBox(id, label, url) {
+  return `<div class="field" style="margin-bottom:8px"><label>${esc(label)}</label>
+    <div class="link-box"><input id="${id}" readonly value="${esc(url)}" onfocus="this.select()">
+    <button class="btn btn-secondary" onclick="copyField('${id}')">Copy</button></div></div>`;
+}
+async function copyField(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.select();
+  try { await navigator.clipboard.writeText(el.value); }
+  catch (_) { try { document.execCommand('copy'); } catch (__) { toast('Press Ctrl/Cmd+C to copy the selected link', 'error'); return; } }
+  toast('Copied');
+}
+function utcToday() { return new Date().toISOString().slice(0,10); }
+function isPastOrToday(show) { return !!show.show_date && String(show.show_date).slice(0,10) <= utcToday(); }
+
+// ===== Per-show tools =====
+let TOOL = '';
+function resetShowTools() { TOOL = ''; renderShowToolsRow(); }
+function renderShowToolsRow() {
+  const wrap = document.getElementById('show-tools');
+  if (!wrap) return;
+  if (!CURRENT_SHOW) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  const tools = [['callsheet','Call sheet'],['message','Message the bill'],['standby','Standby list']];
+  if (isPastOrToday(CURRENT_SHOW)) tools.push(['report','Show report']);
+  document.getElementById('tool-row').innerHTML = tools.map(t =>
+    `<button class="btn btn-ghost ${TOOL===t[0]?'active':''}" data-tool="${t[0]}" onclick="openTool('${t[0]}')">${t[1]}</button>`).join('');
+  if (!TOOL) document.getElementById('tool-body').innerHTML = '';
+}
+function openTool(name) {
+  TOOL = name;
+  renderShowToolsRow();
+  const body = document.getElementById('tool-body');
+  body.innerHTML = '<div class="empty">Loading…</div>';
+  ({callsheet: toolCallsheet, message: toolMessage, standby: toolStandby, report: toolReport})[name](body);
+}
+function stillOn(showId, tool) { return CURRENT_SHOW && CURRENT_SHOW.id === showId && TOOL === tool; }
+
+// --- Call sheet
+async function toolCallsheet(body) {
+  const id = CURRENT_SHOW.id;
+  try {
+    const cs = await api(`/api/booker/shows/${id}/callsheet`);
+    if (!stillOn(id, 'callsheet')) return;
+    const v = cs.venue || {};
+    body.innerHTML = `<div class="tool-box">
+      <h3>${esc(cs.title)}</h3>
+      <div class="tool-note" style="margin-top:0">${esc(cs.date)} ${esc(cs.time)} · ${esc(v.name||'')}${v.address ? ' · '+esc(v.address) : ''}</div>
+      <div class="tool-note">Call time for everyone: <b>${esc(cs.call_time||'to be confirmed')}</b></div>
+      ${cs.lineup.length ? `<div class="tool-scroll"><table class="tool-table" id="callsheet-table"><thead><tr><th>#</th><th>Act</th><th>Call</th><th>On stage</th><th>Spot</th><th>Status</th></tr></thead><tbody>
+        ${cs.lineup.map(a => `<tr><td>${a.position}</td><td>${esc(a.act_name)}</td><td>${esc(a.call_time||'')}</td><td>${esc(a.stage_time||'')}</td><td>${a.spot_minutes} min</td><td>${esc(a.status||'')}</td></tr>`).join('')}
+      </tbody></table></div>` : '<div class="empty">No acts on this show yet.</div>'}
+      <div class="tool-note">Times are worked out from the show start: stage times assume the same length for every act.</div>
+      <button class="btn btn-primary" style="font-size:12px" onclick="shareCallsheet()">Copy share link</button>
+      <div id="callsheet-share"></div></div>`;
+  } catch(e) { if (stillOn(id,'callsheet')) body.innerHTML = errBox(e); }
+}
+async function shareCallsheet() {
+  const id = CURRENT_SHOW.id, box = document.getElementById('callsheet-share');
+  try {
+    const r = await api(`/api/booker/shows/${id}/callsheet/share`, {method:'POST', body:'{}'});
+    const base = await API_BASE_PROMISE;
+    if (!box) return;
+    box.innerHTML = linkBox('callsheet-link', 'Share link (anyone with it can see this call sheet)', base + r.url);
+    copyField('callsheet-link');
+  } catch(e) { if (box) box.innerHTML = errBox(e); }
+}
+
+// --- Message the bill
+const MSG_CHIPS = ['{name}','{call_time}','{spot_length}','{rsvp_link}'];
+let MSG_ACTS = [];
+async function toolMessage(body) {
+  const id = CURRENT_SHOW.id;
+  try {
+    const cs = await api(`/api/booker/shows/${id}/callsheet`);
+    if (!stillOn(id, 'message')) return;
+    MSG_ACTS = cs.lineup;
+    body.innerHTML = `<div class="tool-box">
+      <h3>Message the bill</h3>
+      <div class="tool-note" style="margin-top:0">Writes one message to every act on this show. Messages are queued for review first. Nothing is sent from this page.</div>
+      <div class="field"><label>Subject</label><input id="msg-subject" placeholder="Call time for {name}" oninput="renderMsgPreview()"></div>
+      <div class="field"><label>Message</label><textarea id="msg-body" rows="5" placeholder="Hi {name}, please arrive at {call_time}. You have {spot_length}. Confirm here: {rsvp_link}" style="resize:vertical" oninput="renderMsgPreview()"></textarea></div>
+      <div class="tool-note">Click to insert, each one is replaced for every act:</div>
+      <div class="chip-row">${MSG_CHIPS.map(c => `<button type="button" class="filter-chip" onclick="insertChip('${c}')">${c}</button>`).join('')}</div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 6px">Preview, one per act</div>
+      <div id="msg-preview"></div>
+      <button class="btn btn-primary" id="msg-send" style="margin-top:10px" onclick="sendBillMessage()">Queue message for review</button>
+      <div id="msg-result"></div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px">Earlier messages</div>
+      <div id="msg-history"><div class="empty">Loading…</div></div></div>`;
+    renderMsgPreview();
+    loadMsgHistory();
+  } catch(e) { if (stillOn(id,'message')) body.innerHTML = errBox(e); }
+}
+let MSG_FOCUS = 'msg-body';
+document.addEventListener('focusin', ev => { if (ev.target && (ev.target.id === 'msg-subject' || ev.target.id === 'msg-body')) MSG_FOCUS = ev.target.id; });
+function insertChip(chip) {
+  const el = document.getElementById(MSG_FOCUS) || document.getElementById('msg-body');
+  if (!el) return;
+  const a = el.selectionStart == null ? el.value.length : el.selectionStart, b = el.selectionEnd == null ? a : el.selectionEnd;
+  el.value = el.value.slice(0,a) + chip + el.value.slice(b);
+  el.focus(); el.setSelectionRange(a + chip.length, a + chip.length);
+  renderMsgPreview();
+}
+function fillMsg(tpl, act) {
+  return tpl.split('{name}').join(act.act_name || '')
+    .split('{call_time}').join(act.call_time || 'TBC')
+    .split('{spot_length}').join(act.spot_minutes ? act.spot_minutes + ' min' : 'TBC')
+    .split('{rsvp_link}').join('https://pariscomedy.com/rsvp/…');
+}
+function renderMsgPreview() {
+  const el = document.getElementById('msg-preview');
+  if (!el) return;
+  const sub = document.getElementById('msg-subject').value, bod = document.getElementById('msg-body').value;
+  if (!MSG_ACTS.length) { el.innerHTML = '<div class="empty">No acts on this show yet, so there is nobody to message.</div>'; return; }
+  el.innerHTML = MSG_ACTS.map(a => `<div class="tool-box" style="margin-bottom:6px;background:#0a0a0a">
+    <div class="meta" style="color:var(--muted);font-size:11px">To ${esc(a.act_name)}</div>
+    <div><b>${esc(fillMsg(sub, a)) || '<span style="color:#555">(no subject yet)</span>'}</b></div>
+    <div style="white-space:pre-wrap;margin-top:4px">${esc(fillMsg(bod, a)) || '<span style="color:#555">(no message yet)</span>'}</div></div>`).join('');
+}
+async function sendBillMessage() {
+  const id = CURRENT_SHOW.id, res = document.getElementById('msg-result'), btn = document.getElementById('msg-send');
+  const subject = document.getElementById('msg-subject').value.trim(), text = document.getElementById('msg-body').value.trim();
+  if (!subject || !text) { res.innerHTML = '<div class="banner-err" role="alert">Please write both a subject and a message.</div>'; return; }
+  btn.disabled = true;
+  try {
+    const r = await api(`/api/booker/shows/${id}/message`, {method:'POST', body: JSON.stringify({subject, body: text})});
+    res.innerHTML = `<div class="banner-ok" role="status">Queued for review. Nothing goes out until approved.</div>
+      <div class="tool-note">${r.queued} message${r.queued===1?'':'s'} queued.${r.skipped && r.skipped.length ? ` Not queued, no email on file: ${esc(r.skipped.join(', '))}.` : ''}</div>`;
+    loadMsgHistory();
+  } catch(e) { res.innerHTML = errBox(e); }
+  finally { btn.disabled = false; }
+}
+async function loadMsgHistory() {
+  const id = CURRENT_SHOW.id, el = document.getElementById('msg-history');
+  if (!el) return;
+  try {
+    const r = await api(`/api/booker/shows/${id}/messages`);
+    if (!document.getElementById('msg-history')) return;
+    if (!r.messages.length) { el.innerHTML = '<div class="empty">No messages queued for this show yet.</div>'; return; }
+    el.innerHTML = r.messages.map(m => {
+      const q = (m.recipients && m.recipients.queued) || [], sk = (m.recipients && m.recipients.skipped) || [];
+      return `<div class="tool-box" style="margin-bottom:6px;background:#0a0a0a">
+        <div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(m.subject)}</b><span class="meta" style="color:var(--muted);font-size:11px;white-space:nowrap">${esc(m.queued_at||'')}</span></div>
+        <div class="tool-note" style="margin:2px 0">${q.length} queued for review${sk.length ? `, ${sk.length} skipped (${esc(sk.join(', '))})` : ''}</div>
+        <details><summary style="cursor:pointer;font-size:11px;color:var(--purple-light)">Show message text</summary><div style="white-space:pre-wrap;margin-top:6px">${esc(m.body_template)}</div></details></div>`;
+    }).join('');
+  } catch(e) { el.innerHTML = errBox(e); }
+}
+
+// --- Standby list (ordered list of comics offered one open slot)
+let STANDBY = [], STANDBY_POOL = null;
+async function toolStandby(body) {
+  STANDBY = [];
+  // The directory list on screen may be narrowed to one date; the standby list needs everyone.
+  if (!STANDBY_POOL) {
+    try { STANDBY_POOL = ((await api('/api/booker/comics')).comics) || []; }
+    catch(e) { body.innerHTML = errBox(e); return; }
+  }
+  if (TOOL !== 'standby') return;
+  const byIndex = placeLineup(CURRENT_SHOW);
+  const open = byIndex.map((r,i) => r ? null : i).filter(i => i !== null);
+  if (!open.length) { body.innerHTML = '<div class="tool-box"><h3>Standby list</h3><div class="empty">Every slot on this show is filled, so there is nothing to offer. Remove an act to free a slot.</div></div>'; return; }
+  body.innerHTML = `<div class="tool-box">
+    <h3>Standby list</h3>
+    <div class="tool-note" style="margin-top:0">Pick an open slot and a ranked list of comics. They are all offered the spot, in the order you choose. The first one to accept gets it and the others are released. Notifications are queued for review.</div>
+    <div class="field"><label>Open slot</label><select id="sb-slot">${open.map(i => `<option value="${i}">Slot ${i+1}</option>`).join('')}</select></div>
+    <div class="field"><label>Add comics</label><input id="sb-search" placeholder="Search by name…" oninput="renderStandbyResults()"></div>
+    <div id="sb-results"></div>
+    <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 4px">Your order</div>
+    <div id="sb-list"></div>
+    <div class="field" style="margin-top:10px"><label>Message to the comics (optional)</label><textarea id="sb-msg" rows="2" style="resize:vertical" placeholder="Short note sent with the offer"></textarea></div>
+    <button class="btn btn-primary" id="sb-send" onclick="sendStandby()">Send to standby list</button>
+    <div id="sb-result"></div></div>`;
+  renderStandbyResults(); renderStandbyList();
+}
+function renderStandbyResults() {
+  const el = document.getElementById('sb-results'); if (!el) return;
+  const q = (document.getElementById('sb-search').value || '').trim().toLowerCase();
+  const onBill = new Set(CURRENT_SHOW.lineup.map(r => r.comic_slug));
+  const list = (STANDBY_POOL || []).filter(c => !onBill.has(c.slug) && !STANDBY.some(s => s.slug === c.slug) && (!q || c.name.toLowerCase().includes(q))).slice(0, 6);
+  el.innerHTML = list.length ? list.map(c => `<div class="pick-row"><span class="grow">${esc(c.name)}</span><button class="btn btn-secondary" data-add="${esc(c.slug)}" onclick="standbyAdd('${esc(c.slug)}','${esc(c.name).replace(/'/g,'&#39;')}')">Add</button></div>`).join('')
+    : '<div class="tool-note">No other comics match.</div>';
+}
+function standbyAdd(slug, name) { STANDBY.push({slug, name}); renderStandbyResults(); renderStandbyList(); }
+function standbyMove(i, d) { const j = i + d; if (j < 0 || j >= STANDBY.length) return; [STANDBY[i], STANDBY[j]] = [STANDBY[j], STANDBY[i]]; renderStandbyList(); }
+function standbyRemove(i) { STANDBY.splice(i,1); renderStandbyResults(); renderStandbyList(); }
+function renderStandbyList() {
+  const el = document.getElementById('sb-list'); if (!el) return;
+  el.innerHTML = STANDBY.length ? STANDBY.map((c,i) => `<div class="pick-row"><b>${i+1}.</b><span class="grow">${esc(c.name)}</span>
+    <button class="btn btn-ghost" aria-label="Move up" ${i===0?'disabled':''} onclick="standbyMove(${i},-1)">↑</button>
+    <button class="btn btn-ghost" aria-label="Move down" ${i===STANDBY.length-1?'disabled':''} onclick="standbyMove(${i},1)">↓</button>
+    <button class="btn btn-ghost" aria-label="Remove" onclick="standbyRemove(${i})">×</button></div>`).join('')
+    : '<div class="tool-note">Nobody yet. Add at least one comic.</div>';
+}
+async function sendStandby() {
+  const id = CURRENT_SHOW.id, res = document.getElementById('sb-result'), btn = document.getElementById('sb-send');
+  if (!STANDBY.length) { res.innerHTML = '<div class="banner-err" role="alert">Add at least one comic to the list first.</div>'; return; }
+  btn.disabled = true;
+  try {
+    const r = await api(`/api/booker/shows/${id}/rolling-offer`, {method:'POST', body: JSON.stringify({
+      slot_index: parseInt(document.getElementById('sb-slot').value, 10),
+      comic_slugs: STANDBY.map(c => c.slug),
+      message: document.getElementById('sb-msg').value.trim()})});
+    const names = Object.fromEntries(STANDBY.map(c => [c.slug, c.name]));
+    res.innerHTML = `<div class="banner-ok" role="status">Standby list sent for slot ${r.slot_index+1}. ${r.queued_notifications} notification${r.queued_notifications===1?'':'s'} queued for review.</div>
+      <table class="tool-table" id="sb-status"><thead><tr><th>Order</th><th>Comic</th><th>Status</th></tr></thead><tbody>
+      ${r.offers.map(o => `<tr><td>${o.rank+1}</td><td>${esc(names[o.comic_slug]||o.comic_slug)}</td><td>Offered, waiting for a reply</td></tr>`).join('')}</tbody></table>`;
+    STANDBY = []; renderStandbyList(); renderStandbyResults();
+  } catch(e) { res.innerHTML = errBox(e); }
+  finally { btn.disabled = false; }
+}
+
+// --- Show report (past or today)
+async function toolReport(body) {
+  const id = CURRENT_SHOW.id;
+  const acts = CURRENT_SHOW.lineup;
+  body.innerHTML = `<div class="tool-box">
+    <h3>Show report</h3>
+    <div class="tool-note" style="margin-top:0">How did the night go? Only you can see this.</div>
+    <div class="form-row">
+      <div class="field"><label>Rating</label><select id="rp-rating"><option value="">No rating</option>${[5,4,3,2,1].map(n=>`<option value="${n}">${'★'.repeat(n)} (${n})</option>`).join('')}</select></div>
+      <div class="field"><label>Headcount</label><input id="rp-head" type="number" min="0" placeholder="Audience size"></div>
+    </div>
+    <div class="field"><label>Notes</label><textarea id="rp-notes" rows="3" style="resize:vertical" placeholder="Room, sound, crowd, anything to remember"></textarea></div>
+    ${acts.length ? `<div class="tool-note">Notes on each act (optional)</div>` + acts.map(a => `<div class="field" style="margin-bottom:8px"><label>${esc(a.comic_name)}</label><input class="rp-act" data-slug="${esc(a.comic_slug)}" placeholder="How did they do?"></div>`).join('') : ''}
+    <button class="btn btn-primary" id="rp-save" onclick="saveReport()">Save report</button>
+    <div id="rp-result"></div>
+    <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px">Saved reports</div>
+    <div id="rp-list"><div class="empty">Loading…</div></div></div>`;
+  loadReports();
+}
+async function saveReport() {
+  const id = CURRENT_SHOW.id, res = document.getElementById('rp-result'), btn = document.getElementById('rp-save');
+  const payload = {notes: document.getElementById('rp-notes').value.trim()};
+  const rating = document.getElementById('rp-rating').value, head = document.getElementById('rp-head').value;
+  if (rating) payload.rating = parseInt(rating, 10);
+  if (head !== '') payload.headcount = parseInt(head, 10);
+  const act_notes = {};
+  document.querySelectorAll('.rp-act').forEach(i => { if (i.value.trim()) act_notes[i.dataset.slug] = i.value.trim(); });
+  if (Object.keys(act_notes).length) payload.act_notes = act_notes;
+  btn.disabled = true;
+  try {
+    await api(`/api/booker/shows/${id}/report`, {method:'POST', body: JSON.stringify(payload)});
+    res.innerHTML = '<div class="banner-ok" role="status">Report saved.</div>';
+    loadReports();
+  } catch(e) { res.innerHTML = errBox(e); }
+  finally { btn.disabled = false; }
+}
+async function loadReports() {
+  const id = CURRENT_SHOW.id, el = document.getElementById('rp-list'); if (!el) return;
+  const nameOf = {}; CURRENT_SHOW.lineup.forEach(a => nameOf[a.comic_slug] = a.comic_name);
+  try {
+    const r = await api(`/api/booker/shows/${id}/report`);
+    if (!document.getElementById('rp-list')) return;
+    if (!r.reports.length) { el.innerHTML = '<div class="empty">No report saved for this show yet.</div>'; return; }
+    el.innerHTML = r.reports.map(x => `<div class="tool-box" style="margin-bottom:6px;background:#0a0a0a">
+      <div style="display:flex;justify-content:space-between;gap:8px"><b>${x.rating ? '★'.repeat(x.rating) + ' ' + x.rating + '/5' : 'No rating'}${x.headcount != null ? ' · ' + x.headcount + ' in the room' : ''}</b><span class="meta" style="color:var(--muted);font-size:11px">${esc(x.created_at||'')}</span></div>
+      ${x.notes ? `<div style="white-space:pre-wrap;margin-top:4px">${esc(x.notes)}</div>` : ''}
+      ${Object.entries(x.act_notes||{}).map(([k,v]) => `<div class="tool-note"><b>${esc(nameOf[k]||k)}:</b> ${esc(v)}</div>`).join('')}</div>`).join('');
+  } catch(e) { el.innerHTML = errBox(e); }
+}
+
+// ===== Calendar feed =====
+async function renderCalendarFeed(urls) {
+  const el = document.getElementById('calendar-body'); if (!el) return;
+  if (!urls) { try { urls = JSON.parse(localStorage.getItem('booker_cal_urls') || 'null'); } catch(_) { urls = null; } }
+  el.innerHTML = (urls ? `<div id="cal-links">${linkBox('cal-webcal', 'Subscribe link (opens your calendar app)', urls.webcal)}${linkBox('cal-https', 'Web link (paste into Google Calendar “From URL”)', urls.https)}
+    <div class="tool-note">Anyone with these links can see your shows. Treat them like a password.</div></div>` : '<div class="empty">You have no calendar link yet.</div>')
+    + `<button class="btn btn-primary" id="cal-make" onclick="makeCalendarToken()">${urls ? 'Create a new link' : 'Create calendar link'}</button><div id="cal-result"></div>`;
+}
+async function makeCalendarToken() {
+  const btn = document.getElementById('cal-make'); btn.disabled = true;
+  try {
+    const r = await api('/api/booker/calendar-token', {method:'POST', body:'{}'});
+    const base = await API_BASE_PROMISE;
+    const https = base + r.url;
+    const urls = {https, webcal: https.replace(/^https?:/, 'webcal:')};
+    try { localStorage.setItem('booker_cal_urls', JSON.stringify(urls)); } catch(_) {}
+    await renderCalendarFeed(urls);
+    document.getElementById('cal-result').innerHTML = '<div class="banner-ok" role="status">Calendar link created.</div>';
+  } catch(e) { document.getElementById('cal-result').innerHTML = errBox(e); btn.disabled = false; }
+}
+
+// ===== Board =====
+let BOARD = [];
+const BOARD_LABELS = {open_spots:'Open spots', awaiting_replies:'Awaiting replies', needs_replacement:'Needs replacement', full:'Full'};
+async function loadBoard() {
+  const list = document.getElementById('board-list'); if (!list) return;
+  const q = document.getElementById('board-q').value.trim(), past = document.getElementById('board-past').checked;
+  list.innerHTML = '<div class="empty">Loading…</div>';
+  try {
+    const r = await api('/api/booker/shows/board?q=' + encodeURIComponent(q) + '&include_past=' + (past ? 'true' : 'false'));
+    BOARD = r.shows || [];
+    renderBoard();
+  } catch(e) { list.innerHTML = errBox(e); }
+}
+function renderBoard() {
+  const list = document.getElementById('board-list'), cnt = document.getElementById('board-counters'); if (!list) return;
+  const has = k => s => (s.statuses || []).includes(k);
+  const counts = [['Shows', BOARD.length], ['Open spots', BOARD.filter(has('open_spots')).length], ['Awaiting replies', BOARD.filter(has('awaiting_replies')).length], ['Needs replacement', BOARD.filter(has('needs_replacement')).length], ['Full', BOARD.filter(has('full')).length]];
+  cnt.innerHTML = counts.map(c => `<div class="counter"><b>${c[1]}</b><span>${c[0]}</span></div>`).join('');
+  const st = document.getElementById('board-status').value;
+  const rows = st ? BOARD.filter(has(st)) : BOARD;
+  if (!rows.length) { list.innerHTML = '<div class="empty">No shows match.</div>'; return; }
+  list.innerHTML = rows.map(s => {
+    const canOpen = true;
+    return `<div class="board-row" data-show-id="${s.id}">
+      <div><b>${esc(s.title)}</b><div class="meta">${esc(s.venue||'')} · ${esc(s.date||'')} ${esc(s.time||'')}${s.is_past ? ' · past' : ''}</div></div>
+      <div class="board-tags">
+        <span class="tag ${s.slots_open ? 'warn' : 'good'}">${s.slots_filled}/${s.slots_total} filled${s.slots_open ? ', ' + s.slots_open + ' open' : ''}</span>
+        ${s.offers_pending ? `<span class="tag warn">${s.offers_pending} waiting for a reply</span>` : ''}
+        ${s.offers_declined ? `<span class="tag bad">${s.offers_declined} declined</span>` : ''}
+        ${s.rolling === 'open' ? '<span class="tag warn">standby list open</span>' : ''}${s.rolling === 'won' ? '<span class="tag good">standby slot filled</span>' : ''}
+        ${s.is_past ? `<span class="tag ${s.has_report ? 'good' : ''}">${s.has_report ? 'report saved' : 'no report'}</span>` : ''}
+        ${canOpen ? `<button class="btn btn-ghost" style="font-size:11px;padding:4px 9px" onclick="openFromBoard(${s.id})">Open lineup</button>` : ''}
+      </div></div>`;
+  }).join('');
+}
+async function openFromBoard(id) {
+  if (!SHOWS.some(x => x.id === id)) {
+    try {
+      const r = await api('/api/booker/shows?include_past=true');
+      const found = (r.shows || []).find(x => x.id === id);
+      if (!found) { toast("We couldn't find that show. Refresh the page and try again.", 'error'); return; }
+      (window.__pastShows = window.__pastShows || []).push(found);
+      SHOWS.push(found);
+    } catch(e) { toast("Couldn't open that show — " + plainErr(e.message), 'error'); return; }
+  }
+  selectShow(id);
+  const lp = document.getElementById('lineup-panel');
+  if (lp && lp.scrollIntoView) lp.scrollIntoView({block:'start'});
+}
+
 // ── Extra tabs ──────────────────────────────────────────────────────────────
 function showTab(tab) {
   document.getElementById('venues-section').style.display = tab === 'venues' ? 'block' : 'none';
   document.getElementById('surveys-section').style.display = tab === 'surveys' ? 'block' : 'none';
   var ms = document.getElementById('myshows-section'); if (ms) ms.style.display = tab === 'myshows' ? 'block' : 'none';
   var os = document.getElementById('offers-section'); if (os) os.style.display = tab === 'offers' ? 'block' : 'none';
+  var bs = document.getElementById('board-section'); if (bs) bs.style.display = tab === 'board' ? 'block' : 'none';
+  var cs = document.getElementById('calendar-section'); if (cs) cs.style.display = tab === 'calendar' ? 'block' : 'none';
+  if (tab === 'board') loadBoard();
+  if (tab === 'calendar') renderCalendarFeed();
   if (tab === 'venues') loadVenues();
   if (tab === 'surveys') loadSurveys();
   if (tab === 'myshows') loadMyShows();
