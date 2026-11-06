@@ -82,6 +82,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 2
 .ev-lang.en{background:rgba(34,211,238,.16);color:#67e8f9}
 .ev-lang.fr{background:rgba(236,72,153,.16);color:#f9a8d4}
 .ev-ok{display:inline-block;font-size:12px;font-weight:800;padding:1px 6px;border-radius:6px;margin-top:4px;margin-left:4px;letter-spacing:.04em;background:rgba(201,168,76,.18);color:#e8c96a}
+.feed-note{margin:0 0 14px;padding:12px 14px;border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--muted)}.feed-note a{color:var(--gold,#c9a84c);font-weight:700}
 .regular{margin-top:28px;font-size:14px;color:var(--muted)}.regular h2{font-size:16px;color:var(--text);margin-bottom:6px}.regular ul{list-style:none;margin-top:10px}.regular li{padding:10px 0;border-top:1px solid var(--border)}.regular li a{color:var(--text);font-weight:700}.regular li span{display:block;font-size:13px}
 .cell-empty{font-size:12px;color:var(--dim);margin-top:auto;font-style:italic}
 @media(max-width:640px){.hero{padding:38px 16px 4px}.month{min-width:150px;font-size:18px}
@@ -105,6 +106,7 @@ main{min-height:90vh}.calscroll{min-height:760px}
 <link rel="stylesheet" href="/css/pc-nav.css?v=20261002">
 <script src="/js/pc-nav.js?v=20261002" defer></script>
 <script src="/js/pc-core.js?v=20261002"></script>
+<script src="/js/pc-listings.js?v=20261104"></script>
 </head>
 <body>
 <!--pc-nav:start (generated from partials/nav.shell.marketing.html by tools/apply_nav.py - edit the partial, never a page)-->
@@ -166,6 +168,7 @@ main{min-height:90vh}.calscroll{min-height:760px}
     </select>
     <button type="button" class="clear-filters" id="clearFilters">Clear filters</button>
   </div>
+  <div class="feed-note" id="feedNote" hidden></div>
   <div class="calscroll">
     <div class="cal" id="cal"></div>
   </div>
@@ -193,6 +196,7 @@ let view = new Date(); view.setDate(1);
 
 function parisTodayStr(){ return new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Paris'}); }
 const TODAY = parisTodayStr();
+function escHtml(v){ return String(v==null?'':v).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 
 // Per-cell display cap (2026-07-18, mirrors comedy-atlas/shows.html fa10c519):
 // busy day columns were growing without bound. Cap the always-visible count
@@ -202,11 +206,39 @@ const CELL_CAP = 4;
 const expandedCells = {};
 const state = { dow: '', tod: '' };
 
+// Listings come from our API only (rule R10: never a static shows array). If
+// the API is down, slow or has no upcoming English show, the calendar used to
+// go silently blank (2026-11-04, Robert: "why is there no calendar of shows?").
+// Now the page says so and points to COMEDY ATLAS's Paris page. No COMEDY ATLAS
+// data is painted here: it carries no language field, and this calendar is
+// English-only (js/pc-core.js).
+const ATLAS_PARIS_PAGE = 'https://comedyatlas.app/comedy-atlas/city/paris/';
+
+function fetchJson(url, ms){
+  const ctl = ('AbortController' in window) ? new AbortController() : null;
+  const t = ctl ? setTimeout(()=>ctl.abort(), ms) : null;
+  return fetch(url, {cache:'no-store', signal: ctl ? ctl.signal : undefined}).then(r=>{
+    if (t) clearTimeout(t);
+    if (!r.ok) throw new Error(url+' -> HTTP '+r.status);
+    return r.json();
+  });
+}
+
+function hasUpcomingDate(s){
+  return (s.dates||[]).some(function(x){ return x && x.date >= TODAY; });
+}
+
+function setFeedNote(html){
+  const n = document.getElementById('feedNote'); if (!n) return;
+  n.innerHTML = html || ''; n.hidden = !html;
+}
+
 async function loadShows(){
   let api = 'https://api.pariscomedy.com';
   try { const c = await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json()); if(c&&c.api) api=c.api; } catch(e){}
+  let failed = false;
   try {
-    const rows = await fetch(api+'/api/listings',{cache:'no-store'}).then(r=>r.json());
+    const rows = await PCListings.load();
     SHOWS = (Array.isArray(rows)?rows:[]).filter(s=>s.booking_url||s.show_url).filter(s=>[].concat(s.language||'en').join(',').toLowerCase().indexOf('en')!==-1).map(s=>({
       slug: s.slug||'',
       name: s.name||'',
@@ -217,8 +249,15 @@ async function loadShows(){
       dates: Array.isArray(s.dates)?s.dates:[],
       raw: s
     }));
-    renderRegular();
-  } catch(e){ console.warn('[pc] /api/listings failed', e); SHOWS=[]; }
+  } catch(e){ console.warn('[pc] /api/listings failed', e); SHOWS=[]; failed = true; }
+  if (failed) {
+    setFeedNote('Show listings are temporarily unavailable. '
+      + '<a href="'+ATLAS_PARIS_PAGE+'">See tonight\'s Paris shows on COMEDY ATLAS &rarr;</a>');
+  } else if (!SHOWS.some(hasUpcomingDate)) {
+    setFeedNote('No confirmed English-language dates are listed right now. '
+      + '<a href="'+ATLAS_PARIS_PAGE+'">See every Paris show on COMEDY ATLAS &rarr;</a>');
+  }
+  renderRegular();
   render(); scrollToToday();
 }
 
@@ -323,11 +362,11 @@ function render(){
     capped.forEach(it=>{
       const s = it.show;
       const a=document.createElement('a'); a.className='ev';
-      a.href = s.slug ? ('/show.html?slug='+encodeURIComponent(s.slug)) : '#';
+      a.href = (s.slug ? ('/show.html?slug='+encodeURIComponent(s.slug)) : '#');
       a.innerHTML = `<div class="ev-time">${it.time||''}</div>`
-        + `<div class="ev-name">${s.name}</div>`
-        + (s.venue?`<div class="ev-venue">${s.venue}</div>`:'')
-        + `<span class="ev-lang ${s.language==='fr'?'fr':'en'}">${(s.language||'en').toUpperCase()}</span>`
+        + `<div class="ev-name">${escHtml(s.name)}</div>`
+        + (s.venue?`<div class="ev-venue">${escHtml(s.venue)}</div>`:'')
+        + `<span class="ev-lang ${s.language==='fr'?'fr':'en'}">${escHtml(s.language||'en').toUpperCase()}</span>`
         + (it.confirmed?`<span class="ev-ok">✓ confirmed</span>`:'');
       cell.appendChild(a);
     });

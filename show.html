@@ -70,6 +70,7 @@ main{min-height:85vh}.wrap{min-height:520px}
 <link rel="stylesheet" href="/css/pc-nav.css?v=20261002">
 <script src="/js/pc-nav.js?v=20261002" defer></script>
 <script src="/js/pc-core.js?v=20261002"></script>
+<script src="/js/pc-listings.js?v=20261104"></script>
 </head>
 <body>
 <!--pc-nav:start (generated from partials/nav.shell.marketing.html by tools/apply_nav.py - edit the partial, never a page)-->
@@ -489,7 +490,7 @@ function renderError(msg) {
  try {
  api = await loadAPI();
  await loadFreshnessAudit();
- const listings = await fetch(api + '/api/listings', {cache:'no-store'}).then(r => r.json());
+ const listings = await PCListings.load();
  let hit = null;
  if (slug) hit = listings.find(L => L && L.slug === slug);
  if (!hit && idQ) {

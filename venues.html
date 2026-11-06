@@ -171,6 +171,7 @@ main{min-height:90vh}#grid{min-height:700px}
 <link rel="stylesheet" href="/css/pc-nav.css?v=20261002">
 <script src="/js/pc-nav.js?v=20261002" defer></script>
 <script src="/js/pc-core.js?v=20261002"></script>
+<script src="/js/pc-listings.js?v=20261104"></script>
 </head>
 <body>
 
@@ -549,7 +550,7 @@ async function loadVenuesLive(){
   let api='https://api.pariscomedy.com';
   try{const c=await fetch('/api-config.json',{cache:'no-store'}).then(r=>r.json());if(c&&c.api)api=c.api;}catch(e){}
   let rows=[];
-  try{rows=await fetch(api+'/api/listings',{cache:'no-store'}).then(r=>r.json());}catch(e){rows=[];}
+  try{rows=await PCListings.load();}catch(e){rows=[];}
   VENUES=(Array.isArray(rows)?rows:[]).filter(function(s){return s.booking_url||s.show_url;}).filter(function(s){return [].concat(s.language||'en').join(',').toLowerCase().indexOf('en')!==-1;}).map(function(s){
     var vn=s.venue_name||(s.venue&&s.venue.name)||s.venue_name_raw||'';
     var addr=(s.venue&&s.venue.address)||s.address||'';
