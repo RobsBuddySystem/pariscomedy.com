@@ -70,6 +70,17 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;text-tra
     <div id="offers-list"><p style="color:var(--muted);font-size:13px">No pending offers.</p></div>
   </section>
 
+  <!-- Self-service: My shows + Open spots -->
+  <section class="panel" id="selfserve-panel" style="display:none;margin-bottom:16px">
+    <div role="tablist" style="display:flex;gap:8px;margin-bottom:12px">
+      <button class="btn" id="ss-tab-shows" role="tab" onclick="ssTab('shows')">My shows</button>
+      <button class="btn secondary" id="ss-tab-open" role="tab" onclick="ssTab('open')">Open spots</button>
+    </div>
+    <div id="ss-msg" role="status" style="font-size:13px;margin-bottom:8px"></div>
+    <div id="ss-shows"></div>
+    <div id="ss-open" style="display:none"></div>
+  </section>
+
   <section class="grid" id="portal" style="display:none">
     <aside class="panel status">
       <h2>Account</h2>
@@ -706,5 +717,70 @@ window.addEventListener('focus', async () => {
   .footer-portal-sep { margin: 0 6px; opacity: 0.5; }
 </style>
 <script>(function(){var a=document.getElementById("nav-auth");if(a)a.textContent=localStorage.getItem("pc_session_token")?"Sign Out":"Sign In";})();</script>
+<style>
+#selfserve-panel .ss-row{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid var(--border);font-size:14px}
+#selfserve-panel .ss-row small{color:var(--muted);display:block;margin-top:2px}
+#selfserve-panel textarea{width:100%;max-width:340px;background:#0a0a0a;color:var(--text);border:1px solid var(--border);border-radius:6px;padding:6px;margin-top:6px}
+#selfserve-panel h3{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px}
+@media(max-width:480px){#selfserve-panel .ss-row{flex-direction:column;align-items:flex-start}}
+</style>
+<script>
+(function(){
+var tok=function(){return localStorage.getItem('pc_session_token')||'';};
+var E=function(x){return String(x==null?'':x).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+async function call(path,method,body){
+  var base=await apiBase();
+  var r=await fetch(base+path,{method:method||'GET',headers:{'Content-Type':'application/json','Authorization':'Bearer '+tok()},body:body?JSON.stringify(body):undefined});
+  var j=await r.json().catch(function(){return {};});
+  if(!r.ok){var d=j.detail;var e=new Error(typeof d==='string'?d:(d&&d.error)||('HTTP '+r.status));e.detail=d;e.status=r.status;throw e;}
+  return j;
+}
+function say(t,bad){var m=document.getElementById('ss-msg');m.style.color=bad?'#ef4444':'#10b981';m.textContent=t||'';}
+window.ssTab=function(t){
+  document.getElementById('ss-shows').style.display=t==='shows'?'block':'none';
+  document.getElementById('ss-open').style.display=t==='open'?'block':'none';
+  document.getElementById('ss-tab-shows').className='btn'+(t==='shows'?'':' secondary');
+  document.getElementById('ss-tab-open').className='btn'+(t==='open'?'':' secondary');
+  say('');
+  if(t==='shows')ssLoadShows();else ssLoadOpen();
+};
+function when(d){return E(String(d.date||'').slice(0,10))+(d.time?' · '+E(d.time):'');}
+function row(x,past){
+  var cancel=(!past&&x.can_cancel)?'<button class="btn secondary" onclick="ssCancel('+x.lineup_id+')">Cancel my spot</button>':'';
+  var note=(!past&&!x.can_cancel&&x.cancel_deadline)?'<small>Cancellation closed '+E(new Date(x.cancel_deadline).toLocaleString())+' - contact the booker.</small>':(!past&&x.can_cancel&&x.cancel_deadline?'<small>You can cancel until '+E(new Date(x.cancel_deadline).toLocaleString())+'</small>':'');
+  return '<div class="ss-row"><div><b>'+E(x.title||'Show')+'</b><small>'+when(x)+' · '+E(x.venue)+(x.call_time?' · call '+E(x.call_time):'')+'</small><small>'+E(x.booker)+' · '+E(x.status)+'</small>'+note+'</div><div>'+cancel+'</div></div>';
+}
+window.ssLoadShows=async function(){
+  var el=document.getElementById('ss-shows');
+  try{var j=await call('/api/performer/shows');
+    el.innerHTML='<h3>Upcoming</h3>'+(j.upcoming.length?j.upcoming.map(function(x){return row(x,false);}).join(''):'<p style="color:var(--muted);font-size:13px">No upcoming spots yet. Check Open spots.</p>')+'<h3>Past</h3>'+(j.past.length?j.past.map(function(x){return row(x,true);}).join(''):'<p style="color:var(--muted);font-size:13px">Nothing yet.</p>');
+  }catch(e){el.innerHTML='<p style="color:var(--muted);font-size:13px">'+(e.status===403?'Link your comic page to see your shows.':'Could not load your shows.')+'</p>';}
+};
+window.ssCancel=async function(id){
+  if(!confirm('Cancel this spot? The booker will be told.'))return;
+  try{await call('/api/performer/spots/'+id+'/cancel','POST',{});say('Spot cancelled.');ssLoadShows();}
+  catch(e){say(e.status===409&&e.detail&&e.detail.deadline?'Too late to cancel: the window closed '+new Date(e.detail.deadline).toLocaleString()+'. Contact the booker.':(e.message||'Could not cancel'),true);}
+};
+window.ssLoadOpen=async function(){
+  var el=document.getElementById('ss-open');
+  try{var j=await call('/api/performer/open-spots');var a=j.open_spots;
+    el.innerHTML=a.length?a.map(function(x){
+      var act=x.applied?'<span style="color:var(--muted)">Applied ('+E(x.application_status)+')</span>':'<div><textarea id="ss-m-'+x.show_id+'" maxlength="280" rows="2" placeholder="Short note (optional, 280 characters)" aria-label="Note to booker"></textarea><br><button class="btn" onclick="ssApply('+x.show_id+')">Apply</button></div>';
+      return '<div class="ss-row"><div><b>'+E(x.title||'Show')+'</b><small>'+when(x)+' · '+E(x.venue)+'</small><small>'+E(x.booker)+' · '+x.open_slots+' open · cancel up to '+x.cancel_window_hours+' h before</small></div><div>'+act+'</div></div>';}).join('')
+      :'<p style="color:var(--muted);font-size:13px">No open spots right now.</p>';
+  }catch(e){el.innerHTML='<p style="color:var(--muted);font-size:13px">Could not load open spots.</p>';}
+};
+window.ssApply=async function(id){
+  var m=document.getElementById('ss-m-'+id);
+  try{await call('/api/performer/open-spots/'+id+'/apply','POST',{message:m?m.value:''});say('Application sent.');ssLoadOpen();}
+  catch(e){say(e.message||'Could not apply',true);}
+};
+document.addEventListener('DOMContentLoaded',function(){
+  if(!tok())return;
+  document.getElementById('selfserve-panel').style.display='block';
+  ssTab('shows');
+});
+})();
+</script>
 </body>
 </html>

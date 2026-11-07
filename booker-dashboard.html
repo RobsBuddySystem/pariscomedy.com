@@ -390,6 +390,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
   <div style="display:flex;gap:8px;flex-wrap:wrap">
     <button class="btn btn-ghost" onclick="showTab('myshows')">🎬 My Shows</button>
     <button class="btn btn-ghost" onclick="showTab('offers')">💶 Offers</button>
+    <button class="btn btn-ghost" onclick="showTab('applications')">🙋 Applications</button>
     <button class="btn btn-ghost" onclick="showTab('venues')">🏠 Venues</button>
     <button class="btn btn-ghost" onclick="showTab('surveys')">📋 Surveys</button>
     <button class="btn btn-ghost" onclick="showTab('board')">📊 Board</button>
@@ -445,6 +446,19 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
       <button class="btn btn-secondary" onclick="loadOffers()">Refresh</button>
     </div>
     <div id="offers-list"><div class="empty">Loading…</div></div>
+  </div>
+</div>
+
+<div id="applications-section" style="display:none;max-width:1400px;margin:14px auto;padding:0 20px">
+  <div class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px">
+      <div>
+        <h2 style="margin:0 0 4px">🙋 Applications</h2>
+        <p style="color:var(--muted);margin:0">Comics who applied to your open spots. Accepting sends them a normal offer to confirm. Turn applications on per show under the show's tools, "Self-service".</p>
+      </div>
+      <button class="btn btn-secondary" onclick="loadApplications()">Refresh</button>
+    </div>
+    <div id="applications-list"><div class="empty">Loading…</div></div>
   </div>
 </div>
 
@@ -1089,7 +1103,7 @@ function renderShowToolsRow() {
   if (!wrap) return;
   if (!CURRENT_SHOW) { wrap.style.display = 'none'; return; }
   wrap.style.display = 'block';
-  const tools = [['callsheet','Call sheet'],['message','Message the bill'],['standby','Standby list'],['crew','Crew'],['cues','Cue sheet']];
+  const tools = [['callsheet','Call sheet'],['message','Message the bill'],['standby','Standby list'],['crew','Crew'],['cues','Cue sheet'],['selfserve','Self-service']];
   if (isPastOrToday(CURRENT_SHOW)) { tools.push(['money','Money']); tools.push(['report','Show report']); tools.push(['reportcard','Report card']); }
   if (!CURRENT_SHOW.show_date || String(CURRENT_SHOW.show_date).slice(0,10) >= utcToday()) tools.push(['promo','Promo kit']);
   document.getElementById('tool-row').innerHTML = tools.map(t =>
@@ -1101,7 +1115,7 @@ function openTool(name) {
   renderShowToolsRow();
   const body = document.getElementById('tool-body');
   body.innerHTML = '<div class="empty">Loading…</div>';
-  ({callsheet: toolCallsheet, message: toolMessage, standby: toolStandby, report: toolReport, crew: toolCrew, cues: toolCues, money: toolMoney, reportcard: toolReportCard, promo: toolPromo})[name](body);
+  ({callsheet: toolCallsheet, message: toolMessage, standby: toolStandby, report: toolReport, crew: toolCrew, cues: toolCues, selfserve: toolSelfserve, money: toolMoney, reportcard: toolReportCard, promo: toolPromo})[name](body);
 }
 function stillOn(showId, tool) { return CURRENT_SHOW && CURRENT_SHOW.id === showId && TOOL === tool; }
 
@@ -1854,6 +1868,62 @@ function showTab(tab) {
   if (tab === 'surveys') loadSurveys();
   if (tab === 'myshows') loadMyShows();
   if (tab === 'offers') loadOffers();
+  var as_ = document.getElementById('applications-section'); if (as_) as_.style.display = tab === 'applications' ? 'block' : 'none';
+  if (tab === 'applications') loadApplications();
+}
+
+async function loadApplications() {
+  const el = document.getElementById('applications-list');
+  try {
+    const r = await api('/api/booker/applications');
+    const a = r.applications || [];
+    el.innerHTML = a.length ? a.map(x => `<div class="pick-row" style="flex-wrap:wrap"><span class="grow"><b>${esc(x.comic_name || x.comic_slug)}</b> for ${esc(x.show_title || 'show')} · ${esc(String(x.show_date||'').slice(0,10))}${x.message ? `<br><span style="color:var(--muted)">“${esc(x.message)}”</span>` : ''}</span>
+      <button class="btn btn-primary" onclick="decideApplication(${x.id},'accept')">Accept</button>
+      <button class="btn btn-ghost" onclick="decideApplication(${x.id},'decline')">Decline</button></div>`).join('')
+      : '<div class="empty">No pending applications.</div>';
+  } catch (e) { el.innerHTML = errBox(e); }
+}
+async function decideApplication(id, verb) {
+  try {
+    await api(`/api/booker/applications/${id}/${verb}`, {method:'POST', body:'{}'});
+    toast(verb === 'accept' ? 'Accepted: an offer is ready for the comic to confirm' : 'Declined');
+    loadApplications();
+  } catch (e) { toast(plainErr(e.message), 'error'); }
+}
+
+// --- Self-service (per show): applications on/off, cancellation window, standby order
+async function toolSelfserve(body) {
+  const id = CURRENT_SHOW.id;
+  try {
+    const s = await api(`/api/booker/shows/${id}/self-service`);
+    if (!stillOn(id, 'selfserve')) return;
+    body.innerHTML = `<div class="tool-card">
+      <label class="pick-row"><input type="checkbox" id="ss-accept" ${s.accept_applications ? 'checked' : ''}> <span class="grow">Accept applications for open spots</span></label>
+      <div class="field" style="margin-top:10px"><label for="ss-roster">Only comics in this saved group (optional)</label>
+        <select id="ss-roster"><option value="">Any comic</option></select></div>
+      <div class="field"><label for="ss-hours">Comics can cancel up to (hours before the show)</label>
+        <input id="ss-hours" type="number" min="0" max="720" value="${s.cancel_window_hours}"></div>
+      <div class="field"><label for="ss-standby">Standby comics, in order (comic slugs, comma separated)</label>
+        <input id="ss-standby" value="${esc((s.standby||[]).join(', '))}" placeholder="e.g. jane-doe, john-roe"></div>
+      <div class="tool-note">When a comic cancels in time, the first standby comic who is free is offered the spot (queued for review, never sent automatically).</div>
+      <button class="btn btn-primary" onclick="saveSelfservice()">Save</button><div id="ss-result"></div></div>`;
+    try {
+      const rr = await api('/api/booker/rosters');
+      const sel = document.getElementById('ss-roster');
+      (rr.rosters || []).forEach(g => { const o = document.createElement('option'); o.value = g.id; o.textContent = g.name; if (g.id === s.roster_id) o.selected = true; sel.appendChild(o); });
+    } catch (_) {}
+  } catch (e) { if (stillOn(id,'selfserve')) body.innerHTML = errBox(e); }
+}
+async function saveSelfservice() {
+  const id = CURRENT_SHOW.id;
+  try {
+    await api(`/api/booker/shows/${id}/self-service`, {method:'PUT', body: JSON.stringify({
+      accept_applications: document.getElementById('ss-accept').checked,
+      roster_id: document.getElementById('ss-roster').value || null,
+      cancel_window_hours: parseInt(document.getElementById('ss-hours').value || '48', 10),
+      standby: document.getElementById('ss-standby').value.split(',').map(x => x.trim()).filter(Boolean)})});
+    document.getElementById('ss-result').innerHTML = '<div class="tool-note">Saved.</div>';
+  } catch (e) { document.getElementById('ss-result').innerHTML = errBox(e); }
 }
 
 async function loadMyShows() {
