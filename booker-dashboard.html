@@ -1079,8 +1079,8 @@ function renderShowToolsRow() {
   if (!wrap) return;
   if (!CURRENT_SHOW) { wrap.style.display = 'none'; return; }
   wrap.style.display = 'block';
-  const tools = [['callsheet','Call sheet'],['message','Message the bill'],['standby','Standby list']];
-  if (isPastOrToday(CURRENT_SHOW)) tools.push(['report','Show report']);
+  const tools = [['callsheet','Call sheet'],['message','Message the bill'],['standby','Standby list'],['crew','Crew'],['cues','Cue sheet']];
+  if (isPastOrToday(CURRENT_SHOW)) { tools.push(['money','Money']); tools.push(['report','Show report']); }
   document.getElementById('tool-row').innerHTML = tools.map(t =>
     `<button class="btn btn-ghost ${TOOL===t[0]?'active':''}" data-tool="${t[0]}" onclick="openTool('${t[0]}')">${t[1]}</button>`).join('');
   if (!TOOL) document.getElementById('tool-body').innerHTML = '';
@@ -1090,7 +1090,7 @@ function openTool(name) {
   renderShowToolsRow();
   const body = document.getElementById('tool-body');
   body.innerHTML = '<div class="empty">Loading…</div>';
-  ({callsheet: toolCallsheet, message: toolMessage, standby: toolStandby, report: toolReport})[name](body);
+  ({callsheet: toolCallsheet, message: toolMessage, standby: toolStandby, report: toolReport, crew: toolCrew, cues: toolCues, money: toolMoney})[name](body);
 }
 function stillOn(showId, tool) { return CURRENT_SHOW && CURRENT_SHOW.id === showId && TOOL === tool; }
 
@@ -1317,6 +1317,166 @@ async function loadReports() {
       ${x.notes ? `<div style="white-space:pre-wrap;margin-top:4px">${esc(x.notes)}</div>` : ''}
       ${Object.entries(x.act_notes||{}).map(([k,v]) => `<div class="tool-note"><b>${esc(nameOf[k]||k)}:</b> ${esc(v)}</div>`).join('')}</div>`).join('');
   } catch(e) { el.innerHTML = errBox(e); }
+}
+
+// --- Crew
+const CREW_LABELS = {host:'Host / MC', sound:'Sound', lights:'Lights', door:'Door', photographer:'Photographer', other:'Other'};
+async function toolCrew(body) {
+  const id = CURRENT_SHOW.id;
+  try {
+    const r = await api(`/api/booker/shows/${id}/crew`);
+    if (!stillOn(id, 'crew')) return;
+    body.innerHTML = `<div class="tool-box">
+      <h3>Crew</h3>
+      <div class="tool-note" style="margin-top:0">Who is working this show. Names, roles and call times appear on the shared call sheet. Contact details stay private to you.</div>
+      <div id="crew-list">${r.crew.length ? `<div class="tool-scroll"><table class="tool-table"><thead><tr><th>Role</th><th>Name</th><th>Call</th><th>Contact (private)</th><th></th></tr></thead><tbody>
+        ${r.crew.map(c => `<tr><td>${esc(CREW_LABELS[c.role]||c.role)}</td><td>${esc(c.name)}</td><td>${esc(c.call_time||'')}</td><td>${esc(c.contact||'')}</td><td><button class="btn btn-ghost" style="font-size:11px;padding:4px 8px" onclick="deleteCrew(${c.id})">Remove</button></td></tr>`).join('')}
+      </tbody></table></div>` : '<div class="empty">No crew added yet.</div>'}</div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px">Add someone</div>
+      <div class="form-row">
+        <div class="field"><label>Role</label><select id="cr-role">${r.roles.map(x=>`<option value="${x}">${esc(CREW_LABELS[x]||x)}</option>`).join('')}</select></div>
+        <div class="field"><label>Name</label><input id="cr-name" placeholder="Name"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Call time (optional)</label><input id="cr-call" placeholder="19:15" inputmode="numeric"></div>
+        <div class="field"><label>Phone or email (private)</label><input id="cr-contact" placeholder="Only you see this"></div>
+      </div>
+      <button class="btn btn-primary" id="cr-add" onclick="addCrew()">Add to crew</button>
+      <div id="cr-result"></div></div>`;
+  } catch(e) { if (stillOn(id,'crew')) body.innerHTML = errBox(e); }
+}
+async function addCrew() {
+  const id = CURRENT_SHOW.id, res = document.getElementById('cr-result'), btn = document.getElementById('cr-add');
+  const payload = {role: document.getElementById('cr-role').value, name: document.getElementById('cr-name').value.trim(),
+    call_time: document.getElementById('cr-call').value.trim(), contact: document.getElementById('cr-contact').value.trim()};
+  if (!payload.name) { res.innerHTML = errBox({message:'please enter a name.'}); return; }
+  btn.disabled = true;
+  try { await api(`/api/booker/shows/${id}/crew`, {method:'POST', body: JSON.stringify(payload)}); openTool('crew'); }
+  catch(e) { res.innerHTML = errBox(e); btn.disabled = false; }
+}
+async function deleteCrew(cid) {
+  try { await api(`/api/booker/shows/${CURRENT_SHOW.id}/crew/${cid}`, {method:'DELETE'}); openTool('crew'); }
+  catch(e) { toast(plainErr(e.message), 'error'); }
+}
+
+// --- Cue sheet
+async function toolCues(body) {
+  const id = CURRENT_SHOW.id;
+  try {
+    const r = await api(`/api/booker/shows/${id}/cues`);
+    if (!stillOn(id, 'cues')) return;
+    body.innerHTML = `<div class="tool-box">
+      <h3>Cue sheet</h3>
+      <div class="tool-note" style="margin-top:0">For each act: walk-on music, the line the MC reads, light and sound cues. The order follows your running order.</div>
+      ${r.acts.length ? r.acts.map(a => `<div class="tool-box" style="margin-bottom:8px;background:#0a0a0a">
+        <b>${a.position}. ${esc(a.act_name)}</b> <span class="meta" style="color:var(--muted);font-size:11px">${esc(a.stage_time||'')}</span>
+        <div class="field" style="margin-top:8px"><label>Walk-on music (title and artist, or a link)</label><input id="cu-music-${a.lineup_id}" value="${esc(a.walkon_music)}"></div>
+        <div class="field"><label>Intro line for the MC</label><textarea id="cu-intro-${a.lineup_id}" rows="2" style="resize:vertical">${esc(a.intro_line)}</textarea></div>
+        <div class="form-row">
+          <div class="field"><label>Lights</label><input id="cu-light-${a.lineup_id}" value="${esc(a.light_cue)}" placeholder="e.g. warm wash, blackout at end"></div>
+          <div class="field"><label>Sound</label><input id="cu-sound-${a.lineup_id}" value="${esc(a.sound_cue)}" placeholder="e.g. fade music at 5:00"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Set length (minutes)</label><input id="cu-len-${a.lineup_id}" type="number" min="1" max="240" value="${a.set_minutes_set ? a.set_minutes : ''}" placeholder="${a.set_minutes}"></div>
+          <div class="field" style="align-self:end"><button class="btn btn-primary" onclick="saveCue(${a.lineup_id}, this)">Save</button></div>
+        </div></div>`).join('') : '<div class="empty">No acts on this show yet.</div>'}
+      <div id="cu-result"></div>
+      <button class="btn btn-primary" style="font-size:12px" onclick="shareMcSheet()">Get printable MC sheet link</button>
+      <div id="mc-share"></div></div>`;
+  } catch(e) { if (stillOn(id,'cues')) body.innerHTML = errBox(e); }
+}
+async function saveCue(lid, btn) {
+  const g = k => document.getElementById(`cu-${k}-${lid}`).value;
+  btn.disabled = true;
+  try {
+    await api(`/api/booker/shows/${CURRENT_SHOW.id}/cues/${lid}`, {method:'PUT', body: JSON.stringify({
+      walkon_music: g('music'), intro_line: g('intro'), light_cue: g('light'), sound_cue: g('sound'), set_minutes: g('len')})});
+    toast('Saved');
+  } catch(e) { document.getElementById('cu-result').innerHTML = errBox(e); }
+  finally { btn.disabled = false; }
+}
+async function shareMcSheet() {
+  const box = document.getElementById('mc-share');
+  try {
+    const r = await api(`/api/booker/shows/${CURRENT_SHOW.id}/callsheet/share`, {method:'POST', body:'{}'});
+    const base = await API_BASE_PROMISE;
+    box.innerHTML = linkBox('mc-link', 'MC sheet link (anyone with it can see intro lines and cues; open it and print)', base + r.url + '/mc');
+    copyField('mc-link');
+  } catch(e) { box.innerHTML = errBox(e); }
+}
+
+// --- Money (settlement)
+let SETTLE = null;
+const INC_LABELS = {tickets:'Tickets', hat:'Hat (chapeau)', bar_share:'Bar share', other:'Other'};
+const COST_LABELS = {venue:'Venue', acts:'Acts', crew:'Crew', other:'Other'};
+async function toolMoney(body) {
+  const id = CURRENT_SHOW.id;
+  try {
+    const r = await api(`/api/booker/shows/${id}/settlement`);
+    if (!stillOn(id, 'money')) return;
+    SETTLE = {status: r.status, notes: r.notes, cats: r,
+      lines: r.lines.map(l => ({kind:l.kind, category:l.category, label:l.label, amount:l.amount})),
+      payouts: r.payouts.map(p => ({lineup_id:p.lineup_id, act_name:p.act_name, amount:p.amount, hat_split:!!p.hat_split}))};
+    if (!SETTLE.payouts.length) SETTLE.payouts = CURRENT_SHOW.lineup.map(a => ({lineup_id:a.id, act_name:a.comic_name, amount:0, hat_split:true}));
+    body.innerHTML = `<div class="tool-box"><h3>Money</h3>
+      <div class="tool-note" style="margin-top:0">A simple record of the night. Most stand-up here is paid from the hat, so tick “split the hat” for those acts. Nothing is paid from this page and no bank details are kept.</div>
+      <div id="mn-form"></div><div id="mn-result"></div></div>`;
+    renderMoney();
+  } catch(e) { if (stillOn(id,'money')) body.innerHTML = errBox(e); }
+}
+function fmtEur(n) { return (Number(n)||0).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €'; }
+function moneyTotals() {
+  const c = x => Math.round((parseFloat(x)||0)*100);
+  const inc = SETTLE.lines.filter(l=>l.kind==='income').reduce((s,l)=>s+c(l.amount),0);
+  const cost = SETTLE.lines.filter(l=>l.kind==='cost').reduce((s,l)=>s+c(l.amount),0);
+  const hat = SETTLE.lines.filter(l=>l.kind==='income'&&l.category==='hat').reduce((s,l)=>s+c(l.amount),0);
+  const hs = SETTLE.payouts.filter(p=>p.hat_split), share = hs.length ? Math.floor(hat/hs.length) : 0;
+  const out = SETTLE.payouts.reduce((s,p)=>s+(p.hat_split?share:c(p.amount)),0);
+  return {inc, cost, hat, share, out, net: inc-cost-out};
+}
+function renderMoney() {
+  const S = SETTLE, t = moneyTotals();
+  const lineRows = kind => S.lines.map((l,i)=>[l,i]).filter(x=>x[0].kind===kind).map(([l,i]) => `<div class="form-row" style="align-items:end">
+    <div class="field"><label>${kind==='income'?'Income':'Cost'}</label><select onchange="SETTLE.lines[${i}].category=this.value">${(kind==='income'?S.cats.income_categories:S.cats.cost_categories).map(k=>`<option value="${k}" ${k===l.category?'selected':''}>${esc((kind==='income'?INC_LABELS:COST_LABELS)[k]||k)}</option>`).join('')}</select></div>
+    <div class="field"><label>Amount (€)</label><input type="number" step="0.01" min="0" value="${l.amount||''}" oninput="SETTLE.lines[${i}].amount=this.value;moneyTotalsRefresh()"></div>
+    <div class="field"><button class="btn btn-ghost" style="font-size:11px" onclick="SETTLE.lines.splice(${i},1);renderMoney()">Remove</button></div></div>`).join('');
+  document.getElementById('mn-form').innerHTML = `
+    ${lineRows('income')}<button class="btn btn-ghost" style="font-size:12px" onclick="SETTLE.lines.push({kind:'income',category:'tickets',label:'',amount:''});renderMoney()">+ Add income</button>
+    ${lineRows('cost')}<button class="btn btn-ghost" style="font-size:12px" onclick="SETTLE.lines.push({kind:'cost',category:'venue',label:'',amount:''});renderMoney()">+ Add cost</button>
+    <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px">What each act gets</div>
+    ${S.payouts.length ? S.payouts.map((p,i)=>`<div class="form-row" style="align-items:end">
+      <div class="field"><label>${esc(p.act_name)}</label><input type="number" step="0.01" min="0" ${p.hat_split?'disabled':''} value="${p.hat_split?'':(p.amount||'')}" placeholder="${p.hat_split?fmtEur(t.share/100):'Amount (€)'}" oninput="SETTLE.payouts[${i}].amount=this.value;moneyTotalsRefresh()"></div>
+      <div class="field"><label style="display:flex;gap:6px;align-items:center"><input type="checkbox" style="width:auto" ${p.hat_split?'checked':''} onchange="SETTLE.payouts[${i}].hat_split=this.checked;renderMoney()"> Split the hat</label></div></div>`).join('') : '<div class="empty">No acts on this show.</div>'}
+    <div class="tool-box" id="mn-totals" style="background:#0a0a0a;margin:10px 0"></div>
+    <div class="form-row">
+      <div class="field"><label>Status</label><select onchange="SETTLE.status=this.value">${S.cats.statuses.map(k=>`<option value="${k}" ${k===S.status?'selected':''}>${k[0].toUpperCase()+k.slice(1)}</option>`).join('')}</select></div>
+    </div>
+    <div class="field"><label>Notes</label><textarea rows="2" style="resize:vertical" oninput="SETTLE.notes=this.value">${esc(S.notes)}</textarea></div>
+    <button class="btn btn-primary" id="mn-save" onclick="saveMoney()">Save</button>
+    <button class="btn btn-ghost" onclick="downloadSettlementCsv()">Download CSV</button>`;
+  moneyTotalsRefresh();
+}
+function moneyTotalsRefresh() {
+  const t = moneyTotals(), el = document.getElementById('mn-totals'); if (!el) return;
+  el.innerHTML = `<div>Income: <b>${fmtEur(t.inc/100)}</b> · Costs: <b>${fmtEur(t.cost/100)}</b> · Paid to acts: <b>${fmtEur(t.out/100)}</b></div>
+    <div style="margin-top:4px">Left over: <b>${fmtEur(t.net/100)}</b>${t.hat ? ` <span class="meta" style="color:var(--muted)">(hat ${fmtEur(t.hat/100)})</span>` : ''}</div>`;
+}
+async function saveMoney() {
+  const btn = document.getElementById('mn-save'), res = document.getElementById('mn-result'); btn.disabled = true;
+  try {
+    const clean = SETTLE.lines.filter(l => l.amount !== '' && l.amount != null);
+    await api(`/api/booker/shows/${CURRENT_SHOW.id}/settlement`, {method:'PUT', body: JSON.stringify({status:SETTLE.status, notes:SETTLE.notes, lines:clean, payouts:SETTLE.payouts})});
+    res.innerHTML = '<div class="banner-ok" role="status">Saved.</div>';
+  } catch(e) { res.innerHTML = errBox(e); }
+  finally { btn.disabled = false; }
+}
+async function downloadSettlementCsv() {
+  try {
+    const base = await API_BASE_PROMISE;
+    const r = await fetch(`${base}/api/booker/shows/${CURRENT_SHOW.id}/settlement.csv`, {headers:{'X-Booker-Token': TOKEN}});
+    if (!r.ok) throw new Error('could not export (save first).');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(await r.blob()); a.download = `settlement-${CURRENT_SHOW.id}.csv`; a.click();
+  } catch(e) { toast(plainErr(e.message), 'error'); }
 }
 
 // ===== Calendar feed =====
