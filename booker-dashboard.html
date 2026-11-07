@@ -285,6 +285,15 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
       </div>
       <div id="wa-list"><div class="empty">Loading…</div></div>
     </div>
+
+    <!-- Saved groups (rosters) -->
+    <div class="panel" style="margin-top:14px" id="groups-panel">
+      <h2>Saved groups <span style="font-weight:400;color:var(--muted);font-size:12px" id="grp-count"></span>
+        <button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;margin-left:10px" onclick="grpEdit(null)">+ New group</button></h2>
+      <p style="font-size:12px;color:var(--muted);margin:0 0 10px">A saved group is a set of filters, re-checked every time you open it, so it stays up to date. Use it to fill a standby list or to message part of the bill.</p>
+      <div id="grp-form"></div>
+      <div id="grp-list"><div class="empty">Loading…</div></div>
+    </div>
   </div>
 
   <!-- Comic profile side panel -->
@@ -535,6 +544,7 @@ async function enterDashboard(comicsResp) {
   document.querySelectorAll('.filter-chip').forEach(c => c.onclick = () => { FILTER = c.dataset.filter; document.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active')); c.classList.add('active'); renderComics(); });
   document.dispatchEvent(new Event('dashboardReady'));
   try { initWhoAvailable(); } catch (e) { /* availability panel is additive */ }
+  try { loadGroups(); } catch (e) { /* saved groups are additive */ }
 }
 
 // ===== Who's available (Perform -> Availability v1, GET /api/availability/browse) =====
@@ -1132,10 +1142,11 @@ async function toolMessage(body) {
   try {
     const cs = await api(`/api/booker/shows/${id}/callsheet`);
     if (!stillOn(id, 'message')) return;
-    MSG_ACTS = cs.lineup;
+    MSG_ACTS = cs.lineup; MSG_ONLY = null;
     body.innerHTML = `<div class="tool-box">
       <h3>Message the bill</h3>
       <div class="tool-note" style="margin-top:0">Writes one message to every act on this show. Messages are queued for review first. Nothing is sent from this page.</div>
+      ${await grpPickerHtml('msg-group','msgFromGroup','Only message a saved group (optional)')}<div class="tool-note" id="msg-group-note"></div>
       <div class="field"><label>Subject</label><input id="msg-subject" placeholder="Call time for {name}" oninput="renderMsgPreview()"></div>
       <div class="field"><label>Message</label><textarea id="msg-body" rows="5" placeholder="Hi {name}, please arrive at {call_time}. You have {spot_length}. Confirm here: {rsvp_link}" style="resize:vertical" oninput="renderMsgPreview()"></textarea></div>
       <div class="tool-note">Click to insert, each one is replaced for every act:</div>
@@ -1171,7 +1182,9 @@ function renderMsgPreview() {
   if (!el) return;
   const sub = document.getElementById('msg-subject').value, bod = document.getElementById('msg-body').value;
   if (!MSG_ACTS.length) { el.innerHTML = '<div class="empty">No acts on this show yet, so there is nobody to message.</div>'; return; }
-  el.innerHTML = MSG_ACTS.map(a => `<div class="tool-box" style="margin-bottom:6px;background:#0a0a0a">
+  const shown = MSG_ONLY ? MSG_ACTS.filter(a => MSG_ONLY.includes(a.comic_slug)) : MSG_ACTS;
+  if (!shown.length) { el.innerHTML = '<div class="empty">Nobody on this bill is in that group.</div>'; return; }
+  el.innerHTML = shown.map(a => `<div class="tool-box" style="margin-bottom:6px;background:#0a0a0a">
     <div class="meta" style="color:var(--muted);font-size:11px">To ${esc(a.act_name)}</div>
     <div><b>${esc(fillMsg(sub, a)) || '<span style="color:#555">(no subject yet)</span>'}</b></div>
     <div style="white-space:pre-wrap;margin-top:4px">${esc(fillMsg(bod, a)) || '<span style="color:#555">(no message yet)</span>'}</div></div>`).join('');
@@ -1182,7 +1195,7 @@ async function sendBillMessage() {
   if (!subject || !text) { res.innerHTML = '<div class="banner-err" role="alert">Please write both a subject and a message.</div>'; return; }
   btn.disabled = true;
   try {
-    const r = await api(`/api/booker/shows/${id}/message`, {method:'POST', body: JSON.stringify({subject, body: text})});
+    const r = await api(`/api/booker/shows/${id}/message`, {method:'POST', body: JSON.stringify(Object.assign({subject, body: text}, MSG_ONLY ? {comic_slugs: MSG_ONLY} : {}))});
     res.innerHTML = `<div class="banner-ok" role="status">Queued for review. Nothing goes out until approved.</div>
       <div class="tool-note">${r.queued} message${r.queued===1?'':'s'} queued.${r.skipped && r.skipped.length ? ` Not queued, no email on file: ${esc(r.skipped.join(', '))}.` : ''}</div>`;
     loadMsgHistory();
@@ -1223,6 +1236,7 @@ async function toolStandby(body) {
     <h3>Standby list</h3>
     <div class="tool-note" style="margin-top:0">Pick an open slot and a ranked list of comics. They are all offered the spot, in the order you choose. The first one to accept gets it and the others are released. Notifications are queued for review.</div>
     <div class="field"><label>Open slot</label><select id="sb-slot">${open.map(i => `<option value="${i}">Slot ${i+1}</option>`).join('')}</select></div>
+    ${await grpPickerHtml('sb-group','standbyFromGroup','Pick from a saved group')}<div class="tool-note" id="sb-group-note"></div>
     <div class="field"><label>Add comics</label><input id="sb-search" placeholder="Search by name…" oninput="renderStandbyResults()"></div>
     <div id="sb-results"></div>
     <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 4px">Your order</div>
@@ -1268,6 +1282,149 @@ async function sendStandby() {
   } catch(e) { res.innerHTML = errBox(e); }
   finally { btn.disabled = false; }
 }
+
+// ===== Saved groups (GET/POST/PUT/DELETE /api/booker/rosters) =====
+let GROUPS = [], GRP_EDIT = null;
+async function loadGroups() {
+  const el = document.getElementById('grp-list'); if (!el) return;
+  try { GROUPS = (await api('/api/booker/rosters')).rosters || []; }
+  catch(e) { el.innerHTML = errBox(e); return; }
+  document.getElementById('grp-count').textContent = GROUPS.length ? '(' + GROUPS.length + ')' : '';
+  el.innerHTML = GROUPS.length ? GROUPS.map(g => `<div class="pick-row" data-gid="${g.id}"><span class="grow"><b>${esc(g.name)}</b>
+      <span class="tool-note" style="margin:0;display:block">${esc(grpSummary(g.filters))}</span></span>
+      <span class="meta" style="color:var(--muted);font-size:11px;white-space:nowrap">${g.member_count == null ? '' : g.member_count + ' comic' + (g.member_count === 1 ? '' : 's')}</span>
+      <button class="btn btn-ghost" style="font-size:11px" onclick="grpView(${g.id})">View</button>
+      <button class="btn btn-ghost" style="font-size:11px" onclick="grpEdit(${g.id})">Edit</button>
+      <button class="btn btn-ghost" style="font-size:11px" aria-label="Delete group" onclick="grpDelete(${g.id})">×</button></div>
+      <div id="grp-members-${g.id}"></div>`).join('')
+    : '<div class="empty">No saved groups yet. Create one, for example English-speaking, Paris-based, not booked by you in 30 days.</div>';
+}
+function grpSummary(f) {
+  const p = [];
+  if (f.languages) p.push('speaks ' + f.languages.join(' or '));
+  if (f.paris_based === true) p.push('Paris-based'); if (f.paris_based === false) p.push('not Paris-based');
+  if (f.touring === true) p.push('touring'); if (f.touring === false) p.push('not touring');
+  if (f.tags) p.push('tagged ' + f.tags.join(' or '));
+  if (f.available_from) p.push('available ' + (f.available_from === f.available_to ? f.available_from : f.available_from + ' to ' + f.available_to + (f.available_mode === 'all' ? ' (every day)' : '')));
+  if (f.not_booked_days) p.push('not on your bills in ' + f.not_booked_days + ' days');
+  if (f.performed_with_me === true) p.push('has been on your bills'); if (f.performed_with_me === false) p.push('never on your bills');
+  if (f.has_upcoming === true) p.push('has an upcoming show'); if (f.has_upcoming === false) p.push('no upcoming show');
+  return p.length ? p.join(', ') : 'No filters: every comic';
+}
+function grpTri(id, label, f, key) {
+  const v = f[key] === true ? 'true' : f[key] === false ? 'false' : '';
+  return `<div class="field" style="margin:0"><label>${label}</label><select id="${id}"><option value=""${v===''?' selected':''}>Any</option><option value="true"${v==='true'?' selected':''}>Yes</option><option value="false"${v==='false'?' selected':''}>No</option></select></div>`;
+}
+function grpEdit(id) {
+  const g = id == null ? null : GROUPS.find(x => x.id === id);
+  GRP_EDIT = g ? g.id : null;
+  const f = g ? g.filters : {};
+  document.getElementById('grp-form').innerHTML = `<div class="tool-box" id="grp-editor" style="margin-bottom:12px">
+    <h3>${g ? 'Edit group' : 'New group'}</h3>
+    <div class="field"><label>Name</label><input id="grp-name" maxlength="80" value="${esc(g ? g.name : '')}" placeholder="English-speaking, Paris, free this month"></div>
+    <div class="field"><label>Languages (comma separated, any of)</label><input id="grp-langs" value="${esc((f.languages||[]).join(', '))}" placeholder="english, french"></div>
+    <div class="field"><label>Tags (comma separated, any of)</label><input id="grp-tags" value="${esc((f.tags||[]).join(', '))}" placeholder="host, touring"></div>
+    <div class="chip-row" style="font-family:inherit">
+      ${grpTri('grp-paris','Paris-based',f,'paris_based')}${grpTri('grp-tour','Touring',f,'touring')}${grpTri('grp-with','On your bills before',f,'performed_with_me')}${grpTri('grp-up','Has an upcoming show',f,'has_upcoming')}
+    </div>
+    <div class="form-row">
+      <div class="field"><label>Not on your bills in the last N days</label><input id="grp-nb" type="number" min="1" max="3650" value="${f.not_booked_days||''}" placeholder="30"></div>
+      <div class="field"><label>Available from</label><input id="grp-from" type="date" value="${esc(f.available_from||'')}"></div>
+      <div class="field"><label>to</label><input id="grp-to" type="date" value="${esc(f.available_to||'')}"></div>
+      <div class="field"><label>Free on</label><select id="grp-mode"><option value="any"${f.available_mode!=='all'?' selected':''}>At least one day</option><option value="all"${f.available_mode==='all'?' selected':''}>Every day</option></select></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-secondary" onclick="grpPreview()">Preview members</button>
+      <button class="btn btn-primary" id="grp-save" onclick="grpSave()">Save group</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('grp-form').innerHTML=''">Cancel</button></div>
+    <div id="grp-preview"></div></div>`;
+  document.getElementById('grp-name').focus();
+}
+function grpCollect() {
+  const csv = id => document.getElementById(id).value.split(',').map(x => x.trim()).filter(Boolean);
+  const tri = id => { const v = document.getElementById(id).value; return v === '' ? undefined : v === 'true'; };
+  const f = {languages: csv('grp-langs'), tags: csv('grp-tags'), paris_based: tri('grp-paris'), touring: tri('grp-tour'),
+    performed_with_me: tri('grp-with'), has_upcoming: tri('grp-up'),
+    not_booked_days: document.getElementById('grp-nb').value || undefined,
+    available_from: document.getElementById('grp-from').value || undefined,
+    available_to: document.getElementById('grp-to').value || undefined,
+    available_mode: document.getElementById('grp-mode').value};
+  if (!f.languages.length) delete f.languages;
+  if (!f.tags.length) delete f.tags;
+  if (!f.available_from && !f.available_to) delete f.available_mode;
+  Object.keys(f).forEach(k => f[k] === undefined && delete f[k]);
+  return f;
+}
+function grpMembersHtml(r) {
+  return r.members.length ? `<div class="tool-note" style="margin-top:6px"><b>${r.count}</b> comic${r.count===1?'':'s'} match right now.</div>` +
+    r.members.map(m => `<div class="pick-row"><span class="grow">${esc(m.name)}</span><span class="meta" style="color:var(--muted);font-size:11px">${esc(m.why.join(', '))}</span></div>`).join('')
+    : '<div class="empty">Nobody matches these filters right now.</div>';
+}
+async function grpPreview() {
+  const el = document.getElementById('grp-preview');
+  try { const r = await api('/api/booker/rosters/preview', {method:'POST', body: JSON.stringify({filters: grpCollect()})}); el.innerHTML = grpMembersHtml(r); }
+  catch(e) { el.innerHTML = errBox(e); }
+}
+async function grpSave() {
+  const name = document.getElementById('grp-name').value.trim(), btn = document.getElementById('grp-save');
+  if (!name) { document.getElementById('grp-preview').innerHTML = '<div class="banner-err" role="alert">Please give the group a name.</div>'; return; }
+  btn.disabled = true;
+  try {
+    const body = JSON.stringify({name, filters: grpCollect()});
+    if (GRP_EDIT) await api('/api/booker/rosters/' + GRP_EDIT, {method:'PUT', body});
+    else await api('/api/booker/rosters', {method:'POST', body});
+    document.getElementById('grp-form').innerHTML = '';
+    toast('Group saved'); await loadGroups();
+  } catch(e) { document.getElementById('grp-preview').innerHTML = errBox(e); btn.disabled = false; }
+}
+async function grpView(id) {
+  const el = document.getElementById('grp-members-' + id); if (!el) return;
+  if (el.innerHTML) { el.innerHTML = ''; return; }
+  el.innerHTML = '<div class="empty">Loading…</div>';
+  try { el.innerHTML = grpMembersHtml(await api('/api/booker/rosters/' + id + '/members')); }
+  catch(e) { el.innerHTML = errBox(e); }
+}
+async function grpDelete(id) {
+  const g = GROUPS.find(x => x.id === id);
+  if (!await askConfirm('Delete the group "' + (g ? g.name : '') + '"? Shows and past messages are not affected.')) return;
+  try { await api('/api/booker/rosters/' + id, {method:'DELETE'}); toast('Group deleted'); await loadGroups(); }
+  catch(e) { toast(plainErr(e.message), 'error'); }
+}
+// "Pick from a saved group" select shared by the Standby list and Message the bill tools
+async function grpPickerHtml(selId, onChange, label) {
+  try { GROUPS = (await api('/api/booker/rosters')).rosters || []; } catch(e) { GROUPS = []; }
+  if (!GROUPS.length) return '<div class="tool-note">No saved groups yet. Create one in the Saved groups panel.</div>';
+  return `<div class="field"><label>${label}</label><div style="display:flex;gap:6px"><select id="${selId}" style="flex:1"><option value="">Choose a group…</option>${GROUPS.map(g => `<option value="${g.id}">${esc(g.name)}${g.member_count == null ? '' : ' (' + g.member_count + ')'}</option>`).join('')}</select>
+    <button class="btn btn-secondary" id="${selId}-go" onclick="${onChange}()">Use group</button></div></div>`;
+}
+async function grpMembersFor(selId) {
+  const id = document.getElementById(selId).value; if (!id) return null;
+  // The group's own availability filter (if any) is applied as saved; the booker still confirms the list.
+  return (await api('/api/booker/rosters/' + id + '/members')).members;
+}
+async function standbyFromGroup() {
+  const note = document.getElementById('sb-group-note');
+  try {
+    const ms = await grpMembersFor('sb-group'); if (!ms) return;
+    const onBill = new Set(CURRENT_SHOW.lineup.map(r => r.comic_slug));
+    let added = 0;
+    ms.forEach(m => { if (!onBill.has(m.slug) && !STANDBY.some(s => s.slug === m.slug)) { STANDBY.push({slug: m.slug, name: m.name}); added++; } });
+    renderStandbyResults(); renderStandbyList();
+    note.textContent = added + ' added to your order (' + (ms.length - added) + ' skipped: already on the bill or on the list). Review and reorder before sending.';
+  } catch(e) { note.innerHTML = errBox(e); }
+}
+let MSG_ONLY = null;
+async function msgFromGroup() {
+  const note = document.getElementById('msg-group-note');
+  try {
+    const ms = await grpMembersFor('msg-group'); if (!ms) return;
+    const inGroup = new Set(ms.map(m => m.slug));
+    MSG_ONLY = MSG_ACTS.filter(a => inGroup.has(a.comic_slug)).map(a => a.comic_slug);
+    note.innerHTML = `Only the ${MSG_ONLY.length} act${MSG_ONLY.length===1?'':'s'} on this bill who are in the group will be messaged. <button class="btn btn-ghost" style="font-size:11px" onclick="msgClearGroup()">Message the whole bill</button>`;
+    renderMsgPreview();
+  } catch(e) { note.innerHTML = errBox(e); }
+}
+function msgClearGroup() { MSG_ONLY = null; document.getElementById('msg-group-note').textContent = ''; document.getElementById('msg-group').value = ''; renderMsgPreview(); }
 
 // --- Show report (past or today)
 async function toolReport(body) {
