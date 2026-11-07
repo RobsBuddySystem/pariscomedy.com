@@ -1090,7 +1090,8 @@ function renderShowToolsRow() {
   if (!CURRENT_SHOW) { wrap.style.display = 'none'; return; }
   wrap.style.display = 'block';
   const tools = [['callsheet','Call sheet'],['message','Message the bill'],['standby','Standby list'],['crew','Crew'],['cues','Cue sheet']];
-  if (isPastOrToday(CURRENT_SHOW)) { tools.push(['money','Money']); tools.push(['report','Show report']); }
+  if (isPastOrToday(CURRENT_SHOW)) { tools.push(['money','Money']); tools.push(['report','Show report']); tools.push(['reportcard','Report card']); }
+  if (!CURRENT_SHOW.show_date || String(CURRENT_SHOW.show_date).slice(0,10) >= utcToday()) tools.push(['promo','Promo kit']);
   document.getElementById('tool-row').innerHTML = tools.map(t =>
     `<button class="btn btn-ghost ${TOOL===t[0]?'active':''}" data-tool="${t[0]}" onclick="openTool('${t[0]}')">${t[1]}</button>`).join('');
   if (!TOOL) document.getElementById('tool-body').innerHTML = '';
@@ -1100,7 +1101,7 @@ function openTool(name) {
   renderShowToolsRow();
   const body = document.getElementById('tool-body');
   body.innerHTML = '<div class="empty">Loading…</div>';
-  ({callsheet: toolCallsheet, message: toolMessage, standby: toolStandby, report: toolReport, crew: toolCrew, cues: toolCues, money: toolMoney})[name](body);
+  ({callsheet: toolCallsheet, message: toolMessage, standby: toolStandby, report: toolReport, crew: toolCrew, cues: toolCues, money: toolMoney, reportcard: toolReportCard, promo: toolPromo})[name](body);
 }
 function stillOn(showId, tool) { return CURRENT_SHOW && CURRENT_SHOW.id === showId && TOOL === tool; }
 
@@ -1132,6 +1133,89 @@ async function shareCallsheet() {
     box.innerHTML = linkBox('callsheet-link', 'Share link (anyone with it can see this call sheet)', base + r.url);
     copyField('callsheet-link');
   } catch(e) { if (box) box.innerHTML = errBox(e); }
+}
+
+// --- Report card (past/today) and Promo kit (upcoming). Drafts only: nothing is posted from here.
+function rcStat(label, v, note) {
+  const nm = v === null || v === undefined;
+  return `<div class="rc-stat"><b>${nm ? 'not measured' : esc(v)}</b><span>${esc(label)}</span>${nm && note ? `<small>${esc(note)}</small>` : ''}</div>`;
+}
+function reachChips(r) {
+  const bits = [];
+  if (r.instagram) bits.push(`<span class="rc-chip">@${esc(r.instagram.handle)} (verified)</span>`);
+  if (r.youtube_url) bits.push(`<a class="rc-chip" href="${esc(r.youtube_url)}" target="_blank" rel="noopener">YouTube</a>`);
+  return bits.join('') || '<span class="rc-chip rc-dim">no verified handle</span>';
+}
+async function toolReportCard(body) {
+  const id = CURRENT_SHOW.id;
+  try {
+    const d = await api(`/api/booker/shows/${id}/report-card`);
+    if (!stillOn(id, 'reportcard')) return;
+    body.innerHTML = `<div class="tool-box"><style>
+      .rc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:8px 0}
+      .rc-stat{background:var(--surface-2,rgba(128,128,128,.12));border-radius:8px;padding:10px}.rc-stat b{display:block;font-size:20px}
+      .rc-stat span,.rc-stat small{display:block;font-size:11px;opacity:.75}
+      .rc-chip{display:inline-block;font-size:12px;border:1px solid rgba(128,128,128,.4);border-radius:12px;padding:2px 8px;margin:2px 4px 2px 0}.rc-dim{opacity:.6}
+      .rc-act{padding:6px 0;border-bottom:1px solid rgba(128,128,128,.2)}
+      .pk-text{width:100%;box-sizing:border-box;min-height:90px;font:inherit;resize:vertical}.pk-draft{display:inline-block;font-size:11px;font-weight:700;color:#b45309;border:1px solid #b45309;border-radius:4px;padding:1px 6px}</style>
+      <h3>Report card</h3>
+      <div class="tool-note" style="margin-top:0">${esc(d.date)} ${esc(d.time)} · ${esc(d.venue)}</div>
+      <div class="rc-grid">
+        ${rcStat('Comics who said yes', d.rsvps.yes)}${rcStat('Comics who said no', d.rsvps.no)}${rcStat('No reply', d.rsvps.no_reply)}
+        ${rcStat('Headcount', d.report.headcount, 'file a show report')}${rcStat('Rating (of 5)', d.report.rating, 'file a show report')}
+        ${rcStat('Ticket-link clicks', d.ticket_clicks.value, d.ticket_clicks.note)}${rcStat('Audience RSVPs', d.audience_rsvps.value, d.audience_rsvps.note)}${rcStat('Page views', d.page_views.value, d.page_views.note)}
+      </div>
+      <div class="tool-note">RSVP counts are replies from the comics on your bill.</div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:12px 0 4px">Lineup</div>
+      ${d.lineup.length ? d.lineup.map(a => `<div class="rc-act"><b>${esc(a.name)}</b><div>${reachChips(a.reach)}</div></div>`).join('') : '<div class="empty">No confirmed acts.</div>'}
+      <button class="btn btn-primary" style="font-size:12px;margin-top:10px" onclick="shareReportCard()">Create public link</button>
+      <div id="rc-share"></div></div>`;
+  } catch(e) { if (stillOn(id,'reportcard')) body.innerHTML = errBox(e); }
+}
+async function shareReportCard() {
+  const id = CURRENT_SHOW.id, box = document.getElementById('rc-share');
+  try {
+    const r = await api(`/api/booker/shows/${id}/report-card/share`, {method:'POST', body:'{}'});
+    const base = await API_BASE_PROMISE;
+    box.innerHTML = linkBox('rc-link', 'Public link (counts, lineup and handles only; no emails, phones, notes or money)', base + r.url);
+    copyField('rc-link');
+  } catch(e) { if (box) box.innerHTML = errBox(e); }
+}
+function pkBlock(key, label, text) {
+  return `<div class="field"><label>${esc(label)}</label><textarea class="pk-text" id="pk-${key}" readonly>${esc(text)}</textarea>
+    <button class="btn btn-secondary" style="font-size:12px" onclick="copyField('pk-${key}')">Copy</button></div>`;
+}
+async function toolPromo(body) {
+  const id = CURRENT_SHOW.id;
+  try {
+    const k = await api(`/api/booker/shows/${id}/promo-kit`);
+    if (!stillOn(id, 'promo')) return;
+    const L = {fr:'Français', en:'English'};
+    body.innerHTML = `<div class="tool-box"><style>.pk-text{width:100%;box-sizing:border-box;min-height:90px;font:inherit;resize:vertical}.pk-draft{display:inline-block;font-size:11px;font-weight:700;color:#b45309;border:1px solid #b45309;border-radius:4px;padding:1px 6px}</style>
+      <h3>Promo kit <span class="pk-draft">DRAFTS</span></h3>
+      <div class="tool-note" style="margin-top:0">${esc(k.label)}</div>
+      ${k.missing.map(m => `<div class="tool-note">Missing: ${esc(m)}</div>`).join('')}
+      ${k.languages.map(l => `<div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:14px 0 4px">${L[l]}</div>
+        ${pkBlock(l+'-ann', 'Lineup announcement', k.texts[l].announcement)}
+        ${k.texts[l].shoutouts.map((t,i) => pkBlock(l+'-s'+i, 'Shoutout ' + (i+1), t)).join('')}
+        ${pkBlock(l+'-tonight', 'Tonight story caption', k.texts[l].tonight_story)}`).join('')}
+      <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:14px 0 4px">Lineup card</div>
+      <button class="btn btn-secondary" style="font-size:12px" onclick="downloadLineupCard('svg')">Download SVG</button>
+      <button class="btn btn-secondary" style="font-size:12px" onclick="downloadLineupCard('png')">Download PNG</button></div>`;
+  } catch(e) { if (stillOn(id,'promo')) body.innerHTML = errBox(e); }
+}
+async function downloadLineupCard(fmt) {
+  try {
+    const base = await API_BASE_PROMISE;
+    const r = await fetch(`${base}/api/booker/shows/${CURRENT_SHOW.id}/lineup-card.svg`, {headers: {'X-Booker-Token': TOKEN}});
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const svg = await r.text();
+    const save = (blob, ext) => { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `lineup-card-${CURRENT_SHOW.id}.${ext}`; document.body.appendChild(a); a.click(); a.remove(); };
+    if (fmt === 'svg') return save(new Blob([svg], {type:'image/svg+xml'}), 'svg');
+    const img = new Image();
+    img.onload = () => { const c = document.createElement('canvas'); c.width = 1080; c.height = 1350; c.getContext('2d').drawImage(img, 0, 0); c.toBlob(b => save(b, 'png')); };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  } catch(e) { toast(plainErr(e.message), 'error'); }
 }
 
 // --- Message the bill
