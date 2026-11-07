@@ -1322,7 +1322,7 @@ function grpEdit(id) {
   document.getElementById('grp-form').innerHTML = `<div class="tool-box" id="grp-editor" style="margin-bottom:12px">
     <h3>${g ? 'Edit group' : 'New group'}</h3>
     <div class="field"><label>Name</label><input id="grp-name" maxlength="80" value="${esc(g ? g.name : '')}" placeholder="English-speaking, Paris, free this month"></div>
-    <div class="field"><label>Languages (comma separated, any of)</label><input id="grp-langs" value="${esc((f.languages||[]).join(', '))}" placeholder="english, french"></div>
+    <div class="field"><label>Languages (comma separated, any of)</label><input id="grp-langs" value="${esc((f.languages||[]).join(', '))}" placeholder="en, fr (or English, French)"></div>
     <div class="field"><label>Tags (comma separated, any of)</label><input id="grp-tags" value="${esc((f.tags||[]).join(', '))}" placeholder="host, touring"></div>
     <div class="chip-row" style="font-family:inherit">
       ${grpTri('grp-paris','Paris-based',f,'paris_based')}${grpTri('grp-tour','Touring',f,'touring')}${grpTri('grp-with','On your bills before',f,'performed_with_me')}${grpTri('grp-up','Has an upcoming show',f,'has_upcoming')}
