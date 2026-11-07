@@ -1898,21 +1898,53 @@ async function toolSelfserve(body) {
     const s = await api(`/api/booker/shows/${id}/self-service`);
     if (!stillOn(id, 'selfserve')) return;
     body.innerHTML = `<div class="tool-card">
-      <label class="pick-row"><input type="checkbox" id="ss-accept" ${s.accept_applications ? 'checked' : ''}> <span class="grow">Accept applications for open spots</span></label>
+      <label class="pick-row"><input type="checkbox" id="ss-accept" style="width:auto;flex:none" ${s.accept_applications ? 'checked' : ''}> <span class="grow">Accept applications for open spots</span></label>
       <div class="field" style="margin-top:10px"><label for="ss-roster">Only comics in this saved group (optional)</label>
         <select id="ss-roster"><option value="">Any comic</option></select></div>
       <div class="field"><label for="ss-hours">Comics can cancel up to (hours before the show)</label>
         <input id="ss-hours" type="number" min="0" max="720" value="${s.cancel_window_hours}"></div>
-      <div class="field"><label for="ss-standby">Standby comics, in order (comic slugs, comma separated)</label>
-        <input id="ss-standby" value="${esc((s.standby||[]).join(', '))}" placeholder="e.g. jane-doe, john-roe"></div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 4px">Standby comics, in order</div>
+      <div id="ssb-group"></div><div class="tool-note" id="ssb-group-note"></div>
+      <div class="field"><label for="ssb-search">Add comics</label><input id="ssb-search" placeholder="Search by name…" oninput="ssbResults()"></div>
+      <div id="ssb-results"></div><div id="ssb-list"></div>
       <div class="tool-note">When a comic cancels in time, the first standby comic who is free is offered the spot (queued for review, never sent automatically).</div>
       <button class="btn btn-primary" onclick="saveSelfservice()">Save</button><div id="ss-result"></div></div>`;
+    if (!STANDBY_POOL) { try { STANDBY_POOL = ((await api('/api/booker/comics')).comics) || []; } catch (_) { STANDBY_POOL = []; } }
+    SSB = (s.standby || []).map(sl => ({slug: sl, name: ((STANDBY_POOL.find(c => c.slug === sl) || {}).name) || sl}));
+    document.getElementById('ssb-group').innerHTML = await grpPickerHtml('ssb-grp', 'ssbFromGroup', 'Add from a saved group');
+    ssbResults(); ssbList();
     try {
       const rr = await api('/api/booker/rosters');
       const sel = document.getElementById('ss-roster');
       (rr.rosters || []).forEach(g => { const o = document.createElement('option'); o.value = g.id; o.textContent = g.name; if (g.id === s.roster_id) o.selected = true; sel.appendChild(o); });
     } catch (_) {}
   } catch (e) { if (stillOn(id,'selfserve')) body.innerHTML = errBox(e); }
+}
+let SSB = [];
+function ssbResults() {
+  const el = document.getElementById('ssb-results'); if (!el) return;
+  const q = (document.getElementById('ssb-search').value || '').trim().toLowerCase();
+  const onBill = new Set((CURRENT_SHOW.lineup || []).map(r => r.comic_slug));
+  const list = (STANDBY_POOL || []).filter(c => q && !onBill.has(c.slug) && !SSB.some(x => x.slug === c.slug) && c.name.toLowerCase().includes(q)).slice(0, 6);
+  el.innerHTML = list.map(c => `<div class="pick-row"><span class="grow">${esc(c.name)}</span><button class="btn btn-secondary" onclick="ssbAdd('${esc(c.slug)}')">Add</button></div>`).join('');
+}
+function ssbAdd(slug) { const c = (STANDBY_POOL||[]).find(x => x.slug === slug); if (c && !SSB.some(x => x.slug === slug)) SSB.push({slug, name: c.name}); ssbResults(); ssbList(); }
+function ssbMove(i, d) { const j = i + d; if (j < 0 || j >= SSB.length) return; [SSB[i], SSB[j]] = [SSB[j], SSB[i]]; ssbList(); }
+function ssbRemove(i) { SSB.splice(i, 1); ssbResults(); ssbList(); }
+function ssbList() {
+  const el = document.getElementById('ssb-list'); if (!el) return;
+  el.innerHTML = SSB.length ? SSB.map((c, i) => `<div class="pick-row"><b>${i+1}.</b><span class="grow">${esc(c.name)}</span>
+    <button class="btn btn-ghost" aria-label="Move up" ${i===0?'disabled':''} onclick="ssbMove(${i},-1)">↑</button>
+    <button class="btn btn-ghost" aria-label="Move down" ${i===SSB.length-1?'disabled':''} onclick="ssbMove(${i},1)">↓</button>
+    <button class="btn btn-ghost" aria-label="Remove" onclick="ssbRemove(${i})">×</button></div>`).join('') : '<div class="tool-note">Nobody yet.</div>';
+}
+async function ssbFromGroup() {
+  const note = document.getElementById('ssb-group-note');
+  try {
+    const m = await grpMembersFor('ssb-grp'); if (!m) return;
+    let n = 0; m.forEach(x => { if (!SSB.some(y => y.slug === x.slug)) { SSB.push({slug: x.slug, name: x.name || x.slug}); n++; } });
+    note.textContent = n + ' added from the group.'; ssbResults(); ssbList();
+  } catch (e) { note.textContent = plainErr(e.message); }
 }
 async function saveSelfservice() {
   const id = CURRENT_SHOW.id;
@@ -1921,7 +1953,7 @@ async function saveSelfservice() {
       accept_applications: document.getElementById('ss-accept').checked,
       roster_id: document.getElementById('ss-roster').value || null,
       cancel_window_hours: parseInt(document.getElementById('ss-hours').value || '48', 10),
-      standby: document.getElementById('ss-standby').value.split(',').map(x => x.trim()).filter(Boolean)})});
+      standby: SSB.map(c => c.slug)})});
     document.getElementById('ss-result').innerHTML = '<div class="tool-note">Saved.</div>';
   } catch (e) { document.getElementById('ss-result').innerHTML = errBox(e); }
 }
