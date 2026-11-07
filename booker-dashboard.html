@@ -1357,7 +1357,7 @@ function grpCollect() {
 }
 function grpMembersHtml(r) {
   return r.members.length ? `<div class="tool-note" style="margin-top:6px"><b>${r.count}</b> comic${r.count===1?'':'s'} match right now.</div>` +
-    r.members.map(m => `<div class="pick-row"><span class="grow">${esc(m.name)}</span><span class="meta" style="color:var(--muted);font-size:11px">${esc(m.why.join(', '))}</span></div>`).join('')
+    '<div style="max-height:260px;overflow:auto">' + r.members.slice(0, 100).map(m => `<div class="pick-row"><span class="grow">${esc(m.name)}</span><span class="meta" style="color:var(--muted);font-size:11px">${esc(m.why.join(', '))}</span></div>`).join('') + (r.count > 100 ? `<div class="tool-note">…and ${r.count-100} more.</div>` : '') + '</div>'
     : '<div class="empty">Nobody matches these filters right now.</div>';
 }
 async function grpPreview() {
