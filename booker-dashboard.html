@@ -385,6 +385,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
     <button class="btn btn-ghost" onclick="showTab('surveys')">📋 Surveys</button>
     <button class="btn btn-ghost" onclick="showTab('board')">📊 Board</button>
     <button class="btn btn-ghost" onclick="showTab('calendar')">📅 Calendar feed</button>
+    <button class="btn btn-ghost" onclick="showTab('share')">🔗 Share your shows</button>
   </div>
 </div>
 
@@ -414,6 +415,14 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-tra
     <h2 style="margin:0 0 4px">📅 Calendar feed</h2>
     <p style="color:var(--muted);margin:0 0 14px">Subscribe to your shows in Apple Calendar, Google Calendar or Outlook. The calendar updates by itself when your shows change.</p>
     <div id="calendar-body"></div>
+  </div>
+</div>
+
+<div id="share-section" style="display:none;max-width:1400px;margin:14px auto;padding:0 20px">
+  <div class="panel">
+    <h2 style="margin:0 0 4px">🔗 Share your shows</h2>
+    <p style="color:var(--muted);margin:0 0 14px">Show your upcoming shows on your own website with one pasted line. Only the title, date, venue and confirmed acts are shown. No emails, phone numbers or notes. Off until you turn it on.</p>
+    <div id="share-body"><div class="empty">Loading…</div></div>
   </div>
 </div>
 
@@ -1331,6 +1340,53 @@ async function makeCalendarToken() {
   } catch(e) { document.getElementById('cal-result').innerHTML = errBox(e); btn.disabled = false; }
 }
 
+// ===== Share your shows (public feed) =====
+let SHARE = null;
+async function loadShare() {
+  const el = document.getElementById('share-body'); if (!el) return;
+  try { SHARE = await api('/api/booker/public-feed'); renderShare(); } catch(e) { el.innerHTML = errBox(e); }
+}
+async function renderShare() {
+  const el = document.getElementById('share-body'); if (!el) return;
+  const base = await API_BASE_PROMISE, slug = SHARE.public_slug || '';
+  const snippet = slug ? `<div data-pariscomedy-shows="${slug}"></div>\n<script src="https://pariscomedy.com/js/pc-embed.js" async><\/script>` : '';
+  const jsonUrl = slug ? base + SHARE.json_url : '';
+  el.innerHTML = `<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin-bottom:12px">
+      <div><label for="share-slug">Your handle (a-z, 0-9, hyphens, 3-40)</label><input type="text" id="share-slug" maxlength="40" value="${esc(slug)}" placeholder="my-comedy-night"></div>
+      <button class="btn btn-secondary" onclick="saveShareSlug()">Save handle</button>
+      <label style="display:flex;gap:6px;align-items:center;margin:0;text-transform:none;font-size:14px"><input type="checkbox" id="share-on" style="width:auto" ${SHARE.public_feed_enabled ? 'checked' : ''} ${slug ? '' : 'disabled'} onchange="toggleShare(this.checked)"> Public feed is ${SHARE.public_feed_enabled ? 'ON' : 'OFF'}</label>
+    </div><div id="share-msg"></div>` + (slug ? `
+    <label>Paste this on your website</label>
+    <textarea id="share-snippet" readonly rows="2" style="width:100%;font-family:monospace;font-size:12px">${esc(snippet)}</textarea>
+    <button class="btn btn-ghost" onclick="copyShare('share-snippet')">Copy snippet</button>
+    <label style="margin-top:10px">Raw JSON address</label>
+    <input type="text" id="share-json" readonly value="${esc(jsonUrl)}">
+    <button class="btn btn-ghost" onclick="copyShare('share-json')">Copy address</button>
+    <h3 style="margin:16px 0 6px">Live preview</h3>
+    <div id="share-preview" style="background:#fff;color:#111;border-radius:8px;padding:12px">${SHARE.public_feed_enabled ? '' : '<div class="empty" style="color:#555">Turn the public feed on to see the preview.</div>'}</div>` : '<div class="empty">Choose a handle to get your snippet.</div>');
+  if (slug && SHARE.public_feed_enabled) previewShare(base, slug);
+}
+function previewShare(base, slug) {
+  const box = document.getElementById('share-preview'); if (!box) return;
+  box.innerHTML = '';
+  const d = document.createElement('div'); d.setAttribute('data-pariscomedy-shows', slug); box.appendChild(d);
+  const sc = document.createElement('script'); sc.src = '/js/pc-embed.js?v=' + Date.now(); sc.setAttribute('data-api', base);
+  box.appendChild(sc);
+}
+async function saveShareSlug() {
+  const v = document.getElementById('share-slug').value.trim().toLowerCase();
+  try { SHARE = await api('/api/booker/public-slug', {method:'POST', body: JSON.stringify({slug: v})}); await renderShare(); toast('Handle saved.'); }
+  catch(e) { document.getElementById('share-msg').innerHTML = errBox(e); }
+}
+async function toggleShare(on) {
+  try { SHARE = await api('/api/booker/public-slug', {method:'POST', body: JSON.stringify({enabled: on})}); await renderShare(); toast(on ? 'Public feed is on.' : 'Public feed is off.'); }
+  catch(e) { document.getElementById('share-msg').innerHTML = errBox(e); await renderShare(); }
+}
+function copyShare(id) {
+  const n = document.getElementById(id);
+  (navigator.clipboard ? navigator.clipboard.writeText(n.value) : Promise.reject()).then(() => toast('Copied.'), () => { n.select(); document.execCommand('copy'); toast('Copied.'); });
+}
+
 // ===== Board =====
 let BOARD = [];
 const BOARD_LABELS = {open_spots:'Open spots', awaiting_replies:'Awaiting replies', needs_replacement:'Needs replacement', full:'Full'};
@@ -1389,6 +1445,8 @@ function showTab(tab) {
   var os = document.getElementById('offers-section'); if (os) os.style.display = tab === 'offers' ? 'block' : 'none';
   var bs = document.getElementById('board-section'); if (bs) bs.style.display = tab === 'board' ? 'block' : 'none';
   var cs = document.getElementById('calendar-section'); if (cs) cs.style.display = tab === 'calendar' ? 'block' : 'none';
+  var ss = document.getElementById('share-section'); if (ss) ss.style.display = tab === 'share' ? 'block' : 'none';
+  if (tab === 'share') loadShare();
   if (tab === 'board') loadBoard();
   if (tab === 'calendar') renderCalendarFeed();
   if (tab === 'venues') loadVenues();
